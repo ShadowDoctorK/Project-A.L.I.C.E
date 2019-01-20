@@ -11,6 +11,7 @@ using ALICE_Internal;
 
 namespace ALICE_JournalReader
 {
+    // Jenn Comment.
     public static class JournalReader
     {
         #region Global Variables
