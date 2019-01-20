@@ -1,0 +1,284 @@
+﻿<UserControl x:Class="ALICE_Community_Toolkit.Home"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ALICE_Community_Toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="755" d:DesignWidth="1013">
+    <Grid Background="Black" Height="755">
+        <RichTextBox Margin="493,10,10.333,10" Background="{x:Null}" Foreground="#FFCE5A05" VerticalScrollBarVisibility="Auto">
+            <FlowDocument>
+                <Paragraph>
+                    <Run FontWeight="Bold" Text="# Project A.L.I.C.E Open Beta 1.1.0"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run FontWeight="Bold" Text="Visible Changes"/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="1. New Commands:"/>
+                    <LineBreak/>
+                    <Run Text="- Launch"/>
+                    <LineBreak/>
+                    <Run Text="- Takeoff"/>
+                    <LineBreak/>
+                    <Run Text="- Log Unscanned Bodies: only shows the unscanned bodies in the system report."/>
+                    <LineBreak/>
+                    <Run Text="- Log All Bodies: shows all bodies in the system report."/>
+                    <LineBreak/>
+                    <Run Text="- Wake Scanner (Firegroup Assignments)"/>
+                    <LineBreak/>
+                    <Run/>
+                    <LineBreak/>
+                    <Run Text="2. Start Up Changes:"/>
+                    <LineBreak/>
+                    <Run Text="- Added Toolkit Detection which will only open a new toolkit if one is not detected/currently open. "/>
+                    <LineBreak/>
+                    <Run/>
+                    <LineBreak/>
+                    <Run Text="3. Added Event Triggers to Profile:"/>
+                    <LineBreak/>
+                    <Run Text="- EVENT - MultiSellExplorationData"/>
+                    <LineBreak/>
+                    <Run Text="- EVENT - Promotion"/>
+                    <LineBreak/>
+                    <Run Text="- EVENT - JetConeBoost"/>
+                    <LineBreak/>
+                    <Run/>
+                    <LineBreak/>
+                    <Run Text="4. Updated Docking Requests:"/>
+                    <LineBreak/>
+                    <Run Text="-  When not on the contact tab it will place the cursor on the station then select the request action now. If not done the game does not detect your actions for the request."/>
+                    <LineBreak/>
+                    <Run/>
+                    <LineBreak/>
+                    <Run Text="5. Updated Speech Engine:"/>
+                    <LineBreak/>
+                    <Run Text="- Fixed a validation check that would prevent speech from being generated and throwing a false &quot;Admin Mode Recommended&quot; entry to the user."/>
+                    <LineBreak/>
+                    <Run Text="- During Error with the Generation of speech the engine will now try to return the text to the processor to pass to the Synthesizer."/>
+                    <LineBreak/>
+                    <Run/>
+                    <LineBreak/>
+                    <Run Text="6. Firegroup Management System:"/>
+                    <LineBreak/>
+                    <Run Text="- Added Log entries for Assignment/Not Assigned when A.L.I.C.E is Muted."/>
+                    <LineBreak/>
+                    <Run Text="- Added Assignement/Not Assigned Audio:"/>
+                    <LineBreak/>
+                    <Run Text="--- Collector Limpets"/>
+                    <LineBreak/>
+                    <Run Text="--- Decon Limpets"/>
+                    <LineBreak/>
+                    <Run Text="--- Fuel Limpets"/>
+                    <LineBreak/>
+                    <Run Text="--- Hatch Breaker Limpets"/>
+                    <LineBreak/>
+                    <Run Text="--- Prospector Limpets"/>
+                    <LineBreak/>
+                    <Run Text="--- Recon Limpets"/>
+                    <LineBreak/>
+                    <Run Text="--- Repair Limpets"/>
+                    <LineBreak/>
+                    <Run Text="--- Research Limpets"/>
+                    <LineBreak/>
+                    <Run Text="--- Composite Scanner"/>
+                    <LineBreak/>
+                    <Run Text="--- Surface Scanner"/>
+                    <LineBreak/>
+                    <Run Text="--- Discovery Scanner"/>
+                    <LineBreak/>
+                    <Run Text="--- FSD Interdictor"/>
+                    <LineBreak/>
+                    <Run Text="--- Generic Audio for remaining Modules."/>
+                </Paragraph>
+                <Paragraph>
+                    <Run FontWeight="Bold" Text="Toolkit Changes"/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <LineBreak/>
+                    <Run/>
+                    <LineBreak/>
+                    <Run Text="1. Added Controls for Plugin Speed Offsets."/>
+                    <LineBreak/>
+                    <Run/>
+                    <LineBreak/>
+                    <Run Text="2. Added Controls for the Firegroup Management System"/>
+                    <LineBreak/>
+                    <Run Text="-- Still Need to add Shield Cells #3 &amp; #4"/>
+                    <LineBreak/>
+                    <Run Text="-- Still Need to add Heatsinks #3 &amp; #4"/>
+                    <LineBreak/>
+                    <Run Text="-- Still Need to add Chaff Launchers #3 &amp; #4"/>
+                    <LineBreak/>
+                    <Run Text="-- Still Need to add the Mining Laser"/>
+                    <LineBreak/>
+                    <Run/>
+                    <LineBreak/>
+                    <Run Text="3. Added CMDR Name / Current Ship to display loaded settings."/>
+                </Paragraph>
+                <Paragraph>
+                    <Run FontWeight="Bold" Text="Under The Hood"/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="1. Code Cleanup:"/>
+                    <LineBreak/>
+                    <Run Text="- Extracted the Internal Manger Class' out into their own cs files."/>
+                    <LineBreak/>
+                    <Run Text="- Extracted the Interface Class' out into their own cs files."/>
+                    <LineBreak/>
+                    <Run Text="- Extracted Methods out of the ICommands.Invoke Method in preparation for adding a flexable Command Verification system for Developers."/>
+                    <LineBreak/>
+                    <Run Text="- Added Code Comments though various areas."/>
+                    <LineBreak/>
+                    <Run/>
+                    <LineBreak/>
+                    <Run Text="2. Framework Changes:"/>
+                    <LineBreak/>
+                    <Run Text="- Updated the Monitors to track Firegroup &amp; User Settings"/>
+                    <LineBreak/>
+                    <Run Text="- Finished Wiring up the Wake Scanner to the Firegroup Management System."/>
+                    <LineBreak/>
+                    <Run Text="- Added IEquipment.WakeScanner"/>
+                    <LineBreak/>
+                    <Run Text="- Added IEquipment.LimpetCollector"/>
+                    <LineBreak/>
+                    <Run Text="- Added IEquipment.LimpetDecontamination"/>
+                    <LineBreak/>
+                    <Run Text="- Added IEquipment.LimpetFuel"/>
+                    <LineBreak/>
+                    <Run Text="- Added IEquipment.LimpetHatchBreaker"/>
+                    <LineBreak/>
+                    <Run Text="- Added IEquipment.LimpetProspector"/>
+                    <LineBreak/>
+                    <Run Text="- Added IEquipment.LimpetRecon"/>
+                    <LineBreak/>
+                    <Run Text="- Added IEquipment.LimpetRepair"/>
+                    <LineBreak/>
+                    <Run Text="- Added IEquipment.LimpetResearch"/>
+                    <LineBreak/>
+                    <Run Text="- Added IEquipment.PulseWaveScanner"/>
+                    <LineBreak/>
+                    <Run/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <Run/>
+                    <LineBreak/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <RichTextBox Height="169" Margin="10,10,525.333,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFCE5A05">
+            <FlowDocument>
+                <Paragraph>
+                    <Run FontWeight="Bold" Text="* Requested Features *"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="01. [  ] Plot Route To Clipboard Command &lt; CMDR PiterDeVries &gt;"/>
+                    <LineBreak/>
+                    <Run Text="02. [X] Method To Verify Firegroup Assignements. &lt; CMDR Wryson Rose &gt;"/>
+                    <LineBreak/>
+                    <Run Text="03. [  ] Add Pulse Wave Scanner Features &lt; CMDR Spectre907 &gt;"/>
+                    <LineBreak/>
+                    <Run Text="04. [X] Audio - Firegroup Assignments &lt; CMDR Wryson Rose &gt;"/>
+                    <LineBreak/>
+                    <Run Text="05. [  ] Audio - Surface Scan Complete &lt; CMDR Darkdally &gt;"/>
+                    <LineBreak/>
+                    <Run Text="06. [  ] Audio - System Scan Complete &lt; CMDR Darkdally &gt;"/>
+                    <LineBreak/>
+                    <Run Text="07. [  ] Recall / Dismiss Ship Command &lt; CMDR Darkdally &gt;"/>
+                    <LineBreak/>
+                    <Run Text="08. [X] Reset Plug-In Offset Speeds &lt; CMDR Wryson Rose &gt;"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <RichTextBox Margin="10,184,525.333,0" Background="{x:Null}" Foreground="#FFCE5A05" Height="263" VerticalAlignment="Top">
+            <FlowDocument>
+                <Paragraph>
+                    <Run FontWeight="Bold" Text="* Developer To-Do-List *"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="01. [  ] FSDJump System Reports"/>
+                    <LineBreak/>
+                    <Run Text="02. [  ] Audio - Takeoff"/>
+                    <LineBreak/>
+                    <Run Text="03. [  ] Audio - Touchdown"/>
+                    <LineBreak/>
+                    <Run Text="04. [  ] Audio - Deploy SRV"/>
+                    <LineBreak/>
+                    <Run Text="05. [  ] Audio - Dock SRV"/>
+                    <LineBreak/>
+                    <Run Text="06. [  ] Interaction - Hello Alice"/>
+                    <LineBreak/>
+                    <Run Text="07. [  ] Save Last Valid Loadout. Load when started in SRV/Fighter."/>
+                    <LineBreak/>
+                    <Run Text="08. [  ] Feature - Deploy SRV Command"/>
+                    <LineBreak/>
+                    <Run Text="09. [  ] Feature - Exploration &amp; System Data On Toolkit"/>
+                    <LineBreak/>
+                    <Run Text="10. [X] Update - Move User Responses To A.L.I.C.E User Data Folder"/>
+                    <LineBreak/>
+                    <Run Text="11. [  ] Update - Format User Responsed With CMDR Name"/>
+                    <LineBreak/>
+                    <Run Text="12. [  ] Update - Optimize Panels For Use With SRV &amp; Fighters."/>
+                    <LineBreak/>
+                    <Run Text="13. [  ] Feature - Post Glide Planet Report"/>
+                    <LineBreak/>
+                    <Run Text="14. [X] Feature - Lauch &amp; Takeoff Commands."/>
+                    <LineBreak/>
+                    <Run/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <RichTextBox Margin="10,452,524.333,0" Background="{x:Null}" Foreground="#FFCE5A05" Height="148" VerticalAlignment="Top">
+            <FlowDocument>
+                <Paragraph>
+                    <Run FontWeight="Bold" Text="* Tracked Bugs *"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="01. [  ] Bounty Event - Alice is not reporting the Pilot Name."/>
+                    <LineBreak/>
+                    <Run Text="02. [  ] Synthesizer - Bounty Report. Alice Says &quot;...Turn I N&quot; vice &quot;...Turn In&quot;"/>
+                    <LineBreak/>
+                    <Run Text="03. [  ] Panels - System Panel Operations May Be Buggy In The SRV."/>
+                    <LineBreak/>
+                    <Run Text="04. [  ] Load Game - When Loading into the game in the SRV/Fighter A.L.I.C.E does not have the basic core information about the Mothership to make reports. This info is not obtainable other then by recording it or from the log."/>
+                    <LineBreak/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <RichTextBox Margin="10,605,524.333,0" Background="{x:Null}" Foreground="#FFCE5A05" Height="140" VerticalAlignment="Top">
+            <FlowDocument>
+                <Paragraph>
+                    <Run FontWeight="Bold" Text="* Road To Complete Open Beta *"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="Along with the Item in Requested Features, Developer To-Do-List, and Tracked Bugs, the below items need to be completed before the Initial full release."/>
+                    <LineBreak/>
+                    <Run Text="1. [  ] SRV / Fighter Panel Corrections"/>
+                    <LineBreak/>
+                    <Run Text="2. [X] Clean Up Community Toolkit"/>
+                    <LineBreak/>
+                    <Run Text="3. [/] Documentation"/>
+                    <LineBreak/>
+                    <Run Text="4. [/] Guides / Basic Videos"/>
+                    <LineBreak/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+
+    </Grid>
+</UserControl>

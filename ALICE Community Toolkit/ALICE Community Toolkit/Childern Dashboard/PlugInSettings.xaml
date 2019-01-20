@@ -1,0 +1,162 @@
+﻿<UserControl x:Class="ALICE_Community_Toolkit.Reports"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ALICE_Community_Toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="755" d:DesignWidth="1013">
+
+    <Grid Background="Black">
+
+        <StackPanel HorizontalAlignment="Left" Height="378" VerticalAlignment="Top" Width="156" Margin="10,83,0,0">
+            <Label Content="              Reports" Foreground="#FFCE5A05" FontWeight="Bold"/>
+            <Button x:Name="btn_FuelScoop" Content="Fuel Scooping" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_FuelScoop_Click" Height="26" HorizontalAlignment="Left" Width="150" Margin="2.5"/>
+            <Button x:Name="btn_MaterialCollected" Content="Collected Materials" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_MaterialCollected_Click" Height="26" HorizontalAlignment="Left" Width="150" />
+            <Button x:Name="btn_FuelStatus" Content="Fuel Status" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_FuelStatus_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_Masslock" Content="Masslocked" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_Masslock_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_RefinedMaterials" Content="Refined Materials" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_RefinedMaterials_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_WatnedTarget" Content="Wanted Targets" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_WatnedTarget_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_TargetEnemy" Content="Enemy Factions" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_TargetEnemy_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_CollectedBounty" Content="Collected Bounties" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_CollectedBounty_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_ShieldStatus" Content="Shield Status" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_ShieldStatus_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_StationStatus" Content="Station Information" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_StationStatus_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_NoFireZone" Content="No Fire Zone" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_NoFireZone_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Left" Height="227" VerticalAlignment="Top" Width="156" Margin="166,83,0,0">
+            <Label Content="                Orders" Foreground="#FFCE5A05" FontWeight="Bold"/>
+            <Button x:Name="btn_AssistedCombatPower" Content="Combat Power Manager" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Width="150" Click="btn_AssistedCombatPower_Click" Height="26"/>
+            <Button x:Name="btn_AssistedSystemScans" Content="System Scans" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Width="150" Click="btn_AssistedSystemScans_Click" Height="26"/>
+            <Button x:Name="btn_AssistedDockingProcedures" Content="Docking Procedures" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Width="150" Click="btn_AssistedDockingProcedures_Click" Height="26"/>
+            <Button x:Name="btn_AssistedHangerEntry" Content="Hanger Entry" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Width="150" Click="btn_AssistedHangerEntry_Click" Height="26"/>
+            <Button x:Name="btn_PostJumpSafeties" Content="Post Jump Safties" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Width="150" Click="btn_PostJumpSafeties_Click" Height="26"/>
+            <Button x:Name="btn_WeaponSafty" Content="Weapon Safeties" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Width="150" Click="btn_WeaponSafty_Click" Height="26"/>
+        </StackPanel>
+
+        <RichTextBox Margin="10,10,10,703" Background="{x:Null}" Foreground="#FFCE5A05">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="Plug-In Settings : This area is provided for Commanders to manually change settings for various orders, reports, and to display game data. Want A.L.I.C.E to report something? Ask about it in the discord and if its something that can be supported we'll toss it on the feature request! We'll be adding items here as new features are developed."/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+
+        <StackPanel Margin="10,600,0,10" HorizontalAlignment="Left" Width="388">
+            <Label Content="                                          Plug-In Speed Offsets" Foreground="#FFCE5A05" FontWeight="Bold" Height="26"/>
+
+            <StackPanel x:Name="StackBox_1" Orientation="Horizontal" Height="111" VerticalAlignment="Top">
+
+                <StackPanel x:Name="StackBox_2" HorizontalAlignment="Left" Width="72">
+                    <Label Content="Panel" Foreground="#FFCE5A05"/>
+                    <Label Content="Power" Foreground="#FFCE5A05"/>
+                    <Label Content="Firegroup" Foreground="#FFCE5A05"/>
+                    <Label Content="Throttle" Foreground="#FFCE5A05"/>
+                </StackPanel>
+
+                <StackPanel x:Name="StackBox_3" HorizontalAlignment="Left" Width="52">
+                    <TextBox x:Name="TextBox_DelayPanel" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="False" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
+                    <TextBox x:Name="TextBox_DelayPower" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="False" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
+                    <TextBox x:Name="TextBox_DelayFiregroup" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="False" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
+                    <TextBox x:Name="TextBox_DelayThrottle" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="False" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
+                </StackPanel>
+
+                <StackPanel x:Name="StackBox_4" HorizontalAlignment="Left" Width="251">
+                    <Slider x:Name="Slider_DelayPanel" Margin="4,4,0,4" TickFrequency="5" IsSnapToTickEnabled="True" ValueChanged="Slider_DelayPanel_Changed" Minimum="0" Maximum="250" Value="0"/>
+                    <Slider x:Name="Slider_DelayPower" Margin="4,4,0,4" TickFrequency="5" IsSnapToTickEnabled="True" Minimum="0" Maximum="250" Value="0" ValueChanged="Slider_DelayPower_Changed"/>
+                    <Slider x:Name="Slider_DelayFiregroup" Margin="4,4,0,4" TickFrequency="5" IsSnapToTickEnabled="True" Minimum="0" Maximum="250" Value="0" ValueChanged="Slider_DelayFiregroup_Changed"/>
+                    <Slider x:Name="Slider_DelayThrottle" Margin="4,4,0,4" TickFrequency="5" IsSnapToTickEnabled="True"  Minimum="0" Maximum="250" Value="0" ValueChanged="Slider_DelayThrottle_Changed"/>
+                </StackPanel>
+
+            </StackPanel>
+
+        </StackPanel>
+        <Label x:Name="Label_CommanderName" Content="Default" Foreground="#FFCE5A05" Margin="10,0,0,672" HorizontalAlignment="Left" Width="156" Height="26" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"/>
+        <StackPanel x:Name="StackBox_1_Copy" Orientation="Horizontal" Margin="654,88,10,10">
+
+            <StackPanel x:Name="StackBox_Module" HorizontalAlignment="Left" Width="162" Margin="0,0,0,21">
+                <Label x:Name="Label_ECM" Content="Electronic Countermesures" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SFN" Content="Shutdown Field Neutralizer" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_FSDI" Content="FSD Interdictor" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMCOL" Content="Collector Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMDEC" Content="Decontamination Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMF" Content="Fuel Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMHB" Content="Hatch Breaker Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMREC" Content="Recon Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMREP" Content="Repair Limpet" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMRES" Content="Research Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMPRO" Content="Prospector Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_HS1" Content="Heatsink #1" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_HS2" Content="Heatsink #2" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SC1" Content="Shield Cell #1" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SC2" Content="Shield Cell #2" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_CH1" Content="Chaff #1" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_CH2" Content="Chaff #2" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNCARG" Content="Cargo Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNCOMP" Content="Composite Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNDISC" Content="Discovery Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNKILL" Content="Kill Warrant Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNSURF" Content="Surface Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNXENO" Content="Xeno Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNWAKE" Content="Wake Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+            </StackPanel>
+
+            <StackPanel x:Name="StackBox_Group" HorizontalAlignment="Left" Width="90" Margin="0,0,0,21">
+                <ComboBox x:Name="CB_ECMGroup" SelectionChanged="CB_ECMGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SFNGroup" SelectionChanged="CB_SFNGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_FSDIGroup" SelectionChanged="CB_FSDIGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMCOLGroup" SelectionChanged="CB_LIMCOLGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMDECGroup" SelectionChanged="CB_LIMDECGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMFGroup" SelectionChanged="CB_LIMFGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMHBGroup" SelectionChanged="CB_LIMHBGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMRECGroup" SelectionChanged="CB_LIMRECGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMREPGroup" SelectionChanged="CB_LIMREPGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMRESGroup" SelectionChanged="CB_LIMRESGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMPROGroup" SelectionChanged="CB_LIMPROGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_HS1Group" SelectionChanged="CB_HS1GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_HS2Group" SelectionChanged="CB_HS2GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SC1Group" SelectionChanged="CB_SC1GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SC2Group" SelectionChanged="CB_SC2GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CF1Group" SelectionChanged="CB_CF1GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CF2Group" SelectionChanged="CB_CF2GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNCARGGroup" SelectionChanged="CB_SNCARGGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNCOMPGroup" SelectionChanged="CB_SNCOMPGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNDISCGroup" SelectionChanged="CB_SNDISCGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNKILLGroup" SelectionChanged="CB_SNKILLGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNSURFGroup" SelectionChanged="CB_SNSURFGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNXENOGroup" SelectionChanged="CB_SNXENOGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNWAKEGroup" SelectionChanged="CB_SNWAKEGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+
+            </StackPanel>
+            <StackPanel x:Name="StackBox_Group_Copy" HorizontalAlignment="Left" Width="90" Margin="0,0,0,21">
+                <ComboBox x:Name="CB_ECMFire" SelectionChanged="CB_ECMFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SFNFire" SelectionChanged="CB_SFNFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_FSDIFire" SelectionChanged="CB_FSDIFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMCOLFire" SelectionChanged="CB_LIMCOLFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMDECFire" SelectionChanged="CB_LIMDECFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMFFire" SelectionChanged="CB_LIMFFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMHBFire" SelectionChanged="CB_LIMHBFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMRECFire" SelectionChanged="CB_LIMRECFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMREPFire" SelectionChanged="CB_LIMREPFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMRESFire" SelectionChanged="CB_LIMRESFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMPROFire" SelectionChanged="CB_LIMPROFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_HS1Fire" SelectionChanged="CB_HS1FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_HS2Fire" SelectionChanged="CB_HS2FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SC1Fire" SelectionChanged="CB_SC1FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SC2Fire" SelectionChanged="CB_SC2FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CF1Fire" SelectionChanged="CB_CF1FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CF2Fire" SelectionChanged="CB_CF2FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNCARGFire" SelectionChanged="CB_SNCARGFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNCOMPFire" SelectionChanged="CB_SNCOMPFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNDISCFire" SelectionChanged="CB_SNDISCFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNKILLFire" SelectionChanged="CB_SNKILLFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNSURFFire" SelectionChanged="CB_SNSURFFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNXENOFire" SelectionChanged="CB_SNXENOFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNWAKEFire" SelectionChanged="CB_SNWAKEFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+            </StackPanel>
+
+        </StackPanel>
+        <Label x:Name="Label_CurrentShip" Content="Default" Foreground="#FFCE5A05" Margin="0,57,10,0" HorizontalAlignment="Right" Width="189" Height="26" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
+
+    </Grid>
+</UserControl>
