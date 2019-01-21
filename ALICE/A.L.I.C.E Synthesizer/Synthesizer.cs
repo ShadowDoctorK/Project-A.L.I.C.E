@@ -805,7 +805,7 @@ namespace ALICE_Synthesizer
         }
         #endregion
     }
-    
+
     //public class Response
     //{
     //    public string ResponseName { get; set; }
@@ -832,462 +832,462 @@ namespace ALICE_Synthesizer
 
     #region Response Wrappers (01/06/2019 8:10 AM)
 
-    public static class Alice
-    {
-        public static List<string> Default = new List<string> { "Alice", "S0" };
-        public static List<string> Special = new List<string> { "Alice", "S1" };
-        public static List<string> Online = new List<string> { "Alice", "S2" };
-    }
+    //public static class Alice
+    //{
+    //    public static List<string> Default = new List<string> { "Alice", "S0" };
+    //    public static List<string> Special = new List<string> { "Alice", "S1" };
+    //    public static List<string> Online = new List<string> { "Alice", "S2" };
+    //}
 
-    public static class Bounty
-    {
-        public static List<string> Collected = new List<string> { "Bounty", "S0" };
-    }
+    //public static class Bounty
+    //{
+    //    public static List<string> Collected = new List<string> { "Bounty", "S0" };
+    //}
 
-    public static class Cargo_Scoop
-    {
-        public static List<string> Not_Normal_Space = new List<string> { "Cargo Scoop", "S0" };
-        public static List<string> Fighter = new List<string> { "Cargo Scoop", "S1" };
-        public static List<string> Touchdown = new List<string> { "Cargo Scoop", "S2" };
-        public static List<string> Currently_Deployed = new List<string> { "Cargo Scoop", "S3" };
-        public static List<string> Currently_Retracted = new List<string> { "Cargo Scoop", "S4" };
-        public static List<string> Retracting = new List<string> { "Cargo Scoop", "S5" };
-        public static List<string> Deploying = new List<string> { "Cargo Scoop", "S6" };
-        public static List<string> Docked = new List<string> { "Cargo Scoop", "S7" };
-    }
+    //public static class Cargo_Scoop
+    //{
+    //    public static List<string> Not_Normal_Space = new List<string> { "Cargo Scoop", "S0" };
+    //    public static List<string> Fighter = new List<string> { "Cargo Scoop", "S1" };
+    //    public static List<string> Touchdown = new List<string> { "Cargo Scoop", "S2" };
+    //    public static List<string> Currently_Deployed = new List<string> { "Cargo Scoop", "S3" };
+    //    public static List<string> Currently_Retracted = new List<string> { "Cargo Scoop", "S4" };
+    //    public static List<string> Retracting = new List<string> { "Cargo Scoop", "S5" };
+    //    public static List<string> Deploying = new List<string> { "Cargo Scoop", "S6" };
+    //    public static List<string> Docked = new List<string> { "Cargo Scoop", "S7" };
+    //}
 
-    public static class Chaff_Launcher
-    {
-        public static List<string> Activating = new List<string> { "Chaff Launcher", "S0" };
-        public static List<string> Hyperspace = new List<string> { "Chaff Launcher", "S1" };
-        public static List<string> Supercruise = new List<string> { "Chaff Launcher", "S2" };
-    }
+    //public static class Chaff_Launcher
+    //{
+    //    public static List<string> Activating = new List<string> { "Chaff Launcher", "S0" };
+    //    public static List<string> Hyperspace = new List<string> { "Chaff Launcher", "S1" };
+    //    public static List<string> Supercruise = new List<string> { "Chaff Launcher", "S2" };
+    //}
 
-    public static class Combat_Power
-    {
-        public static List<string> Online = new List<string> { "Combat Power", "S0" };
-        public static List<string> Offline = new List<string> { "Combat Power", "S1" };
-        public static List<string> Weapons_Light = new List<string> { "Combat Power", "S2" };
-        public static List<string> Weapons_Balance = new List<string> { "Combat Power", "S3" };
-        public static List<string> Weapons_Heavy = new List<string> { "Combat Power", "S4" };
-        public static List<string> Maintain_Engines = new List<string> { "Combat Power", "S5" };
-        public static List<string> Maintain_Systems = new List<string> { "Combat Power", "S6" };
-        public static List<string> Defense_Engines = new List<string> { "Combat Power", "S7" };
-        public static List<string> Defense_Systems = new List<string> { "Combat Power", "S8" };
-    }
+    //public static class Combat_Power
+    //{
+    //    public static List<string> Online = new List<string> { "Combat Power", "S0" };
+    //    public static List<string> Offline = new List<string> { "Combat Power", "S1" };
+    //    public static List<string> Weapons_Light = new List<string> { "Combat Power", "S2" };
+    //    public static List<string> Weapons_Balance = new List<string> { "Combat Power", "S3" };
+    //    public static List<string> Weapons_Heavy = new List<string> { "Combat Power", "S4" };
+    //    public static List<string> Maintain_Engines = new List<string> { "Combat Power", "S5" };
+    //    public static List<string> Maintain_Systems = new List<string> { "Combat Power", "S6" };
+    //    public static List<string> Defense_Engines = new List<string> { "Combat Power", "S7" };
+    //    public static List<string> Defense_Systems = new List<string> { "Combat Power", "S8" };
+    //}
 
-    public static class Crime
-    {
-        public static List<string> Default = new List<string> { "Crime", "S0" };
-        public static List<string> Assult = new List<string> { "Crime", "S1" };
-        public static List<string> Block_Airlock_Minor = new List<string> { "Crime", "S2" };
-        public static List<string> Block_Airlock_Warning = new List<string> { "Crime", "S3" };
-        public static List<string> Block_Landing_Pad_Minor = new List<string> { "Crime", "S4" };
-        public static List<string> Block_Landing_Pad_Warning = new List<string> { "Crime", "S5" };
-        public static List<string> Disobey_Police = new List<string> { "Crime", "S6" };
-        public static List<string> Dumping_Dangerous = new List<string> { "Crime", "S7" };
-        public static List<string> Dumping_Near_Station = new List<string> { "Crime", "S8" };
-        public static List<string> Fire_In_No_Fire_Zone = new List<string> { "Crime", "S9" };
-        public static List<string> Illegal_Cargo = new List<string> { "Crime", "S10" };
-        public static List<string> Interdicting = new List<string> { "Crime", "S11" };
-        public static List<string> Murder = new List<string> { "Crime", "S12" };
-        public static List<string> Piracy = new List<string> { "Crime", "S13" };
-        public static List<string> Trespass_Minor = new List<string> { "Crime", "S14" };
-        public static List<string> Wreckless_Flying = new List<string> { "Crime", "S15" };
-        public static List<string> Wreckless_Flying_Damage = new List<string> { "Crime", "S16" };
-        public static List<string> Fine = new List<string> { "Crime", "S17" };
-        public static List<string> Bounty = new List<string> { "Crime", "S18" };
-        public static List<string> Block_Relocate = new List<string> { "Crime", "S19" };
-    }
+    //public static class Crime
+    //{
+    //    public static List<string> Default = new List<string> { "Crime", "S0" };
+    //    public static List<string> Assult = new List<string> { "Crime", "S1" };
+    //    public static List<string> Block_Airlock_Minor = new List<string> { "Crime", "S2" };
+    //    public static List<string> Block_Airlock_Warning = new List<string> { "Crime", "S3" };
+    //    public static List<string> Block_Landing_Pad_Minor = new List<string> { "Crime", "S4" };
+    //    public static List<string> Block_Landing_Pad_Warning = new List<string> { "Crime", "S5" };
+    //    public static List<string> Disobey_Police = new List<string> { "Crime", "S6" };
+    //    public static List<string> Dumping_Dangerous = new List<string> { "Crime", "S7" };
+    //    public static List<string> Dumping_Near_Station = new List<string> { "Crime", "S8" };
+    //    public static List<string> Fire_In_No_Fire_Zone = new List<string> { "Crime", "S9" };
+    //    public static List<string> Illegal_Cargo = new List<string> { "Crime", "S10" };
+    //    public static List<string> Interdicting = new List<string> { "Crime", "S11" };
+    //    public static List<string> Murder = new List<string> { "Crime", "S12" };
+    //    public static List<string> Piracy = new List<string> { "Crime", "S13" };
+    //    public static List<string> Trespass_Minor = new List<string> { "Crime", "S14" };
+    //    public static List<string> Wreckless_Flying = new List<string> { "Crime", "S15" };
+    //    public static List<string> Wreckless_Flying_Damage = new List<string> { "Crime", "S16" };
+    //    public static List<string> Fine = new List<string> { "Crime", "S17" };
+    //    public static List<string> Bounty = new List<string> { "Crime", "S18" };
+    //    public static List<string> Block_Relocate = new List<string> { "Crime", "S19" };
+    //}
 
-    public static class Docking_Preparations
-    {
-        public static List<string> Default = new List<string> { "Docking Preparations", "S0" };
-        public static List<string> Modifier = new List<string> { "Docking Preparations", "S1" };
-    }
+    //public static class Docking_Preparations
+    //{
+    //    public static List<string> Default = new List<string> { "Docking Preparations", "S0" };
+    //    public static List<string> Modifier = new List<string> { "Docking Preparations", "S1" };
+    //}
 
-    public static class Docking_Request
-    {
-        public static List<string> Already_Granted = new List<string> { "Docking Request", "S0" };
-        public static List<string> Denied = new List<string> { "Docking Request", "S1" };
-        public static List<string> Docked = new List<string> { "Docking Request", "S2" };
-        public static List<string> Docking_Computer_Handover = new List<string> { "Docking Request", "S3" };
-        public static List<string> Granted = new List<string> { "Docking Request", "S4" };
-        public static List<string> Landing_Pad = new List<string> { "Docking Request", "S5" };
-        public static List<string> Reason_None_Given = new List<string> { "Docking Request", "S6" };
-        public static List<string> Reason_Active_Fighter = new List<string> { "Docking Request", "S7" };
-        public static List<string> Reason_Distance = new List<string> { "Docking Request", "S8" };
-        public static List<string> Reason_Offences = new List<string> { "Docking Request", "S9" };
-        public static List<string> Reason_Hostile = new List<string> { "Docking Request", "S10" };
-        public static List<string> Reason_Too_Large = new List<string> { "Docking Request", "S11" };
-        public static List<string> Reason_No_Space = new List<string> { "Docking Request", "S12" };
-        public static List<string> No_Docking_Computer = new List<string> { "Docking Request", "S13" };
-        public static List<string> No_Docking_Computer_Modifier = new List<string> { "Docking Request", "S14" };
-    }
+    //public static class Docking_Request
+    //{
+    //    public static List<string> Already_Granted = new List<string> { "Docking Request", "S0" };
+    //    public static List<string> Denied = new List<string> { "Docking Request", "S1" };
+    //    public static List<string> Docked = new List<string> { "Docking Request", "S2" };
+    //    public static List<string> Docking_Computer_Handover = new List<string> { "Docking Request", "S3" };
+    //    public static List<string> Granted = new List<string> { "Docking Request", "S4" };
+    //    public static List<string> Landing_Pad = new List<string> { "Docking Request", "S5" };
+    //    public static List<string> Reason_None_Given = new List<string> { "Docking Request", "S6" };
+    //    public static List<string> Reason_Active_Fighter = new List<string> { "Docking Request", "S7" };
+    //    public static List<string> Reason_Distance = new List<string> { "Docking Request", "S8" };
+    //    public static List<string> Reason_Offences = new List<string> { "Docking Request", "S9" };
+    //    public static List<string> Reason_Hostile = new List<string> { "Docking Request", "S10" };
+    //    public static List<string> Reason_Too_Large = new List<string> { "Docking Request", "S11" };
+    //    public static List<string> Reason_No_Space = new List<string> { "Docking Request", "S12" };
+    //    public static List<string> No_Docking_Computer = new List<string> { "Docking Request", "S13" };
+    //    public static List<string> No_Docking_Computer_Modifier = new List<string> { "Docking Request", "S14" };
+    //}
 
-    public static class EQ_Discovery_Scanner
-    {
-        public static List<string> Entered_Hyperspace = new List<string> { "EQ Discovery Scanner", "S0" };
-        public static List<string> Scan_Failed = new List<string> { "EQ Discovery Scanner", "S1" };
-        public static List<string> New_Returns = new List<string> { "EQ Discovery Scanner", "S2" };
-        public static List<string> No_Returns = new List<string> { "EQ Discovery Scanner", "S3" };
-        public static List<string> Not_Assigned = new List<string> { "EQ Discovery Scanner", "S4" };
-        public static List<string> Not_Installed = new List<string> { "EQ Discovery Scanner", "S5" };
-        public static List<string> Scan_Complete = new List<string> { "EQ Discovery Scanner", "S6" };
-        public static List<string> Scan_Commenced = new List<string> { "EQ Discovery Scanner", "S7" };
-        public static List<string> Updating = new List<string> { "EQ Discovery Scanner", "S8" };
-        public static List<string> FSS_Activating = new List<string> { "EQ Discovery Scanner", "S9" };
-        public static List<string> FSS_Deactivating = new List<string> { "EQ Discovery Scanner", "S10" };
-        public static List<string> FSS_Currently_Deactivated = new List<string> { "EQ Discovery Scanner", "S11" };
-        public static List<string> FSS_Currently_Activated = new List<string> { "EQ Discovery Scanner", "S12" };
-    }
+    //public static class EQ_Discovery_Scanner
+    //{
+    //    public static List<string> Entered_Hyperspace = new List<string> { "EQ Discovery Scanner", "S0" };
+    //    public static List<string> Scan_Failed = new List<string> { "EQ Discovery Scanner", "S1" };
+    //    public static List<string> New_Returns = new List<string> { "EQ Discovery Scanner", "S2" };
+    //    public static List<string> No_Returns = new List<string> { "EQ Discovery Scanner", "S3" };
+    //    public static List<string> Not_Assigned = new List<string> { "EQ Discovery Scanner", "S4" };
+    //    public static List<string> Not_Installed = new List<string> { "EQ Discovery Scanner", "S5" };
+    //    public static List<string> Scan_Complete = new List<string> { "EQ Discovery Scanner", "S6" };
+    //    public static List<string> Scan_Commenced = new List<string> { "EQ Discovery Scanner", "S7" };
+    //    public static List<string> Updating = new List<string> { "EQ Discovery Scanner", "S8" };
+    //    public static List<string> FSS_Activating = new List<string> { "EQ Discovery Scanner", "S9" };
+    //    public static List<string> FSS_Deactivating = new List<string> { "EQ Discovery Scanner", "S10" };
+    //    public static List<string> FSS_Currently_Deactivated = new List<string> { "EQ Discovery Scanner", "S11" };
+    //    public static List<string> FSS_Currently_Activated = new List<string> { "EQ Discovery Scanner", "S12" };
+    //}
 
-    public static class EQ_External_Lights
-    {
-        public static List<string> Currently_Energized = new List<string> { "EQ External Lights", "S0" };
-        public static List<string> Currently_Deenergized = new List<string> { "EQ External Lights", "S1" };
-        public static List<string> Energizing = new List<string> { "EQ External Lights", "S2" };
-        public static List<string> Deenergizing = new List<string> { "EQ External Lights", "S3" };
-        public static List<string> No_Hyperspace = new List<string> { "EQ External Lights", "S4" };
-    }
+    //public static class EQ_External_Lights
+    //{
+    //    public static List<string> Currently_Energized = new List<string> { "EQ External Lights", "S0" };
+    //    public static List<string> Currently_Deenergized = new List<string> { "EQ External Lights", "S1" };
+    //    public static List<string> Energizing = new List<string> { "EQ External Lights", "S2" };
+    //    public static List<string> Deenergizing = new List<string> { "EQ External Lights", "S3" };
+    //    public static List<string> No_Hyperspace = new List<string> { "EQ External Lights", "S4" };
+    //}
 
-    public static class EQ_Frame_Shift_Drive
-    {
-        public static List<string> Abort_Successful = new List<string> { "EQ Frame Shift Drive", "S0" };
-        public static List<string> Abort_Failed = new List<string> { "EQ Frame Shift Drive", "S1" };
-        public static List<string> Drive_Charging = new List<string> { "EQ Frame Shift Drive", "S2" };
-        public static List<string> Docked = new List<string> { "EQ Frame Shift Drive", "S3" };
-        public static List<string> Failed_to_Engage = new List<string> { "EQ Frame Shift Drive", "S4" };
-        public static List<string> Failed_to_Disengage = new List<string> { "EQ Frame Shift Drive", "S5" };
-        public static List<string> Masslock = new List<string> { "EQ Frame Shift Drive", "S6" };
-        public static List<string> Too_Fast = new List<string> { "EQ Frame Shift Drive", "S7" };
-        public static List<string> Touchdown = new List<string> { "EQ Frame Shift Drive", "S8" };
-        public static List<string> Cooldown = new List<string> { "EQ Frame Shift Drive", "S9" };
-        public static List<string> HS_Entering = new List<string> { "EQ Frame Shift Drive", "S10" };
-        public static List<string> SC_Entering = new List<string> { "EQ Frame Shift Drive", "S11" };
-        public static List<string> HS_Preparing = new List<string> { "EQ Frame Shift Drive", "S12" };
-        public static List<string> SC_Preparing = new List<string> { "EQ Frame Shift Drive", "S13" };
-        public static List<string> HS_Currently_Hyperspace = new List<string> { "EQ Frame Shift Drive", "S14" };
-        public static List<string> SC_Currently_Hyperspace = new List<string> { "EQ Frame Shift Drive", "S15" };
-        public static List<string> SC_Currently_Normal_Space = new List<string> { "EQ Frame Shift Drive", "S16" };
-        public static List<string> SC_Currently_Supercruise = new List<string> { "EQ Frame Shift Drive", "S17" };
-        public static List<string> SC_Disengaging = new List<string> { "EQ Frame Shift Drive", "S18" };
-        public static List<string> SC_Currently_Charging = new List<string> { "EQ Frame Shift Drive", "S19" };
-        public static List<string> HS_Currently_Charging = new List<string> { "EQ Frame Shift Drive", "S20" };
-        public static List<string> Drive_Charging_Special = new List<string> { "EQ Frame Shift Drive", "S21" };
-        public static List<string> Negaive_Speical = new List<string> { "EQ Frame Shift Drive", "S22" };
-        public static List<string> HS_Entering_Special = new List<string> { "EQ Frame Shift Drive", "S23" };
-        public static List<string> SC_Entering_Special = new List<string> { "EQ Frame Shift Drive", "S24" };
-    }
+    //public static class EQ_Frame_Shift_Drive
+    //{
+    //    public static List<string> Abort_Successful = new List<string> { "EQ Frame Shift Drive", "S0" };
+    //    public static List<string> Abort_Failed = new List<string> { "EQ Frame Shift Drive", "S1" };
+    //    public static List<string> Drive_Charging = new List<string> { "EQ Frame Shift Drive", "S2" };
+    //    public static List<string> Docked = new List<string> { "EQ Frame Shift Drive", "S3" };
+    //    public static List<string> Failed_to_Engage = new List<string> { "EQ Frame Shift Drive", "S4" };
+    //    public static List<string> Failed_to_Disengage = new List<string> { "EQ Frame Shift Drive", "S5" };
+    //    public static List<string> Masslock = new List<string> { "EQ Frame Shift Drive", "S6" };
+    //    public static List<string> Too_Fast = new List<string> { "EQ Frame Shift Drive", "S7" };
+    //    public static List<string> Touchdown = new List<string> { "EQ Frame Shift Drive", "S8" };
+    //    public static List<string> Cooldown = new List<string> { "EQ Frame Shift Drive", "S9" };
+    //    public static List<string> HS_Entering = new List<string> { "EQ Frame Shift Drive", "S10" };
+    //    public static List<string> SC_Entering = new List<string> { "EQ Frame Shift Drive", "S11" };
+    //    public static List<string> HS_Preparing = new List<string> { "EQ Frame Shift Drive", "S12" };
+    //    public static List<string> SC_Preparing = new List<string> { "EQ Frame Shift Drive", "S13" };
+    //    public static List<string> HS_Currently_Hyperspace = new List<string> { "EQ Frame Shift Drive", "S14" };
+    //    public static List<string> SC_Currently_Hyperspace = new List<string> { "EQ Frame Shift Drive", "S15" };
+    //    public static List<string> SC_Currently_Normal_Space = new List<string> { "EQ Frame Shift Drive", "S16" };
+    //    public static List<string> SC_Currently_Supercruise = new List<string> { "EQ Frame Shift Drive", "S17" };
+    //    public static List<string> SC_Disengaging = new List<string> { "EQ Frame Shift Drive", "S18" };
+    //    public static List<string> SC_Currently_Charging = new List<string> { "EQ Frame Shift Drive", "S19" };
+    //    public static List<string> HS_Currently_Charging = new List<string> { "EQ Frame Shift Drive", "S20" };
+    //    public static List<string> Drive_Charging_Special = new List<string> { "EQ Frame Shift Drive", "S21" };
+    //    public static List<string> Negaive_Speical = new List<string> { "EQ Frame Shift Drive", "S22" };
+    //    public static List<string> HS_Entering_Special = new List<string> { "EQ Frame Shift Drive", "S23" };
+    //    public static List<string> SC_Entering_Special = new List<string> { "EQ Frame Shift Drive", "S24" };
+    //}
 
-    public static class Facility_Report
-    {
-        public static List<string> Datalink = new List<string> { "Facility Report", "S0" };
-        public static List<string> Docked = new List<string> { "Facility Report", "S1" };
-        public static List<string> Economy = new List<string> { "Facility Report", "S2" };
-        public static List<string> Government = new List<string> { "Facility Report", "S3" };
-        public static List<string> State = new List<string> { "Facility Report", "S4" };
-        public static List<string> Undocked = new List<string> { "Facility Report", "S5" };
-        public static List<string> Undocked_Modifier = new List<string> { "Facility Report", "S6" };
-    }
+    //public static class Facility_Report
+    //{
+    //    public static List<string> Datalink = new List<string> { "Facility Report", "S0" };
+    //    public static List<string> Docked = new List<string> { "Facility Report", "S1" };
+    //    public static List<string> Economy = new List<string> { "Facility Report", "S2" };
+    //    public static List<string> Government = new List<string> { "Facility Report", "S3" };
+    //    public static List<string> State = new List<string> { "Facility Report", "S4" };
+    //    public static List<string> Undocked = new List<string> { "Facility Report", "S5" };
+    //    public static List<string> Undocked_Modifier = new List<string> { "Facility Report", "S6" };
+    //}
 
-    public static class Fighter
-    {
-        public static List<string> Destroyed = new List<string> { "Fighter", "S0" };
-        public static List<string> Docked = new List<string> { "Fighter", "S1" };
-        public static List<string> Launch_Error = new List<string> { "Fighter", "S2" };
-        public static List<string> Launch = new List<string> { "Fighter", "S3" };
-        public static List<string> Order_Attack_Target = new List<string> { "Fighter", "S4" };
-        public static List<string> Order_Defend = new List<string> { "Fighter", "S5" };
-        public static List<string> Order_Engage_At_Will = new List<string> { "Fighter", "S6" };
-        public static List<string> Order_Follow = new List<string> { "Fighter", "S7" };
-        public static List<string> Order_Hold_Position = new List<string> { "Fighter", "S8" };
-        public static List<string> Order_Maintain_Formation = new List<string> { "Fighter", "S9" };
-        public static List<string> Order_Recall_NPC = new List<string> { "Fighter", "S10" };
-        public static List<string> Order_Recall_Player = new List<string> { "Fighter", "S11" };
-        public static List<string> Rebuilt_Destroyed = new List<string> { "Fighter", "S12" };
-        public static List<string> Rebuilt_Docked = new List<string> { "Fighter", "S13" };
-        public static List<string> Rebuilt_Other = new List<string> { "Fighter", "S14" };
-        public static List<string> Launch_Player_Modifer = new List<string> { "Fighter", "S15" };
-        public static List<string> Docked_Modifier = new List<string> { "Fighter", "S16" };
-        public static List<string> Not_Normal_Space = new List<string> { "Fighter", "S17" };
-        public static List<string> Not_Mothership = new List<string> { "Fighter", "S18" };
-        public static List<string> Mothership_Docked = new List<string> { "Fighter", "S19" };
-        public static List<string> Touchdown = new List<string> { "Fighter", "S20" };
-        public static List<string> No_Fire_Zone = new List<string> { "Fighter", "S21" };
-        public static List<string> Altitude = new List<string> { "Fighter", "S22" };
-        public static List<string> No_Fighter_Hanger = new List<string> { "Fighter", "S23" };
-        public static List<string> Hanger_Total = new List<string> { "Fighter", "S24" };
-    }
+    //public static class Fighter
+    //{
+    //    public static List<string> Destroyed = new List<string> { "Fighter", "S0" };
+    //    public static List<string> Docked = new List<string> { "Fighter", "S1" };
+    //    public static List<string> Launch_Error = new List<string> { "Fighter", "S2" };
+    //    public static List<string> Launch = new List<string> { "Fighter", "S3" };
+    //    public static List<string> Order_Attack_Target = new List<string> { "Fighter", "S4" };
+    //    public static List<string> Order_Defend = new List<string> { "Fighter", "S5" };
+    //    public static List<string> Order_Engage_At_Will = new List<string> { "Fighter", "S6" };
+    //    public static List<string> Order_Follow = new List<string> { "Fighter", "S7" };
+    //    public static List<string> Order_Hold_Position = new List<string> { "Fighter", "S8" };
+    //    public static List<string> Order_Maintain_Formation = new List<string> { "Fighter", "S9" };
+    //    public static List<string> Order_Recall_NPC = new List<string> { "Fighter", "S10" };
+    //    public static List<string> Order_Recall_Player = new List<string> { "Fighter", "S11" };
+    //    public static List<string> Rebuilt_Destroyed = new List<string> { "Fighter", "S12" };
+    //    public static List<string> Rebuilt_Docked = new List<string> { "Fighter", "S13" };
+    //    public static List<string> Rebuilt_Other = new List<string> { "Fighter", "S14" };
+    //    public static List<string> Launch_Player_Modifer = new List<string> { "Fighter", "S15" };
+    //    public static List<string> Docked_Modifier = new List<string> { "Fighter", "S16" };
+    //    public static List<string> Not_Normal_Space = new List<string> { "Fighter", "S17" };
+    //    public static List<string> Not_Mothership = new List<string> { "Fighter", "S18" };
+    //    public static List<string> Mothership_Docked = new List<string> { "Fighter", "S19" };
+    //    public static List<string> Touchdown = new List<string> { "Fighter", "S20" };
+    //    public static List<string> No_Fire_Zone = new List<string> { "Fighter", "S21" };
+    //    public static List<string> Altitude = new List<string> { "Fighter", "S22" };
+    //    public static List<string> No_Fighter_Hanger = new List<string> { "Fighter", "S23" };
+    //    public static List<string> Hanger_Total = new List<string> { "Fighter", "S24" };
+    //}
 
-    public static class Fuel_Report
-    {
-        public static List<string> Level_Percent = new List<string> { "Fuel Report", "S0" };
-        public static List<string> Scoop_Start = new List<string> { "Fuel Report", "S1" };
-        public static List<string> Scoop_End = new List<string> { "Fuel Report", "S2" };
-        public static List<string> Scoop_Collected = new List<string> { "Fuel Report", "S3" };
-        public static List<string> Critical_Level = new List<string> { "Fuel Report", "S4" };
-        public static List<string> Low_Level = new List<string> { "Fuel Report", "S5" };
-        public static List<string> Level_Tons = new List<string> { "Fuel Report", "S6" };
-    }
+    //public static class Fuel_Report
+    //{
+    //    public static List<string> Level_Percent = new List<string> { "Fuel Report", "S0" };
+    //    public static List<string> Scoop_Start = new List<string> { "Fuel Report", "S1" };
+    //    public static List<string> Scoop_End = new List<string> { "Fuel Report", "S2" };
+    //    public static List<string> Scoop_Collected = new List<string> { "Fuel Report", "S3" };
+    //    public static List<string> Critical_Level = new List<string> { "Fuel Report", "S4" };
+    //    public static List<string> Low_Level = new List<string> { "Fuel Report", "S5" };
+    //    public static List<string> Level_Tons = new List<string> { "Fuel Report", "S6" };
+    //}
 
-    public static class Galaxy_Map
-    {
-        public static List<string> Open = new List<string> { "Galaxy Map", "S0" };
-        public static List<string> Search = new List<string> { "Galaxy Map", "S1" };
-        public static List<string> Bookmarks = new List<string> { "Galaxy Map", "S2" };
-        public static List<string> Configuration = new List<string> { "Galaxy Map", "S3" };
-        public static List<string> Options = new List<string> { "Galaxy Map", "S4" };
-        public static List<string> Searching = new List<string> { "Galaxy Map", "S5" };
-        public static List<string> Hyperspace = new List<string> { "Galaxy Map", "S6" };
-        public static List<string> Not_Mothership = new List<string> { "Galaxy Map", "S7" };
-        public static List<string> Currently_Open = new List<string> { "Galaxy Map", "S8" };
-        public static List<string> Currently_Closed = new List<string> { "Galaxy Map", "S9" };
-        public static List<string> Failed_To_Open = new List<string> { "Galaxy Map", "S10" };
-        public static List<string> Close = new List<string> { "Galaxy Map", "S11" };
-    }
+    //public static class Galaxy_Map
+    //{
+    //    public static List<string> Open = new List<string> { "Galaxy Map", "S0" };
+    //    public static List<string> Search = new List<string> { "Galaxy Map", "S1" };
+    //    public static List<string> Bookmarks = new List<string> { "Galaxy Map", "S2" };
+    //    public static List<string> Configuration = new List<string> { "Galaxy Map", "S3" };
+    //    public static List<string> Options = new List<string> { "Galaxy Map", "S4" };
+    //    public static List<string> Searching = new List<string> { "Galaxy Map", "S5" };
+    //    public static List<string> Hyperspace = new List<string> { "Galaxy Map", "S6" };
+    //    public static List<string> Not_Mothership = new List<string> { "Galaxy Map", "S7" };
+    //    public static List<string> Currently_Open = new List<string> { "Galaxy Map", "S8" };
+    //    public static List<string> Currently_Closed = new List<string> { "Galaxy Map", "S9" };
+    //    public static List<string> Failed_To_Open = new List<string> { "Galaxy Map", "S10" };
+    //    public static List<string> Close = new List<string> { "Galaxy Map", "S11" };
+    //}
 
-    public static class GN_Apology
-    {
-        public static List<string> Default = new List<string> { "GN Apology", "S0" };
-    }
+    //public static class GN_Apology
+    //{
+    //    public static List<string> Default = new List<string> { "GN Apology", "S0" };
+    //}
 
-    public static class GN_Planetary_Interaction
-    {
-        public static List<string> Landing = new List<string> { "GN Planetary Interaction", "S0" };
-        public static List<string> Landing_Modifier = new List<string> { "GN Planetary Interaction", "S1" };
-        public static List<string> Takeoff = new List<string> { "GN Planetary Interaction", "S2" };
-        public static List<string> Takeoff_Modifier = new List<string> { "GN Planetary Interaction", "S3" };
-        public static List<string> Ship_Recalled = new List<string> { "GN Planetary Interaction", "S4" };
-        public static List<string> Ship_Dismissed = new List<string> { "GN Planetary Interaction", "S5" };
-        public static List<string> Approach_Settlement = new List<string> { "GN Planetary Interaction", "S6" };
-        public static List<string> Glide_Complete = new List<string> { "GN Planetary Interaction", "S7" };
-        public static List<string> Glide_Commenced = new List<string> { "GN Planetary Interaction", "S8" };
-        public static List<string> Glide_Failed = new List<string> { "GN Planetary Interaction", "S9" };
-        public static List<string> Orbital_Cruise_Entry = new List<string> { "GN Planetary Interaction", "S10" };
-        public static List<string> Orbital_Cruise_Exit = new List<string> { "GN Planetary Interaction", "S11" };
-        public static List<string> Orbital_Descent_Prep = new List<string> { "GN Planetary Interaction", "S12" };
-        public static List<string> Orbital_Descent_Aborted = new List<string> { "GN Planetary Interaction", "S13" };
-        public static List<string> Orbital_Gravity_Warning = new List<string> { "GN Planetary Interaction", "S14" };
-        public static List<string> Orbital_Not_Scanned = new List<string> { "GN Planetary Interaction", "S15" };
-    }
+    //public static class GN_Planetary_Interaction
+    //{
+    //    public static List<string> Landing = new List<string> { "GN Planetary Interaction", "S0" };
+    //    public static List<string> Landing_Modifier = new List<string> { "GN Planetary Interaction", "S1" };
+    //    public static List<string> Takeoff = new List<string> { "GN Planetary Interaction", "S2" };
+    //    public static List<string> Takeoff_Modifier = new List<string> { "GN Planetary Interaction", "S3" };
+    //    public static List<string> Ship_Recalled = new List<string> { "GN Planetary Interaction", "S4" };
+    //    public static List<string> Ship_Dismissed = new List<string> { "GN Planetary Interaction", "S5" };
+    //    public static List<string> Approach_Settlement = new List<string> { "GN Planetary Interaction", "S6" };
+    //    public static List<string> Glide_Complete = new List<string> { "GN Planetary Interaction", "S7" };
+    //    public static List<string> Glide_Commenced = new List<string> { "GN Planetary Interaction", "S8" };
+    //    public static List<string> Glide_Failed = new List<string> { "GN Planetary Interaction", "S9" };
+    //    public static List<string> Orbital_Cruise_Entry = new List<string> { "GN Planetary Interaction", "S10" };
+    //    public static List<string> Orbital_Cruise_Exit = new List<string> { "GN Planetary Interaction", "S11" };
+    //    public static List<string> Orbital_Descent_Prep = new List<string> { "GN Planetary Interaction", "S12" };
+    //    public static List<string> Orbital_Descent_Aborted = new List<string> { "GN Planetary Interaction", "S13" };
+    //    public static List<string> Orbital_Gravity_Warning = new List<string> { "GN Planetary Interaction", "S14" };
+    //    public static List<string> Orbital_Not_Scanned = new List<string> { "GN Planetary Interaction", "S15" };
+    //}
 
-    public static class Hardpoints
-    {
-        public static List<string> Currently_Deployed = new List<string> { "Hardpoints", "S0" };
-        public static List<string> Currently_Retracted = new List<string> { "Hardpoints", "S1" };
-        public static List<string> Deploying = new List<string> { "Hardpoints", "S2" };
-        public static List<string> Hyperspace = new List<string> { "Hardpoints", "S3" };
-        public static List<string> Retracting = new List<string> { "Hardpoints", "S4" };
-        public static List<string> Safety_Engaged = new List<string> { "Hardpoints", "S5" };
-        public static List<string> Safety_Remains = new List<string> { "Hardpoints", "S6" };
-        public static List<string> Supercruise = new List<string> { "Hardpoints", "S7" };
-        public static List<string> Safety_Disengaged = new List<string> { "Hardpoints", "S8" };
-        public static List<string> Safety_Engaging = new List<string> { "Hardpoints", "S9" };
-        public static List<string> Safety_Disengaging = new List<string> { "Hardpoints", "S10" };
-    }
+    //public static class Hardpoints
+    //{
+    //    public static List<string> Currently_Deployed = new List<string> { "Hardpoints", "S0" };
+    //    public static List<string> Currently_Retracted = new List<string> { "Hardpoints", "S1" };
+    //    public static List<string> Deploying = new List<string> { "Hardpoints", "S2" };
+    //    public static List<string> Hyperspace = new List<string> { "Hardpoints", "S3" };
+    //    public static List<string> Retracting = new List<string> { "Hardpoints", "S4" };
+    //    public static List<string> Safety_Engaged = new List<string> { "Hardpoints", "S5" };
+    //    public static List<string> Safety_Remains = new List<string> { "Hardpoints", "S6" };
+    //    public static List<string> Supercruise = new List<string> { "Hardpoints", "S7" };
+    //    public static List<string> Safety_Disengaged = new List<string> { "Hardpoints", "S8" };
+    //    public static List<string> Safety_Engaging = new List<string> { "Hardpoints", "S9" };
+    //    public static List<string> Safety_Disengaging = new List<string> { "Hardpoints", "S10" };
+    //}
 
-    public static class Heat_Damage
-    {
-        public static List<string> Default = new List<string> { "Heat Damage", "S0" };
-    }
+    //public static class Heat_Damage
+    //{
+    //    public static List<string> Default = new List<string> { "Heat Damage", "S0" };
+    //}
 
-    public static class Heat_Warning
-    {
-        public static List<string> Default = new List<string> { "Heat Warning", "S0" };
-        public static List<string> Modifier = new List<string> { "Heat Warning", "S1" };
-    }
+    //public static class Heat_Warning
+    //{
+    //    public static List<string> Default = new List<string> { "Heat Warning", "S0" };
+    //    public static List<string> Modifier = new List<string> { "Heat Warning", "S1" };
+    //}
 
-    public static class Heatsink_Launcher
-    {
-        public static List<string> Activating = new List<string> { "Heatsink Launcher", "S0" };
-        public static List<string> Hyperspace = new List<string> { "Heatsink Launcher", "S1" };
-    }
+    //public static class Heatsink_Launcher
+    //{
+    //    public static List<string> Activating = new List<string> { "Heatsink Launcher", "S0" };
+    //    public static List<string> Hyperspace = new List<string> { "Heatsink Launcher", "S1" };
+    //}
 
-    public static class Hull_Damage
-    {
-        public static List<string> Default = new List<string> { "Hull Damage", "S0" };
-    }
+    //public static class Hull_Damage
+    //{
+    //    public static List<string> Default = new List<string> { "Hull Damage", "S0" };
+    //}
 
-    public static class I_Love_You
-    {
-        public static List<string> Default = new List<string> { "I Love You", "S0" };
-    }
+    //public static class I_Love_You
+    //{
+    //    public static List<string> Default = new List<string> { "I Love You", "S0" };
+    //}
 
-    public static class Landing_Gear
-    {
-        public static List<string> Not_Normal_Space = new List<string> { "Landing Gear", "S0" };
-        public static List<string> Not_Mothership = new List<string> { "Landing Gear", "S1" };
-        public static List<string> Fighter_Deployed = new List<string> { "Landing Gear", "S2" };
-        public static List<string> Docked = new List<string> { "Landing Gear", "S3" };
-        public static List<string> Touchdown = new List<string> { "Landing Gear", "S4" };
-        public static List<string> Currently_Deployed = new List<string> { "Landing Gear", "S5" };
-        public static List<string> Currently_Retracted = new List<string> { "Landing Gear", "S6" };
-        public static List<string> Deploying = new List<string> { "Landing Gear", "S7" };
-        public static List<string> Retracting = new List<string> { "Landing Gear", "S8" };
-    }
+    //public static class Landing_Gear
+    //{
+    //    public static List<string> Not_Normal_Space = new List<string> { "Landing Gear", "S0" };
+    //    public static List<string> Not_Mothership = new List<string> { "Landing Gear", "S1" };
+    //    public static List<string> Fighter_Deployed = new List<string> { "Landing Gear", "S2" };
+    //    public static List<string> Docked = new List<string> { "Landing Gear", "S3" };
+    //    public static List<string> Touchdown = new List<string> { "Landing Gear", "S4" };
+    //    public static List<string> Currently_Deployed = new List<string> { "Landing Gear", "S5" };
+    //    public static List<string> Currently_Retracted = new List<string> { "Landing Gear", "S6" };
+    //    public static List<string> Deploying = new List<string> { "Landing Gear", "S7" };
+    //    public static List<string> Retracting = new List<string> { "Landing Gear", "S8" };
+    //}
 
-    public static class Landing_Preparations
-    {
-        public static List<string> Default = new List<string> { "Landing Preparations", "S0" };
-        public static List<string> Modifier = new List<string> { "Landing Preparations", "S1" };
-    }
+    //public static class Landing_Preparations
+    //{
+    //    public static List<string> Default = new List<string> { "Landing Preparations", "S0" };
+    //    public static List<string> Modifier = new List<string> { "Landing Preparations", "S1" };
+    //}
 
-    public static class Masslock
-    {
-        public static List<string> Entered = new List<string> { "Masslock", "S0" };
-        public static List<string> Exited = new List<string> { "Masslock", "S1" };
-        public static List<string> Current = new List<string> { "Masslock", "S2" };
-    }
+    //public static class Masslock
+    //{
+    //    public static List<string> Entered = new List<string> { "Masslock", "S0" };
+    //    public static List<string> Exited = new List<string> { "Masslock", "S1" };
+    //    public static List<string> Current = new List<string> { "Masslock", "S2" };
+    //}
 
-    public static class Module
-    {
-        public static List<string> Not_Installed = new List<string> { "Module", "S0" };
-    }
+    //public static class Module
+    //{
+    //    public static List<string> Not_Installed = new List<string> { "Module", "S0" };
+    //}
 
-    public static class Negative
-    {
-        public static List<string> Default = new List<string> { "Negative", "S0" };
-    }
+    //public static class Negative
+    //{
+    //    public static List<string> Default = new List<string> { "Negative", "S0" };
+    //}
 
-    public static class No_Fire_Zone
-    {
-        public static List<string> Entered = new List<string> { "No Fire Zone", "S0" };
-        public static List<string> Exited = new List<string> { "No Fire Zone", "S1" };
-    }
+    //public static class No_Fire_Zone
+    //{
+    //    public static List<string> Entered = new List<string> { "No Fire Zone", "S0" };
+    //    public static List<string> Exited = new List<string> { "No Fire Zone", "S1" };
+    //}
 
-    public static class NPC_Crew
-    {
-        public static List<string> Active_Duty = new List<string> { "NPC Crew", "S0" };
-        public static List<string> On_Shore_Leave = new List<string> { "NPC Crew", "S1" };
-    }
+    //public static class NPC_Crew
+    //{
+    //    public static List<string> Active_Duty = new List<string> { "NPC Crew", "S0" };
+    //    public static List<string> On_Shore_Leave = new List<string> { "NPC Crew", "S1" };
+    //}
 
-    public static class Order_Generic
-    {
-        public static List<string> Currently_Disabled = new List<string> { "Order Generic", "S0" };
-        public static List<string> Currently_Enabled = new List<string> { "Order Generic", "S1" };
-        public static List<string> Disabled = new List<string> { "Order Generic", "S2" };
-        public static List<string> Enabled = new List<string> { "Order Generic", "S3" };
-    }
+    //public static class Order_Generic
+    //{
+    //    public static List<string> Currently_Disabled = new List<string> { "Order Generic", "S0" };
+    //    public static List<string> Currently_Enabled = new List<string> { "Order Generic", "S1" };
+    //    public static List<string> Disabled = new List<string> { "Order Generic", "S2" };
+    //    public static List<string> Enabled = new List<string> { "Order Generic", "S3" };
+    //}
 
-    public static class Positive
-    {
-        public static List<string> Default = new List<string> { "Positive", "S0" };
-    }
+    //public static class Positive
+    //{
+    //    public static List<string> Default = new List<string> { "Positive", "S0" };
+    //}
 
-    public static class Report_Generic
-    {
-        public static List<string> Currently_Disabled = new List<string> { "Report Generic", "S0" };
-        public static List<string> Currently_Enabled = new List<string> { "Report Generic", "S1" };
-        public static List<string> Disabled = new List<string> { "Report Generic", "S2" };
-        public static List<string> Enabled = new List<string> { "Report Generic", "S3" };
-    }
+    //public static class Report_Generic
+    //{
+    //    public static List<string> Currently_Disabled = new List<string> { "Report Generic", "S0" };
+    //    public static List<string> Currently_Enabled = new List<string> { "Report Generic", "S1" };
+    //    public static List<string> Disabled = new List<string> { "Report Generic", "S2" };
+    //    public static List<string> Enabled = new List<string> { "Report Generic", "S3" };
+    //}
 
-    public static class Shield_Cell
-    {
-        public static List<string> Activating = new List<string> { "Shield Cell", "S0" };
-        public static List<string> Hyperspace = new List<string> { "Shield Cell", "S1" };
-    }
+    //public static class Shield_Cell
+    //{
+    //    public static List<string> Activating = new List<string> { "Shield Cell", "S0" };
+    //    public static List<string> Hyperspace = new List<string> { "Shield Cell", "S1" };
+    //}
 
-    public static class Shields
-    {
-        public static List<string> Online = new List<string> { "Shields", "S0" };
-        public static List<string> Offline = new List<string> { "Shields", "S1" };
-    }
+    //public static class Shields
+    //{
+    //    public static List<string> Online = new List<string> { "Shields", "S0" };
+    //    public static List<string> Offline = new List<string> { "Shields", "S1" };
+    //}
 
-    public static class Ship_Targeted
-    {
-        public static List<string> Wanted = new List<string> { "Ship Targeted", "S0" };
-        public static List<string> Enemy_Faction = new List<string> { "Ship Targeted", "S1" };
-    }
+    //public static class Ship_Targeted
+    //{
+    //    public static List<string> Wanted = new List<string> { "Ship Targeted", "S0" };
+    //    public static List<string> Enemy_Faction = new List<string> { "Ship Targeted", "S1" };
+    //}
 
-    public static class Shipyard_Arrived
-    {
-        public static List<string> Three_Min_Warning = new List<string> { "Shipyard Arrived", "S0" };
-        public static List<string> Arrived = new List<string> { "Shipyard Arrived", "S1" };
-    }
+    //public static class Shipyard_Arrived
+    //{
+    //    public static List<string> Three_Min_Warning = new List<string> { "Shipyard Arrived", "S0" };
+    //    public static List<string> Arrived = new List<string> { "Shipyard Arrived", "S1" };
+    //}
 
-    public static class Shipyard_Tansfer
-    {
-    }
+    //public static class Shipyard_Tansfer
+    //{
+    //}
 
-    public static class Silent_Running
-    {
-        public static List<string> Not_Normal_Space = new List<string> { "Silent Running", "S0" };
-        public static List<string> Not_Mothership = new List<string> { "Silent Running", "S1" };
-        public static List<string> Currently_Active = new List<string> { "Silent Running", "S2" };
-        public static List<string> Currently_Secured = new List<string> { "Silent Running", "S3" };
-        public static List<string> Activating = new List<string> { "Silent Running", "S4" };
-        public static List<string> Securing = new List<string> { "Silent Running", "S5" };
-    }
+    //public static class Silent_Running
+    //{
+    //    public static List<string> Not_Normal_Space = new List<string> { "Silent Running", "S0" };
+    //    public static List<string> Not_Mothership = new List<string> { "Silent Running", "S1" };
+    //    public static List<string> Currently_Active = new List<string> { "Silent Running", "S2" };
+    //    public static List<string> Currently_Secured = new List<string> { "Silent Running", "S3" };
+    //    public static List<string> Activating = new List<string> { "Silent Running", "S4" };
+    //    public static List<string> Securing = new List<string> { "Silent Running", "S5" };
+    //}
 
-    public static class Station
-    {
-        public static List<string> Damaged = new List<string> { "Station", "S0" };
-        public static List<string> Hostile = new List<string> { "Station", "S1" };
-        public static List<string> Player_Targeted = new List<string> { "Station", "S2" };
-    }
+    //public static class Station
+    //{
+    //    public static List<string> Damaged = new List<string> { "Station", "S0" };
+    //    public static List<string> Hostile = new List<string> { "Station", "S1" };
+    //    public static List<string> Player_Targeted = new List<string> { "Station", "S2" };
+    //}
 
-    public static class System_Map
-    {
-        public static List<string> Open = new List<string> { "System Map", "S0" };
-        public static List<string> Summary = new List<string> { "System Map", "S1" };
-        public static List<string> Body_Info = new List<string> { "System Map", "S2" };
-        public static List<string> Local_Bookmarks = new List<string> { "System Map", "S3" };
-        public static List<string> Points_Of_Interest = new List<string> { "System Map", "S4" };
-        public static List<string> Failed_To_Open = new List<string> { "System Map", "S5" };
-        public static List<string> Currently_Open = new List<string> { "System Map", "S6" };
-        public static List<string> Currently_Closed = new List<string> { "System Map", "S7" };
-        public static List<string> Close = new List<string> { "System Map", "S8" };
-        public static List<string> Hyperspace = new List<string> { "System Map", "S9" };
-        public static List<string> Not_Mothership = new List<string> { "System Map", "S10" };
-    }
+    //public static class System_Map
+    //{
+    //    public static List<string> Open = new List<string> { "System Map", "S0" };
+    //    public static List<string> Summary = new List<string> { "System Map", "S1" };
+    //    public static List<string> Body_Info = new List<string> { "System Map", "S2" };
+    //    public static List<string> Local_Bookmarks = new List<string> { "System Map", "S3" };
+    //    public static List<string> Points_Of_Interest = new List<string> { "System Map", "S4" };
+    //    public static List<string> Failed_To_Open = new List<string> { "System Map", "S5" };
+    //    public static List<string> Currently_Open = new List<string> { "System Map", "S6" };
+    //    public static List<string> Currently_Closed = new List<string> { "System Map", "S7" };
+    //    public static List<string> Close = new List<string> { "System Map", "S8" };
+    //    public static List<string> Hyperspace = new List<string> { "System Map", "S9" };
+    //    public static List<string> Not_Mothership = new List<string> { "System Map", "S10" };
+    //}
 
-    public static class System_Report
-    {
-        public static List<string> Arrived = new List<string> { "System Report", "S0" };
-        public static List<string> Allegiance = new List<string> { "System Report", "S1" };
-        public static List<string> Government = new List<string> { "System Report", "S2" };
-        public static List<string> Security = new List<string> { "System Report", "S3" };
-        public static List<string> Entry_Report = new List<string> { "System Report", "S4" };
-    }
+    //public static class System_Report
+    //{
+    //    public static List<string> Arrived = new List<string> { "System Report", "S0" };
+    //    public static List<string> Allegiance = new List<string> { "System Report", "S1" };
+    //    public static List<string> Government = new List<string> { "System Report", "S2" };
+    //    public static List<string> Security = new List<string> { "System Report", "S3" };
+    //    public static List<string> Entry_Report = new List<string> { "System Report", "S4" };
+    //}
 
-    public static class Target_System
-    {
-        public static List<string> Whitelist_Pilot = new List<string> { "Target System", "S0" };
-        public static List<string> Whitelist_Faction = new List<string> { "Target System", "S1" };
-        public static List<string> Whitelist_Clear = new List<string> { "Target System", "S2" };
-        public static List<string> Hyperspace = new List<string> { "Target System", "S3" };
-        public static List<string> SRV = new List<string> { "Target System", "S4" };
-        public static List<string> Scan_Start = new List<string> { "Target System", "S5" };
-        public static List<string> Scan_No_Targets = new List<string> { "Target System", "S6" };
-        public static List<string> Scan_Data_Standby = new List<string> { "Target System", "S7" };
-        public static List<string> Scan_Target_Aquired = new List<string> { "Target System", "S8" };
-        public static List<string> Scan_Target_Lost = new List<string> { "Target System", "S9" };
-        public static List<string> Scan_Pause = new List<string> { "Target System", "S10" };
-        public static List<string> Scan_Terminated = new List<string> { "Target System", "S11" };
-        public static List<string> Scan_Continue = new List<string> { "Target System", "S12" };
-        public static List<string> Scan_Start_Hostile_Modifier = new List<string> { "Target System", "S13" };
-        public static List<string> Whitelist_Empty = new List<string> { "Target System", "S14" };
-        public static List<string> Whitelist_Contains = new List<string> { "Target System", "S15" };
-        public static List<string> Blacklist_Pilot = new List<string> { "Target System", "S16" };
-        public static List<string> Blacklist_Faction = new List<string> { "Target System", "S17" };
-        public static List<string> Blacklist_Clear = new List<string> { "Target System", "S18" };
-        public static List<string> Blacklist_Empty = new List<string> { "Target System", "S19" };
-        public static List<string> Blacklist_Contains = new List<string> { "Target System", "S20" };
-    }
+    //public static class Target_System
+    //{
+    //    public static List<string> Whitelist_Pilot = new List<string> { "Target System", "S0" };
+    //    public static List<string> Whitelist_Faction = new List<string> { "Target System", "S1" };
+    //    public static List<string> Whitelist_Clear = new List<string> { "Target System", "S2" };
+    //    public static List<string> Hyperspace = new List<string> { "Target System", "S3" };
+    //    public static List<string> SRV = new List<string> { "Target System", "S4" };
+    //    public static List<string> Scan_Start = new List<string> { "Target System", "S5" };
+    //    public static List<string> Scan_No_Targets = new List<string> { "Target System", "S6" };
+    //    public static List<string> Scan_Data_Standby = new List<string> { "Target System", "S7" };
+    //    public static List<string> Scan_Target_Aquired = new List<string> { "Target System", "S8" };
+    //    public static List<string> Scan_Target_Lost = new List<string> { "Target System", "S9" };
+    //    public static List<string> Scan_Pause = new List<string> { "Target System", "S10" };
+    //    public static List<string> Scan_Terminated = new List<string> { "Target System", "S11" };
+    //    public static List<string> Scan_Continue = new List<string> { "Target System", "S12" };
+    //    public static List<string> Scan_Start_Hostile_Modifier = new List<string> { "Target System", "S13" };
+    //    public static List<string> Whitelist_Empty = new List<string> { "Target System", "S14" };
+    //    public static List<string> Whitelist_Contains = new List<string> { "Target System", "S15" };
+    //    public static List<string> Blacklist_Pilot = new List<string> { "Target System", "S16" };
+    //    public static List<string> Blacklist_Faction = new List<string> { "Target System", "S17" };
+    //    public static List<string> Blacklist_Clear = new List<string> { "Target System", "S18" };
+    //    public static List<string> Blacklist_Empty = new List<string> { "Target System", "S19" };
+    //    public static List<string> Blacklist_Contains = new List<string> { "Target System", "S20" };
+    //}
 
-    public static class Thank_You
-    {
-        public static List<string> Default = new List<string> { "Thank You", "S0" };
-        public static List<string> Special = new List<string> { "Thank You", "S1" };
-    }
+    //public static class Thank_You
+    //{
+    //    public static List<string> Default = new List<string> { "Thank You", "S0" };
+    //    public static List<string> Special = new List<string> { "Thank You", "S1" };
+    //}
 
-    public static class Weapons_Safety
-    {
-        public static List<string> Disengaged = new List<string> { "Weapons Safety", "S0" };
-        public static List<string> Engaged = new List<string> { "Weapons Safety", "S1" };
-    }
+    //public static class Weapons_Safety
+    //{
+    //    public static List<string> Disengaged = new List<string> { "Weapons Safety", "S0" };
+    //    public static List<string> Engaged = new List<string> { "Weapons Safety", "S1" };
+    //}
 
     #endregion
 }

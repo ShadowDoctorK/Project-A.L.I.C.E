@@ -5,32 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:A.L.I.C.E_Toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Width="806" Height="622" Background="#FF171616">
-    <Grid>
-        <StackPanel x:Name="StackBox_ModuleGroup" HorizontalAlignment="Left" Height="298" Margin="10,33,0,0" VerticalAlignment="Top" Width="294">
+              d:DesignHeight="800" d:DesignWidth="1013">
+    <Grid Background="Black">
+
+        <StackPanel x:Name="StackBox_ModuleGroup" HorizontalAlignment="Left" Height="408" Margin="10,33,0,0" VerticalAlignment="Top" Width="294">
             <Label x:Name="label_GroupName" Content="Group Name:" Foreground="#FFCE5A05"/>
-            <TextBox x:Name="TextBox_GroupName" Height="23" TextWrapping="Wrap" Background="#FF3F3A3A" Foreground="#FFCE5A05" SelectionBrush="#FF873D07"/>
+            <TextBox x:Name="TextBox_GroupName" Height="23" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07"/>
             <StackPanel Height="45" Margin="0,0,-0.333,0" Orientation="Horizontal">
-                <Button x:Name="btn_Group_New" Content="New" Margin="0,10,0,10.333" Width="69" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_GroupName_New_Click"/>
-                <Button x:Name="btn_Group_Update" Content="Update" Margin="0,10,0,10.333" Width="69" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_GroupName_Update_Click"/>
-                <Button x:Name="btn_Group_Delete" Content="Delete" Margin="0,10,0,10.333" Width="65" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_GroupName_Delete_Click"/>
+                <Button x:Name="btn_Group_New" Content="New" Margin="0,10,0,10.333" Width="69" Foreground="#FFCE5A05" Background="Black" Click="btn_GroupName_New_Click"/>
+                <Button x:Name="btn_Group_Update" Content="Update" Margin="0,10,0,10.333" Width="69" Foreground="#FFCE5A05" Background="Black" Click="btn_GroupName_Update_Click"/>
+                <Button x:Name="btn_Group_Delete" Content="Delete" Margin="0,10,0,10.333" Width="65" Foreground="#FFCE5A05" Background="Black" Click="btn_GroupName_Delete_Click"/>
             </StackPanel>
-            <ListBox x:Name="ListBox_ModuleGroup" Height="189" Margin="0,0,0.333,0" Background="#FF3F3A3A" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_GroupName_MouseDoubleClick"/>
+            <ListBox x:Name="ListBox_ModuleGroup" Height="283" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_GroupName_MouseDoubleClick"/>
         </StackPanel>
-        <StackPanel x:Name="StackBox_Modules" HorizontalAlignment="Left" Height="302" Margin="10,320,0,0" VerticalAlignment="Top" Width="294">
+        <StackPanel x:Name="StackBox_Modules" HorizontalAlignment="Left" Height="367" Margin="10,423,0,0" VerticalAlignment="Top" Width="294">
             <Label x:Name="label_ModuleName" Content="Module Name:" Foreground="#FFCE5A05"/>
-            <TextBox x:Name="TextBox_ModuleName" Height="23" TextWrapping="Wrap" Background="#FF3F3A3A" Foreground="#FFCE5A05" SelectionBrush="#FF873D07"/>
+            <TextBox x:Name="TextBox_ModuleName" Height="23" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07"/>
             <StackPanel Height="45" Margin="0,0,-0.333,0" Orientation="Horizontal">
-                <Button x:Name="btn_Module_New" Content="New" Margin="0,10,0,10.333" Width="69" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_Module_New_Click"/>
-                <Button x:Name="btn_Module_Update" Content="Update" Margin="0,10,0,10.333" Width="69" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_Module_Update_Click"/>
-                <Button x:Name="btn_Module_Delete" Content="Delete" Margin="0,10,0,10.333" Width="65" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_Module_Delete_Click"/>
+                <Button x:Name="btn_Module_New" Content="New" Margin="0,10,0,10.333" Width="69" Foreground="#FFCE5A05" Background="Black" Click="btn_Module_New_Click"/>
+                <Button x:Name="btn_Module_Update" Content="Update" Margin="0,10,0,10.333" Width="69" Foreground="#FFCE5A05" Background="Black" Click="btn_Module_Update_Click"/>
+                <Button x:Name="btn_Module_Delete" Content="Delete" Margin="0,10,0,10.333" Width="65" Foreground="#FFCE5A05" Background="Black" Click="btn_Module_Delete_Click"/>
             </StackPanel>
-            <ListBox x:Name="ListBox_Modules" Height="190" Margin="0,0,0.333,0" Background="#FF3F3A3A" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_ModuleName_MouseDoubleClick"/>
+            <ListBox x:Name="ListBox_Modules" Height="262" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_ModuleName_MouseDoubleClick"/>
         </StackPanel>
-        <StackPanel x:Name="StackBox_Modules_Copy" HorizontalAlignment="Left" Height="579" Margin="318,43,0,0" VerticalAlignment="Top" Width="399">
+        <StackPanel x:Name="StackBox_Modules_Copy" HorizontalAlignment="Left" Height="740" Margin="319,45,0,0" VerticalAlignment="Top" Width="399">
             <Label x:Name="label_ModuleVariables" Content="Variable Name:       Variable Value:" Foreground="#FFCE5A05" Margin="0,0,0.333,0"/>
-            <StackPanel x:Name="StackBox_ModuleProperty" Height="550" Orientation="Horizontal" Margin="0,0,0.333,0">
-                <ListBox x:Name="ListBox_VariableName" Margin="0,0,0,15" Background="#FF171616" Foreground="#FFCE5A05" Width="102">
+            <StackPanel x:Name="StackBox_ModuleProperty" Height="279" Orientation="Horizontal" Margin="0,0,0.667,0">
+                <ListBox x:Name="ListBox_VariableName" Margin="0,0,0,15" Background="Black" Foreground="#FFCE5A05" Width="102">
                     <Label x:Name="label_Item" Content="Item" Foreground="#FFCE5A05" Width="85" Height="26"/>
                     <Label x:Name="label_ModuleProperty_Copy1" Content="Name" Foreground="#FFCE5A05" Width="85" Height="26"/>
                     <Label x:Name="label_ModuleProperty_Copy2" Content="Rating" Foreground="#FFCE5A05" Width="85" Height="26"/>
@@ -40,25 +41,25 @@
                     <Label x:Name="label_ModuleProperty_Copy" Content="Ship" Foreground="#FFCE5A05" Width="85" Height="26"/>
                     <Label x:Name="label_ModuleProperty_Copy6" Content="Mount" Foreground="#FFCE5A05" Width="85" Height="26"/>
                 </ListBox>
-                <ListBox x:Name="ListBox_VariableValue" Margin="0,0,0,15" Background="#FF171616" Foreground="#FFCE5A05" Width="286">
-                    <TextBox x:Name="TextBox_Item" Height="26" TextWrapping="Wrap" Width="267" Background="#FF3F3A3A" Foreground="#FFCE5A05"/>
-                    <TextBox x:Name="TextBox_Name" Height="26" TextWrapping="Wrap" Width="267" Background="#FF3F3A3A" Foreground="#FFCE5A05"/>
-                    <TextBox x:Name="TextBox_Rating" Height="25" TextWrapping="Wrap" Width="267" Background="#FF3F3A3A" Foreground="#FFCE5A05"/>
-                    <TextBox x:Name="TextBox_Class" Height="26" TextWrapping="Wrap" Width="267" Background="#FF3F3A3A" Foreground="#FFCE5A05"/>
-                    <TextBox x:Name="TextBox_Price" Height="25" TextWrapping="Wrap" Width="267" Background="#FF3F3A3A" Foreground="#FFCE5A05"/>
-                    <TextBox x:Name="TextBox_Capacity" Height="26" TextWrapping="Wrap" Width="267" Background="#FF3F3A3A" Foreground="#FFCE5A05"/>
-                    <TextBox x:Name="TextBox_Ship" Height="25" TextWrapping="Wrap" Width="267" Background="#FF3F3A3A" Foreground="#FFCE5A05"/>
-                    <TextBox x:Name="TextBox_Mount" Height="25" TextWrapping="Wrap" Width="267" Background="#FF3F3A3A" Foreground="#FFCE5A05"/>
+                <ListBox x:Name="ListBox_VariableValue" Margin="0,0,0,15" Background="Black" Foreground="#FF0E0E0E" Width="294">
+                    <TextBox x:Name="TextBox_Item" Height="26" TextWrapping="Wrap" Width="267" Background="#FF0E0E0E" Foreground="#FFCE5A05"/>
+                    <TextBox x:Name="TextBox_Name" Height="26" TextWrapping="Wrap" Width="267" Background="#FF0E0E0E" Foreground="#FFCE5A05"/>
+                    <TextBox x:Name="TextBox_Rating" Height="25" TextWrapping="Wrap" Width="267" Background="#FF0E0E0E" Foreground="#FFCE5A05"/>
+                    <TextBox x:Name="TextBox_Class" Height="26" TextWrapping="Wrap" Width="267" Background="#FF0E0E0E" Foreground="#FFCE5A05"/>
+                    <TextBox x:Name="TextBox_Price" Height="25" TextWrapping="Wrap" Width="267" Background="#FF0E0E0E" Foreground="#FFCE5A05"/>
+                    <TextBox x:Name="TextBox_Capacity" Height="26" TextWrapping="Wrap" Width="267" Background="#FF0E0E0E" Foreground="#FFCE5A05"/>
+                    <TextBox x:Name="TextBox_Ship" Height="25" TextWrapping="Wrap" Width="267" Background="#FF0E0E0E" Foreground="#FFCE5A05"/>
+                    <TextBox x:Name="TextBox_Mount" Height="25" TextWrapping="Wrap" Width="267" Background="#FF0E0E0E" Foreground="#FFCE5A05"/>
                 </ListBox>
             </StackPanel>
         </StackPanel>
         <StackPanel x:Name="StackPanel_MenuBar" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Orientation="Horizontal" Width="773" Margin="10,0,0,0">
-            <Button x:Name="btn_LoadFile" Content="Load File" Margin="0,10,0,10.333" Width="128" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_LoadFile_Click"/>
-            <Button x:Name="btn_LoadDirectory" Content="Load Directory" Margin="0,10,0,10.333" Width="128" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_LoadDirectory_Click"/>
-            <Button x:Name="btn_SaveSelected" Content="Save Selected" Margin="0,10,0,10.333" Width="128" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_SaveSelected_Click"/>
-            <Button x:Name="btn_SaveIndividual" Content="Save All / Individual" Margin="0,10,0,10.333" Width="128" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_SaveIndividual_Click"/>
-            <Button x:Name="btn_SaveCombine" Content="Save All / Combine" Margin="0,10,0,10.333" Width="129" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_SaveCombine_Click"/>
-            <Button x:Name="btn_GenerateCode" Content="Generate Code" Margin="0,10,0,10.333" Width="129" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_GenerateCode_Click"/>
+            <Button x:Name="btn_LoadFile" Content="Load File" Margin="0,10,0,10.333" Width="128" Foreground="#FFCE5A05" Background="Black" Click="btn_LoadFile_Click"/>
+            <Button x:Name="btn_LoadDirectory" Content="Load Directory" Margin="0,10,0,10.333" Width="128" Foreground="#FFCE5A05" Background="Black" Click="btn_LoadDirectory_Click"/>
+            <Button x:Name="btn_SaveSelected" Content="Save Selected" Margin="0,10,0,10.333" Width="128" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveSelected_Click"/>
+            <Button x:Name="btn_SaveIndividual" Content="Save All / Individual" Margin="0,10,0,10.333" Width="128" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveIndividual_Click"/>
+            <Button x:Name="btn_SaveCombine" Content="Save All / Combine" Margin="0,10,0,10.333" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveCombine_Click"/>
+            <Button x:Name="btn_GenerateCode" Content="Generate Code" Margin="0,10,0,10.333" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_GenerateCode_Click"/>
         </StackPanel>
 
     </Grid>

@@ -58,6 +58,7 @@
     <Compile Include="A.L.I.C.E Core\Json Monitor\Event Status.cs" />
     <Compile Include="A.L.I.C.E Core\Json Monitor\Monitor Journal Logs.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\ISynthesizer.cs" />
+    <Compile Include="A.L.I.C.E Synthesizer\Synth Wrappers.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Response.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment LimpetProspector.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment LimpetResearch.cs" />

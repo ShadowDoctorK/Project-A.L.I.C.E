@@ -154,9 +154,9 @@ namespace A.L.I.C.E_Toolkit
                 {
                     string MethodName = "Response (Line Exists)";
 
-                    try
+                    int Temp = -1; try
                     {
-                        int Temp = Lines.FindIndex(X => X.Text == L.Text && X.Alternate == L.Alternate);
+                        Temp = Lines.FindIndex(X => X.Text == L.Text && X.Alternate == L.Alternate);
                         if (Temp != -1) return Answer.Positive;
                     }
                     catch (Exception ex)
@@ -278,6 +278,102 @@ namespace A.L.I.C.E_Toolkit
                         //Logger.Exception(MethodName, "Exception Occured, Returning Default Value And Continuing");
                         return 0;
                     }
+                }
+
+                public Answer TokenExists(Token T)
+                {
+                    string MethodName = "Response (Token Exists)";
+
+                    int Temp = -1; try
+                    {
+                        Temp = Tokens.FindIndex(X => X.Name == T.Name);
+                        if (Temp != -1) return Answer.Positive;
+                    }
+                    catch (Exception ex)
+                    {
+                        //Logger.Exception(MethodName, "Exception Occured, Returning Defaults And Continuing");
+                        return Answer.Error;
+                    }
+
+                    return Answer.Negative;
+                }
+
+                public void AddToken(Token L)
+                {
+                    string MethodName = "Reponse (Add Token)";
+
+                    switch (TokenExists(L))
+                    {
+                        //Token Already Exists, Don't Add, Return False
+                        case Answer.Positive:
+                            return;
+
+                        //Token Does Not Exist, Add Token, Return True
+                        case Answer.Negative:
+                            Tokens.Add(L);
+                            return;
+
+                        //Check Returned An Error State
+                        case Answer.Error:
+                            //Logger.Error(MethodName, "Error Was Returned During Check. Aborted Adding Token", //Logger.Red);
+                            return;
+
+                        default:
+                            //Logger.Error(MethodName, "Returned Using The Default Swtich", //Logger.Red);
+                            return;
+                    }
+                }
+
+                public void DeleteToken(Token L)
+                {
+                    string MethodName = "Reponse (Delete Token)";
+
+                    int Temp = GetTokenIndex(L); switch (Temp)
+                    {
+                        case -1:
+                            //Logger.Error(MethodName, "Unable To Remove The Token. Index Not Found.", //Logger.Red);
+                            return;
+
+                        default:
+                            try
+                            {
+                                Tokens.RemoveAt(Temp);
+                            }
+                            catch (Exception ex)
+                            {
+                                //Logger.Exception(MethodName, "Exception: " + ex);
+                                //Logger.Exception(MethodName, "We Found The Token But Was Unable To Remove It");
+                            }
+                            return;
+                    }
+                }
+
+                /// <summary>
+                /// Allows Replaceing a Target Token if it exists, Otherwise Adds it.
+                /// </summary>
+                /// <param name="O">Old Token</param>
+                /// <param name="N">New Token</param>
+                public void ReplaceToken(Token O, Token N)
+                {
+                    DeleteToken(O);
+                    AddToken(N);
+                }
+
+                public int GetTokenIndex(Token T)
+                {
+                    string MethodName = "Response (Token Index)";
+
+                    int Answer = -1; try
+                    {
+                        Answer = Tokens.FindIndex(X => X.Name == T.Name);
+                    }
+                    catch (Exception ex)
+                    {
+                        //Logger.Exception(MethodName, "Exception: " + ex);
+                        //Logger.Exception(MethodName, "Exception Occured, Returning Default Value And Continuing");
+                    }
+
+                    return Answer;
                 }
                 #endregion
             }
@@ -745,45 +841,51 @@ namespace A.L.I.C.E_Toolkit
 
         public void CodeConstructor()
         {
-            //string FilePath = MainWindow.SelectDirectory();
-            //FilePath = FilePath + @"\" + "Formatted Code.txt";
+            string FilePath = MainWindow.SelectDirectory();
+            FilePath = FilePath + @"\" + "Response Wrappers Code.txt";
 
-            //FileStream FS = null;
-            //try
-            //{
-            //    FS = new FileStream(FilePath, FileMode.Create, FileAccess.Write, FileShare.None);
-            //    using (StreamWriter file = new StreamWriter(FS))
-            //    {
-            //        file.WriteLine("#region Response Wrappers (" + DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt") + ")");
+            FileStream FS = null;
+            try
+            {
+                FS = new FileStream(FilePath, FileMode.Create, FileAccess.Write, FileShare.None);
+                using (StreamWriter file = new StreamWriter(FS))
+                {
+                    file.WriteLine("#region Response Wrappers | Auto Generated: " + DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt"));
+                    
+                    foreach (KeyValuePair<string, Response> Res in Responses.Storage)
+                    {
+                        //Format Res Key
+                        string ResKey = Res.Key.Replace(" ", "_").Replace("-", "_");
 
-            //        foreach (KeyValuePair<string, Response> Res in Responses)
-            //        {
-            //            int Count = 0;
+                        file.WriteLine("");
+                        //Class Header
+                        file.WriteLine("public static class " + ResKey);
+                        file.WriteLine("{");
 
-            //            file.WriteLine("");
-            //            file.WriteLine("public static class " + Res.Key.Replace(" ", "_"));
-            //            file.WriteLine("{");
-            //            foreach (string Seg in Responses[Res.Key].SegmentNames)
-            //            {
-            //                file.WriteLine("    public static List<string> " + Seg.Replace(" ", "_") + " " + " = new List<string> { \"" + Res.Key + "\", \"S" + Count.ToString() + "\"};");
-            //                Count++;
-            //            }
-            //            file.WriteLine("}");
-            //        }
+                        //Create List<string> Properties
+                        foreach (var Seg in Responses.Storage[Res.Key].Segments)
+                        {
+                            //Format Segment Name
+                            string SegName = Seg.Name.Replace(" ", "_").Replace("-", "_");
 
-            //        file.WriteLine("");
-            //        file.WriteLine("#endregion");
-            //    }
-            //}
-            //finally
-            //{
-            //    if (FS != null)
-            //    { FS.Dispose(); }
-            //}
+                            file.WriteLine("    public static List<string> " + SegName + " " + " = new List<string> { \"" + Res.Key + "\", \"" + Seg.Name + "\"};");
+                        }
+                        file.WriteLine("}");
+                    }
 
-            //var content = File.ReadAllText(FilePath);
-            //Clipboard.SetText(content);
-            //MessageBox.Show("Generated Code Coppied To Clipboard");
+                    file.WriteLine("");
+                    file.WriteLine("#endregion");
+                }
+            }
+            finally
+            {
+                if (FS != null)
+                { FS.Dispose(); }
+            }
+
+            var content = File.ReadAllText(FilePath);
+            Clipboard.SetText(content);
+            MessageBox.Show("Generated Code Coppied To Clipboard");
 
         }
         #endregion
@@ -965,8 +1067,10 @@ namespace A.L.I.C.E_Toolkit
                 if (Name == null) { return; }
 
                 //Create New Segment
-                Response.Segment Temp = new Response.Segment()
-                { Name = Name };
+                Response.Segment Temp = SelectedSegment();
+
+                //Update Segment Name
+                Temp.Name = Name;
 
                 //Add Segment To Working Response
                 R_Response.AddSegment(Temp);
@@ -1107,7 +1211,27 @@ namespace A.L.I.C.E_Toolkit
         {
             try
             {
+                //Validate Text
+                if (TextBox_TokenName.Text == null) { return; }
 
+                //Create Token
+                Response.Segment.Token Temp = new Response.Segment.Token()
+                {
+                    Name = TextBox_TokenName.Text,
+                    Info = TextBox_TokenDescription.Text
+                };
+
+                //Add Token To Referense Segment
+                R_Segment.AddToken(Temp);
+
+                //Save Reference Segment
+                R_Response.UpdateSegment(R_Segment);
+
+                //Save Reference Response
+                Responses.Update(R_Response);
+
+                //Update Tokens
+                U_Tokens();
             }
             catch (Exception ex)
             {
@@ -1119,7 +1243,27 @@ namespace A.L.I.C.E_Toolkit
         {
             try
             {
+                //Validate Text
+                if (TextBox_TokenName.Text == null) { return; }
 
+                //Record Token
+                Response.Segment.Token Old = SelectedToken();
+                Response.Segment.Token New = SelectedToken();
+
+                New.Name = TextBox_TokenName.Text;
+                New.Info = TextBox_TokenDescription.Text;
+
+                //Update Token In The Referense Segment
+                R_Segment.ReplaceToken(Old, New);
+
+                //Save Reference Segment
+                R_Response.UpdateSegment(R_Segment);
+
+                //Save Reference Response
+                Responses.Update(R_Response);
+
+                //Update Tokens
+                U_Tokens();
             }
             catch (Exception ex)
             {
@@ -1131,7 +1275,23 @@ namespace A.L.I.C.E_Toolkit
         {
             try
             {
+                //Clear Textbox
+                TextBox_TokenName.Text = null;
 
+                //Capture Token
+                Response.Segment.Token Temp = SelectedToken();
+
+                //Delete Token From Referense Segment
+                R_Segment.DeleteToken(Temp);
+
+                //Save Reference Segment
+                R_Response.UpdateSegment(R_Segment);
+
+                //Save Reference Response
+                Responses.Update(R_Response);
+
+                //Update Tokens
+                U_Tokens();
             }
             catch (Exception ex)
             {
@@ -1147,9 +1307,9 @@ namespace A.L.I.C.E_Toolkit
             {
                 //Update Reference Segment's Info
                 R_Segment.Info = TextBox_SegmentDescription.Text;
-                //Update Reference Response With The Change
+                //Save Reference Segment
                 R_Response.UpdateSegment(R_Segment);
-                //Update Response Storage With The Updated Response
+                //Save Reference Response
                 Responses.Update(R_Response);
             }
             catch (Exception ex)
@@ -1157,6 +1317,21 @@ namespace A.L.I.C.E_Toolkit
 
             }
 
+        }
+
+        private void ListBox_Tokens_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                //Copy Token to Text Box
+                Response.Segment.Token Temp = SelectedToken();
+                TextBox_TokenName.Text = Temp.Name;
+                TextBox_TokenDescription.Text = Temp.Info;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void ListBox_Strings_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -1178,10 +1353,22 @@ namespace A.L.I.C.E_Toolkit
         {
             try
             {
+                //Clear Items
+                TextBox_TokenDescription.Text = null;
+
                 //Copy Segment Name to Text Box
                 TextBox_SegmentName.Text = SelectedSegmentText();
                 //Update Reference Segment
                 R_Segment = R_Response.GetSegment(SelectedSegmentText());
+
+                //Update Tokens
+
+                //Update Segment Information
+                U_SegmentInfo();
+
+                //Update Tokens
+                U_Tokens();
+
                 //Update String Item Source
                 U_Strings();
             }
@@ -1195,6 +1382,11 @@ namespace A.L.I.C.E_Toolkit
         {
             try
             {
+                //Clear Information
+                TextBox_SegmentDescription.Text = null;
+                TextBox_TokenDescription.Text = null;
+                ListBox_Strings.ItemsSource = null;                
+
                 //Copy Response Name To Text Box
                 TextBox_ResponseName.Text = SelectedResposneText();
                 //Update Reference Repsonse
@@ -1235,6 +1427,11 @@ namespace A.L.I.C.E_Toolkit
             return (Response.Segment.Line)ListBox_Strings.SelectedItem;
         }
 
+        private Response.Segment.Token SelectedToken()
+        {
+            return (Response.Segment.Token)ListBox_Tokens.SelectedItem;
+        }
+
         private Response.Segment SelectedSegment()
         {
             return (Response.Segment)ListBox_Segments.SelectedItem;
@@ -1246,6 +1443,18 @@ namespace A.L.I.C.E_Toolkit
             {
                 ListBox_Responses.ItemsSource = null;
                 ListBox_Responses.ItemsSource = Responses.Storage.Keys;
+
+                //Clear Items
+                ListBox_Tokens.ItemsSource = null;
+                TextBox_TokenName.Text = null;
+                TextBox_TokenDescription.Text = null;
+
+                ListBox_Segments.ItemsSource = null;
+                TextBox_SegmentName.Text = null;
+                TextBox_SegmentDescription.Text = null;
+
+                TextBox_Strings.Text = null;
+                ListBox_Strings.ItemsSource = null;
             }
             catch (Exception) { }
         }
@@ -1257,6 +1466,33 @@ namespace A.L.I.C.E_Toolkit
                 ListBox_Segments.ItemsSource = null;
                 ListBox_Segments.ItemsSource = R_Response.Segments;
                 ListBox_Segments.DisplayMemberPath = "Name";
+
+                //Clear Token List
+                ListBox_Tokens.ItemsSource = null;
+                TextBox_TokenName.Text = null;
+                TextBox_TokenDescription.Text = null;
+
+                ListBox_Strings.ItemsSource = null;
+            }
+            catch (Exception) { }
+        }
+
+        private void U_SegmentInfo()
+        {
+            try
+            {
+                TextBox_SegmentDescription.Text = SelectedSegment().Info;
+            }
+            catch (Exception) { }
+        }
+
+        private void U_Tokens()
+        {
+            try
+            {
+                ListBox_Tokens.ItemsSource = null;
+                ListBox_Tokens.ItemsSource = R_Segment.Tokens;
+                ListBox_Tokens.DisplayMemberPath = "Name";
             }
             catch (Exception) { }
         }
@@ -1270,6 +1506,95 @@ namespace A.L.I.C.E_Toolkit
                 ListBox_Strings.DisplayMemberPath = "Text";
             }
             catch (Exception) { }
+        }
+        #endregion
+
+        #region Temp Items For Conversions
+        public void OldDeserialize(string FilePath)
+        {
+            FileStream FS = null;
+            try
+            {
+                FS = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                using (StreamReader SR = new StreamReader(FS))
+                {
+                    while (!SR.EndOfStream)
+                    {
+                        string Line = SR.ReadLine();
+                        var NewRes = JsonConvert.DeserializeObject<OldResponse>(Line);
+
+                        Convert(NewRes);
+                    }
+                }
+            }
+            finally
+            {
+                if (FS != null)
+                { FS.Dispose(); }
+            }
+        }
+
+        public void Convert(OldResponse R)
+        {
+            Response Res = new Response()
+            {
+                Name = R.ResponseName,
+                Default = true
+            };
+
+            int Count = R.SegmentNames.Count() -1;
+
+            while (Count != -1)
+            {
+                Response.Segment TempSeg = new Response.Segment()
+                {
+                    Name = R.SegmentNames[Count],
+                    Info = R.SegmentInformation[Count]
+                };
+
+                foreach (string Text in R.Segments["S"+Count])
+                {
+                    Response.Segment.Line TempLine = new Response.Segment.Line()
+                    {
+                        Text = Text,
+                        Alternate = false
+                    };
+
+                    TempSeg.AddLine(TempLine);
+                }
+
+                Res.AddSegment(TempSeg);
+
+                Responses.Update(Res);
+
+                Count--;
+            }
+
+            U_Responses();
+        }
+
+        public class OldResponse
+        {
+            public string ResponseName { get; set; }
+            public List<string> SegmentNames { get; set; }
+            public List<string> SegmentInformation { get; set; }
+            public Dictionary<string, List<string>> Segments { get; set; }
+
+            public OldResponse()
+            {
+                ResponseName = null;
+                SegmentNames = new List<string>();
+                SegmentInformation = new List<string>();
+                Segments = new Dictionary<string, List<string>>();
+            }
+
+            [JsonExtensionData]
+            public IDictionary<string, object> Undefined { get; set; }
+
+            public IDictionary<string, object> UndefinedProperties()
+            {
+                return Undefined;
+            }
         }
         #endregion
     }

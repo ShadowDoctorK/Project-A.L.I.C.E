@@ -144,5 +144,8 @@
   <ItemGroup>
     <Resource Include="Resources\Project Alice Discord Logo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Developer Toolkit Background.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
