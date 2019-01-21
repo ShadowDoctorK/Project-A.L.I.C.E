@@ -65,7 +65,7 @@ namespace ALICE_Synthesizer
             try
             {
                 //Check Response Exists
-                if (ResponseExists(A.Name) == false)
+                if (Exists(A.Name) == false)
                 {
                     //Response Doesn't Exist, Return
                     Logger.DebugLine(MethodName, A.Name + " Doesn't Exist. Skipping The Merge.", Logger.Blue);
@@ -171,6 +171,7 @@ namespace ALICE_Synthesizer
         /// <returns>True if exists</returns>
         public bool Exists(string R)
         {
+            if (R == null) { return false; }
             if (Storage.ContainsKey(R)) { return true; }
             return false;
         }
