@@ -18,6 +18,9 @@ namespace ALICE_Synthesizer
         //Enum Used to feedback more data when a Boolean doesn't meet the requirements
         public enum Answer { Default, Positive, Negative, Error }
 
+        //Enum Used to allow more range of selection when interfacing with the Responeses
+        public enum Line { Default, Standard, Alternate }
+
         //Collection of the Responses Used By The Synthesizer To Generate Responses
         public static ResponseCollection Response = new ResponseCollection();
 
@@ -113,7 +116,7 @@ namespace ALICE_Synthesizer
         /// <param name="R">Response Name</param>
         /// <param name="S">Segment Name</param>
         /// <returns>Postive, Negative or Error</returns>
-        public ISynthesizer.Answer ResponseValidation(string R, string S)
+        public ISynthesizer.Answer Validation(string R, string S)
         {
             string MethodName = "Response (Validation)";
 
@@ -146,9 +149,9 @@ namespace ALICE_Synthesizer
         /// </summary>
         /// <param name="R">Response Name</param>
         /// <returns>Response if it exists, Null if it does not.</returns>
-        public Response GetResponse(string R)
+        public Response Get(string R)
         {
-            if (ResponseExists(R)) { return Storage[R]; }
+            if (Exists(R)) { return Storage[R]; }
             return null;
         }
 
@@ -156,9 +159,9 @@ namespace ALICE_Synthesizer
         /// Updates the target Response if it exists.
         /// </summary>
         /// <param name="R">Response Name</param>
-        public void SetResponse(Response R)
+        public void Set(Response R)
         {
-            if (ResponseExists(R.Name)) { Storage[R.Name] = R; }           
+            if (Exists(R.Name)) { Storage[R.Name] = R; }           
         }
 
         /// <summary>
@@ -166,7 +169,7 @@ namespace ALICE_Synthesizer
         /// </summary>
         /// <param name="R">Response Name</param>
         /// <returns>True if exists</returns>
-        public bool ResponseExists(string R)
+        public bool Exists(string R)
         {
             if (Storage.ContainsKey(R)) { return true; }
             return false;
