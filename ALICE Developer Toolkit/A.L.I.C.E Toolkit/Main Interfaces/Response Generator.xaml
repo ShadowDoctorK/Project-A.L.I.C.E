@@ -51,7 +51,7 @@
             <Button x:Name="btn_SaveSelected" Content="Save Selected" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveSelected_Click"/>
             <Button x:Name="btn_SaveIndividual" Content="Save All / Individual" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveIndividual_Click"/>
             <Button x:Name="btn_SaveCombine" Content="Save All / Combine" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveCombine_Click"/>
-            <Button x:Name="btn_GenerateCode" Content="Generate Code" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_CreateUserTemplets_Click"/>
+            <Button x:Name="btn_GenerateCode" Content="Generate Code" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_GenerateCode_Click"/>
         </StackPanel>
         
         <TextBox x:Name="TextBox_TokenDescription" TextWrapping="Wrap" IsReadOnly="true" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="396,316,10.333,0" Height="92" VerticalAlignment="Top"/>
@@ -61,20 +61,21 @@
         <Button x:Name="btn_String_Update" Content="Update" Margin="296,414,0,0" Foreground="#FFCE5A05" Background="Black" Click="btn_String_Update_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
         <Button x:Name="btn_Strings_Delete" Content="Delete" Margin="365,414,0,0" Foreground="#FFCE5A05" Background="Black" Click="btn_Strings_Delete_Click" HorizontalAlignment="Left" Width="66" Height="25" VerticalAlignment="Top"/>
         
-        <Label x:Name="Label_SegmentIInfo" Content="Segment Information &amp; Description:" Foreground="#FFCE5A05" Margin="226,156,582.333,617"/>
-        <Button x:Name="btn_String_Update2_Copy" Content="Update" Foreground="#FFCE5A05" Background="Black" Click="btn_String_Update_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top" Margin="436,157,0,0"/>
+        <Label x:Name="Label_SegmentInfo" Content="Segment Information &amp; Description:" Foreground="#FFCE5A05" Margin="226,156,582.333,617"/>
+        <Button x:Name="btn_SegmentInfo_Update" Content="Update" Foreground="#FFCE5A05" Background="Black" Click="btn_SegmentInfo_Update_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top" Margin="436,157,0,0"/>
         <TextBox x:Name="TextBox_SegmentDescription" TextWrapping="Wrap" IsReadOnly="true" Background="Black" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="226,187,9.333,556"/>
 
         <ListBox x:Name="ListBox_Tokens" Margin="226,316,0,0" Background="Black" Foreground="#FFCE5A05" HorizontalAlignment="Left" Width="165" Height="92" VerticalAlignment="Top"/>
         <Label x:Name="label_CombineFilename" Content="File Name:" Foreground="#FFCE5A05" Margin="226,73,0,0" HorizontalAlignment="Left" Width="76" Height="26" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBox_Strings_Copy1" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="226,282,622.333,489"/>
-        <StackPanel x:Name="StackPanel_MenuBar_Copy1" HorizontalAlignment="Left" Height="34" VerticalAlignment="Top" Orientation="Horizontal" Width="205" Margin="396,282,0,0">
+        <TextBox x:Name="TextBox_TokenName" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="226,282,0,489" HorizontalAlignment="Left" Width="165"/>
+        <StackPanel HorizontalAlignment="Left" Height="34" VerticalAlignment="Top" Orientation="Horizontal" Width="205" Margin="396,282,0,0">
             <Button x:Name="btn_Token_New" Content="New" Foreground="#FFCE5A05" Background="Black" Click="btn_Token_New_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
             <Button x:Name="btn_Token_Update" Content="Update" Foreground="#FFCE5A05" Background="Black" Click="btn_Token_Update_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
             <Button x:Name="btn_Token_Delete" Content="Delete" Foreground="#FFCE5A05" Background="Black" Click="btn_Token_Delete_Click" HorizontalAlignment="Left" Width="66" Height="25" VerticalAlignment="Top"/>
         </StackPanel>
         
         <TextBox x:Name="TextBox_CombineFileName" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="303,73,0,0" HorizontalAlignment="Left" Width="432" Height="26" VerticalAlignment="Top"/>
+        <CheckBox x:Name="CheckBox_Alternate" Content="Alternate" HorizontalAlignment="Left" Margin="442,420,0,0" VerticalAlignment="Top" Foreground="#FFCE5A05" Width="79"/>
 
     </Grid>
 </UserControl>

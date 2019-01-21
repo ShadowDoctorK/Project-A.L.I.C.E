@@ -107,5 +107,20 @@ namespace A.L.I.C.E_Toolkit
             Interface_StackPanel.Children.Clear();
             Interface_StackPanel.Children.Add(Interface_Journal);
         }
+
+        private void Btn_DiscordEDCS_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_DiscordAlice_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_Patreon_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
