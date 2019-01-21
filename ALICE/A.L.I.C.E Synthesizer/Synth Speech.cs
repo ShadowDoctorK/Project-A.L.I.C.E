@@ -11,7 +11,7 @@ namespace ALICE_Synthesizer
     public static class Speech
     {
         #region Variables
-        public static Random random = new Random();
+        public static Random RanNum = new Random();
         public static readonly string Pause = " ... ";
         #endregion
 
@@ -51,69 +51,123 @@ namespace ALICE_Synthesizer
         /// </summary>
         /// <param name="Text">Target Text for the Extension</param>
         /// <param name="Segment">List<string> which contains the Target Response Key, and the Target Segment in that response.</string></param>
+        /// <param name="W">Allows disabling Weight feature to use all choices.</param>
         /// <param name="R">Allows the method to randomly decide if the Segments will be appended.</param>
         /// <param name="E">Allows you to link the phrase to a function to decide if the Segment is enabled or disabled.</param>
-        /// <param name="TrueIsGood">Allows you switch if "False" equals postive response for the Enabled Variable.</param>
+        /// <param name="FalseIsGood">Allows you to link the phrase to a function to decide if the Segment is enabled or disabled.</param>
         /// <param name="Percent">Percent chance the Unique/Alternate strings will be used in the response.</param>
-        /// <returns></returns>
-        public static string Speak(this string Text, List<string> Segment, bool R = false, bool E = true, bool FalseIsGood = false, int Percent = 15)
+        /// <param name="Override">Allows you to Force the use of Alterante or Standard Lines</param>
+        /// <returns>Returns the updated working string, or the unmodified string for error and validation failures.</returns>
+        public static string Phrase(this string Text, List<string> Segment, bool W = true, bool R = false, bool E = true, 
+            bool FalseIsGood = false, int Percent = 15, ISynthesizer.Line Override = ISynthesizer.Line.Default)
         {
             string MethodName = "Speak (Extend)";
 
-            #region Validation Checks
-            //Enable Checks:
+            string Res = "";
+            int Seg = -1;
+
+            /* Notes:
+             * Segement is a list containing the Response Name and the Segment Name.
+             * Segment[0] = Response Name
+             * Segment[1] = Segment Name
+             */
+
+            //Validate Segment Param
+            if (Segment.Count() != 2) { return Text; }
+
+            //Validate Response & Segment
+            switch (ISynthesizer.Response.Validation(Segment[0], Segment[1]))
+            {       
+                //Validation Passed
+                case ISynthesizer.Answer.Positive:
+                    Logger.DebugLine(MethodName, Segment[0] + " | " + Segment[1] + " Passed Validation", Logger.Blue);
+                    //Set Variables
+                    Res = Segment[0];
+                    Seg = ISynthesizer.Response.Storage[Res].GetSegmentIndex(Segment[1]);
+                    break;
+
+                //Validation Failed
+                case ISynthesizer.Answer.Negative:
+                    Logger.DebugLine(MethodName, Segment[0] + " | " + Segment[1] + " Did Not Pass Validation", Logger.Blue);
+                    return Text; ;
+                
+                //Validation Returned Error State
+                case ISynthesizer.Answer.Error:
+                    Logger.DebugLine(MethodName, Segment[0] + " | " + Segment[1] + " Validation Check Returned An Error", Logger.Blue);
+                    return Text;
+
+                default:
+                    Logger.Error(MethodName, "Response Validaton Returned Using The Switch Default", Logger.Blue);
+                    return Text;
+            }
+
+            //Enabled Checks:
             //1. False = Postive & Enable is true, Return Text 
             if (FalseIsGood == true && E == true) { return Text; }
             //2. True = Postive & Enable is false, Return Text
             if (FalseIsGood == false && E == false) { return Text; }
-
-
-            #endregion
+            
+            //Randomization Check: Return If Greater Than 499
+            if (R) { if (RanNum.Next(0, 1000) >= 500) { return Text; } }
 
             try
             {
-                int Alternate = 0;
-                if (Random) { if (random.Next(0, 100) <= 50) { return Text; } }
-                if (Segment2 != null) { Alternate = random.Next(0, 100); }
-
-                if (Alternate <= Percent)
+                //Resolve Line Type & Get Line Segment.
+                string TempText = ""; switch (Override)
                 {
-                    if (Database.Responses[Segment2[0]].Segments[Segment2[1]].Count <= 0)
-                    {
-                        Logger.Error(MethodName, "There Might Be A Problem Loading The Responses. Try Running As Administrator", Logger.Red);
-                        Logger.Error(MethodName, "Processing Error: " + Segment2[0] + " | " + Segment2[1], Logger.Red);
-                        return Text;
-                    }
+                    //Default Setting To Let Method Resolve
+                    case ISynthesizer.Line.Default:
 
-                    int SegNum = random.Next(0, Database.Responses[Segment2[0]].Segments[Segment2[1]].Count - 1);
-                    Text = Text + Database.Responses[Segment2[0]].Segments[Segment2[1]][SegNum];
-                }
-                else
-                {
-                    if (Database.Responses[Segment[0]].Segments[Segment[1]].Count <= 0)
-                    {
-                        Logger.Error(MethodName, "There Might Be A Problem Loading The Responses. Try Running As Administrator", Logger.Red);
-                        Logger.Error(MethodName, "Processing Error: " + Segment2[0] + " | " + Segment2[1], Logger.Red);
-                        return Text;
-                    }
+                        //Using Alternate String
+                        if (RanNum.Next(0, 1000) / 10 <= Percent)
+                        {
+                            //Get A Random String
+                            TempText = ISynthesizer.Response.Storage[Res].Segments[Seg].GetLine(W, true);
+                        }
+                        //Using Standard String
+                        else
+                        {
+                            //Get A Random String
+                            TempText = ISynthesizer.Response.Storage[Res].Segments[Seg].GetLine(W, false);
+                        }
+                        break;
 
-                    int SegNum = random.Next(0, Database.Responses[Segment[0]].Segments[Segment[1]].Count - 1);
-                    Text = Text + Database.Responses[Segment[0]].Segments[Segment[1]][SegNum];
+                    //Override Setting Foricing Standard Line Use
+                    case ISynthesizer.Line.Standard:
+                        //Get A Random String
+                        TempText = ISynthesizer.Response.Storage[Res].Segments[Seg].GetLine(W, false);
+                        break;
+
+                    //Override Setting Forcing Alternate Line Use
+                    case ISynthesizer.Line.Alternate:
+                        //Get A Random String
+                        TempText = ISynthesizer.Response.Storage[Res].Segments[Seg].GetLine(W, true);
+                        break;
+
+                    default:
+                        Logger.Error(MethodName, "Line Selection Returned Using The Switch Default", Logger.Blue);
+                        break;
                 }
+
+                //Return Completed Text
+                return Text + Pause + TempText;
+
             }
             catch (Exception ex)
             {
-                Logger.Exception(MethodName, "Execption: " + ex);
-                Logger.Exception(MethodName, "Encountered An Exception During Synthesis:");
-                if (Segment2 != null) { Logger.Exception(MethodName, @"Primary Response Key " + Segment2[0] + " | Segment Key " + Segment2[1]); }
-                Logger.Exception(MethodName, @"Primary Response Key " + Segment[0] + " | Segment Key " + Segment[1]);
+                Logger.Exception(MethodName, "Exception: " + ex);
+                Logger.Exception(MethodName, "The Speech Hamsters Had A Problem Working With The Response: " + Segment[0] + " | " + Segment[1]);
                 return Text;
             }
-
-            return Text + Pause;
         }
 
-        public static string Speak(this string Text, string AddedText)
+        /// <summary>
+        /// Extension Method to allow adding strings to the response.
+        /// </summary>
+        /// <param name="Text"></param>
+        /// <param name="AddedText"></param>
+        /// <returns></returns>
+        public static string Phrase(this string Text, string AddedText)
         {
             return Text + Pause + AddedText;
         }
@@ -121,10 +175,10 @@ namespace ALICE_Synthesizer
         /// <summary>
         /// Checks that the string is not null or empty and replaces the "Token Word".
         /// </summary>
-        /// <param name="Text"></param>
-        /// <param name="TokenName"></param>
-        /// <param name="TargetText"></param>
-        /// <returns></returns>
+        /// <param name="Text">The String your working with</param>
+        /// <param name="TokenName">The Token string to be replaced</param>
+        /// <param name="TargetText">The Text to replace the Token with.</param>
+        /// <returns>Returns the updated working string.</returns>
         public static string Token(this string Text, string TokenName, string TargetText)
         {
             string MethodName = "Token Replacement";
@@ -137,10 +191,10 @@ namespace ALICE_Synthesizer
         /// <summary>
         /// Converts Decimal Value and repleaces the "Token Word".
         /// </summary>
-        /// <param name="Text"></param>
-        /// <param name="TokenName"></param>
-        /// <param name="TargetText"></param>
-        /// <returns></returns>
+        /// <param name="Text">The String your working with</param>
+        /// <param name="TokenName">The Token string to be replaced</param>
+        /// <param name="TargetText">The Text to replace the Token with.</param>
+        /// <returns>Returns the updated working string.</returns>
         public static string Token(this string Text, string TokenName, decimal TargetText)
         {
             if (Text.Contains(TokenName)) { Text = Text.Replace(TokenName, TargetText.ToString()); }

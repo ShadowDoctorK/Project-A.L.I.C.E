@@ -518,211 +518,211 @@ namespace ALICE_Synthesizer
     #endregion
 
     #region Speech
-    public static class Speech
-    {
-        public static SynthSetting Settings = LoadSettings();
+    //public static class Speech
+    //{
+    //    public static SynthSetting Settings = LoadSettings();
 
-        #region Variables
-        public static Random random = new Random();
-        public static string Pause = " ... ";
-        #endregion
+    //    #region Variables
+    //    public static Random random = new Random();
+    //    public static string Pause = " ... ";
+    //    #endregion
 
-        #region Methods / Functions
-        public static void SaveSettings(SynthSetting Settings)
-        {
-            using (FileStream FS = new FileStream(Paths.ALICE_Settings + @"Synthisizer.Setting", FileMode.Create, FileAccess.Write, FileShare.None))
-            {
-                using (StreamWriter file = new StreamWriter(FS))
-                {
-                    var JSON = JsonConvert.SerializeObject(Settings);
-                    file.WriteLine(JSON);
-                }
-            }
+    //    #region Methods / Functions
+    //    public static void SaveSettings(SynthSetting Settings)
+    //    {
+    //        using (FileStream FS = new FileStream(Paths.ALICE_Settings + @"Synthisizer.Setting", FileMode.Create, FileAccess.Write, FileShare.None))
+    //        {
+    //            using (StreamWriter file = new StreamWriter(FS))
+    //            {
+    //                var JSON = JsonConvert.SerializeObject(Settings);
+    //                file.WriteLine(JSON);
+    //            }
+    //        }
 
-            Speech.Settings = Settings;
-        }
+    //        Speech.Settings = Settings;
+    //    }
 
-        public static SynthSetting LoadSettings()
-        {
-            SynthSetting Temp = new SynthSetting();
-            if (File.Exists(Paths.ALICE_Settings + @"Synthisizer.Setting"))
-            {
-                using (FileStream FS = new FileStream(Paths.ALICE_Settings + @"Synthisizer.Setting", FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                using (StreamReader SR = new StreamReader(FS))
-                {
-                    while (!SR.EndOfStream)
-                    {
-                        Temp = JsonConvert.DeserializeObject<SynthSetting>(SR.ReadLine());
-                    }
-                }
-            }
-            else
-            {
-                SaveSettings(Temp);
-            }
-            return Temp;
-        }
+    //    public static SynthSetting LoadSettings()
+    //    {
+    //        SynthSetting Temp = new SynthSetting();
+    //        if (File.Exists(Paths.ALICE_Settings + @"Synthisizer.Setting"))
+    //        {
+    //            using (FileStream FS = new FileStream(Paths.ALICE_Settings + @"Synthisizer.Setting", FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+    //            using (StreamReader SR = new StreamReader(FS))
+    //            {
+    //                while (!SR.EndOfStream)
+    //                {
+    //                    Temp = JsonConvert.DeserializeObject<SynthSetting>(SR.ReadLine());
+    //                }
+    //            }
+    //        }
+    //        else
+    //        {
+    //            SaveSettings(Temp);
+    //        }
+    //        return Temp;
+    //    }
     
-        /// <summary>
-        /// Adds the passed text to the Queue for the Synthesizer to play it for the User.
-        /// </summary>
-        /// <param name="Line">Text to pass to the Synthezier</param>
-        /// <param name="CommandAudio">Command Level Audio control. True or False</param>
-        /// <param name="Var_1">Customizable Trigger #1 to allow extra control of audio playback. True or False</param>
-        /// <param name="Var_2">Customizable Trigger #2 to allow extra control of audio playback. True or False</param>
-        /// <param name="Var_3">Customizable Trigger #3 to allow extra control of audio playback. True or False</param>
-        /// <param name="Priority">Allows you to set the priority level. 0 - 3, 3 Being the Lowest, 0 Being the Highest.</param>
-        /// <param name="Voice">Allows you to delcare a voice other then the system default to speak the line.</param>
-        public static void Response(string Line, bool CommandAudio, bool Var_1 = true, bool Var_2 = true, bool Var_3 = true, int Priority = 3, string Voice = null)
-        {
-            string MethodName = "Response";
+    //    /// <summary>
+    //    /// Adds the passed text to the Queue for the Synthesizer to play it for the User.
+    //    /// </summary>
+    //    /// <param name="Line">Text to pass to the Synthezier</param>
+    //    /// <param name="CommandAudio">Command Level Audio control. True or False</param>
+    //    /// <param name="Var_1">Customizable Trigger #1 to allow extra control of audio playback. True or False</param>
+    //    /// <param name="Var_2">Customizable Trigger #2 to allow extra control of audio playback. True or False</param>
+    //    /// <param name="Var_3">Customizable Trigger #3 to allow extra control of audio playback. True or False</param>
+    //    /// <param name="Priority">Allows you to set the priority level. 0 - 3, 3 Being the Lowest, 0 Being the Highest.</param>
+    //    /// <param name="Voice">Allows you to delcare a voice other then the system default to speak the line.</param>
+    //    public static void Response(string Line, bool CommandAudio, bool Var_1 = true, bool Var_2 = true, bool Var_3 = true, int Priority = 3, string Voice = null)
+    //    {
+    //        string MethodName = "Response";
 
-            if (PlugIn.MasterAudio && CommandAudio && Var_1 && Var_2 && Var_3)
-            {
-                Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true, Priority, Voice); })) { IsBackground = true };
-                thread.Start();
-            }
-            else
-            {
-                if (PlugIn.MasterAudio == false) { Logger.DebugLine(MethodName, "Audio Disbled, Master Audio Set To False (A.L.I.C.E Is Muted).", Logger.Red); }
-                else if (CommandAudio == false) { Logger.DebugLine(MethodName, "Audio Disbled, Command Audio Set To False.", Logger.Red); }
-                else if (Var_1 == false) { Logger.DebugLine(MethodName, "Audio Disbled, Custom Variable 1 Set To False.", Logger.Red); }
-                else if (Var_2 == false) { Logger.DebugLine(MethodName, "Audio Disbled, Custom Variable 2 Set To False.", Logger.Red); }
-                else if (Var_3 == false) { Logger.DebugLine(MethodName, "Audio Disbled, Custom Variable 3 Set To False.", Logger.Red); }
-            }
-        }
+    //        if (PlugIn.MasterAudio && CommandAudio && Var_1 && Var_2 && Var_3)
+    //        {
+    //            Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true, Priority, Voice); })) { IsBackground = true };
+    //            thread.Start();
+    //        }
+    //        else
+    //        {
+    //            if (PlugIn.MasterAudio == false) { Logger.DebugLine(MethodName, "Audio Disbled, Master Audio Set To False (A.L.I.C.E Is Muted).", Logger.Red); }
+    //            else if (CommandAudio == false) { Logger.DebugLine(MethodName, "Audio Disbled, Command Audio Set To False.", Logger.Red); }
+    //            else if (Var_1 == false) { Logger.DebugLine(MethodName, "Audio Disbled, Custom Variable 1 Set To False.", Logger.Red); }
+    //            else if (Var_2 == false) { Logger.DebugLine(MethodName, "Audio Disbled, Custom Variable 2 Set To False.", Logger.Red); }
+    //            else if (Var_3 == false) { Logger.DebugLine(MethodName, "Audio Disbled, Custom Variable 3 Set To False.", Logger.Red); }
+    //        }
+    //    }
 
-        /// <summary>
-        /// Extention Method to create a random dynamic responses.
-        /// </summary>
-        /// <param name="Text">Target Text for the Extension</param>
-        /// <param name="Segment">List<string> which contains the Target Response Key, and the Target Segment in that response.</string></param>
-        /// <param name="Random">Allows the function to randomly decide if the Segments will be appended.</param>
-        /// <param name="Enabled">Allows you to link the phrase to a GS Boolean to decide if the Segment is enabled or disabled.</param>
-        /// <param name="TrueIsGood">Allows you switch if "False" equals a passable response for the Enabled Variable.</param>
-        /// <param name="Percent">Percent Chance Segment 2 will be selected for Processing.</param>
-        /// <param name="Segment2">If a second segment is passed it will automatically pick between Segment 1 and Segment 2 for processing. Only returning one of the two.</param>
-        /// <returns></returns>
-        public static string Speak(this string Text, List<string> Segment, bool Random = false, bool Enabled = true, bool TrueIsGood = true, int Percent = -1, List<string> Segment2 = null)
-        {
-            string MethodName = "Speak";
+    //    /// <summary>
+    //    /// Extention Method to create a random dynamic responses.
+    //    /// </summary>
+    //    /// <param name="Text">Target Text for the Extension</param>
+    //    /// <param name="Segment">List<string> which contains the Target Response Key, and the Target Segment in that response.</string></param>
+    //    /// <param name="Random">Allows the function to randomly decide if the Segments will be appended.</param>
+    //    /// <param name="Enabled">Allows you to link the phrase to a GS Boolean to decide if the Segment is enabled or disabled.</param>
+    //    /// <param name="TrueIsGood">Allows you switch if "False" equals a passable response for the Enabled Variable.</param>
+    //    /// <param name="Percent">Percent Chance Segment 2 will be selected for Processing.</param>
+    //    /// <param name="Segment2">If a second segment is passed it will automatically pick between Segment 1 and Segment 2 for processing. Only returning one of the two.</param>
+    //    /// <returns></returns>
+    //    public static string Speak(this string Text, List<string> Segment, bool Random = false, bool Enabled = true, bool TrueIsGood = true, int Percent = -1, List<string> Segment2 = null)
+    //    {
+    //        string MethodName = "Speak";
 
-            #region Validation Checks
-            if (Segment != null)
-            {
-                if (Database.Responses.ContainsKey(Segment[0]) == true)
-                {
-                    if (Database.Responses[Segment[0]].Segments.ContainsKey(Segment[1]) == false)
-                    {
-                        Logger.Error(MethodName, Segment[0] + ": The Target Segment (" + Segment[1] + ") Does Not Exist.", Logger.Red);
-                        return Text;
-                    }                                    
-                }
-                else
-                {                    
-                    Logger.Error(MethodName, Segment[0] + ": The Target Response Does Not Exist.", Logger.Red);
-                    return Text;
-                }
-            }
+    //        #region Validation Checks
+    //        if (Segment != null)
+    //        {
+    //            if (Database.Responses.ContainsKey(Segment[0]) == true)
+    //            {
+    //                if (Database.Responses[Segment[0]].Segments.ContainsKey(Segment[1]) == false)
+    //                {
+    //                    Logger.Error(MethodName, Segment[0] + ": The Target Segment (" + Segment[1] + ") Does Not Exist.", Logger.Red);
+    //                    return Text;
+    //                }                                    
+    //            }
+    //            else
+    //            {                    
+    //                Logger.Error(MethodName, Segment[0] + ": The Target Response Does Not Exist.", Logger.Red);
+    //                return Text;
+    //            }
+    //        }
 
-            if (Segment2 != null)
-            {
-                if (Database.Responses.ContainsKey(Segment2[0]) == true)
-                {
-                    if (Database.Responses[Segment2[0]].Segments.ContainsKey(Segment2[1]) == false)
-                    {
-                        Logger.Error(MethodName, Segment2[0] + ": The Target Segment (" + Segment2[1] + ") Does Not Exist.", Logger.Red);
-                        return Text;
-                    }
-                }
-                else
-                {
-                    Logger.Error(MethodName, Segment2[0] + ": The Target Response Does Not Exist.", Logger.Red);
-                    return Text;
-                }
-            }
-            #endregion
+    //        if (Segment2 != null)
+    //        {
+    //            if (Database.Responses.ContainsKey(Segment2[0]) == true)
+    //            {
+    //                if (Database.Responses[Segment2[0]].Segments.ContainsKey(Segment2[1]) == false)
+    //                {
+    //                    Logger.Error(MethodName, Segment2[0] + ": The Target Segment (" + Segment2[1] + ") Does Not Exist.", Logger.Red);
+    //                    return Text;
+    //                }
+    //            }
+    //            else
+    //            {
+    //                Logger.Error(MethodName, Segment2[0] + ": The Target Response Does Not Exist.", Logger.Red);
+    //                return Text;
+    //            }
+    //        }
+    //        #endregion
 
-            try
-            {
-                int Alternate = 0;
-                if (TrueIsGood == true) { if (Enabled == false) { return Text; } }
-                if (TrueIsGood == false) { if (Enabled == true) { return Text; } }
-                if (Random) { if (random.Next(0, 100) <= 50) { return Text; } }
-                if (Segment2 != null) { Alternate = random.Next(0, 100); }
+    //        try
+    //        {
+    //            int Alternate = 0;
+    //            if (TrueIsGood == true) { if (Enabled == false) { return Text; } }
+    //            if (TrueIsGood == false) { if (Enabled == true) { return Text; } }
+    //            if (Random) { if (random.Next(0, 100) <= 50) { return Text; } }
+    //            if (Segment2 != null) { Alternate = random.Next(0, 100); }
 
-                if (Alternate <= Percent)
-                {
-                    if (Database.Responses[Segment2[0]].Segments[Segment2[1]].Count <= 0)
-                    {
-                        Logger.Error(MethodName, "There Might Be A Problem Loading The Responses. Try Running As Administrator", Logger.Red);
-                        Logger.Error(MethodName, "Processing Error: " + Segment2[0] + " | " + Segment2[1], Logger.Red);
-                        return Text;
-                    }
+    //            if (Alternate <= Percent)
+    //            {
+    //                if (Database.Responses[Segment2[0]].Segments[Segment2[1]].Count <= 0)
+    //                {
+    //                    Logger.Error(MethodName, "There Might Be A Problem Loading The Responses. Try Running As Administrator", Logger.Red);
+    //                    Logger.Error(MethodName, "Processing Error: " + Segment2[0] + " | " + Segment2[1], Logger.Red);
+    //                    return Text;
+    //                }
 
-                    int SegNum = random.Next(0, Database.Responses[Segment2[0]].Segments[Segment2[1]].Count - 1);
-                    Text = Text + Database.Responses[Segment2[0]].Segments[Segment2[1]][SegNum];
-                }
-                else
-                {
-                    if (Database.Responses[Segment[0]].Segments[Segment[1]].Count <= 0)
-                    {
-                        Logger.Error(MethodName, "There Might Be A Problem Loading The Responses. Try Running As Administrator", Logger.Red);
-                        Logger.Error(MethodName, "Processing Error: " + Segment2[0] + " | " + Segment2[1], Logger.Red);
-                        return Text;
-                    }
+    //                int SegNum = random.Next(0, Database.Responses[Segment2[0]].Segments[Segment2[1]].Count - 1);
+    //                Text = Text + Database.Responses[Segment2[0]].Segments[Segment2[1]][SegNum];
+    //            }
+    //            else
+    //            {
+    //                if (Database.Responses[Segment[0]].Segments[Segment[1]].Count <= 0)
+    //                {
+    //                    Logger.Error(MethodName, "There Might Be A Problem Loading The Responses. Try Running As Administrator", Logger.Red);
+    //                    Logger.Error(MethodName, "Processing Error: " + Segment2[0] + " | " + Segment2[1], Logger.Red);
+    //                    return Text;
+    //                }
 
-                    int SegNum = random.Next(0, Database.Responses[Segment[0]].Segments[Segment[1]].Count - 1);
-                    Text = Text + Database.Responses[Segment[0]].Segments[Segment[1]][SegNum];
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Exception(MethodName, "Execption: " + ex);
-                Logger.Exception(MethodName, "Encountered An Exception During Synthesis:");
-                if (Segment2 != null) { Logger.Exception(MethodName, @"Primary Response Key " + Segment2[0] + " | Segment Key " + Segment2[1]); }                
-                Logger.Exception(MethodName, @"Primary Response Key " + Segment[0] + " | Segment Key " + Segment[1]);
-                return Text;
-            }
+    //                int SegNum = random.Next(0, Database.Responses[Segment[0]].Segments[Segment[1]].Count - 1);
+    //                Text = Text + Database.Responses[Segment[0]].Segments[Segment[1]][SegNum];
+    //            }
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            Logger.Exception(MethodName, "Execption: " + ex);
+    //            Logger.Exception(MethodName, "Encountered An Exception During Synthesis:");
+    //            if (Segment2 != null) { Logger.Exception(MethodName, @"Primary Response Key " + Segment2[0] + " | Segment Key " + Segment2[1]); }                
+    //            Logger.Exception(MethodName, @"Primary Response Key " + Segment[0] + " | Segment Key " + Segment[1]);
+    //            return Text;
+    //        }
 
-            return Text + Pause;
-        }
+    //        return Text + Pause;
+    //    }
 
-        public static string Speak(this string Text, string AddedText)
-        {
-            return Text + Pause + AddedText;
-        }
+    //    public static string Speak(this string Text, string AddedText)
+    //    {
+    //        return Text + Pause + AddedText;
+    //    }
 
-        /// <summary>
-        /// Checks that the string is not null or empty and replaces the "Token Word".
-        /// </summary>
-        /// <param name="Text"></param>
-        /// <param name="TokenName"></param>
-        /// <param name="TargetText"></param>
-        /// <returns></returns>
-        public static string Token(this string Text, string TokenName, string TargetText)
-        {
-            string MethodName = "Token Replacement";
+    //    /// <summary>
+    //    /// Checks that the string is not null or empty and replaces the "Token Word".
+    //    /// </summary>
+    //    /// <param name="Text"></param>
+    //    /// <param name="TokenName"></param>
+    //    /// <param name="TargetText"></param>
+    //    /// <returns></returns>
+    //    public static string Token(this string Text, string TokenName, string TargetText)
+    //    {
+    //        string MethodName = "Token Replacement";
 
-            if (TargetText == null) { Logger.Log(MethodName, "Token: " + TokenName + " - The Target Text For The Token Was Null.", Logger.Red); return Text; }
-            if (Text.Contains(TokenName)) { Text = Text.Replace(TokenName, TargetText); }
-            return Text;
-        }
+    //        if (TargetText == null) { Logger.Log(MethodName, "Token: " + TokenName + " - The Target Text For The Token Was Null.", Logger.Red); return Text; }
+    //        if (Text.Contains(TokenName)) { Text = Text.Replace(TokenName, TargetText); }
+    //        return Text;
+    //    }
 
-        /// <summary>
-        /// Converts Decimal Value and repleaces the "Token Word".
-        /// </summary>
-        /// <param name="Text"></param>
-        /// <param name="TokenName"></param>
-        /// <param name="TargetText"></param>
-        /// <returns></returns>
-        public static string Token(this string Text, string TokenName, decimal TargetText)
-        {
-            if (Text.Contains(TokenName)) { Text = Text.Replace(TokenName, TargetText.ToString()); }
-            return Text;
-        }
-        #endregion
-    }
+    //    /// <summary>
+    //    /// Converts Decimal Value and repleaces the "Token Word".
+    //    /// </summary>
+    //    /// <param name="Text"></param>
+    //    /// <param name="TokenName"></param>
+    //    /// <param name="TargetText"></param>
+    //    /// <returns></returns>
+    //    public static string Token(this string Text, string TokenName, decimal TargetText)
+    //    {
+    //        if (Text.Contains(TokenName)) { Text = Text.Replace(TokenName, TargetText.ToString()); }
+    //        return Text;
+    //    }
+    //    #endregion
+    //}
     #endregion
 
     #region Database
@@ -1290,5 +1290,4 @@ namespace ALICE_Synthesizer
     }
 
     #endregion
-
 }
