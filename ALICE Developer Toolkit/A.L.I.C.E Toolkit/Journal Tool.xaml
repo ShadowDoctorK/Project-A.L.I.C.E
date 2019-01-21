@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="A.L.I.C.E_Toolkit.Journal_Tool"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:A.L.I.C.E_Toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Width="806" Height="622">
+    <Grid Background="#FF171616">
+        <StackPanel x:Name="StackBox_Strings" HorizontalAlignment="Left" Height="602" Margin="10,10,0,0" VerticalAlignment="Top" Width="777">
+            <Label x:Name="label_Strings" Content="New / Edit String:" Foreground="#FFCE5A05"/>
+            <TextBox x:Name="TextBox_Events" Height="150" TextWrapping="Wrap" Background="#FF3F3A3A" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="0,0,-0.333,0"/>
+            <StackPanel Height="45" Margin="0,0,-0.333,0" Orientation="Horizontal">
+                <Button x:Name="btn_Log" Content="Single Log" Margin="0,10,0,10.333" Width="96" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_Log_Click"/>
+                <Button x:Name="btn_AllLog" Content="All Logs" Margin="0,10,0,10.333" Width="96" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_AllLog_Click"/>
+                <Button x:Name="btn_Event" Content="Event" Margin="0,10,0,10.333" Width="96" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_Event_Click"/>
+                <Button x:Name="btn_Clear" Content="Clear" Margin="0,10,0,10.333" Width="92" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_Clear_Click"/>
+                <Button x:Name="btn_SelectLog" Content="Select Log" Margin="0,10,0,10.333" Width="92" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_SelectLog_Click"/>
+                <Button x:Name="btn_GenerateCode_Copy" Content="Generate Code" Margin="0,10,0,10.333" Width="91" Foreground="#FFCE5A05" Background="#FF3F3A3A" Click="btn_GenerateCode_Click"/>
+            </StackPanel>
+            <CheckBox x:Name="CheckBox_MissingMember" Content="Enable Missing Member Handling" Margin="0,0,-0.333,0" Height="22" Foreground="#FFCE5A05" Background="#FFCE5A05" Checked="CheckBox_MissingMember_Checked"/>
+            <TextBox x:Name="TextBox_Output" Height="356" TextWrapping="Wrap" Background="#FF3F3A3A" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="0,0,-0.333,0"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
