@@ -25,218 +25,851 @@ namespace ALICE_Community_Toolkit
         public Response_Generator()
         {
             InitializeComponent();
-            TextBox_UserFilesDirectory.Text = Paths.ALICE_ResponseUser;
         }
 
-        #region Form Data / Collections
+        #region Data / Collections
         //Responses Dictionary stores all the data used for export.
-        public volatile static Dictionary<string, Response> Responses = new Dictionary<string, Response>();
+        public ResponseCollection Responses = new ResponseCollection();
 
-        //Segments, SegmentNames and Strings only display data in the ListBox's
-        //Actual Data is Stored and Updated in the Responses Dictionary and repopulates
-        //in the display colletions.
-        public volatile static Dictionary<string, List<string>> Segments = new Dictionary<string, List<string>>();
-        public volatile static List<string> SegmentNames = new List<string>();
-        public volatile static List<string> SegmentInformation = new List<string>();
-        public volatile static List<string> Strings = new List<string>();
+        //Working Items
+        public Response R_Response = new Response();
+        public Response.Segment R_Segment = new Response.Segment();
+        public Response.Segment.Line R_Line = new Response.Segment.Line();
+
+        //Display Items
+        //public List<string> SegmentNames = new List<string>();
+        //public List<string> SegmentLines = new List<string>();
+
+        //Enum Used to feedback more data when a Boolean doesn't meet the requirements
+        public enum Answer { Default, Positive, Negative, Error }
+
+        //Enum Used to allow more range of selection when interfacing with the Responeses
+        public enum Line { Default, Standard, Alternate }
+
+        //Enum Used to define how to group files when Serializing
+        public enum Save { Default, Selected, Individual, Combine }
 
         /// <summary>
         /// Response Object. Contains a Undefined Catch to prevent exceptions.
         /// </summary>
-        public class Response
+        public class Response : Base
         {
-            public string ResponseName { get; set; }
-            public List<string> SegmentNames { get; set; }
-            public List<string> SegmentInformation { get; set; }
-            public Dictionary<string, List<string>> Segments { get; set; }
-
-            public Response()
+            public string Creator { get; set; }
+            public string Version { get; set; }
+            public bool Default { get; set; }
+            public List<Segment> Segments = new List<Segment>();
+            public Response() { Default = true; }
+            public Response(string N)
             {
-                ResponseName = null;
-                SegmentNames = new List<string>();
-                SegmentInformation = new List<string>();
-                Segments = new Dictionary<string, List<string>>();
+                Name = N;
+                Default = true;
             }
 
-            [JsonExtensionData]
-            public IDictionary<string, object> Undefined { get; set; }
-
-            public IDictionary<string, object> UndefinedProperties()
+            public class Segment : Base
             {
-                return Undefined;
+                public List<Token> Tokens { get; set; }
+                public List<Line> Lines = new List<Line>();
+                public Segment()
+                {
+                    Tokens = new List<Token>();
+                    Lines = new List<Line>();
+                }
+
+                public class Token : Base { }
+                public class Line
+                {
+                    public bool Alternate { get; set; }
+                    public int Weight { get; set; }
+                    public string Text { get; set; }
+                }
+
+                #region Support Methods
+                public decimal LinesCount()
+                {
+                    return Lines.Count();
+                }
+
+                public void DeleteAllLines()
+                {
+                    Lines = new List<Line>();
+                }
+
+                public bool AddLine(Line L)
+                {
+                    string MethodName = "Reponse (Add Line)";
+
+                    switch (LineExists(L))
+                    {
+                        //Line Already Exists, Don't Add, Return False
+                        case Answer.Positive:
+                            return false;
+
+                        //Line Does Not Exist, Add Line, Return True
+                        case Answer.Negative:
+                            Lines.Add(L);
+                            return true;
+
+                        //Check Returned An Error State
+                        case Answer.Error:
+                            //Logger.Error(MethodName, "Error Was Returned During Check. Aborted Adding Line", //Logger.Red);
+                            return false;
+
+                        default:
+                            //Logger.Error(MethodName, "Returned Using The Default Swtich", //Logger.Red);
+                            return false;
+                    }
+                }
+
+                public bool DeleteLine(Line L)
+                {
+                    string MethodName = "Reponse (Delete Line)";
+
+                    int Temp = GetLineIndex(L); switch (Temp)
+                    {
+                        case -1:
+                            //Logger.Error(MethodName, "Unable To Remove The Line. Index Not Found.", //Logger.Red);
+                            return false;
+
+                        default:
+                            try
+                            {
+                                Lines.RemoveAt(Temp);
+                            }
+                            catch (Exception ex)
+                            {
+                                //Logger.Exception(MethodName, "Exception: " + ex);
+                                //Logger.Exception(MethodName, "We Found The Line But Was Unable To Remove It");
+                            }
+                            return true;
+                    }
+                }
+
+                /// <summary>
+                /// Allows Replaceing a Target Line if it exists, Otherwise Adds it.
+                /// </summary>
+                /// <param name="O">Old Line</param>
+                /// <param name="N">New Line</param>
+                public void ReplaceLine(Line O, Line N)
+                {
+                    DeleteLine(O);
+                    AddLine(N);
+                }
+
+                public Answer LineExists(Line L)
+                {
+                    string MethodName = "Response (Line Exists)";
+
+                    int Temp = -1; try
+                    {
+                        Temp = Lines.FindIndex(X => X.Text == L.Text && X.Alternate == L.Alternate);
+                        if (Temp != -1) return Answer.Positive;
+                    }
+                    catch (Exception ex)
+                    {
+                        //Logger.Exception(MethodName, "Exception Occured, Returning Defaults And Continuing");
+                        return Answer.Error;
+                    }
+
+                    return Answer.Negative;
+                }
+
+                public int GetLineIndex(Line L)
+                {
+                    string MethodName = "Response (Line Index)";
+
+                    int Answer = -1; try
+                    {
+                        Answer = Lines.FindIndex(X => X.Text == L.Text && X.Alternate == L.Alternate);
+                    }
+                    catch (Exception ex)
+                    {
+                        //Logger.Exception(MethodName, "Exception: " + ex);
+                        //Logger.Exception(MethodName, "Exception Occured, Returning Default Value And Continuing");
+                    }
+
+                    return Answer;
+                }
+
+                public string GetLine(bool W, bool A)
+                {
+                    string MethodName = "Response (Get Alternate)";
+
+                    string Text = "";
+                    Random RanNum = new Random();
+
+                    //Get The Average Weight Of The Segment.
+                    int Weight = GetWeight(A);
+
+                    //Emtpy List Of Int's To Store Valid Line Index's
+                    List<int> ValidLines = new List<int>();
+
+                    //Check Each Line In The Segment
+                    int Index = 0; foreach (Line L in Lines)
+                    {
+                        //Alternate = true
+                        if (L.Alternate == true)
+                        {
+                            //Weight Is Enabled & Line Weight Less Than Avg + 2
+                            if (W == true && L.Weight < Weight + 2)
+                            {
+                                ValidLines.Add(Index);
+                            }
+                            //Weight Is Disabled
+                            else if (W == false)
+                            {
+                                ValidLines.Add(Index);
+                            }
+                        }
+
+                        //Track Index
+                        Index++;
+                    }
+
+                    //Get ValidLines Count & Pick Random String
+                    int Count = ValidLines.Count(); if (Count != 0)
+                    {
+                        //Pick A Random Valid Number Index
+                        int Select = ValidLines[RanNum.Next(0, Count - 1)];
+
+                        //Increase Line Weight Count
+                        Lines[Select].Weight++;
+
+                        //Return Line
+                        Text = Lines[Select].Text;
+                    }
+                    else
+                    {
+                        //Logger.DebugLine(MethodName, "There Wasn't Any Valid Returns Found", //Logger.Blue);
+                    }
+
+                    return Text;
+                }
+
+                /// <summary>
+                /// Will return the Avegrage Weight for the Select Line types.
+                /// </summary>
+                /// <param name="A">True = Alternate Lines, False = Standard Lines</param>
+                /// <returns>The Average Weight</returns>
+                public int GetWeight(bool A)
+                {
+                    string MethodName = "Response (Get Weight)";
+
+                    try
+                    {
+                        //Collect Weight From Each Line
+                        decimal Answer = 0; decimal Count = 0; foreach (Line L in Lines)
+                        {
+                            //Looking For Alternate Lines Only
+                            if (A && L.Alternate)
+                            {
+                                Answer = Answer + L.Weight; Count++;
+                            }
+                            else
+                            {
+                                Answer = Answer + L.Weight; Count++;
+                            }
+
+                        }
+
+                        //If We Processed Any Lines Average The Answer
+                        if (Count != 0) { Answer = Answer / Count; }
+
+                        //Round The Decimal, Cast To Int.
+                        return (int)Decimal.Round(Answer, 0);
+                    }
+                    catch (Exception ex)
+                    {
+                        //Logger.Exception(MethodName, "Exception: " + ex);
+                        //Logger.Exception(MethodName, "Exception Occured, Returning Default Value And Continuing");
+                        return 0;
+                    }
+                }
+
+                public Answer TokenExists(Token T)
+                {
+                    string MethodName = "Response (Token Exists)";
+
+                    int Temp = -1; try
+                    {
+                        Temp = Tokens.FindIndex(X => X.Name == T.Name);
+                        if (Temp != -1) return Answer.Positive;
+                    }
+                    catch (Exception ex)
+                    {
+                        //Logger.Exception(MethodName, "Exception Occured, Returning Defaults And Continuing");
+                        return Answer.Error;
+                    }
+
+                    return Answer.Negative;
+                }
+
+                public void AddToken(Token L)
+                {
+                    string MethodName = "Reponse (Add Token)";
+
+                    switch (TokenExists(L))
+                    {
+                        //Token Already Exists, Don't Add, Return False
+                        case Answer.Positive:
+                            return;
+
+                        //Token Does Not Exist, Add Token, Return True
+                        case Answer.Negative:
+                            Tokens.Add(L);
+                            return;
+
+                        //Check Returned An Error State
+                        case Answer.Error:
+                            //Logger.Error(MethodName, "Error Was Returned During Check. Aborted Adding Token", //Logger.Red);
+                            return;
+
+                        default:
+                            //Logger.Error(MethodName, "Returned Using The Default Swtich", //Logger.Red);
+                            return;
+                    }
+                }
+
+                public void DeleteToken(Token L)
+                {
+                    string MethodName = "Reponse (Delete Token)";
+
+                    int Temp = GetTokenIndex(L); switch (Temp)
+                    {
+                        case -1:
+                            //Logger.Error(MethodName, "Unable To Remove The Token. Index Not Found.", //Logger.Red);
+                            return;
+
+                        default:
+                            try
+                            {
+                                Tokens.RemoveAt(Temp);
+                            }
+                            catch (Exception ex)
+                            {
+                                //Logger.Exception(MethodName, "Exception: " + ex);
+                                //Logger.Exception(MethodName, "We Found The Token But Was Unable To Remove It");
+                            }
+                            return;
+                    }
+                }
+
+                /// <summary>
+                /// Allows Replaceing a Target Token if it exists, Otherwise Adds it.
+                /// </summary>
+                /// <param name="O">Old Token</param>
+                /// <param name="N">New Token</param>
+                public void ReplaceToken(Token O, Token N)
+                {
+                    DeleteToken(O);
+                    AddToken(N);
+                }
+
+                public int GetTokenIndex(Token T)
+                {
+                    string MethodName = "Response (Token Index)";
+
+                    int Answer = -1; try
+                    {
+                        Answer = Tokens.FindIndex(X => X.Name == T.Name);
+                    }
+                    catch (Exception ex)
+                    {
+                        //Logger.Exception(MethodName, "Exception: " + ex);
+                        //Logger.Exception(MethodName, "Exception Occured, Returning Default Value And Continuing");
+                    }
+
+                    return Answer;
+                }
+                #endregion
             }
+
+            #region Support Methods
+            public ref List<Segment> GetSegments()
+            {
+                return ref Segments;
+            }
+
+            /// <summary>
+            /// Generates Users Templet
+            /// </summary>
+            public void GenerateUserTemplet()
+            {
+                int Count = Segments.Count() - 1;
+                while (Count != -1)
+                {
+                    Segments[Count].DeleteAllLines();
+                    Count--;
+                }
+            }
+
+            public bool SegmentExists(string S)
+            {
+                return Segments.Any(X => X.Name == S);
+            }
+
+            public int GetSegmentIndex(Segment S)
+            {
+                string MethodName = "Response (Segment Index)";
+
+                int Answer = -1; try
+                {
+                    Answer = Segments.FindIndex(X => X.Name == S.Name);
+                }
+                catch (Exception ex)
+                {
+                    //Logger.Exception(MethodName, "Exception: " + ex);
+                    //Logger.Exception(MethodName, "Exception Occured, Returning Default Value And Continuing");
+                }
+
+                return Answer;
+            }
+
+            public int GetSegmentIndex(string S)
+            {
+                string MethodName = "Response (Segment Index)";
+
+                int Answer = -1; try
+                {
+                    Answer = Segments.FindIndex(X => X.Name == S);
+                }
+                catch (Exception ex)
+                {
+                    //Logger.Exception(MethodName, "Exception: " + ex);
+                    //Logger.Exception(MethodName, "Exception Occured, Returning Default Value And Continuing");
+                }
+
+                return Answer;
+            }
+
+            /// <summary>
+            /// Gets the target Segment if it exists
+            /// </summary>
+            /// <param name="S">Segment Name</param>
+            /// <returns>Returns Segment if it exists, otherwise returns null</returns>
+            public Segment GetSegment(string S)
+            {
+                //Check Segment Exists
+                if (SegmentExists(S))
+                {
+                    //Return Segment
+                    return Segments[GetSegmentIndex(S)];
+                }
+
+                return null;
+            }
+
+            /// <summary>
+            /// Adds Segment to the Response if it doesn't arelady exist.
+            /// </summary>
+            /// <param name="S">Segment Object</param>
+            public void AddSegment(Segment S)
+            {
+                //Check Segment Does Not Exist
+                if (SegmentExists(S.Name) == false)
+                {
+                    //Add Segment
+                    Segments.Add(S);
+                }
+            }
+
+            /// <summary>
+            /// Deletes Segment from the Response if it exists.
+            /// </summary>
+            /// <param name="S">Segment Name</param>
+            public void DeleteSegment(string S)
+            {
+                //Check Segment Exists
+                if (SegmentExists(S))
+                {
+                    //Delete Segment
+                    Segments.RemoveAt(GetSegmentIndex(S));
+                }
+            }
+
+            /// <summary>
+            /// Updates Segment in the Response if it exists, Otherwise Adds it.
+            /// </summary>
+            /// <param name="S">Segment Object</param>
+            public void UpdateSegment(Segment S)
+            {
+                DeleteSegment(S.Name);
+                AddSegment(S);
+            }
+
+            /// <summary>
+            /// Adds a Line to the Target Segment if it exists.
+            /// </summary>
+            /// <param name="S">Target Segement Name</param>
+            /// <param name="L">Line You're Adding</param>
+            /// <returns>True if line was added</returns>
+            public void AddLine(string S, Segment.Line L)
+            {
+                if (SegmentExists(S))
+                {
+                    Segments[GetSegmentIndex(S)].AddLine(L);
+                }
+            }
+
+            /// <summary>
+            /// Deletes a Line to the Target Segment if it exists.
+            /// </summary>
+            /// <param name="S">Target Segement Name</param>
+            /// <param name="L">Line You're Adding</param>
+            public void DeleteLine(string S, Segment.Line L)
+            {
+                if (SegmentExists(S))
+                {
+                    Segments[GetSegmentIndex(S)].DeleteLine(L);
+                }
+            }
+
+            /// <summary>
+            /// Updates a Line in the Target Segment, Otherwise Adds it.
+            /// </summary>
+            /// <param name="S">Segment Name</param>
+            /// <param name="L">Line Object</param>
+            public void UpdateLine(string S, Segment.Line L)
+            {
+                DeleteLine(S, L);
+                AddLine(S, L);
+            }
+
+            public Segment.Line GetNewLine()
+            {
+                return new Segment.Line();
+            }
+            #endregion
         }
 
-        public void ResetAllCollections()
+        public class Base
         {
-            Responses = new Dictionary<string, Response>();
-            Segments = new Dictionary<string, List<string>>();
-            SegmentNames = new List<string>();
-            SegmentInformation = new List<string>();
-            Strings = new List<string>();
+            public string Name { get; set; }
+            public string Info { get; set; }
+        }
+
+        public class ResponseCollection
+        {
+            //Collection Of Responses
+            public Dictionary<string, Response> Storage = new Dictionary<string, Response>();
+
+            #region Support Methods
+            /// <summary>
+            /// Add A Response To the Collection of Responses.
+            /// </summary>
+            /// <param name="R">The Response you want to add.</param>
+            /// <param name="M">When set to true and the same response exists it will merge the reponse your adding to the existing data.</param>
+            public void Add(Response R, bool M)
+            {
+                //Check If Response Is In the Dictionary
+                if (Storage.ContainsKey(R.Name) == false)
+                {
+                    //Add New Response
+                    Storage.Add(R.Name, R);
+                }
+                //Response Exists, Do We Merge...
+                else if (M)
+                {
+                    //Pass Response To Merge
+                    Merge(R);
+                }
+            }
+
+            /// <summary>
+            /// Will Merge the Response you pass with the Collection if the response exists.
+            /// </summary>
+            /// <param name="A">The Response you want to add to the collection.</param>      
+            private void Merge(Response A)
+            {
+                string MethodName = "Response (Merge)";
+
+                try
+                {
+                    //Check Response Exists
+                    if (Exists(A.Name) == false)
+                    {
+                        //Response Doesn't Exist, Return
+                        //Logger.DebugLine(MethodName, A.Name + " Doesn't Exist. Skipping The Merge.", //Logger.Blue);
+                        return;
+                    }
+
+                    //Begin Merging Responses
+                    foreach (var Seg in A.Segments)
+                    {
+                        //Get Reference To The Segment List
+                        List<Response.Segment> SegList = Storage[A.Name].GetSegments();
+
+                        //Check Response A Contains Target Segment
+                        if (Storage[A.Name].SegmentExists(A.Name))
+                        {
+                            //Get Response A's Index For The Target Segment
+                            int Index = Storage[A.Name].GetSegmentIndex(Seg);
+
+                            //Attempt To Add New Information
+                            foreach (var Line in Seg.Lines)
+                            {
+                                //This Is The Most Likely To Fail, Catching Errors
+                                //To Allow The Foreach Loop To Continue To Process
+                                try
+                                {
+                                    //Response Methods Will Auto Filter Duplicates
+                                    SegList[Index].AddLine(Line);
+                                }
+                                catch (Exception ex)
+                                {
+                                    //Logger.Exception(MethodName, "Exception: " + ex);
+                                    //Logger.Exception(MethodName, "Exception Occured While Merging Response Data, Attempting To Continuing");
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //Logger.Exception(MethodName, "Exception: " + ex);
+                    //Logger.Exception(MethodName, "(Failed) The Hamster That Merges Responses Died...");
+                }
+            }
+
+            /// <summary>
+            /// Delete A Response To the Collection of Responses.
+            /// </summary>
+            /// <param name="R">The Response you want to Delete.</param>            
+            public void Delete(Response R)
+            {
+                //Check If Response Is In the Dictionary
+                if (Storage.ContainsKey(R.Name))
+                {
+                    //Add New Response
+                    Storage.Remove(R.Name);
+                }
+            }
+
+            /// <summary>
+            /// Delete A Response To the Collection of Responses.
+            /// </summary>
+            /// <param name="R">The Response you want to Delete.</param>            
+            public void Delete(string R)
+            {
+                //Check If Response Is In the Dictionary
+                if (Storage.ContainsKey(R))
+                {
+                    //Add New Response
+                    Storage.Remove(R);
+                }
+            }
+
+            /// <summary>
+            /// Will Update the Target Response if it exists, otherwise it will add the Target Response.
+            /// </summary>
+            /// <param name="R">The Response Object</param>
+            public void Update(Response R)
+            {
+                //Check If Response Exists
+                if (Exists(R.Name))
+                {
+                    //Delete Old Response
+                    Delete(R.Name);
+                }
+
+                //Add Updated Response, Do Not Merge
+                Add(R, false);
+            }
+
+            /// <summary>
+            /// Validates that the Target Response and Segement Exists for use.
+            /// </summary>
+            /// <param name="R">Response Name</param>
+            /// <param name="S">Segment Name</param>
+            /// <returns>Postive, Negative or Error</returns>
+            public Answer Validation(string R, string S)
+            {
+                string MethodName = "Response (Validation)";
+
+                try
+                {
+                    //Check If Response Exists
+                    if (Exists(R))
+                    {
+                        //Check If Segment Exists
+                        if (Storage[R].SegmentExists(S))
+                        {
+                            //Validation Passed, Return Postive Answer
+                            return Answer.Positive;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //Logger.Exception(MethodName, "Exception: " + ex);
+                    //Logger.Exception(MethodName, "Exception Occured, Returing Failed Validation.");
+                    return Answer.Error;
+                }
+
+                //Validation Failed, Return Negative Answer
+                return Answer.Negative;
+            }
+
+            /// <summary>
+            /// Get the target Response if it exists.
+            /// </summary>
+            /// <param name="R">Response Name</param>
+            /// <returns>Response if it exists, Null if it does not.</returns>
+            public Response Get(string R)
+            {
+                if (Exists(R)) { return Storage[R]; }
+                return null;
+            }
+
+            /// <summary>
+            /// Updates the target Response if it exists.
+            /// </summary>
+            /// <param name="R">Response Name</param>
+            public void Set(Response R)
+            {
+                if (Exists(R.Name)) { Storage[R.Name] = R; }
+            }
+
+            /// <summary>
+            /// Simple Check To Verify the Reponse Exists
+            /// </summary>
+            /// <param name="R">Response Name</param>
+            /// <returns>True if exists</returns>
+            public bool Exists(string R)
+            {
+                if (R == null) { return false; }
+                if (Storage.ContainsKey(R)) { return true; }
+                return false;
+            }
+
+            /// <summary>
+            /// Erases all the Lines for the currently Loaded Responses.
+            /// </summary>
+            public void GenUserTemplets()
+            {
+                var Keys = Storage.Keys.ToList();
+
+                foreach (var Key in Keys)
+                {
+                    Storage[Key].GenerateUserTemplet();
+                }
+            }
+            #endregion
         }
         #endregion
 
         #region Form Methods
         public void Deserialize(string FilePath)
         {
-            FileStream FS = null;
             try
             {
-                FS = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                using (StreamReader SR = new StreamReader(FS))
+                using (StreamReader SR = new StreamReader(new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)))
                 {
                     while (!SR.EndOfStream)
                     {
                         string Line = SR.ReadLine();
-                        var NewRes = JsonConvert.DeserializeObject<Response>(Line);
-
-                        Response_Add(NewRes);
-                    }                  
+                        var Res = JsonConvert.DeserializeObject<Response>(Line);
+                        Responses.Add(Res, true);
+                    }
                 }
             }
-            finally
-            {
-                if (FS != null)
-                { FS.Dispose(); }
-            }
+            catch (Exception ex) { }
         }
 
-        public void Serialize(string FilePath = null, string ResKey = null, bool Group = false, bool Individual = false, bool User = false)
+        public void Serialize(Save S, string FilePath = null, string R = null, string FileName = null)
         {
-            FileStream FS = null;
-            try
+            if (FilePath == null || FilePath == "") { FilePath = MainWindow.SelectDirectory(); }
+
+            switch (S)
             {
-                if (Group)
-                {
-                    if (FilePath == null || FilePath == "")
-                    { FilePath = MainWindow.SelectDirectory(); }
+                case Save.Selected:
 
-                    string path = FilePath + @"\" + TextBox_CombineFileName.Text + ".response";
-                    FS = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
-                    using (StreamWriter file = new StreamWriter(FS))
-                    {
-                        foreach (KeyValuePair<string, Response> Res in Responses)
-                        {
-                            Response res = Res.Value;
-                            var JSON = JsonConvert.SerializeObject(res);
-                            file.WriteLine(JSON);
-                        }
-                    }
-
-                    System.Windows.MessageBox.Show("Exported All Responses To: " + TextBox_CombineFileName.Text + ".response");
-                }
-                else if (Individual)
-                {
                     try
                     {
-                        foreach (var Res in Responses)
+                        //Checks Selected Reponse Exists
+                        if (Responses.Exists(SelectedResposneText()))
                         {
-                            string path = "";
-                            if (User == false)
+                            FileName = SelectedResposneText();
+                            //Create StreamWriter, Get FileStream For Selected Response
+                            using (StreamWriter SW = new StreamWriter(GetFileStream(FullFileName(FilePath, FileName))))
                             {
-                                if (FilePath == null || FilePath == "") { FilePath = MainWindow.SelectDirectory(); }
-                                 path = FilePath + @"\" + Res.Key.ToString() + ".response";
-                            }
-                            else if (User == true) { path = Paths.ALICE_ResponseUser + Res.Key.ToString() + ".response"; }
-
-                            FS = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
-                            using (StreamWriter file = new StreamWriter(FS))
-                            {
-                                Response res = Res.Value;
-                                var JSON = JsonConvert.SerializeObject(res);
-                                file.WriteLine(JSON);
+                                //Serialize Object, Write To File.
+                                SW.WriteLine(JsonConvert.SerializeObject(Responses.Get(SelectedResposneText())));
                             }
                         }
+
+                        System.Windows.MessageBox.Show("Exported Selected Response To: " + FileName + ".Response");
+                    }
+                    catch (Exception ex) { }
+                    break;
+
+                case Save.Individual:
+
+                    try
+                    {
+                        //Save Each Response To A File
+                        foreach (Response Res in Responses.Storage.Values)
+                        {
+                            FileName = Res.Name;
+                            //Create StreamWriter, Get FileStream For Selected Response
+                            using (StreamWriter SW = new StreamWriter(GetFileStream(FullFileName(FilePath, FileName))))
+                            {
+                                //Serialize Object, Write To File.
+                                SW.WriteLine(JsonConvert.SerializeObject(Res));
+                            }
+                        }
+
                         System.Windows.MessageBox.Show("Exported All Responses");
                     }
-                    catch (Exception)
+                    catch (Exception ex) { }
+                    break;
+
+                case Save.Combine:
+
+                    try
                     {
+                        //Check & Grab File Name
+                        if (TextBox_CombineFileName.Text != null)
+                        {
+                            FileName = TextBox_CombineFileName.Text;
+                            TextBox_CombineFileName.Text = null;
+                        }
+                        else
+                        {
+                            System.Windows.MessageBox.Show("No Combined File Name Given");
+                            return;
+                        }
 
+                        //Create StreamWriter, Get FileStream For Selected Response
+                        using (StreamWriter SW = new StreamWriter(GetFileStream(FullFileName(FilePath, FileName))))
+                        {
+                            //Write Each Reponse To The File
+                            foreach (Response Res in Responses.Storage.Values)
+                            {
+                                //Serialize Object, Write To File.
+                                SW.WriteLine(JsonConvert.SerializeObject(Res));
+                            }
+                        }
+
+                        System.Windows.MessageBox.Show("Exported All Responses To: " + FileName + ".Response");
                     }
-                }
-                else
-                {
-                    string ListBoxItem = ListBox_Responses.SelectedItem.ToString();
-                    string path = FilePath + @"\" + ListBoxItem + ".response";
-                    FS = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
-                    using (StreamWriter file = new StreamWriter(FS))
-                    {
-                        Response res = Responses[ResKey];
-                        var JSON = JsonConvert.SerializeObject(res);
-                        file.WriteLine(JSON);
-                    }
+                    catch (Exception ex) { }
+                    break;
 
-                    System.Windows.MessageBox.Show("Exported Selected Response");
-                }
-            }
-            finally
-            {
-                if (FS != null)
-                { FS.Dispose(); }
+                default:
+                    break;
             }
         }
 
-        /// <summary>
-        /// Method used during deserialization.
-        /// </summary>
-        /// <param name="NewRes"></param>
-        public void Response_Add(Response NewRes)
+        public string FullFileName(string FilePath, string FileName)
         {
-            if (!Responses.ContainsKey(NewRes.ResponseName))
-            { Responses.Add(NewRes.ResponseName, NewRes); }
+            return FilePath + @"\" + FileName + ".Response";
         }
 
-        public void LB_Response_Update()
+        public FileStream GetFileStream(string FullFileName)
         {
-            ListBox_Responses.ItemsSource = null;
-            ListBox_Responses.ItemsSource = Responses.Keys;
+            return new FileStream(FullFileName, FileMode.Create, FileAccess.Write, FileShare.None);
         }
 
-        public void LB_Segment_Update(string ResKey)
-        {
-            Segments = new Dictionary<string, List<string>>();
-            SegmentNames = new List<string>();
-            if (Responses[ResKey].Segments != null)
-            {
-                foreach (var Seg in Responses[ResKey].Segments)
-                {
-                    Segments.Add(Seg.Key, Seg.Value);
-                }
-                foreach (string SegName in Responses[ResKey].SegmentNames)
-                {
-                    SegmentNames.Add(SegName);
-                }
-            }
-            ListBox_Segments.ItemsSource = null;
-            ListBox_Segments.ItemsSource = SegmentNames;
-        }
-
-        public void LB_String_Update(int SegIndex)
-        {
-            Strings = new List<string>();
-            if (Segments.Count != 0)
-            {
-                foreach (string SegString in Segments["S" + SegIndex.ToString()])
-                {
-                    Strings.Add(SegString);
-                }
-            }
-            ListBox_Strings.ItemsSource = null;
-            ListBox_Strings.ItemsSource = Strings;
-        }
-
-        public void TB_SegmentInfo_Update(string ResKey)
-        {
-            SegmentInformation = new List<string>();
-            if (Responses[ResKey].Segments != null)
-            {
-                foreach (string SegInfo in Responses[ResKey].SegmentInformation)
-                {
-                    SegmentInformation.Add(SegInfo);
-                }
-            }
-        }
         #endregion
 
         #region Buttons
@@ -244,66 +877,96 @@ namespace ALICE_Community_Toolkit
         #region Top Menu Buttons
         private void btn_LoadFile_Click(object sender, RoutedEventArgs e)
         {
-            ResetAllCollections();
-
-            bool Empty = MainWindow.IsDirectoryEmpty(Paths.ALICE_ResponseUser);
-            if (Directory.Exists(Paths.ALICE_ResponseUser) && Empty == false)
+            string FilePath = MainWindow.SelectFile();
+            if (FilePath != "" || FilePath != null)
             {
-                DirectoryInfo directory = new DirectoryInfo(Paths.ALICE_ResponseUser);
-                foreach (FileInfo ResponseFile in directory.EnumerateFiles("*.response", SearchOption.AllDirectories))
-                {
-                    Deserialize(ResponseFile.FullName);
-                }
-                LB_Response_Update();
-            }
-            else
-            {
-                CreateUserTemplets();
-                System.Windows.MessageBox.Show("No User Responses Detected. Generated New Templets.");
+                Deserialize(FilePath);
+                U_Responses();
             }
         }
 
         private void btn_LoadDirectory_Click(object sender, RoutedEventArgs e)
         {
-            ResetAllCollections();
+            string Dir = MainWindow.SelectDirectory() + @"\";
+            DirectoryInfo directory = new DirectoryInfo(Dir);
+            foreach (FileInfo ResponseFile in directory.EnumerateFiles("*.Response", SearchOption.TopDirectoryOnly))
+            {
+                Deserialize(ResponseFile.FullName);
+            }
+            U_Responses();
+        }
 
-            try
+        private void btn_LoadUserFiles_Click(object sender, RoutedEventArgs e)
+        {
+            Responses.Storage = new Dictionary<string, Response>();
+
+            DirectoryInfo directory = new DirectoryInfo(Paths.ALICE_ResponseUser);
+            foreach (FileInfo ResponseFile in directory.EnumerateFiles("*.Response", SearchOption.TopDirectoryOnly))
             {
-                string Dir = MainWindow.SelectDirectory() + @"\";
-                DirectoryInfo directory = new DirectoryInfo(Dir);
-                foreach (FileInfo ResponseFile in directory.EnumerateFiles("*.response", SearchOption.TopDirectoryOnly))
-                {
-                    Deserialize(ResponseFile.FullName);
-                }
-                LB_Response_Update();
+                Deserialize(ResponseFile.FullName);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error Occured While Loading The Files: " + ex);
-            }
+            U_Responses();
         }
 
         private void btn_SaveSelected_Click(object sender, RoutedEventArgs e)
         {
-            string FilePath = Paths.ALICE_ResponseUser;
-            Serialize(FilePath, null, false, true, true);
+            try
+            {
+                string TargetResponse = ListBox_Responses.SelectedItem.ToString();
+                string FilePath = MainWindow.SelectDirectory();
+                if (TargetResponse != null && FilePath != null)
+                {
+                    Serialize(Save.Selected, FilePath, TargetResponse);
+                }
+            }
+            catch (Exception ex) { }
+        }
+
+        private void btn_SaveUserFiles_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string FilePath = Paths.ALICE_ResponseUser;
+                if (FilePath != null) { Serialize(Save.Individual, FilePath); }
+            }
+            catch (Exception ex) { }
         }
 
         private void btn_SaveIndividual_Click(object sender, RoutedEventArgs e)
         {
-            string FilePath = MainWindow.SelectDirectory();
-            Serialize(FilePath, null, false, true);
+            try
+            {
+                string FilePath = MainWindow.SelectDirectory();
+                if (FilePath != null) { Serialize(Save.Individual, FilePath); }
+            }
+            catch (Exception ex) { }
         }
 
         private void btn_SaveCombine_Click(object sender, RoutedEventArgs e)
         {
-            if (TextBox_CombineFileName.Text == null || TextBox_CombineFileName.Text == "")
+            try
             {
-                MessageBox.Show("Please Enter a Filename and try again...");
-                return;
+                if (TextBox_CombineFileName.Text == null || TextBox_CombineFileName.Text == "")
+                {
+                    MessageBox.Show("Please Enter a Filename and try again..."); return;
+                }
+                string FilePath = MainWindow.SelectDirectory();
+                if (FilePath != null) { Serialize(Save.Combine, FilePath); }
             }
-            string FilePath = MainWindow.SelectDirectory();
-            Serialize(FilePath, null, true);
+            catch (Exception ex) { }
+        }
+
+        private void btn_CreateUserTemplets_Click(object sender, RoutedEventArgs e)
+        {
+            DirectoryInfo directory = new DirectoryInfo(Paths.ALICE_Response);
+            foreach (FileInfo ResponseFile in directory.EnumerateFiles("*.Response", SearchOption.TopDirectoryOnly))
+            {
+                Deserialize(ResponseFile.FullName);
+            }
+
+            Responses.GenUserTemplets();
+
+            U_Responses();
         }
 
         //End: Top Menu Buttons
@@ -314,160 +977,286 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Responses[TargetResponse()].Segments[TargetSegment()].Add(TextBox_Strings.Text);
-                TextBox_Strings.Clear();
-                LB_String_Update(SegmentIndex());
+                //Get A New Blank Line
+                Response.Segment.Line Temp = R_Response.GetNewLine();
+                //Set Text
+                if (TextBox_Strings.Text != null) { Temp.Text = TextBox_Strings.Text; }
+                else { return; }
+                //Set Alternate
+                if (CheckBox_Alternate.IsChecked == true) { Temp.Alternate = true; }
+                else { Temp.Alternate = false; }
+
+                //Add New Line
+                R_Segment.AddLine(Temp);
+
+                //Save Update
+                R_Response.UpdateSegment(R_Segment);
+                Responses.Update(R_Response);
+
+                //Update Listbox
+                U_Strings();
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void btn_String_Update_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (ListBox_Responses.SelectedItem != null)
-                {
-                    int TargetIndex = StringIndex(SelectedString());
-                    Responses[TargetResponse()].Segments[TargetSegment()].Insert(TargetIndex, TextBox_Strings.Text);
-                    Responses[TargetResponse()].Segments[TargetSegment()].RemoveAt(TargetIndex + 1);
-                    TextBox_Strings.Clear();
-                    LB_String_Update(SegmentIndex());
-                }
+                //Record Old Line
+                Response.Segment.Line Old = SelectedLine();
+
+                //Record Old Line & Update Information
+                Response.Segment.Line New = SelectedLine();
+                if (TextBox_Strings.Text != null) { New.Text = TextBox_Strings.Text; }
+                else { return; }
+                //Set Alternate
+                if (CheckBox_Alternate.IsChecked == true) { New.Alternate = true; }
+                else { New.Alternate = false; }
+
+                //Replace Old Line With New Line
+                R_Segment.ReplaceLine(Old, New);
+
+                //Save Update
+                R_Response.UpdateSegment(R_Segment);
+                Responses.Update(R_Response);
+
+                //Update Listbox
+                U_Strings();
             }
-            catch (Exception)
-            { }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void btn_Strings_Delete_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                string Text = ListBox_Strings.SelectedItem.ToString();
-                Responses[TargetResponse()].Segments[TargetSegment()].RemoveAt(StringIndex(Text));
-                LB_String_Update(SegmentIndex());
+                //Record Old Line
+                Response.Segment.Line Old = SelectedLine();
+
+                //Delete Line
+                R_Segment.DeleteLine(Old);
+
+                //Save Update
+                R_Response.UpdateSegment(R_Segment);
+                Responses.Update(R_Response);
+
+                //Update Listbox
+                U_Strings();
             }
-            catch (Exception)
-            { }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         //End: String Buttons
         #endregion
 
-        //End: Buttons
-        #endregion
+        #region Miscellaneous UI Controls
+        private void btn_SegmentInfo_Update_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Update Reference Segment's Info
+                R_Segment.Info = TextBox_SegmentDescription.Text;
+                //Save Reference Segment
+                R_Response.UpdateSegment(R_Segment);
+                //Save Reference Response
+                Responses.Update(R_Response);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+        }
+
+        private void ListBox_Tokens_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                //Copy Token to Text Box
+                Response.Segment.Token Temp = SelectedToken();
+                TextBox_TokenDescription.Text = Temp.Info;
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
 
         private void ListBox_Strings_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                TextBox_Strings.Text = SelectedString();
+                //Copy Line to Text Box
+                Response.Segment.Line Temp = SelectedLine();
+                TextBox_Strings.Text = Temp.Text;
+                CheckBox_Alternate.IsChecked = Temp.Alternate;
             }
-            catch (Exception)
-            { }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void ListBox_Segments_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                if (SelectedSegment() != null && SelectedSegment() != "")
-                {
-                    LB_String_Update(SegmentIndex());
-                    TextBox_SegmentDescription.Text = SegmentInformation[SegmentIndex()];
-                }
+                //Clear Items
+                TextBox_TokenDescription.Text = null;
+
+                //Update Reference Segment
+                R_Segment = R_Response.GetSegment(SelectedSegmentText());
+
+                //Update Tokens
+
+                //Update Segment Information
+                U_SegmentInfo();
+
+                //Update Tokens
+                U_Tokens();
+
+                //Update String Item Source
+                U_Strings();
             }
-            catch (Exception)
-            { }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void ListBox_Responses_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                LB_Segment_Update(TargetResponse());
-                TB_SegmentInfo_Update(TargetResponse());
-                TextBox_SegmentDescription.Clear();
+                //Clear Information
+                TextBox_SegmentDescription.Text = null;
+                TextBox_TokenDescription.Text = null;
+                ListBox_Strings.ItemsSource = null;
+
+                //Update Reference Repsonse
+                R_Response = Responses.Get(SelectedResposneText());
+                //Update List Of Segments For New Response
+                U_Segments();
             }
-            catch (Exception)
-            { }            
-        }
-
-        private void btn_CreateUserTemplets_Click(object sender, RoutedEventArgs e)
-        {
-            ResetAllCollections();
-            CreateUserTemplets();
-        }
-
-        public void CreateUserTemplets()
-        {
-            Dictionary<string, Response> UserTempStorage = new Dictionary<string, Response>();
-            string Dir = Paths.ALICE_Response + Paths.Folder_Default;
-            DirectoryInfo directory = new DirectoryInfo(Dir);
-            foreach (FileInfo ResponseFile in directory.EnumerateFiles("*.response", SearchOption.TopDirectoryOnly))
+            catch (Exception ex)
             {
-                Deserialize(ResponseFile.FullName);
+
             }
+        }
+        #endregion
 
-            Dictionary<string, List<string>> NewSegments = new Dictionary<string, List<string>>();
+        //End: Buttons
+        #endregion
 
-            foreach (var Res in Responses.Values)
+        #region Support Methods / Functions
+        private string SelectedResposneText()
+        {
+            return ListBox_Responses.SelectedItem.ToString();
+        }
+
+        private string SelectedSegmentText()
+        {
+            var Temp = (Response.Segment)ListBox_Segments.SelectedItem;
+            return Temp.Name;
+        }
+
+        private string SelectedStringText()
+        {
+            var Temp = (Response.Segment.Line)ListBox_Strings.SelectedItem;
+            return Temp.Text;
+        }
+
+        private Response.Segment.Line SelectedLine()
+        {
+            return (Response.Segment.Line)ListBox_Strings.SelectedItem;
+        }
+
+        private Response.Segment.Token SelectedToken()
+        {
+            return (Response.Segment.Token)ListBox_Tokens.SelectedItem;
+        }
+
+        private Response.Segment SelectedSegment()
+        {
+            return (Response.Segment)ListBox_Segments.SelectedItem;
+        }
+
+        private void U_Responses()
+        {
+            try
             {
-                Response NewResponse = new Response
-                {
-                    ResponseName = Res.ResponseName,
-                    SegmentNames = Res.SegmentNames,
-                    SegmentInformation = Res.SegmentInformation,
-                    Segments = new Dictionary<string, List<string>>()
-                };
+                ListBox_Responses.ItemsSource = null;
+                ListBox_Responses.ItemsSource = Responses.Storage.Keys;
 
-                foreach (var Seg in Res.Segments)
-                {
-                    NewResponse.Segments.Add(Seg.Key, new List<string>());
-                }
+                //Clear Items
+                ListBox_Tokens.ItemsSource = null;
+                TextBox_TokenDescription.Text = null;
 
-                UserTempStorage.Add(Res.ResponseName, NewResponse);
+                ListBox_Segments.ItemsSource = null;
+                TextBox_SegmentDescription.Text = null;
+
+                TextBox_Strings.Text = null;
+                ListBox_Strings.ItemsSource = null;
             }
-
-            Responses = UserTempStorage;
-
-            LB_Response_Update();
+            catch (Exception) { }
         }
 
-        #region Functions
-        private string TargetResponse()
+        private void U_Segments()
         {
-            try { return ListBox_Responses.SelectedItem.ToString(); }
-            catch (Exception ex) { return null; }            
+            try
+            {
+                ListBox_Segments.ItemsSource = null;
+                ListBox_Segments.ItemsSource = R_Response.Segments;
+                ListBox_Segments.DisplayMemberPath = "Name";
+
+                //Clear Token List
+                ListBox_Tokens.ItemsSource = null;
+                TextBox_TokenDescription.Text = null;
+
+                ListBox_Strings.ItemsSource = null;
+            }
+            catch (Exception) { }
         }
 
-        private string TargetSegment()
+        private void U_SegmentInfo()
         {
-            return "S" + SegmentIndex().ToString();
+            try
+            {
+                TextBox_SegmentDescription.Text = SelectedSegment().Info;
+            }
+            catch (Exception) { }
         }
 
-        private string SelectedSegment()
+        private void U_Tokens()
         {
-            return ListBox_Segments.SelectedItem.ToString();
+            try
+            {
+                ListBox_Tokens.ItemsSource = null;
+                ListBox_Tokens.ItemsSource = R_Segment.Tokens;
+                ListBox_Tokens.DisplayMemberPath = "Name";
+            }
+            catch (Exception) { }
         }
 
-        private string SelectedString()
+        private void U_Strings()
         {
-            return ListBox_Strings.SelectedItem.ToString();
-        }
-
-        private int SegmentIndex()
-        {
-            return SegmentNames.FindIndex(x => x == SelectedSegment());
-        }
-
-        private int SegmentIndex(string TargetSegment)
-        {
-            return SegmentNames.FindIndex(x => x == TargetSegment);
-        }
-
-        private int StringIndex(string Text)
-        {
-            return Responses[TargetResponse()].Segments[TargetSegment()].FindIndex(x => x == Text);
+            try
+            {
+                ListBox_Strings.ItemsSource = null;
+                ListBox_Strings.ItemsSource = R_Segment.Lines;
+                ListBox_Strings.DisplayMemberPath = "Text";
+            }
+            catch (Exception) { }
         }
         #endregion
     }

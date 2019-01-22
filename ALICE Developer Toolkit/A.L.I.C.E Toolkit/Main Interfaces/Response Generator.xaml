@@ -8,6 +8,15 @@
               d:DesignHeight="800" d:DesignWidth="1013">
     <Grid Background="Black">
 
+        <StackPanel x:Name="StackPanel_MenuBar" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Orientation="Horizontal" Width="1013" Background="Black">
+            <Button x:Name="btn_LoadFile" Content="Load File" Margin="10,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_LoadFile_Click"/>
+            <Button x:Name="btn_LoadDirectory" Content="Load Directory" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_LoadDirectory_Click"/>
+            <Button x:Name="btn_SaveSelected" Content="Save Selected" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveSelected_Click"/>
+            <Button x:Name="btn_SaveIndividual" Content="Save All / Individual" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveIndividual_Click"/>
+            <Button x:Name="btn_SaveCombine" Content="Save All / Combine" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveCombine_Click"/>
+            <Button x:Name="btn_GenerateCode" Content="Generate Code" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_GenerateCode_Click"/>
+        </StackPanel>
+        
         <StackPanel x:Name="StackBox_Reponse" HorizontalAlignment="Left" Height="394" Margin="10,45,0,0" VerticalAlignment="Top" Width="205">
 
             <Label x:Name="label_ResponseName" Content="Response:" Foreground="#FFCE5A05"/>
@@ -43,15 +52,6 @@
         <StackPanel x:Name="StackBox_Strings" Margin="226,397,10.333,10">
             <TextBox x:Name="TextBox_Strings" Height="29" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="0,0,0,10"/>
             <ListBox x:Name="ListBox_Strings" Height="340" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_Strings_MouseDoubleClick" Margin="0,0,0.333,0"/>
-        </StackPanel>
-
-        <StackPanel x:Name="StackPanel_MenuBar" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Orientation="Horizontal" Width="1013" Background="Black">
-            <Button x:Name="btn_LoadFile" Content="Load File" Margin="10,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_LoadFile_Click"/>
-            <Button x:Name="btn_LoadDirectory" Content="Load Directory" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_LoadDirectory_Click"/>
-            <Button x:Name="btn_SaveSelected" Content="Save Selected" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveSelected_Click"/>
-            <Button x:Name="btn_SaveIndividual" Content="Save All / Individual" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveIndividual_Click"/>
-            <Button x:Name="btn_SaveCombine" Content="Save All / Combine" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveCombine_Click"/>
-            <Button x:Name="btn_GenerateCode" Content="Generate Code" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_GenerateCode_Click"/>
         </StackPanel>
 
         <TextBox x:Name="TextBox_TokenDescription" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="396,270,10.333,0" Height="92" VerticalAlignment="Top"/>
