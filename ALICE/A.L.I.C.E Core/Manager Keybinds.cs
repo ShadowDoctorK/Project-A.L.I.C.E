@@ -578,7 +578,7 @@ namespace ALICE_Keybinds
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response(Line, true);
+                    Speech.Speak(Line, true);
                 }
                 else if (PlugIn.Audio == "File") { }
                 else if (PlugIn.Audio == "External") { }

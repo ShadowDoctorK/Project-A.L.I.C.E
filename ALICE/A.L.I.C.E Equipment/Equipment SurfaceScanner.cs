@@ -28,9 +28,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Surface Scanner Not Installed.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Negative.Default, true)
-                .Speak("Surface Scanner Not Installed."),
+            Speech.Speak(""
+                .Phrase(Negative.Default, true)
+                .Phrase("Surface Scanner Not Installed."),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -39,9 +39,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Surface Scanner Assigned To Group " + Group + " " + FireMode + " Fire.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Positive.Default, true)
-                .Speak("Surface Scanner Assigned To Group [GROUP], [FIREMODE] Fire.")
+            Speech.Speak(""
+                .Phrase(Positive.Default, true)
+                .Phrase("Surface Scanner Assigned To Group [GROUP], [FIREMODE] Fire.")
                 .Token("[GROUP]", Group)
                 .Token("[FIREMODE]", FireMode),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);

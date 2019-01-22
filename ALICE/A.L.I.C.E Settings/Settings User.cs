@@ -187,10 +187,10 @@ namespace ALICE_Settings
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Negative.Default, true)
-                            .Speak(Order_Generic.Currently_Enabled)
+                            "".Phrase(Negative.Default, true)
+                            .Phrase(Order_Generic.Currently_Enabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -204,10 +204,10 @@ namespace ALICE_Settings
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Positive.Default, true)
-                            .Speak(Order_Generic.Disabled)
+                            "".Phrase(Positive.Default, true)
+                            .Phrase(Order_Generic.Disabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -224,10 +224,10 @@ namespace ALICE_Settings
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Positive.Default, true)
-                            .Speak(Order_Generic.Enabled)
+                            "".Phrase(Positive.Default, true)
+                            .Phrase(Order_Generic.Enabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -241,10 +241,10 @@ namespace ALICE_Settings
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Negative.Default, true)
-                            .Speak(Order_Generic.Currently_Disabled)
+                            "".Phrase(Negative.Default, true)
+                            .Phrase(Order_Generic.Currently_Disabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -331,10 +331,10 @@ namespace ALICE_Settings
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Negative.Default, true)
-                            .Speak(Report_Generic.Currently_Enabled)
+                            "".Phrase(Negative.Default, true)
+                            .Phrase(Report_Generic.Currently_Enabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -348,10 +348,10 @@ namespace ALICE_Settings
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Positive.Default, true)
-                            .Speak(Report_Generic.Disabled)
+                            "".Phrase(Positive.Default, true)
+                            .Phrase(Report_Generic.Disabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -368,10 +368,10 @@ namespace ALICE_Settings
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Positive.Default, true)
-                            .Speak(Report_Generic.Enabled)
+                            "".Phrase(Positive.Default, true)
+                            .Phrase(Report_Generic.Enabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -385,10 +385,10 @@ namespace ALICE_Settings
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Negative.Default, true)
-                            .Speak(Report_Generic.Currently_Disabled)
+                            "".Phrase(Negative.Default, true)
+                            .Phrase(Report_Generic.Currently_Disabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );

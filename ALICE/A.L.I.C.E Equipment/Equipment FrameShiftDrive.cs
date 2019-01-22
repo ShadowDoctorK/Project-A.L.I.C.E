@@ -135,9 +135,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Charing Aborted.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Positive.Default, true)
-                .Speak(EQ_Frame_Shift_Drive.Abort_Successful),
+            Speech.Speak(""
+                .Phrase(Positive.Default, true)
+                .Phrase(EQ_Frame_Shift_Drive.Abort_Successful),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -146,8 +146,8 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Failed To Aborted.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(EQ_Frame_Shift_Drive.Abort_Failed),
+            Speech.Speak(""
+                .Phrase(EQ_Frame_Shift_Drive.Abort_Failed),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -156,8 +156,8 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Stand By, Frame Shift Drive Is Cooling Down.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(EQ_Frame_Shift_Drive.Cooldown),
+            Speech.Speak(""
+                .Phrase(EQ_Frame_Shift_Drive.Cooldown),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -166,8 +166,8 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Can't Do That In Hyperspace.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(EQ_Frame_Shift_Drive.SC_Currently_Hyperspace), 
+            Speech.Speak(""
+                .Phrase(EQ_Frame_Shift_Drive.SC_Currently_Hyperspace), 
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -176,8 +176,8 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Too Fast For A Safe Drop, Would You Like To Emergency Disengage?", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(EQ_Frame_Shift_Drive.Too_Fast),
+            Speech.Speak(""
+                .Phrase(EQ_Frame_Shift_Drive.Too_Fast),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -186,9 +186,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Disengaging...", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Positive.Default, true)
-                .Speak(EQ_Frame_Shift_Drive.SC_Disengaging),
+            Speech.Speak(""
+                .Phrase(Positive.Default, true)
+                .Phrase(EQ_Frame_Shift_Drive.SC_Disengaging),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -197,9 +197,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Prepairing Ship For Supercruise", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Positive.Default, true)
-                .Speak(EQ_Frame_Shift_Drive.SC_Preparing),
+            Speech.Speak(""
+                .Phrase(Positive.Default, true)
+                .Phrase(EQ_Frame_Shift_Drive.SC_Preparing),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -208,9 +208,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Prepairing Ship For Hyperspace", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Positive.Default, true)
-                .Speak(EQ_Frame_Shift_Drive.HS_Preparing),
+            Speech.Speak(""
+                .Phrase(Positive.Default, true)
+                .Phrase(EQ_Frame_Shift_Drive.HS_Preparing),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -219,9 +219,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Currently Charging For Hyperspace", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Negative.Default, true)
-                .Speak(EQ_Frame_Shift_Drive.HS_Currently_Charging),
+            Speech.Speak(""
+                .Phrase(Negative.Default, true)
+                .Phrase(EQ_Frame_Shift_Drive.HS_Currently_Charging),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -230,9 +230,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Currently Charging For Supercruise", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Negative.Default, true)
-                .Speak(EQ_Frame_Shift_Drive.SC_Currently_Charging),
+            Speech.Speak(""
+                .Phrase(Negative.Default, true)
+                .Phrase(EQ_Frame_Shift_Drive.SC_Currently_Charging),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -241,9 +241,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Currently Operating In Supercruise", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Negative.Default, true)
-                .Speak(EQ_Frame_Shift_Drive.SC_Currently_Supercruise),
+            Speech.Speak(""
+                .Phrase(Negative.Default, true)
+                .Phrase(EQ_Frame_Shift_Drive.SC_Currently_Supercruise),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -252,8 +252,8 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Currently Operating In Normal Space.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(EQ_Frame_Shift_Drive.SC_Currently_Normal_Space),
+            Speech.Speak(""
+                .Phrase(EQ_Frame_Shift_Drive.SC_Currently_Normal_Space),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -262,9 +262,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Currently Operating In Hyperspace", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Negative.Default, true)
-                .Speak(EQ_Frame_Shift_Drive.HS_Currently_Hyperspace),
+            Speech.Speak(""
+                .Phrase(Negative.Default, true)
+                .Phrase(EQ_Frame_Shift_Drive.HS_Currently_Hyperspace),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -273,8 +273,8 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Entering Supercruise.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(EQ_Frame_Shift_Drive.SC_Entering, false, true, true, 25, EQ_Frame_Shift_Drive.SC_Entering_Special),
+            Speech.Speak(""
+                .Phrase(EQ_Frame_Shift_Drive.SC_Entering),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -283,8 +283,8 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Entering Supercruise.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(EQ_Frame_Shift_Drive.HS_Entering, false, true, true, 25, EQ_Frame_Shift_Drive.HS_Entering_Special),                
+            Speech.Speak(""
+                .Phrase(EQ_Frame_Shift_Drive.HS_Entering),                
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -293,10 +293,10 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Ship Is Touched Down.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Negative.Default, true)
-                .Speak(EQ_Frame_Shift_Drive.Negaive_Speical, true)
-                .Speak(EQ_Frame_Shift_Drive.Touchdown), 
+            Speech.Speak(""
+                .Phrase(Negative.Default, true)
+                .Phrase(EQ_Frame_Shift_Drive.Negaive_Speical, true)
+                .Phrase(EQ_Frame_Shift_Drive.Touchdown), 
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -305,10 +305,10 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Ship Is Docked.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Negative.Default, true)
-                .Speak(EQ_Frame_Shift_Drive.Negaive_Speical, true)
-                .Speak(EQ_Frame_Shift_Drive.Docked),
+            Speech.Speak(""
+                .Phrase(Negative.Default, true)
+                .Phrase(EQ_Frame_Shift_Drive.Negaive_Speical, true)
+                .Phrase(EQ_Frame_Shift_Drive.Docked),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -317,8 +317,8 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Masslocked, Exit The Area To Continue...", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(EQ_Frame_Shift_Drive.Masslock),
+            Speech.Speak(""
+                .Phrase(EQ_Frame_Shift_Drive.Masslock),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -327,8 +327,8 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Charging...", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(EQ_Frame_Shift_Drive.Drive_Charging, false, true, true, 15, EQ_Frame_Shift_Drive.Drive_Charging_Special),
+            Speech.Speak(""
+                .Phrase(EQ_Frame_Shift_Drive.Drive_Charging),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -337,8 +337,8 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Failed To Engage.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(EQ_Frame_Shift_Drive.Failed_to_Engage),
+            Speech.Speak(""
+                .Phrase(EQ_Frame_Shift_Drive.Failed_to_Engage),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -347,8 +347,8 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Failed To Disengage.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(EQ_Frame_Shift_Drive.Failed_to_Disengage),
+            Speech.Speak(""
+                .Phrase(EQ_Frame_Shift_Drive.Failed_to_Disengage),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 

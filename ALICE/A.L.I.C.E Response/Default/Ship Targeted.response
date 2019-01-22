@@ -1,1 +1,0 @@
-{"ResponseName":"Ship Targeted","SegmentNames":["Wanted","Enemy Faction"],"SegmentInformation":["",""],"Segments":{"S0":["[PILOT] Has A [NUM] Credit Bounty.","[NUM] Credit Bounty Detected.","[NUM] Credit Reward On File For [PILOT]."],"S1":["Hostile Faction Ship Detected.","Enemy Faction Ship Detected.","[FACTION] Faction Pilot Detected.","[FACTION] Aligned Ship Detected."]}}

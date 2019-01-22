@@ -65,8 +65,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Orbital Guidance Systems Offline.", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(GN_Planetary_Interaction.Orbital_Cruise_Exit),
+                Speech.Speak(""
+                    .Phrase(GN_Planetary_Interaction.Orbital_Cruise_Exit),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -75,8 +75,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Orbital Guidance Systems Online.", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(GN_Planetary_Interaction.Orbital_Cruise_Entry),
+                Speech.Speak(""
+                    .Phrase(GN_Planetary_Interaction.Orbital_Cruise_Entry),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -85,8 +85,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Prepairing For Orbital Decent", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(GN_Planetary_Interaction.Orbital_Descent_Prep),
+                Speech.Speak(""
+                    .Phrase(GN_Planetary_Interaction.Orbital_Descent_Prep),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -95,8 +95,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Aborted Orbital Decent", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(GN_Planetary_Interaction.Orbital_Descent_Aborted),
+                Speech.Speak(""
+                    .Phrase(GN_Planetary_Interaction.Orbital_Descent_Aborted),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -105,8 +105,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "High Gravity Warning: " + IObjects.StellarBodyCurrent.Gravity, Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(GN_Planetary_Interaction.Orbital_Gravity_Warning),
+                Speech.Speak(""
+                    .Phrase(GN_Planetary_Interaction.Orbital_Gravity_Warning),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -115,8 +115,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Not Spectrum Scanned, Recommned Scanning Prior To Entry.", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(GN_Planetary_Interaction.Orbital_Not_Scanned),
+                Speech.Speak(""
+                    .Phrase(GN_Planetary_Interaction.Orbital_Not_Scanned),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
         }   

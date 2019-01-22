@@ -25,9 +25,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Electronic Countermeasures Not Installed.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Negative.Default, true)
-                .Speak("Electronic Countermeasures Not Installed."),
+            Speech.Speak(""
+                .Phrase(Negative.Default, true)
+                .Phrase("Electronic Countermeasures Not Installed."),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -36,9 +36,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Electronic Countermeasures Assigned To Group " + Group + " " + FireMode + " Fire.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Positive.Default, true)
-                .Speak("Electronic Countermeasures Assigned To Group [GROUP], [FIREMODE] Fire.")
+            Speech.Speak(""
+                .Phrase(Positive.Default, true)
+                .Phrase("Electronic Countermeasures Assigned To Group [GROUP], [FIREMODE] Fire.")
                 .Token("[GROUP]", Group)
                 .Token("[FIREMODE]", FireMode),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
