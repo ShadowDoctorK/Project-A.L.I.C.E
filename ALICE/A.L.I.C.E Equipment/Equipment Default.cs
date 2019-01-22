@@ -39,8 +39,8 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Roger That Commander.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Positive.Default, true)
+            Speech.Speak(""
+                .Phrase(Positive.Default, true)
                 , CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -49,8 +49,8 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative Commander.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Negative.Default, true)
+            Speech.Speak(""
+                .Phrase(Negative.Default, true)
                 , CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -60,9 +60,9 @@ namespace ALICE_Equipment
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Module Assigned To Group " + Group + " " + FireMode + " Fire.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Positive.Default, true)
-                .Speak("Module Assigned To Group [GROUP], [FIREMODE] Fire.")
+            Speech.Speak(""
+                .Phrase(Positive.Default, true)
+                .Phrase("Module Assigned To Group [GROUP], [FIREMODE] Fire.")
                 .Token("[GROUP]", Group)
                 .Token("[FIREMODE]", FireMode),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
@@ -72,120 +72,120 @@ namespace ALICE_Equipment
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("".Speak(Negative.Default, true) + "Module Has Not Been Assigned", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Negative.Default, true) + "Module Has Not Been Assigned", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void NotInstalled(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("Equipment Not Installed.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("Equipment Not Installed.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void EnteredHyperspace(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("Operations Aborted.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("Operations Aborted.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void ScanCommenced(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("Scan Commenced.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("Scan Commenced.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void ScanComplete(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("Scan Complete.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("Scan Complete.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void ScanFailed(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("Scan Failed.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("Scan Failed.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void NotInNormalSpace(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("".Speak(Negative.Default, true) + "Can Only Do That In Normal Space.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Negative.Default, true) + "Can Only Do That In Normal Space.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void NotInSupercruise(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("".Speak(Negative.Default, true) + "Can Only Do That In Supercruise.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Negative.Default, true) + "Can Only Do That In Supercruise.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void NoHyperspace(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("".Speak(Negative.Default, true) + "Can't Do That In Hyperspace.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Negative.Default, true) + "Can't Do That In Hyperspace.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void NoSupercruise(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("".Speak(Negative.Default, true) + "Can't Do That In Supercruise.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Negative.Default, true) + "Can't Do That In Supercruise.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void NoNormalSpace(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("".Speak(Negative.Default, true) + "Can't Do That In Normal Space.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Negative.Default, true) + "Can't Do That In Normal Space.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void Activating(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("".Speak(Positive.Default, true) + "Activating.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Positive.Default, true) + "Activating.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void SelectionFailed(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("Failed To Select Correct Firegroup.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("Failed To Select Correct Firegroup.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void Selected(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("Selected.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("Selected.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void CurrentlySelected(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("".Speak(Negative.Default, true) + " Currently Selected.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Negative.Default, true) + " Currently Selected.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void NotInMothership(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response("".Speak(Negative.Default, true) + " Not In The Mothership.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Negative.Default, true) + " Not In The Mothership.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void NoTouchdown(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response(""
-                .Speak(Negative.Default, true) + 
+            Speech.Speak(""
+                .Phrase(Negative.Default, true) + 
                 " Can't Do That During Touchdown.", 
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
@@ -194,8 +194,8 @@ namespace ALICE_Equipment
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Response(""
-                .Speak(Negative.Default, true) +
+            Speech.Speak(""
+                .Phrase(Negative.Default, true) +
                 " Can't Do That While Docked.",
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }

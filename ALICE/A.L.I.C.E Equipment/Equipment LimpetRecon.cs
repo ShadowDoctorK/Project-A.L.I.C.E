@@ -25,9 +25,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Recon Limpet Controller Not Installed.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Negative.Default, true)
-                .Speak("Recon Limpet Controller Not Installed."),
+            Speech.Speak(""
+                .Phrase(Negative.Default, true)
+                .Phrase("Recon Limpet Controller Not Installed."),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -36,9 +36,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Recon Limpet Controller Assigned To Group " + Group + " " + FireMode + " Fire.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Positive.Default, true)
-                .Speak("Recon Limpet Controller Assigned To Group [GROUP], [FIREMODE] Fire.")
+            Speech.Speak(""
+                .Phrase(Positive.Default, true)
+                .Phrase("Recon Limpet Controller Assigned To Group [GROUP], [FIREMODE] Fire.")
                 .Token("[GROUP]", Group)
                 .Token("[FIREMODE]", FireMode),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);

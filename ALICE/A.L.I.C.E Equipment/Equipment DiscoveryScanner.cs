@@ -44,9 +44,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Discovery Scanner Assigned To Group " + Group + " " + FireMode + " Fire.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Positive.Default, true)
-                .Speak("Discovery Scanner Assigned To Group [GROUP], [FIREMODE] Fire.")
+            Speech.Speak(""
+                .Phrase(Positive.Default, true)
+                .Phrase("Discovery Scanner Assigned To Group [GROUP], [FIREMODE] Fire.")
                 .Token("[GROUP]", Group)
                 .Token("[FIREMODE]", FireMode),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
@@ -55,67 +55,67 @@ namespace ALICE_Equipment
         public override void NotAssigned(bool CommandAudio, bool Var1 = true, bool Var2 = true, 
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Response("".Speak(Negative.Default, true).Speak(EQ_Discovery_Scanner.Not_Assigned), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Negative.Default, true).Phrase(EQ_Discovery_Scanner.Not_Assigned), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public override void EnteredHyperspace(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Response("".Speak(EQ_Discovery_Scanner.Entered_Hyperspace), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(EQ_Discovery_Scanner.Entered_Hyperspace), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public override void ScanComplete(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Response("".Speak(EQ_Discovery_Scanner.Scan_Complete), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(EQ_Discovery_Scanner.Scan_Complete), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public override void ScanCommenced(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Response("".Speak(EQ_Discovery_Scanner.Scan_Commenced), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(EQ_Discovery_Scanner.Scan_Commenced), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public override void ScanFailed(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Response("".Speak(EQ_Discovery_Scanner.Scan_Failed), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(EQ_Discovery_Scanner.Scan_Failed), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public void NewReturns(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Response("".Speak(EQ_Discovery_Scanner.New_Returns), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(EQ_Discovery_Scanner.New_Returns), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public void NoReturns(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Response("".Speak(EQ_Discovery_Scanner.No_Returns), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(EQ_Discovery_Scanner.No_Returns), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public void FSSActivating(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Response("".Speak(Positive.Default, true).Speak(EQ_Discovery_Scanner.FSS_Activating), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Positive.Default, true).Phrase(EQ_Discovery_Scanner.FSS_Activating), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public void FSSDeactivating(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Response("".Speak(Positive.Default, true).Speak(EQ_Discovery_Scanner.FSS_Deactivating), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Positive.Default, true).Phrase(EQ_Discovery_Scanner.FSS_Deactivating), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public void FSSCurrentlyActivated(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Response("".Speak(Negative.Default, true).Speak(EQ_Discovery_Scanner.FSS_Currently_Activated), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Negative.Default, true).Phrase(EQ_Discovery_Scanner.FSS_Currently_Activated), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public void FSSCurrentlyDeactivated(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Response("".Speak(Negative.Default, true).Speak(EQ_Discovery_Scanner.FSS_Currently_Deactivated), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Negative.Default, true).Phrase(EQ_Discovery_Scanner.FSS_Currently_Deactivated), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
         #endregion
     }

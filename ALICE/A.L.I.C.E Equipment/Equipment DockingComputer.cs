@@ -28,7 +28,7 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Docking Computer Not Installed.", Logger.Yellow); }
 
-            Speech.Response("Docking Computer Not Installed.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("Docking Computer Not Installed.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
         #endregion
     }

@@ -28,9 +28,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Alice.Online)
+                    "".Phrase(Alice.Online)
                     .Replace("[VERSION]", Event.Version),
                     true
                     );
@@ -49,9 +49,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Assult)
+                    "".Phrase(Crime.Assult)
                     .Replace("[VICTIM]", Event.Victim),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName),
@@ -70,11 +70,11 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Block_Airlock_Minor)
-                    .Speak(Crime.Block_Relocate)
-                    .Speak(Crime.Fine, true)
+                    "".Phrase(Crime.Block_Airlock_Minor)
+                    .Phrase(Crime.Block_Relocate)
+                    .Phrase(Crime.Fine, true)
                     .Replace("[AMOUNT]", Event.Amount.ToString())
                     .Replace("[STATON]", Event.Station),
                     true,
@@ -93,9 +93,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Block_Airlock_Warning),
+                    "".Phrase(Crime.Block_Airlock_Warning),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -112,11 +112,11 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Block_Landing_Pad_Minor)
-                    .Speak(Crime.Block_Relocate)
-                    .Speak(Crime.Fine, true)
+                    "".Phrase(Crime.Block_Landing_Pad_Minor)
+                    .Phrase(Crime.Block_Relocate)
+                    .Phrase(Crime.Fine, true)
                     .Replace("[AMOUNT]", Event.Amount.ToString())
                     .Replace("[STATON]", Event.Station),
                     true,
@@ -135,9 +135,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Block_Landing_Pad_Warning),
+                    "".Phrase(Crime.Block_Landing_Pad_Warning),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -154,10 +154,10 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Fire_In_No_Fire_Zone, false, IEvents.FireInNoFireZone.FirstReport)
-                    .Speak(Crime.Fine, true)
+                    "".Phrase(Crime.Fire_In_No_Fire_Zone, false, IEvents.FireInNoFireZone.FirstReport)
+                    .Phrase(Crime.Fine, true)
                     .Replace("[AMOUNT]", Event.Amount.ToString()),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
@@ -182,12 +182,12 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Fuel_Report.Critical_Level)
-                    .Speak(Fuel_Report.Level_Percent, false, true, true, 50, Fuel_Report.Level_Tons)
-                    .Replace("[PERCENT]", decimal.Round(IStatus.Fuel.GetPercent(), 0).ToString())
-                    .Replace("[FUELTONS]", decimal.Round(IStatus.Fuel.Main, 1).ToString()),
+                    "".Phrase(Fuel_Report.Critical_Level)
+                    .Phrase(Speech.Pick(new List<string>[] { Fuel_Report.Level_Percent, Fuel_Report.Level_Tons }))
+                    .Token("[PERCENT]", decimal.Round(IStatus.Fuel.GetPercent(), 0).ToString())
+                    .Token("[FUELTONS]", decimal.Round(IStatus.Fuel.Main, 1).ToString()),
                     true
                     );
             }
@@ -208,12 +208,13 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Fuel_Report.Low_Level)
-                    .Speak(Fuel_Report.Level_Percent, false, true, true, 50, Fuel_Report.Level_Tons)
-                    .Replace("[PERCENT]", decimal.Round(IStatus.Fuel.GetPercent(), 0).ToString())
-                    .Replace("[FUELTONS]", decimal.Round(IStatus.Fuel.Main, 1).ToString()),
+                    "".Phrase(Fuel_Report.Low_Level)
+                    
+                    .Phrase(Speech.Pick(new List<string>[] { Fuel_Report.Level_Percent, Fuel_Report.Level_Tons }))
+                    .Token("[PERCENT]", decimal.Round(IStatus.Fuel.GetPercent(), 0).ToString())
+                    .Token("[FUELTONS]", decimal.Round(IStatus.Fuel.Main, 1).ToString()),
                     true
                     );
             }
@@ -234,9 +235,9 @@ namespace ALICE_EventLogic
             #region Audio
             //if (PlugIn.Audio == "TTS")
             //{
-            //    Speech.Response
+            //    Speech.Speak
             //        (
-            //        "".Speak(Fuel_Report.Level_Percent, false, true, true, 50, Fuel_Report.Level_Tons)
+            //        "".Phrase(Fuel_Report.Level_Percent, false, true, true, 50, Fuel_Report.Level_Tons)
             //        .Replace("[PERCENT]", decimal.Round(IObjects.Status.Fuel.Percent(), 0).ToString())
             //        .Replace("[FUELTONS]", decimal.Round(IObjects.Status.Fuel.Current, 1).ToString()),
             //        true,
@@ -261,9 +262,9 @@ namespace ALICE_EventLogic
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(No_Fire_Zone.Entered)
+                        "".Phrase(No_Fire_Zone.Entered)
                         .Replace("[STATION]", Event.Station),
                         true,
                         IEvents.TriggerEvents
@@ -287,10 +288,10 @@ namespace ALICE_EventLogic
                         #region Audio
                         if (PlugIn.Audio == "TTS")
                         {
-                            Speech.Response
+                            Speech.Speak
                                 (
-                                "".Speak(Hardpoints.Retracting)
-                                .Speak(Hardpoints.Safety_Engaging),
+                                "".Phrase(Hardpoints.Retracting)
+                                .Phrase(Hardpoints.Safety_Engaging),
                                 true,
                                 IEvents.TriggerEvents
                                 );
@@ -305,9 +306,9 @@ namespace ALICE_EventLogic
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Hardpoints.Safety_Engaging),
+                            "".Phrase(Hardpoints.Safety_Engaging),
                             true,
                             IEvents.TriggerEvents
                             );
@@ -324,9 +325,9 @@ namespace ALICE_EventLogic
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(No_Fire_Zone.Exited)
+                        "".Phrase(No_Fire_Zone.Exited)
                         .Replace("[STATION]", Event.Station),
                         true,
                         IEvents.TriggerEvents
@@ -343,9 +344,9 @@ namespace ALICE_EventLogic
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Hardpoints.Safety_Disengaging),
+                            "".Phrase(Hardpoints.Safety_Disengaging),
                             true,
                             IEvents.TriggerEvents
                             );
@@ -381,9 +382,9 @@ namespace ALICE_EventLogic
                                     #region Audio
                                     if (PlugIn.Audio == "TTS")
                                     {
-                                        Speech.Response
+                                        Speech.Speak
                                             (
-                                            "".Speak(Shipyard_Arrived.Three_Min_Warning)
+                                            "".Phrase(Shipyard_Arrived.Three_Min_Warning)
                                             .Replace("[DESTINATION]", Tranfer.EndLocation)
                                             .Replace("[SHIP]", Tranfer.Ship)
                                             .Replace("[STATION]", Tranfer.EndStation),
@@ -400,9 +401,9 @@ namespace ALICE_EventLogic
                                     #region Audio
                                     if (PlugIn.Audio == "TTS")
                                     {
-                                        Speech.Response
+                                        Speech.Speak
                                             (
-                                            "".Speak(Shipyard_Arrived.Arrived)
+                                            "".Phrase(Shipyard_Arrived.Arrived)
                                             .Replace("[DESTINATION]", Tranfer.EndLocation)
                                             .Replace("[SHIP]", Tranfer.Ship)
                                             .Replace("[STATION]", Tranfer.EndStation),
@@ -445,9 +446,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Station.Damaged)
+                    "".Phrase(Station.Damaged)
                     .Replace("[STATON]", Event.Station),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
@@ -465,9 +466,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Station.Hostile)
+                    "".Phrase(Station.Hostile)
                     .Replace("[STATON]", Event.Station),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
@@ -507,9 +508,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Disobey_Police),
+                    "".Phrase(Crime.Disobey_Police),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -531,9 +532,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Illegal_Cargo),
+                    "".Phrase(Crime.Illegal_Cargo),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -550,9 +551,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Interdicting),
+                    "".Phrase(Crime.Interdicting),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -569,9 +570,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Murder),
+                    "".Phrase(Crime.Murder),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -588,9 +589,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Piracy),
+                    "".Phrase(Crime.Piracy),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -607,9 +608,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Trespass_Minor),
+                    "".Phrase(Crime.Trespass_Minor),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -626,9 +627,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Dumping_Dangerous),
+                    "".Phrase(Crime.Dumping_Dangerous),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -645,9 +646,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Dumping_Near_Station),
+                    "".Phrase(Crime.Dumping_Near_Station),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -664,9 +665,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Block_Landing_Pad_Warning),
+                    "".Phrase(Crime.Block_Landing_Pad_Warning),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -683,9 +684,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Wreckless_Flying),
+                    "".Phrase(Crime.Wreckless_Flying),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -702,9 +703,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Crime.Wreckless_Flying_Damage),
+                    "".Phrase(Crime.Wreckless_Flying_Damage),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -745,9 +746,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(ALICE_Synthesizer.Bounty.Collected)
+                    "".Phrase(ALICE_Synthesizer.Bounty.Collected)
                     .Token("[NUM]", Event.TotalReward.ToString())
                     .Token("[SHIPTYPE]", Event.Target)
                     .Token("[PILOTNAME]", IObjects.TargetShip.PilotName_Localised),
@@ -800,7 +801,7 @@ namespace ALICE_EventLogic
                 {
                     if (PlugIn.Audio == "TTS")
                     {
-                        string Line = "".Speak(NPC_Crew.Active_Duty).Replace("[CREW MEMBER]", Event.Name);
+                        string Line = "".Phrase(NPC_Crew.Active_Duty).Replace("[CREW MEMBER]", Event.Name);
 
                         Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
                         thread.IsBackground = true;
@@ -822,7 +823,7 @@ namespace ALICE_EventLogic
                 {
                     if (PlugIn.Audio == "TTS")
                     {
-                        string Line = "".Speak(NPC_Crew.On_Shore_Leave).Replace("[CREW MEMBER]", Event.Name);
+                        string Line = "".Phrase(NPC_Crew.On_Shore_Leave).Replace("[CREW MEMBER]", Event.Name);
 
                         Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
                         thread.IsBackground = true;
@@ -928,9 +929,9 @@ namespace ALICE_EventLogic
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(ALICE_Synthesizer.Crime.Default),
+                            "".Phrase(ALICE_Synthesizer.Crime.Default),
                             true,
                             Check.Internal.TriggerEvents(true, MethodName)
                             );
@@ -983,7 +984,7 @@ namespace ALICE_EventLogic
             {
                 if (PlugIn.Audio == "TTS")
                 {
-                    string Line = "".Speak(Fighter.Docked).Speak(Fighter.Docked_Modifier, true);
+                    string Line = "".Phrase(Fighter.Docked).Phrase(Fighter.Docked_Modifier, true);
 
                     Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
                     thread.IsBackground = true;
@@ -1096,7 +1097,7 @@ namespace ALICE_EventLogic
             {
                 if (PlugIn.Audio == "TTS")
                 {
-                    string Line = "".Speak(Fighter.Destroyed);
+                    string Line = "".Phrase(Fighter.Destroyed);
 
                     Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
                     thread.IsBackground = true;
@@ -1130,7 +1131,7 @@ namespace ALICE_EventLogic
                 {
                     if (PlugIn.Audio == "TTS")
                     {
-                        string Line = "".Speak(Fighter.Rebuilt_Docked);
+                        string Line = "".Phrase(Fighter.Rebuilt_Docked);
 
                         Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
                         thread.IsBackground = true;
@@ -1152,7 +1153,7 @@ namespace ALICE_EventLogic
                 {
                     if (PlugIn.Audio == "TTS")
                     {
-                        string Line = "".Speak(Fighter.Rebuilt_Destroyed);
+                        string Line = "".Phrase(Fighter.Rebuilt_Destroyed);
 
                         Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
                         thread.IsBackground = true;
@@ -1174,7 +1175,7 @@ namespace ALICE_EventLogic
                 {
                     if (PlugIn.Audio == "TTS")
                     {
-                        string Line = "".Speak(Fighter.Rebuilt_Other);
+                        string Line = "".Phrase(Fighter.Rebuilt_Other);
 
                         Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
                         thread.IsBackground = true;
@@ -1249,10 +1250,10 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(EQ_Discovery_Scanner.New_Returns)
-                    .Speak(EQ_Discovery_Scanner.Updating, false, IEquipment.DiscoveryScanner.FirstScan)
+                    "".Phrase(EQ_Discovery_Scanner.New_Returns)
+                    .Phrase(EQ_Discovery_Scanner.Updating, false, IEquipment.DiscoveryScanner.FirstScan)
                     .Token("[SCANNUM]", Event.BodyCount),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
@@ -1284,9 +1285,9 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Heat_Damage.Default),
+                    "".Phrase(Heat_Damage.Default),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -1303,10 +1304,10 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Heat_Warning.Default)
-                    .Speak(Heat_Warning.Modifier, true),
+                    "".Phrase(Heat_Warning.Default)
+                    .Phrase(Heat_Warning.Modifier, true),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -1367,7 +1368,7 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
                     Event.Name + " Collected.",
                     true,
@@ -1701,9 +1702,9 @@ namespace ALICE_EventLogic
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Synth.Masslock.Entered),
+                        "".Phrase(Synth.Masslock.Entered),
                         true,
                         Check.Report.Masslock(true, MethodName),
                         Check.Internal.TriggerEvents(true, MethodName),
@@ -1719,9 +1720,9 @@ namespace ALICE_EventLogic
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Synth.Masslock.Exited),
+                        "".Phrase(Synth.Masslock.Exited),
                         true,
                         Check.Report.Masslock(true, MethodName),
                         Check.Internal.TriggerEvents(true, MethodName),
@@ -1796,10 +1797,10 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Facility_Report.Docked)
-                    .Speak(Facility_Report.Datalink)
+                    "".Phrase(Facility_Report.Docked)
+                    .Phrase(Facility_Report.Datalink)
                     .Token("[STATION]", IObjects.FacilityCurrent.Name),
                     true,
                     Check.Report.StationStatus(true, MethodName)
@@ -1814,11 +1815,11 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Facility_Report.Government)
-                    .Speak(Facility_Report.Economy)
-                    .Speak(Facility_Report.State, false, true, (Check.State.FacilityCurrent_State("None", false, MethodName)))
+                    "".Phrase(Facility_Report.Government)
+                    .Phrase(Facility_Report.Economy)
+                    .Phrase(Facility_Report.State, false, true, (Check.State.FacilityCurrent_State("None", false, MethodName)))
                     .Token("[ECONOMY]", IObjects.FacilityCurrent.Economy)
                     .Token("[GOVERNMENT]", IObjects.FacilityCurrent.Government)
                     .Token("[ALLEGIANCE]", IObjects.FacilityCurrent.Allegiance)
@@ -2028,9 +2029,9 @@ namespace ALICE_EventLogic
                         #region Audio
                         if (PlugIn.Audio == "TTS")
                         {
-                            Speech.Response
+                            Speech.Speak
                                 (
-                                "".Speak(GN_Planetary_Interaction.Glide_Complete),
+                                "".Phrase(GN_Planetary_Interaction.Glide_Complete),
                                 true
                                 );
                         }
@@ -2060,10 +2061,10 @@ namespace ALICE_EventLogic
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Facility_Report.Undocked)
-                    .Speak(Facility_Report.Undocked_Modifier),
+                    "".Phrase(Facility_Report.Undocked)
+                    .Phrase(Facility_Report.Undocked_Modifier),
                     true,
                     Check.Report.Masslock(true, MethodName),
                     Check.Internal.TriggerEvents(true, MethodName)

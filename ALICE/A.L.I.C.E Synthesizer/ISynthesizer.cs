@@ -13,7 +13,7 @@ namespace ALICE_Synthesizer
     public static class ISynthesizer
     {      
         //User Settings For the Synthesizer
-        public static SynthSetting Settings = LoadSettings();
+        public static SynthSetting Settings = new SynthSetting().Load();
 
         //Enum Used to feedback more data when a Boolean doesn't meet the requirements
         public enum Answer { Default, Positive, Negative, Error }
@@ -24,8 +24,6 @@ namespace ALICE_Synthesizer
         //Collection of the Responses Used By The Synthesizer To Generate Responses
         public static ResponseCollection Response = new ResponseCollection();
 
-        #region Methods
-        #endregion
     }
 
     public class ResponseCollection
@@ -123,7 +121,7 @@ namespace ALICE_Synthesizer
             try
             {
                 //Check If Response Exists
-                if (ResponseExists(R))
+                if (Exists(R))
                 {
                     //Check If Segment Exists
                     if (Storage[R].SegmentExists(S))
@@ -174,6 +172,59 @@ namespace ALICE_Synthesizer
             if (R == null) { return false; }
             if (Storage.ContainsKey(R)) { return true; }
             return false;
+        }
+
+        /// <summary>
+        /// Will Attempt to Load the responses from the target directory.
+        /// </summary>
+        /// <param name="DirectoryPath">The Target Directory</param>
+        /// <returns>Postive if Loaded any Responses, Negative is no Responses were loaded, and Error if a problem was enountered.</returns>
+        public ISynthesizer.Answer Load(string DirectoryPath)
+        {
+            string MethodName = "Response (Load)";
+            
+            //If Path Is Null Return Negative
+            if (DirectoryPath == null) { return ISynthesizer.Answer.Negative; }
+
+            int Count = 0; try
+            {
+                DirectoryInfo Dir = new DirectoryInfo(DirectoryPath);
+                foreach (FileInfo ResponseFile in Dir.EnumerateFiles("*.Response", SearchOption.TopDirectoryOnly))
+                {
+                    Deserialize(ResponseFile.FullName); Count++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Exception: " + ex);
+                Logger.Exception(MethodName, "(Failed) The Response Hamsters Encountered A Problem");
+                //Return Error State
+                return ISynthesizer.Answer.Error;
+            }
+
+            //We Loaded Responses, Return Postive
+            if (Count != 0) { return ISynthesizer.Answer.Positive; }
+
+            //Noting Was Loaded Return Negative
+            return ISynthesizer.Answer.Negative;
+        }
+
+        private void Deserialize(string FilePath)
+        {
+            try
+            {
+                if (File.Exists(FilePath) == false) { return; }
+                using (StreamReader SR = new StreamReader(new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)))
+                {
+                    while (!SR.EndOfStream)
+                    {
+                        string Line = SR.ReadLine();
+                        var Res = JsonConvert.DeserializeObject<Response>(Line);
+                        Add(Res, true);
+                    }
+                }
+            }
+            catch (Exception ex) { }
         }
     }
 
@@ -395,7 +446,7 @@ namespace ALICE_Synthesizer
                 }
             }
 
-            Speech.Settings = Settings;
+            ISynthesizer.Settings = Settings;
         }
         #endregion
     }

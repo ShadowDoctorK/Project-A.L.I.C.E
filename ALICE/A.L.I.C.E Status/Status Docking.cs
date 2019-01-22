@@ -102,8 +102,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Aye Aye Commander." + IStatus.Docking.LandingPad, Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(Positive.Default),
+                Speech.Speak(""
+                    .Phrase(Positive.Default),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -112,8 +112,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Station Handover Complete.", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(Docking_Request.Docking_Computer_Handover)
+                Speech.Speak(""
+                    .Phrase(Docking_Request.Docking_Computer_Handover)
                     .Token("[STATION]", IStatus.Docking.StationName),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
@@ -123,10 +123,10 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Permission Granted. Landing Pad: " + IStatus.Docking.LandingPad, Logger.Yellow); }
 
-                Speech.Response
+                Speech.Speak
                     (""
-                    .Speak(Docking_Request.Granted)
-                    .Speak(Docking_Request.Landing_Pad)
+                    .Phrase(Docking_Request.Granted)
+                    .Phrase(Docking_Request.Landing_Pad)
                     .Token("[DOCKSTATION]", IStatus.Docking.StationName)
                     .Token("[LANDINGPAD]", IStatus.Docking.LandingPad),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
@@ -137,9 +137,9 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Permission Already Granted. Landing Pad: " + IStatus.Docking.LandingPad, Logger.Yellow); }
 
-                Speech.Response (""
-                    .Speak(Docking_Request.Already_Granted)
-                    .Speak(Docking_Request.Landing_Pad)
+                Speech.Speak (""
+                    .Phrase(Docking_Request.Already_Granted)
+                    .Phrase(Docking_Request.Landing_Pad)
                     .Token("[DOCKSTATION]", IStatus.Docking.StationName)
                     .Token("[LANDINGPAD]", IStatus.Docking.LandingPad),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice );
@@ -150,9 +150,9 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Ship Is Docked.", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(Negative.Default, true)
-                    .Speak(Docking_Request.Docked),
+                Speech.Speak(""
+                    .Phrase(Negative.Default, true)
+                    .Phrase(Docking_Request.Docked),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -161,8 +161,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Acitve Fighter.", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(Docking_Request.Reason_Active_Fighter),
+                Speech.Speak(""
+                    .Phrase(Docking_Request.Reason_Active_Fighter),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -171,8 +171,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Out Of Range.", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(Docking_Request.Reason_Distance),
+                Speech.Speak(""
+                    .Phrase(Docking_Request.Reason_Distance),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -181,8 +181,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Acitve Offences.", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(Docking_Request.Reason_Offences),
+                Speech.Speak(""
+                    .Phrase(Docking_Request.Reason_Offences),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -191,8 +191,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Station Is Hostile.", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(Docking_Request.Reason_Hostile),
+                Speech.Speak(""
+                    .Phrase(Docking_Request.Reason_Hostile),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -201,8 +201,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Ship Is Too Large.", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(Docking_Request.Reason_Too_Large),
+                Speech.Speak(""
+                    .Phrase(Docking_Request.Reason_Too_Large),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -211,8 +211,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Station Is Full, No Landing Pads Open.", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(Docking_Request.Reason_No_Space),
+                Speech.Speak(""
+                    .Phrase(Docking_Request.Reason_No_Space),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -221,8 +221,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: No Reason Given.", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(Docking_Request.Reason_None_Given),
+                Speech.Speak(""
+                    .Phrase(Docking_Request.Reason_None_Given),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -231,7 +231,7 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Unknown.", Logger.Yellow); }
 
-                Speech.Response("It Is Unclear Why We Were Denied Docking Access Commander.",
+                Speech.Speak("It Is Unclear Why We Were Denied Docking Access Commander.",
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
         }

@@ -63,7 +63,7 @@ namespace ALICE_Internal
                             break;
                     }
 
-                    Database.Response_Load();
+                    ISynthesizer.Response.Load(Paths.ALICE_Response);
                     Data.Load_Modules();
                     Call.Power.Initialize();
                     ISettings.User = ISettings.User.Load(ISettings.SettingsUser, MethodName);

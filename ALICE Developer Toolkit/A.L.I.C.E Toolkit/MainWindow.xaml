@@ -15,14 +15,17 @@
             <Image Height="149" Margin="10,-33,14,-33" Source="Resources/Alice Extended Log.png" Stretch="Fill"/>
             <Label Content="Developer Toolkit" Background="#FFCE5A05" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Width="162" FontFamily="Malgun Gothic Semilight" Foreground="White" FontSize="16" FontWeight="Bold" Margin="10,0,0,0"/>
             <Label Content="    Double Click Tabs To Reset" Foreground="#FFCE5A05" Margin="0,0,0.333,0" FontWeight="Bold"/>
-            <Button x:Name="btn_Dashboard" Content="Dashboard" Height="40" Margin="0,0,0.333,0" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05"/>
             <Button x:Name="btn_Journal" Content="Journal Updates" Height="40" Margin="0,0,0.333,0" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="btn_Journal_Click"/>
             <Button x:Name="btn_ResponseGen" Content="Response Generator" Height="40" Margin="0,0,0.333,0" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="btn_ResponseGen_Click" MouseDoubleClick="btn_ResponseGen_MouseDoubleClick"/>
             <Button x:Name="btn_ModuleGen" Content="Module Generator" Height="40" Margin="0,0,0.333,0" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="btn_ModuleGen_Click"/>
             <Button x:Name="btn_CommodityGen" Content="Commodities Generator" Height="40" Margin="0,0,0.333,0" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="btn_CommodityGen_Click" MouseDoubleClick="btn_CommodityGen_MouseDoubleClick"/>
         </StackPanel>
 
-        <StackPanel x:Name="Interface_StackPanel" Margin="186,0,-0.333,0" Background="#FF171616"/>
+        <StackPanel x:Name="Interface_StackPanel" Margin="186,0,-0.333,0">
+            <StackPanel.Background>
+                <ImageBrush ImageSource="Resources/Developer Toolkit Background.png" Stretch="UniformToFill"/>
+            </StackPanel.Background>
+        </StackPanel>
 
         <StackPanel HorizontalAlignment="Left" Height="174" Margin="0,602,0,0" VerticalAlignment="Top" Width="186" Background="Black">
             <Button x:Name="Btn_DiscordEDCS" Content="" Height="52" Margin="0,5" Click="Btn_DiscordEDCS_Click">

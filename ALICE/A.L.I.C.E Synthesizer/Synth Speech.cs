@@ -51,15 +51,15 @@ namespace ALICE_Synthesizer
         /// </summary>
         /// <param name="Text">Target Text for the Extension</param>
         /// <param name="Segment">List<string> which contains the Target Response Key, and the Target Segment in that response.</string></param>
-        /// <param name="W">Allows disabling Weight feature to use all choices.</param>
         /// <param name="R">Allows the method to randomly decide if the Segments will be appended.</param>
+        /// <param name="W">Allows disabling Weight feature to use all choices.</param>
         /// <param name="E">Allows you to link the phrase to a function to decide if the Segment is enabled or disabled.</param>
         /// <param name="FalseIsGood">Allows you to link the phrase to a function to decide if the Segment is enabled or disabled.</param>
         /// <param name="Percent">Percent chance the Unique/Alternate strings will be used in the response.</param>
         /// <param name="Override">Allows you to Force the use of Alterante or Standard Lines</param>
         /// <returns>Returns the updated working string, or the unmodified string for error and validation failures.</returns>
-        public static string Phrase(this string Text, List<string> Segment, bool W = true, bool R = false, bool E = true, 
-            bool FalseIsGood = false, int Percent = 15, ISynthesizer.Line Override = ISynthesizer.Line.Default)
+        public static string Phrase(this string Text, List<string> Segment, bool R = false, bool W = true, bool E = true, 
+            bool FalseIsGood = false, int Percent = 20, ISynthesizer.Line Override = ISynthesizer.Line.Default)
         {
             string MethodName = "Speak (Extend)";
 
@@ -170,6 +170,19 @@ namespace ALICE_Synthesizer
         public static string Phrase(this string Text, string AddedText)
         {
             return Text + Pause + AddedText;
+        }
+
+        //Pick(new List<string>[] { Alice.Online, Alice.Online, Alice.Online });
+        public static List<string> Pick(List<string>[] Selections)
+        {
+            try
+            {
+                if (Selections.Count() == 0) { return null; }
+                return Selections[RanNum.Next(0, Selections.Count() - 1)];
+            }
+            catch (Exception) { }
+
+            return null;
         }
 
         /// <summary>

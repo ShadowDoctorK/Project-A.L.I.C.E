@@ -120,8 +120,8 @@ namespace ALICE_Community_Toolkit
             {
                 bool SavedMasterAudio = PlugIn.MasterAudio;
                 PlugIn.MasterAudio = true;
-                Speech.Settings = Settings;
-                Speech.Response(TextBox_TestVoice.Text, true);
+                ISynthesizer.Settings = Settings;
+                Speech.Speak(TextBox_TestVoice.Text, true);
                 PlugIn.MasterAudio = SavedMasterAudio;
             }
             catch (Exception ex)

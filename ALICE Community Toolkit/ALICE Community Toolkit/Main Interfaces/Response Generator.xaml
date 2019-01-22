@@ -7,38 +7,53 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1013">
     <Grid Background="Black">
-        <StackPanel x:Name="StackBox_Reponse" HorizontalAlignment="Left" Height="396" Margin="10,45,0,0" VerticalAlignment="Top" Width="205">
-            <Label x:Name="label_ResponseName" Content="Response:" Foreground="#FFCE5A05"/>
-            <ListBox x:Name="ListBox_Responses" Height="342" Margin="0,0,0.667,0" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_Responses_MouseDoubleClick"/>
-        </StackPanel>
-        <StackPanel x:Name="StackBox_Segment" HorizontalAlignment="Left" Height="372" Margin="10,418,0,0" VerticalAlignment="Top" Width="205">
-            <Label x:Name="label_SegmentName" Content="Segment:" Foreground="#FFCE5A05"/>
-            <ListBox x:Name="ListBox_Segments" Height="334" Margin="0,0,0.667,0" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_Segments_MouseDoubleClick"/>
-        </StackPanel>
-        <StackPanel x:Name="StackBox_Strings" Margin="226,444,10.333,10">
-            <TextBox x:Name="TextBox_Strings" Height="29" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="0,0,0,10"/>
-            <ListBox x:Name="ListBox_Strings" Height="294" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_Strings_MouseDoubleClick" Margin="0,0,0.333,0"/>
-        </StackPanel>
+
         <StackPanel x:Name="StackPanel_MenuBar" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Orientation="Horizontal" Width="1013" Background="Black">
             <Button x:Name="btn_LoadDirectory" Content="Load Directory" Margin="10,10,5,10" Width="128" Foreground="#FFCE5A05" Background="Black" Click="btn_LoadDirectory_Click"/>
+            <Button x:Name="btn_LoadFile" Content="Load File" Margin="5,10,5,10.333" Width="128" Foreground="#FFCE5A05" Background="Black" Click="btn_LoadFile_Click"/>
             <Button x:Name="btn_SaveIndividual" Content="Save All / Individual" Margin="5,10,5,10" Width="128" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveIndividual_Click"/>
             <Button x:Name="btn_SaveCombine" Content="Save All / Combine" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveCombine_Click"/>
-            <Button x:Name="btn_GenerateCode" Content="Create User Templets" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_CreateUserTemplets_Click"/>
-            <Button x:Name="btn_LoadFile" Content="Load User Files" Margin="5,10,5,10" Width="128" Foreground="#FFCE5A05" Background="Black" Click="btn_LoadFile_Click"/>
-            <Button x:Name="btn_SaveAllUserFiles" Content="Save All / User Files" Margin="5,10,5,10" Width="128" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveSelected_Click"/>
+            <Button x:Name="btn_CreateUserTemplets" Content="Create User Templets" Margin="5,10,5,10" Width="129" Foreground="#FFCE5A05" Background="Black" Click="btn_CreateUserTemplets_Click"/>
+            <Button x:Name="btn_LoadUserFiles" Content="Load User Files" Margin="5,10,5,10" Width="128" Foreground="#FFCE5A05" Background="Black" Click="btn_LoadUserFiles_Click"/>
+            <Button x:Name="btn_SaveAllUserFiles" Content="Save All / User Files" Margin="5,10,5,10" Width="128" Foreground="#FFCE5A05" Background="Black" Click="btn_SaveUserFiles_Click"/>
         </StackPanel>
-        <TextBox x:Name="TextBox_TokenDescription" TextWrapping="Wrap" IsReadOnly="true" Background="Black" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="396,316,10.333,0" Height="92" VerticalAlignment="Top"/>
-        <Label x:Name="Label_Token" Content="Tokens &amp; Description:" Foreground="#FFCE5A05" Margin="226,289,424.333,484"/>
-        <Button x:Name="btn_String_New" Content="New" Margin="226,414,0,0" Foreground="#FFCE5A05" Background="Black" Click="btn_String_New_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
-        <Button x:Name="btn_String_Update" Content="Update" Margin="296,414,0,0" Foreground="#FFCE5A05" Background="Black" Click="btn_String_Update_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
-        <Button x:Name="btn_Strings_Delete" Content="Delete" Margin="365,414,0,0" Foreground="#FFCE5A05" Background="Black" Click="btn_Strings_Delete_Click" HorizontalAlignment="Left" Width="66" Height="25" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBox_SegmentDescription" TextWrapping="Wrap" IsReadOnly="true" Background="Black" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="226,232,10.333,511"/>
-        <Label x:Name="Label_SegmentIInfo" Content="Segment Information &amp; Description:" Foreground="#FFCE5A05" Margin="226,201,421.333,572"/>
-        <ListBox x:Name="ListBox_Tokens" Margin="226,316,0,0" Background="Black" Foreground="#FFCE5A05" HorizontalAlignment="Left" Width="165" Height="92" VerticalAlignment="Top"/>
-        <Label x:Name="label_UserFilesDirectory" Content="User Files:" Foreground="#FFCE5A05" Margin="226,104,711.333,0" Height="26" VerticalAlignment="Top"/>
+
+        <StackPanel x:Name="StackBox_Reponse" HorizontalAlignment="Left" Height="394" Margin="10,45,0,0" VerticalAlignment="Top" Width="205">
+
+            <Label x:Name="label_ResponseName" Content="Response:" Foreground="#FFCE5A05"/>
+
+            <ListBox x:Name="ListBox_Responses" Height="327" Margin="0,0,0.667,0" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_Responses_MouseDoubleClick"/>
+
+        </StackPanel>
+
+        <StackPanel x:Name="StackBox_Segment" HorizontalAlignment="Left" Height="380" Margin="10,410,0,0" VerticalAlignment="Top" Width="205">
+
+            <Label x:Name="label_SegmentName" Content="Segment:" Foreground="#FFCE5A05"/>
+
+            <ListBox x:Name="ListBox_Segments" Height="344" Margin="0,0,0.667,0" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_Segments_MouseDoubleClick"/>
+
+        </StackPanel>
+
+        <StackPanel x:Name="StackBox_Strings" Margin="226,397,10.333,10">
+            <TextBox x:Name="TextBox_Strings" Height="29" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="0,0,0,10"/>
+            <ListBox x:Name="ListBox_Strings" Height="344" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_Strings_MouseDoubleClick" Margin="0,0,0.333,0"/>
+        </StackPanel>
+
+        <TextBox x:Name="TextBox_TokenDescription" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="396,270,10.333,0" Height="92" VerticalAlignment="Top"/>
+        <Label x:Name="Label_Token" Content="Tokens &amp; Description:" Foreground="#FFCE5A05" Margin="229,238,622.333,535"/>
+
+        <Button x:Name="btn_String_New" Content="New" Margin="226,367,0,0" Foreground="#FFCE5A05" Background="Black" Click="btn_String_New_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
+        <Button x:Name="btn_String_Update" Content="Update" Margin="296,367,0,0" Foreground="#FFCE5A05" Background="Black" Click="btn_String_Update_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
+        <Button x:Name="btn_Strings_Delete" Content="Delete" Margin="365,367,0,0" Foreground="#FFCE5A05" Background="Black" Click="btn_Strings_Delete_Click" HorizontalAlignment="Left" Width="66" Height="25" VerticalAlignment="Top"/>
+
+        <Label x:Name="Label_SegmentInfo" Content="Segment Information &amp; Description:" Foreground="#FFCE5A05" Margin="226,110,582.333,663"/>
+        <TextBox x:Name="TextBox_SegmentDescription" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="226,141,9.333,567"/>
+
+        <ListBox x:Name="ListBox_Tokens" Margin="226,270,0,0" Background="Black" Foreground="#FFCE5A05" HorizontalAlignment="Left" Width="165" Height="92" VerticalAlignment="Top" MouseDoubleClick="ListBox_Tokens_MouseDoubleClick"/>
         <Label x:Name="label_CombineFilename" Content="File Name:" Foreground="#FFCE5A05" Margin="226,73,0,0" HorizontalAlignment="Left" Width="76" Height="26" VerticalAlignment="Top"/>
+
         <TextBox x:Name="TextBox_CombineFileName" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="303,73,0,0" HorizontalAlignment="Left" Width="432" Height="26" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBox_UserFilesDirectory" TextWrapping="Wrap" IsReadOnly="True" Background="Black" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="303,104,0,0" HorizontalAlignment="Left" Width="432" Height="26" VerticalAlignment="Top"/>
+        <CheckBox x:Name="CheckBox_Alternate" Content="Alternate" HorizontalAlignment="Left" Margin="442,373,0,0" VerticalAlignment="Top" Foreground="#FFCE5A05" Width="79"/>
 
     </Grid>
 </UserControl>

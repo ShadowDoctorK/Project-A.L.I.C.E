@@ -34,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -58,23 +58,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commodity Generator.xaml.cs">
+    <Compile Include="Main Interfaces\Commodity Generator.xaml.cs">
       <DependentUpon>Commodity Generator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Journal Tool.xaml.cs">
+    <Compile Include="Main Interfaces\Journal Tool.xaml.cs">
       <DependentUpon>Journal Tool.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Module Generator.xaml.cs">
+    <Compile Include="Main Interfaces\Module Generator.xaml.cs">
       <DependentUpon>Module Generator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Response Generator.xaml.cs">
+    <Compile Include="Main Interfaces\Response Generator.xaml.cs">
       <DependentUpon>Response Generator.xaml</DependentUpon>
     </Compile>
-    <Page Include="Commodity Generator.xaml">
+    <Page Include="Main Interfaces\Commodity Generator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Journal Tool.xaml">
+    <Page Include="Main Interfaces\Journal Tool.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -90,11 +90,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Module Generator.xaml">
+    <Page Include="Main Interfaces\Module Generator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Response Generator.xaml">
+    <Page Include="Main Interfaces\Response Generator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -143,6 +143,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Project Alice Discord Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Developer Toolkit Background.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
