@@ -469,9 +469,9 @@ namespace ALICE_Objects
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Ship_Targeted.Wanted).Replace("[NUM]", Event.Bounty.ToString())
+                            "".Phrase(Ship_Targeted.Wanted).Replace("[NUM]", Event.Bounty.ToString())
                             .Replace("[PILOT]", Event.PilotName_Localised),
                             Check.Report.TargetWanted(true, MethodName),
                             (Event.LegalStatus == "Wanted")
@@ -484,9 +484,9 @@ namespace ALICE_Objects
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Ship_Targeted.Enemy_Faction)
+                            "".Phrase(Ship_Targeted.Enemy_Faction)
                             .Replace("[FACTION]", Event.Faction),
                             Check.Report.TargetEnemy(true, MethodName),
                             (Event.LegalStatus == "Enemy")
@@ -1692,40 +1692,6 @@ namespace ALICE_Objects
 
     public class Status
     {
-        //public string Commander { get; set; }
-
-        #region Object: Docking
-
-        //public Status_Docking Docking = new Status_Docking();
-
-        //public class Dock
-        //{
-        //    public IEnums.DockingState State = IEnums.DockingState.Undocked;
-
-        //    //public string State = "Undocked";
-        //    public string StationName = "Unknown";
-        //    public string StationType = "Unknown";
-        //    public decimal LandingPad = -1;
-        //    public string DeniedReason = "NoReason";
-        //    public bool Wait_RequestSent = false;
-        //    public bool Wait_ResponsePending = false;
-
-        //    public void WTL_DockingInformation()
-        //    {
-        //        IPlatform.WriteToInterface("----------------------------------------------------", Logger.Purple);
-
-        //        IPlatform.WriteToInterface("Denied Reason (If Given): " + IStatus.Docking.DeniedReason, Logger.Green);
-        //        IPlatform.WriteToInterface("Landing Pad (If Assigned): " + IStatus.Docking.LandingPad, Logger.Green);
-        //        IPlatform.WriteToInterface("Docking Status: " + IStatus.Docking.State, Logger.Green);
-        //        IPlatform.WriteToInterface("Station Type: " + IStatus.Docking.StationType, Logger.Green);
-        //        IPlatform.WriteToInterface("Station Name: " + IStatus.Docking.StationName, Logger.Green);
-
-        //        IPlatform.WriteToInterface("Docking Status Report:", Logger.Purple);
-        //        IPlatform.WriteToInterface("----------------------------------------------------", Logger.Purple);
-        //    }
-        //}
-        #endregion
-
         #region Status.Json Properties
         public IEnums.Vehicles Vehicle = IEnums.Vehicles.Mothership;
 
@@ -1779,191 +1745,6 @@ namespace ALICE_Objects
 
         #region Equipment
         public bool WeaponSafety = false;
-        #endregion
-
-        #region Fuel Infomation
-        //public class FuelStatus
-        //{
-        //    public bool ScoopingCompleted = false;
-        //    public bool ScoopingCommenced = false;
-        //    public bool Critical = false;
-        //    public bool Low = false;
-        //    public bool HalfThreshold = false;
-        //    public bool Report = false;
-        //    public decimal ScoopStartLv { get; set; }
-        //    public decimal Capacity { get; set; }
-        //    public decimal Scooped { get; set; }
-        //    public decimal Current { get; set; }
-        //    public BurnRate Burn { get; set; }
-
-        //    public FuelStatus()
-        //    {
-        //        Burn = new BurnRate();
-
-        //    }
-
-        //    public decimal Percent()
-        //    {
-        //        decimal Percent = 0; if (Capacity != 0)
-        //        { Percent = Current / Capacity; }
-        //        if (Percent > 1) { Percent = 1; }
-        //        return Percent * 100;
-        //    }
-
-        //    public void ScoopingReset()
-        //    {
-        //        ScoopingCompleted = false;
-        //        ScoopingCommenced = false;
-        //        Scooped = 0;
-        //    }
-
-        //    public decimal ScoopingDiff()
-        //    { return Current - ScoopStartLv; }
-
-        //    public void UpdateCurrent(decimal Level)
-        //    {
-        //        string MethodName = "Fuel Status Update";
-
-        //        bool Decreased = (Current > Level);
-        //        Current = Level;
-
-        //        if (Check.Internal.JsonInitialized(true, MethodName, true))
-        //        {
-        //            if (Decreased == true && HalfThreshold == false && Percent() <= 50 && Percent() > 25)
-        //            { IEvents.FuelHalfThreshold.Logic(); Report = true; }
-        //            else if (Decreased == true && Low == false && Percent() <= 25 && Percent() > 10)
-        //            { IEvents.FuelLow.Logic(); Report = true; }
-        //            else if (Decreased == true && Critical == false && Percent() <= 10)
-        //            { IEvents.FuelCritical.Logic(); Report = true; }
-        //            else if (Percent() > 50)
-        //            { Critical = false; Low = false; HalfThreshold = false; }
-        //        }
-
-        //        //if (Decreased) { UpdateBurnRate(Level); }
-
-        //        if (Report) { ReportLevel(MethodName); }
-        //    }
-
-        //    public void ReportLevel(string MethodName, bool UserOverride = false)
-        //    {
-        //        #region Audio
-        //        if (PlugIn.Audio == "TTS")
-        //        {
-        //            Speech.Response
-        //                (
-        //                "".Speak(Fuel_Report.Level_Percent, false, true, true, 50, Fuel_Report.Level_Tons)
-        //                .Replace("[PERCENT]", decimal.Round(IObjects.Status.Fuel.Percent(), 0).ToString())
-        //                .Replace("[FUELTONS]", decimal.Round(IObjects.Status.Fuel.Current, 1).ToString()),
-        //                true,
-        //                (Check.Report.FuelStatus(true, MethodName) || UserOverride == true)
-        //                );
-        //        }
-        //        else if (PlugIn.Audio == "File") { }
-        //        else if (PlugIn.Audio == "External") { }
-        //        #endregion
-
-        //        Report = false;
-        //    }
-
-        //    public void ReportScooping(string TriggeredMethodName)
-        //    {
-        //        string MethodName = "Fuel Status Scooping" + " (" + TriggeredMethodName + ")";
-
-        //        if (Check.Report.FuelScoop(true, MethodName) == false && ScoopingCompleted != true) { return; }
-
-        //        //Scooping Commenced Report Not Made
-        //        if (ScoopingCommenced == false)
-        //        {
-        //            ScoopingCommenced = true;
-        //            ScoopStartLv = Current;
-
-        //            #region Audio
-        //            if (PlugIn.Audio == "TTS")
-        //            {
-        //                Speech.Response
-        //                    (
-        //                    "".Speak(Fuel_Report.Scoop_Start),
-        //                    true,
-        //                    Check.Report.FuelScoop(true, MethodName),
-        //                    Check.Internal.TriggerEvents(true, MethodName)
-        //                    );
-        //            }
-        //            else if (PlugIn.Audio == "File") { }
-        //            else if (PlugIn.Audio == "External") { }
-        //            #endregion
-        //        }
-        //        //Scooping Complete Report Not Made && Scooping Has Stopped
-        //        //Scooping Complete Report Not Made && Fuel Level Is 100%
-        //        else if ((ScoopingCompleted == false && IObjects.Status.FuelScooping == false) || (ScoopingCompleted == false && Percent() == 100))
-        //        {
-        //            IObjects.Status.Fuel.ScoopingCompleted = true;
-
-        //            #region Audio
-        //            if (PlugIn.Audio == "TTS")
-        //            {
-        //                Speech.Response
-        //                    (
-        //                    "".Speak(Fuel_Report.Scoop_End)
-        //                    .Speak(Fuel_Report.Scoop_Collected, true)
-        //                    .Speak(Fuel_Report.Level_Percent, true)
-        //                    .Replace("[PERCENT]", decimal.Round(IObjects.Status.Fuel.Percent(), 0).ToString())
-        //                    .Replace("[FUELTONS]", decimal.Round(IObjects.Status.Fuel.ScoopingDiff(), 1).ToString()),
-        //                    true,
-        //                    Check.Report.FuelScoop(true, MethodName),
-        //                    Check.Internal.TriggerEvents(true, MethodName)
-        //                    );
-        //            }
-        //            else if (PlugIn.Audio == "File") { }
-        //            else if (PlugIn.Audio == "External") { }
-        //            #endregion
-        //        }
-        //    }
-
-        //    //public void UpdateBurnRate(decimal Level)
-        //    //{
-        //    //    string MethodName = "Fuel Status Burn Rate";
-        //    //    try
-        //    //    {
-        //    //        if (Burn.TimeStamp == default(DateTime))
-        //    //        { Burn.TimeStamp = ReaderJson.TimeStamp; return; }
-
-        //    //        #region Calulate Time
-        //    //        TimeSpan DiffCal = ReaderJson.TimeStamp - Burn.TimeStamp;
-        //    //        decimal DiffTime = Convert.ToDecimal(DiffCal.TotalSeconds);
-        //    //        decimal HourPercent = DiffTime / 3600;
-        //    //        #endregion
-
-        //    //        #region Calutate BurnRate
-        //    //        decimal DiffFuel = Level - Current;
-        //    //        Burn.Rate = DiffFuel * HourPercent;
-        //    //        #endregion
-
-        //    //        Logger.DebugLine(MethodName, "Hour Percent: " + HourPercent, Logger.Blue);
-        //    //        Logger.DebugLine(MethodName, "Time Difference Cal: " + DiffCal, Logger.Blue);
-        //    //        Logger.DebugLine(MethodName, "Time Difference Converted: " + DiffTime, Logger.Blue);
-        //    //        Logger.DebugLine(MethodName, "Fuel Difference: " + Burn.Rate, Logger.Blue);                    
-
-        //    //        Logger.DebugLine(MethodName, "Burn Rate: " + Burn.Rate, Logger.Blue);
-        //    //    }
-        //    //    catch (Exception ex)
-        //    //    {
-        //    //        Logger.Exception(MethodName, "Exception: " + ex);
-        //    //        Logger.Exception(MethodName, "Something When Wrong While Calulating Burn Rate");
-        //    //    }
-        //    //}
-
-        //    public class BurnRate
-        //    {
-        //        public decimal Rate { get; set; }
-        //        public DateTime TimeStamp { get; set; }
-
-        //        public BurnRate()
-        //        {
-        //            Rate = -1;
-        //            TimeStamp = new DateTime();
-        //        }
-        //    }
-        //}
         #endregion
 
         #region Miscellaneous

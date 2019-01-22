@@ -38,10 +38,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CSCore, Version=1.2.1.2, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
-      <HintPath>..\..\ALICE\Project A.L.I.C.E\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
+      <HintPath>..\..\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\ALICE\Project A.L.I.C.E\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

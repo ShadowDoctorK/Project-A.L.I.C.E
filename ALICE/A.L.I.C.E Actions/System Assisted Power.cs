@@ -241,10 +241,12 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+
+
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Combat_Power.Maintain_Engines, true),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Combat_Power.Maintain_Engines, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)
@@ -264,10 +266,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Combat_Power.Maintain_Systems, true),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Combat_Power.Maintain_Systems, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)
@@ -287,10 +289,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Combat_Power.Defense_Engines, true),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Combat_Power.Defense_Engines, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)
@@ -310,10 +312,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Combat_Power.Defense_Systems, true),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Combat_Power.Defense_Systems, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)
@@ -333,10 +335,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Combat_Power.Weapons_Light, true),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Combat_Power.Weapons_Light, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)
@@ -356,10 +358,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Combat_Power.Weapons_Balance, true),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Combat_Power.Weapons_Balance, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)
@@ -379,10 +381,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Combat_Power.Weapons_Heavy, true),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Combat_Power.Weapons_Heavy, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)

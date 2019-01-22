@@ -76,9 +76,9 @@ namespace ALICE_Synthesizer
         {
             if (speech == null)
                 return;
-            if (voice == null && Voices.Contains(Speech.Settings.Voice))
-                voice = Speech.Settings.Voice;
-            this.Speak(speech, voice, Speech.Settings.Echo.Enabled, Speech.Settings.Distortion.Enabled, Speech.Settings.Chorus.Enabled, Speech.Settings.Reverb.Enabled, Speech.Settings.Gargle.Enabled, Speech.Settings.Flange.Enabled, 0, wait, priority);
+            if (voice == null && Voices.Contains(ISynthesizer.Settings.Voice))
+                voice = ISynthesizer.Settings.Voice;
+            this.Speak(speech, voice, ISynthesizer.Settings.Echo.Enabled, ISynthesizer.Settings.Distortion.Enabled, ISynthesizer.Settings.Chorus.Enabled, ISynthesizer.Settings.Reverb.Enabled, ISynthesizer.Settings.Gargle.Enabled, ISynthesizer.Settings.Flange.Enabled, 0, wait, priority);
         }
 
         public void ShutUp()
@@ -182,15 +182,15 @@ namespace ALICE_Synthesizer
                 {
                     Source = (IWaveSource)Source.AppendSource<IWaveSource, DmoChorusEffect>((Func<IWaveSource, DmoChorusEffect>)(x => new DmoChorusEffect(x)
                     {
-                        Depth = (float)Speech.Settings.Chorus.Depth,
+                        Depth = (float)ISynthesizer.Settings.Chorus.Depth,
                         //Range: 0 to 100 / Default: 10
-                        WetDryMix = (float)Speech.Settings.Chorus.WetDryMix,
+                        WetDryMix = (float)ISynthesizer.Settings.Chorus.WetDryMix,
                         //Range: 0 to 100 / Default: 50 (Balanced)
-                        Delay = (float)Speech.Settings.Chorus.Delay,
+                        Delay = (float)ISynthesizer.Settings.Chorus.Delay,
                         //Range: 0 to 20 / Default: 10
-                        Frequency = (float)Speech.Settings.Chorus.Frequency,
+                        Frequency = (float)ISynthesizer.Settings.Chorus.Frequency,
                         //Range: 0 to 10 / Default: 1.1
-                        Feedback = (float)Speech.Settings.Chorus.Feedback
+                        Feedback = (float)ISynthesizer.Settings.Chorus.Feedback
                         //Range: -99 to 99 / Default: 10
                     }));
                 }
@@ -201,9 +201,9 @@ namespace ALICE_Synthesizer
                 {
                     Source = (IWaveSource)Source.AppendSource<IWaveSource, DmoWavesReverbEffect>((Func<IWaveSource, DmoWavesReverbEffect>)(x => new DmoWavesReverbEffect(x)
                     {
-                        ReverbTime = (float)Speech.Settings.Reverb.ReverbTime,
+                        ReverbTime = (float)ISynthesizer.Settings.Reverb.ReverbTime,
                         //Range: 0.001 to 3000 / Default: 1000
-                        ReverbMix = (float)Speech.Settings.Reverb.ReverbMix
+                        ReverbMix = (float)ISynthesizer.Settings.Reverb.ReverbMix
                         //Range: -96 to 0 / Default: 0
                     }));
                 }
@@ -214,13 +214,13 @@ namespace ALICE_Synthesizer
                 {
                     Source = (IWaveSource)Source.AppendSource<IWaveSource, DmoEchoEffect>((Func<IWaveSource, DmoEchoEffect>)(x => new DmoEchoEffect(x)
                     {
-                        LeftDelay = (float)Speech.Settings.Echo.LeftDelay,
+                        LeftDelay = (float)ISynthesizer.Settings.Echo.LeftDelay,
                         //Range: 1 to 2000 / Default: 500
-                        RightDelay = (float)Speech.Settings.Echo.RightDelay,
+                        RightDelay = (float)ISynthesizer.Settings.Echo.RightDelay,
                         //Range: 1 to 2000 / Default: 500
-                        WetDryMix = (float)Speech.Settings.Echo.WetDryMix,
+                        WetDryMix = (float)ISynthesizer.Settings.Echo.WetDryMix,
                         //Range: 0 to 100 / Default: 50 (Balanced)
-                        Feedback = (float)Speech.Settings.Echo.Feedback
+                        Feedback = (float)ISynthesizer.Settings.Echo.Feedback
                         //Range: 0 to 100 / Default: 50
                     }));
                 }
@@ -379,7 +379,7 @@ namespace ALICE_Synthesizer
                         }
                         //Post-selection
                         synth.Rate = Rate;
-                        synth.Volume = Speech.Settings.Volume;
+                        synth.Volume = ISynthesizer.Settings.Volume;
                         synth.SetOutputToWaveStream((Stream)stream);
                         if (speech.Contains("<"))
                         {
@@ -539,7 +539,7 @@ namespace ALICE_Synthesizer
     //            }
     //        }
 
-    //        Speech.Settings = Settings;
+    //        ISynthesizer.Settings = Settings;
     //    }
 
     //    public static SynthSetting LoadSettings()
@@ -729,80 +729,80 @@ namespace ALICE_Synthesizer
     public static class Database
     {
        #region Responses
-        public static Dictionary<string, Response> Responses = new Dictionary<string, Response>();
+        //public static Dictionary<string, Response> Responses = new Dictionary<string, Response>();
 
-        /// <summary>
-        /// Will Load all response files in the target directory.
-        /// </summary>
-        /// <param name="FilePath">Auto Populated FilePath based on DLL Location</param>
-        public static void Response_Load(string FilePath = null)
-        {
-            string MethodName = "Synthesizer (Response Load)";
+        ///// <summary>
+        ///// Will Load all response files in the target directory.
+        ///// </summary>
+        ///// <param name="FilePath">Auto Populated FilePath based on DLL Location</param>
+        //public static void Response_Load(string FilePath = null)
+        //{
+        //    string MethodName = "Synthesizer (Response Load)";
 
-            FilePath = Paths.ALICE_Response;
-            FileStream FS = null;
-            try
-            {
-                DirectoryInfo directory1 = new DirectoryInfo(Paths.ALICE_Response);
-                foreach (FileInfo ResponseFile in directory1.EnumerateFiles("*.response", SearchOption.TopDirectoryOnly))
-                {
-                    FS = new FileStream(ResponseFile.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    using (StreamReader SR = new StreamReader(FS))
-                    {
-                        while (!SR.EndOfStream)
-                        {
-                            string Line = SR.ReadLine();
-                            var NewRes = JsonConvert.DeserializeObject<Response>(Line);
-                            if (!Responses.ContainsKey(NewRes.ResponseName))
-                            { Responses.Add(NewRes.ResponseName, NewRes); }
-                            else if (Responses.ContainsKey(NewRes.ResponseName))
-                            {
-                                foreach (var Seg in NewRes.Segments)
-                                {
-                                    foreach (var Str in Seg.Value)
-                                    {
-                                        Responses[NewRes.ResponseName].Segments[Seg.Key].Add(Str);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+        //    FilePath = Paths.ALICE_Response;
+        //    FileStream FS = null;
+        //    try
+        //    {
+        //        DirectoryInfo directory1 = new DirectoryInfo(Paths.ALICE_Response);
+        //        foreach (FileInfo ResponseFile in directory1.EnumerateFiles("*.response", SearchOption.TopDirectoryOnly))
+        //        {
+        //            FS = new FileStream(ResponseFile.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        //            using (StreamReader SR = new StreamReader(FS))
+        //            {
+        //                while (!SR.EndOfStream)
+        //                {
+        //                    string Line = SR.ReadLine();
+        //                    var NewRes = JsonConvert.DeserializeObject<Response>(Line);
+        //                    if (!Responses.ContainsKey(NewRes.ResponseName))
+        //                    { Responses.Add(NewRes.ResponseName, NewRes); }
+        //                    else if (Responses.ContainsKey(NewRes.ResponseName))
+        //                    {
+        //                        foreach (var Seg in NewRes.Segments)
+        //                        {
+        //                            foreach (var Str in Seg.Value)
+        //                            {
+        //                                Responses[NewRes.ResponseName].Segments[Seg.Key].Add(Str);
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
 
-                DirectoryInfo directory2 = new DirectoryInfo(Paths.ALICE_ResponseUser);
-                foreach (FileInfo ResponseFile in directory2.EnumerateFiles("*.response", SearchOption.TopDirectoryOnly))
-                {
-                    FS = new FileStream(ResponseFile.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    using (StreamReader SR = new StreamReader(FS))
-                    {
-                        while (!SR.EndOfStream)
-                        {
-                            string Line = SR.ReadLine();
-                            var NewRes = JsonConvert.DeserializeObject<Response>(Line);
-                            if (!Responses.ContainsKey(NewRes.ResponseName))
-                            { Responses.Add(NewRes.ResponseName, NewRes); }
-                            else if(Responses.ContainsKey(NewRes.ResponseName))
-                            {
-                                foreach (var Seg in NewRes.Segments)
-                                {
-                                    foreach (var Str in Seg.Value)
-                                    {
-                                        Responses[NewRes.ResponseName].Segments[Seg.Key].Add(Str);
-                                    }
-                                }
-                            }
+        //        DirectoryInfo directory2 = new DirectoryInfo(Paths.ALICE_ResponseUser);
+        //        foreach (FileInfo ResponseFile in directory2.EnumerateFiles("*.response", SearchOption.TopDirectoryOnly))
+        //        {
+        //            FS = new FileStream(ResponseFile.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        //            using (StreamReader SR = new StreamReader(FS))
+        //            {
+        //                while (!SR.EndOfStream)
+        //                {
+        //                    string Line = SR.ReadLine();
+        //                    var NewRes = JsonConvert.DeserializeObject<Response>(Line);
+        //                    if (!Responses.ContainsKey(NewRes.ResponseName))
+        //                    { Responses.Add(NewRes.ResponseName, NewRes); }
+        //                    else if(Responses.ContainsKey(NewRes.ResponseName))
+        //                    {
+        //                        foreach (var Seg in NewRes.Segments)
+        //                        {
+        //                            foreach (var Str in Seg.Value)
+        //                            {
+        //                                Responses[NewRes.ResponseName].Segments[Seg.Key].Add(Str);
+        //                            }
+        //                        }
+        //                    }
 
-                            Logger.Log(MethodName, "User Response Loaded (" + NewRes.ResponseName + ")", Logger.Blue);
-                        }
-                    }
-                }
-            }
-            finally
-            {
-                if (FS != null)
-                { FS.Dispose(); }
-            }
-        }
+        //                    Logger.Log(MethodName, "User Response Loaded (" + NewRes.ResponseName + ")", Logger.Blue);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        if (FS != null)
+        //        { FS.Dispose(); }
+        //    }
+        //}
         #endregion
     }
 

@@ -37,8 +37,8 @@
     <Reference Include="CSCore, Version=1.2.1.2, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
       <HintPath>..\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -353,9 +353,6 @@
     <Compile Include="A.L.I.C.E Synthesizer\Synthesizer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="A.L.I.C.E Response\Default\GN Planetary Interaction.response">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="A.L.I.C.E Resources\A.L.I.C.E Profile.3.0.binds">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -367,139 +364,136 @@
     <None Include="A.L.I.C.E Resources\Modules.Json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Alice.response">
+    <None Include="A.L.I.C.E Response\Default\Alice.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Bounty.response">
+    <None Include="A.L.I.C.E Response\Default\Bounty.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Cargo Scoop.response">
+    <None Include="A.L.I.C.E Response\Default\Cargo Scoop.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Chaff Launcher.response">
+    <None Include="A.L.I.C.E Response\Default\Chaff Launcher.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Combat Power.response">
+    <None Include="A.L.I.C.E Response\Default\Combat Power.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Crime.response">
+    <None Include="A.L.I.C.E Response\Default\Crime.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Docking Preparations.response">
+    <None Include="A.L.I.C.E Response\Default\Docking Preparations.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Docking Prepartions.response">
+    <None Include="A.L.I.C.E Response\Default\Docking Request.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Docking Request.response">
+    <None Include="A.L.I.C.E Response\Default\EQ Discovery Scanner.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\EQ Discovery Scanner.response">
+    <None Include="A.L.I.C.E Response\Default\EQ External Lights.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\EQ External Lights.response">
+    <None Include="A.L.I.C.E Response\Default\EQ Frame Shift Drive.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\EQ Frame Shift Drive.response">
+    <None Include="A.L.I.C.E Response\Default\Facility Report.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Facility Report.response">
+    <None Include="A.L.I.C.E Response\Default\Fighter.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Fighter.response">
+    <None Include="A.L.I.C.E Response\Default\Fuel Report.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Fuel Report.response">
+    <None Include="A.L.I.C.E Response\Default\Galaxy Map.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Galaxy Map.response">
+    <None Include="A.L.I.C.E Response\Default\GN Apology.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\GN Apology.response">
+    <None Include="A.L.I.C.E Response\Default\GN Planetary Interaction.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Hardpoints.response">
+    <None Include="A.L.I.C.E Response\Default\Hardpoints.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Heat Damage.response">
+    <None Include="A.L.I.C.E Response\Default\Heat Damage.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Heat Warning.response">
+    <None Include="A.L.I.C.E Response\Default\Heat Warning.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Heatsink Launcher.response">
+    <None Include="A.L.I.C.E Response\Default\Heatsink Launcher.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Hull Damage.response">
+    <None Include="A.L.I.C.E Response\Default\Hull Damage.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\I Love You.response">
+    <None Include="A.L.I.C.E Response\Default\I Love You.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Landing Gear.response">
+    <None Include="A.L.I.C.E Response\Default\Landing Gear.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Landing Preparations.response">
+    <None Include="A.L.I.C.E Response\Default\Landing Preparations.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Masslock.response">
+    <None Include="A.L.I.C.E Response\Default\Masslock.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Module.response">
+    <None Include="A.L.I.C.E Response\Default\Module.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Negative.response">
+    <None Include="A.L.I.C.E Response\Default\Negative.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\No Fire Zone.response">
+    <None Include="A.L.I.C.E Response\Default\No Fire Zone.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\NPC Crew.response">
+    <None Include="A.L.I.C.E Response\Default\NPC Crew.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Order Generic.response">
+    <None Include="A.L.I.C.E Response\Default\Order Generic.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Positive.response">
+    <None Include="A.L.I.C.E Response\Default\Positive.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Report Generic.response">
+    <None Include="A.L.I.C.E Response\Default\Report Generic.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Shield Cell.response">
+    <None Include="A.L.I.C.E Response\Default\Shield Cell.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Shields.response">
+    <None Include="A.L.I.C.E Response\Default\Shields.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Ship Targeted.response">
+    <None Include="A.L.I.C.E Response\Default\Ship Targeted.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Shipyard Arrived.response">
+    <None Include="A.L.I.C.E Response\Default\Shipyard Arrived.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Shipyard Tansfer.response">
+    <None Include="A.L.I.C.E Response\Default\Silent Running.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Silent Running.response">
+    <None Include="A.L.I.C.E Response\Default\Station.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Station.response">
+    <None Include="A.L.I.C.E Response\Default\System Map.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\System Map.response">
+    <None Include="A.L.I.C.E Response\Default\System Report.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\System Report.response">
+    <None Include="A.L.I.C.E Response\Default\Target System.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Target System.response">
+    <None Include="A.L.I.C.E Response\Default\Thank You.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Default\Thank You.response">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="A.L.I.C.E Response\Default\Weapons Safety.response">
+    <None Include="A.L.I.C.E Response\Default\Weapons Safety.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="app.config">

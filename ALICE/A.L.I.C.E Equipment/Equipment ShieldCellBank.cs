@@ -25,9 +25,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Shield Cell Bank Not Installed.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Negative.Default, true)
-                .Speak("Shield Cell Bank Not Installed."),
+            Speech.Speak(""
+                .Phrase(Negative.Default, true)
+                .Phrase("Shield Cell Bank Not Installed."),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
@@ -36,9 +36,9 @@ namespace ALICE_Equipment
         {
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Shield Cell Bank Assigned To Group " + Group + " " + FireMode + " Fire.", Logger.Yellow); }
 
-            Speech.Response(""
-                .Speak(Positive.Default, true)
-                .Speak("Shield Cell Bank Assigned To Group [GROUP], [FIREMODE] Fire.")
+            Speech.Speak(""
+                .Phrase(Positive.Default, true)
+                .Phrase("Shield Cell Bank Assigned To Group [GROUP], [FIREMODE] Fire.")
                 .Token("[GROUP]", Group)
                 .Token("[FIREMODE]", FireMode),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
@@ -47,13 +47,13 @@ namespace ALICE_Equipment
         public override void Activating(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Response("".Speak(Positive.Default, true).Speak(Shield_Cell.Activating), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Positive.Default, true).Phrase(Shield_Cell.Activating), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public override void NoHyperspace(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Response("".Speak(Positive.Default, true).Speak(Shield_Cell.Hyperspace), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(Positive.Default, true).Phrase(Shield_Cell.Hyperspace), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
         #endregion
     }

@@ -249,10 +249,10 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Scooping Complete. Reserves: " + IStatus.Fuel.GetPercent() + "%", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(Fuel_Report.Scoop_End)
-                    .Speak(Fuel_Report.Scoop_Collected, true)
-                    .Speak(Fuel_Report.Level_Percent, true)
+                Speech.Speak(""
+                    .Phrase(Fuel_Report.Scoop_End)
+                    .Phrase(Fuel_Report.Scoop_Collected, true)
+                    .Phrase(Fuel_Report.Level_Percent, true)
                     .Replace("[PERCENT]", IStatus.Fuel.PercentToString(2))
                     .Replace("[FUELTONS]", IStatus.Fuel.ScoopingDiffToString(2)),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
@@ -263,8 +263,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Scooping Commenced. Reserves: " + IStatus.Fuel.GetPercent() + "%", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(Fuel_Report.Scoop_Start),
+                Speech.Speak(""
+                    .Phrase(Fuel_Report.Scoop_Start),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -273,8 +273,8 @@ namespace ALICE_Status
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Fuel Level. Reserves: " + IStatus.Fuel.GetPercent() + "%", Logger.Yellow); }
 
-                Speech.Response(""
-                    .Speak(Fuel_Report.Level_Percent, false, true, true, 50, Fuel_Report.Level_Tons)
+                Speech.Speak(""
+                    .Phrase(Speech.Pick(new List<string>[] { Fuel_Report.Level_Percent, Fuel_Report.Level_Tons }))
                     .Replace("[PERCENT]", IStatus.Fuel.PercentToString(2))
                     .Replace("[FUELTONS]", IStatus.Fuel.TonsToString(2)),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);

@@ -108,10 +108,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Chaff_Launcher.Hyperspace),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Chaff_Launcher.Hyperspace),
                         CommandAudio
                         );
                 }
@@ -127,10 +127,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Chaff_Launcher.Supercruise),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Chaff_Launcher.Supercruise),
                         CommandAudio
                         );
                 }
@@ -148,9 +148,9 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Module.Not_Installed)
+                        "".Phrase(Module.Not_Installed)
                         .Replace("[MODULE]", "Chaff Launchers"),
                         CommandAudio
                         );
@@ -169,10 +169,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Chaff_Launcher.Activating),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Chaff_Launcher.Activating),
                     CommandAudio
                     );
             }
@@ -193,10 +193,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Heatsink_Launcher.Hyperspace),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Heatsink_Launcher.Hyperspace),
                         CommandAudio
                         );
                 }
@@ -214,10 +214,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Module.Not_Installed)
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Module.Not_Installed)
                         .Replace("[MODULE]", "Heatsink Launchers"),
                         CommandAudio
                         );
@@ -236,10 +236,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Heatsink_Launcher.Activating),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Heatsink_Launcher.Activating),
                     CommandAudio
                     );
             }
@@ -260,10 +260,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default)
-                        .Speak(Shield_Cell.Hyperspace),
+                        "".Phrase(Negative.Default)
+                        .Phrase(Shield_Cell.Hyperspace),
                         CommandAudio
                         );
                 }
@@ -281,10 +281,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Module.Not_Installed)
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Module.Not_Installed)
                         .Replace("[MODULE]", "Shield Cells"),
                         CommandAudio
                         );
@@ -303,10 +303,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Shield_Cell.Activating),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Shield_Cell.Activating),
                     CommandAudio
                     );
             }
@@ -418,10 +418,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Cargo_Scoop.Not_Normal_Space),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Cargo_Scoop.Not_Normal_Space),
                         CommandAudio
                         );
                 }
@@ -438,10 +438,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Cargo_Scoop.Fighter),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Cargo_Scoop.Fighter),
                         CommandAudio
                         );
                 }
@@ -458,10 +458,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Cargo_Scoop.Docked),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Cargo_Scoop.Docked),
                         CommandAudio
                         );
                 }
@@ -478,10 +478,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Cargo_Scoop.Touchdown),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Cargo_Scoop.Touchdown),
                         CommandAudio
                         );
                 }
@@ -501,10 +501,10 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Negative.Default, true)
-                            .Speak(Cargo_Scoop.Currently_Deployed, true),
+                            "".Phrase(Negative.Default, true)
+                            .Phrase(Cargo_Scoop.Currently_Deployed, true),
                             CommandAudio
                             );
                     }
@@ -519,10 +519,10 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Negative.Default, true)
-                            .Speak(Cargo_Scoop.Currently_Retracted, true),
+                            "".Phrase(Negative.Default, true)
+                            .Phrase(Cargo_Scoop.Currently_Retracted, true),
                             CommandAudio
                             );
                     }
@@ -545,10 +545,10 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Positive.Default, true)
-                            .Speak(Cargo_Scoop.Deploying, true),
+                            "".Phrase(Positive.Default, true)
+                            .Phrase(Cargo_Scoop.Deploying, true),
                             CommandAudio
                             );
                     }
@@ -565,10 +565,10 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Positive.Default, true)
-                            .Speak(Cargo_Scoop.Retracting, true),
+                            "".Phrase(Positive.Default, true)
+                            .Phrase(Cargo_Scoop.Retracting, true),
                             CommandAudio
                             );
                     }
@@ -644,10 +644,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Fighter.Order_Attack_Target),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Fighter.Order_Attack_Target),
                     CommandAudio,
                     Check.Variable.FighterDeployed(true, MethodName)
                     );
@@ -666,10 +666,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Fighter.Order_Defend),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Fighter.Order_Defend),
                     CommandAudio,
                     Check.Variable.FighterDeployed(true, MethodName)
                     );
@@ -688,10 +688,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Fighter.Order_Engage_At_Will),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Fighter.Order_Engage_At_Will),
                     CommandAudio,
                     Check.Variable.FighterDeployed(true, MethodName)
                     );
@@ -710,10 +710,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Fighter.Order_Follow),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Fighter.Order_Follow),
                     CommandAudio,
                     Check.Variable.FighterDeployed(true, MethodName)
                     );
@@ -732,10 +732,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Fighter.Order_Hold_Position),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Fighter.Order_Hold_Position),
                     CommandAudio,
                     Check.Variable.FighterDeployed(true, MethodName)
                     );
@@ -754,10 +754,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true)
-                    .Speak(Fighter.Order_Maintain_Formation),
+                    "".Phrase(Positive.Default, true)
+                    .Phrase(Fighter.Order_Maintain_Formation),
                     CommandAudio,
                     Check.Variable.FighterDeployed(true, MethodName)
                     );
@@ -778,10 +778,10 @@ namespace ALICE_Actions
             {
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Positive.Default, true)
-                        .Speak(Fighter.Order_Recall_NPC),
+                        "".Phrase(Positive.Default, true)
+                        .Phrase(Fighter.Order_Recall_NPC),
                         CommandAudio,
                         Check.Variable.FighterDeployed(true, MethodName)
                         );
@@ -796,10 +796,10 @@ namespace ALICE_Actions
             {
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Positive.Default, true)
-                        .Speak(Fighter.Order_Recall_Player),
+                        "".Phrase(Positive.Default, true)
+                        .Phrase(Fighter.Order_Recall_Player),
                         CommandAudio,
                         Check.Variable.FighterDeployed(true, MethodName)
                         );
@@ -883,9 +883,9 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Hardpoints.Hyperspace),
+                        "".Phrase(Hardpoints.Hyperspace),
                         CommandAudio
                         );
                 }
@@ -908,10 +908,10 @@ namespace ALICE_Actions
                 #region Audio
                 //if (PlugIn.Audio == "TTS")
                 //{
-                //    Speech.Response
+                //    Speech.Speak
                 //        (
-                //        "".Speak(Negative.Default, true)
-                //        .Speak(Hardpoints.Touchdown),
+                //        "".Phrase(Negative.Default, true)
+                //        .Phrase(Hardpoints.Touchdown),
                 //        CommandAudio
                 //        );
                 //}
@@ -928,9 +928,9 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Hardpoints.Supercruise),
+                        "".Phrase(Hardpoints.Supercruise),
                         CommandAudio
                         );
                 }
@@ -950,9 +950,9 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Hardpoints.Currently_Deployed),
+                            "".Phrase(Hardpoints.Currently_Deployed),
                             CommandAudio
                             );
                     }
@@ -967,9 +967,9 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Hardpoints.Currently_Retracted),
+                            "".Phrase(Hardpoints.Currently_Retracted),
                             CommandAudio
                             );
                     }
@@ -993,9 +993,9 @@ namespace ALICE_Actions
                         #region Audio
                         if (PlugIn.Audio == "TTS")
                         {
-                            Speech.Response
+                            Speech.Speak
                                 (
-                                "".Speak(Hardpoints.Safety_Engaged) +
+                                "".Phrase(Hardpoints.Safety_Engaged) +
                                 "... Would You Like To Override?",
                                 CommandAudio
                                 );
@@ -1030,10 +1030,10 @@ namespace ALICE_Actions
                             #region Audio
                             if (PlugIn.Audio == "TTS")
                             {
-                                Speech.Response
+                                Speech.Speak
                                     (
-                                    "".Speak(Positive.Default, true)
-                                    .Speak(Hardpoints.Safety_Remains),
+                                    "".Phrase(Positive.Default, true)
+                                    .Phrase(Hardpoints.Safety_Remains),
                                     CommandAudio
                                     );
                             }
@@ -1057,11 +1057,11 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Positive.Default, true)
-                            .Speak(Hardpoints.Deploying)
-                            .Speak(Combat_Power.Online, false, Check.Order.CombatPower(true, MethodName)),
+                            "".Phrase(Positive.Default, true)
+                            .Phrase(Hardpoints.Deploying)
+                            .Phrase(Combat_Power.Online, false, Check.Order.CombatPower(true, MethodName)),
                             CommandAudio
                             );
                     }
@@ -1076,11 +1076,11 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Positive.Default, true)
-                            .Speak(Hardpoints.Retracting)
-                            .Speak(Combat_Power.Offline, false, Check.Order.CombatPower(true, MethodName)),
+                            "".Phrase(Positive.Default, true)
+                            .Phrase(Hardpoints.Retracting)
+                            .Phrase(Combat_Power.Offline, false, Check.Order.CombatPower(true, MethodName)),
                             CommandAudio
                             );
                     }
@@ -1149,10 +1149,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Landing_Gear.Not_Normal_Space),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Landing_Gear.Not_Normal_Space),
                         CommandAudio
                         );
                 }
@@ -1169,10 +1169,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Landing_Gear.Not_Mothership),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Landing_Gear.Not_Mothership),
                         CommandAudio
                         );
                 }
@@ -1189,10 +1189,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Landing_Gear.Fighter_Deployed),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Landing_Gear.Fighter_Deployed),
                         CommandAudio
                         );
                 }
@@ -1209,10 +1209,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Landing_Gear.Docked),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Landing_Gear.Docked),
                         CommandAudio
                         );
                 }
@@ -1229,10 +1229,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Landing_Gear.Touchdown),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Landing_Gear.Touchdown),
                         CommandAudio
                         );
                 }
@@ -1252,10 +1252,10 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Negative.Default, true)
-                            .Speak(Landing_Gear.Currently_Deployed, true),
+                            "".Phrase(Negative.Default, true)
+                            .Phrase(Landing_Gear.Currently_Deployed, true),
                             CommandAudio
                             );
                     }
@@ -1270,10 +1270,10 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Negative.Default, true)
-                            .Speak(Landing_Gear.Currently_Retracted, true),
+                            "".Phrase(Negative.Default, true)
+                            .Phrase(Landing_Gear.Currently_Retracted, true),
                             CommandAudio
                             );
                     }
@@ -1297,10 +1297,10 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Positive.Default, true)
-                            .Speak(Landing_Gear.Deploying),
+                            "".Phrase(Positive.Default, true)
+                            .Phrase(Landing_Gear.Deploying),
                             CommandAudio
                             );
                     }
@@ -1318,10 +1318,10 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Positive.Default, true)
-                            .Speak(Landing_Gear.Retracting),
+                            "".Phrase(Positive.Default, true)
+                            .Phrase(Landing_Gear.Retracting),
                             CommandAudio
                             );
                     }
@@ -1346,10 +1346,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Silent_Running.Not_Normal_Space),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Silent_Running.Not_Normal_Space),
                         CommandAudio
                         );
                 }
@@ -1366,10 +1366,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Silent_Running.Not_Mothership),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Silent_Running.Not_Mothership),
                         CommandAudio
                         );
                 }
@@ -1389,10 +1389,10 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Negative.Default, true)
-                            .Speak(Silent_Running.Currently_Active, true),
+                            "".Phrase(Negative.Default, true)
+                            .Phrase(Silent_Running.Currently_Active, true),
                             CommandAudio
                             );
                     }
@@ -1407,10 +1407,10 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Negative.Default, true)
-                            .Speak(Silent_Running.Currently_Secured, true),
+                            "".Phrase(Negative.Default, true)
+                            .Phrase(Silent_Running.Currently_Secured, true),
                             CommandAudio
                             );
                     }
@@ -1433,10 +1433,10 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Positive.Default, true)
-                            .Speak(Silent_Running.Activating, true),
+                            "".Phrase(Positive.Default, true)
+                            .Phrase(Silent_Running.Activating, true),
                             CommandAudio
                             );
                     }
@@ -1453,10 +1453,10 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Positive.Default, true)
-                            .Speak(Silent_Running.Securing, true),
+                            "".Phrase(Positive.Default, true)
+                            .Phrase(Silent_Running.Securing, true),
                             CommandAudio
                             );
                     }
@@ -2482,10 +2482,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Fighter.Not_Normal_Space),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Fighter.Not_Normal_Space),
                         CommandAudio
                         );
                 }
@@ -2502,10 +2502,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Fighter.Not_Mothership),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Fighter.Not_Mothership),
                         CommandAudio
                         );
                 }
@@ -2522,10 +2522,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Fighter.Mothership_Docked),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Fighter.Mothership_Docked),
                         CommandAudio
                         );
                 }
@@ -2542,10 +2542,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Fighter.Touchdown),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Fighter.Touchdown),
                         CommandAudio
                         );
                 }
@@ -2562,10 +2562,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Fighter.No_Fire_Zone),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Fighter.No_Fire_Zone),
                         CommandAudio
                         );
                 }
@@ -2582,10 +2582,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Fighter.Altitude),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Fighter.Altitude),
                         CommandAudio
                         );
                 }
@@ -2602,10 +2602,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Fighter.No_Fighter_Hanger),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Fighter.No_Fighter_Hanger),
                         CommandAudio
                         );
                 }
@@ -2621,10 +2621,10 @@ namespace ALICE_Actions
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Negative.Default, true)
-                        .Speak(Fighter.Hanger_Total),
+                        "".Phrase(Negative.Default, true)
+                        .Phrase(Fighter.Hanger_Total),
                         CommandAudio
                         );
                 }
@@ -2670,9 +2670,9 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Positive.Default, true),
+                    "".Phrase(Positive.Default, true),
                     CommandAudio
                     );
             }
@@ -2732,9 +2732,9 @@ namespace ALICE_Actions
                     #region Audio
                     if (PlugIn.Audio == "TTS")
                     {
-                        Speech.Response
+                        Speech.Speak
                             (
-                            "".Speak(Fighter.Launch_Error),
+                            "".Phrase(Fighter.Launch_Error),
                             CommandAudio
                             );
                     }
@@ -2762,9 +2762,9 @@ namespace ALICE_Actions
             {
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Fighter.Launch),
+                        "".Phrase(Fighter.Launch),
                         CommandAudio
                         );
                 }
@@ -2778,10 +2778,10 @@ namespace ALICE_Actions
             {
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Response
+                    Speech.Speak
                         (
-                        "".Speak(Fighter.Launch)
-                        .Speak(Fighter.Launch_Player_Modifer),
+                        "".Phrase(Fighter.Launch)
+                        .Phrase(Fighter.Launch_Player_Modifer),
                         CommandAudio
                         );
                 }
@@ -3056,11 +3056,11 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Docking_Preparations.Modifier, true)
-                    .Speak(Shields.Offline, false, IObjects.Status.Shields, false)
-                    .Speak(Docking_Preparations.Default),
+                    "".Phrase(Docking_Preparations.Modifier, true)
+                    .Phrase(Shields.Offline, false, IObjects.Status.Shields, false)
+                    .Phrase(Docking_Preparations.Default),
                     CommandAudio
                     );
             }
@@ -3221,10 +3221,10 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (""
-                    .Speak(Landing_Preparations.Modifier, true)
-                    .Speak(Landing_Preparations.Default),
+                    .Phrase(Landing_Preparations.Modifier, true)
+                    .Phrase(Landing_Preparations.Default),
                     CommandAudio
                     );
             }
@@ -3461,7 +3461,7 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
                     "Crew Override Acivated.",
                     CommandAudio
@@ -3542,9 +3542,9 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Alice.Default, false, true, true, 25, Alice.Special),
+                    "".Phrase(Alice.Default),
                     true
                     );
             }
@@ -3558,9 +3558,9 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(I_Love_You.Default),
+                    "".Phrase(I_Love_You.Default),
                     true
                     );
             }
@@ -3574,9 +3574,9 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-                Speech.Response
+                Speech.Speak
                     (
-                    "".Speak(Thank_You.Default, false, true, true, 25, Thank_You.Special),
+                    "".Phrase(Thank_You.Default),
                     true
                     );
             }

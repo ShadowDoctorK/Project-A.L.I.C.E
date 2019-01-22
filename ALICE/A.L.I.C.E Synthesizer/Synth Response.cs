@@ -126,13 +126,19 @@ namespace ALICE_Synthesizer
 
             public string GetLine(bool W, bool A)
             {
-                string MethodName = "Response (Get Alternate)";
+                string MethodName = "Response (Get Line)";
 
                 string Text = "";
                 Random RanNum = new Random();
+                bool Default = false;
+
+                Start:
+                //Check If We Are Resetting To Defaults
+                if (Default) { W = false; A = false; }
 
                 //Get The Average Weight Of The Segment.
                 int Weight = GetWeight(A);
+                Logger.DebugLine(MethodName, "Average Response Weight: " + Weight, Logger.Blue);
 
                 //Emtpy List Of Int's To Store Valid Line Index's
                 List<int> ValidLines = new List<int>();
@@ -142,6 +148,19 @@ namespace ALICE_Synthesizer
                 {
                     //Alternate = true
                     if (L.Alternate == true)
+                    {
+                        //Weight Is Enabled & Line Weight Less Than Avg + 2
+                        if (W == true && L.Weight < Weight + 2)
+                        {
+                            ValidLines.Add(Index);
+                        }
+                        //Weight Is Disabled
+                        else if (W == false)
+                        {
+                            ValidLines.Add(Index);
+                        }
+                    }
+                    else
                     {
                         //Weight Is Enabled & Line Weight Less Than Avg + 2
                         if (W == true && L.Weight < Weight + 2)
@@ -166,6 +185,7 @@ namespace ALICE_Synthesizer
                     int Select = ValidLines[RanNum.Next(0, Count - 1)];
 
                     //Increase Line Weight Count
+                    Logger.DebugLine(MethodName, "Selected Response Weight: " + Lines[Select].Weight, Logger.Blue);
                     Lines[Select].Weight++;
                     
                     //Return Line
@@ -173,7 +193,17 @@ namespace ALICE_Synthesizer
                 }
                 else
                 {
-                    Logger.DebugLine(MethodName, "There Wasn't Any Valid Returns Found", Logger.Blue);
+                    //First Time We Fail To Find Response
+                    if (Default == false)
+                    {
+                        Logger.DebugLine(MethodName, "There Wasn't Any Valid Returns Found, Trying Again With Defaults", Logger.Blue);
+                        Default = true; goto Start;
+                    }
+                    //
+                    else if (Default)
+                    {
+                        Logger.DebugLine(MethodName, "There Wasn't Any Valid Returns Found...", Logger.Blue);
+                    }
                 }
 
                 return Text;
