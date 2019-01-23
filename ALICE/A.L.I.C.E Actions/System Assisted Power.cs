@@ -245,8 +245,8 @@ namespace ALICE_Actions
 
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Combat_Power.Maintain_Engines, true),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(GN_Combat_Power.Maintain_Engines, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)
@@ -268,8 +268,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Combat_Power.Maintain_Systems, true),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(GN_Combat_Power.Maintain_Systems, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)
@@ -291,8 +291,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Combat_Power.Defense_Engines, true),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(GN_Combat_Power.Defense_Engines, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)
@@ -314,8 +314,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Combat_Power.Defense_Systems, true),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(GN_Combat_Power.Defense_Systems, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)
@@ -337,8 +337,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Combat_Power.Weapons_Light, true),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(GN_Combat_Power.Weapons_Light, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)
@@ -360,8 +360,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Combat_Power.Weapons_Balance, true),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(GN_Combat_Power.Weapons_Balance, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)
@@ -383,8 +383,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Combat_Power.Weapons_Heavy, true),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(GN_Combat_Power.Weapons_Heavy, true),
                     CommandAudio,
                     Check.Order.CombatPower(true, MethodName),
                     Check.Variable.Hardpoints(true, MethodName)

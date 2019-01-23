@@ -110,8 +110,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Chaff_Launcher.Hyperspace),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Chaff_Launcher.Hyperspace),
                         CommandAudio
                         );
                 }
@@ -129,8 +129,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Chaff_Launcher.Supercruise),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Chaff_Launcher.Supercruise),
                         CommandAudio
                         );
                 }
@@ -150,7 +150,7 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Module.Not_Installed)
+                        "".Phrase(EQ_Generic_Module.Not_Installed)
                         .Replace("[MODULE]", "Chaff Launchers"),
                         CommandAudio
                         );
@@ -171,8 +171,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Chaff_Launcher.Activating),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(EQ_Chaff_Launcher.Activating),
                     CommandAudio
                     );
             }
@@ -195,8 +195,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Heatsink_Launcher.Hyperspace),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Heatsink_Launcher.Hyperspace),
                         CommandAudio
                         );
                 }
@@ -216,8 +216,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Module.Not_Installed)
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Generic_Module.Not_Installed)
                         .Replace("[MODULE]", "Heatsink Launchers"),
                         CommandAudio
                         );
@@ -238,8 +238,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Heatsink_Launcher.Activating),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(EQ_Heatsink_Launcher.Activating),
                     CommandAudio
                     );
             }
@@ -262,8 +262,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default)
-                        .Phrase(Shield_Cell.Hyperspace),
+                        "".Phrase(GN_Negative.Default)
+                        .Phrase(EQ_Shield_Cell.Hyperspace),
                         CommandAudio
                         );
                 }
@@ -283,8 +283,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Module.Not_Installed)
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Generic_Module.Not_Installed)
                         .Replace("[MODULE]", "Shield Cells"),
                         CommandAudio
                         );
@@ -305,8 +305,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Shield_Cell.Activating),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(EQ_Shield_Cell.Activating),
                     CommandAudio
                     );
             }
@@ -420,8 +420,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Cargo_Scoop.Not_Normal_Space),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Cargo_Scoop.Not_Normal_Space),
                         CommandAudio
                         );
                 }
@@ -440,8 +440,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Cargo_Scoop.Fighter),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Cargo_Scoop.Fighter),
                         CommandAudio
                         );
                 }
@@ -460,8 +460,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Cargo_Scoop.Docked),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Cargo_Scoop.Docked),
                         CommandAudio
                         );
                 }
@@ -480,8 +480,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Cargo_Scoop.Touchdown),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Cargo_Scoop.Touchdown),
                         CommandAudio
                         );
                 }
@@ -503,8 +503,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Cargo_Scoop.Currently_Deployed, true),
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(EQ_Cargo_Scoop.Currently_Deployed, true),
                             CommandAudio
                             );
                     }
@@ -521,8 +521,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Cargo_Scoop.Currently_Retracted, true),
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(EQ_Cargo_Scoop.Currently_Retracted, true),
                             CommandAudio
                             );
                     }
@@ -547,8 +547,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Cargo_Scoop.Deploying, true),
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(EQ_Cargo_Scoop.Deploying, true),
                             CommandAudio
                             );
                     }
@@ -567,8 +567,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Cargo_Scoop.Retracting, true),
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(EQ_Cargo_Scoop.Retracting, true),
                             CommandAudio
                             );
                     }
@@ -646,8 +646,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Fighter.Order_Attack_Target),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(EQ_Fighter.Order_Attack_Target),
                     CommandAudio,
                     Check.Variable.FighterDeployed(true, MethodName)
                     );
@@ -668,8 +668,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Fighter.Order_Defend),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(EQ_Fighter.Order_Defend),
                     CommandAudio,
                     Check.Variable.FighterDeployed(true, MethodName)
                     );
@@ -690,8 +690,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Fighter.Order_Engage_At_Will),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(EQ_Fighter.Order_Engage_At_Will),
                     CommandAudio,
                     Check.Variable.FighterDeployed(true, MethodName)
                     );
@@ -712,8 +712,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Fighter.Order_Follow),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(EQ_Fighter.Order_Follow),
                     CommandAudio,
                     Check.Variable.FighterDeployed(true, MethodName)
                     );
@@ -734,8 +734,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Fighter.Order_Hold_Position),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(EQ_Fighter.Order_Hold_Position),
                     CommandAudio,
                     Check.Variable.FighterDeployed(true, MethodName)
                     );
@@ -756,8 +756,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true)
-                    .Phrase(Fighter.Order_Maintain_Formation),
+                    "".Phrase(GN_Positive.Default, true)
+                    .Phrase(EQ_Fighter.Order_Maintain_Formation),
                     CommandAudio,
                     Check.Variable.FighterDeployed(true, MethodName)
                     );
@@ -780,8 +780,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Positive.Default, true)
-                        .Phrase(Fighter.Order_Recall_NPC),
+                        "".Phrase(GN_Positive.Default, true)
+                        .Phrase(EQ_Fighter.Order_Recall_NPC),
                         CommandAudio,
                         Check.Variable.FighterDeployed(true, MethodName)
                         );
@@ -798,8 +798,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Positive.Default, true)
-                        .Phrase(Fighter.Order_Recall_Player),
+                        "".Phrase(GN_Positive.Default, true)
+                        .Phrase(EQ_Fighter.Order_Recall_Player),
                         CommandAudio,
                         Check.Variable.FighterDeployed(true, MethodName)
                         );
@@ -885,7 +885,7 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Hardpoints.Hyperspace),
+                        "".Phrase(EQ_Hardpoints.Hyperspace),
                         CommandAudio
                         );
                 }
@@ -910,8 +910,8 @@ namespace ALICE_Actions
                 //{
                 //    Speech.Speak
                 //        (
-                //        "".Phrase(Negative.Default, true)
-                //        .Phrase(Hardpoints.Touchdown),
+                //        "".Phrase(GN_Negative.Default, true)
+                //        .Phrase(EQ_Hardpoints.Touchdown),
                 //        CommandAudio
                 //        );
                 //}
@@ -930,7 +930,7 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Hardpoints.Supercruise),
+                        "".Phrase(EQ_Hardpoints.Supercruise),
                         CommandAudio
                         );
                 }
@@ -952,7 +952,7 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Hardpoints.Currently_Deployed),
+                            "".Phrase(EQ_Hardpoints.Currently_Deployed),
                             CommandAudio
                             );
                     }
@@ -969,7 +969,7 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Hardpoints.Currently_Retracted),
+                            "".Phrase(EQ_Hardpoints.Currently_Retracted),
                             CommandAudio
                             );
                     }
@@ -995,7 +995,7 @@ namespace ALICE_Actions
                         {
                             Speech.Speak
                                 (
-                                "".Phrase(Hardpoints.Safety_Engaged) +
+                                "".Phrase(EQ_Hardpoints.Safety_Engaged) +
                                 "... Would You Like To Override?",
                                 CommandAudio
                                 );
@@ -1032,8 +1032,8 @@ namespace ALICE_Actions
                             {
                                 Speech.Speak
                                     (
-                                    "".Phrase(Positive.Default, true)
-                                    .Phrase(Hardpoints.Safety_Remains),
+                                    "".Phrase(GN_Positive.Default, true)
+                                    .Phrase(EQ_Hardpoints.Safety_Remains),
                                     CommandAudio
                                     );
                             }
@@ -1059,9 +1059,9 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Hardpoints.Deploying)
-                            .Phrase(Combat_Power.Online, false, Check.Order.CombatPower(true, MethodName)),
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(EQ_Hardpoints.Deploying)
+                            .Phrase(GN_Combat_Power.Online, false, Check.Order.CombatPower(true, MethodName)),
                             CommandAudio
                             );
                     }
@@ -1078,9 +1078,9 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Hardpoints.Retracting)
-                            .Phrase(Combat_Power.Offline, false, Check.Order.CombatPower(true, MethodName)),
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(EQ_Hardpoints.Retracting)
+                            .Phrase(GN_Combat_Power.Offline, false, Check.Order.CombatPower(true, MethodName)),
                             CommandAudio
                             );
                     }
@@ -1151,8 +1151,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Landing_Gear.Not_Normal_Space),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Landing_Gear.Not_Normal_Space),
                         CommandAudio
                         );
                 }
@@ -1171,8 +1171,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Landing_Gear.Not_Mothership),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Landing_Gear.Not_Mothership),
                         CommandAudio
                         );
                 }
@@ -1191,8 +1191,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Landing_Gear.Fighter_Deployed),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Landing_Gear.Fighter_Deployed),
                         CommandAudio
                         );
                 }
@@ -1211,8 +1211,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Landing_Gear.Docked),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Landing_Gear.Docked),
                         CommandAudio
                         );
                 }
@@ -1231,8 +1231,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Landing_Gear.Touchdown),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Landing_Gear.Touchdown),
                         CommandAudio
                         );
                 }
@@ -1254,8 +1254,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Landing_Gear.Currently_Deployed, true),
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(EQ_Landing_Gear.Currently_Deployed, true),
                             CommandAudio
                             );
                     }
@@ -1272,8 +1272,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Landing_Gear.Currently_Retracted, true),
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(EQ_Landing_Gear.Currently_Retracted, true),
                             CommandAudio
                             );
                     }
@@ -1299,8 +1299,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Landing_Gear.Deploying),
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(EQ_Landing_Gear.Deploying),
                             CommandAudio
                             );
                     }
@@ -1320,8 +1320,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Landing_Gear.Retracting),
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(EQ_Landing_Gear.Retracting),
                             CommandAudio
                             );
                     }
@@ -1348,8 +1348,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Silent_Running.Not_Normal_Space),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Silent_Running.Not_Normal_Space),
                         CommandAudio
                         );
                 }
@@ -1368,8 +1368,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Silent_Running.Not_Mothership),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Silent_Running.Not_Mothership),
                         CommandAudio
                         );
                 }
@@ -1391,8 +1391,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Silent_Running.Currently_Active, true),
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(EQ_Silent_Running.Currently_Active, true),
                             CommandAudio
                             );
                     }
@@ -1409,8 +1409,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Silent_Running.Currently_Secured, true),
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(EQ_Silent_Running.Currently_Secured, true),
                             CommandAudio
                             );
                     }
@@ -1435,8 +1435,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Silent_Running.Activating, true),
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(EQ_Silent_Running.Activating, true),
                             CommandAudio
                             );
                     }
@@ -1455,8 +1455,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Silent_Running.Securing, true),
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(EQ_Silent_Running.Securing, true),
                             CommandAudio
                             );
                     }
@@ -2484,8 +2484,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Fighter.Not_Normal_Space),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Fighter.Not_Normal_Space),
                         CommandAudio
                         );
                 }
@@ -2504,8 +2504,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Fighter.Not_Mothership),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Fighter.Not_Mothership),
                         CommandAudio
                         );
                 }
@@ -2524,8 +2524,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Fighter.Mothership_Docked),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Fighter.Mothership_Docked),
                         CommandAudio
                         );
                 }
@@ -2544,8 +2544,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Fighter.Touchdown),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Fighter.Touchdown),
                         CommandAudio
                         );
                 }
@@ -2564,8 +2564,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Fighter.No_Fire_Zone),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Fighter.No_Fire_Zone),
                         CommandAudio
                         );
                 }
@@ -2584,8 +2584,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Fighter.Altitude),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Fighter.Altitude),
                         CommandAudio
                         );
                 }
@@ -2604,8 +2604,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Fighter.No_Fighter_Hanger),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Fighter.No_Fighter_Hanger),
                         CommandAudio
                         );
                 }
@@ -2623,8 +2623,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Fighter.Hanger_Total),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Fighter.Hanger_Total),
                         CommandAudio
                         );
                 }
@@ -2672,7 +2672,7 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Positive.Default, true),
+                    "".Phrase(GN_Positive.Default, true),
                     CommandAudio
                     );
             }
@@ -2734,7 +2734,7 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Fighter.Launch_Error),
+                            "".Phrase(EQ_Fighter.Launch_Error),
                             CommandAudio
                             );
                     }
@@ -2764,7 +2764,7 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Fighter.Launch),
+                        "".Phrase(EQ_Fighter.Launch),
                         CommandAudio
                         );
                 }
@@ -2780,8 +2780,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Fighter.Launch)
-                        .Phrase(Fighter.Launch_Player_Modifer),
+                        "".Phrase(EQ_Fighter.Launch)
+                        .Phrase(EQ_Fighter.Launch_Player_Modifer),
                         CommandAudio
                         );
                 }
@@ -3058,9 +3058,9 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Docking_Preparations.Modifier, true)
-                    .Phrase(Shields.Offline, false, IObjects.Status.Shields, false)
-                    .Phrase(Docking_Preparations.Default),
+                    "".Phrase(GN_Docking_Preparations.Modifier, true)
+                    .Phrase(EQ_Shields.Offline, false, IObjects.Status.Shields, false)
+                    .Phrase(GN_Docking_Preparations.Default),
                     CommandAudio
                     );
             }
@@ -3223,8 +3223,8 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (""
-                    .Phrase(Landing_Preparations.Modifier, true)
-                    .Phrase(Landing_Preparations.Default),
+                    .Phrase(GN_Landing_Preparations.Modifier, true)
+                    .Phrase(GN_Landing_Preparations.Default),
                     CommandAudio
                     );
             }
@@ -3544,7 +3544,7 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Alice.Default),
+                    "".Phrase(GN_Alice.Default),
                     true
                     );
             }
@@ -3560,7 +3560,7 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(I_Love_You.Default),
+                    "".Phrase(GN_I_Love_You.Default),
                     true
                     );
             }
@@ -3576,7 +3576,7 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "".Phrase(Thank_You.Default),
+                    "".Phrase(GN_Thank_You.Default),
                     true
                     );
             }

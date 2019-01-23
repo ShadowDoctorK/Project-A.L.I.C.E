@@ -114,7 +114,7 @@ namespace ALICE_Internal
 
             public bool Fighters(string MethodName, bool DisableDebug = false)
             {
-                string Variable = "Role Panel (Fighters Tab)";
+                string Variable = "Role Panel (EQ_Fighters Tab)";
                 decimal Role = Call.Panel.Role.Fighters.Tab;
                 decimal Current = Call.Panel.Role.Pos;
                 return Check_PanelTab(Role, MethodName, Current, Variable);

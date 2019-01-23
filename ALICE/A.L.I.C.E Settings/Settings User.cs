@@ -189,8 +189,8 @@ namespace ALICE_Settings
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Order_Generic.Currently_Enabled)
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(GN_Order_Updated.Currently_Enabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -206,8 +206,8 @@ namespace ALICE_Settings
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Order_Generic.Disabled)
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(GN_Order_Updated.Disabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -226,8 +226,8 @@ namespace ALICE_Settings
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Order_Generic.Enabled)
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(GN_Order_Updated.Enabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -243,8 +243,8 @@ namespace ALICE_Settings
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Order_Generic.Currently_Disabled)
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(GN_Order_Updated.Currently_Disabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -333,8 +333,8 @@ namespace ALICE_Settings
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Report_Generic.Currently_Enabled)
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(GN_Report_Updated.Currently_Enabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -350,8 +350,8 @@ namespace ALICE_Settings
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Report_Generic.Disabled)
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(GN_Report_Updated.Disabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -370,8 +370,8 @@ namespace ALICE_Settings
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Report_Generic.Enabled)
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(GN_Report_Updated.Enabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );
@@ -387,8 +387,8 @@ namespace ALICE_Settings
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Report_Generic.Currently_Disabled)
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(GN_Report_Updated.Currently_Disabled)
                             .Replace("[ITEM]", ItemName),
                             true
                             );

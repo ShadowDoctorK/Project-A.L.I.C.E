@@ -18,7 +18,7 @@ namespace ALICE_Actions
     //                {
     //                    Speech.Speak
     //                        (
-    //                        "".Phrase(Negative.Default, true)
+    //                        "".Phrase(GN_Negative.Default, true)
     //                        .Phrase(Order_Generic.Currently_Enabled)
     //                        .Replace("[ITEM]", ItemName),
     //                        true
@@ -35,7 +35,7 @@ namespace ALICE_Actions
     //                {
     //                    Speech.Speak
     //                        (
-    //                        "".Phrase(Positive.Default, true)
+    //                        "".Phrase(GN_Positive.Default, true)
     //                        .Phrase(Order_Generic.Disabled)
     //                        .Replace("[ITEM]", ItemName),
     //                        true
@@ -55,7 +55,7 @@ namespace ALICE_Actions
     //                {
     //                    Speech.Speak
     //                        (
-    //                        "".Phrase(Positive.Default, true)
+    //                        "".Phrase(GN_Positive.Default, true)
     //                        .Phrase(Order_Generic.Enabled)
     //                        .Replace("[ITEM]", ItemName),
     //                        true
@@ -72,7 +72,7 @@ namespace ALICE_Actions
     //                {
     //                    Speech.Speak
     //                        (
-    //                        "".Phrase(Negative.Default, true)
+    //                        "".Phrase(GN_Negative.Default, true)
     //                        .Phrase(Order_Generic.Currently_Disabled)
     //                        .Replace("[ITEM]", ItemName),
     //                        true

@@ -250,9 +250,9 @@ namespace ALICE_Status
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Scooping Complete. Reserves: " + IStatus.Fuel.GetPercent() + "%", Logger.Yellow); }
 
                 Speech.Speak(""
-                    .Phrase(Fuel_Report.Scoop_End)
-                    .Phrase(Fuel_Report.Scoop_Collected, true)
-                    .Phrase(Fuel_Report.Level_Percent, true)
+                    .Phrase(GN_Fuel_Report.Scoop_End)
+                    .Phrase(GN_Fuel_Report.Scoop_Collected, true)
+                    .Phrase(GN_Fuel_Report.Level_Percent, true)
                     .Replace("[PERCENT]", IStatus.Fuel.PercentToString(2))
                     .Replace("[FUELTONS]", IStatus.Fuel.ScoopingDiffToString(2)),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
@@ -264,7 +264,7 @@ namespace ALICE_Status
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Scooping Commenced. Reserves: " + IStatus.Fuel.GetPercent() + "%", Logger.Yellow); }
 
                 Speech.Speak(""
-                    .Phrase(Fuel_Report.Scoop_Start),
+                    .Phrase(GN_Fuel_Report.Scoop_Start),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -274,7 +274,7 @@ namespace ALICE_Status
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Fuel Level. Reserves: " + IStatus.Fuel.GetPercent() + "%", Logger.Yellow); }
 
                 Speech.Speak(""
-                    .Phrase(Speech.Pick(new List<string>[] { Fuel_Report.Level_Percent, Fuel_Report.Level_Tons }))
+                    .Phrase(Speech.Pick(new List<string>[] { GN_Fuel_Report.Level_Percent, GN_Fuel_Report.Level_Tons }))
                     .Replace("[PERCENT]", IStatus.Fuel.PercentToString(2))
                     .Replace("[FUELTONS]", IStatus.Fuel.TonsToString(2)),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);

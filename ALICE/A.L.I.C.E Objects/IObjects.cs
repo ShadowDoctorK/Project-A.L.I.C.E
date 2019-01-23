@@ -188,7 +188,7 @@ namespace ALICE_Objects
             #region Update Player Ship Information
             if (Event.Ship.ToLower().Contains("testbuggy") == true || Event.Ship.ToLower().Contains("fighter") == true)
             {
-                IPlatform.WriteToInterface("A.L.I.C.E: Loadout Manager: Looks Like The Loadout Event Doesn't Contain A Normal Player Ship (Fighter or SRV)", Logger.Blue);
+                IPlatform.WriteToInterface("A.L.I.C.E: Loadout Manager: Looks Like The Loadout Event Doesn't Contain A Normal Player Ship (EQ_Fighter or SRV)", Logger.Blue);
                 return;
             }
 
@@ -471,7 +471,7 @@ namespace ALICE_Objects
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Ship_Targeted.Wanted).Replace("[NUM]", Event.Bounty.ToString())
+                            "".Phrase(EVT_ShipTargeted.Wanted).Replace("[NUM]", Event.Bounty.ToString())
                             .Replace("[PILOT]", Event.PilotName_Localised),
                             Check.Report.TargetWanted(true, MethodName),
                             (Event.LegalStatus == "Wanted")
@@ -486,7 +486,7 @@ namespace ALICE_Objects
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Ship_Targeted.Enemy_Faction)
+                            "".Phrase(EVT_ShipTargeted.Enemy_Faction)
                             .Replace("[FACTION]", Event.Faction),
                             Check.Report.TargetEnemy(true, MethodName),
                             (Event.LegalStatus == "Enemy")

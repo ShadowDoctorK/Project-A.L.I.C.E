@@ -641,6 +641,24 @@ namespace A.L.I.C.E_Toolkit
             }
 
             /// <summary>
+            /// Will Remove The Referenced Old Response from Storage if it exists, and Add the new response.
+            /// </summary>
+            /// <param name="O">The Old Response</param>
+            /// <param name="N">The New Response</param>
+            public void Replace(Response O, Response N)
+            {
+                //Check If Response Exists
+                if (Exists(O.Name))
+                {
+                    //Delete Old Response
+                    Delete(O.Name);
+                }
+
+                //Add Updated Response, Do Not Merge
+                Add(N, false);
+            }
+
+            /// <summary>
             /// Will Update the Target Response if it exists, otherwise it will add the Target Response.
             /// </summary>
             /// <param name="R">The Response Object</param>
@@ -981,7 +999,11 @@ namespace A.L.I.C.E_Toolkit
         {
             try
             {
-                if (SelectedResposneText() != null)
+                //Save Copy Of Old Response
+                Response Old = SelectedResponse();
+
+                //Check Text Isn't Null or White Space
+                if (SelectedResposneText() != null && string.IsNullOrWhiteSpace(SelectedResposneText()) == false)
                 {
                     //Update Response Name
                     R_Response.Name = TextBox_ResponseName.Text;
@@ -991,7 +1013,7 @@ namespace A.L.I.C.E_Toolkit
                 TextBox_ResponseName.Text = null;
 
                 //Update Response Collection
-                Responses.Update(R_Response);
+                Responses.Replace(Old ,R_Response);
 
                 //Update Response List
                 U_Responses();
@@ -1420,6 +1442,11 @@ namespace A.L.I.C.E_Toolkit
         {
             var Temp = (Response.Segment.Line)ListBox_Strings.SelectedItem;
             return Temp.Text;
+        }
+
+        private Response SelectedResponse()
+        {
+            return R_Response;
         }
 
         private Response.Segment.Line SelectedLine()

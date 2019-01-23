@@ -130,11 +130,13 @@ namespace ALICE_Synthesizer
 
                 string Text = "";
                 Random RanNum = new Random();
-                bool Default = false;
+                bool Change = false;
 
                 Start:
                 //Check If We Are Resetting To Defaults
-                if (Default) { W = false; A = false; }
+                if (Change) { A = !A; }
+
+                Logger.DebugLine(MethodName, "Weighted: " + W + " | Alternate: " + A, Logger.Blue);
 
                 //Get The Average Weight Of The Segment.
                 int Weight = GetWeight(A);
@@ -150,7 +152,7 @@ namespace ALICE_Synthesizer
                     if (L.Alternate == true)
                     {
                         //Weight Is Enabled & Line Weight Less Than Avg + 2
-                        if (W == true && L.Weight < Weight + 2)
+                        if (W == true && L.Weight <= Weight)
                         {
                             ValidLines.Add(Index);
                         }
@@ -163,7 +165,7 @@ namespace ALICE_Synthesizer
                     else
                     {
                         //Weight Is Enabled & Line Weight Less Than Avg + 2
-                        if (W == true && L.Weight < Weight + 2)
+                        if (W == true && L.Weight <= Weight)
                         {
                             ValidLines.Add(Index);
                         }
@@ -182,7 +184,18 @@ namespace ALICE_Synthesizer
                 int Count = ValidLines.Count(); if (Count != 0)
                 {
                     //Pick A Random Valid Number Index
-                    int Select = ValidLines[RanNum.Next(0, Count - 1)];
+                    int Select = ValidLines[RanNum.Next(0, Count)];
+
+                    if (PlugIn.DebugMode)
+                    {
+                        int Temp = 0; foreach (var Item in ValidLines)
+                        {
+                            Logger.DebugLine(MethodName, "Index: " + Temp + " | Text: " + Lines[Item].Text, Logger.Blue); Temp++;
+                        }
+                    }
+
+                    Logger.DebugLine(MethodName, "Total Valid Lines: " + Count, Logger.Blue);
+                    Logger.DebugLine(MethodName, "Selecting Line: " + Select, Logger.Blue);
 
                     //Increase Line Weight Count
                     Logger.DebugLine(MethodName, "Selected Response Weight: " + Lines[Select].Weight, Logger.Blue);
@@ -194,13 +207,13 @@ namespace ALICE_Synthesizer
                 else
                 {
                     //First Time We Fail To Find Response
-                    if (Default == false)
+                    if (Change == false)
                     {
                         Logger.DebugLine(MethodName, "There Wasn't Any Valid Returns Found, Trying Again With Defaults", Logger.Blue);
-                        Default = true; goto Start;
+                        Change = true; goto Start;
                     }
                     //
-                    else if (Default)
+                    else if (Change)
                     {
                         Logger.DebugLine(MethodName, "There Wasn't Any Valid Returns Found...", Logger.Blue);
                     }
@@ -226,14 +239,17 @@ namespace ALICE_Synthesizer
                         //Looking For Alternate Lines Only
                         if (A && L.Alternate)
                         {
+                            Logger.DebugLine(MethodName, L.Weight + ": " + L.Text, Logger.Blue);
                             Answer = Answer + L.Weight; Count++;
                         }
-                        else
+                        else if (A == false && L.Alternate == false)
                         {
+                            Logger.DebugLine(MethodName, L.Weight + ": " + L.Text, Logger.Blue);
                             Answer = Answer + L.Weight; Count++;
                         }
-                        
                     }
+
+                    Logger.DebugLine(MethodName, Answer + " / " + Count, Logger.Blue);
 
                     //If We Processed Any Lines Average The Answer
                     if (Count != 0) { Answer = Answer / Count; }

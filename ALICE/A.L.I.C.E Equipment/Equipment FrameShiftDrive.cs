@@ -136,7 +136,7 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Charing Aborted.", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Positive.Default, true)
+                .Phrase(GN_Positive.Default, true)
                 .Phrase(EQ_Frame_Shift_Drive.Abort_Successful),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
@@ -187,7 +187,7 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Disengaging...", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Positive.Default, true)
+                .Phrase(GN_Positive.Default, true)
                 .Phrase(EQ_Frame_Shift_Drive.SC_Disengaging),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
@@ -198,7 +198,7 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Prepairing Ship For Supercruise", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Positive.Default, true)
+                .Phrase(GN_Positive.Default, true)
                 .Phrase(EQ_Frame_Shift_Drive.SC_Preparing),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
@@ -209,7 +209,7 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Prepairing Ship For Hyperspace", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Positive.Default, true)
+                .Phrase(GN_Positive.Default, true)
                 .Phrase(EQ_Frame_Shift_Drive.HS_Preparing),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
@@ -220,7 +220,7 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Currently Charging For Hyperspace", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Negative.Default, true)
+                .Phrase(GN_Negative.Default, true)
                 .Phrase(EQ_Frame_Shift_Drive.HS_Currently_Charging),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
@@ -231,7 +231,7 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Currently Charging For Supercruise", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Negative.Default, true)
+                .Phrase(GN_Negative.Default, true)
                 .Phrase(EQ_Frame_Shift_Drive.SC_Currently_Charging),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
@@ -242,7 +242,7 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Currently Operating In Supercruise", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Negative.Default, true)
+                .Phrase(GN_Negative.Default, true)
                 .Phrase(EQ_Frame_Shift_Drive.SC_Currently_Supercruise),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
@@ -263,7 +263,7 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Currently Operating In Hyperspace", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Negative.Default, true)
+                .Phrase(GN_Negative.Default, true)
                 .Phrase(EQ_Frame_Shift_Drive.HS_Currently_Hyperspace),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
@@ -294,8 +294,8 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Ship Is Touched Down.", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Negative.Default, true)
-                .Phrase(EQ_Frame_Shift_Drive.Negaive_Speical, true)
+                .Phrase(GN_Negative.Default, true)
+                .Phrase(EQ_Frame_Shift_Drive.Negaive, true)
                 .Phrase(EQ_Frame_Shift_Drive.Touchdown), 
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
@@ -306,8 +306,8 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Ship Is Docked.", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Negative.Default, true)
-                .Phrase(EQ_Frame_Shift_Drive.Negaive_Speical, true)
+                .Phrase(GN_Negative.Default, true)
+                .Phrase(EQ_Frame_Shift_Drive.Negaive, true)
                 .Phrase(EQ_Frame_Shift_Drive.Docked),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }

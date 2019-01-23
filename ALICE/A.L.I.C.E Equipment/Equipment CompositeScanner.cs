@@ -26,7 +26,7 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Composite Scanner Assigned To Group " + Group + " " + FireMode + " Fire.", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Positive.Default, true)
+                .Phrase(GN_Positive.Default, true)
                 .Phrase("Composite Scanner Assigned To Group [GROUP], [FIREMODE] Fire.")
                 .Token("[GROUP]", Group)
                 .Token("[FIREMODE]", FireMode),

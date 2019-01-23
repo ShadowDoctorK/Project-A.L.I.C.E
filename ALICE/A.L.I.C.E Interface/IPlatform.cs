@@ -8,7 +8,7 @@ namespace ALICE_Interface
     public static class IPlatform
     {
         static readonly string MethodName = "Interface Manager";
-        public static readonly string Version = "v3.4.0.0";
+        public static readonly string Version = "v3.4.0.2";
 
         #region Shared Interface Items
         public enum Interfaces { Internal, VoiceAttack, VoiceMacro }

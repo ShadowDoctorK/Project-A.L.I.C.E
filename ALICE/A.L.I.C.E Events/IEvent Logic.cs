@@ -6,7 +6,6 @@ using ALICE_Actions;
 using ALICE_Objects;
 using ALICE_Internal;
 using ALICE_Core;
-using Synth = ALICE_Synthesizer;
 using ALICE_Synthesizer;
 using ALICE_Settings;
 using ALICE_Interface;
@@ -30,7 +29,7 @@ namespace ALICE_EventLogic
             {
                 Speech.Speak
                     (
-                    "".Phrase(Alice.Online)
+                    "".Phrase(GN_Alice.Online)
                     .Replace("[VERSION]", Event.Version),
                     true
                     );
@@ -184,8 +183,8 @@ namespace ALICE_EventLogic
             {
                 Speech.Speak
                     (
-                    "".Phrase(Fuel_Report.Critical_Level)
-                    .Phrase(Speech.Pick(new List<string>[] { Fuel_Report.Level_Percent, Fuel_Report.Level_Tons }))
+                    "".Phrase(GN_Fuel_Report.Critical_Level)
+                    .Phrase(Speech.Pick(new List<string>[] { GN_Fuel_Report.Level_Percent, GN_Fuel_Report.Level_Tons }))
                     .Token("[PERCENT]", decimal.Round(IStatus.Fuel.GetPercent(), 0).ToString())
                     .Token("[FUELTONS]", decimal.Round(IStatus.Fuel.Main, 1).ToString()),
                     true
@@ -210,9 +209,9 @@ namespace ALICE_EventLogic
             {
                 Speech.Speak
                     (
-                    "".Phrase(Fuel_Report.Low_Level)
+                    "".Phrase(GN_Fuel_Report.Low_Level)
                     
-                    .Phrase(Speech.Pick(new List<string>[] { Fuel_Report.Level_Percent, Fuel_Report.Level_Tons }))
+                    .Phrase(Speech.Pick(new List<string>[] { GN_Fuel_Report.Level_Percent, GN_Fuel_Report.Level_Tons }))
                     .Token("[PERCENT]", decimal.Round(IStatus.Fuel.GetPercent(), 0).ToString())
                     .Token("[FUELTONS]", decimal.Round(IStatus.Fuel.Main, 1).ToString()),
                     true
@@ -237,7 +236,7 @@ namespace ALICE_EventLogic
             //{
             //    Speech.Speak
             //        (
-            //        "".Phrase(Fuel_Report.Level_Percent, false, true, true, 50, Fuel_Report.Level_Tons)
+            //        "".Phrase(GN_Fuel_Report.Level_Percent, false, true, true, 50, GN_Fuel_Report.Level_Tons)
             //        .Replace("[PERCENT]", decimal.Round(IObjects.Status.Fuel.Percent(), 0).ToString())
             //        .Replace("[FUELTONS]", decimal.Round(IObjects.Status.Fuel.Current, 1).ToString()),
             //        true,
@@ -264,7 +263,7 @@ namespace ALICE_EventLogic
                 {
                     Speech.Speak
                         (
-                        "".Phrase(No_Fire_Zone.Entered)
+                        "".Phrase(EVT_NoFireZone.Entered)
                         .Replace("[STATION]", Event.Station),
                         true,
                         IEvents.TriggerEvents
@@ -290,8 +289,8 @@ namespace ALICE_EventLogic
                         {
                             Speech.Speak
                                 (
-                                "".Phrase(Hardpoints.Retracting)
-                                .Phrase(Hardpoints.Safety_Engaging),
+                                "".Phrase(EQ_Hardpoints.Retracting)
+                                .Phrase(EQ_Hardpoints.Safety_Engaging),
                                 true,
                                 IEvents.TriggerEvents
                                 );
@@ -308,7 +307,7 @@ namespace ALICE_EventLogic
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Hardpoints.Safety_Engaging),
+                            "".Phrase(EQ_Hardpoints.Safety_Engaging),
                             true,
                             IEvents.TriggerEvents
                             );
@@ -327,7 +326,7 @@ namespace ALICE_EventLogic
                 {
                     Speech.Speak
                         (
-                        "".Phrase(No_Fire_Zone.Exited)
+                        "".Phrase(EVT_NoFireZone.Exited)
                         .Replace("[STATION]", Event.Station),
                         true,
                         IEvents.TriggerEvents
@@ -346,7 +345,7 @@ namespace ALICE_EventLogic
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Hardpoints.Safety_Disengaging),
+                            "".Phrase(EQ_Hardpoints.Safety_Disengaging),
                             true,
                             IEvents.TriggerEvents
                             );
@@ -371,23 +370,23 @@ namespace ALICE_EventLogic
                     {
                         while (IEvents.ShipyardArrived.Tranfers.Count != 0)
                         {
-                            Thread.Sleep(15000); foreach (ShipyardArrived Tranfer in IEvents.ShipyardArrived.Tranfers)
+                            Thread.Sleep(15000); foreach (ShipyardArrived Transfer in IEvents.ShipyardArrived.Tranfers)
                             {
-                                Tranfer.Time = Tranfer.Time - 15;
+                                Transfer.Time = Transfer.Time - 15;
 
-                                if ((Tranfer.Time < 180) && Tranfer.ThreeMinOut)
+                                if ((Transfer.Time < 180) && Transfer.ThreeMinOut)
                                 {
-                                    Tranfer.ThreeMinOut = false;
+                                    Transfer.ThreeMinOut = false;
 
                                     #region Audio
                                     if (PlugIn.Audio == "TTS")
                                     {
                                         Speech.Speak
                                             (
-                                            "".Phrase(Shipyard_Arrived.Three_Min_Warning)
-                                            .Replace("[DESTINATION]", Tranfer.EndLocation)
-                                            .Replace("[SHIP]", Tranfer.Ship)
-                                            .Replace("[STATION]", Tranfer.EndStation),
+                                            "".Phrase(EVT_Shipyard_Arrived.Three_Min_Warning)
+                                            .Replace("[DESTINATION]", Transfer.EndLocation)
+                                            .Replace("[SHIP]", Transfer.Ship)
+                                            .Replace("[STATION]", Transfer.EndStation),
                                             true,
                                             Check.Internal.TriggerEvents(true, MethodName)
                                             );
@@ -396,17 +395,17 @@ namespace ALICE_EventLogic
                                     else if (PlugIn.Audio == "External") { }
                                     #endregion
                                 }
-                                else if (Tranfer.Time < 0)
+                                else if (Transfer.Time < 0)
                                 {
                                     #region Audio
                                     if (PlugIn.Audio == "TTS")
                                     {
                                         Speech.Speak
                                             (
-                                            "".Phrase(Shipyard_Arrived.Arrived)
-                                            .Replace("[DESTINATION]", Tranfer.EndLocation)
-                                            .Replace("[SHIP]", Tranfer.Ship)
-                                            .Replace("[STATION]", Tranfer.EndStation),
+                                            "".Phrase(EVT_Shipyard_Arrived.Arrived)
+                                            .Replace("[DESTINATION]", Transfer.EndLocation)
+                                            .Replace("[SHIP]", Transfer.Ship)
+                                            .Replace("[STATION]", Transfer.EndStation),
                                             true,
                                             Check.Internal.TriggerEvents(true, MethodName)
                                             );
@@ -448,7 +447,7 @@ namespace ALICE_EventLogic
             {
                 Speech.Speak
                     (
-                    "".Phrase(Station.Damaged)
+                    "".Phrase(GN_Station_Reports.Damaged)
                     .Replace("[STATON]", Event.Station),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
@@ -468,7 +467,7 @@ namespace ALICE_EventLogic
             {
                 Speech.Speak
                     (
-                    "".Phrase(Station.Hostile)
+                    "".Phrase(GN_Station_Reports.Hostile)
                     .Replace("[STATON]", Event.Station),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
@@ -748,7 +747,7 @@ namespace ALICE_EventLogic
             {
                 Speech.Speak
                     (
-                    "".Phrase(ALICE_Synthesizer.Bounty.Collected)
+                    "".Phrase(EVT_Bounty.Collected)
                     .Token("[NUM]", Event.TotalReward.ToString())
                     .Token("[SHIPTYPE]", Event.Target)
                     .Token("[PILOTNAME]", IObjects.TargetShip.PilotName_Localised),
@@ -984,7 +983,7 @@ namespace ALICE_EventLogic
             {
                 if (PlugIn.Audio == "TTS")
                 {
-                    string Line = "".Phrase(Fighter.Docked).Phrase(Fighter.Docked_Modifier, true);
+                    string Line = "".Phrase(EQ_Fighter.Docked).Phrase(EQ_Fighter.Docked_Modifier, true);
 
                     Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
                     thread.IsBackground = true;
@@ -1097,7 +1096,7 @@ namespace ALICE_EventLogic
             {
                 if (PlugIn.Audio == "TTS")
                 {
-                    string Line = "".Phrase(Fighter.Destroyed);
+                    string Line = "".Phrase(EQ_Fighter.Destroyed);
 
                     Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
                     thread.IsBackground = true;
@@ -1131,7 +1130,7 @@ namespace ALICE_EventLogic
                 {
                     if (PlugIn.Audio == "TTS")
                     {
-                        string Line = "".Phrase(Fighter.Rebuilt_Docked);
+                        string Line = "".Phrase(EQ_Fighter.Rebuilt_Docked);
 
                         Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
                         thread.IsBackground = true;
@@ -1153,7 +1152,7 @@ namespace ALICE_EventLogic
                 {
                     if (PlugIn.Audio == "TTS")
                     {
-                        string Line = "".Phrase(Fighter.Rebuilt_Destroyed);
+                        string Line = "".Phrase(EQ_Fighter.Rebuilt_Destroyed);
 
                         Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
                         thread.IsBackground = true;
@@ -1175,7 +1174,7 @@ namespace ALICE_EventLogic
                 {
                     if (PlugIn.Audio == "TTS")
                     {
-                        string Line = "".Phrase(Fighter.Rebuilt_Other);
+                        string Line = "".Phrase(EQ_Fighter.Rebuilt_Other);
 
                         Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
                         thread.IsBackground = true;
@@ -1287,7 +1286,7 @@ namespace ALICE_EventLogic
             {
                 Speech.Speak
                     (
-                    "".Phrase(Heat_Damage.Default),
+                    "".Phrase(EVT_HeatDamage.Default),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -1306,8 +1305,8 @@ namespace ALICE_EventLogic
             {
                 Speech.Speak
                     (
-                    "".Phrase(Heat_Warning.Default)
-                    .Phrase(Heat_Warning.Modifier, true),
+                    "".Phrase(EVT_HeatWarning.Default)
+                    .Phrase(EVT_HeatWarning.Modifier, true),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName)
                     );
@@ -1704,7 +1703,7 @@ namespace ALICE_EventLogic
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Synth.Masslock.Entered),
+                        "".Phrase(EVT_Masslock.Entered),
                         true,
                         Check.Report.Masslock(true, MethodName),
                         Check.Internal.TriggerEvents(true, MethodName),
@@ -1722,7 +1721,7 @@ namespace ALICE_EventLogic
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Synth.Masslock.Exited),
+                        "".Phrase(EVT_Masslock.Exited),
                         true,
                         Check.Report.Masslock(true, MethodName),
                         Check.Internal.TriggerEvents(true, MethodName),
@@ -1799,8 +1798,8 @@ namespace ALICE_EventLogic
             {
                 Speech.Speak
                     (
-                    "".Phrase(Facility_Report.Docked)
-                    .Phrase(Facility_Report.Datalink)
+                    "".Phrase(GN_Facility_Report.Docked)
+                    .Phrase(GN_Facility_Report.Datalink)
                     .Token("[STATION]", IObjects.FacilityCurrent.Name),
                     true,
                     Check.Report.StationStatus(true, MethodName)
@@ -1817,9 +1816,9 @@ namespace ALICE_EventLogic
             {
                 Speech.Speak
                     (
-                    "".Phrase(Facility_Report.Government)
-                    .Phrase(Facility_Report.Economy)
-                    .Phrase(Facility_Report.State, false, true, (Check.State.FacilityCurrent_State("None", false, MethodName)))
+                    "".Phrase(GN_Facility_Report.Government)
+                    .Phrase(GN_Facility_Report.Economy)
+                    .Phrase(GN_Facility_Report.State, false, true, (Check.State.FacilityCurrent_State("None", false, MethodName)))
                     .Token("[ECONOMY]", IObjects.FacilityCurrent.Economy)
                     .Token("[GOVERNMENT]", IObjects.FacilityCurrent.Government)
                     .Token("[ALLEGIANCE]", IObjects.FacilityCurrent.Allegiance)
@@ -2063,8 +2062,8 @@ namespace ALICE_EventLogic
             {
                 Speech.Speak
                     (
-                    "".Phrase(Facility_Report.Undocked)
-                    .Phrase(Facility_Report.Undocked_Modifier),
+                    "".Phrase(GN_Facility_Report.Undocked)
+                    .Phrase(GN_Facility_Report.Undocked_Modifier),
                     true,
                     Check.Report.Masslock(true, MethodName),
                     Check.Internal.TriggerEvents(true, MethodName)

@@ -51,7 +51,7 @@ namespace ALICE_Actions
                         {
                             Speech.Speak
                                 (
-                                "".Phrase(Shields.Online),
+                                "".Phrase(EQ_Shields.Online),
                                 true,
                                 Check.Internal.JsonInitialized(true, MethodName)                                
                                 );
@@ -69,7 +69,7 @@ namespace ALICE_Actions
                         {
                             Speech.Speak
                                 (
-                                "".Phrase(Shields.Offline),
+                                "".Phrase(EQ_Shields.Offline),
                                 true,
                                 Check.Internal.JsonInitialized(true, MethodName)
                                 );

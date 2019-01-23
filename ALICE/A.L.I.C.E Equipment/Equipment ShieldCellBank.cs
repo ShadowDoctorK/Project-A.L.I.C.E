@@ -26,7 +26,7 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Shield Cell Bank Not Installed.", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Negative.Default, true)
+                .Phrase(GN_Negative.Default, true)
                 .Phrase("Shield Cell Bank Not Installed."),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
@@ -37,7 +37,7 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Shield Cell Bank Assigned To Group " + Group + " " + FireMode + " Fire.", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Positive.Default, true)
+                .Phrase(GN_Positive.Default, true)
                 .Phrase("Shield Cell Bank Assigned To Group [GROUP], [FIREMODE] Fire.")
                 .Token("[GROUP]", Group)
                 .Token("[FIREMODE]", FireMode),
@@ -47,13 +47,13 @@ namespace ALICE_Equipment
         public override void Activating(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Speak("".Phrase(Positive.Default, true).Phrase(Shield_Cell.Activating), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(GN_Positive.Default, true).Phrase(EQ_Shield_Cell.Activating), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public override void NoHyperspace(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Speak("".Phrase(Positive.Default, true).Phrase(Shield_Cell.Hyperspace), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(GN_Positive.Default, true).Phrase(EQ_Shield_Cell.Hyperspace), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
         #endregion
     }

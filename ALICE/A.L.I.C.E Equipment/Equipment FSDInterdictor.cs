@@ -26,7 +26,7 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "FSD Interdictor Not Installed.", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Negative.Default, true)
+                .Phrase(GN_Negative.Default, true)
                 .Phrase("FSD Interdictor Not Installed."),
                 CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
@@ -37,7 +37,7 @@ namespace ALICE_Equipment
             if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "FSD Interdictor Assigned To Group " + Group + " " + FireMode + " Fire.", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(Positive.Default, true)
+                .Phrase(GN_Positive.Default, true)
                 .Phrase("F S D Interdictor Assigned To Group [GROUP], [FIREMODE] Fire.")
                 .Token("[GROUP]", Group)
                 .Token("[FIREMODE]", FireMode),

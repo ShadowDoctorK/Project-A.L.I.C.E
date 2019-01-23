@@ -1,0 +1,1 @@
+{"Segments":[{"Lines":[{"Alternate":false,"Weight":0,"Text":"Heat Damage Detected."},{"Alternate":false,"Weight":0,"Text":"Taking Heat Damage."},{"Alternate":false,"Weight":0,"Text":"System Damage Detected."}],"Tokens":[],"Name":"Default","Info":""}],"Creator":null,"Version":null,"Default":true,"Name":"EVT HeatDamage","Info":null}

@@ -49,8 +49,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Positive.Default, true)
-                        .Phrase(Target_System.Whitelist_Clear),
+                        "".Phrase(GN_Positive.Default, true)
+                        .Phrase(GN_Targeting_System.Whitelist_Clear),
                         CommandAudio
                         );
                 }
@@ -65,8 +65,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Target_System.Whitelist_Empty),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(GN_Targeting_System.Whitelist_Empty),
                         CommandAudio
                         );
                 }
@@ -91,8 +91,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Target_System.Whitelist_Pilot)
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(GN_Targeting_System.Whitelist_Pilot)
                             .Replace("[PILOT]", IObjects.TargetShip.PilotName_Localised),
                             CommandAudio
                             );
@@ -108,8 +108,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Target_System.Whitelist_Contains),
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(GN_Targeting_System.Whitelist_Contains),
                             CommandAudio
                             );
                     }
@@ -135,8 +135,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Target_System.Whitelist_Faction)
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(GN_Targeting_System.Whitelist_Faction)
                             .Replace("[PILOT]", IObjects.TargetShip.Faction),
                             CommandAudio
                             );
@@ -152,8 +152,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Target_System.Whitelist_Contains),
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(GN_Targeting_System.Whitelist_Contains),
                             CommandAudio
                             );
                     }
@@ -176,8 +176,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Positive.Default, true)
-                        .Phrase(Target_System.Blacklist_Clear),
+                        "".Phrase(GN_Positive.Default, true)
+                        .Phrase(GN_Targeting_System.Blacklist_Clear),
                         CommandAudio
                         );
                 }
@@ -192,8 +192,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Target_System.Blacklist_Empty),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(GN_Targeting_System.Blacklist_Empty),
                         CommandAudio
                         );
                 }
@@ -218,8 +218,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Target_System.Blacklist_Pilot)
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(GN_Targeting_System.Blacklist_Pilot)
                             .Replace("[PILOT]", IObjects.TargetShip.PilotName_Localised),
                             CommandAudio
                             );
@@ -235,8 +235,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Target_System.Blacklist_Contains),
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(GN_Targeting_System.Blacklist_Contains),
                             CommandAudio
                             );
                     }
@@ -262,8 +262,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Target_System.Blacklist_Faction)
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(GN_Targeting_System.Blacklist_Faction)
                             .Replace("[PILOT]", IObjects.TargetShip.Faction),
                             CommandAudio
                             );
@@ -279,8 +279,8 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Negative.Default, true)
-                            .Phrase(Target_System.Blacklist_Contains),
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(GN_Targeting_System.Blacklist_Contains),
                             CommandAudio
                             );
                     }
@@ -305,8 +305,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Target_System.Hyperspace),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(GN_Targeting_System.Hyperspace),
                         CommandAudio
                         );
                 }
@@ -324,8 +324,8 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Negative.Default, true)
-                        .Phrase(Target_System.SRV),
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(GN_Targeting_System.SRV),
                         CommandAudio
                         );
                 }
@@ -350,9 +350,9 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Positive.Default, true)
-                            .Phrase(Target_System.Scan_Start)
-                            .Phrase(Target_System.Scan_Start_Hostile_Modifier, false, Hostile),
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(GN_Targeting_System.Scan_Start)
+                            .Phrase(GN_Targeting_System.Scan_Start_Hostile_Modifier, false, Hostile),
                             CommandAudio
                             );
                     }
@@ -385,7 +385,7 @@ namespace ALICE_Actions
                                 {
                                     Speech.Speak
                                         (
-                                        "".Phrase(Target_System.Scan_No_Targets),
+                                        "".Phrase(GN_Targeting_System.Scan_No_Targets),
                                         CommandAudio
                                         );
                                 }
@@ -478,7 +478,7 @@ namespace ALICE_Actions
                     {
                         Speech.Speak
                             (
-                            "".Phrase(Target_System.Scan_Terminated),
+                            "".Phrase(GN_Targeting_System.Scan_Terminated),
                             CommandAudio
                             );
                     }
@@ -585,7 +585,7 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Target_System.Scan_Target_Aquired),
+                        "".Phrase(GN_Targeting_System.Scan_Target_Aquired),
                         CommandAudio
                         );
                 }
@@ -605,7 +605,7 @@ namespace ALICE_Actions
                 {
                     Speech.Speak
                         (
-                        "".Phrase(Target_System.Scan_Target_Aquired),
+                        "".Phrase(GN_Targeting_System.Scan_Target_Aquired),
                         CommandAudio
                         );
                 }

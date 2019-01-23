@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 using ALICE_Internal;
 
 namespace ALICE_Interface
@@ -10,8 +11,6 @@ namespace ALICE_Interface
         static readonly string MethodName = "Voice Attack Interface";
 
         #region Voice Attack Interface
-
-        private static object Flag_Init = new object();
 
         public static string VA_DisplayName()
         {
@@ -61,6 +60,7 @@ namespace ALICE_Interface
             }
             catch (Exception ex)
             {
+                MessageBox.Show("The Start-up Hamsters Reported An Issue: " + ex);
                 Logger.Exception(MethodName, "Initialization Exception: " + ex);
             }
 

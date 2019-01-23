@@ -23,31 +23,31 @@ namespace ALICE_Equipment
         public override void NoHyperspace(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Speak("".Phrase(Negative.Default, true).Phrase(EQ_External_Lights.No_Hyperspace), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(GN_Negative.Default, true).Phrase(EQ_External_Lights.No_Hyperspace), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public void Energizing(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Speak("".Phrase(Positive.Default, true).Phrase(EQ_External_Lights.Energizing), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(GN_Positive.Default, true).Phrase(EQ_External_Lights.Energizing), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public void Deenergizing(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Speak("".Phrase(Positive.Default, true).Phrase(EQ_External_Lights.Deenergizing), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(GN_Positive.Default, true).Phrase(EQ_External_Lights.Deenergizing), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public void CurrentlyDeenergized(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Speak("".Phrase(Negative.Default, true).Phrase(EQ_External_Lights.Currently_Deenergized), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(GN_Negative.Default, true).Phrase(EQ_External_Lights.Currently_Deenergized), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public void CurrentlyEnergized(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Speak("".Phrase(Negative.Default, true).Phrase(EQ_External_Lights.Currently_Energized), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(GN_Negative.Default, true).Phrase(EQ_External_Lights.Currently_Energized), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
         #endregion
     }

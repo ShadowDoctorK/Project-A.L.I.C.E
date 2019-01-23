@@ -45,7 +45,7 @@ namespace ALICE_Events
         public void Variables_Generate()
         {
             FighterRebuilt Event = (FighterRebuilt)IEvents.GetEvent(Name);
-
+       
             Variables.Clear();
 
             #region Custom Variables
