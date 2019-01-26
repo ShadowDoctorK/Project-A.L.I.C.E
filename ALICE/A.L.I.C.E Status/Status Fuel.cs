@@ -38,8 +38,6 @@ namespace ALICE_Status
         public readonly decimal SRVCapacity = 0.45M;
 
         public Responses Response = new Responses();
-        //public Checks Check = new Checks();
-        //public Logging Log = new Logging();
 
         public Status_Fuel() { }
 

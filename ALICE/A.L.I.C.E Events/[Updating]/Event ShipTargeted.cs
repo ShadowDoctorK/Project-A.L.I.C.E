@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ALICE_Objects;
 using ALICE_Internal;
+using ALICE_EventLogic;
 
 namespace ALICE_Events
 {
@@ -36,7 +36,7 @@ namespace ALICE_Events
                 }
             }
 
-            IObjects.Logic_ShipTargeted((ShipTargeted)GetEvent());
+            Process.ShipTargeted((ShipTargeted)GetEvent());
 
             TriggerEvent();
         }
@@ -74,21 +74,47 @@ namespace ALICE_Events
     #region ShipTargeted Event
     public class ShipTargeted : Base
     {
+        //Stage 0:
         public bool TargetLocked { get; set; }
         public string Ship { get; set; }
         public string Ship_Localised { get; set; }
         public decimal ScanStage { get; set; }
+
+        //Stage 1:
         public string PilotName { get; set; }
         public string PilotName_Localised { get; set; }
         public string PilotRank { get; set; }
+
+        //Stage 2:
         public decimal ShieldHealth { get; set; }
         public decimal HullHealth { get; set; }
+
+        //Stage 3:
         public string Faction { get; set; }
         public string LegalStatus { get; set; }
         public decimal Bounty { get; set; }
         public string Subsystem { get; set; }
         public string Subsystem_Localised { get; set; }
         public decimal SubsystemHealth { get; set; }
+
+        public ShipTargeted()
+        {
+            TargetLocked = Default.False;
+            Ship = Default.String;
+            Ship_Localised = Default.String;
+            ScanStage = Default.Decimal;
+            PilotName = Default.String;
+            PilotName_Localised = Default.String;
+            PilotRank = Default.String;
+            ShieldHealth = Default.Decimal;
+            HullHealth = Default.Decimal;
+            Faction = Default.String;
+            LegalStatus = Default.String;
+            Bounty = Default.Decimal;
+            Subsystem = Default.String;
+            Subsystem_Localised = Default.String;
+            SubsystemHealth = Default.Decimal;
+        }
     }
     #endregion
 }

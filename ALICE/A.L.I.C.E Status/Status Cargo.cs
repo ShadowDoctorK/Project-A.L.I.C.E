@@ -16,6 +16,12 @@ namespace ALICE_Status
 {
     public class Status_Cargo
     {
+        
+        public decimal Total { get; set; }
+
+
+
+
         public Responses Response = new Responses();
         public Checks Check = new Checks();
         public Logging Log = new Logging();

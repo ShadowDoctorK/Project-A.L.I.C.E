@@ -748,9 +748,9 @@ namespace ALICE_EventLogic
                 Speech.Speak
                     (
                     "".Phrase(EVT_Bounty.Collected)
-                    .Token("[NUM]", Event.TotalReward.ToString())
+                    .Token("[NUM]", Event.TotalReward)
                     .Token("[SHIPTYPE]", Event.Target)
-                    .Token("[PILOTNAME]", IObjects.TargetShip.PilotName_Localised),
+                    .Token("[PILOTNAME]", IObjects.TargetCurrent.PilotName_Localised),
                     true,
                     Check.Internal.TriggerEvents(true, MethodName),
                     Check.Report.CollectedBounty(true, MethodName)
@@ -802,7 +802,7 @@ namespace ALICE_EventLogic
                     {
                         string Line = "".Phrase(NPC_Crew.Active_Duty).Replace("[CREW MEMBER]", Event.Name);
 
-                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
+                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
                         thread.IsBackground = true;
                         thread.Start();
                     }
@@ -824,7 +824,7 @@ namespace ALICE_EventLogic
                     {
                         string Line = "".Phrase(NPC_Crew.On_Shore_Leave).Replace("[CREW MEMBER]", Event.Name);
 
-                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
+                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
                         thread.IsBackground = true;
                         thread.Start();
                     }
@@ -985,7 +985,7 @@ namespace ALICE_EventLogic
                 {
                     string Line = "".Phrase(EQ_Fighter.Docked).Phrase(EQ_Fighter.Docked_Modifier, true);
 
-                    Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
+                    Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
                     thread.IsBackground = true;
                     thread.Start();
                 }
@@ -1098,7 +1098,7 @@ namespace ALICE_EventLogic
                 {
                     string Line = "".Phrase(EQ_Fighter.Destroyed);
 
-                    Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
+                    Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
                     thread.IsBackground = true;
                     thread.Start();
                 }
@@ -1132,7 +1132,7 @@ namespace ALICE_EventLogic
                     {
                         string Line = "".Phrase(EQ_Fighter.Rebuilt_Docked);
 
-                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
+                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
                         thread.IsBackground = true;
                         thread.Start();
                     }
@@ -1154,7 +1154,7 @@ namespace ALICE_EventLogic
                     {
                         string Line = "".Phrase(EQ_Fighter.Rebuilt_Destroyed);
 
-                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
+                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
                         thread.IsBackground = true;
                         thread.Start();
                     }
@@ -1176,7 +1176,7 @@ namespace ALICE_EventLogic
                     {
                         string Line = "".Phrase(EQ_Fighter.Rebuilt_Other);
 
-                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true); }));
+                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
                         thread.IsBackground = true;
                         thread.Start();
                     }
@@ -1358,6 +1358,158 @@ namespace ALICE_EventLogic
             IStatus.Docking.Log.Status();
         }
 
+        public static void LoadGame(LoadGame Event)
+        {
+            string MethodName = "Logic LoadGame";
+
+            ISettings.U_Commander(MethodName, Event.Commander);
+
+            //Vechile = SRV
+            if (Event.Ship.ToLower().Contains("testbuggy"))
+            {
+                IObjects.Status.Vehicle = IEnums.Vehicles.SRV;
+            }
+            //Vechile = Fighter
+            else if (Event.Ship.ToLower().Contains("fighter"))
+            {
+                IObjects.Status.Vehicle = IEnums.Vehicles.Fighter;
+            }
+            //Vechile = Mothership
+            else
+            {
+                IObjects.Status.Vehicle = IEnums.Vehicles.Mothership;
+            }
+
+            switch (IObjects.Status.Vehicle)
+            {                
+                case IEnums.Vehicles.Mothership:
+
+                    //Validate Ship ID
+                    if (IObjects.Mothership.I.ID != -1                  //Default Value For Blank Object (Fresh Ship)
+                     && IObjects.Mothership.I.ID != Event.ShipID)       //Ship ID Should Match, Otherwise Its A Different Ship.
+                    {
+                        //Event Logger
+                        if (Check.Internal.TriggerEvents(true, MethodName))
+                        { Logger.Event("Updating New Mothership Data."); }
+
+                        //Different Ship
+                        IObjects.Mothership.New(Event.Event);
+
+                        //Load Ship Data
+
+                    }
+
+                    break;
+
+                default:
+
+                    if (Check.Internal.TriggerEvents(true, MethodName))
+                    { Logger.Log(MethodName, "Mothership Loadout Is Not Available, Loading Best Guess...", Logger.Yellow); }
+
+                    //Load Saved Mothership Data.
+
+                    //Load Firegroup Settings
+                    ISettings.Firegroup.Load();
+
+                    break;
+            }
+
+            if (Event.Ship.ToLower().Contains("testbuggy") == false && Event.Ship.ToLower().Contains("fighter") == false)
+            {
+                ShipProp.Update_ShipID(Event.ShipID);
+                ShipProp.Update_Ship(Event.ShipID, Event.Ship);
+                ShipProp.Update_ShipName(Event.ShipID, Event.ShipName);
+                ShipProp.Update_ShipIdent(Event.ShipID, Event.ShipIdent);
+
+                IObjects.Mothership.U_FingerPrint(Event);
+                ISettings.U_MothershipFingerPrint(MethodName, Event.Ship, Event.ShipID);
+            }
+
+            //Reset Panels
+            Call.ResetPanels();
+
+            //Load Firegroup Settings.
+            ISettings.Firegroup.Load();
+
+            //Update Fuel Status
+            switch (IObjects.Status.Vehicle)
+            {
+                case IEnums.Vehicles.Mothership:
+                    IObjects.Mothership.F.Update(Event);
+                    break;
+                case IEnums.Vehicles.Fighter:
+                    break;
+                case IEnums.Vehicles.SRV:
+                    IObjects.SRV.F.Update(Event);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public static void Loadout(Loadout Event)
+        {
+            string MethodName = "Logic Loadout";
+
+            Data.ShipModules.Clear();
+
+            #region Update Player Ship Information
+
+            //Check Vehicle
+            if (Event.Ship.ToLower().Contains("testbuggy")
+             || Event.Ship.ToLower().Contains("fighter"))
+            {
+                if (Check.Internal.TriggerEvents(true, MethodName))
+                { Logger.Log(MethodName, "Mothership Loadout Is Not Available, Loading Best Guess...", Logger.Yellow); }
+
+                //Load Saved Mothership Data.
+
+                //Load Firegroup Settings
+                ISettings.Firegroup.Load();
+                return;
+            }
+
+            //Validate Ship ID
+            if (IObjects.Mothership.I.ID != -1                  //Default Value For Blank Object (Fresh Ship)
+             && IObjects.Mothership.I.ID != Event.ShipID)       //Ship ID Should Match, Otherwise Its A Different Ship.
+            {
+                //Event Logger
+                if (Check.Internal.TriggerEvents(true, MethodName))
+                { Logger.Event("Updating New Mothership Data."); }
+
+                //Different Ship
+                IObjects.Mothership.New(Event.Event);
+
+                //Load Ship Data
+
+            }
+            //Same Ship, Reset Equipment.
+            else
+            {
+                IObjects.Mothership.E = new Object_Mothership.Equipment();
+            }
+
+            //Process Event Data
+            IObjects.Mothership.Update(Event);
+            if (IObjects.Mothership.EventTimeStamp == Event.Timestamp)
+            {
+                //Save Mothership Data.
+            }
+
+            //Validate NPC Crew Member
+            if (IObjects.Mothership.E.FighterHanger.Installed == false)
+            {
+                IObjects.Status.NPC_Crew = false;
+                Miscellanous.Default["NPC_Crew"] = IObjects.Status.NPC_Crew;
+                Miscellanous.Default.Save();
+            }
+
+            Logger.Log(MethodName, "Loaded " + IObjects.Mothership.I.FingerPrint, Logger.Purple);            
+
+            //Load Firegroup Settings
+            ISettings.Firegroup.Load();
+        }
+
         public static void MaterialCollected(MaterialCollected Event)
         {
             string MethodName = "Logic MaterialCollected";
@@ -1452,6 +1604,9 @@ namespace ALICE_EventLogic
                 case IEnums.MusicState.GalaxyMap:
                     Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
                     break;
+                case IEnums.MusicState.Interdiction:
+                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
+                    break;
                 case IEnums.MusicState.Lifeform_FogCloud:
                     Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
                     break;
@@ -1486,7 +1641,8 @@ namespace ALICE_EventLogic
                     Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
                     break;
                 default:
-                    Logger.DevUpdateLog(MethodName, Event.MusicTrack + " Did Not Convert Or Is Not Being Tracked", Logger.Red, true);
+                    Logger.Log(MethodName, "New Music State Detected. " + Event.MusicTrack + " Recorded In The Devloper Update Log.", Logger.Yellow);
+                    Logger.RecordUpdate(Event.MusicTrack, MethodName);
                     break;
             }
 
@@ -1551,6 +1707,25 @@ namespace ALICE_EventLogic
         public static void Scan(Scan Event)
         {
             IObjects.SystemCurrent.Update_StellarBody(Event);
+        }
+
+        public static void ShipTargeted(ShipTargeted Event)
+        {
+            string MethodName = "Logic ShipTargeted";
+
+            #region Validation Check: Trigger Events = True
+            if (Check.Internal.TriggerEvents(true, MethodName) == false)
+            {
+                return;
+            }
+            #endregion
+
+            IObjects.TargetCurrent.Process(Event);
+
+            if (Event.TargetLocked == true)
+            {
+                Assisted.Targeting.Wait_Targeted = false;
+            }
         }
 
         public static void StartJump(StartJump Event)

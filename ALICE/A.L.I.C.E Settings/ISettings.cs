@@ -43,12 +43,11 @@ namespace ALICE_Settings
         /// <summary>
         /// Updates The MothershipFingerPrint Property for ISettings and any Subsettings being handled by ISettings.
         /// </summary>
-        /// <param name="Ship">The type of ship.</param>
-        /// <param name="ShipID">This ships ID</param>
-        public static void U_MothershipFingerPrint(string MethodName, string Ship, decimal ShipID)
+        /// <param name="FingerPrint">The New Finger Print</param>
+        public static void U_MothershipFingerPrint(string MethodName, string FingerPrint)
         {
             //Update Property
-            ISettings.MothershipFingerPrint = ShipID + " " + Ship + " (" + Commander + ")";
+            ISettings.MothershipFingerPrint = FingerPrint;
             ISettings.Firegroup = ISettings.Firegroup.Load();
             ISettings.Firegroup.Save(MethodName);
         }

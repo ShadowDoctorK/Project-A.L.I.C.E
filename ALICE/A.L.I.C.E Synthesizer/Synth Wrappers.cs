@@ -2,7 +2,7 @@
 
 namespace ALICE_Synthesizer
 {
-    #region Response Wrappers | Auto Generated: 01/23/2019 1:23 AM
+    #region Response Wrappers | Auto Generated: 01/26/2019 1:28 AM
 
     public static class Crime
     {
@@ -239,18 +239,6 @@ namespace ALICE_Synthesizer
         public static List<string> Entered = new List<string> { "EVT NoFireZone", "Entered" };
     }
 
-    public static class EVT_Ship_Targeted
-    {
-        public static List<string> Enemy_Faction = new List<string> { "EVT Ship Targeted", "Enemy Faction" };
-        public static List<string> Wanted = new List<string> { "EVT Ship Targeted", "Wanted" };
-    }
-
-    public static class EVT_ShipTargeted
-    {
-        public static List<string> Enemy_Faction = new List<string> { "EVT ShipTargeted", "Enemy Faction" };
-        public static List<string> Wanted = new List<string> { "EVT ShipTargeted", "Wanted" };
-    }
-
     public static class EVT_Shipyard_Arrived
     {
         public static List<string> Three_Min_Warning = new List<string> { "EVT Shipyard Arrived", "Three Min Warning" };
@@ -431,6 +419,14 @@ namespace ALICE_Synthesizer
         public static List<string> Government = new List<string> { "GN System Report", "Government" };
         public static List<string> Allegiance = new List<string> { "GN System Report", "Allegiance" };
         public static List<string> Arrived = new List<string> { "GN System Report", "Arrived" };
+    }
+
+    public static class GN_Target_Ship
+    {
+        public static List<string> Hostile_Faction = new List<string> { "GN Target Ship", "Hostile Faction" };
+        public static List<string> Wanted = new List<string> { "GN Target Ship", "Wanted" };
+        public static List<string> Bounty = new List<string> { "GN Target Ship", "Bounty" };
+        public static List<string> Bounty_Update = new List<string> { "GN Target Ship", "Bounty Update" };
     }
 
     public static class GN_Targeting_System

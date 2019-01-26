@@ -107,7 +107,7 @@ namespace ALICE_Monitors
                                 if (Cargo.Enabled && Cargo.File == null) { Cargo.GetFileInfo(); }
                                 if (Cargo.Enabled && Cargo.File != null && CheckFile(ref Cargo.File, ref Cargo.InitialLoad))
                                 {
-
+                                    UpdateCargo();
                                 }
                             }
                             catch (Exception ex)
@@ -232,6 +232,45 @@ namespace ALICE_Monitors
             }
         }
 
+        /// <summary>
+        /// Process' The Cargo.json File.
+        /// </summary>
+        private void UpdateCargo()
+        {
+            string MethodName = "Cargo Update";
+
+            try
+            {
+                //Read File                
+                using (StreamReader SR = new StreamReader(GetFileStream(Cargo.File.FullName)))
+                {
+                    if (!SR.EndOfStream) { Line = SR.ReadLine(); }
+                }
+
+                var Value = JsonConvert.DeserializeObject<ALICE_Events.Cargo>(Line);
+
+                #region Logic Processor: Cargo
+                switch (Value.Vessel)
+                {
+                    case "Ship":
+
+                        break;
+
+                    default:
+                        break;
+                }
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Exception: " + ex);
+                Logger.Exception(MethodName, "(Failed) The Cargo Hamster Made A Mistake And Forgot What He Was Doing...");
+            }
+        }
+
+        /// <summary>
+        /// Process' The Status.json File.
+        /// </summary>
         private void UpdateStatus()
         {
             string MethodName = "Status Update";

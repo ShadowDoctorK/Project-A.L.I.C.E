@@ -23,6 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -56,7 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="A.L.I.C.E Core\Json Monitor\Event Status.cs" />
-    <Compile Include="A.L.I.C.E Core\Json Monitor\Monitor Journal Logs.cs" />
+    <Compile Include="A.L.I.C.E Core\Journal Monitor\Current Journal Logs.cs" />
+    <Compile Include="A.L.I.C.E Equipment\[Sandbox]\Equipment FuelTank.cs" />
+    <Compile Include="A.L.I.C.E Equipment\[Sandbox]\Equipment FighterHanger.cs" />
+    <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Modules.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\ISynthesizer.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Wrappers.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Response.cs" />
@@ -318,7 +323,7 @@
     <Compile Include="A.L.I.C.E Actions\Actions.cs" />
     <Compile Include="A.L.I.C.E Events\IEvents.cs" />
     <Compile Include="A.L.I.C.E Interface\IPlatform.cs" />
-    <Compile Include="A.L.I.C.E Core\Journal Monitor\Monitor Journal Logs.cs" />
+    <Compile Include="A.L.I.C.E Core\Journal Monitor\New Journal Logs.cs" />
     <Compile Include="A.L.I.C.E Core\Json Monitor\Monitor Json.cs" />
     <Compile Include="A.L.I.C.E Core\Manager Keybinds.cs" />
     <Compile Include="A.L.I.C.E Objects\IObjects.cs" />

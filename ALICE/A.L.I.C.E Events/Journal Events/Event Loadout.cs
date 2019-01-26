@@ -132,50 +132,51 @@ namespace ALICE_Events
                 AmmoInClip = Default.Decimal;
                 Engineering = new EngineeringInfo();
             }
+        }
 
-            public class EngineeringInfo : Catch
+        public class EngineeringInfo : Catch
+        {
+            public string Engineer { get; set; }
+            public decimal EngineerID { get; set; }
+            public decimal BlueprintID { get; set; }
+            public string BlueprintName { get; set; }
+            public decimal Level { get; set; }
+            public decimal Quality { get; set; }
+            public string ExperimentalEffect { get; set; }
+            public string ExperimentalEffect_Localised { get; set; }
+            public List<Modifer> Modifiers { get; set; }
+
+            public EngineeringInfo()
             {
-                public string Engineer { get; set; }
-                public decimal EngineerID { get; set; }
-                public decimal BlueprintID { get; set; }
-                public string BlueprintName { get; set; }
-                public decimal Level { get; set; }
-                public decimal Quality { get; set; }
-                public string ExperimentalEffect { get; set; }
-                public string ExperimentalEffect_Localised { get; set; }
-                public List<Modifer> Modifiers { get; set; }
+                Engineer = Default.String;
+                EngineerID = Default.Decimal;
+                BlueprintID = Default.Decimal;
+                BlueprintName = Default.String;
+                Level = Default.Decimal;
+                Quality = Default.Decimal;
+                ExperimentalEffect = Default.String;
+                ExperimentalEffect_Localised = Default.String;
+                Modifiers = new List<Modifer>();
+            }
+        }
 
-                public EngineeringInfo()
-                {
-                    Engineer = Default.String;
-                    EngineerID = Default.Decimal;
-                    BlueprintID = Default.Decimal;
-                    BlueprintName = Default.String;
-                    Level = Default.Decimal;
-                    Quality = Default.Decimal;
-                    ExperimentalEffect = Default.String;
-                    ExperimentalEffect_Localised = Default.String;
-                    Modifiers = new List<Modifer>();
-                }
+        public class Modifer : Catch
+        {
+            public string Label { get; set; }
+            public decimal Value { get; set; }
+            public decimal OriginalValue { get; set; }
+            public decimal LessIsGood { get; set; }
 
-                public class Modifer : Catch
-                {
-                    public string Label { get; set; }
-                    public decimal Value { get; set; }
-                    public decimal OriginalValue { get; set; }
-                    public decimal LessIsGood { get; set; }
-
-                    public Modifer()
-                    {
-                        Label = Default.String;
-                        Value = Default.Decimal;
-                        OriginalValue = Default.Decimal;
-                        LessIsGood = Default.Decimal;
-                    }
-                }
+            public Modifer()
+            {
+                Label = Default.String;
+                Value = Default.Decimal;
+                OriginalValue = Default.Decimal;
+                LessIsGood = Default.Decimal;
             }
         }
     }
+
     #endregion
 }
 

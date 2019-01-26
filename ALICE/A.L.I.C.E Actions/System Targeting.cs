@@ -10,6 +10,8 @@ namespace ALICE_Actions
 {
     public class System_Targeting
     {
+        string MethodName = "Targeting System";
+
         public List<string> WhitelistPilot { get; set; }
         public List<string> WhiteListFaction { get; set; }
         public List<string> BlacklistPilot { get; set; }
@@ -78,7 +80,7 @@ namespace ALICE_Actions
 
         public void WhiteList_Pilot(bool CommandAudio)
         {
-            string Pilot = IObjects.TargetShip.PilotName_Localised;
+            string Pilot = IObjects.TargetCurrent.PilotName_Localised;
 
             if (Pilot != null)
             {
@@ -93,7 +95,7 @@ namespace ALICE_Actions
                             (
                             "".Phrase(GN_Positive.Default, true)
                             .Phrase(GN_Targeting_System.Whitelist_Pilot)
-                            .Replace("[PILOT]", IObjects.TargetShip.PilotName_Localised),
+                            .Replace("[PILOT]", IObjects.TargetCurrent.PilotName_Localised),
                             CommandAudio
                             );
                     }
@@ -122,7 +124,7 @@ namespace ALICE_Actions
 
         public void WhiteList_Faction(bool CommandAudio)
         {
-            string Faction = IObjects.TargetShip.Faction;
+            string Faction = IObjects.TargetCurrent.Faction;
 
             if (Faction != null)
             {
@@ -137,7 +139,7 @@ namespace ALICE_Actions
                             (
                             "".Phrase(GN_Positive.Default, true)
                             .Phrase(GN_Targeting_System.Whitelist_Faction)
-                            .Replace("[PILOT]", IObjects.TargetShip.Faction),
+                            .Replace("[PILOT]", IObjects.TargetCurrent.Faction),
                             CommandAudio
                             );
                     }
@@ -205,7 +207,7 @@ namespace ALICE_Actions
 
         public void BlackList_Pilot(bool CommandAudio)
         {
-            string Pilot = IObjects.TargetShip.PilotName_Localised;
+            string Pilot = IObjects.TargetCurrent.PilotName_Localised;
 
             if (Pilot != null)
             {
@@ -220,7 +222,7 @@ namespace ALICE_Actions
                             (
                             "".Phrase(GN_Positive.Default, true)
                             .Phrase(GN_Targeting_System.Blacklist_Pilot)
-                            .Replace("[PILOT]", IObjects.TargetShip.PilotName_Localised),
+                            .Replace("[PILOT]", IObjects.TargetCurrent.PilotName_Localised),
                             CommandAudio
                             );
                     }
@@ -249,7 +251,7 @@ namespace ALICE_Actions
 
         public void BlackList_Faction(bool CommandAudio)
         {
-            string Faction = IObjects.TargetShip.Faction;
+            string Faction = IObjects.TargetCurrent.Faction;
 
             if (Faction != null)
             {
@@ -264,7 +266,7 @@ namespace ALICE_Actions
                             (
                             "".Phrase(GN_Positive.Default, true)
                             .Phrase(GN_Targeting_System.Blacklist_Faction)
-                            .Replace("[PILOT]", IObjects.TargetShip.Faction),
+                            .Replace("[PILOT]", IObjects.TargetCurrent.Faction),
                             CommandAudio
                             );
                     }
@@ -411,7 +413,7 @@ namespace ALICE_Actions
                         #endregion
 
                         #region Wait: Scan Level 3
-                        if ((Flag_Detailed == true || Flag_Wanted == true || Flag_Hostile == true || Flag_Blacklist == true) && IObjects.TargetShip.ScanStage < 3) //Add Subsystem Scans.
+                        if ((Flag_Detailed == true || Flag_Wanted == true || Flag_Hostile == true || Flag_Blacklist == true) && IObjects.TargetCurrent.ScanStage < 3) //Add Subsystem Scans.
                         {
                             Logger.DebugLine(MethodName, "Waiting For Complete Target Information (Scan Level 3)", Logger.Blue);
 
@@ -460,6 +462,11 @@ namespace ALICE_Actions
                                 #endregion
 
                                 #region Check: Target Lock
+                                if (IObjects.TargetCurrent.Targeted == false)
+                                {
+
+                                }
+
                                 if (Scan_TargetLock(MethodName, CommandAudio) == false)
                                 { goto NewTarget; }
                                 #endregion
@@ -552,31 +559,27 @@ namespace ALICE_Actions
             return Answer;
         }
 
-        public bool Scan_TargetLock(string MethodName, bool CommandAudio, bool Answer = true)
+        public bool Scan_TargetLock(string MethodName, bool CommandAudio)
         {
-            if (IObjects.TargetShip.TargetLocked == false) { Answer = false; Logger.DebugLine(MethodName, "Target Lock Check Failed. (No Target Lock)", Logger.Yellow); }
+            bool Answer = IObjects.TargetCurrent.Targeted;
 
-            if (Save_Targeted != IObjects.TargetShip.TargetLocked && Save_Targeted == true)
+            if (IObjects.TargetCurrent.Targeted == false)
             {
-                #region Sound Effect
-                string FilePath = Paths.ALICE_Audio_Files + "Scan_TargetLost.wav";
-                SoundPlayer player = new SoundPlayer();
+                Logger.DebugLine(MethodName, "Target Lock Check Failed. (No Target Lock)", Logger.Yellow);
 
-                if (File.Exists(FilePath))
+                if (Save_Targeted == true)
                 {
-                    player.SoundLocation = FilePath;
-                    player.Play();
+                    NoTargetLock();
+                    Save_Targeted = Answer;
                 }
-                #endregion
             }
-            Save_Targeted = Answer;
 
             return Answer;
         }
 
         public bool Scan_Maintain(string MethodName, bool CommandAudio, bool Answer = false)
         {
-            if (IObjects.TargetShip.LegalStatus.Contains("Wanted") && Flag_Wanted == true)
+            if (IObjects.TargetCurrent.LegalStatus.Contains("Wanted") && Flag_Wanted == true)
             {
                 Logger.DebugLine(MethodName, "Wanted Target, Maintaining Lock...", Logger.Blue);
 
@@ -596,18 +599,16 @@ namespace ALICE_Actions
                 Flag_Maintain = true;
                 Answer = true;
             }
-            else if (IObjects.TargetShip.LegalStatus.Contains("Enemy") && Flag_Hostile == true)
+            else if (IObjects.TargetCurrent.LegalStatus.Contains("Enemy") && Flag_Hostile == true)
             {
                 Logger.DebugLine(MethodName, "Wanted Target, Maintaining Lock...", Logger.Blue);
 
                 #region Audio
                 if (PlugIn.Audio == "TTS")
                 {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Targeting_System.Scan_Target_Aquired),
-                        CommandAudio
-                        );
+                    Speech.Speak(""
+                        .Phrase(GN_Targeting_System.Scan_Target_Aquired),
+                        CommandAudio);
                 }
                 else if (PlugIn.Audio == "File") { }
                 else if (PlugIn.Audio == "External") { }
@@ -675,7 +676,7 @@ namespace ALICE_Actions
         {
             bool Wait = true; while (Wait == true)
             {
-                if (IObjects.TargetShip.ScanStage == 3)
+                if (IObjects.TargetCurrent.ScanStage == 3)
                 {
                     Wait = false;
                     return true;
@@ -698,8 +699,8 @@ namespace ALICE_Actions
 
         public bool WhiteList(string MethodName, bool Answer = true)
         {
-            string Pilot = IObjects.TargetShip.PilotName_Localised;
-            string Faction = IObjects.TargetShip.Faction;
+            string Pilot = IObjects.TargetCurrent.PilotName_Localised;
+            string Faction = IObjects.TargetCurrent.Faction;
 
             if (WhitelistPilot.Contains(Pilot) == true)
             {
@@ -718,8 +719,8 @@ namespace ALICE_Actions
 
         public bool BlackList(string MethodName, bool Answer = false)
         {
-            string Pilot = IObjects.TargetShip.PilotName_Localised;
-            string Faction = IObjects.TargetShip.Faction;
+            string Pilot = IObjects.TargetCurrent.PilotName_Localised;
+            string Faction = IObjects.TargetCurrent.Faction;
 
             if (BlacklistPilot.Contains(Pilot) == true)
             {
@@ -742,14 +743,12 @@ namespace ALICE_Actions
         {
             string MethodName = "Subsystem Target";
 
-            int Count = 0; while (IObjects.TargetShip.Subsystem_Localised != System)
+            int Count = 0; while (IObjects.TargetCurrent.Subsystem.Name != System)
             {
-                #region Check: Target Lock
-                if (Scan_TargetLock(MethodName, CommandAudio) == false)
-                { return; }
-                #endregion
-
-                if (IObjects.TargetShip.Subsystem_Localised != System)
+                
+                if (Scan_TargetLock(MethodName, CommandAudio) == false) { return; }
+                
+                if (IObjects.TargetCurrent.Subsystem.Name != System)
                 {
                     Targeting.Cycle_Subsystems(1, false, false);
                     Wait_Targeted = true;
@@ -768,6 +767,24 @@ namespace ALICE_Actions
                     Logger.DebugLine(MethodName, System + " Was Not Found On The Target", Logger.Yellow);
                     return;
                 }
+            }
+        }
+        #endregion
+
+        #region Sound Effects
+        public void NoTargetLock()
+        {
+            try
+            {
+                string FilePath = Paths.ALICE_Audio_Files + "Scan_TargetLost.wav";
+                SoundPlayer P = new SoundPlayer();
+
+                if (File.Exists(FilePath)) { P.SoundLocation = FilePath; P.Play(); }
+                else { Logger.Error(MethodName, "Unable To Locate Audio File: " + FilePath, Logger.Red); }
+            }
+            catch (System.Exception ex)
+            {
+                Logger.Exception(MethodName, "Execption: " + ex);
             }
         }
         #endregion

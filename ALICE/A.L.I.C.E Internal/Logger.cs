@@ -45,6 +45,11 @@ namespace ALICE_Internal
             DeveloperLog(Text);
         }
 
+        public static void RecordUpdate(string Text, string MethodName)
+        {            
+            DeveloperLog("(Update Required): " + MethodName + " | " + Text);
+        }
+
         public static void Log(this string MethodName, string DebugText, string Color, bool IsExtendedLogItem = false)
         {
             if (IsExtendedLogItem && IEvents.TriggerEvents == false) { return; }

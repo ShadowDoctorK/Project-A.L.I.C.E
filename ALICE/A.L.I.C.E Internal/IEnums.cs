@@ -188,6 +188,7 @@ namespace ALICE_Internal
 
         public enum CMD
         {
+            Default,
             True,
             False
         }
@@ -250,6 +251,7 @@ namespace ALICE_Internal
             Exploration,
             GalacticPowers,
             GalaxyMap,
+            Interdiction,
             Lifeform_FogCloud,
             MainMenu,
             NoTrack,

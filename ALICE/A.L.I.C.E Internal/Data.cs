@@ -210,7 +210,17 @@ namespace ALICE_Internal
 
         public static GameModule GetGameModule(string ModuleItem)
         {
-            return Modules.Where(x => x.Item.ToLower() == ModuleItem.ToLower()).FirstOrDefault();
+            string MethodName = "Get Game Module";
+
+            var Temp = Modules.Where(x => x.Item.ToLower() == ModuleItem.ToLower()).FirstOrDefault();
+
+            if (Temp == null)
+            {
+                Temp = new GameModule();
+                Logger.DebugLine(MethodName, "Returned Null, Passing Default Values.", Logger.Blue);
+            }
+
+            return Temp;
         }
 
         public class GameModule

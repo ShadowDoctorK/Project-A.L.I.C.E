@@ -98,27 +98,34 @@ namespace ALICE_Objects
 
             switch (Temp)
             {
-                case IEnums.CodexEntry.Codex_Ent_Standard_Sudarsky_Class_III_Name:
-                    break;
-
                 case IEnums.CodexEntry.Codex_Ent_L_Cry_MetCry_Red_Name:
                     break;
-
                 case IEnums.CodexEntry.Codex_Ent_L_Cry_MetCry_Pur_Name:
                     break;
-
                 case IEnums.CodexEntry.Codex_Ent_L_Cry_MetCry_Gr_Name:
                     break;
-
                 case IEnums.CodexEntry.Codex_Ent_Gas_Clds_Light_Name:
                     break;
-
+                case IEnums.CodexEntry.Codex_Ent_Seed_Name:
+                    break;
+                case IEnums.CodexEntry.Codex_Ent_Gas_Vents_SulphurDioxideMagma_Name:
+                    break;
                 case IEnums.CodexEntry.Codex_Ent_Fumarole_SulphurDioxideMagma_Name:
                     break;
-
                 case IEnums.CodexEntry.Codex_Ent_IceFumarole_WaterGeysers_Name:
                     break;
-
+                case IEnums.CodexEntry.Codex_Ent_Standard_Giant_With_Ammonia_Life_Name:
+                    break;
+                case IEnums.CodexEntry.Codex_Ent_Standard_Giant_With_Water_Life_Name:
+                    break;
+                case IEnums.CodexEntry.Codex_Ent_Standard_Sudarsky_Class_I_Name:
+                    break;
+                case IEnums.CodexEntry.Codex_Ent_Standard_Sudarsky_Class_II_Name:
+                    break;
+                case IEnums.CodexEntry.Codex_Ent_Standard_Sudarsky_Class_III_Name:
+                    break;
+                case IEnums.CodexEntry.Codex_Ent_Standard_Ter_Rocky_Name:
+                    break;
                 default:
                     Logger.DevUpdateLog(MethodName, EDName + "Is Not Being Tracked Or Is A New Item", Logger.Red, true);
                     break;

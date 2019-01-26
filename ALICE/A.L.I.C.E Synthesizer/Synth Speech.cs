@@ -31,10 +31,13 @@ namespace ALICE_Synthesizer
         {
             string MethodName = "Response";
 
+            //If All Conditions Are True, Process New Audio.
             if (PlugIn.MasterAudio && CommandAudio && Var_1 && Var_2 && Var_3)
             {
-                Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Text, true, Priority, Voice); })) { IsBackground = true };
-                thread.Start();
+                Thread T = new Thread((ThreadStart)(() => 
+                { SpeechService.Instance.Process(Text, true, Priority, Voice); }))
+                { IsBackground = true };
+                T.Start();
             }
             else
             {

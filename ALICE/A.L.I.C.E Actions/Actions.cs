@@ -3638,7 +3638,7 @@ namespace ALICE_Actions
                     Call.Key.Press(Call.Key.Cycle_Previous_Subsystem, 150);
                 }
 
-                if (IObjects.TargetShip.TargetLocked == false)
+                if (IObjects.TargetCurrent.Targeted == false)
                 {
                     return;
                 }

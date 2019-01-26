@@ -147,10 +147,10 @@ namespace ALICE_Synthesizer
 
                 //Check Each Line In The Segment
                 int Index = 0; foreach (Line L in Lines)
-                {
-                    //Alternate = true
-                    if (L.Alternate == true)
-                    {
+                {                   
+                    //Alternate
+                    if (A && L.Alternate == true)
+                    {                        
                         //Weight Is Enabled & Line Weight Less Than Avg + 2
                         if (W == true && L.Weight <= Weight)
                         {
@@ -162,7 +162,8 @@ namespace ALICE_Synthesizer
                             ValidLines.Add(Index);
                         }
                     }
-                    else
+                    //Standard
+                    else if (A == false && L.Alternate == false)
                     {
                         //Weight Is Enabled & Line Weight Less Than Avg + 2
                         if (W == true && L.Weight <= Weight)
@@ -186,16 +187,8 @@ namespace ALICE_Synthesizer
                     //Pick A Random Valid Number Index
                     int Select = ValidLines[RanNum.Next(0, Count)];
 
-                    if (PlugIn.DebugMode)
-                    {
-                        int Temp = 0; foreach (var Item in ValidLines)
-                        {
-                            Logger.DebugLine(MethodName, "Index: " + Temp + " | Text: " + Lines[Item].Text, Logger.Blue); Temp++;
-                        }
-                    }
-
                     Logger.DebugLine(MethodName, "Total Valid Lines: " + Count, Logger.Blue);
-                    Logger.DebugLine(MethodName, "Selecting Line: " + Select, Logger.Blue);
+                    Logger.DebugLine(MethodName, "Selecting Line: " + Select + " | \"" + Lines[Select].Text + "\"", Logger.Blue);
 
                     //Increase Line Weight Count
                     Logger.DebugLine(MethodName, "Selected Response Weight: " + Lines[Select].Weight, Logger.Blue);
@@ -204,6 +197,7 @@ namespace ALICE_Synthesizer
                     //Return Line
                     Text = Lines[Select].Text;
                 }
+                //There Were No Valid Lines
                 else
                 {
                     //First Time We Fail To Find Response

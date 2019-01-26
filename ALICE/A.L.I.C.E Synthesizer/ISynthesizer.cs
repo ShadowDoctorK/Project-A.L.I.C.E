@@ -397,6 +397,10 @@ namespace ALICE_Synthesizer
         }
 
         #region Support Methods
+        /// <summary>
+        /// Loads the Users Settings from the Alice User Data folder if they exist. If not creates a new default settings.
+        /// </summary>
+        /// <returns>Returns the Users Settings.</returns>
         public SynthSetting Load()
         {
             string MethodName = "Synthesizer (Load Settings)";
@@ -408,44 +412,43 @@ namespace ALICE_Synthesizer
             if (File.Exists(Paths.ALICE_Settings + FileName))
             {
                 //Load Existing User Settings
-                using (FileStream FS = new FileStream(Paths.ALICE_Settings + FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                using (StreamReader SR = new StreamReader(FS))
+                using (StreamReader SR = new StreamReader(new FileStream(Paths.ALICE_Settings + FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)))
                 {
                     try
                     {
-                        while (!SR.EndOfStream)
-                        {
-                            S = JsonConvert.DeserializeObject<SynthSetting>(SR.ReadLine());
-                        }
+                        while (!SR.EndOfStream) { S = JsonConvert.DeserializeObject<SynthSetting>(SR.ReadLine()); }
                     }
                     catch (Exception ex)
                     {
                         Logger.Exception(MethodName, "Execption: " + ex);
                         Logger.Exception(MethodName, "Execption Occured While Loading Setting, Using Default Synthesizer Settings");
-                    }                    
+                    }
                 }
             }
             else
             {
                 //Settings Do Not Exist, Create Default Settings
-                SaveSettings(S);
+                Save(S);
             }
 
             //Return Synthesizer Settings
             return S;
         }
 
-        public static void SaveSettings(SynthSetting Settings)
+        /// <summary>
+        /// Saves the Settings to the Alice User Data folder.
+        /// </summary>
+        /// <param name="Settings">The Settings Object</param>
+        public void Save(SynthSetting Settings)
         {
-            using (FileStream FS = new FileStream(Paths.ALICE_Settings + FileName, FileMode.Create, FileAccess.Write, FileShare.None))
+            //Write Settings To The Alice User Folder
+            using (StreamWriter file = new StreamWriter(new FileStream(Paths.ALICE_Settings + FileName, FileMode.Create, FileAccess.Write, FileShare.None)))
             {
-                using (StreamWriter file = new StreamWriter(FS))
-                {
-                    var JSON = JsonConvert.SerializeObject(Settings);
-                    file.WriteLine(JSON);
-                }
+                var JSON = JsonConvert.SerializeObject(Settings);
+                file.WriteLine(JSON);
             }
 
+            //Update Current Settings.
             ISynthesizer.Settings = Settings;
         }
         #endregion
