@@ -38,33 +38,36 @@ namespace ALICE_Objects
         /// <param name="Value">The Value Being Set</param>
         private static void Set(V Value)
         {
-            //Set Value;
-            _Vehicle = Value;
+            if (_Vehicle != Value)
+            {
+                //Set Value;
+                _Vehicle = Value;
 
-            //Update Equipment
-            IEquipment.CompositeScanner.GetSettings();
-            IEquipment.DiscoveryScanner.GetSettings();
-            IEquipment.DockingComputer.GetSettings();
-            IEquipment.ExternalLights.GetSettings();
-            IEquipment.ElectronicCountermeasure.GetSettings();
-            IEquipment.FighterHanger.GetSettings();
-            IEquipment.FrameShiftDrive.GetSettings();
-            IEquipment.FSDInterdictor.GetSettings();
-            IEquipment.FuelTank.GetSettings();
-            IEquipment.LimpetCollector.GetSettings();
-            IEquipment.LimpetDecontamination.GetSettings();
-            IEquipment.LimpetHatchBreaker.GetSettings();
-            IEquipment.LimpetFuel.GetSettings();
-            IEquipment.LimpetProspector.GetSettings();
-            IEquipment.LimpetRecon.GetSettings();
-            IEquipment.LimpetRepair.GetSettings();
-            IEquipment.LimpetResearch.GetSettings();
-            IEquipment.PulseWaveScanner.GetSettings();
-            IEquipment.ShieldCellBank.GetSettings();
-            IEquipment.ShutdownFieldNeutraliser.GetSettings();
-            IEquipment.SurfaceScanner.GetSettings();
-            IEquipment.WakeScanner.GetSettings();
-            IEquipment.XenoScanner.GetSettings();
+                //Update Equipment
+                IEquipment.CompositeScanner.GetSettings();
+                IEquipment.DiscoveryScanner.GetSettings();
+                IEquipment.DockingComputer.GetSettings();
+                IEquipment.ExternalLights.GetSettings();
+                IEquipment.ElectronicCountermeasure.GetSettings();
+                IEquipment.FighterHanger.GetSettings();
+                IEquipment.FrameShiftDrive.GetSettings();
+                IEquipment.FSDInterdictor.GetSettings();
+                IEquipment.FuelTank.GetSettings();
+                IEquipment.LimpetCollector.GetSettings();
+                IEquipment.LimpetDecontamination.GetSettings();
+                IEquipment.LimpetHatchBreaker.GetSettings();
+                IEquipment.LimpetFuel.GetSettings();
+                IEquipment.LimpetProspector.GetSettings();
+                IEquipment.LimpetRecon.GetSettings();
+                IEquipment.LimpetRepair.GetSettings();
+                IEquipment.LimpetResearch.GetSettings();
+                IEquipment.PulseWaveScanner.GetSettings();
+                IEquipment.ShieldCellBank.GetSettings();
+                IEquipment.ShutdownFieldNeutraliser.GetSettings();
+                IEquipment.SurfaceScanner.GetSettings();
+                IEquipment.WakeScanner.GetSettings();
+                IEquipment.XenoScanner.GetSettings();
+            }           
         }
 
         #region Fuel Status Methods
@@ -187,13 +190,13 @@ namespace ALICE_Objects
                     if (Temp.Equipment == IEquipment.E.Default)
                     {
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Vehicle + ": Returning Default Config", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Vehicle + ": Returning Default Config", Logger.Blue);
                     }
                     //Equipment Setting Were Returned.
                     else
                     {
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Vehicle + ": Returning " + Equip + " Config", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Vehicle + ": Returning " + Equip + " Config", Logger.Blue);
                     }
                     
                     //Return Settings
@@ -208,13 +211,13 @@ namespace ALICE_Objects
                     if (Temp.Equipment == IEquipment.E.Default)
                     {
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Vehicle + ": Returning Default Config", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Vehicle + ": Returning Default Config", Logger.Blue);
                     }
                     //Equipment Setting Were Returned.
                     else
                     {
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Vehicle + ": Returning " + Equip + " Config", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Vehicle + ": Returning " + Equip + " Config", Logger.Blue);
                     }
 
                     //Return Settings
@@ -229,13 +232,13 @@ namespace ALICE_Objects
                     if (Temp.Equipment == IEquipment.E.Default)
                     {
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Vehicle + ": Returning Default Config", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Vehicle + ": Returning Default Config", Logger.Blue);
                     }
                     //Equipment Setting Were Returned.
                     else
                     {
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Vehicle + ": Returning " + Equip + " Config", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Vehicle + ": Returning " + Equip + " Config", Logger.Blue);
                     }
 
                     //Return Settings
@@ -279,13 +282,13 @@ namespace ALICE_Objects
                     if (Temp)
                     {
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Saved", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Saved", Logger.Blue);
                     }
                     //Settings Not Saved
                     else
                     {
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Failed To Saved", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Failed To Saved", Logger.Blue);
                     }
 
                     //Return True / False
@@ -300,13 +303,13 @@ namespace ALICE_Objects
                     if (Temp)
                     {
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Saved", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Saved", Logger.Blue);
                     }
                     //Settings Not Saved
                     else
                     {
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Failed To Saved", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Failed To Saved", Logger.Blue);
                     }
 
                     //Return True / False
@@ -321,13 +324,13 @@ namespace ALICE_Objects
                     if (Temp)
                     {
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Saved", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Saved", Logger.Blue);
                     }
                     //Settings Not Saved
                     else
                     {
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Failed To Saved", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Failed To Saved", Logger.Blue);
                     }
 
                     //Return True / False

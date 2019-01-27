@@ -46,7 +46,6 @@ namespace ALICE_Community_Toolkit
             "Bravo",
             "Charlie",
             "Delta",
-            "Delta",
             "Echo",
             "Foxtrot",
             "Golf",

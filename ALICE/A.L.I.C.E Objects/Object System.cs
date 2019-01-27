@@ -81,8 +81,8 @@ namespace ALICE_Objects
                 Temp.Update_Population(Event.Population);
                 Temp.Update_Powers(Event.Powers);
                 Temp.Update_PowerplayState(Event.PowerplayState);
-                Temp.Update_ControlFaction(Event.SystemFaction);
-                Temp.Update_ControlFactionState(Event.FactionState);
+                Temp.Update_ControlFaction(Event.SystemFaction.Name);
+                Temp.Update_ControlFactionState(Event.SystemFaction.FactionState);
                 Temp.Update_Factions(Event.Factions, Event.Event, Event.Timestamp);
                 Temp.Update_Coordinate(Event.StarPos);
             }

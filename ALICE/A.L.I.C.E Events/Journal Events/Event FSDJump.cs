@@ -72,8 +72,8 @@ namespace ALICE_Events
             Variable_Craft("FuelUsed", Event.FuelUsed.Variable());
             Variable_Craft("FuelLevel", Event.FuelLevel.Variable());
             //Variable_Craft("Factions", Event.Factions.Variable());
-            Variable_Craft("SystemFaction", Event.SystemFaction.Variable());
-            Variable_Craft("FactionState", Event.FactionState.Variable());
+            //Variable_Craft("SystemFaction", Event.SystemFaction.Variable());
+            //Variable_Craft("FactionState", Event.FactionState.Variable());
             #endregion
         }
     }
@@ -101,8 +101,7 @@ namespace ALICE_Events
         public decimal FuelLevel { get; set; }
         public decimal BoostUsed { get; set; }
         public List<Faction> Factions { get; set; }
-        public string SystemFaction { get; set; }
-        public string FactionState { get; set; }
+        public FactionData SystemFaction { get; set; }
 
         public FSDJump()
         {
@@ -126,8 +125,7 @@ namespace ALICE_Events
             FuelLevel = Default.Decimal;
             BoostUsed = Default.Decimal;
             Factions = new List<Faction>();
-            SystemFaction = Default.String;
-            FactionState = Default.String;
+            SystemFaction = new FactionData();            
         }
 
         public class Faction : Catch
@@ -138,9 +136,11 @@ namespace ALICE_Events
             public decimal Influence { get; set; }
             public string Allegiance { get; set; }
             public string Happiness { get; set; }
+            public decimal MyReputation { get; set; }
             public string Happiness_Localised { get; set; }
-            public List<States> PendingStates { get; set; }
             public List<States> RecoveringStates { get; set; }
+            public List<States> ActiveStates { get; set; }
+            public List<States> PendingStates { get; set; }
 
             public Faction()
             {
@@ -153,18 +153,31 @@ namespace ALICE_Events
                 Happiness_Localised = Default.String;
                 PendingStates = new List<States>();
                 RecoveringStates = new List<States>();
+                ActiveStates = new List<States>();
             }
+        }
 
-            public class States : Catch
+        public class States : Catch
+        {
+            public string State { get; set; }
+            public decimal Trend { get; set; }
+
+            public States()
             {
-                public string State { get; set; }
-                public decimal Trend { get; set; }
+                State = Default.String;
+                Trend = Default.Decimal;
+            }
+        }
 
-                public States()
-                {
-                    State = Default.String;
-                    Trend = Default.Decimal;
-                }
+        public class FactionData
+        {
+            public string Name { get; set; }
+            public string FactionState { get; set; }
+
+            public FactionData()
+            {
+                Name = Default.String;
+                FactionState = Default.String;
             }
         }
     }

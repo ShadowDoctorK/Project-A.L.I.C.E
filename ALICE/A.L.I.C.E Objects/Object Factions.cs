@@ -87,7 +87,7 @@ namespace ALICE_Objects
                 Trend = IObjects.Decimal;
             }
 
-            public States(FSDJump.Faction.States Value)
+            public States(FSDJump.States Value)
             {
                 State = Value.State;
                 Trend = Value.Trend;
@@ -100,7 +100,7 @@ namespace ALICE_Objects
             }
         }
 
-        public void Update_PendingStates(List<FSDJump.Faction.States> Pending)
+        public void Update_PendingStates(List<FSDJump.States> Pending)
         {
             foreach (var FactState in Pending)
             {
@@ -109,7 +109,7 @@ namespace ALICE_Objects
             }
         }
 
-        public void Update_RecoveringStates(List<FSDJump.Faction.States> Recovering)
+        public void Update_RecoveringStates(List<FSDJump.States> Recovering)
         {
             foreach (var FactState in Recovering)
             {

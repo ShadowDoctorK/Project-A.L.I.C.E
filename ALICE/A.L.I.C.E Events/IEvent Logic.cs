@@ -230,24 +230,26 @@ namespace ALICE_EventLogic
             if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
             if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
 
-            switch (IVehicles.Vehicle)
-            {
-                case IVehicles.V.Mothership:
-                    IObjects.Mothership.F.HalfThreshold = true;
-                    IObjects.Mothership.F.FuelHalf(true, Check.Report.FuelStatus(true, MethodName));
-                    break;
+            //Notes: Commented Out Audio Due To Main Audio Playing Twice.            
 
-                case IVehicles.V.Fighter:
-                    break;
+            //switch (IVehicles.Vehicle)
+            //{
+            //    case IVehicles.V.Mothership:
+            //        IObjects.Mothership.F.HalfThreshold = true;
+            //        IObjects.Mothership.F.FuelHalf(true, Check.Report.FuelStatus(true, MethodName));
+            //        break;
 
-                case IVehicles.V.SRV:
-                    IObjects.SRV.F.HalfThreshold = true;
-                    IObjects.SRV.F.FuelHalf(true, Check.Report.FuelStatus(true, MethodName));
-                    break;
+            //    case IVehicles.V.Fighter:
+            //        break;
 
-                default:
-                    return;
-            }
+            //    case IVehicles.V.SRV:
+            //        IObjects.SRV.F.HalfThreshold = true;
+            //        IObjects.SRV.F.FuelHalf(true, Check.Report.FuelStatus(true, MethodName));
+            //        break;
+
+            //    default:
+            //        return;
+            //}
         }
 
         public static void NoFireZone(NoFireZone Event)

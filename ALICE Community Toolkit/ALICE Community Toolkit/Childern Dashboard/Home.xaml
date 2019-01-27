@@ -10,9 +10,6 @@
         <RichTextBox Margin="493,10,10.333,10" Background="{x:Null}" Foreground="#FFCE5A05" VerticalScrollBarVisibility="Auto">
             <FlowDocument>
                 <Paragraph>
-                    <Run FontWeight="Bold" Text="# Project A.L.I.C.E Open Beta 1.1.0"/>
-                </Paragraph>
-                <Paragraph>
                     <Run FontWeight="Bold" Text="Visible Changes"/>
                     <Run Text=" "/>
                     <Run Text=" "/>
@@ -20,86 +17,6 @@
                     <Run Text=" "/>
                     <Run Text=" "/>
                     <Run Text=" "/>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="1. New Commands:"/>
-                    <LineBreak/>
-                    <Run Text="- Launch"/>
-                    <LineBreak/>
-                    <Run Text="- Takeoff"/>
-                    <LineBreak/>
-                    <Run Text="- Log Unscanned Bodies: only shows the unscanned bodies in the system report."/>
-                    <LineBreak/>
-                    <Run Text="- Log All Bodies: shows all bodies in the system report."/>
-                    <LineBreak/>
-                    <Run Text="- Wake Scanner (Firegroup Assignments)"/>
-                    <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
-                    <Run Text="2. Start Up Changes:"/>
-                    <LineBreak/>
-                    <Run Text="- Added Toolkit Detection which will only open a new toolkit if one is not detected/currently open. "/>
-                    <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
-                    <Run Text="3. Added Event Triggers to Profile:"/>
-                    <LineBreak/>
-                    <Run Text="- EVENT - MultiSellExplorationData"/>
-                    <LineBreak/>
-                    <Run Text="- EVENT - Promotion"/>
-                    <LineBreak/>
-                    <Run Text="- EVENT - JetConeBoost"/>
-                    <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
-                    <Run Text="4. Updated Docking Requests:"/>
-                    <LineBreak/>
-                    <Run Text="-  When not on the contact tab it will place the cursor on the station then select the request action now. If not done the game does not detect your actions for the request."/>
-                    <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
-                    <Run Text="5. Updated Speech Engine:"/>
-                    <LineBreak/>
-                    <Run Text="- Fixed a validation check that would prevent speech from being generated and throwing a false &quot;Admin Mode Recommended&quot; entry to the user."/>
-                    <LineBreak/>
-                    <Run Text="- During Error with the Generation of speech the engine will now try to return the text to the processor to pass to the Synthesizer."/>
-                    <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
-                    <Run Text="6. Firegroup Management System:"/>
-                    <LineBreak/>
-                    <Run Text="- Added Log entries for Assignment/Not Assigned when A.L.I.C.E is Muted."/>
-                    <LineBreak/>
-                    <Run Text="- Added Assignement/Not Assigned Audio:"/>
-                    <LineBreak/>
-                    <Run Text="--- Collector Limpets"/>
-                    <LineBreak/>
-                    <Run Text="--- Decon Limpets"/>
-                    <LineBreak/>
-                    <Run Text="--- Fuel Limpets"/>
-                    <LineBreak/>
-                    <Run Text="--- Hatch Breaker Limpets"/>
-                    <LineBreak/>
-                    <Run Text="--- Prospector Limpets"/>
-                    <LineBreak/>
-                    <Run Text="--- Recon Limpets"/>
-                    <LineBreak/>
-                    <Run Text="--- Repair Limpets"/>
-                    <LineBreak/>
-                    <Run Text="--- Research Limpets"/>
-                    <LineBreak/>
-                    <Run Text="--- Composite Scanner"/>
-                    <LineBreak/>
-                    <Run Text="--- Surface Scanner"/>
-                    <LineBreak/>
-                    <Run Text="--- Discovery Scanner"/>
-                    <LineBreak/>
-                    <Run Text="--- FSD Interdictor"/>
-                    <LineBreak/>
-                    <Run Text="--- Generic Audio for remaining Modules."/>
-                </Paragraph>
-                <Paragraph>
-                    <Run FontWeight="Bold" Text="Toolkit Changes"/>
                     <Run Text=" "/>
                     <Run Text=" "/>
                     <Run Text=" "/>
@@ -107,77 +24,93 @@
                     <Run Text=" "/>
                     <Run Text=" "/>
                     <LineBreak/>
-                    <Run/>
+                    <Run Text="1. Event Updates"/>
                     <LineBreak/>
-                    <Run Text="1. Added Controls for Plugin Speed Offsets."/>
+                    <Run Text="- Fixed Docked Event Exceptions due to Journal Updates &lt; Credit: Spectre907 &gt;"/>
                     <LineBreak/>
-                    <Run/>
+                    <Run Text="- Fixed Location Event Exceptions due to Journal Updates &lt; Credit: Spectre907 &gt;"/>
                     <LineBreak/>
-                    <Run Text="2. Added Controls for the Firegroup Management System"/>
+                    <Run Text="- Fixed FSDJump Event Exceptions due to Journal Updates &lt; Credit: Agravar &gt;"/>
                     <LineBreak/>
-                    <Run Text="-- Still Need to add Shield Cells #3 &amp; #4"/>
+                    <Run Text="2. Updated / Added To Responses:"/>
                     <LineBreak/>
-                    <Run Text="-- Still Need to add Heatsinks #3 &amp; #4"/>
+                    <Run Text="- EQ Shield Cell"/>
                     <LineBreak/>
-                    <Run Text="-- Still Need to add Chaff Launchers #3 &amp; #4"/>
+                    <Run Text="- EQ Shields"/>
                     <LineBreak/>
-                    <Run Text="-- Still Need to add the Mining Laser"/>
+                    <Run Text="- EVT HeatDamage"/>
                     <LineBreak/>
-                    <Run/>
+                    <Run Text="- EVT HeatWarning"/>
                     <LineBreak/>
-                    <Run Text="3. Added CMDR Name / Current Ship to display loaded settings."/>
+                    <Run Text="- GN I Love You"/>
+                    <LineBreak/>
+                    <Run Text="- GN Landing Preparations"/>
+                    <LineBreak/>
+                    <Run Text="- GN Negative"/>
+                    <LineBreak/>
+                    <Run Text="- GN Positive"/>
+                    <LineBreak/>
+                    <Run Text="- Weapon Safeties"/>
+                    <LineBreak/>
+                    <Run Text="3. Converted response files to new format. Any custom user responses will have to be rebuilt. I've added a version number to the files now to allow for auto converting and updating in the future so this will not happen again."/>
                 </Paragraph>
                 <Paragraph>
                     <Run FontWeight="Bold" Text="Under The Hood"/>
+                    <Run Text="  "/>
                     <Run Text=" "/>
                     <Run Text=" "/>
                     <Run Text=" "/>
                     <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <LineBreak/>
+                    <Run Text="1. Updated the Vehicle Objects:"/>
+                    <LineBreak/>
+                    <Run Text="- Object_Mothership"/>
+                    <LineBreak/>
+                    <Run Text="- Object_Fighter"/>
+                    <LineBreak/>
+                    <Run Text="- Object_SRV"/>
+                    <LineBreak/>
+                    <Run Text="Each Vehicle Object now holds their own individual Loadout that will be called and updated to the reference objects when the vehicle switch is detected. On game load if the player is in a fighter or SRV the Loadout is not present in the logs for the Mothership. Alice will attempt to overcome this now by loading the last updated Mothership file saved in the users data folder."/>
+                    <LineBreak/>
+                    <Run Text="2. Fuel Status Updates:"/>
+                    <LineBreak/>
+                    <Run Text="- Fixed the intermediate exception that occurred during start up."/>
+                    <LineBreak/>
+                    <Run Text="- Each Vehicle now has their own fuel status object."/>
+                    <LineBreak/>
+                    <Run Text="3. Converted / Added New Module Objects:"/>
+                    <LineBreak/>
+                    <Run Text="- IEquipment.FuelTank"/>
+                    <LineBreak/>
+                    <Run Text="- IEquipment.FighterHanger"/>
+                    <LineBreak/>
+                    <Run Text="4. Update Enums:"/>
+                    <LineBreak/>
+                    <Run Text="- Added Codex Item: Codex_Ent_Gas_Vents_SulphurdioxideMagma_Name"/>
+                    <LineBreak/>
+                    <Run Text="- Added MusicState: Interdiction"/>
                 </Paragraph>
                 <Paragraph>
-                    <Run Text="1. Code Cleanup:"/>
+                    <Run FontWeight="Bold" Text="Closed Bug Reports"/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
+                    <Run Text=" "/>
                     <LineBreak/>
-                    <Run Text="- Extracted the Internal Manger Class' out into their own cs files."/>
+                    <Run Text="1. Fuel Status Exception On Initial Load"/>
                     <LineBreak/>
-                    <Run Text="- Extracted the Interface Class' out into their own cs files."/>
+                    <Run Text="2. Plug-In Fails to Initialize &amp; Go to Standby Mode"/>
                     <LineBreak/>
-                    <Run Text="- Extracted Methods out of the ICommands.Invoke Method in preparation for adding a flexable Command Verification system for Developers."/>
+                    <Run Text="3. Bounty Event Audio &quot;Turn I N&quot; vice &quot;Turn In&quot;"/>
                     <LineBreak/>
-                    <Run Text="- Added Code Comments though various areas."/>
-                    <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
-                    <Run Text="2. Framework Changes:"/>
-                    <LineBreak/>
-                    <Run Text="- Updated the Monitors to track Firegroup &amp; User Settings"/>
-                    <LineBreak/>
-                    <Run Text="- Finished Wiring up the Wake Scanner to the Firegroup Management System."/>
-                    <LineBreak/>
-                    <Run Text="- Added IEquipment.WakeScanner"/>
-                    <LineBreak/>
-                    <Run Text="- Added IEquipment.LimpetCollector"/>
-                    <LineBreak/>
-                    <Run Text="- Added IEquipment.LimpetDecontamination"/>
-                    <LineBreak/>
-                    <Run Text="- Added IEquipment.LimpetFuel"/>
-                    <LineBreak/>
-                    <Run Text="- Added IEquipment.LimpetHatchBreaker"/>
-                    <LineBreak/>
-                    <Run Text="- Added IEquipment.LimpetProspector"/>
-                    <LineBreak/>
-                    <Run Text="- Added IEquipment.LimpetRecon"/>
-                    <LineBreak/>
-                    <Run Text="- Added IEquipment.LimpetRepair"/>
-                    <LineBreak/>
-                    <Run Text="- Added IEquipment.LimpetResearch"/>
-                    <LineBreak/>
-                    <Run Text="- Added IEquipment.PulseWaveScanner"/>
-                    <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
-                    <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
+                    <Run Text="4. Ship Loadout Not Working In Fighter/SRV During Start."/>
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
@@ -249,13 +182,13 @@
                     <Run FontWeight="Bold" Text="* Tracked Bugs *"/>
                 </Paragraph>
                 <Paragraph>
-                    <Run Text="01. [  ] Bounty Event - Alice is not reporting the Pilot Name."/>
+                    <Run Text="01. [X] Bounty Event - Alice is not reporting the Pilot Name."/>
                     <LineBreak/>
-                    <Run Text="02. [  ] Synthesizer - Bounty Report. Alice Says &quot;...Turn I N&quot; vice &quot;...Turn In&quot;"/>
+                    <Run Text="02. [X] Synthesizer - Bounty Report. Alice Says &quot;...Turn I N&quot; vice &quot;...Turn In&quot;"/>
                     <LineBreak/>
                     <Run Text="03. [  ] Panels - System Panel Operations May Be Buggy In The SRV."/>
                     <LineBreak/>
-                    <Run Text="04. [  ] Load Game - When Loading into the game in the SRV/Fighter A.L.I.C.E does not have the basic core information about the Mothership to make reports. This info is not obtainable other then by recording it or from the log."/>
+                    <Run Text="04. [X] Load Game - When Loading into the game in the SRV/Fighter A.L.I.C.E does not have the basic core information about the Mothership to make reports. This info is not obtainable other then by recording it or from the log."/>
                     <LineBreak/>
                 </Paragraph>
             </FlowDocument>

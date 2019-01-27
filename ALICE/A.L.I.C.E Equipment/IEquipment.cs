@@ -1435,7 +1435,7 @@ namespace ALICE_Core
                     case IEnums.A.Postive:
 
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Equip + " Settings Found, Returning Settings", Logger.Blue);
+                        Logger.DebugLine(MethodName, Equip + " Settings Found, Returning Settings", Logger.Yellow);
 
                         //Return Equipment Settings
                         return Collection[Equip];
@@ -1488,7 +1488,7 @@ namespace ALICE_Core
                     case IEnums.A.Postive:
 
                         //Debug Logger
-                        Logger.DebugLine(MethodName, C.Equipment + " Collection Check Returned Positive, Updating Settings", Logger.Blue);
+                        Logger.DebugLine(MethodName, C.Equipment + " Collection Check Returned Positive, Updating Settings", Logger.Yellow);
 
                         //Update Settings
                         Collection[C.Equipment] = C;

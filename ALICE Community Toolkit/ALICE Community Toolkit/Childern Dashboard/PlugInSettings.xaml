@@ -156,7 +156,7 @@
             </StackPanel>
 
         </StackPanel>
-        <Label x:Name="Label_CurrentShip" Content="Default" Foreground="#FFCE5A05" Margin="0,57,10,0" HorizontalAlignment="Right" Width="189" Height="26" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
+        <Label x:Name="Label_CurrentShip" Content="Default" Foreground="#FFCE5A05" Margin="0,57,10.333,0" HorizontalAlignment="Right" Width="335" Height="26" VerticalAlignment="Top" HorizontalContentAlignment="Right"/>
 
     </Grid>
 </UserControl>

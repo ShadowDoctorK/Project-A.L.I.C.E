@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Project A.L.I.C.E Toolkit" Height="830" Width="1200" Background="#FF8E4F14" ResizeMode="CanMinimize" Icon="/Resources/Alice Logo 2.png">
     <Grid>
-   
+
         <StackPanel Background="Black" HorizontalAlignment="Left" Width="186">
             <Label Content="" Foreground="#FFCE5A05" Margin="0,0,0.333,0" FontWeight="Bold" Height="12"/>
             <Label Content="Project A.L.I.C.E" Background="#FFCE5A05" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="162" FontFamily="Malgun Gothic Semilight" Foreground="White" FontSize="16" FontWeight="Bold" Margin="10,0,0,0"/>
@@ -18,9 +18,9 @@
             <Button x:Name="btn_ResponseGen" Content="Response Generator" Height="40" Margin="0,0,0.333,0" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="btn_ResponseGen_Click" MouseDoubleClick="btn_ResponseGen_MouseDoubleClick"/>
             <Button x:Name="btn_SynthControl" Content="Synthesizer Controls" Height="40" Margin="0,0,0.333,0" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="btn_SynthControl_Click" MouseDoubleClick="btn_SynthControl_MouseDoubleClick"/>
         </StackPanel>
-        
+
         <StackPanel x:Name="Interface_StackPanel" Margin="186,0,-0.333,0" Background="#FF171616"/>
-        
+
         <StackPanel HorizontalAlignment="Left" Height="174" Margin="0,602,0,0" VerticalAlignment="Top" Width="186" Background="Black">
             <Button x:Name="Btn_DiscordEDCS" Content="" Height="52" Margin="0,5" Click="Btn_DiscordEDCS_Click">
                 <Button.Foreground>
@@ -41,7 +41,8 @@
                 </Button.Background>
             </Button>
         </StackPanel>
-        <Label x:Name="Label_Version" Content="A.L.I.C.E Version 3.4.0 (Open Beta 1.0.0)" HorizontalAlignment="Left" Margin="0,0,0,-1" Width="185" Foreground="#FFCE5A05" FontSize="9" Height="22" VerticalAlignment="Bottom"/>
+        <Label x:Name="Label_Version" Content="A.L.I.C.E Version 3.4.0 (Open Beta 1.2.1)" HorizontalAlignment="Left" Margin="0,0,0,-1" Width="185" Foreground="#FFCE5A05" FontSize="9" Height="22" VerticalAlignment="Bottom" FontWeight="Bold"/>
+        <Label x:Name="Label_Version_Copy" Content="EXPERIMENTAL BUILD" HorizontalAlignment="Left" Margin="26,0,0,200" Width="139" Foreground="#FFCE5A05" FontWeight="Bold" Height="27" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Window>
