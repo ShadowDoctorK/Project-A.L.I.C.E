@@ -13,8 +13,10 @@ namespace ALICE_Equipment
     {
         public Equipment_XenoScanner()
         {
-            Installed = false;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Xeno_Scanner;
+            Settings.Mode = IEquipment.M.Analysis;            
+            Settings.Installed = false;
+            Settings.Enabled = true;
         }
 
         public Equipment_XenoScanner New() { return new Equipment_XenoScanner(); }

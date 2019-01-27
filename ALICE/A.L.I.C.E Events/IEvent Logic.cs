@@ -176,23 +176,24 @@ namespace ALICE_EventLogic
             if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
             if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
 
-            IStatus.Fuel.Critical = true;
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
+            switch (IVehicles.Vehicle)
             {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Fuel_Report.Critical_Level)
-                    .Phrase(Speech.Pick(new List<string>[] { GN_Fuel_Report.Level_Percent, GN_Fuel_Report.Level_Tons }))
-                    .Token("[PERCENT]", decimal.Round(IStatus.Fuel.GetPercent(), 0).ToString())
-                    .Token("[FUELTONS]", decimal.Round(IStatus.Fuel.Main, 1).ToString()),
-                    true
-                    );
+                case IVehicles.V.Mothership:
+                    IObjects.Mothership.F.Critical = true;
+                    IObjects.Mothership.F.FuelCritical(true);
+                    break;
+
+                case IVehicles.V.Fighter:
+                    break;
+
+                case IVehicles.V.SRV:
+                    IObjects.SRV.F.Critical = true;
+                    IObjects.SRV.F.FuelCritical(true);
+                    break;
+
+                default:
+                    return;
             }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
         }
 
         public static void FuelLow(FuelLow Event)
@@ -202,24 +203,24 @@ namespace ALICE_EventLogic
             if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
             if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
 
-            IStatus.Fuel.Low = true;
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
+            switch (IVehicles.Vehicle)
             {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Fuel_Report.Low_Level)
-                    
-                    .Phrase(Speech.Pick(new List<string>[] { GN_Fuel_Report.Level_Percent, GN_Fuel_Report.Level_Tons }))
-                    .Token("[PERCENT]", decimal.Round(IStatus.Fuel.GetPercent(), 0).ToString())
-                    .Token("[FUELTONS]", decimal.Round(IStatus.Fuel.Main, 1).ToString()),
-                    true
-                    );
+                case IVehicles.V.Mothership:
+                    IObjects.Mothership.F.Low = true;
+                    IObjects.Mothership.F.FuelLow(true);
+                    break;
+
+                case IVehicles.V.Fighter:
+                    break;
+
+                case IVehicles.V.SRV:
+                    IObjects.SRV.F.Low = true;
+                    IObjects.SRV.F.FuelLow(true);
+                    break;
+
+                default:
+                    return;
             }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
         }
 
         public static void FuelHalfThreshold(FuelHalfThreshold Event)
@@ -229,23 +230,24 @@ namespace ALICE_EventLogic
             if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
             if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
 
-            IStatus.Fuel.HalfThreshold = true;
+            switch (IVehicles.Vehicle)
+            {
+                case IVehicles.V.Mothership:
+                    IObjects.Mothership.F.HalfThreshold = true;
+                    IObjects.Mothership.F.FuelHalf(true, Check.Report.FuelStatus(true, MethodName));
+                    break;
 
-            #region Audio
-            //if (PlugIn.Audio == "TTS")
-            //{
-            //    Speech.Speak
-            //        (
-            //        "".Phrase(GN_Fuel_Report.Level_Percent, false, true, true, 50, GN_Fuel_Report.Level_Tons)
-            //        .Replace("[PERCENT]", decimal.Round(IObjects.Status.Fuel.Percent(), 0).ToString())
-            //        .Replace("[FUELTONS]", decimal.Round(IObjects.Status.Fuel.Current, 1).ToString()),
-            //        true,
-            //        Check.Report.FuelStatus(true, MethodName)
-            //        );
-            //}
-            //else if (PlugIn.Audio == "File") { }
-            //else if (PlugIn.Audio == "External") { }
-            #endregion
+                case IVehicles.V.Fighter:
+                    break;
+
+                case IVehicles.V.SRV:
+                    IObjects.SRV.F.HalfThreshold = true;
+                    IObjects.SRV.F.FuelHalf(true, Check.Report.FuelStatus(true, MethodName));
+                    break;
+
+                default:
+                    return;
+            }
         }
 
         public static void NoFireZone(NoFireZone Event)
@@ -957,7 +959,7 @@ namespace ALICE_EventLogic
 
             #region Logic Table
             IObjects.Status.Docked = true;
-            IObjects.Status.Vehicle = IEnums.Vehicles.Mothership;
+            IVehicles.Vehicle = IVehicles.V.Mothership;
             IObjects.Status.Hardpoints = false;
             IObjects.Status.Touchdown = false;
             IObjects.Status.LandingGear = true;
@@ -1212,7 +1214,7 @@ namespace ALICE_EventLogic
             #region Logic Table
             IEquipment.DiscoveryScanner.FirstScan = true;
 
-            IObjects.Status.Vehicle = IEnums.Vehicles.Mothership;
+            IVehicles.Vehicle = IVehicles.V.Mothership;
             IObjects.Status.Hardpoints = false;
             IObjects.Status.Touchdown = false;
             IObjects.Status.CargoScoop = false;
@@ -1220,9 +1222,9 @@ namespace ALICE_EventLogic
             IObjects.Status.Hyperspace = false;
             IObjects.Status.FighterDeployed = false;
             IObjects.Status.WeaponSafety = false;
-            IStatus.Fuel.ScoopingReset();
             IStatus.Planet.OrbitalMode = false;
             IStatus.Planet.DecentReport = false;
+            IObjects.Mothership.F.ScoopingReset();
 
             Call.Panel.Comms.Open = false;
             Call.Panel.System.Open = false;
@@ -1274,7 +1276,7 @@ namespace ALICE_EventLogic
             string MethodName = "Logic FuelScoop";
 
             //Only Report If Scoop Is Enabled && Tank Is Full
-            if (IStatus.Fuel.GetPercent() == 100) { IStatus.Fuel.ReportScooping(MethodName); }            
+            if (IObjects.Mothership.F.GetPercent() == 100) { IObjects.Mothership.F.ReportScooping(MethodName); }            
         }
 
         public static void HeatDamage(HeatDamage Event)
@@ -1367,36 +1369,38 @@ namespace ALICE_EventLogic
             //Vechile = SRV
             if (Event.Ship.ToLower().Contains("testbuggy"))
             {
-                IObjects.Status.Vehicle = IEnums.Vehicles.SRV;
+                IVehicles.Vehicle = IVehicles.V.SRV;
             }
             //Vechile = Fighter
             else if (Event.Ship.ToLower().Contains("fighter"))
             {
-                IObjects.Status.Vehicle = IEnums.Vehicles.Fighter;
+                IVehicles.Vehicle = IVehicles.V.Fighter;
             }
             //Vechile = Mothership
             else
             {
-                IObjects.Status.Vehicle = IEnums.Vehicles.Mothership;
+                IVehicles.Vehicle = IVehicles.V.Mothership;
             }
 
-            switch (IObjects.Status.Vehicle)
+            switch (IVehicles.Vehicle)
             {                
-                case IEnums.Vehicles.Mothership:
+                case IVehicles.V.Mothership:
 
                     //Validate Ship ID
                     if (IObjects.Mothership.I.ID != -1                  //Default Value For Blank Object (Fresh Ship)
-                     && IObjects.Mothership.I.ID != Event.ShipID)       //Ship ID Should Match, Otherwise Its A Different Ship.
+                     || IObjects.Mothership.I.ID != Event.ShipID)       //Ship ID Should Match, Otherwise Its A Different Ship.
                     {
                         //Event Logger
-                        if (Check.Internal.TriggerEvents(true, MethodName))
-                        { Logger.Event("Updating New Mothership Data."); }
+                        if (Check.Internal.TriggerEvents(true, MethodName)) { Logger.Event("Updating New Mothership Data."); }
 
-                        //Different Ship
+                        //Different Ship, Reset Object
                         IObjects.Mothership.New(Event.Event);
 
-                        //Load Ship Data
+                        //FingerPrint Generation
+                        string FP = Event.ShipID + " " + Event.Ship + " (" + ISettings.Commander + ")";
 
+                        //Load Ship Data, If It Exist
+                        IObjects.Mothership = new Object_Mothership().Load(MethodName, FP);
                     }
 
                     break;
@@ -1404,9 +1408,10 @@ namespace ALICE_EventLogic
                 default:
 
                     if (Check.Internal.TriggerEvents(true, MethodName))
-                    { Logger.Log(MethodName, "Mothership Loadout Is Not Available, Loading Best Guess...", Logger.Yellow); }
+                    { Logger.Log(MethodName, "Mothership Loadout Is Not Available, Loading Best Guess... Hope This Works.", Logger.Yellow); }
 
-                    //Load Saved Mothership Data.
+                    //Load Saved Mothership Data.                    
+                    IObjects.Mothership = new Object_Mothership().Load(MethodName, null);
 
                     //Load Firegroup Settings
                     ISettings.Firegroup.Load();
@@ -1414,15 +1419,28 @@ namespace ALICE_EventLogic
                     break;
             }
 
-            if (Event.Ship.ToLower().Contains("testbuggy") == false && Event.Ship.ToLower().Contains("fighter") == false)
+            //Update Ship Object
+            switch (IVehicles.Vehicle)
             {
-                ShipProp.Update_ShipID(Event.ShipID);
-                ShipProp.Update_Ship(Event.ShipID, Event.Ship);
-                ShipProp.Update_ShipName(Event.ShipID, Event.ShipName);
-                ShipProp.Update_ShipIdent(Event.ShipID, Event.ShipIdent);
+                case IVehicles.V.Mothership:
 
-                IObjects.Mothership.U_FingerPrint(Event);
-                ISettings.U_MothershipFingerPrint(MethodName, Event.Ship, Event.ShipID);
+                    //Update Object Data
+                    IObjects.Mothership.Update(Event);
+
+                    //Save Data Only If Event Data Is Newer The Object Data
+                    if (IObjects.Mothership.EventTimeStamp == Event.Timestamp)
+                    {
+                        //Save Mothership Data.
+                        new Object_Mothership().Save(IObjects.Mothership, MethodName);
+                    }
+
+                    break;
+                case IVehicles.V.Fighter:                    
+                    break;
+                case IVehicles.V.SRV:
+                    break;
+                default:
+                    break;
             }
 
             //Reset Panels
@@ -1432,14 +1450,14 @@ namespace ALICE_EventLogic
             ISettings.Firegroup.Load();
 
             //Update Fuel Status
-            switch (IObjects.Status.Vehicle)
+            switch (IVehicles.Vehicle)
             {
-                case IEnums.Vehicles.Mothership:
+                case IVehicles.V.Mothership:
                     IObjects.Mothership.F.Update(Event);
                     break;
-                case IEnums.Vehicles.Fighter:
+                case IVehicles.V.Fighter:
                     break;
-                case IEnums.Vehicles.SRV:
+                case IVehicles.V.SRV:
                     IObjects.SRV.F.Update(Event);
                     break;
                 default:
@@ -1453,51 +1471,75 @@ namespace ALICE_EventLogic
 
             Data.ShipModules.Clear();
 
-            #region Update Player Ship Information
-
-            //Check Vehicle
-            if (Event.Ship.ToLower().Contains("testbuggy")
-             || Event.Ship.ToLower().Contains("fighter"))
+            //Vehicle Check
+            switch (IVehicles.Vehicle)
             {
-                if (Check.Internal.TriggerEvents(true, MethodName))
-                { Logger.Log(MethodName, "Mothership Loadout Is Not Available, Loading Best Guess...", Logger.Yellow); }
+                case IVehicles.V.Mothership:
 
-                //Load Saved Mothership Data.
+                    //Validate Ship ID
+                    if (IObjects.Mothership.I.ID != -1                  //Default Value For Blank Object (Fresh Ship)
+                     && IObjects.Mothership.I.ID != Event.ShipID)       //Ship ID Should Match, Otherwise Its A Different Ship.
+                    {
+                        //Event Logger
+                        if (Check.Internal.TriggerEvents(true, MethodName)) { Logger.Event("Updating New Mothership Data."); }
 
-                //Load Firegroup Settings
-                ISettings.Firegroup.Load();
-                return;
+                        //Different Ship, Reset Object
+                        IObjects.Mothership.New(Event.Event);
+
+                        //FingerPrint Generation
+                        string FP = Event.ShipID + " " + Event.Ship + " (" + ISettings.Commander + ")";
+
+                        //Load Ship Data, If It Exist
+                        IObjects.Mothership = new Object_Mothership().Load(MethodName, FP);
+                    }
+                    //Same Ship, Reset Equipment.
+                    else
+                    {
+                        IObjects.Mothership.E = new Object_Mothership.Equipment();
+                    }
+
+                    break;
+
+                default:
+
+                    if (Check.Internal.TriggerEvents(true, MethodName))
+                    { Logger.Log(MethodName, "Mothership Loadout Is Not Available, Loading Best Guess... Hope This Works.", Logger.Yellow); }
+
+                    //Load Saved Mothership Data.                    
+                    IObjects.Mothership = new Object_Mothership().Load(MethodName, null);
+
+                    //Load Firegroup Settings
+                    ISettings.Firegroup.Load();
+
+                    break;
             }
 
-            //Validate Ship ID
-            if (IObjects.Mothership.I.ID != -1                  //Default Value For Blank Object (Fresh Ship)
-             && IObjects.Mothership.I.ID != Event.ShipID)       //Ship ID Should Match, Otherwise Its A Different Ship.
+            //Update Ship Object
+            switch (IVehicles.Vehicle)
             {
-                //Event Logger
-                if (Check.Internal.TriggerEvents(true, MethodName))
-                { Logger.Event("Updating New Mothership Data."); }
+                case IVehicles.V.Mothership:
 
-                //Different Ship
-                IObjects.Mothership.New(Event.Event);
+                    //Update Object Data
+                    IObjects.Mothership.Update(Event);
 
-                //Load Ship Data
+                    //Save Data Only If Event Data Is Newer The Object Data
+                    if (IObjects.Mothership.EventTimeStamp == Event.Timestamp)
+                    {
+                        //Save Mothership Data.
+                        new Object_Mothership().Save(IObjects.Mothership, MethodName);
+                    }
 
-            }
-            //Same Ship, Reset Equipment.
-            else
-            {
-                IObjects.Mothership.E = new Object_Mothership.Equipment();
-            }
-
-            //Process Event Data
-            IObjects.Mothership.Update(Event);
-            if (IObjects.Mothership.EventTimeStamp == Event.Timestamp)
-            {
-                //Save Mothership Data.
+                    break;
+                case IVehicles.V.Fighter:
+                    break;
+                case IVehicles.V.SRV:
+                    break;
+                default:
+                    break;
             }
 
             //Validate NPC Crew Member
-            if (IObjects.Mothership.E.FighterHanger.Installed == false)
+            if (IVehicles.Installed(IEquipment.E.Fighter_Hangar) == false)
             {
                 IObjects.Status.NPC_Crew = false;
                 Miscellanous.Default["NPC_Crew"] = IObjects.Status.NPC_Crew;
@@ -1709,6 +1751,20 @@ namespace ALICE_EventLogic
             IObjects.SystemCurrent.Update_StellarBody(Event);
         }
 
+        public static void SetUserShipName(SetUserShipName Event)
+        {
+            string MethodName = "Logic SetUserShipName";
+
+            IObjects.Mothership.Update(Event);
+
+            //Save Data Only If Event Data Is Newer The Object Data
+            if (IObjects.Mothership.EventTimeStamp == Event.Timestamp)
+            {
+                //Save Mothership Data.
+                new Object_Mothership().Save(IObjects.Mothership, MethodName);
+            }
+        }
+
         public static void ShipTargeted(ShipTargeted Event)
         {
             string MethodName = "Logic ShipTargeted";
@@ -1882,7 +1938,7 @@ namespace ALICE_EventLogic
                         true,
                         Check.Report.Masslock(true, MethodName),
                         Check.Internal.TriggerEvents(true, MethodName),
-                        Check.Environment.Vehicle(IEnums.Vehicles.Mothership, true, MethodName)
+                        Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName)
                         );
                 }
                 else if (PlugIn.Audio == "File") { }
@@ -1900,7 +1956,7 @@ namespace ALICE_EventLogic
                         true,
                         Check.Report.Masslock(true, MethodName),
                         Check.Internal.TriggerEvents(true, MethodName),
-                        Check.Environment.Vehicle(IEnums.Vehicles.Mothership, true, MethodName)
+                        Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName)
                         );
                 }
                 else if (PlugIn.Audio == "File") { }
@@ -2096,8 +2152,8 @@ namespace ALICE_EventLogic
             #endregion
 
             #region Fuel Reports
-            Logger.Log(MethodName, "Fuel Levels At " + decimal.Round(IStatus.Fuel.GetPercent(), 2).ToString() + " Percent", Logger.Blue);
-            if (Check.Report.FuelStatus(true, MethodName) == true) { IStatus.Fuel.Report = true; }
+            Logger.Log(MethodName, "Fuel Levels At " + decimal.Round(IObjects.Mothership.F.GetPercent(), 2).ToString() + " Percent", Logger.Blue);
+            if (Check.Report.FuelStatus(true, MethodName) == true) { IObjects.Mothership.F.Report = true; }
             #endregion
 
             //System Report. Security, Allegiance, ect...

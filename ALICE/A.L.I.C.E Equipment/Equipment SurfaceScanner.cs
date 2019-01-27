@@ -15,9 +15,13 @@ namespace ALICE_Equipment
 
         public Equipment_SurfaceScanner()
         {
+            Settings.Equipment = IEquipment.E.Detailed_Surface_Scanner;
+            Settings.Mode = IEquipment.M.Analysis;
+            Settings.Installed = false;
+            Settings.Enabled = true;
+
+            //Custom Properties
             Mode = false;
-            Installed = false;
-            Enabled = true;
         }
 
         public Equipment_SurfaceScanner New() { return new Equipment_SurfaceScanner(); }

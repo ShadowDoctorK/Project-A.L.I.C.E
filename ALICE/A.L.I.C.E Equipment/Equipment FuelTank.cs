@@ -16,9 +16,12 @@ namespace ALICE_Equipment
 
         public Equipment_FuelTank()
         {
-            Installed = false;
-            Enabled = true;            
-            Capacity = -1;
+            Settings.Equipment = IEquipment.E.Fuel_Tank;
+            Settings.Mode = IEquipment.M.Default;
+            Settings.Installed = false;
+            Settings.Enabled = true;
+            Settings.Total = -1;
+            Settings.Capacity = -1;
         }
 
         public Equipment_FuelTank New() { return new Equipment_FuelTank(); }

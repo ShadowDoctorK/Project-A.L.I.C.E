@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ALICE_Objects;
 using ALICE_Internal;
+using ALICE_EventLogic;
 
 namespace ALICE_Events
 {
@@ -36,7 +37,7 @@ namespace ALICE_Events
                 }
             }
 
-            IObjects.Logic_Loadout((Loadout)GetEvent());
+            Process.Loadout((Loadout)GetEvent());
 
             TriggerEvent();
         }
@@ -77,7 +78,8 @@ namespace ALICE_Events
             int i = 10; while (i != 0)
             {
                 SlotName = SlotName.Replace("_Size" + i, ""); i--;
-            } return "_" + SlotName;
+            }
+            return "_" + SlotName;
         }
     }
 

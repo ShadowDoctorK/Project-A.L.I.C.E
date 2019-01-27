@@ -22,7 +22,8 @@ namespace ALICE_Status
          * 
          * Object Notes:
          * 
-         */        
+         */
+        private string MethodName = "Fuel Status";
 
         public bool ScoopingCompleted = false;
         public bool ScoopingCommenced = false;
@@ -36,8 +37,6 @@ namespace ALICE_Status
         public decimal Reservoir { get; set; }
         public decimal Scooped { get; set; }
         public readonly decimal SRVCapacity = 0.45M;
-
-        public Responses Response = new Responses();
 
         public Status_Fuel() { }
 
@@ -99,29 +98,30 @@ namespace ALICE_Status
         }
         #endregion        
 
+        #region Support Methods
         public decimal GetPercent()
         {
             string MethodName = "Fuel Percent";
 
             //Calculate Percent Based On Vehicle
-            decimal Percent = 0; switch (IObjects.Status.Vehicle)
+            decimal Percent = 0; switch (IVehicles.Vehicle)
             {
-                case IEnums.Vehicles.NotSet:
-                    Logger.DebugLine(MethodName, "Vehicle: " + IObjects.Status.Vehicle.ToString(), Logger.Blue);
+                case IVehicles.V.Default:
+                    Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
                     return -1;
 
-                case IEnums.Vehicles.Mothership:
+                case IVehicles.V.Mothership:
                     //Logger.DebugLine(MethodName, "Vehicle: " + IObjects.Status.Vehicle.ToString(), Logger.Blue);
                     if (Capacity != 0) { Percent = Main / Capacity; }
                     if (Percent > 1) { Percent = 1; }
                     //Logger.DebugLine(MethodName, "Fuel Percent: " + Percent * 100 + "%", Logger.Blue);
                     return Percent * 100;
 
-                case IEnums.Vehicles.Fighter:
-                    Logger.DebugLine(MethodName, "Vehicle: " + IObjects.Status.Vehicle.ToString(), Logger.Blue);
+                case IVehicles.V.Fighter:
+                    Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
                     return -1;
 
-                case IEnums.Vehicles.SRV:
+                case IVehicles.V.SRV:
                     //Logger.DebugLine(MethodName, "Vehicle: " + IObjects.Status.Vehicle.ToString(), Logger.Blue);
                     Percent = Main / SRVCapacity;
                     if (Percent > 1) { Percent = 1; }
@@ -129,7 +129,7 @@ namespace ALICE_Status
                     return Percent * 100;
 
                 default:
-                    return -1;                    
+                    return -1;
             }
         }
 
@@ -179,7 +179,7 @@ namespace ALICE_Status
 
                 if (Report)
                 {
-                    Response.FuelLevel(true, ALICE_Internal.Check.Report.FuelStatus(true, MethodName));
+                    FuelLevel(true, ALICE_Internal.Check.Report.FuelStatus(true, MethodName));
                     Report = false;
                 }
             }
@@ -192,7 +192,7 @@ namespace ALICE_Status
         }
       
         /// <summary>
-        /// Updates Feul status Object with the LoadGame Event Data.
+        /// Updates Fuel status Object with the LoadGame Event Data.
         /// </summary>
         /// <param name="Event">LoadGame Event</param>
         public void Update(LoadGame Event)
@@ -225,80 +225,93 @@ namespace ALICE_Status
             if (ScoopingCommenced == false)
             {
                 ScoopingCommenced = true; ScoopStartLv = Main;
-                Response.ScoopingStart(true, ALICE_Internal.Check.Report.FuelScoop(true, MethodName), ALICE_Internal.Check.Internal.TriggerEvents(true, MethodName));
+                ScoopingStart(true, ALICE_Internal.Check.Report.FuelScoop(true, MethodName), ALICE_Internal.Check.Internal.TriggerEvents(true, MethodName));
             }
 
             //Scooping Complete Report Not Made && Scooping Has Stopped
             //Scooping Complete Report Not Made && Fuel Level Is 100%
             else if ((ScoopingCompleted == false && IObjects.Status.FuelScooping == false) || (ScoopingCompleted == false && GetPercent() == 100))
             {
-                IStatus.Fuel.ScoopingCompleted = true;
-                Response.ScoopingEnd(true, ALICE_Internal.Check.Report.FuelScoop(true, MethodName), ALICE_Internal.Check.Internal.TriggerEvents(true, MethodName));
-
+                ScoopingCompleted = true;
+                ScoopingEnd(true, ALICE_Internal.Check.Report.FuelScoop(true, MethodName), ALICE_Internal.Check.Internal.TriggerEvents(true, MethodName));
             }
         }
+        #endregion
 
-        public class Responses
+        #region Audio
+        public void ScoopingEnd(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            string MethodName = "Fuel Status";            
+            if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Scooping Complete. Reserves: " + GetPercent() + "%", Logger.Yellow); }
 
-            public void ScoopingEnd(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Scooping Complete. Reserves: " + IStatus.Fuel.GetPercent() + "%", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Fuel_Report.Scoop_End)
-                    .Phrase(GN_Fuel_Report.Scoop_Collected, true)
-                    .Phrase(GN_Fuel_Report.Level_Percent, true)
-                    .Replace("[PERCENT]", IStatus.Fuel.PercentToString(2))
-                    .Replace("[FUELTONS]", IStatus.Fuel.ScoopingDiffToString(2)),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void ScoopingStart(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Scooping Commenced. Reserves: " + IStatus.Fuel.GetPercent() + "%", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Fuel_Report.Scoop_Start),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void FuelLevel(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Fuel Level. Reserves: " + IStatus.Fuel.GetPercent() + "%", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(Speech.Pick(new List<string>[] { GN_Fuel_Report.Level_Percent, GN_Fuel_Report.Level_Tons }))
-                    .Replace("[PERCENT]", IStatus.Fuel.PercentToString(2))
-                    .Replace("[FUELTONS]", IStatus.Fuel.TonsToString(2)),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
+            Speech.Speak(""
+                .Phrase(GN_Fuel_Report.Scoop_End)
+                .Phrase(GN_Fuel_Report.Scoop_Collected, true)
+                .Phrase(GN_Fuel_Report.Level_Percent, true)
+                .Replace("[PERCENT]", PercentToString(2))
+                .Replace("[FUELTONS]", ScoopingDiffToString(2)),
+                CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
-        public class Checks
+        public void ScoopingStart(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+            bool Var3 = true, int Priority = 3, string Voice = null)
         {
+            if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Scooping Commenced. Reserves: " + GetPercent() + "%", Logger.Yellow); }
 
+            Speech.Speak(""
+                .Phrase(GN_Fuel_Report.Scoop_Start),
+                CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
-        public class Logging
+        public void FuelLevel(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+            bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            /// <summary>
-            /// Logs The Currently Recorded Docking Status.
-            /// </summary>
-            public void Status()
-            {
-                string MethodName = "Fuel Status";
+            if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Fuel Level. Reserves: " + GetPercent() + "%", Logger.Yellow); }
 
-                //Startup Check
-                if (ALICE_Internal.Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
+            Speech.Speak(""
+                .Phrase(Speech.Pick(new List<string>[] { GN_Fuel_Report.Level_Percent, GN_Fuel_Report.Level_Tons }))
+                .Replace("[PERCENT]", PercentToString(2))
+                .Replace("[FUELTONS]", TonsToString(2)),
+                CommandAudio, Var1, Var2, Var3, Priority, Voice);
+        }
 
-                //Log Items
+        public void FuelCritical(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+            bool Var3 = true, int Priority = 3, string Voice = null)
+        {
+            if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Fuel Critical. Reserves: " + GetPercent() + "%", Logger.Yellow); }
 
-            }
-        }        
+            Speech.Speak(""
+                .Phrase(GN_Fuel_Report.Critical_Level)
+                .Phrase(Speech.Pick(new List<string>[] { GN_Fuel_Report.Level_Percent, GN_Fuel_Report.Level_Tons }))
+                .Token("[PERCENT]", decimal.Round(GetPercent(), 0).ToString())
+                .Token("[FUELTONS]", decimal.Round(Main, 1).ToString()),
+                CommandAudio, Var1, Var2, Var3, Priority, Voice);
+        }
+
+        public void FuelLow(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+            bool Var3 = true, int Priority = 3, string Voice = null)
+        {
+            if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Fuel Low. Reserves: " + GetPercent() + "%", Logger.Yellow); }
+
+            Speech.Speak(""
+                .Phrase(GN_Fuel_Report.Low_Level)
+                .Phrase(Speech.Pick(new List<string>[] { GN_Fuel_Report.Level_Percent, GN_Fuel_Report.Level_Tons }))
+                .Token("[PERCENT]", decimal.Round(GetPercent(), 0).ToString())
+                .Token("[FUELTONS]", decimal.Round(Main, 1).ToString()),
+                CommandAudio, Var1, Var2, Var3, Priority, Voice);
+        }
+
+        public void FuelHalf(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+            bool Var3 = true, int Priority = 3, string Voice = null)
+        {
+            if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Fuel Half Capacity. Reserves: " + GetPercent() + "%", Logger.Yellow); }
+
+            Speech.Speak(""
+                .Phrase(Speech.Pick(new List<string>[] { GN_Fuel_Report.Level_Percent, GN_Fuel_Report.Level_Tons }))
+                .Token("[PERCENT]", decimal.Round(GetPercent(), 0).ToString())
+                .Token("[FUELTONS]", decimal.Round(Main, 1).ToString()),
+                CommandAudio, Var1, Var2, Var3, Priority, Voice);
+        }
+        #endregion     
     }
 }

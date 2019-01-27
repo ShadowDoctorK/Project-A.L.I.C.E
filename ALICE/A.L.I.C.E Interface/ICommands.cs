@@ -1162,7 +1162,7 @@ namespace ALICE_Interface
                 {
                     if (Command.Check("To Log"))
                     {
-                        IObjects.ShipProp.WTL_ShipsLoadout();
+                        //IObjects.ShipProp.WTL_ShipsLoadout();
                     }
                 }
                 else if (Command.Check("No Fire Zone"))
@@ -1276,7 +1276,18 @@ namespace ALICE_Interface
                     }
                     else if (Command.Check("Status"))
                     {
-                        IStatus.Fuel.Response.FuelLevel(true);
+                        switch (IVehicles.Vehicle)
+                        {                            
+                            case IVehicles.V.Mothership:
+                                IObjects.Mothership.F.FuelLevel(true);
+                                break;
+                            case IVehicles.V.Fighter:
+                                IObjects.Fighter.F.FuelLevel(true);
+                                break;
+                            case IVehicles.V.SRV:
+                                IObjects.SRV.F.FuelLevel(true);
+                                break;                            
+                        }                       
                     }
                 }
             }

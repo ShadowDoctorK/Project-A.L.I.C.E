@@ -5,8 +5,10 @@ using ALICE_Events;
 using ALICE_Internal;
 using ALICE_Settings;
 using ALICE_Status;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,14 +20,14 @@ namespace ALICE_Objects
         string MethodName = "Mothership";
 
         /// <summary>
+        /// Allows tracking and control for updating older data version when updates occur.
+        /// </summary>
+        string DataVersion = "1.0.0";
+
+        /// <summary>
         /// Motherships Information
         /// </summary>
         public Information I = new Information();
-
-        /// <summary>
-        /// Motherships Equipment Loadout
-        /// </summary>
-        public Equipment E = new Equipment();
 
         public Object_Mothership()
         {
@@ -53,7 +55,14 @@ namespace ALICE_Objects
 
             try
             {
+                //Custom Properties
+                I.U_FingerPrint(Event.Event, Event.ShipID, Event.Ship);
 
+                //Event Properties
+                I.U_ShipID(Event.Event, Event.ShipID);
+                I.U_Identifier(Event.Event, Event.ShipID, Event.ShipIdent);
+                I.U_Name(Event.Event, Event.ShipID, Event.ShipName);
+                I.U_Type(Event.Event, Event.ShipID, Event.Ship);
             }
             catch (Exception ex)
             {
@@ -68,6 +77,10 @@ namespace ALICE_Objects
 
             try
             {
+                //Custom Properties
+                I.U_FingerPrint(Event.Event, Event.ShipID, Event.Ship);
+
+                //Event Properties
                 I.U_ShipID(Event.Event, Event.ShipID);
                 I.U_Identifier(Event.Event, Event.ShipID, Event.ShipIdent);
                 I.U_Name(Event.Event, Event.ShipID, Event.ShipName);
@@ -75,7 +88,6 @@ namespace ALICE_Objects
                 I.U_Type(Event.Event, Event.ShipID, Event.Ship);
                 I.U_ValueHull(Event.Event, Event.ShipID, Event.HullValue);
                 I.U_ValueModules(Event.Event, Event.ShipID, Event.ModulesValue);
-                I.U_FingerPrint(Event.Event);
             }
             catch (Exception ex)
             {
@@ -101,7 +113,7 @@ namespace ALICE_Objects
                     Temp.Mount = GM.Mount;
 
                     //Update Modules Status
-                    E.ModuleStatus(Temp);
+                    IEquipment.ModuleStatus(Temp);
 
                     //Update Outfitting
                     E.U_Module(Temp);                    
@@ -121,6 +133,124 @@ namespace ALICE_Objects
                 //Update Properties
                 EventTimeStamp = Event.Timestamp;
                 ModfyingEvent = Event.Event;
+            }
+        }
+
+        public void Update(SetUserShipName Event)
+        {
+            string MethodName = "Loadout (Update)";
+
+            if (I.Name == Event.UserShipName) { return; }
+
+            try
+            {
+                //Custom Properties
+                I.U_FingerPrint(Event.Event, Event.ShipID, Event.Ship);
+
+                //Event Properties
+                I.U_ShipID(Event.Event, Event.ShipID);
+                I.U_Type(Event.Event, Event.ShipID, Event.Ship);
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Exception " + ex);
+                Logger.Exception(MethodName, "Exception Occured When Updating Ships Information");
+            }
+
+            if (EventTimeStamp < Event.Timestamp)
+            {
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Object Time Stamp Updated.", Logger.Blue);
+
+                //Update Properties
+                EventTimeStamp = Event.Timestamp;
+                ModfyingEvent = Event.Event;
+            }
+        }
+
+        public Object_Mothership Load(string MethodName, string FingerPrint)
+        {
+            Object_Mothership M = new Object_Mothership();
+
+            //Load Last Updated Ship File
+            if (FingerPrint == null)
+            {
+                Logger.Log(MethodName, "Loading Last Updated Ship File.", Logger.Yellow);
+
+                //Find Last Updated File.
+                FileInfo Temp = null; DirectoryInfo Dir = new DirectoryInfo(Paths.ALICE_Settings);
+                foreach (FileInfo ShipFile in Dir.EnumerateFiles("*.Ship", SearchOption.TopDirectoryOnly))
+                {
+                    if (Temp == null || Temp.LastWriteTime < ShipFile.LastWriteTime)
+                    {
+                        Temp = ShipFile;
+                    }
+                }
+
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Attempting To Load: " + Temp.Name, Logger.Blue);
+
+                try
+                {
+                    //Check & Load Settings
+                    if (File.Exists(Temp.FullName))
+                    {
+                        M = (Object_Mothership)LoadValues<Object_Mothership>(Temp.FullName);
+                        Logger.DebugLine(MethodName, Temp.Name + ".Ship Loaded", Logger.Blue);
+                    }
+                    //Create New Settings File
+                    else
+                    {
+                        Logger.Log(MethodName, "No Ship Files Were Loaded, Returning Default Values", Logger.Red);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Exception(MethodName, "Exception:" + ex);
+                    Logger.Exception(MethodName, "Something Went Wrong Loading The Ship File, Returned Default Settings");
+                }
+            }
+
+            //Load Target Ship File
+            else
+            {
+                try
+                {
+                    //Check & Load Settings
+                    if (File.Exists(Paths.ALICE_Settings + FingerPrint + ".Ship"))
+                    {
+                        M = (Object_Mothership)LoadValues<Object_Mothership>(FingerPrint + ".Ship");
+                        Logger.DebugLine(MethodName, FingerPrint + ".Ship Loaded", Logger.Blue);
+                    }
+                    //Create New Settings File
+                    else
+                    {
+                        M.Save(M, MethodName);
+                        Logger.Log(MethodName, "Created " + FingerPrint + " Ship File.", Logger.Purple);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Exception(MethodName, "Exception:" + ex);
+                    Logger.Exception(MethodName, "Something Went Wrong Loading The Ship File, Returned Default Settings");
+                }
+            }           
+
+            //Return Settings
+            return M;
+        }
+
+        public void Save(Object_Mothership M, string MethodName)
+        {
+            try
+            {                
+                SaveValues<Object_Mothership>(M, M.I.FingerPrint + ".Ship");                
+                Logger.DebugLine(MethodName, M.I.FingerPrint + " Ship File Saved", Logger.Blue);
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Exception:" + ex);
+                Logger.Exception(MethodName, "Something Went Wrong And File Was Not Saved.");
             }
         }
 
@@ -148,20 +278,11 @@ namespace ALICE_Objects
             }
 
             #region Support Methods
-            public void U_ShipID(string MethodName, decimal ID)
+            public void U_ShipID(string MethodName, decimal ShipID)
             {
-                if (ShipID == -1)
-                {
-                    ShipID = ID;
-                }
-                else if (ShipID != ID)
-                {
-                    Logger.DebugLine(MethodName, "Ship ID Changed", Logger.Blue);
-                }
-                else
-                {
-                    ShipID =
-                }
+                //ShipID Checks should be conducted prior to processing
+                //the Event Updates.
+                ID = ShipID;
             }
 
             public void U_Type(string MethodName, decimal ShipID, string ShipType)
@@ -260,7 +381,7 @@ namespace ALICE_Objects
                 Rebuy = RebuyCost;
             }
 
-            public void U_FingerPrint(string MethodName)
+            public void U_FingerPrint(string MethodName, decimal ID, string Type)
             {
                 FingerPrint = ID + " " + Type + " (" + ISettings.Commander + ")";
                 ISettings.Firegroup.ShipAssignment = FingerPrint;
@@ -268,6 +389,99 @@ namespace ALICE_Objects
             }
             #endregion
         }
+    }
+
+    public class Object_Fighter : Object_VehicleBase
+    {
+
+    }
+
+    public class Object_SRV : Object_VehicleBase
+    {
+
+    }
+
+    public class Object_VehicleBase : Object_Base
+    {
+        /// <summary>
+        /// Vehicle Equipment Status
+        /// </summary>
+        public Equipment E = new Equipment();
+
+        /// <summary>
+        /// Vehicle Cargo Status
+        /// </summary>
+        public Status_Cargo C = new Status_Cargo();
+
+        /// <summary>
+        /// Vehcile Fule Status
+        /// </summary>
+        public Status_Fuel F = new Status_Fuel();
+
+        #region Base Save/Load Methods
+        /// <summary>
+        /// Generic Loader for Deserializing JSON settings.
+        /// </summary>
+        /// <typeparam name="T">Object Type</typeparam>
+        /// <param name="FileName">The name of the target file.</param>
+        /// <param name="FilePath">The path of the target file. Default Path is the Settings Folder.</param>
+        /// <returns></returns>
+        public static object LoadValues<T>(string FileName, string FilePath = null)
+        {
+            T Temp = default(T);
+            if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
+            if (FileName == null) { return null; }
+
+            FileStream FS = null;
+            try
+            {
+                if (File.Exists(FilePath + FileName))
+                {
+                    FS = new FileStream(FilePath + FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    using (StreamReader SR = new StreamReader(FS))
+                    {
+                        while (!SR.EndOfStream)
+                        {
+                            string Line = SR.ReadLine();
+                            Temp = JsonConvert.DeserializeObject<T>(Line);
+                        }
+                    }
+                }
+
+                return Temp;
+            }
+            catch (Exception)
+            {
+                return Temp;
+            }
+            finally
+            {
+                if (FS != null)
+                { FS.Dispose(); }
+            }
+        }
+
+        /// <summary>
+        /// Generic Saver for Serializing object settings to JSON.
+        /// </summary>
+        /// <typeparam name="T">Object Type</typeparam>
+        /// <param name="Settings">The Object</param>
+        /// <param name="FileName">The name of the target file.</param>
+        /// <param name="FilePath">The path of the target file. Default Path is the Settings Folder.</param>
+        public static void SaveValues<T>(object Settings, string FileName, string FilePath = null)
+        {
+            if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
+
+            using (FileStream FS = new FileStream(FilePath + FileName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            {
+                using (StreamWriter file = new StreamWriter(FS))
+                {
+                    var Line = JsonConvert.SerializeObject((T)Settings);
+                    file.WriteLine(Line);
+                }
+            }
+        }
+        #endregion
 
         public class Equipment
         {
@@ -276,35 +490,10 @@ namespace ALICE_Objects
             /// </summary>
             public List<Module> Outfitting = new List<Module>();
 
-            #region Equipment Properties
             /// <summary>
-            /// Generic Equipment Reference used for Default responses.
+            /// Collection of Equipment Config's
             /// </summary>
-            public Equipment_General General = new Equipment_General();
-
-            public Equipment_CompositeScanner CompositeScanner = new Equipment_CompositeScanner();
-            public Equipment_DiscoveryScanner DiscoveryScanner = new Equipment_DiscoveryScanner();
-            public Equipment_DockingComputer DockingComputer = new Equipment_DockingComputer();
-            public Equipment_ExternalLights ExternalLights = new Equipment_ExternalLights();
-            public Equipment_ElectronicCountermeasure ElectronicCountermeasure = new Equipment_ElectronicCountermeasure();
-            public Equipment_FighterHanger FighterHanger = new Equipment_FighterHanger();
-            public Equipment_FrameShiftDrive FrameShiftDrive = new Equipment_FrameShiftDrive();
-            public Equipment_FSDInterdictor FSDInterdictor = new Equipment_FSDInterdictor();
-            public Equipment_LimpetCollector LimpetCollector = new Equipment_LimpetCollector();
-            public Equipment_LimpetDecontamination LimpetDecontamination = new Equipment_LimpetDecontamination();
-            public Equipment_LimpetHatchBreaker LimpetHatchBreaker = new Equipment_LimpetHatchBreaker();
-            public Equipment_LimpetFuel LimpetFuel = new Equipment_LimpetFuel();
-            public Equipment_LimpetRecon LimpetRecon = new Equipment_LimpetRecon();
-            public Equipment_LimpetRepair LimpetRepair = new Equipment_LimpetRepair();
-            public Equipment_LimpetResearch LimpetResearch = new Equipment_LimpetResearch();
-            public Equipment_LimpetProspector LimpetProspector = new Equipment_LimpetProspector();
-            public Equipment_PulseWaveScanner PulseWaveScanner = new Equipment_PulseWaveScanner();
-            public Equipment_ShieldCellBank ShieldCellBank = new Equipment_ShieldCellBank();
-            public Equipment_SurfaceScanner SurfaceScanner = new Equipment_SurfaceScanner();
-            public Equipment_ShutdownFieldNeutraliser ShutdownFieldNeutraliser = new Equipment_ShutdownFieldNeutraliser();
-            public Equipment_WakeScanner WakeScanner = new Equipment_WakeScanner();
-            public Equipment_XenoScanner XenoScanner = new Equipment_XenoScanner();
-            #endregion
+            public EquipmentConfigCollection Settings = new EquipmentConfigCollection();
 
             #region Ship Module Variables (Convert To Equipment)
             public bool Auto_Field_Maintenance_Unit = false;
@@ -320,12 +509,11 @@ namespace ALICE_Objects
             public bool Chaff_Launcher = false;
             public bool Corrosion_Resistant_Cargo_Rack = false;
             public bool Economy_Class_Passenger_Cabin = false;
-            public bool Enhanced_Performance_Thrusters = false;            
+            public bool Enhanced_Performance_Thrusters = false;
             public bool First_Class_Passenger_Cabin = false;
             public bool Fragment_Cannon = false;
-            public bool Frame_Shift_Drive = false;
+            //public bool Frame_Shift_Drive = false;
             public bool Fuel_Scoop = false;
-            public bool Fuel_Tank = false;
             public bool Heat_Sink_Launcher = false;
             public bool Hull_Reinforcement_Package = false;
             public bool Kill_Warrant_Scanner = false;
@@ -380,391 +568,6 @@ namespace ALICE_Objects
                 }
             }
 
-            public void ModuleStatus(Module Mod)
-            {
-                string MethodName = "Module Detection";
-
-                #region Module Detection / Toggles (12/21/2018 5:23 PM)
-
-                IEnums.ModuleGroup M = Utilities.ToEnum<IEnums.ModuleGroup>(Mod.Name.Replace(" ", "_").Replace("-", "_"));
-
-                switch (M)
-                {
-                    //Items Installed By Default
-                    //Composite Scanner
-                    //Full Spectrum Scanner / Discovery Scanner
-
-                    case IEnums.ModuleGroup.Auto_Field_Maintenance_Unit:
-                        Auto_Field_Maintenance_Unit = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.AX_Missile_Rack:
-                        AX_Missile_Rack = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.AX_Multi_Cannon:
-                        AX_Multi_Cannon = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Beam_Laser:
-                        Beam_Laser = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Bi_Weave_Shield_Generator:
-                        Bi_Weave_Shield_Generator = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Burst_Laser:
-                        Burst_Laser = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Business_Class_Passenger_Cabin:
-                        Business_Class_Passenger_Cabin = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Cannon:
-                        Cannon = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Cargo_Rack:
-                        Cargo_Rack = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Cargo_Scanner:
-                        Cargo_Scanner = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Chaff_Launcher:
-                        Chaff_Launcher = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Collector_Limpet_Controller:
-                        LimpetCollector.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Corrosion_Resistant_Cargo_Rack:
-                        Corrosion_Resistant_Cargo_Rack = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Decontamination_Limpet_Controller:
-                        LimpetDecontamination.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    //Customized
-                    case IEnums.ModuleGroup.Detailed_Surface_Scanner:
-                        SurfaceScanner.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Economy_Class_Passenger_Cabin:
-                        Economy_Class_Passenger_Cabin = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    //Customized
-                    case IEnums.ModuleGroup.Electronic_Countermeasure:
-                        ElectronicCountermeasure.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Enhanced_Performance_Thrusters:
-                        Enhanced_Performance_Thrusters = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    //Customized
-                    case IEnums.ModuleGroup.Fighter_Hangar:
-                        FighterHanger.Installed = true;
-
-                        if (Mod.Class + Mod.Rating == "5D")
-                        {
-                            FighterHanger.Bays = 1;
-                            FighterHanger.BayCapacity = 6;
-                        }
-                        else if (Mod.Class + Mod.Rating == "6D")
-                        {
-                            FighterHanger.Bays = 2;
-                            FighterHanger.BayCapacity = 8;
-                        }
-                        else if (Mod.Class + Mod.Rating == "7D")
-                        {
-                            FighterHanger.Bays = 2;
-                            FighterHanger.BayCapacity = 15;
-                        }
-
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.First_Class_Passenger_Cabin:
-                        First_Class_Passenger_Cabin = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Fragment_Cannon:
-                        Fragment_Cannon = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Frame_Shift_Drive:
-                        Frame_Shift_Drive = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    //Customized
-                    case IEnums.ModuleGroup.Frame_Shift_Drive_Interdictor:
-                        FSDInterdictor.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Frame_Shift_Wake_Scanner:
-                        WakeScanner.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Fuel_Scoop:
-                        Fuel_Scoop = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    //Customized
-                    case IEnums.ModuleGroup.Fuel_Tank:
-                        Fuel_Tank = true;
-                        IStatus.Fuel.Capacity = IStatus.Fuel.Capacity + Convert.ToDecimal(Mod.Capacity);
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Fuel_Transfer_Limpet_Controller:
-                        LimpetFuel.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Hatch_Breaker_Limpet_Controller:
-                        LimpetHatchBreaker.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Heat_Sink_Launcher:
-                        Heat_Sink_Launcher = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Hull_Reinforcement_Package:
-                        Hull_Reinforcement_Package = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Kill_Warrant_Scanner:
-                        Kill_Warrant_Scanner = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Life_Support:
-                        Life_Support = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Lightweight_Alloy:
-                        Lightweight_Alloy = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Luxury_Passenger_Cabin:
-                        Luxury_Passenger_Cabin = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Military_Grade_Composite:
-                        Military_Grade_Composite = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Mine_Launcher:
-                        Mine_Launcher = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Mining_Laser:
-                        Mining_Laser = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Mirrored_Surface_Composite:
-                        Mirrored_Surface_Composite = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Missile_Rack:
-                        Missile_Rack = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Module_Reinforcement_Package:
-                        Module_Reinforcement_Package = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Multi_Cannon:
-                        Multi_Cannon = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Planetary_Approach_Suite:
-                        Planetary_Approach_Suite = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Planetary_Vehicle_Hangar:
-                        Planetary_Vehicle_Hangar = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Plasma_Accelerator:
-                        Plasma_Accelerator = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Point_Defence:
-                        Point_Defence = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Power_Distributor:
-                        Power_Distributor = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Power_Plant:
-                        Power_Plant = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Prospector_Limpet_Controller:
-                        LimpetProspector.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Pulse_Laser:
-                        Pulse_Laser = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Rail_Gun:
-                        Rail_Gun = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Reactive_Surface_Composite:
-                        Reactive_Surface_Composite = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Recon_Limpet_Controller:
-                        LimpetRecon.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Refinery:
-                        Refinery = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Reinforced_Alloy:
-                        Reinforced_Alloy = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Remote_Release_Flak_Launcher:
-                        Remote_Release_Flak_Launcher = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Repair_Limpet_Controller:
-                        LimpetRepair.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Research_Limpet_Controller:
-                        LimpetResearch.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Sensors:
-                        Sensors = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Shield_Booster:
-                        Shield_Booster = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Shield_Cell_Bank:
-                        ShieldCellBank.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Shield_Generator:
-                        Shield_Generator = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Shock_Mine_Launcher:
-                        Shock_Mine_Launcher = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    //Customized
-                    case IEnums.ModuleGroup.Shutdown_Field_Neutraliser:
-                        ShutdownFieldNeutraliser.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Standard_Docking_Computer:
-                        DockingComputer.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Thrusters:
-                        Thrusters = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    case IEnums.ModuleGroup.Torpedo_Pylon:
-                        Torpedo_Pylon = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    //Customized
-                    case IEnums.ModuleGroup.Xeno_Scanner:
-                        XenoScanner.Installed = true;
-                        Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
-                        break;
-
-                    default:
-                        if (Data.ModulesIgnoreCheck(Mod.Item) == false)
-                        {
-                            Logger.DevUpdateLog(MethodName, "New Module Group Detected: " + Mod.Item, Logger.Red, true);
-                        }
-                        break;
-
-                }
-                #endregion
-            }
-
             private string GetModuleName(Module M)
             {
                 string ModuleName = "Module Detected: " + M.Class + M.Rating + " " + M.Name;
@@ -780,13 +583,13 @@ namespace ALICE_Objects
                 Logger.Simple(" ", Logger.Yellow);
 
                 foreach (var Mod in Outfitting)
-                {                    
+                {
                     Logger.Simple("Slot: " + Mod.Slot + " | " + Mod.Item, Logger.Yellow);
                 }
 
                 Logger.Simple("Ship Finger Print: " + IObjects.Mothership.I.FingerPrint, Logger.Yellow);
                 Logger.Simple("SHIP LOADOUT REPORT", Logger.Yellow);
-                Logger.Simple(" ", Logger.Yellow);                
+                Logger.Simple(" ", Logger.Yellow);
             }
         }
 
@@ -911,29 +714,6 @@ namespace ALICE_Objects
                 }
             }
         }
-    }
-
-    public class Object_Fighter : Object_VehicleBase
-    {
-
-    }
-
-    public class Object_SRV : Object_VehicleBase
-    {
-
-    }
-
-    public class Object_VehicleBase : Object_Base
-    {
-        /// <summary>
-        /// Vehicle Cargo Status
-        /// </summary>
-        public Status_Cargo C = new Status_Cargo();
-
-        /// <summary>
-        /// Vehcile Fule Status
-        /// </summary>
-        public Status_Fuel F = new Status_Fuel();
     }
 }
 

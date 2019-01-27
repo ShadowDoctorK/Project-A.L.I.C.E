@@ -13,8 +13,10 @@ namespace ALICE_Equipment
     {
         public Equipment_FSDInterdictor()
         {
-            Installed = false;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Frame_Shift_Drive_Interdictor;
+            Settings.Mode = IEquipment.M.Analysis;
+            Settings.Installed = false;
+            Settings.Enabled = true;
         }
 
         public Equipment_FSDInterdictor New() { return new Equipment_FSDInterdictor(); }

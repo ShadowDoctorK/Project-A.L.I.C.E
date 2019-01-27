@@ -13,8 +13,10 @@ namespace ALICE_Equipment
     {
         public Equipment_ShutdownFieldNeutraliser()
         {
-            Installed = false;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Shutdown_Field_Neutraliser;
+            Settings.Mode = IEquipment.M.Both;
+            Settings.Installed = false;
+            Settings.Enabled = true;
         }
 
         public Equipment_ShutdownFieldNeutraliser New() { return new Equipment_ShutdownFieldNeutraliser(); }

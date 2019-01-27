@@ -13,8 +13,10 @@ namespace ALICE_Equipment
     {
         public Equipment_PulseWaveScanner()
         {
-            Installed = false;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Pulse_Wave_Scanner;
+            Settings.Mode = IEquipment.M.Analysis;
+            Settings.Installed = false;
+            Settings.Enabled = true;
         }
 
         public Equipment_PulseWaveScanner New() { return new Equipment_PulseWaveScanner(); }

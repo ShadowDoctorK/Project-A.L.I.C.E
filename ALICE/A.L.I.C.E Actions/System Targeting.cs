@@ -319,7 +319,7 @@ namespace ALICE_Actions
                 return;
             }
 
-            if (Check.Environment.Vehicle(IEnums.Vehicles.SRV, false, MethodName) == false)
+            if (Check.Environment.Vehicle(IVehicles.V.SRV, false, MethodName) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -363,7 +363,7 @@ namespace ALICE_Actions
                     #endregion
 
                     //While Not In Hyperspace & Vehicle Is Not SRV...
-                    while (Check.Environment.Space(IEnums.Hyperspace, false, MethodName, true) == true && Check.Environment.Vehicle(IEnums.Vehicles.SRV, false, MethodName, true) == true)
+                    while (Check.Environment.Space(IEnums.Hyperspace, false, MethodName, true) == true && Check.Environment.Vehicle(IVehicles.V.SRV, false, MethodName, true) == true)
                     {
                         NewTarget:
 
@@ -551,7 +551,7 @@ namespace ALICE_Actions
         public bool Scan_CheckValadation(string MethodName, bool Answer = true)
         {
             bool Environment = Check.Environment.Space(IEnums.Hyperspace, false, MethodName, true);
-            bool Vehicle = Check.Environment.Vehicle(IEnums.Vehicles.SRV, false, MethodName, true);
+            bool Vehicle = Check.Environment.Vehicle(IVehicles.V.SRV, false, MethodName, true);
 
             if (Environment == false) { Answer = false; Logger.DebugLine(MethodName, "Environment Check Failed. (In Hyperspace)", Logger.Yellow); }
             if (Vehicle == false) { Answer = false; Logger.DebugLine(MethodName, "Vehicle Check Failed. (In SRV)", Logger.Yellow); }

@@ -49,30 +49,11 @@ namespace ALICE_Objects
         //public static Object_Target TargetPrevious = new Object_Target();
         #endregion
 
-        #region Old Items (Requires Updates / Conversion)
-
-        #region Game State Objects
+        //Status Object Need Moved To IStatus
         public static Status Status = new Status();
-        
-        #endregion
-
-        #region Object Mangement Methods
-        public static void New_Ship()
-        {
-            Mothership = new Object_Mothership();
-        }
-
-        //Object Mangement Methods
-        #endregion
-
-        public static void Logic_SetUserShipName(SetUserShipName Event)
-        {
-            ShipProp.Update_ShipName(Event.ShipID, Event.UserShipName);
-        }
-               
-        //End Event Update Mehtods
-        #endregion
     }
+
+    #region Old Items (Requires Updates / Conversion)
 
     public class ObjectCore
     {
@@ -82,7 +63,7 @@ namespace ALICE_Objects
     public class Status
     {
         #region Status.Json Properties
-        public IEnums.Vehicles Vehicle = IEnums.Vehicles.Mothership;
+        //public IVehicles.V Vehicle = IVehicles.V.Mothership;
 
         //public decimal FireGroup = 1;
         public decimal GUI_Focus = 0;

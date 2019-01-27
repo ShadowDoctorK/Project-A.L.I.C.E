@@ -13,8 +13,12 @@ namespace ALICE_Equipment
     {
         public Equipment_ShieldCellBank()
         {
-            Installed = false;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Shield_Cell_Bank;
+            Settings.Mode = IEquipment.M.Both;
+            Settings.Installed = false;
+            Settings.Enabled = true;
+            Settings.Total = -1;
+            Settings.Capacity = -1;
         }
 
         public Equipment_ShieldCellBank New() { return new Equipment_ShieldCellBank(); }

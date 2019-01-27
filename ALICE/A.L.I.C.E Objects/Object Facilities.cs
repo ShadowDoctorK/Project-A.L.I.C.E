@@ -58,8 +58,8 @@ namespace ALICE_Objects
             System = IObjects.StringCheck(Event.StarSystem);
             Address = Event.SystemAddress;
             MarketID = Event.MarketID;
-            ControlFaction = IObjects.StringCheck(Event.StationFaction);
-            ControlFactionState = IObjects.StringCheck(Event.FactionState);
+            ControlFaction = IObjects.StringCheck(Event.StationFaction.Name);
+            ControlFactionState = IObjects.StringCheck(Event.StationFaction.FactionState);
             Government = IObjects.StringCheck(Event.StationGovernment_Localised);
             Allegiance = IObjects.StringCheck(Event.StationAllegiance);
             Services = Event.StationServices;
@@ -88,7 +88,7 @@ namespace ALICE_Objects
                 Proportion = IObjects.Decimal;
             }
 
-            public StationEconomy(Docked.StationEco StationEconomy)
+            public StationEconomy(Docked.EconomyData StationEconomy)
             {
                 Name = IObjects.StringCheck(StationEconomy.Name_Localised);
                 Proportion = StationEconomy.Proportion;
@@ -109,7 +109,7 @@ namespace ALICE_Objects
         public void Update_Services(List<string> Value) { this.Services = Value; }
         public void Update_Economy(string Value) { this.Economy = Value; }
         public void Update_DistFromStar(decimal Value) { this.DistFromStar = Value; }
-        public void Update_Economies(List<Docked.StationEco> Value)
+        public void Update_Economies(List<Docked.EconomyData> Value)
         {
             List<StationEconomy> Temp = new List<StationEconomy>();
             foreach (var Item in Value)

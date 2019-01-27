@@ -13,8 +13,10 @@ namespace ALICE_Equipment
     {
         public Equipment_ElectronicCountermeasure()
         {
-            Installed = false;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Electronic_Countermeasure;
+            Settings.Mode = IEquipment.M.Both;
+            Settings.Installed = false;
+            Settings.Enabled = true;            
         }
 
         public Equipment_ElectronicCountermeasure New() { return new Equipment_ElectronicCountermeasure(); }

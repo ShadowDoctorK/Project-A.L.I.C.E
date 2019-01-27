@@ -58,8 +58,9 @@
   <ItemGroup>
     <Compile Include="A.L.I.C.E Core\Json Monitor\Event Status.cs" />
     <Compile Include="A.L.I.C.E Core\Journal Monitor\Current Journal Logs.cs" />
-    <Compile Include="A.L.I.C.E Equipment\[Sandbox]\Equipment FuelTank.cs" />
-    <Compile Include="A.L.I.C.E Equipment\[Sandbox]\Equipment FighterHanger.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment FuelTank.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment FighterHanger.cs" />
+    <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
     <Compile Include="A.L.I.C.E Status\Status Modules.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\ISynthesizer.cs" />
@@ -95,7 +96,6 @@
     <Compile Include="A.L.I.C.E Equipment\Equipment DockingComputer.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment FrameShiftDrive.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment ExternalLights.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment Default.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment CompositeScanner.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment PulseWaveScanner.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment ElectronicCountermeasure.cs" />
@@ -436,12 +436,6 @@
     <None Include="A.L.I.C.E Response\EVT NoFireZone.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT Ship Targeted.Response">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="A.L.I.C.E Response\EVT ShipTargeted.Response">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="A.L.I.C.E Response\EVT Shipyard Arrived.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -499,6 +493,9 @@
     <None Include="A.L.I.C.E Response\GN System Report.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="A.L.I.C.E Response\GN Target Ship.Response">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="A.L.I.C.E Response\GN Targeting System.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -551,6 +548,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="A.L.I.C.E Equipment\[Sandbox]\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

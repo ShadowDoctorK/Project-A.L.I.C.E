@@ -13,8 +13,12 @@ namespace ALICE_Equipment
     {
         public Equipment_LimpetDecontamination()
         {
-            Installed = false;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Decontamination_Limpet_Controller;
+            Settings.Mode = IEquipment.M.Analysis;
+            Settings.Installed = false;
+            Settings.Enabled = true;
+            Settings.Total = -1;
+            Settings.Capacity = -1;
         }
 
         public Equipment_LimpetDecontamination New() { return new Equipment_LimpetDecontamination(); }

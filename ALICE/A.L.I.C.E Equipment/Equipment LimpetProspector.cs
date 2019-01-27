@@ -13,8 +13,12 @@ namespace ALICE_Equipment
     {
         public Equipment_LimpetProspector()
         {
-            Installed = false;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Prospector_Limpet_Controller;
+            Settings.Mode = IEquipment.M.Analysis;
+            Settings.Installed = false;
+            Settings.Enabled = true;
+            Settings.Total = -1;
+            Settings.Capacity = -1;
         }
 
         public Equipment_LimpetProspector New() { return new Equipment_LimpetProspector(); }

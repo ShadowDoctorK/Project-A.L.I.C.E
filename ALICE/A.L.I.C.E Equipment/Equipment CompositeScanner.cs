@@ -13,8 +13,10 @@ namespace ALICE_Equipment
     {
         public Equipment_CompositeScanner()
         {
-            Installed = true;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Composite_Scanner;
+            Settings.Mode = IEquipment.M.Analysis;
+            Settings.Installed = true;
+            Settings.Enabled = true;            
         }
 
         public Equipment_CompositeScanner New() { return new Equipment_CompositeScanner(); }

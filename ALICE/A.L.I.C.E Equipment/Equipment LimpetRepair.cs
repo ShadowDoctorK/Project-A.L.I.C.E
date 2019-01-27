@@ -13,8 +13,12 @@ namespace ALICE_Equipment
     {
         public Equipment_LimpetRepair()
         {
-            Installed = false;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Repair_Limpet_Controller;
+            Settings.Mode = IEquipment.M.Analysis;
+            Settings.Installed = false;
+            Settings.Enabled = true;
+            Settings.Total = -1;
+            Settings.Capacity = -1;
         }
 
         public Equipment_LimpetRepair New() { return new Equipment_LimpetRepair(); }

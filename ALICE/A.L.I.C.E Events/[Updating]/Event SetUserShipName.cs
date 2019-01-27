@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ALICE_Objects;
 using ALICE_Internal;
+using ALICE_EventLogic;
 
 namespace ALICE_Events
 {
@@ -36,7 +37,7 @@ namespace ALICE_Events
                 }
             }
 
-            IObjects.Logic_SetUserShipName((SetUserShipName)GetEvent());
+            Process.SetUserShipName((SetUserShipName)GetEvent());
 
             TriggerEvent();
         }

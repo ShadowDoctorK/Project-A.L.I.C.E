@@ -427,7 +427,10 @@ namespace ALICE_Events
 
         public class EventType
         {
-            public enum A { Pass, Fail, Error }
+            /// <summary>
+            /// (Answer) Enum Used as a return value to give more detailed information.
+            /// </summary>
+            public enum A { Default, Pass, Fail, Error }
 
             //Collection Of Event Types Accesed Via Enums
             public static readonly Dictionary<IEnums.Events, Type> Type = new Dictionary<IEnums.Events, Type>()

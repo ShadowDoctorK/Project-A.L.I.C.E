@@ -108,8 +108,8 @@ namespace ALICE_Objects
                 Temp.Update_Population(Event.Population);
                 Temp.Update_Powers(Event.Powers);
                 Temp.Update_PowerplayState(Event.PowerplayState);
-                Temp.Update_ControlFaction(Event.SystemFaction);
-                Temp.Update_ControlFactionState(Event.FactionState);
+                Temp.Update_ControlFaction(Event.SystemFaction.Name);
+                Temp.Update_ControlFactionState(Event.SystemFaction.FactionState);
                 Temp.Update_Factions(Event.Factions, Event.Event, Event.Timestamp);
                 Temp.Update_Coordinate(Event.StarPos);
             }
@@ -231,8 +231,8 @@ namespace ALICE_Objects
                 IObjects.FacilityCurrent.Update_System(IObjects.StringCheck(Event.StarSystem));
                 IObjects.FacilityCurrent.Update_Address(Event.SystemAddress);
                 IObjects.FacilityCurrent.Update_MarketID(Event.MarketID);
-                IObjects.FacilityCurrent.Update_ControlFaction(IObjects.StringCheck(Event.StationFaction));
-                IObjects.FacilityCurrent.Update_ControlFactionState(IObjects.StringCheck(Event.FactionState));
+                IObjects.FacilityCurrent.Update_ControlFaction(IObjects.StringCheck(Event.StationFaction.Name));
+                IObjects.FacilityCurrent.Update_ControlFactionState(IObjects.StringCheck(Event.StationFaction.FactionState));
                 IObjects.FacilityCurrent.Update_Government(IObjects.StringCheck(Event.StationGovernment_Localised));
                 IObjects.FacilityCurrent.Update_Allegiance(IObjects.StringCheck(Event.StationAllegiance));
                 IObjects.FacilityCurrent.Update_Services(Event.StationServices);

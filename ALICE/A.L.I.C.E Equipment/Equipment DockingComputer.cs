@@ -15,8 +15,12 @@ namespace ALICE_Equipment
 
         public Equipment_DockingComputer()
         {
-            Installed = false;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Standard_Docking_Computer;
+            Settings.Mode = IEquipment.M.Default;
+            Settings.Installed = false;
+            Settings.Enabled = true;
+
+            //Custom Properites
             AsisstedDockingReport = true;
         }
 

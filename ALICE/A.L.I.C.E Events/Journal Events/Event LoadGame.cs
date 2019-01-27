@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ALICE_Objects;
 using ALICE_Internal;
+using ALICE_EventLogic;
 
 namespace ALICE_Events
 {
@@ -36,7 +37,7 @@ namespace ALICE_Events
                 }
             }
 
-            IObjects.Logic_LoadGame((LoadGame)GetEvent());
+            Process.LoadGame((LoadGame)GetEvent());
 
             TriggerEvent();
         }
@@ -107,12 +108,3 @@ namespace ALICE_Events
     }
     #endregion
 }
-
-//Journal Reader Code Chunk.
-
-// else if (EventName == LoadGame)
-// {
-//     var Event = JsonConvert.DeserializeObject<ALICE_Events.LoadGame>(RawLine);
-//     IEvents.UpdateEvents(EventName, Event);
-//     IEvents.Bounty.Logic();
-// }

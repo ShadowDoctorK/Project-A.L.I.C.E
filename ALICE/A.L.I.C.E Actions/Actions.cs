@@ -433,7 +433,7 @@ namespace ALICE_Actions
             }
 
             //If Not Outside The Fighter...
-            if (Check.Environment.Vehicle(IEnums.Vehicles.Fighter, false, MethodName) == false)
+            if (Check.Environment.Vehicle(IVehicles.V.Fighter, false, MethodName) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -774,7 +774,7 @@ namespace ALICE_Actions
             Call.Key.Press(Call.Key.Recall_Fighter, 0);
 
             #region Audio: Fighter Order (Recall NPC)
-            if (Check.Environment.Vehicle(IEnums.Vehicles.Mothership, true, MethodName) == true)
+            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == true)
             {
                 if (PlugIn.Audio == "TTS")
                 {
@@ -792,7 +792,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Audio: Fighter Order (Recall Player)
-            else if (Check.Environment.Vehicle(IEnums.Vehicles.Fighter, true, MethodName) == true)
+            else if (Check.Environment.Vehicle(IVehicles.V.Fighter, true, MethodName) == true)
             {
                 if (PlugIn.Audio == "TTS")
                 {
@@ -1164,7 +1164,7 @@ namespace ALICE_Actions
             }
 
             //If Not In Mothership...
-            if (Check.Environment.Vehicle(IEnums.Vehicles.Mothership, true, MethodName) == false)
+            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -1361,7 +1361,7 @@ namespace ALICE_Actions
             }
 
             //If Not In Mothership...
-            if (Check.Environment.Vehicle(IEnums.Vehicles.Mothership, true, MethodName) == false)
+            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -2002,7 +2002,7 @@ namespace ALICE_Actions
 
             #region Validation Checks
             //Vehicle Check
-            if (Check.Environment.Vehicle(IEnums.Vehicles.Mothership, true, MethodName) == false)
+            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
             {
                 IEquipment.FrameShiftDrive.NotInMothership(CommandAudio);
                 return;
@@ -2215,7 +2215,7 @@ namespace ALICE_Actions
 
             #region Validation Checks
             //Vehicle Check
-            if (Check.Environment.Vehicle(IEnums.Vehicles.Mothership, true, MethodName) == false)
+            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
             {
                 IEquipment.FrameShiftDrive.NotInMothership(CommandAudio);
                 return;
@@ -2497,7 +2497,7 @@ namespace ALICE_Actions
             }
 
             //If Not In Mothership...
-            if (Check.Environment.Vehicle(IEnums.Vehicles.Mothership, true, MethodName) == false)
+            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -3244,6 +3244,12 @@ namespace ALICE_Actions
             if (Check.Environment.Space(IEnums.Normal_Space, true, MethodName) == false)
             {
                 IEquipment.XenoScanner.NotInNormalSpace(CommandAudio);
+                return;
+            }
+
+            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
+            {
+                Logger.Log(MethodName, "Only Available In The Mothership", Logger.Red);
                 return;
             }
             #endregion

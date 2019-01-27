@@ -149,7 +149,7 @@ namespace ALICE_Internal
             }
 
             #region Enums
-            public IEnums.Vehicles Vehicle = IEnums.Vehicles.NotSet;
+            public IVehicles.V Vehicle = IVehicles.V.Default;
             #endregion
 
             #region Booleans
@@ -206,9 +206,9 @@ namespace ALICE_Internal
                     Thread.Sleep(500);
 
                     #region Strings
-                    if (Vehicle != IObjects.Status.Vehicle)
+                    if (Vehicle != IVehicles.Vehicle)
                     {
-                        Vehicle = IObjects.Status.Vehicle;
+                        Vehicle = IVehicles.Vehicle;
                         Updates.Add("(" + MethodName + ") Vehicle = " + Vehicle);
                     }
                     #endregion
@@ -387,9 +387,9 @@ namespace ALICE_Internal
                         FireGroup = Call.Firegroup.Current;
                         Updates.Add("(" + MethodName + ") FireGroup = " + FireGroup);
                     }
-                    if (Fuel != IStatus.Fuel.Main)
+                    if (Fuel != IVehicles.GetFuelMain())
                     {
-                        Fuel = IStatus.Fuel.Main;
+                        Fuel = IVehicles.GetFuelMain();
                         Updates.Add("(" + MethodName + ") Fuel = " + Fuel);
                     }
                     if (CargoMass != IObjects.Status.CargoMass)

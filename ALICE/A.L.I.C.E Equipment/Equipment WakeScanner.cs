@@ -13,8 +13,10 @@ namespace ALICE_Equipment
     {
         public Equipment_WakeScanner()
         {
-            Installed = false;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Frame_Shift_Wake_Scanner;
+            Settings.Mode = IEquipment.M.Analysis;
+            Settings.Installed = false;
+            Settings.Enabled = true;
         }
 
         public Equipment_WakeScanner New() { return new Equipment_WakeScanner(); }

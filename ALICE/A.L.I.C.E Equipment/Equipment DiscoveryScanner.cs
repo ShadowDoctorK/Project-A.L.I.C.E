@@ -19,9 +19,10 @@ namespace ALICE_Equipment
 
         public Equipment_DiscoveryScanner()
         {
-            Mode = false;
-            Installed = true;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Discovery_Scanner;
+            Settings.Mode = IEquipment.M.Analysis;
+            Settings.Installed = true;
+            Settings.Enabled = true;
         }
 
         public Equipment_DiscoveryScanner New() { return new Equipment_DiscoveryScanner(); }

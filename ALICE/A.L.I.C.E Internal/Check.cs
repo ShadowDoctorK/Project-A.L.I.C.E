@@ -426,63 +426,63 @@ namespace ALICE_Internal
         {
             public bool CagroScanner(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Mothership.Cargo_Scanner;
+                bool State = IObjects.Mothership.E.Cargo_Scanner;
                 string Equipment = "Cargo Scanner";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool ChaffLauncher(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Mothership.Chaff_Launcher;
+                bool State = IObjects.Mothership.E.Chaff_Launcher;
                 string Equipment = "Chaff Launcher";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool CollectorLimpetController(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IEquipment.LimpetCollector.Installed;
+                bool State = IEquipment.LimpetCollector.Settings.Installed;
                 string Equipment = "Collector Limpet Controller";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool DecontaminationLimpetController(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IEquipment.LimpetDecontamination.Installed;
+                bool State = IEquipment.LimpetDecontamination.Settings.Installed;
                 string Equipment = "Decontamination Limpet Controller";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool DockingComputer(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Mothership.Standard_Docking_Computer;
+                bool State = IEquipment.DockingComputer.Settings.Installed;
                 string Equipment = "Docking Computer";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool ECM(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IEquipment.ElectronicCountermeasure.Installed;
+                bool State = IEquipment.ElectronicCountermeasure.Settings.Installed;
                 string Equipment = "Electronic Countermeasure";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool FuelLimpetController(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IEquipment.LimpetFuel.Installed;
+                bool State = IEquipment.LimpetFuel.Settings.Installed;
                 string Equipment = "Fuel Limpet Controller";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool FighterHanger(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Mothership.Fighter_Hangar;
+                bool State = IEquipment.FighterHanger.Settings.Installed;
                 string Equipment = "Fighter Hanger";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool FighterHangerTotal(decimal TargetBay, string MethodName, bool DisableDebug = false)
             {
-                decimal TotalBays = IObjects.Mothership.FighterHangerTotal;
+                decimal TotalBays = IEquipment.FighterHanger.Settings.Total;
                 string Equipment = "Fighter Hanger Total";
                 string DebugText = Equipment + " Check Failed. " + TotalBays + " Installed Fighter Bays.";
                 string Color = Logger.Yellow;
@@ -501,84 +501,84 @@ namespace ALICE_Internal
 
             public bool HatchBreakerLimpetController(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IEquipment.LimpetHatchBreaker.Installed;
+                bool State = IEquipment.LimpetHatchBreaker.Settings.Installed;
                 string Equipment = "Hatch Breaker Limpet Controller";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool HeatSinkLauncher(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Mothership.Heat_Sink_Launcher;
+                bool State = IObjects.Mothership.E.Heat_Sink_Launcher;
                 string Equipment = "Heat Sink Launcher";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool KillWarrantScanner(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Mothership.Kill_Warrant_Scanner;
+                bool State = IObjects.Mothership.E.Kill_Warrant_Scanner;
                 string Equipment = "Kill Warrant Scanner";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool MiningLaser(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Mothership.Mining_Laser;
+                bool State = IObjects.Mothership.E.Mining_Laser;
                 string Equipment = "Mining Laser";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool ProspectorLimpetController(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IEquipment.LimpetProspector.Installed;
+                bool State = IEquipment.LimpetProspector.Settings.Installed;
                 string Equipment = "Prospector Limpet Controller";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool ReconLimpetController(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IEquipment.LimpetRecon.Installed;
+                bool State = IEquipment.LimpetRecon.Settings.Installed;
                 string Equipment = "Recon Limpet Controller";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool ResearchLimpetController(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IEquipment.LimpetResearch.Installed;
+                bool State = IEquipment.LimpetResearch.Settings.Installed;
                 string Equipment = "Research Limpet Controller";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool RepairLimpetController(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IEquipment.LimpetRepair.Installed;
+                bool State = IEquipment.LimpetRepair.Settings.Installed;
                 string Equipment = "Repair Limpet Controller";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool ShieldCellBank(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IEquipment.ShieldCellBank.Installed;
+                bool State = IEquipment.ShieldCellBank.Settings.Installed;
                 string Equipment = "Shield Cell Bank";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool XenoScanner(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IEquipment.XenoScanner.Installed;
+                bool State = IEquipment.XenoScanner.Settings.Installed;
                 string Equipment = "Xeno Scanner";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool SurfaceScanner(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IEquipment.SurfaceScanner.Installed;
+                bool State = IEquipment.SurfaceScanner.Settings.Installed;
                 string Equipment = "Surface Scanner";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
 
             public bool WakeScanner(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IEquipment.WakeScanner.Installed;
+                bool State = IEquipment.WakeScanner.Settings.Installed;
                 string Equipment = "Surface Scanner";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
@@ -617,20 +617,20 @@ namespace ALICE_Internal
                 return Answer;
             }
 
-            public bool Vehicle(IEnums.Vehicles TargetVehcile, bool TargetState, string MethodName, bool DisableDebug = false, bool Answer = true)
+            public bool Vehicle(IVehicles.V TargetVehcile, bool TargetState, string MethodName, bool DisableDebug = false, bool Answer = true)
             {
-                IEnums.Vehicles Vehcile = IObjects.Status.Vehicle;
+                IVehicles.V Vehic = IVehicles.Vehicle;
                 string Not = ""; if (TargetState == false) { Not = "Not "; }
                 string DebugText = "Vehcile Check Passed (" + Not + TargetVehcile + ")";
                 string Color = Logger.Blue;
 
-                if (TargetState == true && Vehcile != TargetVehcile)
+                if (TargetState == true && Vehic != TargetVehcile)
                 {
                     Answer = false;
                     DebugText = "Vehcile Does Not Equal " + TargetVehcile;
                     Color = Logger.Yellow;
                 }
-                else if (TargetState == false && Vehcile == TargetVehcile)
+                else if (TargetState == false && Vehic == TargetVehcile)
                 {
                     Answer = false;
                     DebugText = "Vehcile Equals " + TargetVehcile;

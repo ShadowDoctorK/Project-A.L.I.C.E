@@ -13,8 +13,12 @@ namespace ALICE_Equipment
     {
         public Equipment_LimpetFuel()
         {
-            Installed = false;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Fuel_Transfer_Limpet_Controller;
+            Settings.Mode = IEquipment.M.Analysis;
+            Settings.Installed = false;
+            Settings.Enabled = true;
+            Settings.Total = -1;
+            Settings.Capacity = -1;
         }
 
         public Equipment_LimpetFuel New() { return new Equipment_LimpetFuel(); }

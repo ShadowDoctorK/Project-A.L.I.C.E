@@ -93,7 +93,7 @@ namespace ALICE_Objects
                 Trend = Value.Trend;
             }
 
-            public States(Location.Faction.States Value)
+            public States(Location.States Value)
             {
                 State = Value.State;
                 Trend = Value.Trend;

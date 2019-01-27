@@ -18,6 +18,17 @@ namespace ALICE_Internal
         public static readonly string SupercruiseExit = "SupercruiseExit";
         #endregion
 
+        /// <summary>
+        /// (Answer) Generic Enum to allow more feedback when doing checks and queries.
+        /// </summary>
+        public enum A
+        {
+            Default,
+            Postive,
+            Negative,
+            Error            
+        }
+
         public enum Events
         {
             None,                             //Default Return Value
@@ -190,7 +201,8 @@ namespace ALICE_Internal
         {
             Default,
             True,
-            False
+            False,
+            Error
         }
 
         public enum CodexRegion
@@ -310,28 +322,28 @@ namespace ALICE_Internal
             CollidedAtSpeedInNoFireZone_HullDamage
         }
 
-        #region Crime Types
-        public static readonly string Assault = "assault";
-        public static readonly string MinorBlockingAirlock = "minorblockingairlock";
-        public static readonly string MajorBlockingAirlock = "majorblockingairlock";
-        public static readonly string MinorBlockingLandingPad = "minorblockinglandingpad";
-        public static readonly string MajorBlockingLandingPad = "majorblockinglandingpad";
-        public static readonly string FireInNoFireZone = "fireinnofirezone";
+        //#region Crime Types
+        //public static readonly string Assault = "assault";
+        //public static readonly string MinorBlockingAirlock = "minorblockingairlock";
+        //public static readonly string MajorBlockingAirlock = "majorblockingairlock";
+        //public static readonly string MinorBlockingLandingPad = "minorblockinglandingpad";
+        //public static readonly string MajorBlockingLandingPad = "majorblockinglandingpad";
+        //public static readonly string FireInNoFireZone = "fireinnofirezone";
 
-        public static readonly string Murder = "murder";
-        public static readonly string Piracy = "piracy";
-        public static readonly string Interdicting = "interdiction";
-        public static readonly string IllegalCargo = "illegalcargo";
-        public static readonly string DisobeyPolice = "disobeypolice";
-        public static readonly string FireInStation = "fireinstation";
-        public static readonly string DumpingDangerous = "dumpingdangerous";
-        public static readonly string DumpingNearStation = "dumpingnearstation";
+        //public static readonly string Murder = "murder";
+        //public static readonly string Piracy = "piracy";
+        //public static readonly string Interdicting = "interdiction";
+        //public static readonly string IllegalCargo = "illegalcargo";
+        //public static readonly string DisobeyPolice = "disobeypolice";
+        //public static readonly string FireInStation = "fireinstation";
+        //public static readonly string DumpingDangerous = "dumpingdangerous";
+        //public static readonly string DumpingNearStation = "dumpingnearstation";
 
-        public static readonly string DockingMinor_Trespass = "DockingMinor_Trespass";
-        public static readonly string DockingMajor_Trespass = "DockingMajor_Trespass";
-        public static readonly string CollidedAtSpeedInNoFireZone = "CollidedAtSpeedInNoFireZone";
-        public static readonly string CollidedAtSpeedInNoFireZone_HullDamage = "CollidedAtSpeedInNoFireZone_HullDamage";
-        #endregion
+        //public static readonly string DockingMinor_Trespass = "DockingMinor_Trespass";
+        //public static readonly string DockingMajor_Trespass = "DockingMajor_Trespass";
+        //public static readonly string CollidedAtSpeedInNoFireZone = "CollidedAtSpeedInNoFireZone";
+        //public static readonly string CollidedAtSpeedInNoFireZone_HullDamage = "CollidedAtSpeedInNoFireZone_HullDamage";
+        //#endregion
 
         public enum DockingState
         {
@@ -375,20 +387,6 @@ namespace ALICE_Internal
         public static readonly string NoReason = "NoReason";
         #endregion
 
-        public enum Vehicles
-        {
-            NotSet,
-            Mothership,
-            Fighter,
-            SRV
-        }
-
-        #region Vehicles
-        //public static readonly string Mothership = "Mothership";
-        //public static readonly string Fighter = "Fighter";
-        //public static readonly string SRV = "SRV";
-        #endregion
-
         #region Panels
         public static readonly string System = "System";
         public static readonly string Role = "Role";
@@ -420,80 +418,80 @@ namespace ALICE_Internal
         public static readonly string Sig_RES_Regular = "MULTIPLAYER_SCENARIO14_TITLE";
         #endregion
 
-        public enum ModuleGroup
-        {
-            NotSet,
-            Advanced_Discovery_Scanner,
-            Auto_Field_Maintenance_Unit,
-            AX_Missile_Rack,
-            AX_Multi_Cannon,
-            Basic_Discovery_Scanner,
-            Beam_Laser,
-            Bi_Weave_Shield_Generator,
-            Burst_Laser,
-            Business_Class_Passenger_Cabin,
-            Cannon,
-            Cargo_Rack,
-            Cargo_Scanner,
-            Chaff_Launcher,
-            Collector_Limpet_Controller,
-            Corrosion_Resistant_Cargo_Rack,
-            Decontamination_Limpet_Controller,
-            Detailed_Surface_Scanner,
-            Economy_Class_Passenger_Cabin,
-            Electronic_Countermeasure,
-            Enhanced_Performance_Thrusters,
-            Fighter_Hangar,
-            First_Class_Passenger_Cabin,
-            Fragment_Cannon,
-            Frame_Shift_Drive,
-            Frame_Shift_Drive_Interdictor,
-            Frame_Shift_Wake_Scanner,
-            Fuel_Scoop,
-            Fuel_Tank,
-            Fuel_Transfer_Limpet_Controller,
-            Hatch_Breaker_Limpet_Controller,
-            Heat_Sink_Launcher,
-            Hull_Reinforcement_Package,
-            Intermediate_Discovery_Scanner,
-            Kill_Warrant_Scanner,
-            Life_Support,
-            Lightweight_Alloy,
-            Luxury_Passenger_Cabin,
-            Military_Grade_Composite,
-            Mine_Launcher,
-            Mining_Laser,
-            Mirrored_Surface_Composite,
-            Missile_Rack,
-            Module_Reinforcement_Package,
-            Multi_Cannon,
-            Planetary_Approach_Suite,
-            Planetary_Vehicle_Hangar,
-            Plasma_Accelerator,
-            Point_Defence,
-            Power_Distributor,
-            Power_Plant,
-            Prospector_Limpet_Controller,
-            Pulse_Laser,
-            Rail_Gun,
-            Reactive_Surface_Composite,
-            Recon_Limpet_Controller,
-            Refinery,
-            Reinforced_Alloy,
-            Remote_Release_Flak_Launcher,
-            Repair_Limpet_Controller,
-            Research_Limpet_Controller,
-            Sensors,
-            Shield_Booster,
-            Shield_Cell_Bank,
-            Shield_Generator,
-            Shock_Mine_Launcher,
-            Shutdown_Field_Neutraliser,
-            Standard_Docking_Computer,
-            Thrusters,
-            Torpedo_Pylon,
-            Xeno_Scanner
-        }
+        //public enum ModuleGroup
+        //{
+        //    NotSet,
+        //    Advanced_Discovery_Scanner,
+        //    Auto_Field_Maintenance_Unit,
+        //    AX_Missile_Rack,
+        //    AX_Multi_Cannon,
+        //    Basic_Discovery_Scanner,
+        //    Beam_Laser,
+        //    Bi_Weave_Shield_Generator,
+        //    Burst_Laser,
+        //    Business_Class_Passenger_Cabin,
+        //    Cannon,
+        //    Cargo_Rack,
+        //    Cargo_Scanner,
+        //    Chaff_Launcher,
+        //    Collector_Limpet_Controller,
+        //    Corrosion_Resistant_Cargo_Rack,
+        //    Decontamination_Limpet_Controller,
+        //    Detailed_Surface_Scanner,
+        //    Economy_Class_Passenger_Cabin,
+        //    Electronic_Countermeasure,
+        //    Enhanced_Performance_Thrusters,
+        //    Fighter_Hangar,
+        //    First_Class_Passenger_Cabin,
+        //    Fragment_Cannon,
+        //    Frame_Shift_Drive,
+        //    Frame_Shift_Drive_Interdictor,
+        //    Frame_Shift_Wake_Scanner,
+        //    Fuel_Scoop,
+        //    Fuel_Tank,
+        //    Fuel_Transfer_Limpet_Controller,
+        //    Hatch_Breaker_Limpet_Controller,
+        //    Heat_Sink_Launcher,
+        //    Hull_Reinforcement_Package,
+        //    Intermediate_Discovery_Scanner,
+        //    Kill_Warrant_Scanner,
+        //    Life_Support,
+        //    Lightweight_Alloy,
+        //    Luxury_Passenger_Cabin,
+        //    Military_Grade_Composite,
+        //    Mine_Launcher,
+        //    Mining_Laser,
+        //    Mirrored_Surface_Composite,
+        //    Missile_Rack,
+        //    Module_Reinforcement_Package,
+        //    Multi_Cannon,
+        //    Planetary_Approach_Suite,
+        //    Planetary_Vehicle_Hangar,
+        //    Plasma_Accelerator,
+        //    Point_Defence,
+        //    Power_Distributor,
+        //    Power_Plant,
+        //    Prospector_Limpet_Controller,
+        //    Pulse_Laser,
+        //    Rail_Gun,
+        //    Reactive_Surface_Composite,
+        //    Recon_Limpet_Controller,
+        //    Refinery,
+        //    Reinforced_Alloy,
+        //    Remote_Release_Flak_Launcher,
+        //    Repair_Limpet_Controller,
+        //    Research_Limpet_Controller,
+        //    Sensors,
+        //    Shield_Booster,
+        //    Shield_Cell_Bank,
+        //    Shield_Generator,
+        //    Shock_Mine_Launcher,
+        //    Shutdown_Field_Neutraliser,
+        //    Standard_Docking_Computer,
+        //    Thrusters,
+        //    Torpedo_Pylon,
+        //    Xeno_Scanner
+        //}
 
         public static T ToEnum<T>(this string value)
         {

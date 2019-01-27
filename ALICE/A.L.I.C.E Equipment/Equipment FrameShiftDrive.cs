@@ -29,8 +29,11 @@ namespace ALICE_Equipment
 
         public Equipment_FrameShiftDrive()
         {
-            Installed = true;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Frame_Shift_Drive;
+            Settings.Mode = IEquipment.M.Analysis;
+            Settings.Installed = true;
+            Settings.Enabled = true;
+
             Supercruise = false;
             Hyperspace = false;
             Charging = false;

@@ -316,17 +316,17 @@ namespace ALICE_Monitors
                 #region Vehicle Flags
                 if (Value.Flags >= 67108864)
                 {
-                    IObjects.Status.Vehicle = IEnums.Vehicles.SRV;
+                    IVehicles.Vehicle = IVehicles.V.SRV;
                     Value.Flags = Value.Flags - 67108864;
                 }
                 if (Value.Flags >= 33554432)
                 {
-                    IObjects.Status.Vehicle = IEnums.Vehicles.Fighter;
+                    IVehicles.Vehicle = IVehicles.V.Fighter;
                     Value.Flags = Value.Flags - 33554432;
                 }
                 if (Value.Flags >= 16777216)
                 {
-                    IObjects.Status.Vehicle = IEnums.Vehicles.Mothership;
+                    IVehicles.Vehicle = IVehicles.V.Mothership;
                     Value.Flags = Value.Flags - 16777216;
                 }
                 #endregion
@@ -503,17 +503,17 @@ namespace ALICE_Monitors
                     IObjects.Status.FuelScooping = true;
                     Value.Flags = Value.Flags - 2048;
 
-                    if (IStatus.Fuel.ScoopingCommenced == false && Settings.Initialized)
-                    { IStatus.Fuel.ReportScooping(MethodName); }
+                    if (IObjects.Mothership.F.ScoopingCommenced == false && Settings.Initialized)
+                    { IObjects.Mothership.F.ReportScooping(MethodName); }
                 }
                 else
                 {
                     IObjects.Status.FuelScooping = false;
-                    if (IStatus.Fuel.ScoopingCommenced == true && Settings.Initialized)
-                    { IStatus.Fuel.ReportScooping(MethodName); }
+                    if (IObjects.Mothership.F.ScoopingCommenced == true && Settings.Initialized)
+                    { IObjects.Mothership.F.ReportScooping(MethodName); }
                     //Reset variables once we finish scooping.
-                    if (IStatus.Fuel.ScoopingCompleted == true && Settings.Initialized)
-                    { Thread.Sleep(100); IStatus.Fuel.ScoopingReset(); }
+                    if (IObjects.Mothership.F.ScoopingCompleted == true && Settings.Initialized)
+                    { Thread.Sleep(100); IObjects.Mothership.F.ScoopingReset(); }
                 }
                 #endregion
 
@@ -784,12 +784,12 @@ namespace ALICE_Monitors
                 IObjects.Status.Latitude = Value.Latitude;
                 IObjects.Status.Longitude = Value.Longitude;
                 IObjects.Status.Heading = Value.Heading;
-                IStatus.Fuel.Update(Value.Fuel);
                 IObjects.Status.CargoMass = Value.Cargo;
+
+                IVehicles.SetFuelLevels(Value.Fuel);
 
                 //End: Logic Processor: Status
                 #endregion
-
             }
             catch (Exception ex)
             {

@@ -13,8 +13,10 @@ namespace ALICE_Equipment
     {
         public Equipment_ExternalLights()
         {
-            Installed = true;
-            Enabled = true;
+            Settings.Equipment = IEquipment.E.Default;
+            Settings.Mode = IEquipment.M.Default;
+            Settings.Installed = true;
+            Settings.Enabled = true;
         }
 
         public Equipment_ExternalLights New() { return new Equipment_ExternalLights(); }
