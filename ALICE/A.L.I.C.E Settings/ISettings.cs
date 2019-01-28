@@ -15,6 +15,8 @@ namespace ALICE_Settings
         public static string Commander { get; set; }
         public static string MothershipFingerPrint { get; set; }
 
+        public static Settings_PlugIn Plugin = new Settings_PlugIn();
+
         public static Settings_User User = new Settings_User();
         public static Settings_User Reference = new Settings_User();
         public static Settings_User Toolkit = new Settings_User();
@@ -229,5 +231,41 @@ namespace ALICE_Settings
             }
         }
         #endregion
+
+        public class Settings_PlugIn
+        {
+            public LoggingSettings Log = new LoggingSettings();
+            public DebugSettings Debug = new DebugSettings();
+
+            public class DebugSettings
+            {
+                public bool Responses { get; set; }
+                public bool Keypress { get; set; }
+                public bool Commands { get; set; }
+                public bool Actions { get; set; }
+
+                public DebugSettings()
+                {
+                    Responses = false;
+                    Keypress = false;
+                    Commands = false;
+                    Actions = false;
+                }
+            }
+
+            public class LoggingSettings
+            {
+                public bool Extended { get; set; }
+                public bool Debug { get; set; }
+                public bool Developer { get; set; }
+
+                public LoggingSettings()
+                {
+                    Extended = true;
+                    Developer = false;
+                    Debug = false;
+                }
+            }
+        }
     }
 }

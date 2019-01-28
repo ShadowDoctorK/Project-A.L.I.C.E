@@ -262,7 +262,7 @@ namespace ALICE_Objects
              Notes: Values Not Useable For Target Tracking.
              */
 
-            if (ScanStage >= 2)
+            if (Event.ScanStage >= 2)
             {
                 //1. Shield Health
                 if (ShieldHealth != Event.ShieldHealth)
@@ -289,7 +289,7 @@ namespace ALICE_Objects
              Notes: Faction Is The Only Useable Item For Target Tracking.
              */
 
-            if (ScanStage == 3)
+            if (Event.ScanStage == 3)
             {
                 //1. Faction
                 if (Faction != Event.Faction)
@@ -413,18 +413,28 @@ namespace ALICE_Objects
         {
             string MethodName = "Target (Update)";
 
+            //Initial Resets
+            SubsystemArrayStart = "";
+            SubsystemArrayRecord = false;
+            Subsystems.Clear();
+            DeepScan = false;
+            FullScan = true;
+
+            #region Scan Stage 0:
             //Update Targeted Property.
             //This Property Is Updated During The Process Method.
+
+            //Update ScanStage Property
+            ScanStage = Event.ScanStage;
 
             //Update Ship Property.
             Ship = Event.Ship;
 
             //Update Ship Property.
             Ship_Localised = Event.Ship_Localised;
+            #endregion
 
-            //Update ScanStage Property.
-            ScanStage = Event.ScanStage;
-
+            #region Scan Stage 1:
             //Update PilotName Property.
             PilotName = Event.PilotName;
 
@@ -433,13 +443,17 @@ namespace ALICE_Objects
 
             //Update PilotRank Property.
             PilotRank = Event.PilotRank;
+            #endregion
 
+            #region Scan Stage 2:
             //Update ShieldHealth Property.
             ShieldHealth = Event.ShieldHealth;
 
             //Update HullHealth Property.
             HullHealth = Event.HullHealth;
+            #endregion
 
+            #region Scan Stage 3:
             //Update Faction Property.
             Faction = Event.Faction;
 
@@ -457,15 +471,10 @@ namespace ALICE_Objects
 
             //Update SubsystemHealth Property.
             Subsystem.Health = Event.SubsystemHealth;
+            #endregion
 
             //Update Fully Scanned
             if (ScanStage == 3) { FullScan = true; }
-
-            //Resets
-            SubsystemArrayStart = "";
-            SubsystemArrayRecord = false;
-            Subsystems.Clear();
-            DeepScan = false;
 
             Logger.DebugLine(MethodName, "All Target Properties Updated. Fully Scanned: " + FullScan, Logger.Blue);
         }
