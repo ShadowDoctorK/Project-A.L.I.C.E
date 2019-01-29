@@ -34,12 +34,19 @@ namespace ALICE_Settings
         /// <param name="CMDRName">The Commanders Name</param>
         public static void U_Commander(string MethodName, string CMDRName)
         {
+
             //Try Loading Commanders Settings
-            ISettings.User = ISettings.User.Load(CMDRName, MethodName);
+            User = User.Load(CMDRName, MethodName);
+
+            //Check Settings Arn't Null
+            if (User == null) { User = new Settings_User(); }
+
             //Will Update Name If Default Is Returned
-            ISettings.Commander = CMDRName;
+            Commander = CMDRName;
+            User.Commander = CMDRName;
+
             //Saves Settings After Update
-            ISettings.User.Save(MethodName);
+            User.Save(MethodName);
         }
 
         /// <summary>
@@ -97,6 +104,8 @@ namespace ALICE_Settings
         /// </summary>
         public static void Save(this Settings_User S, string MethodName)
         {
+            if (S == null) { return; }
+
             try
             {
                 S.TimeStamp = DateTime.UtcNow;

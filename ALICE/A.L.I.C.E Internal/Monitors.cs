@@ -684,6 +684,8 @@ namespace ALICE_Internal
                 //Track Updates
                 bool Updated = false;
 
+                if (ISettings.User == null) { return Updated; }
+
                 #region PlugIn
                 if (ISettings.User.OffsetFireGroups != ISettings.Toolkit.OffsetFireGroups)
                 {

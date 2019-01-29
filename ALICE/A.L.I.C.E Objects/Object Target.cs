@@ -96,6 +96,24 @@ namespace ALICE_Objects
         {
             string MethodName = "Target (Process)";
 
+            #region Target vs Event Debug Lines
+            Logger.DebugLine(MethodName, "Target Locked: " + Targeted + " | Event: " + Event.TargetLocked, Logger.Yellow);
+            Logger.DebugLine(MethodName, "Scan Stage: " + ScanStage + " | Event: " + Event.ScanStage, Logger.Yellow);
+            Logger.DebugLine(MethodName, "ED Ship: " + Ship + " | Event: " + Event.Ship, Logger.Yellow);
+            Logger.DebugLine(MethodName, "Ship: " + Ship_Localised + " | Event: " + Event.Ship_Localised, Logger.Yellow);
+            Logger.DebugLine(MethodName, "ED Pilot Name: " + PilotName + " | Event: " + Event.PilotName, Logger.Yellow);
+            Logger.DebugLine(MethodName, "PilotName: " + PilotName_Localised + " | Event: " + Event.PilotName_Localised, Logger.Yellow);
+            Logger.DebugLine(MethodName, "Pilot Rank: " + PilotRank + " | Event: " + Event.PilotRank, Logger.Yellow);
+            Logger.DebugLine(MethodName, "Shield Health: " + ShieldHealth + " | Event: " + Event.ShieldHealth, Logger.Yellow);
+            Logger.DebugLine(MethodName, "Hull Health: " + HullHealth + " | Event: " + Event.HullHealth, Logger.Yellow);
+            Logger.DebugLine(MethodName, "Faction: " + Faction + " | Event: " + Event.Faction + " | Full Scan: " + FullScan, Logger.Yellow);
+            Logger.DebugLine(MethodName, "Legal Status: " + LegalStatus + " | Event: " + Event.LegalStatus + " | Full Scan: " + FullScan, Logger.Yellow);
+            Logger.DebugLine(MethodName, "Bounty: " + Bounty + " | Event: " + Event.Bounty + " | Full Scan: " + FullScan, Logger.Yellow);
+            Logger.DebugLine(MethodName, "ED Subsystem: " + Subsystem.NameED + " | Event: " + Event.Subsystem, Logger.Yellow);
+            Logger.DebugLine(MethodName, "Subsystem: " + Subsystem.Name + " | Event: " + Event.Subsystem_Localised, Logger.Yellow);
+            Logger.DebugLine(MethodName, "Subsystem Health: " + Subsystem.Health + " | Event: " + Event.SubsystemHealth, Logger.Yellow);
+            #endregion
+
             #region Scan Stage 0:
             /* 
              1. Target Lock Status
@@ -122,6 +140,9 @@ namespace ALICE_Objects
             {
                 //Extened Logging Entry
                 Logger.Log(MethodName, "Target Locked", Logger.Yellow, true);
+
+                //Set Targeted To False.
+                Targeted = true;
             }
 
             //2. Scan Stage Check
@@ -291,7 +312,7 @@ namespace ALICE_Objects
 
             if (Event.ScanStage == 3)
             {
-                //1. Faction
+                //1. Faction               
                 if (Faction != Event.Faction)
                 {
                     //Faction Should Be Initially Set During Scan Stage 3.
@@ -311,7 +332,7 @@ namespace ALICE_Objects
                     }
                 }
 
-                //2. Legal Status
+                //2. Legal Status               
                 if (LegalStatus != Event.LegalStatus)
                 {
                     //Initial Report
@@ -341,7 +362,7 @@ namespace ALICE_Objects
                     }
                 }
 
-                //3. Bounty
+                //3. Bounty               
                 if (Bounty != Event.Bounty)
                 {
                     //Inital Report
@@ -371,7 +392,7 @@ namespace ALICE_Objects
                     }
                 }
 
-                //4. Subsystem
+                //4. Subsystem               
                 if (Subsystem.NameED != Event.Subsystem)
                 {
                     //Update Properties
@@ -418,7 +439,7 @@ namespace ALICE_Objects
             SubsystemArrayRecord = false;
             Subsystems.Clear();
             DeepScan = false;
-            FullScan = true;
+            FullScan = false;
 
             #region Scan Stage 0:
             //Update Targeted Property.
@@ -475,6 +496,22 @@ namespace ALICE_Objects
 
             //Update Fully Scanned
             if (ScanStage == 3) { FullScan = true; }
+
+            //Logger.DebugLine(MethodName, "Target Locked: " + Targeted, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "Scan Stage: " + ScanStage, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "ED Ship: " + Ship, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "Ship: " + Ship_Localised, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "ED Pilot Name: " + PilotName, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "PilotName: " + PilotName_Localised, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "Pilot Rank: " + PilotRank, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "Shield Health: " + ShieldHealth, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "Hull Health: " + HullHealth, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "Faction: " + Faction, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "Legal Status: " + LegalStatus, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "Bounty: " + Bounty, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "ED Subsystem: " + Subsystem.NameED, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "Subsystem: " + Subsystem.Name, Logger.Yellow);
+            //Logger.DebugLine(MethodName, "Subsystem Health: " + Subsystem.Health, Logger.Yellow);
 
             Logger.DebugLine(MethodName, "All Target Properties Updated. Fully Scanned: " + FullScan, Logger.Blue);
         }

@@ -93,9 +93,10 @@ namespace ALICE_Objects
             {
                 Logger.Exception(MethodName, "Exception " + ex);
                 Logger.Exception(MethodName, "Exception Occured When Updating Ships Information");
-            }               
+            }
 
-            foreach (var Mod in Event.Modules)
+            //Grab The Collection Else Modified Collection Exception Can Occur.
+            var Mods = E.Outfitting; foreach (var Mod in Event.Modules)
             {
                 try
                 {
@@ -113,10 +114,24 @@ namespace ALICE_Objects
                     Temp.Mount = GM.Mount;
 
                     //Update Modules Status
+                    //Adds Module Settings To the EquipmentConfigCollection
                     IEquipment.ModuleStatus(Temp);
 
-                    //Update Outfitting
-                    E.U_Module(Temp);                    
+                    //Update Temp Outfitting Collection
+                    bool N = true; int C = 0; foreach (Module Item in Mods)
+                    {
+                        if (Temp.Slot == Item.Slot)
+                        {
+                            N = false;
+                            Mods[C] = Temp;
+                        }
+                        C++;
+                    }
+
+                    if (N == true)
+                    {
+                        Mods.Add(Temp);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -124,6 +139,8 @@ namespace ALICE_Objects
                     Logger.Exception(MethodName, "Exception Occured When Assigning The Following Slot: " + Mod.Slot + " | Item: " + Mod.Item);
                 }                
             }
+
+            E.Outfitting = Mods;
 
             if (EventTimeStamp < Event.Timestamp)
             {
@@ -450,7 +467,7 @@ namespace ALICE_Objects
 
                 return Temp;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return Temp;
             }
@@ -486,14 +503,86 @@ namespace ALICE_Objects
         public class Equipment
         {
             /// <summary>
+            /// Collection of Equipment Config's
+            /// </summary>
+            public EquipmentConfigCollection Settings = new EquipmentConfigCollection();
+
+            /// <summary>
             /// Current Ships Loadout.
             /// </summary>
             public List<Module> Outfitting = new List<Module>();
 
+            public void Update(Module Module)
+            {
+                bool NewModule = true;
+                int ListNumber = 0;
+
+                foreach (Module Mod in Outfitting)
+                {
+                    if (Module.Slot == Mod.Slot)
+                    {
+                        NewModule = false;
+                        Outfitting[ListNumber] = Module;
+                    }
+                    ListNumber++;
+                }
+
+                if (NewModule == true)
+                {
+                    Outfitting.Add(Module);
+                }
+            }
+
             /// <summary>
-            /// Collection of Equipment Config's
+            /// Returns the entire Outfitting Collection.
             /// </summary>
-            public EquipmentConfigCollection Settings = new EquipmentConfigCollection();
+            /// <returns>Returns a List<Module></returns>
+            public List<Module> Get()
+            {
+                return Outfitting;
+            }
+
+            /// <summary>
+            /// Sets the Outffting Collection to the Passed Value
+            /// </summary>
+            /// <param name="Collection">List<Module> Collection </param>
+            /// <returns>True if Set, False if Not Set</returns>
+            public bool Set(List<Module> Value)
+            {
+                try
+                {
+                    Outfitting = Value;
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            public void Log_ShipsLoadout()
+            {
+                Logger.Simple(" ", Logger.Yellow);
+
+                foreach (var Mod in Outfitting)
+                {
+                    Logger.Simple("Slot: " + Mod.Slot + " | " + Mod.Item, Logger.Yellow);
+                }
+
+                Logger.Simple("Ship Finger Print: " + IObjects.Mothership.I.FingerPrint, Logger.Yellow);
+                Logger.Simple("SHIP LOADOUT REPORT", Logger.Yellow);
+                Logger.Simple(" ", Logger.Yellow);
+            }
+
+            private string GetModuleName(Module M)
+            {
+                string ModuleName = "Module Detected: " + M.Class + M.Rating + " " + M.Name;
+                if (M.Mount != null)
+                {
+                    ModuleName = ModuleName + " (" + M.Mount + ")";
+                }
+                return ModuleName;
+            }
 
             #region Ship Module Variables (Convert To Equipment)
             public bool Auto_Field_Maintenance_Unit = false;
@@ -546,51 +635,6 @@ namespace ALICE_Objects
             public bool Thrusters = false;
             public bool Torpedo_Pylon = false;
             #endregion
-
-            public void U_Module(Module Module)
-            {
-                bool NewModule = true;
-                int ListNumber = 0;
-
-                foreach (Object_Mothership.Module Mod in Outfitting)
-                {
-                    if (Module.Slot == Mod.Slot)
-                    {
-                        NewModule = false;
-                        Outfitting[ListNumber] = Module;
-                    }
-                    ListNumber++;
-                }
-
-                if (NewModule == true)
-                {
-                    Outfitting.Add(Module);
-                }
-            }
-
-            private string GetModuleName(Module M)
-            {
-                string ModuleName = "Module Detected: " + M.Class + M.Rating + " " + M.Name;
-                if (M.Mount != null)
-                {
-                    ModuleName = ModuleName + " (" + M.Mount + ")";
-                }
-                return ModuleName;
-            }
-
-            public void Log_ShipsLoadout()
-            {
-                Logger.Simple(" ", Logger.Yellow);
-
-                foreach (var Mod in Outfitting)
-                {
-                    Logger.Simple("Slot: " + Mod.Slot + " | " + Mod.Item, Logger.Yellow);
-                }
-
-                Logger.Simple("Ship Finger Print: " + IObjects.Mothership.I.FingerPrint, Logger.Yellow);
-                Logger.Simple("SHIP LOADOUT REPORT", Logger.Yellow);
-                Logger.Simple(" ", Logger.Yellow);
-            }
         }
 
         public class Module

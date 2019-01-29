@@ -199,7 +199,7 @@ namespace ALICE_Synthesizer
         {
             string MethodName = "Token Replacement";
 
-            if (TargetText == null && Check.Internal.TriggerEvents(true, MethodName, true) == false)
+            if (TargetText == null && Check.Internal.TriggerEvents(true, MethodName, true))
             { Logger.Log(MethodName, "Token: " + TokenName + " - The Target Text For The Token Was Null.", Logger.Red); return Text; }
             if (Text.Contains(TokenName)) { Text = Text.Replace(TokenName, TargetText); }
             return Text;
