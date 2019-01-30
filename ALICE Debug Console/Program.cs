@@ -16,7 +16,20 @@ namespace ALICE_Debug_Console
             PlugIn.DebugMode = true;
 
             Debug();
-            Thread.Sleep(500000);
+            Thread.Sleep(50000000);
+            Thread.Sleep(50000000);
+            Thread.Sleep(50000000);
+            Thread.Sleep(50000000);
+            Thread.Sleep(50000000);
+            Thread.Sleep(50000000);
+            Thread.Sleep(50000000);
+            Thread.Sleep(50000000);
+            Thread.Sleep(50000000);
+            Thread.Sleep(50000000);
+            Thread.Sleep(50000000);
+            Thread.Sleep(50000000);
+            Thread.Sleep(50000000);
+            Thread.Sleep(50000000);
         }
 
         public static void Debug()

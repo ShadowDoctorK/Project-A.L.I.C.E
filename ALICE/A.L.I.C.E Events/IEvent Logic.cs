@@ -1552,6 +1552,9 @@ namespace ALICE_EventLogic
 
             //Load Firegroup Settings
             ISettings.Firegroup.Load();
+
+            //Save Mothership Data
+            IObjects.Mothership.Save(IObjects.Mothership, MethodName);
         }
 
         public static void MaterialCollected(MaterialCollected Event)

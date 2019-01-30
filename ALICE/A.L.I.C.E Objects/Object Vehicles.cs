@@ -77,8 +77,26 @@ namespace ALICE_Objects
 
             try
             {
+                //Reset Fuel Capacity For New Calulation.
+                switch (IVehicles.Exists(IEquipment.E.Fuel_Tank))
+                {                    
+                    case IEnums.A.Postive:
+                        var Tank = IVehicles.Get(IEquipment.E.Fuel_Tank);
+                        Tank.Capacity = 0;
+                        IVehicles.Set(Tank);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Exception " + ex);
+                Logger.Exception(MethodName, "Exception Occured While Restting Values");
+            }
+
+            try
+            {
                 //Custom Properties
-                I.U_FingerPrint(Event.Event, Event.ShipID, Event.Ship);
+                I.U_FingerPrint(Event.Event, Event.ShipID, Event.Ship);                
 
                 //Event Properties
                 I.U_ShipID(Event.Event, Event.ShipID);
@@ -95,8 +113,7 @@ namespace ALICE_Objects
                 Logger.Exception(MethodName, "Exception Occured When Updating Ships Information");
             }
 
-            //Grab The Collection Else Modified Collection Exception Can Occur.
-            var Mods = E.Outfitting; foreach (var Mod in Event.Modules)
+            foreach (var Mod in Event.Modules)
             {
                 try
                 {
@@ -118,29 +135,19 @@ namespace ALICE_Objects
                     IEquipment.ModuleStatus(Temp);
 
                     //Update Temp Outfitting Collection
-                    bool N = true; int C = 0; foreach (Module Item in Mods)
+                    int Index = E.Exists(Temp); if (Index != -1)
                     {
-                        if (Temp.Slot == Item.Slot)
-                        {
-                            N = false;
-                            Mods[C] = Temp;
-                        }
-                        C++;
+                        E.Outfitting.RemoveAt(Index);                        
                     }
 
-                    if (N == true)
-                    {
-                        Mods.Add(Temp);
-                    }
+                    E.Outfitting.Add(Temp);                    
                 }
                 catch (Exception ex)
                 {
                     Logger.Exception(MethodName, "Exception " + ex);
                     Logger.Exception(MethodName, "Exception Occured When Assigning The Following Slot: " + Mod.Slot + " | Item: " + Mod.Item);
                 }                
-            }
-
-            E.Outfitting = Mods;
+            }          
 
             if (EventTimeStamp < Event.Timestamp)
             {
@@ -270,6 +277,99 @@ namespace ALICE_Objects
                 Logger.Exception(MethodName, "Something Went Wrong And File Was Not Saved.");
             }
         }
+    }
+
+    public class Object_Fighter : Object_VehicleBase
+    {
+
+    }
+
+    public class Object_SRV : Object_VehicleBase
+    {
+
+    }
+
+    public class Object_VehicleBase : Object_Base
+    {
+        /// <summary>
+        /// Vehicle Equipment Status
+        /// </summary>
+        public Equipment E = new Equipment();
+
+        /// <summary>
+        /// Vehicle Cargo Status
+        /// </summary>
+        public Status_Cargo C = new Status_Cargo();
+
+        /// <summary>
+        /// Vehcile Fule Status
+        /// </summary>
+        public Status_Fuel F = new Status_Fuel();
+
+        #region Base Save/Load Methods
+        /// <summary>
+        /// Generic Loader for Deserializing JSON settings.
+        /// </summary>
+        /// <typeparam name="T">Object Type</typeparam>
+        /// <param name="FileName">The name of the target file.</param>
+        /// <param name="FilePath">The path of the target file. Default Path is the Settings Folder.</param>
+        /// <returns></returns>
+        public static object LoadValues<T>(string FileName, string FilePath = null)
+        {
+            T Temp = default(T);
+            if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
+            if (FileName == null) { return null; }
+
+            FileStream FS = null;
+            try
+            {
+                if (File.Exists(FilePath + FileName))
+                {
+                    FS = new FileStream(FilePath + FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    using (StreamReader SR = new StreamReader(FS))
+                    {
+                        while (!SR.EndOfStream)
+                        {
+                            string Line = SR.ReadLine();
+                            Temp = JsonConvert.DeserializeObject<T>(Line);
+                        }
+                    }
+                }
+
+                return Temp;
+            }
+            catch (Exception ex)
+            {
+                return Temp;
+            }
+            finally
+            {
+                if (FS != null)
+                { FS.Dispose(); }
+            }
+        }
+
+        /// <summary>
+        /// Generic Saver for Serializing object settings to JSON.
+        /// </summary>
+        /// <typeparam name="T">Object Type</typeparam>
+        /// <param name="Settings">The Object</param>
+        /// <param name="FileName">The name of the target file.</param>
+        /// <param name="FilePath">The path of the target file. Default Path is the Settings Folder.</param>
+        public static void SaveValues<T>(object Settings, string FileName, string FilePath = null)
+        {
+            if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
+
+            using (FileStream FS = new FileStream(FilePath + FileName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            {
+                using (StreamWriter file = new StreamWriter(FS))
+                {
+                    var Line = JsonConvert.SerializeObject((T)Settings);
+                    file.WriteLine(Line);
+                }
+            }
+        }
+        #endregion
 
         public class Information
         {
@@ -406,99 +506,6 @@ namespace ALICE_Objects
             }
             #endregion
         }
-    }
-
-    public class Object_Fighter : Object_VehicleBase
-    {
-
-    }
-
-    public class Object_SRV : Object_VehicleBase
-    {
-
-    }
-
-    public class Object_VehicleBase : Object_Base
-    {
-        /// <summary>
-        /// Vehicle Equipment Status
-        /// </summary>
-        public Equipment E = new Equipment();
-
-        /// <summary>
-        /// Vehicle Cargo Status
-        /// </summary>
-        public Status_Cargo C = new Status_Cargo();
-
-        /// <summary>
-        /// Vehcile Fule Status
-        /// </summary>
-        public Status_Fuel F = new Status_Fuel();
-
-        #region Base Save/Load Methods
-        /// <summary>
-        /// Generic Loader for Deserializing JSON settings.
-        /// </summary>
-        /// <typeparam name="T">Object Type</typeparam>
-        /// <param name="FileName">The name of the target file.</param>
-        /// <param name="FilePath">The path of the target file. Default Path is the Settings Folder.</param>
-        /// <returns></returns>
-        public static object LoadValues<T>(string FileName, string FilePath = null)
-        {
-            T Temp = default(T);
-            if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
-            if (FileName == null) { return null; }
-
-            FileStream FS = null;
-            try
-            {
-                if (File.Exists(FilePath + FileName))
-                {
-                    FS = new FileStream(FilePath + FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    using (StreamReader SR = new StreamReader(FS))
-                    {
-                        while (!SR.EndOfStream)
-                        {
-                            string Line = SR.ReadLine();
-                            Temp = JsonConvert.DeserializeObject<T>(Line);
-                        }
-                    }
-                }
-
-                return Temp;
-            }
-            catch (Exception ex)
-            {
-                return Temp;
-            }
-            finally
-            {
-                if (FS != null)
-                { FS.Dispose(); }
-            }
-        }
-
-        /// <summary>
-        /// Generic Saver for Serializing object settings to JSON.
-        /// </summary>
-        /// <typeparam name="T">Object Type</typeparam>
-        /// <param name="Settings">The Object</param>
-        /// <param name="FileName">The name of the target file.</param>
-        /// <param name="FilePath">The path of the target file. Default Path is the Settings Folder.</param>
-        public static void SaveValues<T>(object Settings, string FileName, string FilePath = null)
-        {
-            if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
-
-            using (FileStream FS = new FileStream(FilePath + FileName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-            {
-                using (StreamWriter file = new StreamWriter(FS))
-                {
-                    var Line = JsonConvert.SerializeObject((T)Settings);
-                    file.WriteLine(Line);
-                }
-            }
-        }
-        #endregion
 
         public class Equipment
         {
@@ -531,6 +538,22 @@ namespace ALICE_Objects
                 {
                     Outfitting.Add(Module);
                 }
+            }
+
+            public int Exists(Module Module)
+            {
+                int ListNumber = 0;
+
+                foreach (Module Mod in Outfitting)
+                {
+                    if (Module.Slot == Mod.Slot)
+                    {
+                        return ListNumber;
+                    }
+                    ListNumber++;
+                }
+
+                return -1;
             }
 
             /// <summary>

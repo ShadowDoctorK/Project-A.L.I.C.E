@@ -32,11 +32,11 @@ namespace ALICE_Status
         public bool HalfThreshold = false;
         public bool Report = false;
         public decimal ScoopStartLv { get; set; }
-        public decimal Capacity { get; set; }
         public decimal Main { get; set; }
         public decimal Reservoir { get; set; }
         public decimal Scooped { get; set; }
         public readonly decimal SRVCapacity = 0.45M;
+        public decimal Capacity { get => GetCapcity(); }
 
         public Status_Fuel() { }
 
@@ -96,9 +96,15 @@ namespace ALICE_Status
             else
             { return Decimal.Round(ScoopingDiff(), Decimals).ToString(); }
         }
-        #endregion        
+        #endregion
 
         #region Support Methods
+
+        public decimal GetCapcity()
+        {
+            return IVehicles.Get(IEquipment.E.Fuel_Tank).Capacity;            
+        }
+
         public decimal GetPercent()
         {
             string MethodName = "Fuel Percent";

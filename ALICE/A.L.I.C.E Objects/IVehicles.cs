@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ALICE_Core;
 using ALICE_Internal;
+using ALICE_Status;
 
 namespace ALICE_Objects
 {
@@ -28,6 +29,8 @@ namespace ALICE_Objects
             set => Set(value);
         }
 
+        public static Status_Fuel Fuel = new Status_Fuel();
+
         public static Checks C = new Checks();
 
         #region Support Methods  
@@ -43,7 +46,7 @@ namespace ALICE_Objects
                 //Set Value;
                 _Vehicle = Value;
 
-                //Update Equipment
+                #region Update Equipment
                 IEquipment.CompositeScanner.GetSettings();
                 IEquipment.DiscoveryScanner.GetSettings();
                 IEquipment.DockingComputer.GetSettings();
@@ -67,7 +70,12 @@ namespace ALICE_Objects
                 IEquipment.SurfaceScanner.GetSettings();
                 IEquipment.WakeScanner.GetSettings();
                 IEquipment.XenoScanner.GetSettings();
-            }           
+                #endregion
+
+                #region Update Fuel Status
+
+                #endregion
+            }
         }
 
         #region Fuel Status Methods
@@ -190,13 +198,13 @@ namespace ALICE_Objects
                     if (Temp.Equipment == IEquipment.E.Default)
                     {
                         //Debug Logger
-                        //Logger.DebugLine(MethodName, Vehicle + ": Returning Default Config", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Vehicle + ": " + Equip + " Check Returned Default Config", Logger.Blue);
                     }
                     //Equipment Setting Were Returned.
                     else
                     {
                         //Debug Logger
-                        //Logger.DebugLine(MethodName, Vehicle + ": Returning " + Equip + " Config", Logger.Blue);
+                        Logger.DebugLine(MethodName, Vehicle + ": Returning " + Equip + " Config", Logger.Blue);
                     }
                     
                     //Return Settings
@@ -282,13 +290,13 @@ namespace ALICE_Objects
                     if (Temp)
                     {
                         //Debug Logger
-                        //Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Saved", Logger.Blue);
+                        Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Saved", Logger.Blue);
                     }
                     //Settings Not Saved
                     else
                     {
                         //Debug Logger
-                        //Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Failed To Saved", Logger.Blue);
+                        Logger.DebugLine(MethodName, Vehicle + ": " + C.Equipment + " Config Failed To Saved", Logger.Blue);
                     }
 
                     //Return True / False

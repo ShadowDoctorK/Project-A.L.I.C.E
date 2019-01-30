@@ -539,8 +539,16 @@ namespace ALICE_Core
 
                 //Customized
                 case E.Fuel_Tank:
-                    decimal Capacity = FuelTank.Capacity + Convert.ToDecimal(Mod.Capacity);
-                    FuelTank.U_Capacity(MethodName, Capacity);
+                    //Update Default Value From -1 To 0 For Calulation.
+                    if (Temp.Capacity == -1) { Temp.Capacity = 0; }
+
+                    Temp.Equipment = Equip;
+                    Temp.Installed = true;
+                    Temp.Capacity = Temp.Capacity + Convert.ToDecimal(Mod.Capacity);
+
+                    //Update Fuel Capacity
+                    FuelTank.U_Capacity(MethodName, Temp.Capacity);
+
                     Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
@@ -1435,7 +1443,7 @@ namespace ALICE_Core
                     case IEnums.A.Postive:
 
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Equip + " Settings Found, Returning Settings", Logger.Yellow);
+                        //Logger.DebugLine(MethodName, Equip + " Settings Found, Returning Settings", Logger.Yellow);
 
                         //Return Equipment Settings
                         return Collection[Equip];
@@ -1443,7 +1451,7 @@ namespace ALICE_Core
                     case IEnums.A.Negative:
 
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Equip + " Settings Did Not Exist, Returning Default Settings", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Equip + " Settings Did Not Exist, Returning Default Settings", Logger.Blue);
 
                         //Return Default Settings
                         return new EquipmentConfig();
