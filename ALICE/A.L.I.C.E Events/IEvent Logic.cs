@@ -176,24 +176,8 @@ namespace ALICE_EventLogic
             if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
             if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
 
-            switch (IVehicles.Vehicle)
-            {
-                case IVehicles.V.Mothership:
-                    IObjects.Mothership.F.Critical = true;
-                    IObjects.Mothership.F.FuelCritical(true);
-                    break;
-
-                case IVehicles.V.Fighter:
-                    break;
-
-                case IVehicles.V.SRV:
-                    IObjects.SRV.F.Critical = true;
-                    IObjects.SRV.F.FuelCritical(true);
-                    break;
-
-                default:
-                    return;
-            }
+            IEquipment.FuelTank.Critical = true;
+            IEquipment.FuelTank.FuelCritical(true);
         }
 
         public static void FuelLow(FuelLow Event)
@@ -203,24 +187,8 @@ namespace ALICE_EventLogic
             if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
             if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
 
-            switch (IVehicles.Vehicle)
-            {
-                case IVehicles.V.Mothership:
-                    IObjects.Mothership.F.Low = true;
-                    IObjects.Mothership.F.FuelLow(true);
-                    break;
-
-                case IVehicles.V.Fighter:
-                    break;
-
-                case IVehicles.V.SRV:
-                    IObjects.SRV.F.Low = true;
-                    IObjects.SRV.F.FuelLow(true);
-                    break;
-
-                default:
-                    return;
-            }
+            IEquipment.FuelTank.Low = true;
+            IEquipment.FuelTank.FuelLow(true);
         }
 
         public static void FuelHalfThreshold(FuelHalfThreshold Event)
@@ -230,26 +198,10 @@ namespace ALICE_EventLogic
             if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
             if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
 
+            IEquipment.FuelTank.HalfThreshold = true;
+
             //Notes: Commented Out Audio Due To Main Audio Playing Twice.            
-
-            //switch (IVehicles.Vehicle)
-            //{
-            //    case IVehicles.V.Mothership:
-            //        IObjects.Mothership.F.HalfThreshold = true;
-            //        IObjects.Mothership.F.FuelHalf(true, Check.Report.FuelStatus(true, MethodName));
-            //        break;
-
-            //    case IVehicles.V.Fighter:
-            //        break;
-
-            //    case IVehicles.V.SRV:
-            //        IObjects.SRV.F.HalfThreshold = true;
-            //        IObjects.SRV.F.FuelHalf(true, Check.Report.FuelStatus(true, MethodName));
-            //        break;
-
-            //    default:
-            //        return;
-            //}
+            //IEquipment.FuelTank.FuelHalf(true);
         }
 
         public static void NoFireZone(NoFireZone Event)
@@ -1226,7 +1178,7 @@ namespace ALICE_EventLogic
             IObjects.Status.WeaponSafety = false;
             IStatus.Planet.OrbitalMode = false;
             IStatus.Planet.DecentReport = false;
-            IObjects.Mothership.F.ScoopingReset();
+            IEquipment.FuelTank.ScoopingReset();
 
             Call.Panel.Comms.Open = false;
             Call.Panel.System.Open = false;
@@ -1278,7 +1230,8 @@ namespace ALICE_EventLogic
             string MethodName = "Logic FuelScoop";
 
             //Only Report If Scoop Is Enabled && Tank Is Full
-            if (IObjects.Mothership.F.GetPercent() == 100) { IObjects.Mothership.F.ReportScooping(MethodName); }            
+            if (IEquipment.FuelTank.GetPercent() == 100)
+            { IEquipment.FuelTank.ReportScooping(MethodName); }            
         }
 
         public static void HeatDamage(HeatDamage Event)
@@ -1452,25 +1405,14 @@ namespace ALICE_EventLogic
             ISettings.Firegroup.Load();
 
             //Update Fuel Status
-            switch (IVehicles.Vehicle)
-            {
-                case IVehicles.V.Mothership:
-                    IObjects.Mothership.F.Update(Event);
-                    break;
-                case IVehicles.V.Fighter:
-                    break;
-                case IVehicles.V.SRV:
-                    IObjects.SRV.F.Update(Event);
-                    break;
-                default:
-                    break;
-            }
+            IEquipment.FuelTank.Update(Event);
         }
 
         public static void Loadout(Loadout Event)
         {
             string MethodName = "Logic Loadout";
 
+            #region Load Mothership
             Data.ShipModules.Clear();
 
             //Vehicle Check
@@ -1524,12 +1466,8 @@ namespace ALICE_EventLogic
                     //Update Object Data
                     IObjects.Mothership.Update(Event);
 
-                    //Save Data Only If Event Data Is Newer The Object Data
-                    if (IObjects.Mothership.EventTimeStamp == Event.Timestamp)
-                    {
-                        //Save Mothership Data.
-                        new Object_Mothership().Save(IObjects.Mothership, MethodName);
-                    }
+                    //Save Mothership Data.
+                    new Object_Mothership().Save(IObjects.Mothership, MethodName);
 
                     break;
                 case IVehicles.V.Fighter:
@@ -1548,13 +1486,15 @@ namespace ALICE_EventLogic
                 Miscellanous.Default.Save();
             }
 
-            Logger.Log(MethodName, "Loaded " + IObjects.Mothership.I.FingerPrint, Logger.Purple);            
+            //Update Equipment Settings.           
+            IVehicles.PullEquipmentSettings();
+
+            //Log Mothership Load
+            Logger.Log(MethodName, "Loaded " + IObjects.Mothership.I.FingerPrint, Logger.Purple);
+            #endregion
 
             //Load Firegroup Settings
             ISettings.Firegroup.Load();
-
-            //Save Mothership Data
-            IObjects.Mothership.Save(IObjects.Mothership, MethodName);
         }
 
         public static void MaterialCollected(MaterialCollected Event)
@@ -2157,8 +2097,8 @@ namespace ALICE_EventLogic
             #endregion
 
             #region Fuel Reports
-            Logger.Log(MethodName, "Fuel Levels At " + decimal.Round(IObjects.Mothership.F.GetPercent(), 2).ToString() + " Percent", Logger.Blue);
-            if (Check.Report.FuelStatus(true, MethodName) == true) { IObjects.Mothership.F.Report = true; }
+            Logger.Log(MethodName, "Fuel Levels At " + decimal.Round(IEquipment.FuelTank.GetPercent(), 2).ToString() + " Percent", Logger.Blue);
+            if (Check.Report.FuelStatus(true, MethodName) == true) { IEquipment.FuelTank.Report = true; }
             #endregion
 
             //System Report. Security, Allegiance, ect...

@@ -387,9 +387,9 @@ namespace ALICE_Internal
                         FireGroup = Call.Firegroup.Current;
                         Updates.Add("(" + MethodName + ") FireGroup = " + FireGroup);
                     }
-                    if (Fuel != IVehicles.GetFuelMain())
+                    if (Fuel != IEquipment.FuelTank.Main)
                     {
-                        Fuel = IVehicles.GetFuelMain();
+                        Fuel = IEquipment.FuelTank.Main;
                         Updates.Add("(" + MethodName + ") Fuel = " + Fuel);
                     }
                     if (CargoMass != IObjects.Status.CargoMass)

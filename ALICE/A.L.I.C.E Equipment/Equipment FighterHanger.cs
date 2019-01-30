@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ALICE_Core;
 using ALICE_Internal;
+using ALICE_Objects;
 using ALICE_Synthesizer;
 
 namespace ALICE_Equipment
@@ -24,7 +25,7 @@ namespace ALICE_Equipment
         public Equipment_FighterHanger New() { return new Equipment_FighterHanger(); }
 
         #region Audio
-        
+
         #endregion
     }
 }

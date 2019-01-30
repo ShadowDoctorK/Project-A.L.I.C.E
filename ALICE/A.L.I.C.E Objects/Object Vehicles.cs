@@ -33,8 +33,7 @@ namespace ALICE_Objects
         {
             I = new Information();
             E = new Equipment();
-            C = new Status_Cargo();
-            F = new Status_Fuel();            
+            C = new Status_Cargo();           
         }
 
         /// <summary>
@@ -46,7 +45,6 @@ namespace ALICE_Objects
             I = new Information();
             E = new Equipment();
             C = new Status_Cargo();
-            F = new Status_Fuel();
         }
 
         public void Update(LoadGame Event)
@@ -300,11 +298,6 @@ namespace ALICE_Objects
         /// Vehicle Cargo Status
         /// </summary>
         public Status_Cargo C = new Status_Cargo();
-
-        /// <summary>
-        /// Vehcile Fule Status
-        /// </summary>
-        public Status_Fuel F = new Status_Fuel();
 
         #region Base Save/Load Methods
         /// <summary>

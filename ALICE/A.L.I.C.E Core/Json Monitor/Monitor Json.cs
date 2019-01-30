@@ -503,17 +503,17 @@ namespace ALICE_Monitors
                     IObjects.Status.FuelScooping = true;
                     Value.Flags = Value.Flags - 2048;
 
-                    if (IObjects.Mothership.F.ScoopingCommenced == false && Settings.Initialized)
-                    { IObjects.Mothership.F.ReportScooping(MethodName); }
+                    if (IEquipment.FuelTank.ScoopingCommenced == false && Settings.Initialized)
+                    { IEquipment.FuelTank.ReportScooping(MethodName); }
                 }
                 else
                 {
                     IObjects.Status.FuelScooping = false;
-                    if (IObjects.Mothership.F.ScoopingCommenced == true && Settings.Initialized)
-                    { IObjects.Mothership.F.ReportScooping(MethodName); }
+                    if (IEquipment.FuelTank.ScoopingCommenced == true && Settings.Initialized)
+                    { IEquipment.FuelTank.ReportScooping(MethodName); }
                     //Reset variables once we finish scooping.
-                    if (IObjects.Mothership.F.ScoopingCompleted == true && Settings.Initialized)
-                    { Thread.Sleep(100); IObjects.Mothership.F.ScoopingReset(); }
+                    if (IEquipment.FuelTank.ScoopingCompleted == true && Settings.Initialized)
+                    { Thread.Sleep(100); IEquipment.FuelTank.ScoopingReset(); }
                 }
                 #endregion
 
@@ -786,7 +786,7 @@ namespace ALICE_Monitors
                 IObjects.Status.Heading = Value.Heading;
                 IObjects.Status.CargoMass = Value.Cargo;
 
-                IVehicles.SetFuelLevels(Value.Fuel);
+                IEquipment.FuelTank.Update(Value.Fuel);                
 
                 //End: Logic Processor: Status
                 #endregion

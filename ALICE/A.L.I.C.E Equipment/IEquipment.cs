@@ -546,9 +546,6 @@ namespace ALICE_Core
                     Temp.Installed = true;
                     Temp.Capacity = Temp.Capacity + Convert.ToDecimal(Mod.Capacity);
 
-                    //Update Fuel Capacity
-                    FuelTank.U_Capacity(MethodName, Temp.Capacity);
-
                     Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
@@ -1193,6 +1190,11 @@ namespace ALICE_Core
 
         public delegate bool WaitHandler();      //Allows Passing A Common WaitHandler Deleage.
 
+        public void GetSettings()
+        {
+            Settings = IVehicles.Get(Settings);
+        }
+
         #region Watcher
         //Default Watcher / Catch Report. This Allows use of a Common WaitHandler property to be used
         //across all the equipment that requires a Completion check. Override The Watcher Method as required.
@@ -1378,11 +1380,6 @@ namespace ALICE_Core
         #endregion
 
         #region Utilities
-        public virtual void GetSettings()
-        {
-            Settings = IVehicles.Get(Settings.Equipment);
-        }
-
         public bool Check_Variable(bool TargetState, string MethodName, bool State, string Variable, bool DisableDebug = false, bool Answer = true)
         {
             string DebugText = Variable + " Check Equals Expected State (" + TargetState + ")";

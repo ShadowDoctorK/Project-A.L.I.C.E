@@ -1276,18 +1276,7 @@ namespace ALICE_Interface
                     }
                     else if (Command.Check("Status"))
                     {
-                        switch (IVehicles.Vehicle)
-                        {                            
-                            case IVehicles.V.Mothership:
-                                IObjects.Mothership.F.FuelLevel(true);
-                                break;
-                            case IVehicles.V.Fighter:
-                                IObjects.Fighter.F.FuelLevel(true);
-                                break;
-                            case IVehicles.V.SRV:
-                                IObjects.SRV.F.FuelLevel(true);
-                                break;                            
-                        }                       
+                        IEquipment.FuelTank.FuelLevel(true);
                     }
                 }
             }

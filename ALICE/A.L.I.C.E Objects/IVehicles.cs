@@ -26,150 +26,158 @@ namespace ALICE_Objects
         public static V Vehicle
         {
             get => _Vehicle;
-            set => Set(value);
-        }
+            set
+            {
+                if (_Vehicle != value)
+                {
+                    //Set Value;
+                    _Vehicle = value;
 
-        public static Status_Fuel Fuel = new Status_Fuel();
+                    //Update Equipment Settings
+                    PullEquipmentSettings();
+                }
+            }
+        }
 
         public static Checks C = new Checks();
 
         #region Support Methods  
 
-        /// <summary>
-        /// Updates the Private Property _Vechile, Then Updates the Equipment Settings To Match.
-        /// </summary>
-        /// <param name="Value">The Value Being Set</param>
-        private static void Set(V Value)
+        public static void PullEquipmentSettings()
         {
-            if (_Vehicle != Value)
-            {
-                //Set Value;
-                _Vehicle = Value;
-
-                #region Update Equipment
-                IEquipment.CompositeScanner.GetSettings();
-                IEquipment.DiscoveryScanner.GetSettings();
-                IEquipment.DockingComputer.GetSettings();
-                IEquipment.ExternalLights.GetSettings();
-                IEquipment.ElectronicCountermeasure.GetSettings();
-                IEquipment.FighterHanger.GetSettings();
-                IEquipment.FrameShiftDrive.GetSettings();
-                IEquipment.FSDInterdictor.GetSettings();
-                IEquipment.FuelTank.GetSettings();
-                IEquipment.LimpetCollector.GetSettings();
-                IEquipment.LimpetDecontamination.GetSettings();
-                IEquipment.LimpetHatchBreaker.GetSettings();
-                IEquipment.LimpetFuel.GetSettings();
-                IEquipment.LimpetProspector.GetSettings();
-                IEquipment.LimpetRecon.GetSettings();
-                IEquipment.LimpetRepair.GetSettings();
-                IEquipment.LimpetResearch.GetSettings();
-                IEquipment.PulseWaveScanner.GetSettings();
-                IEquipment.ShieldCellBank.GetSettings();
-                IEquipment.ShutdownFieldNeutraliser.GetSettings();
-                IEquipment.SurfaceScanner.GetSettings();
-                IEquipment.WakeScanner.GetSettings();
-                IEquipment.XenoScanner.GetSettings();
-                #endregion
-
-                #region Update Fuel Status
-
-                #endregion
-            }
+            IEquipment.CompositeScanner.GetSettings();
+            IEquipment.DiscoveryScanner.GetSettings();
+            IEquipment.DockingComputer.GetSettings();
+            IEquipment.ExternalLights.GetSettings();
+            IEquipment.ElectronicCountermeasure.GetSettings();
+            IEquipment.FighterHanger.GetSettings();
+            IEquipment.FrameShiftDrive.GetSettings();
+            IEquipment.FSDInterdictor.GetSettings();
+            IEquipment.FuelTank.GetSettings();
+            IEquipment.LimpetCollector.GetSettings();
+            IEquipment.LimpetDecontamination.GetSettings();
+            IEquipment.LimpetHatchBreaker.GetSettings();
+            IEquipment.LimpetFuel.GetSettings();
+            IEquipment.LimpetProspector.GetSettings();
+            IEquipment.LimpetRecon.GetSettings();
+            IEquipment.LimpetRepair.GetSettings();
+            IEquipment.LimpetResearch.GetSettings();
+            IEquipment.PulseWaveScanner.GetSettings();
+            IEquipment.ShieldCellBank.GetSettings();
+            IEquipment.ShutdownFieldNeutraliser.GetSettings();
+            IEquipment.SurfaceScanner.GetSettings();
+            IEquipment.WakeScanner.GetSettings();
+            IEquipment.XenoScanner.GetSettings();
         }
-
-        #region Fuel Status Methods
-        /// <summary>
-        /// Gets the Current Vehicles Main Fuel Tank Level.
-        /// </summary>
-        /// <returns>Fuel Level</returns>
-        public static decimal GetFuelMain()
-        {
-            decimal Temp = -1; switch (Vehicle)
-            {
-                case V.Mothership:
-                    Temp = IObjects.Mothership.F.Main;
-                    break;
-                case V.Fighter:
-                    Temp = IObjects.Fighter.F.Main;
-                    break;
-                case V.SRV:
-                    Temp = IObjects.SRV.F.Main;
-                    break;
-                default:
-                    break;
-            }
-            return Temp;
-        }
-
-        /// <summary>
-        /// Sets the Current Vehicles Main Fuel Tank Level.
-        /// </summary>        
-        public static void SetFuelMain(decimal Value)
-        {
-            switch (Vehicle)
-            {
-                case V.Mothership:
-                    IObjects.Mothership.F.Main = Value;
-                    break;
-                case V.Fighter:
-                    IObjects.Fighter.F.Main = Value;
-                    break;
-                case V.SRV:
-                    IObjects.SRV.F.Main = Value;
-                    break;
-                default:
-                    break;
-            }            
-        }
-
-        /// <summary>
-        /// Sets the Current Vehicles Fuel Reservoir Level.
-        /// </summary>        
-        public static void SetFuelReservoir(decimal Value)
-        {
-            switch (Vehicle)
-            {
-                case V.Mothership:
-                    IObjects.Mothership.F.Reservoir = Value;
-                    break;
-                case V.Fighter:
-                    IObjects.Fighter.F.Reservoir = Value;
-                    break;
-                case V.SRV:
-                    IObjects.SRV.F.Reservoir = Value;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Method used by the Json Reader to Update Fuel Levels.
-        /// </summary>
-        /// <param name="Value">FuelInfo Object</param>
-        public static void SetFuelLevels(ALICE_Events.FuelInfo Value)
-        {
-            switch (Vehicle)
-            {
-                case V.Mothership:
-                    IObjects.Mothership.F.Update(Value);
-                    break;
-                case V.Fighter:
-                    IObjects.Fighter.F.Update(Value);
-                    break;
-                case V.SRV:
-                    IObjects.SRV.F.Update(Value);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        //End: Fuel Status Methods
-        #endregion
 
         #region Equipment Config Methods
+        /// <summary>
+        /// Will get the Target Equipment Config based on the Current Vehicle
+        /// </summary>
+        /// <param name="Equip">Target Equipment</param>
+        /// <returns>Will Return the Equipment's settings, or Default if it doesn't exist.</returns>
+        public static EquipmentConfig Get(EquipmentConfig Config)
+        {
+            string MethodName = "Vehcile Interface (Get Equipment Config)";
+
+            EquipmentConfig Temp = new EquipmentConfig(); switch (Vehicle)
+            {
+                case V.Default:
+
+                    //Debug Logger
+                    Logger.DebugLine(MethodName, "Vehcile Has Not Been Set, Returning Default Config", Logger.Blue);
+
+                    //Return Default Config Settings
+                    return Config;
+
+                case V.Mothership:
+
+                    //Get Settings From Mothership
+                    Temp = IObjects.Mothership.E.Settings.Get(Config.Equipment);
+
+                    if (Temp.Equipment != IEquipment.E.Default)
+                    {
+                        Config = Temp;
+                    }
+
+                    //Check If Default Settings Were Returned.
+                    if (Temp.Equipment == IEquipment.E.Default)
+                    {
+                        //Debug Logger
+                        //Logger.DebugLine(MethodName, Vehicle + ": " + Equip + " Check Returned Default Config", Logger.Blue);
+                    }
+                    //Equipment Setting Were Returned.
+                    else
+                    {
+                        //Debug Logger
+                        Logger.DebugLine(MethodName, Vehicle + ": Returning " + Config.Equipment + " Config", Logger.Blue);
+                    }
+                    
+                    //Return Settings
+                    return Config;
+                    
+                case V.Fighter:
+
+                    //Get Settings From Mothership
+                    Temp = IObjects.Fighter.E.Settings.Get(Config.Equipment);
+
+                    if (Temp.Equipment != IEquipment.E.Default)
+                    {
+                        Config = Temp;
+                    }
+
+                    //Check If Default Settings Were Returned.
+                    if (Temp.Equipment == IEquipment.E.Default)
+                    {
+                        //Debug Logger
+                        //Logger.DebugLine(MethodName, Vehicle + ": Returning Default Config", Logger.Blue);
+                    }
+                    //Equipment Setting Were Returned.
+                    else
+                    {
+                        //Debug Logger
+                        //Logger.DebugLine(MethodName, Vehicle + ": Returning " + Equip + " Config", Logger.Blue);
+                    }
+
+                    //Return Settings
+                    return Config;
+
+                case V.SRV:
+
+                    //Get Settings From Mothership
+                    Temp = IObjects.SRV.E.Settings.Get(Config.Equipment);
+
+                    if (Temp.Equipment != IEquipment.E.Default)
+                    {
+                        Config = Temp;
+                    }
+
+                    //Check If Default Settings Were Returned.
+                    if (Temp.Equipment == IEquipment.E.Default)
+                    {
+                        //Debug Logger
+                        //Logger.DebugLine(MethodName, Vehicle + ": Returning Default Config", Logger.Blue);
+                    }
+                    //Equipment Setting Were Returned.
+                    else
+                    {
+                        //Debug Logger
+                        //Logger.DebugLine(MethodName, Vehicle + ": Returning " + Equip + " Config", Logger.Blue);
+                    }
+
+                    //Return Settings
+                    return Config;
+
+                default:
+
+                    //Debug Logger
+                    Logger.Error(MethodName, "Returned Using The Default Swtich, Returning Default Config", Logger.Blue);
+
+                    //Return Default Config Settings
+                    return Config;
+            }
+        }
+
         /// <summary>
         /// Will get the Target Equipment Config based on the Current Vehicle
         /// </summary>
@@ -206,10 +214,10 @@ namespace ALICE_Objects
                         //Debug Logger
                         Logger.DebugLine(MethodName, Vehicle + ": Returning " + Equip + " Config", Logger.Blue);
                     }
-                    
+
                     //Return Settings
                     return Temp;
-                    
+
                 case V.Fighter:
 
                     //Get Settings From Mothership
