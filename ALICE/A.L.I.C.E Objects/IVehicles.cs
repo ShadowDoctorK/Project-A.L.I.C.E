@@ -40,8 +40,6 @@ namespace ALICE_Objects
             }
         }
 
-        public static Checks C = new Checks();
-
         #region Support Methods  
 
         /// <summary>
@@ -503,10 +501,5 @@ namespace ALICE_Objects
 
         //End: Support Methods
         #endregion
-
-        public class Checks
-        {
-
-        }
     }
 }
