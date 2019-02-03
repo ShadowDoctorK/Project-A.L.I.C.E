@@ -1172,7 +1172,7 @@ namespace ALICE_Core
                 default:
                     if (Data.ModulesIgnoreCheck(Mod.Item) == false)
                     {
-                        Logger.DevUpdateLog(MethodName, "New Module Group Detected: " + Mod.Item, Logger.Red, true);
+                        Logger.DevUpdateLog(MethodName, "New Module Group Detected: " + Mod.Item, Logger.Yellow, true);
                     }
                     break;
             }

@@ -88,7 +88,7 @@ namespace ALICE_Interface
                         Answer = ProxyObject.CommandExists(Command);
                         break;
 
-                    case Interfaces.VoiceMacro:
+                    case Interfaces.VoiceMacro:                      
                         break;
 
                     default:

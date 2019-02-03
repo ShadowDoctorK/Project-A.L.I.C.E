@@ -34,6 +34,7 @@ namespace ALICE_Monitors
                 AutoRestart = A;
             }
         }
+
         public class LogFile
         {
             public FileInfo File = null;
@@ -176,21 +177,53 @@ namespace ALICE_Monitors
                                     //{ "timestamp":"2018-10-08T16:11:50Z", "event":"ApproachSettlement", 
                                     Journal.EventName = Journal.Line.Substring(47, RawLine.IndexOf("\"", 47) - 47);
                                     
-                                    //Check Event & Type Exists
+                                    //Check Event & Type Exists, Increase EventCount
                                     switch (IEvents.Types.Exists(EventName))
                                     {
+                                        //Event Exists, Convert Enum
                                         case IEvents.EventType.A.Pass:
+
+                                            //Enum Conversion
                                             E = IEnums.ToEnum<IEnums.Events>(EventName);
+
+                                            //Debug Logger
                                             Logger.DebugLine(MethodName, E + "Event Converted", Logger.Blue);
+
+                                            //Increase Event Count
+                                            EventCount++;
+
                                             break;
+
+                                        //Event Does Not Exist, 
                                         case IEvents.EventType.A.Fail:
+
+                                            //Log & Record Event To Developer Log
                                             Logger.DevUpdateLog(MethodName, "(" + EventName + ") New or Untracked Event Found", Logger.Purple);
+
+                                            //Increase Event Count
+                                            EventCount++;
+
                                             break;
+
+                                        //Checking The Event Returned A Error
                                         case IEvents.EventType.A.Error:
+
+                                            //Log Error
                                             Logger.Error(MethodName, "An Error Was Detected While Procssing " + EventName, Logger.Red);
+
+                                            //Increase Event Count
+                                            EventCount++;
+
                                             break;
+
                                         default:
+
+                                            //Error Logger
                                             Logger.Error(MethodName, "Returned Using The Default Switch", Logger.Red);
+
+                                            //Increase Event Count
+                                            EventCount++;
+
                                             break;
                                     }
                                 }
@@ -202,9 +235,13 @@ namespace ALICE_Monitors
 
                                 try
                                 {
+                                    //Deserialize Valid Events
                                     if (E != IEnums.Events.None)
                                     {
+                                        //Deserialize
                                         var Event = Deserialize(Journal.Line, IEvents.Types.GetType(E));
+
+                                        //Update Event Collection
                                         IEvents.UpdateEvents(EventName, Event);
                                     }                                    
                                 }

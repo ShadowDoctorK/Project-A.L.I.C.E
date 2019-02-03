@@ -113,34 +113,42 @@ namespace ALICE_Equipment
 
             Logger.DebugLine(MethodName, "Fuel Level: " + Main + " | Fuel Capacity: " + Settings.Capacity, Logger.Blue);
 
-            //Calculate Percent Based On Vehicle
-            decimal Percent = 0; switch (IVehicles.Vehicle)
+            try
             {
-                case IVehicles.V.Default:
-                    Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
-                    return -1;
+                //Calculate Percent Based On Vehicle
+                decimal Percent = 0; switch (IVehicles.Vehicle)
+                {
+                    case IVehicles.V.Default:
+                        Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
+                        return -1;
 
-                case IVehicles.V.Mothership:
-                    Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
-                    if (Settings.Capacity >= 0) { Percent = Main / Settings.Capacity; }
-                    if (Percent > 1) { Percent = 1; }
-                    Logger.DebugLine(MethodName, "Fuel Percent: " + Percent * 100 + "%", Logger.Blue);
-                    return Percent * 100;
+                    case IVehicles.V.Mothership:
+                        Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
+                        if (Settings.Capacity > 0) { Percent = Main / Settings.Capacity; }
+                        if (Percent > 1) { Percent = 1; }
+                        Logger.DebugLine(MethodName, "Fuel Percent: " + Percent * 100 + "%", Logger.Blue);
+                        return Percent * 100;
 
-                case IVehicles.V.Fighter:
-                    Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
-                    return -1;
+                    case IVehicles.V.Fighter:
+                        Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
+                        return -1;
 
-                case IVehicles.V.SRV:
-                    Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
-                    Percent = Main / SRVCapacity;
-                    if (Percent > 1) { Percent = 1; }
-                    Logger.DebugLine(MethodName, "Fuel Percent: " + Percent * 100 + "%", Logger.Blue);
-                    return Percent * 100;
+                    case IVehicles.V.SRV:
+                        Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
+                        Percent = Main / SRVCapacity;
+                        if (Percent > 1) { Percent = 1; }
+                        Logger.DebugLine(MethodName, "Fuel Percent: " + Percent * 100 + "%", Logger.Blue);
+                        return Percent * 100;
 
-                default:
-                    return -1;
+                    default:
+                        return -1;
+                }
             }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Exception: " + ex);
+                return -1;
+            }          
         }
 
         public void ScoopingReset()
@@ -173,15 +181,18 @@ namespace ALICE_Equipment
                 //Custom Events
                 if (ALICE_Internal.Check.Internal.JsonInitialized(true, MethodName, true))
                 {
-                    //Event = FuelHalfThreshold
+                    //Event = FuelHalfThreshold (50% - 25.1%)
                     if (Decreased == true && HalfThreshold == false && GetPercent() <= 50 && GetPercent() > 25)
                     { IEvents.FuelHalfThreshold.Logic(); Report = true; }
-                    //Event - FuelLow
+
+                    //Event - FuelLow (25% - 10.1%)
                     else if (Decreased == true && Low == false && GetPercent() <= 25 && GetPercent() > 10)
                     { IEvents.FuelLow.Logic(); Report = true; }
-                    //Event - FuelCritical
+
+                    //Event - FuelCritical (10% or less)
                     else if (Decreased == true && Critical == false && GetPercent() <= 10)
                     { IEvents.FuelCritical.Logic(); Report = true; }
+
                     //Reset Bool
                     else if (GetPercent() > 50)
                     { Critical = false; Low = false; HalfThreshold = false; }
@@ -196,7 +207,7 @@ namespace ALICE_Equipment
             catch (Exception ex)
             {
                 Logger.Exception(MethodName, "Execption: " + ex);
-                Logger.Exception(MethodName, "Ingnoring Expection, Attempting To Continue...");
+                Logger.Exception(MethodName, "Ingnoring Exception, Attempting To Continue...");
                 Logger.Exception(MethodName, "Something Went Wrong Processing The (Status.Json) Fuel Level");
             }
         }
