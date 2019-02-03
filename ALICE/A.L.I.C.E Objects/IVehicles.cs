@@ -28,6 +28,7 @@ namespace ALICE_Objects
             get => _Vehicle;
             set
             {
+                //If Vehicle Is Different Then The Currently Set
                 if (_Vehicle != value)
                 {
                     //Set Value;
@@ -43,31 +44,45 @@ namespace ALICE_Objects
 
         #region Support Methods  
 
+        /// <summary>
+        /// Method used to have all equipment grab the current vehicle's settings.
+        /// </summary>
         public static void PullEquipmentSettings()
         {
-            IEquipment.CompositeScanner.GetSettings();
-            IEquipment.DiscoveryScanner.GetSettings();
-            IEquipment.DockingComputer.GetSettings();
-            IEquipment.ExternalLights.GetSettings();
-            IEquipment.ElectronicCountermeasure.GetSettings();
-            IEquipment.FighterHanger.GetSettings();
-            IEquipment.FrameShiftDrive.GetSettings();
-            IEquipment.FSDInterdictor.GetSettings();
-            IEquipment.FuelTank.GetSettings();
-            IEquipment.LimpetCollector.GetSettings();
-            IEquipment.LimpetDecontamination.GetSettings();
-            IEquipment.LimpetHatchBreaker.GetSettings();
-            IEquipment.LimpetFuel.GetSettings();
-            IEquipment.LimpetProspector.GetSettings();
-            IEquipment.LimpetRecon.GetSettings();
-            IEquipment.LimpetRepair.GetSettings();
-            IEquipment.LimpetResearch.GetSettings();
-            IEquipment.PulseWaveScanner.GetSettings();
-            IEquipment.ShieldCellBank.GetSettings();
-            IEquipment.ShutdownFieldNeutraliser.GetSettings();
-            IEquipment.SurfaceScanner.GetSettings();
-            IEquipment.WakeScanner.GetSettings();
-            IEquipment.XenoScanner.GetSettings();
+            string MethodName = "Update Equipment Settings";
+
+            try
+            {
+                IEquipment.CompositeScanner.GetSettings();
+                IEquipment.DiscoveryScanner.GetSettings();
+                IEquipment.DockingComputer.GetSettings();
+                IEquipment.ExternalLights.GetSettings();
+                IEquipment.ElectronicCountermeasure.GetSettings();
+                IEquipment.FighterHanger.GetSettings();
+                IEquipment.FrameShiftDrive.GetSettings();
+                IEquipment.FSDInterdictor.GetSettings();
+                IEquipment.FuelTank.GetSettings();
+                IEquipment.LimpetCollector.GetSettings();
+                IEquipment.LimpetDecontamination.GetSettings();
+                IEquipment.LimpetHatchBreaker.GetSettings();
+                IEquipment.LimpetFuel.GetSettings();
+                IEquipment.LimpetProspector.GetSettings();
+                IEquipment.LimpetRecon.GetSettings();
+                IEquipment.LimpetRepair.GetSettings();
+                IEquipment.LimpetResearch.GetSettings();
+                IEquipment.PulseWaveScanner.GetSettings();
+                IEquipment.ShieldCellBank.GetSettings();
+                IEquipment.ShutdownFieldNeutraliser.GetSettings();
+                IEquipment.SurfaceScanner.GetSettings();
+                IEquipment.WakeScanner.GetSettings();
+                IEquipment.XenoScanner.GetSettings();
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Exception: " + ex);
+                Logger.Exception(MethodName, "Vehicle: " + Vehicle);
+                Logger.Exception(MethodName, "Something Went Wrong Updating The Equipment Settings For The Current Vehicle.");
+            }
         }
 
         #region Equipment Config Methods
