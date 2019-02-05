@@ -62,7 +62,7 @@ namespace ALICE_Synthesizer
                 if (I == null && Monitor.TryEnter(InstanceLock))
                 {
                     I = new SpeechService();
-                    Logger.Event("Synthesizer Initialized.");
+                    //Logger.Event("Synthesizer Initialized.");
                 }
 
                 //Return Instance

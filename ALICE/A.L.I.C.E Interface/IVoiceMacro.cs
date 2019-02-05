@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using vmAPI;
@@ -50,12 +51,18 @@ namespace ALICE_Interface
         /// <returns>Variable Value</returns>
         public static string GetText(string S)
         {
+            string MethodName = "IVoiceMacro (Get Variable)";
+
             try
             {
                 //Get Target Variables Value
-                return vmCommand.GetVariable(S);
+                return vmCommand.GetVariable(S + "_g");
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Exception: " + ex);
+                Logger.Exception(MethodName, "Variable: " + S);
+            }
 
             //Default Return False.
             return null;
@@ -68,12 +75,18 @@ namespace ALICE_Interface
         /// <param name="V">Variable Value</param>
         public static void SetText(string S, string V)
         {
+            string MethodName = "IVoiceMacro (Set Variable)";
+
             try
             {
                 //Set Target Global Variable
                 vmCommand.SetVariable(S + "_g", V);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Exception: " + ex);
+                Logger.Exception(MethodName, "Variable: " + S + " | Value: " + V);
+            }
         }
 
         /// <summary>
@@ -157,13 +170,18 @@ namespace ALICE_Interface
         /// </summary>
         /// <param name="">Macro Name</param>
         /// <param name="B">Set to "true" to execute by name.</param>
-        public static void CommandExecute(string Name, bool B = false)
+        public static void CommandExecute(string Name, bool B)
         {
+            string MethodName = "IVoiceMacro (Execute Command)";
+
             //Check Name Is Not Null
             if (Name == null) { return; }
 
             //Get Command GUID
             string GUID = CommandGUID(Name);
+
+            //Debug Logger
+            Logger.DebugLine(MethodName, "Executing: " + GUID, Logger.Blue);
 
             try
             {
@@ -189,28 +207,67 @@ namespace ALICE_Interface
         }
 
         /// <summary>
+        /// Checks if the Active Profile's Name Contains the target string.
+        /// </summary>
+        /// <param name="Name">String you want to check.</param>
+        /// <returns>True or False.</returns>
+        public static bool CheckAcivteProfile(string Name)
+        {
+            string ProfileGUID = ActiveProfile();
+
+            if (ProfileGUID != "No Profile")
+            {
+                foreach (var Profile in Profiles)
+                {
+                    if (Profile.ProfileName.Contains(Name) && Profile.GUID == ProfileGUID)
+                    { return true; }
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Function to check for a command by name in the Active Profile.
         /// </summary>
         /// <param name="Name">Commands "Name" which is the Recocnition/Acivation Text.</param>
         /// <param name="B">Set to "true" to execute by name.</param>
         /// <returns>True if found, False if not found.</returns>
-        public static bool CommandExists(string Name, bool B = false)
+        public static bool CommandExists(string Name, bool B)
         {
+            string MethodName = "IVoiceMacro (Command Exists)";
+
             try
             {
+                if (Profile.GUID == null || Profile.GUID != ActiveProfile())
+                {
+                    Profile = GetProfile(ActiveProfile());
+                }
+
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Target Command: " + Name, Logger.Blue);
+
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Total Commands: " + Profile.Commands.Count(), Logger.Blue);
+
                 //Search For Command By Name
-                int Count = Profile.Commands.Where(X => X.RecocnitionText == Name).Count();
+                var Temp = Profile.Commands.FirstOrDefault(X => X.RecocnitionText == Name);
+
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Target GUID: " + Temp.GUID, Logger.Blue);
 
                 //Check If We Found A Match, Return True.
-                if (Count > 0) { return true; }
+                if (string.IsNullOrWhiteSpace(Temp.GUID) == false) { return true; }
 
                 //No Match, Return False.
                 return false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                //Debug Logger
+                Logger.Exception(MethodName, "Exception: " + ex);
+
                 //Exception Occured, Return False
-                //Add Custom Exception Handling.
                 return false;
             }
         }
@@ -228,7 +285,7 @@ namespace ALICE_Interface
                 if (CommandExists(Name, true))
                 {
                     //Get Command
-                    var Temp = Profile.Commands.First(X => X.RecocnitionText == Name);
+                    var Temp = Profile.Commands.FirstOrDefault(X => X.RecocnitionText == Name);
 
                     //Return GUID
                     return Temp.GUID;
@@ -266,18 +323,19 @@ namespace ALICE_Interface
         /// <returns>Blank Profile if not found, Target Profile if found.</returns>
         public static vmProfile GetProfile(string GUID)
         {
+            string MethodName = "IVoiceMacro (Get Profile)";
+
+            //Debug Logger
+            Logger.DebugLine(MethodName, "Total Profiles: " + Profiles.Count(), Logger.Blue);
+
             //Search Profiles For GUID
-            int C = 0; int I = 0; foreach (var Item in Profiles)
-            {
-                //If Found Update Index To Count.
-                if (Item.GUID == GUID) { I = C; } C++;
-            }
+            vmProfile Temp = Profiles.SingleOrDefault(X => X.GUID == GUID);
 
-            //Profile Found, Return It.
-            if (I != 0) { return Profiles[I]; }
+            //Debug Logger
+            Logger.DebugLine(MethodName, "Target Profile: " + Temp.ProfileName, Logger.Blue);
 
-            //Does Not Exist, Return Blank Profile
-            return new vmProfile();
+            //Return Profile
+            return Temp;
         }
         #endregion
     }
@@ -318,6 +376,8 @@ namespace ALICE_Interface
         {
             try
             {
+                //PlugIn.DebugMode = true;
+
                 //Populate IVoiceMacro.Profiles Property
                 IVoiceMacro.Profiles = vmCommand.GetProfiles();
 
@@ -326,14 +386,21 @@ namespace ALICE_Interface
                 Paths.CreateDir();
                 Paths.Load_UpdateBindsFile();
                 IPlatform.Interface = IPlatform.Interfaces.VoiceMacro;
+
+                //Initialize Plugin
+                Thread Plugin =
+                new Thread((ThreadStart)(() =>
+                {
+                    try { PlugIn.Initialize(true, true); }
+                    catch (Exception) { Logger.Error(MethodName, "Something Went Wrong While Initializing The Plugin...", Logger.Red); }
+                }))
+                { IsBackground = true }; Plugin.Start();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("The Start-up Hamsters Reported An Issue: " + ex);
                 Logger.Exception(MethodName, "Initialization Exception: " + ex);
             }
-
-            Logger.Simple("Configured For Voice Macro. Standing By To Initialize...", Logger.Purple);
         }
 
         /// <summary>
@@ -345,20 +412,24 @@ namespace ALICE_Interface
         /// <param name="Synchron">(Unused) Wait to complete.</param>
         void vmInterface.ReceiveParams(string Param1, string Param2, string Param3, bool Synchron)
         {
-            // Write received Parameters to Log for example.
-            vmCommand.AddLogEntry("Sample plugin received new Parameters, Param1: " + Param1 + " / Param2: " + Param2 + " / Param3: " + Param3, Color.Yellow, ID);
-
+            //Pass To ICommands
             if (Param1 != null || Param1 != "")
             {
+                //Debug Logger
+                Logger.DebugLine(MethodName, "(" + IPlatform.Interface.ToString() + ") Sent Command: " + Param1, Logger.Blue);
+
+                //Pass Command
                 ICommands.Invoke(Param1);
             }
+            //Pass to ISynthesizer
             else if (Param2 != null || Param2 != "")
             {
-                //Pass to ISynthesizer
+
             }
+            //Unallocated
             else if (Param3 != null || Param3 != "")
             {
-                //Unallocated
+
             }
         }
 
@@ -366,6 +437,10 @@ namespace ALICE_Interface
         void vmInterface.ProfileSwitched(string ProfileGUID, string ProfileName)
         {
             IVoiceMacro.Profile = IVoiceMacro.GetProfile(ProfileGUID);
+
+            //Debug Logger
+            Logger.DebugLine(MethodName, "Target GUID: " + ProfileGUID, Logger.Blue);
+            Logger.DebugLine(MethodName, "Target Profile: " + IVoiceMacro.Profile.ProfileName, Logger.Blue);
         }
 
         //This is started when VoiceMacro is terminated

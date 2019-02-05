@@ -199,8 +199,6 @@ namespace ALICE_Internal
             {
                 List<string> Updates = new List<string>();
 
-                Logger.Log(MethodName, "Started Watching...", Logger.Yellow);
-
                 while (Enabled)
                 {
                     Thread.Sleep(500);
@@ -483,8 +481,6 @@ namespace ALICE_Internal
                     {
                         if (Monitor.TryEnter(LockFlag))
                         {
-                            Logger.Log(MethodName, "Started Watching...", Logger.Yellow);
-
                             while (Enabled)
                             {
                                 Thread.Sleep(1000);
@@ -857,9 +853,7 @@ namespace ALICE_Internal
                     try
                     {
                         if (Monitor.TryEnter(LockFlag))
-                        {
-                            Logger.Log(MethodName, "Started Watching...", Logger.Yellow);
-
+                        {      
                             while (Enabled)
                             {
                                 Thread.Sleep(1000);

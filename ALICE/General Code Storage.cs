@@ -251,8 +251,6 @@
         //            {
         //                if (Monitor.TryEnter(LockFlag))
         //                {
-        //                    Logger.Log(MethodName, "Started Watching...", Logger.Yellow);
-
         //                    while (Enabled)
         //                    {
         //                        Thread.Sleep(1000);

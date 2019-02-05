@@ -126,7 +126,7 @@ namespace ALICE_Core
         public static Equipment_LimpetResearch LimpetResearch = new Equipment_LimpetResearch();
         public static Equipment_PulseWaveScanner PulseWaveScanner = new Equipment_PulseWaveScanner();
         public static Equipment_ShieldCellBank ShieldCellBank = new Equipment_ShieldCellBank();
-        public static Equipment_ShutdownFieldNeutraliser ShutdownFieldNeutraliser = new Equipment_ShutdownFieldNeutraliser();
+        public static Equipment_ShutdownFieldNeutrailser ShutdownFieldNeutraliser = new Equipment_ShutdownFieldNeutrailser();
         public static Equipment_SurfaceScanner SurfaceScanner = new Equipment_SurfaceScanner();
         public static Equipment_WakeScanner WakeScanner = new Equipment_WakeScanner();
         public static Equipment_XenoScanner XenoScanner = new Equipment_XenoScanner();

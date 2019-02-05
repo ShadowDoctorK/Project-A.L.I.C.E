@@ -5,15 +5,7 @@ using System.Linq;
 using System.Threading;
 using Newtonsoft.Json;
 using ALICE.Properties;
-using ALICE_Interface;
-using ALICE_Actions;
-using ALICE_Events;
 using ALICE_Internal;
-using ALICE_Synthesizer;
-using ALICE_JournalReader;
-using ALICE_Core;
-using ALICE_Status;
-using ALICE_Settings;
 
 namespace ALICE_Objects
 {

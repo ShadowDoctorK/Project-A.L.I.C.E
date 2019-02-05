@@ -152,7 +152,6 @@ namespace ALICE_Core
                     {
                         Setting.Processed = Setting.Request;
                         Setting.Init = false;
-                        Logger.Log(MethodName, "Initialized And Standing By...", Logger.Purple);
                     }
 
                     while (true)

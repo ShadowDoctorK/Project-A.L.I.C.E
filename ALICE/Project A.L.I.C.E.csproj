@@ -106,7 +106,7 @@
     <Compile Include="A.L.I.C.E Equipment\Equipment FSDInterdictor.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment ShieldCellBank.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment XenoScanner.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment ShutdownFieldNeutraliser.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment ShutdownFieldNeutrailser.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment SurfaceScanner.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment DiscoveryScanner.cs" />
     <Compile Include="A.L.I.C.E Core\IPower.cs" />
@@ -538,7 +538,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>StandingReports.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Voice Attack\A.L.I.C.E - Version 3.0.2 %28Closed Beta Ver 1.1%29-Profile.vap" />
+    <None Include="A.L.I.C.E Profiles\A.L.I.C.E - Version 3.0.2 %28Closed Beta Ver 1.1%29-Profile.vap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="A.L.I.C.E Audio Files\Scan_AdditionData.wav">
