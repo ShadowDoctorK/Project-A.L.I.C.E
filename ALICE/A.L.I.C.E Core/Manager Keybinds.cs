@@ -184,9 +184,9 @@ namespace ALICE_Keybinds
 
 		public Dictionary<string, Bind> Keybinds;
 
-        //Dictionary containing the Virtual Keys as Int's.
-        //Key = Games Key Definition
-        //Value = Virtual Key as Int
+		//Dictionary containing the Virtual Keys as Int's.
+		//Key = Games Key Definition
+		//Value = Virtual Key as Int
 		public Dictionary<string, int> VirtualKeysNum = new Dictionary<string, int>()
 		{
 			{ "Key_Backspace", 8 },
@@ -341,172 +341,172 @@ namespace ALICE_Keybinds
 			{ "Key_Colon", 186 },
 		};
 
-        //Dictionary containing the Virtual Keys as Strings.
-        //Key = Games Key Definition
-        //Value = Virtual Key as Strings
-        public Dictionary<string, string> VirtualKeysStr = new Dictionary<string, string>()
-        {
-            { "Key_Backspace", "VK_BACK" },                     //008 - Backspace
-            { "Key_Tab", "VK_TAB" },                            //009 - Tab
-            { "Key_Enter", "VK_RETURN" },                       //013 - Enter
-            { "Key_Pause", "VK_PAUSE" },                        //019 - Pause
-            { "Key_CapsLock", "VK_CAPITAL" },                   //020 - Caps Lock
-            { "Key_Kana", "VK_KANA" },                          //021
-            { "Key_Kanji", "VK_KANJI" },                        //025
-            { "Key_Escape", "VK_ESCAPE" },                      //027 - Escape
-            { "Key_Convert", "VK_CONVERT" },                    //028
-            { "Key_NoConvert", "VK_NONCONVERT" },               //029 
-            { "Key_Space", "VK_SPACE" },                        //032 - Spacebar
-            { "Key_PageUp", "VK_PRIOR" },                       //033 - Page Up
-            { "Key_PageDown", "VK_NEXT" },                      //034 - Page Down
-            { "Key_End", "VK_END" },                            //035 - End
-            { "Key_Home", "VK_HOME" },                          //036 - Home
-            { "Key_LeftArrow", "VK_LEFT" },                     //037 - Left Arrow
-            { "Key_UpArrow", "VK_UP" },                         //038 - Up Arrow
-            { "Key_RightArrow", "VK_RIGHT" },                   //039 - Right Arrow
-            { "Key_DownArrow", "VK_DOWN" },                     //040 - Down Arrow
-            { "Key_SYSRQ", "VK_SNAPSHOT" },                     //044 - Print Screen
+		//Dictionary containing the Virtual Keys as Strings.
+		//Key = Games Key Definition
+		//Value = Virtual Key as Strings
+		public Dictionary<string, string> VirtualKeysStr = new Dictionary<string, string>()
+		{
+			{ "Key_Backspace", "VK_BACK" },                     //008 - Backspace
+			{ "Key_Tab", "VK_TAB" },                            //009 - Tab
+			{ "Key_Enter", "VK_RETURN" },                       //013 - Enter
+			{ "Key_Pause", "VK_PAUSE" },                        //019 - Pause
+			{ "Key_CapsLock", "VK_CAPITAL" },                   //020 - Caps Lock
+			{ "Key_Kana", "VK_KANA" },                          //021
+			{ "Key_Kanji", "VK_KANJI" },                        //025
+			{ "Key_Escape", "VK_ESCAPE" },                      //027 - Escape
+			{ "Key_Convert", "VK_CONVERT" },                    //028
+			{ "Key_NoConvert", "VK_NONCONVERT" },               //029 
+			{ "Key_Space", "VK_SPACE" },                        //032 - Spacebar
+			{ "Key_PageUp", "VK_PRIOR" },                       //033 - Page Up
+			{ "Key_PageDown", "VK_NEXT" },                      //034 - Page Down
+			{ "Key_End", "VK_END" },                            //035 - End
+			{ "Key_Home", "VK_HOME" },                          //036 - Home
+			{ "Key_LeftArrow", "VK_LEFT" },                     //037 - Left Arrow
+			{ "Key_UpArrow", "VK_UP" },                         //038 - Up Arrow
+			{ "Key_RightArrow", "VK_RIGHT" },                   //039 - Right Arrow
+			{ "Key_DownArrow", "VK_DOWN" },                     //040 - Down Arrow
+			{ "Key_SYSRQ", "VK_SNAPSHOT" },                     //044 - Print Screen
 			{ "Key_Insert", "VK_INSERT" },                      //045 - Insert
 			{ "Key_Delete", "VK_DELETE" },                      //046 - Delete
 			{ "Key_0", "VK_0" },                                //048 - 0
-            { "Key_1", "VK_1" },                                //049 - 1
-            { "Key_2", "VK_2" },                                //050 - 2
-            { "Key_3", "VK_3" },                                //051 - 3
-            { "Key_4", "VK_4" },                                //052 - 4
-            { "Key_5", "VK_5" },                                //053 - 5
-            { "Key_6", "VK_6" },                                //054 - 6
-            { "Key_7", "VK_7" },                                //055 - 7
-            { "Key_8", "VK_8" },                                //056 - 8
-            { "Key_9", "VK_9" },                                //057 - 9
-            { "Key_A", "VK_A" },                                //065 - A
-            { "Key_B", "VK_B" },                                //066 - B
-            { "Key_C", "VK_C" },                                //067 - C
-            { "Key_D", "VK_D" },                                //068 - D
-            { "Key_E", "VK_E" },                                //069 - E
-            { "Key_F", "VK_F" },                                //070 - F
-            { "Key_G", "VK_G" },                                //071 - G
-            { "Key_H", "VK_H" },                                //072 - H
-            { "Key_I", "VK_I" },                                //073 - I
-            { "Key_J", "VK_J" },                                //074 - J
-            { "Key_K", "VK_K" },                                //075 - K
-            { "Key_L", "VK_L" },                                //076 - L
-            { "Key_M", "VK_M" },                                //077 - M
-            { "Key_N", "VK_N" },                                //078 - N
-            { "Key_O", "VK_O" },                                //079 - O
-            { "Key_P", "VK_P" },                                //080 - P
-            { "Key_Q", "VK_Q" },                                //081 - Q
-            { "Key_R", "VK_R" },                                //082 - R
-            { "Key_S", "VK_S" },                                //083 - S
-            { "Key_T", "VK_T" },                                //084 - T
-            { "Key_U", "VK_U" },                                //085 - U
-            { "Key_V", "VK_V" },                                //086 - V
-            { "Key_W", "VK_W" },                                //087 - W
-            { "Key_X", "VK_X" },                                //088 - X
-            { "Key_Y", "VK_Y" },                                //089 - Y
-            { "Key_Z", "VK_Z" },                                //090 - Z
-            { "Key_LeftWin", "VK_LWIN" },                       //091 - Left Windows
-            { "Key_RightWin", "VK_RWIN" },                      //092 - Right Windows
-            { "Key_Apps", "VK_APPS" },                          //093 - Applications
-            { "Key_Sleep", "VK_SLEEP" },                        //095 - Computer Sleep
-            { "Key_Numpad_0", "VK_NUMPAD0" },                   //096 - Numeric Keypad 0 
-            { "Key_Numpad_1", "VK_NUMPAD1" },                   //097 - Numeric Keypad 1 
-            { "Key_Numpad_2", "VK_NUMPAD2" },                   //098 - Numeric Keypad 2 
-            { "Key_Numpad_3", "VK_NUMPAD3" },                   //099 - Numeric Keypad 3 
-            { "Key_Numpad_4", "VK_NUMPAD4" },                   //100 - Numeric Keypad 4 
-            { "Key_Numpad_5", "VK_NUMPAD5" },                   //101 - Numeric Keypad 5 
-            { "Key_Numpad_6", "VK_NUMPAD6" },                   //102 - Numeric Keypad 6 
-            { "Key_Numpad_7", "VK_NUMPAD7" },                   //103 - Numeric Keypad 7 
-            { "Key_Numpad_8", "VK_NUMPAD8" },                   //104 - Numeric Keypad 8 
-            { "Key_Numpad_9", "VK_NUMPAD9" },                   //105 - Numeric Keypad 9 
-            { "Key_Numpad_Multiply", "VK_MULTIPLY" },           //106 - Numeric Keypad Multiply 
-            { "Key_Numpad_Add", "VK_ADD" },                     //107 - Numeric Keypad Add
-            { "Key_Numpad_Subtract", "VK_SUBTRACT" },           //109 - Numeric Keypad Subtract 
-            { "Key_Numpad_Decimal", "VK_DECIMAL" },             //110 - Numeric Keypad Decimal 
-            { "Key_Numpad_Comma", "VK_DECIMAL" },               //110 - Numeric Keypad Decimal 
-            { "Key_Numpad_Divide", "VK_DIVIDE" },               //111 - Numeric Keypad Divide 
-            //{ "Key_Numpad_Enter", "?" },                      //156 - Numeric Keypad Enter
-            { "Key_F1", "VK_F1" },                              //112 - F1 
-            { "Key_F2", "VK_F2" },                              //113 - F2 
-            { "Key_F3", "VK_F3" },                              //114 - F3 
-            { "Key_F4", "VK_F4" },                              //115 - F4 
-            { "Key_F5", "VK_F5" },                              //116 - F5 
-            { "Key_F6", "VK_F6" },                              //117 - F6 
-            { "Key_F7", "VK_F7" },                              //118 - F7 
-            { "Key_F8", "VK_F8" },                              //119 - F8 
-            { "Key_F9", "VK_F9" },                              //120 - F9 
-            { "Key_F10", "VK_F10" },                            //121 - F10 
-            { "Key_F11", "VK_F11" },                            //122 - F11
-            { "Key_F12", "VK_F12" },                            //123 - F12 
-            { "Key_F13", "VK_F13" },                            //124 - F13 
-            { "Key_F14", "VK_F14" },                            //125 - F14 
-            { "Key_F15", "VK_F15" },                            //126 - F15 
-            { "Key_F16", "VK_F16" },                            //127 - F16 
-            { "Key_F17", "VK_F17" },                            //128 - F17 
-            { "Key_F18", "VK_F18" },                            //129 - F18 
-            { "Key_F19", "VK_F19" },                            //130 - F19 
-            { "Key_F20", "VK_F20" },                            //131 - F20 
-            { "Key_F21", "VK_F21" },                            //132 - F21 
-            { "Key_F22", "VK_F22" },                            //133 - F22 
-            { "Key_F23", "VK_F23" },                            //134 - F23 
-            { "Key_F24", "VK_F24" },                            //135 - F24 
-            { "Key_NumLock", "VK_NUMLOCK" },                    //144 - 
-            { "Key_ScrollLock", "VK_SCROLL" },                  //145 - 
-            { "Key_LeftShift", "VK_LSHIFT" },                   //160 - 
-            { "Key_RightShift", "VK_RSHIFT" },                  //161 - 
-            { "Key_LeftControl", "VK_LCONTROL" },               //162 - 
-            { "Key_RightControl", "VK_RCONTROL" },              //163 - 
-            { "Key_LeftAlt", "VK_LMENU" },                      //164 - 
-            { "Key_RightAlt", "VK_RMENU" },                     //165 - 
-            { "Key_WebBack", "VK_BROWSER_BACK" },               //166 - 
-            { "Key_WebForward", "VK_BROWSER_FORWARD" },         //167 - 
-            { "Key_WebRefresh", "VK_BROWSER_REFRESH" },         //168 - 
-            { "Key_WebStop", "VK_BROWSER_STOP" },               //169 - 
-            { "Key_WebSearch", "VK_BROWSER_SEARCH" },           //170 - 
-            { "Key_WebFavourites", "VK_BROWSER_FAVORITES" },    //171 - 
-            { "Key_WebHome", "VK_BROWSER_HOME" },               //172 - 
-            { "Key_Mute", "VK_VOLUME_MUTE" },                   //173 - 
-            { "Key_VolumeDown", "VK_VOLUME_DOWN" },             //174 - 
-            { "Key_VolumeUp", "VK_VOLUME_UP" },                 //175 - 
-            { "Key_NextTrack", "VK_MEDIA_NEXT_TRACK" },         //176 - 
-            { "Key_PrevTrack", "VK_MEDIA_PREV_TRACK" },         //177 - 
-            { "Key_MediaStop", "VK_MEDIA_STOP" },               //178 - 
-            { "Key_Stop", "VK_MEDIA_STOP" },                    //178 - 
-            { "Key_PlayPause", "VK_MEDIA_PLAY_PAUSE" },         //179 - 
-            { "Key_Mail", "VK_LAUNCH_MAIL" },                   //180 - 
-            { "Key_MediaSelect", "VK_LAUNCH_MEDIA_SELECT" },    //181 - 
-            { "Key_SemiColon", "VK_OEM_1" },                    //186 - 
-            { "Key_Plus", "VK_OEM_PLUS" },                      //187 - 
-            { "Key_Equals", "VK_OEM_PLUS" },                    //187 - 
-            { "Key_Comma", "VK_OEM_COMMA" },                    //188 - 
-            { "Key_Minus", "VK_OEM_MINUS" },                    //189 - 
-            { "Key_Period", "VK_OEM_PERIOD" },                  //190 - 
-            { "Key_Slash", "VK_OEM_2" },                        //191 - 
-            { "Key_Grave", "VK_OEM_3" },                        //192 - 
-            { "Key_LeftBracket", "VK_OEM_4" },                  //219 - 
-            { "Key_BackSlash", "VK_OEM_5" },                    //220 - 
-            { "Key_RightBracket", "VK_OEM_6" },                 //221 - 
-            { "Key_Apostrophe", "VK_OEM_7" },                   //222 - 
-            { "Key_OEM_102", "VK_OEM_102" },                    //226 - 
-            //{ "Key_ä", "" },                                  //222 - 
-            //{ "Key_ö", "" },                                  //192 - 
-            //{ "Key_ü", "" },                                  //186 - 
-            //{ "Key_ß", "" },                                  //219 - 
-            { "Key_Acute", "VK_OEM_6" },                        //221 - 
-            { "Key_LessThan", "VK_OEM_102" },                   //226 - 
-            { "Key_Circumflex", "VK_OEM_5" },                   //220 - 
-            { "Key_Hash", "VK_OEM_2" },                         //191 - 
-            { "Key_Colon", "VK_OEM_1" },                        //186 - 
-        };
+			{ "Key_1", "VK_1" },                                //049 - 1
+			{ "Key_2", "VK_2" },                                //050 - 2
+			{ "Key_3", "VK_3" },                                //051 - 3
+			{ "Key_4", "VK_4" },                                //052 - 4
+			{ "Key_5", "VK_5" },                                //053 - 5
+			{ "Key_6", "VK_6" },                                //054 - 6
+			{ "Key_7", "VK_7" },                                //055 - 7
+			{ "Key_8", "VK_8" },                                //056 - 8
+			{ "Key_9", "VK_9" },                                //057 - 9
+			{ "Key_A", "VK_A" },                                //065 - A
+			{ "Key_B", "VK_B" },                                //066 - B
+			{ "Key_C", "VK_C" },                                //067 - C
+			{ "Key_D", "VK_D" },                                //068 - D
+			{ "Key_E", "VK_E" },                                //069 - E
+			{ "Key_F", "VK_F" },                                //070 - F
+			{ "Key_G", "VK_G" },                                //071 - G
+			{ "Key_H", "VK_H" },                                //072 - H
+			{ "Key_I", "VK_I" },                                //073 - I
+			{ "Key_J", "VK_J" },                                //074 - J
+			{ "Key_K", "VK_K" },                                //075 - K
+			{ "Key_L", "VK_L" },                                //076 - L
+			{ "Key_M", "VK_M" },                                //077 - M
+			{ "Key_N", "VK_N" },                                //078 - N
+			{ "Key_O", "VK_O" },                                //079 - O
+			{ "Key_P", "VK_P" },                                //080 - P
+			{ "Key_Q", "VK_Q" },                                //081 - Q
+			{ "Key_R", "VK_R" },                                //082 - R
+			{ "Key_S", "VK_S" },                                //083 - S
+			{ "Key_T", "VK_T" },                                //084 - T
+			{ "Key_U", "VK_U" },                                //085 - U
+			{ "Key_V", "VK_V" },                                //086 - V
+			{ "Key_W", "VK_W" },                                //087 - W
+			{ "Key_X", "VK_X" },                                //088 - X
+			{ "Key_Y", "VK_Y" },                                //089 - Y
+			{ "Key_Z", "VK_Z" },                                //090 - Z
+			{ "Key_LeftWin", "VK_LWIN" },                       //091 - Left Windows
+			{ "Key_RightWin", "VK_RWIN" },                      //092 - Right Windows
+			{ "Key_Apps", "VK_APPS" },                          //093 - Applications
+			{ "Key_Sleep", "VK_SLEEP" },                        //095 - Computer Sleep
+			{ "Key_Numpad_0", "VK_NUMPAD0" },                   //096 - Numeric Keypad 0 
+			{ "Key_Numpad_1", "VK_NUMPAD1" },                   //097 - Numeric Keypad 1 
+			{ "Key_Numpad_2", "VK_NUMPAD2" },                   //098 - Numeric Keypad 2 
+			{ "Key_Numpad_3", "VK_NUMPAD3" },                   //099 - Numeric Keypad 3 
+			{ "Key_Numpad_4", "VK_NUMPAD4" },                   //100 - Numeric Keypad 4 
+			{ "Key_Numpad_5", "VK_NUMPAD5" },                   //101 - Numeric Keypad 5 
+			{ "Key_Numpad_6", "VK_NUMPAD6" },                   //102 - Numeric Keypad 6 
+			{ "Key_Numpad_7", "VK_NUMPAD7" },                   //103 - Numeric Keypad 7 
+			{ "Key_Numpad_8", "VK_NUMPAD8" },                   //104 - Numeric Keypad 8 
+			{ "Key_Numpad_9", "VK_NUMPAD9" },                   //105 - Numeric Keypad 9 
+			{ "Key_Numpad_Multiply", "VK_MULTIPLY" },           //106 - Numeric Keypad Multiply 
+			{ "Key_Numpad_Add", "VK_ADD" },                     //107 - Numeric Keypad Add
+			{ "Key_Numpad_Subtract", "VK_SUBTRACT" },           //109 - Numeric Keypad Subtract 
+			{ "Key_Numpad_Decimal", "VK_DECIMAL" },             //110 - Numeric Keypad Decimal 
+			{ "Key_Numpad_Comma", "VK_DECIMAL" },               //110 - Numeric Keypad Decimal 
+			{ "Key_Numpad_Divide", "VK_DIVIDE" },               //111 - Numeric Keypad Divide 
+			//{ "Key_Numpad_Enter", "?" },                      //156 - Numeric Keypad Enter
+			{ "Key_F1", "VK_F1" },                              //112 - F1 
+			{ "Key_F2", "VK_F2" },                              //113 - F2 
+			{ "Key_F3", "VK_F3" },                              //114 - F3 
+			{ "Key_F4", "VK_F4" },                              //115 - F4 
+			{ "Key_F5", "VK_F5" },                              //116 - F5 
+			{ "Key_F6", "VK_F6" },                              //117 - F6 
+			{ "Key_F7", "VK_F7" },                              //118 - F7 
+			{ "Key_F8", "VK_F8" },                              //119 - F8 
+			{ "Key_F9", "VK_F9" },                              //120 - F9 
+			{ "Key_F10", "VK_F10" },                            //121 - F10 
+			{ "Key_F11", "VK_F11" },                            //122 - F11
+			{ "Key_F12", "VK_F12" },                            //123 - F12 
+			{ "Key_F13", "VK_F13" },                            //124 - F13 
+			{ "Key_F14", "VK_F14" },                            //125 - F14 
+			{ "Key_F15", "VK_F15" },                            //126 - F15 
+			{ "Key_F16", "VK_F16" },                            //127 - F16 
+			{ "Key_F17", "VK_F17" },                            //128 - F17 
+			{ "Key_F18", "VK_F18" },                            //129 - F18 
+			{ "Key_F19", "VK_F19" },                            //130 - F19 
+			{ "Key_F20", "VK_F20" },                            //131 - F20 
+			{ "Key_F21", "VK_F21" },                            //132 - F21 
+			{ "Key_F22", "VK_F22" },                            //133 - F22 
+			{ "Key_F23", "VK_F23" },                            //134 - F23 
+			{ "Key_F24", "VK_F24" },                            //135 - F24 
+			{ "Key_NumLock", "VK_NUMLOCK" },                    //144 - 
+			{ "Key_ScrollLock", "VK_SCROLL" },                  //145 - 
+			{ "Key_LeftShift", "VK_LSHIFT" },                   //160 - 
+			{ "Key_RightShift", "VK_RSHIFT" },                  //161 - 
+			{ "Key_LeftControl", "VK_LCONTROL" },               //162 - 
+			{ "Key_RightControl", "VK_RCONTROL" },              //163 - 
+			{ "Key_LeftAlt", "VK_LMENU" },                      //164 - 
+			{ "Key_RightAlt", "VK_RMENU" },                     //165 - 
+			{ "Key_WebBack", "VK_BROWSER_BACK" },               //166 - 
+			{ "Key_WebForward", "VK_BROWSER_FORWARD" },         //167 - 
+			{ "Key_WebRefresh", "VK_BROWSER_REFRESH" },         //168 - 
+			{ "Key_WebStop", "VK_BROWSER_STOP" },               //169 - 
+			{ "Key_WebSearch", "VK_BROWSER_SEARCH" },           //170 - 
+			{ "Key_WebFavourites", "VK_BROWSER_FAVORITES" },    //171 - 
+			{ "Key_WebHome", "VK_BROWSER_HOME" },               //172 - 
+			{ "Key_Mute", "VK_VOLUME_MUTE" },                   //173 - 
+			{ "Key_VolumeDown", "VK_VOLUME_DOWN" },             //174 - 
+			{ "Key_VolumeUp", "VK_VOLUME_UP" },                 //175 - 
+			{ "Key_NextTrack", "VK_MEDIA_NEXT_TRACK" },         //176 - 
+			{ "Key_PrevTrack", "VK_MEDIA_PREV_TRACK" },         //177 - 
+			{ "Key_MediaStop", "VK_MEDIA_STOP" },               //178 - 
+			{ "Key_Stop", "VK_MEDIA_STOP" },                    //178 - 
+			{ "Key_PlayPause", "VK_MEDIA_PLAY_PAUSE" },         //179 - 
+			{ "Key_Mail", "VK_LAUNCH_MAIL" },                   //180 - 
+			{ "Key_MediaSelect", "VK_LAUNCH_MEDIA_SELECT" },    //181 - 
+			{ "Key_SemiColon", "VK_OEM_1" },                    //186 - 
+			{ "Key_Plus", "VK_OEM_PLUS" },                      //187 - 
+			{ "Key_Equals", "VK_OEM_PLUS" },                    //187 - 
+			{ "Key_Comma", "VK_OEM_COMMA" },                    //188 - 
+			{ "Key_Minus", "VK_OEM_MINUS" },                    //189 - 
+			{ "Key_Period", "VK_OEM_PERIOD" },                  //190 - 
+			{ "Key_Slash", "VK_OEM_2" },                        //191 - 
+			{ "Key_Grave", "VK_OEM_3" },                        //192 - 
+			{ "Key_LeftBracket", "VK_OEM_4" },                  //219 - 
+			{ "Key_BackSlash", "VK_OEM_5" },                    //220 - 
+			{ "Key_RightBracket", "VK_OEM_6" },                 //221 - 
+			{ "Key_Apostrophe", "VK_OEM_7" },                   //222 - 
+			{ "Key_OEM_102", "VK_OEM_102" },                    //226 - 
+			//{ "Key_ä", "" },                                  //222 - 
+			//{ "Key_ö", "" },                                  //192 - 
+			//{ "Key_ü", "" },                                  //186 - 
+			//{ "Key_ß", "" },                                  //219 - 
+			{ "Key_Acute", "VK_OEM_6" },                        //221 - 
+			{ "Key_LessThan", "VK_OEM_102" },                   //226 - 
+			{ "Key_Circumflex", "VK_OEM_5" },                   //220 - 
+			{ "Key_Hash", "VK_OEM_2" },                         //191 - 
+			{ "Key_Colon", "VK_OEM_1" },                        //186 - 
+		};
 
 
-        public AliceKeys()
+		public AliceKeys()
 		{
 			AliceBinds = GetBindsFile(Paths.ALICE_BindsPath);
 		}
 
-        /// <summary>
-        /// Builds a Dictionary of Keybind controls from the Games Binds File.
-        /// </summary>
+		/// <summary>
+		/// Builds a Dictionary of Keybind controls from the Games Binds File.
+		/// </summary>
 		public void GetGameBinds()
 		{
 			Keybinds = new Dictionary<string, Bind>()
@@ -690,8 +690,8 @@ namespace ALICE_Keybinds
 						return;
 
 					case IPlatform.Interfaces.VoiceMacro:
-                        IPlatform.ExecuteCommand("(A.L.I.C.E) Keybind: " + Key, true);
-                        return;
+						IPlatform.ExecuteCommand("(A.L.I.C.E) Keybind: " + Key, true);
+						return;
 
 					default:
 						break;
@@ -770,9 +770,9 @@ namespace ALICE_Keybinds
 
 		public void Load_VoiceAttackVariables()
 		{
-            string MethodName = "Voice Attack (Load Keybinds)";
+			string MethodName = "Voice Attack (Load Keybinds)";
 
-            bool AlertAudio = false;
+			bool AlertAudio = false;
 
 			//Loops though the Binds Collection Building Virtual Keybinds.
 			foreach (KeyValuePair<string, Bind> bind in Keybinds)
@@ -825,71 +825,71 @@ namespace ALICE_Keybinds
 			IPlatform.WriteToInterface("A.L.I.C.E: Loading Keybinds Complete...", "Purple");
 		}
 
-        public void Load_VoiceMacroVariables()
-        {
-            string MethodName = "Voice Macro (Load Keybinds)";
+		public void Load_VoiceMacroVariables()
+		{
+			string MethodName = "Voice Macro (Load Keybinds)";
 
-            bool AlertAudio = false;
-            
-            //Loops though the Binds Collection Building Virtual Keybinds.
-            foreach (KeyValuePair<string, Bind> bind in Keybinds)
-            {
-                //Checks First Key Isn't Default or Null.
-                if (bind.Value.Key1 != "" && bind.Value.Key1 != null)
-                {
+			bool AlertAudio = false;
+			
+			//Loops though the Binds Collection Building Virtual Keybinds.
+			foreach (KeyValuePair<string, Bind> bind in Keybinds)
+			{
+				//Checks First Key Isn't Default or Null.
+				if (bind.Value.Key1 != "" && bind.Value.Key1 != null)
+				{
 
 
-                    string P = VirtualKeysStr[bind.Value.Key1] + "_D;";
-                    string R = VirtualKeysStr[bind.Value.Key1] + "_U;";
+					string P = VirtualKeysStr[bind.Value.Key1] + "_D;";
+					string R = VirtualKeysStr[bind.Value.Key1] + "_U;";
 
-                    if (bind.Value.Key2 != null && bind.Value.Key2 != "")
-                    {
-                        P = P + VirtualKeysStr[bind.Value.Key2] + "_D;";
-                        R = VirtualKeysStr[bind.Value.Key2] + "_U;" + R;
-                    }
+					if (bind.Value.Key2 != null && bind.Value.Key2 != "")
+					{
+						P = P + VirtualKeysStr[bind.Value.Key2] + "_D;";
+						R = VirtualKeysStr[bind.Value.Key2] + "_U;" + R;
+					}
 
-                    if (bind.Value.Key3 != null && bind.Value.Key3 != "")
-                    {
-                        P = P + VirtualKeysStr[bind.Value.Key3] + "_D;";
-                        R = VirtualKeysStr[bind.Value.Key3] + "_U;" + R;
-                    }
+					if (bind.Value.Key3 != null && bind.Value.Key3 != "")
+					{
+						P = P + VirtualKeysStr[bind.Value.Key3] + "_D;";
+						R = VirtualKeysStr[bind.Value.Key3] + "_U;" + R;
+					}
 
-                    if (bind.Value.Key4 != null && bind.Value.Key4 != "")
-                    {
-                        P = P + VirtualKeysStr[bind.Value.Key4] + "_D;";
-                        R = VirtualKeysStr[bind.Value.Key4] + "_U;" + R;
-                    }                   
+					if (bind.Value.Key4 != null && bind.Value.Key4 != "")
+					{
+						P = P + VirtualKeysStr[bind.Value.Key4] + "_D;";
+						R = VirtualKeysStr[bind.Value.Key4] + "_U;" + R;
+					}                   
 
-                    Logger.DebugLine(MethodName, bind.Key.ToString() + " Release : " + R, Logger.Blue);
-                    Logger.DebugLine(MethodName, bind.Key.ToString() + " Press   : " + P, Logger.Blue);                    
+					Logger.DebugLine(MethodName, bind.Key.ToString() + " Release : " + R, Logger.Blue);
+					Logger.DebugLine(MethodName, bind.Key.ToString() + " Press   : " + P, Logger.Blue);                    
 
-                    //Pass Key To Voice Macro Via The Platform Interface.
-                    IPlatform.SetText(bind.Key.ToString() + "_Press", P);
-                    IPlatform.SetText(bind.Key.ToString() + "_Release", R);
-                }
-                else
-                {
-                    IPlatform.WriteToInterface("A.L.I.C.E: No Keybind Detected For \"" + bind.Key.ToString() + " Please Add A Keybind And Restart.", "Red");
-                    AlertAudio = true;
-                }
-            }
+					//Pass Key To Voice Macro Via The Platform Interface.
+					IPlatform.SetText(bind.Key.ToString() + "_Press", P);
+					IPlatform.SetText(bind.Key.ToString() + "_Release", R);
+				}
+				else
+				{
+					IPlatform.WriteToInterface("A.L.I.C.E: No Keybind Detected For \"" + bind.Key.ToString() + " Please Add A Keybind And Restart.", "Red");
+					AlertAudio = true;
+				}
+			}
 
-            #region Audio: Missing Keybinds
-            if (AlertAudio == true)
-            {
-                string Line = "I Detected Missing Keybinds, This Will Limit Functions Requiring Those Keybinds. I've Written Them To The Log. Please Add Them And Restart.";
+			#region Audio: Missing Keybinds
+			if (AlertAudio == true)
+			{
+				string Line = "I Detected Missing Keybinds, This Will Limit Functions Requiring Those Keybinds. I've Written Them To The Log. Please Add Them And Restart.";
 
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak(Line, true);
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-            }
-            #endregion
-        }
+				#region Audio
+				if (PlugIn.Audio == "TTS")
+				{
+					Speech.Speak(Line, true);
+				}
+				else if (PlugIn.Audio == "File") { }
+				else if (PlugIn.Audio == "External") { }
+				#endregion
+			}
+			#endregion
+		}
 
 		public XmlDocument GetBindsFile(string Path)
 		{

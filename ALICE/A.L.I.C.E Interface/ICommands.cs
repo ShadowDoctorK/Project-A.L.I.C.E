@@ -1253,6 +1253,17 @@ namespace ALICE_Interface
                         ISettings.User.U_ShieldState(false);
                     }
                 }
+                else if (Command.Check("Masslock"))
+                {
+                    if (Command.Check("Enable"))
+                    {
+                        ISettings.User.U_Masslock(true);
+                    }
+                    else if (Command.Check("Disable"))
+                    {
+                        ISettings.User.U_Masslock(false);
+                    }
+                }
                 else if (Command.Check("Fuel Scooping"))
                 {
                     if (Command.Check("Enable"))

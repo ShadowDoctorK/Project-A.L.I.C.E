@@ -509,3 +509,143 @@
         //    //}
         //}
 #endregion
+
+
+public class Extraction
+{
+    public void Command(string Text)
+    {
+        //Example String with position map for easy reference.
+        //012345678911111111112222222222333333333344444444445555555555666666666677777777778888888888999999999911111111111111111111
+        //..........01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678900000000000000000000
+        //....................................................................................................01234567890123456789
+        //Shield Cell One [Group;Fire Group;] [Alpha;Bravo;Charlie;Delta;Echo;Foxtrot;Golf;Hotel] [Primary;Secondary] Fire
+
+        //Remove Trailing/Leading Whitespace Characters
+        Text = Text.Trim();
+
+        //Record End Index
+        int EndIndex = Text.Length -1;
+
+        //Validate Formatting
+        if (Text.Contains("[") || Text.Contains("]"))
+        {            
+
+            int LeftBracket = Text.Length - Text.Replace("[", "").Length;
+            int RightBracket = Text.Length - Text.Replace("]", "").Length;
+
+            //Check Correct Number Opening & Closing Brackets
+            if (LeftBracket != RightBracket)
+            {
+                //Warn User Formatting Is Incorrect, Do Not Allow Saving Command.
+                return;
+            }
+
+            //Check Brackets Are In The Correct Open => Close Positions
+            int Cursor = 0; int Count = LeftBracket; while (Count > 0)
+            {
+                int Open = Text.IndexOf("[", Cursor);
+                int Close = Text.IndexOf("]", Cursor);
+
+                //Check Brackets Are In Correct Positions "[" => "]"
+                if (Open > Close)
+                {
+                    //Warn User Formatting Is Incorrect, Do Not Allow Saving Command.
+                    return;
+                }
+
+                //Prepare Cursor Index For Next Check.
+                Cursor = Close + 1;
+
+                //Reduce Brackets Count.
+                Count--;
+            }
+        }
+
+        //Break Down String Into Parts
+        string[,] Constructor = new string[50, 50]; // 50 x 50 Array To Store/Build With.
+        int ConstructorColumn = 0;
+        int Index = 0;
+
+        //Process Text While Not At End
+        while (Index < EndIndex)
+        {
+            //Resets Text Each Itteration
+            string Normal = "";            
+            string Bracket = "";
+
+            //Validate Bracket Index & Process Bracket Text
+            if (Text.IndexOf("[", Index) != -1 && Text.IndexOf("]", Index) != -1)
+            {
+                int Open = Text.IndexOf("[", Index);
+                int Close = Text.IndexOf("[", Index);
+
+                //Grab Text Between Index & Open Bracket
+                Normal = Text.Substring(Index, Open - Index);
+
+                //Grab Bracket Text
+                Bracket = Text.Substring(Open, Close - Open);
+
+                //Validate Normal Text
+                if (string.IsNullOrWhiteSpace(Normal) == false)
+                {
+                    //Add Normal Text To Constructor Array
+                    Constructor[ConstructorColumn, 0] = Normal.Trim();
+
+                    //Increase Array Column
+                    ConstructorColumn++;
+                }
+
+                //Validate Bracket Text & Split
+                if (string.IsNullOrWhiteSpace(Bracket) == false)
+                {
+                    //Split Bracket Text
+                    string[] Temp = Bracket.Split(';');
+                    
+                    //Add Items To Constructor Array
+                    int Row = 0; foreach (var Item in Temp)
+                    {                        
+                        Constructor[ConstructorColumn, Row] = Item.Trim();
+                        Row++;
+                    }
+
+                    //Increase Array Column
+                    ConstructorColumn++;
+                }
+
+                //Update Index Position
+                Index = Close + 1;
+            }
+            //Only Normal Text Remains
+            else
+            {
+                //Process Remaining Normal Text
+                if (Index < EndIndex)
+                {                                        
+                    if (EndIndex - Index > 0)
+                    {
+                        //Grab Normal Text
+                        Normal = Text.Substring(Index, EndIndex - Index);
+
+                        //Add Text To Constructor
+                        Constructor[ConstructorColumn, 0] = Normal.Trim();
+
+                    }                    
+                    else
+                    {
+                        //End Processing Text
+                        Index = EndIndex;
+                    }
+                }
+                else
+                {
+                    //End Processing Text
+                    Index = EndIndex;
+                }
+            }
+        }
+
+        //Build All Variations
+
+    }
+}

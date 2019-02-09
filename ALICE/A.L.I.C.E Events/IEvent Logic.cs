@@ -2137,7 +2137,7 @@ namespace ALICE_EventLogic
             #endregion
 
             #region Assisted Landing Preparations
-            if (Event.BodyType == IEnums.Planet && IObjects.Status.Altitude != 0)
+            if (Event.BodyType == IEnums.Planet && IObjects.Status.Altitude != 0 && IObjects.Status.HasLatLong == true)
             {
                 Thread LandingPrep_thread =
                 new Thread((ThreadStart)(() =>
@@ -2181,7 +2181,7 @@ namespace ALICE_EventLogic
             #endregion
 
             #region Glide Montior
-            if (Event.BodyType == "Planet" && IObjects.Status.Altitude != 0)
+            if (Event.BodyType == "Planet" && IObjects.Status.Altitude != 0 && IObjects.Status.HasLatLong == true)
             {
                 Thread Glide_thread =
                 new Thread((ThreadStart)(() =>
