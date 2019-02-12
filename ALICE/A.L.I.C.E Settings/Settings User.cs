@@ -63,6 +63,7 @@ namespace ALICE_Settings
             OffsetPanels = 0;
             OffsetPips = 0;
             OffsetThrottle = 0;
+
             //Orders
             CombatPower = true;
             AssistSystemScan = false;
@@ -73,6 +74,7 @@ namespace ALICE_Settings
             AssistHangerEntry = false;
             PostHyperspaceSafety = true;
             WeaponSafety = true;
+
             //Reports
             FuelScoop = true;
             FuelStatus = true;

@@ -3469,7 +3469,7 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "Crew Override Acivated.",
+                    "Crew Override Activated.",
                     CommandAudio
                     );
             }
@@ -3612,11 +3612,6 @@ namespace ALICE_Actions
             //WHILE YOU'RE ON THE BRIDGE. CAN YOU IMAGINE ALL THE GAMES OF EYE SPY WE ARE GOING TO PLAY? I BELIEVE WE WILL BE BEST FRIENDS.
         }
         #endregion
-    }
-
-    class Repair
-    {
-       
     }
 
     public static class Targeting
