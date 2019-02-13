@@ -38,7 +38,6 @@ namespace ALICE_Status
         public bool Pending = false;
         public Logging Log = new Logging();
         public Responces Response = new Responces();
-        public Checks Check = new Checks();
 
         public bool WatchRequest()
         {
@@ -91,6 +90,51 @@ namespace ALICE_Status
                 })) { IsBackground = true };
                 thread.Start();                
             }
+        }
+
+        /// <summary>
+        /// Will conduct event checks and Monitor for Assisted Docking as required.
+        /// </summary>
+        /// <param name="Event">SupercruiseExit Event</param>
+        public void AssistedDocking(SupercruiseExit Event)
+        {
+            string MethodName = "Docking Status (Assisted Docking)";
+
+            //
+            if (Check.Order.AssistDocking(true, MethodName) == false)
+            {
+                //No Logger Required. Check Already Logs.
+                return;
+            }
+
+            //Check BodyType is Planet
+            if (Event.BodyType != IEnums.Station)
+            {
+                Logger.DebugLine(MethodName, "Body Type Is Not A Station", Logger.Yellow);
+                return;
+            }
+
+            //Assisted Docking
+            Thread thread =
+            new Thread((ThreadStart)(() =>
+            {
+                Logger.Log(MethodName, "Standing By To Send Docking Request...", Logger.Yellow, true);
+
+                //While Assisted Docking is True and BodyType equals Station Check For Next Trigger for 60 Seconds.
+                int i = 600; while (i > 0 && Check.Order.AssistDocking(true, MethodName, true) == true && Check.Event.SupercruiseExit.BodyType(IEnums.Station, true, MethodName, true) == true)
+                {
+                    //Check NoFireZone and Masslock. If both true send a Docking Request.
+                    i--; if (Check.Event.NoFireZone.Entered(true, MethodName) == true && Check.Variable.MassLocked(true, MethodName) == true)
+                    {
+                        Call.Action.Docking(IEnums.CMD.True, true, false);
+                        return;
+                    }
+                    Thread.Sleep(100);
+                }
+                Logger.Log(MethodName, "Switched To Manual Docking. You Took Too Long...", Logger.Yellow, true);
+            }))
+            { IsBackground = false };
+            thread.Start();
         }
 
         public class Responces
@@ -234,11 +278,6 @@ namespace ALICE_Status
                 Speech.Speak("It Is Unclear Why We Were Denied Docking Access Commander.",
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
-        }
-
-        public class Checks
-        {
-
         }
 
         public class Logging

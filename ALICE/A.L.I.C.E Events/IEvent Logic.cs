@@ -2108,125 +2108,14 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Post Supercruise";
 
-            #region Assisted Docking Procedure
-            if (Check.Order.AssistDocking(true, MethodName) == true)
-            {
-                if (Check.Event.SupercruiseExit.BodyType(IEnums.Station, true, MethodName) == true)
-                {
-                    Thread thread =
-                    new Thread((ThreadStart)(() =>
-                    {
-                        Logger.Log(MethodName, "Assisted Docking: Standing By To Send Docking Request...", Logger.Yellow, true);
-                        //While Assisted Docking is True and BodyType equals Station Check For Next Trigger for 60 Seconds.
-                        int i = 600; while (i > 0 && Check.Order.AssistDocking(true, MethodName, true) == true && Check.Event.SupercruiseExit.BodyType(IEnums.Station, true, MethodName, true) == true)
-                        {
-                            //Check NoFireZone and Masslock. If both true send a Docking Request.
-                            i--; if (Check.Event.NoFireZone.Entered(true, MethodName) == true && Check.Variable.MassLocked(true, MethodName) == true)
-                            {
-                                Call.Action.Docking(IEnums.CMD.True, true, false);
-                                return;
-                            }
-                            Thread.Sleep(100);
-                        }
-                        Logger.Log(MethodName, "Assisted Docking: Switched To Manual Docking. You Took Too Long...", Logger.Yellow, true);
-                    }))
-                    { IsBackground = false };
-                    thread.Start();
-                }
-            }
-            #endregion
+            //Assisted Docking Procedure
+            IStatus.Docking.AssistedDocking(Event);
 
-            #region Assisted Landing Preparations
-            if (Event.BodyType == IEnums.Planet && IObjects.Status.Altitude != 0 && IObjects.Status.HasLatLong == true)
-            {
-                Thread LandingPrep_thread =
-                new Thread((ThreadStart)(() =>
-                {                    
-                    Logger.Log(MethodName, "Assisted Landing Preparations: Waiting To Exit Glide...", Logger.Yellow, true);
+            //Glide Monitor
+            IStatus.Planet.Glide(Event);
 
-                    //If BodyType = Planet & FSD Cooldown = True it means the ship has left Glide.
-                    int i2 = 600; while (IEquipment.FrameShiftDrive.Cooldown != true)
-                    {
-                        i2--; if (i2 <= 0)
-                        {
-                            Logger.Log(MethodName, "Assisted Landing Preparations: Landing Preparations Deactivated. Did Not Detect Exiting Glide In A Timely Manner...", Logger.Yellow, true);                            
-                            return;
-                        }
-                        Thread.Sleep(100);
-                    }
-
-                    Logger.Log(MethodName, "Assisted Landing Preparations: Monitoring Altitude for 60 Seconds...", Logger.Yellow, true);
-                    
-                    //Monitor Altitude For 60 Seconds.
-                    int i = 600; while (i > 0 && IObjects.Status.Altitude > 500)
-                    {
-                        Thread.Sleep(100); i--; if (i <= 0)
-                        {
-                            Logger.Log(MethodName, "Assisted Landing Preparations:  Timmed Out, You Took Too Long...", Logger.Yellow, true);
-                            return;
-                        }
-                    }
-
-                    if (IObjects.Status.Altitude <= 500)
-                    {                        
-                        Call.Action.LandingPreparations(true);
-                    }
-
-                }))
-                {
-                    IsBackground = false
-                };
-                LandingPrep_thread.Start();
-            }
-            #endregion
-
-            #region Glide Montior
-            if (Event.BodyType == "Planet" && IObjects.Status.Altitude != 0 && IObjects.Status.HasLatLong == true)
-            {
-                Thread Glide_thread =
-                new Thread((ThreadStart)(() =>
-                {
-                    //If BodyType = Planet And FSD Cooldown = True it means the ship has left Glide.
-                    Logger.Log(MethodName, "Glide Monitor: Monitoring...", Logger.Yellow, true);
-                    int i2 = 600; while (IEquipment.FrameShiftDrive.Cooldown != true)
-                    {
-                        i2--; if (i2 <= 0)
-                        {
-                            Logger.Log(MethodName, "Glide Monitor: Stopped Montitoring, You Took To Long...", Logger.Yellow, true);
-                            return;
-                        }
-                        Thread.Sleep(100);
-                    }
-
-                    //If Altitude is less than 10km then the Glide Should have been sucessful.
-                    if (IObjects.Status.Altitude < 10000)
-                    {
-                        #region Audio
-                        if (PlugIn.Audio == "TTS")
-                        {
-                            Speech.Speak
-                                (
-                                "".Phrase(GN_Planetary_Interaction.Glide_Complete),
-                                true
-                                );
-                        }
-                        else if (PlugIn.Audio == "File") { }
-                        else if (PlugIn.Audio == "External") { }
-                        #endregion
-                    }
-                    //if Altitdue is more then 10km then the Glide Failed.
-                    else
-                    {
-                        Logger.Log(MethodName, "Glide Monitor: Glide Failed, Better Luck Next Time...", Logger.Yellow, true);
-                        //Audio
-                    }
-                }))
-                {
-                    IsBackground = false
-                };
-                Glide_thread.Start();
-            }
-            #endregion
+            //Assisted Landing Preparations
+            IStatus.Planet.AssistedLanding(Event);
         }
 
         public static void Undocked(Undocked Event)
