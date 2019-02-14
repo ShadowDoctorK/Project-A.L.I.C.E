@@ -659,6 +659,14 @@ namespace ALICE_Internal
                 }
                 #endregion
 
+                #region Navigation
+                if (ISettings.Reference.ScanDistLimit != ISettings.User.ScanDistLimit)
+                {
+                    ISettings.Reference.ScanDistLimit = ISettings.User.ScanDistLimit;
+                    Updates.Add(MethodName + ": Scan Distance Limit = " + ISettings.Reference.ScanDistLimit);
+                }
+                #endregion
+
                 #region Write Updates
                 if (Updates.Count > 0)
                 {
@@ -808,6 +816,14 @@ namespace ALICE_Internal
                 {
                     Updates.Add(MethodName + " (Toolkit Update): Masslock = " + ISettings.Toolkit.Masslock);
                     ISettings.User.U_Masslock(ISettings.Toolkit.Masslock);
+                }
+                #endregion
+
+                #region Navigation
+                if (ISettings.User.ScanDistLimit != ISettings.Toolkit.ScanDistLimit)
+                {
+                    Updates.Add(MethodName + " (Toolkit Update): Scan Distance Limit = " + ISettings.Toolkit.ScanDistLimit);
+                    ISettings.User.U_ScanDistLimit(ISettings.Toolkit.ScanDistLimit);
                 }
                 #endregion
 

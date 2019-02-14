@@ -51,6 +51,10 @@ namespace ALICE_Settings
         public bool Masslock { get; set; }
         #endregion
 
+        #region Navigation
+        public decimal ScanDistLimit { get; set; }
+        #endregion
+
         #region Miscellaneous
 
         #endregion
@@ -87,6 +91,9 @@ namespace ALICE_Settings
             TargetEnemy = true;
             TargetWanted = true;
             Masslock = true;
+
+            //Navigation
+            ScanDistLimit = 250000;    //Distance In Light Seconds.
         }
 
         #region PlugIn
@@ -479,6 +486,24 @@ namespace ALICE_Settings
             string Item = "Masslock";
             Masslock = Report_Update(Masslock, State, Item);
             ISettings.User.Save(Item);
+        }
+        #endregion
+
+        #region Navigation
+        /// <summary>
+        /// Will Update the Scan Distance Limit setting.
+        /// </summary>
+        /// <param name="D">New Distance Limit In LS</param>
+        public void U_ScanDistLimit(decimal D)
+        {
+            string MethodName = "Scan Distance Limit";
+
+            if (D != ScanDistLimit)
+            {
+                ScanDistLimit = D;
+            }
+            
+            ISettings.User.Save(MethodName);
         }
         #endregion
     }

@@ -1693,7 +1693,8 @@ namespace ALICE_EventLogic
 
         public static void Scan(Scan Event)
         {
-            IObjects.SystemCurrent.Update_StellarBody(Event);
+            //Update Current System Information
+            IObjects.SystemCurrent.Update_StellarBody(Event); 
         }
 
         public static void SetUserShipName(SetUserShipName Event)

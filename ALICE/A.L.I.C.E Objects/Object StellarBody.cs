@@ -1,4 +1,6 @@
 ﻿using ALICE_Events;
+using ALICE_Internal;
+using ALICE_Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +50,8 @@ namespace ALICE_Objects
         public string ReserveLevel { get; set; }
         #endregion
 
+        Responses Response = new Responses();
+
         public Object_StellarBody()
         {
             ModfyingEvent = Default.String;
@@ -88,6 +92,136 @@ namespace ALICE_Objects
             Rings = new List<Ring>();
             ReserveLevel = Default.String;
         }
+
+        public void ScanReport(Scan Event)
+        {
+            string MethodName = "Stellar Body (Scan Report)";
+
+            //Get Scanned Body Data
+            Object_StellarBody Temp = IObjects.SystemCurrent.Get_StellarBody(Event.BodyID);
+
+            //Track Range
+            bool OutOfRange = false;
+
+            //Track Price
+            bool BelowPrice = false;
+
+            //Check Body Is A Planet
+            if (IObjects.StellarBodyCurrent.BodyType != IEnums.Planet)
+            {
+                Logger.DebugLine(MethodName, "Body Type Is Not A Planet", Logger.Yellow);
+                return;
+            }
+
+            //Check Distance From Arrival Against User Settings
+            if (IObjects.StellarBodyCurrent.DistFromArrival > ISettings.User.ScanDistLimit)
+            {
+                Logger.DebugLine(MethodName, "Is Out Of Players Desired Travel Distance.", Logger.Yellow);
+                OutOfRange = true;
+            }
+
+            //Check Distance From Arrival Against User Settings
+            if (IObjects.StellarBodyCurrent.DistFromArrival > ISettings.User.ScanDistLimit)
+            {
+                Logger.DebugLine(MethodName, "Is Out Of Players Desired Travel Distance.", Logger.Yellow);
+                OutOfRange = true;
+            }
+        }
+
+        #region Support Methods
+        public decimal GetFSSEstimate(Object_StellarBody O)
+        {
+            string MethodName = "Stellar Body (FFS Value Estimate)";
+
+            switch (O.PlanetClass)
+            {
+                case "Earthlike body":
+                    return 270000;
+
+                case "Water world":
+
+                    //Check If Terraformable
+                    if (O.TerraformState != "None")
+                    {
+                        return 270000;
+                    }
+
+                    //Normal
+                    return 100000;
+
+                case "High metal content body":
+
+                    //Check If Terraformable
+                    if (O.TerraformState != "None")
+                    {
+                        return 160000;
+                    }
+
+                    //Normal
+                    return 14000;
+
+                case "Ammonia body":
+                    return 140000;
+
+                case "Rocky body":
+
+                    //Check If Terraformable
+                    if (O.TerraformState != "None")
+                    {
+                        return 130000;
+                    }
+
+                    //Normal
+                    return 500;
+
+                case "Metal rich body":
+                    return 30000;
+
+                case "Sudarsky class I gas giant":
+                    return 3800;
+
+                case "Sudarsky class II gas giant":
+                    return 28000;
+
+                case "Sudarsky class III gas giant":
+                    return 1000;
+
+                case "Sudarsky class IV gas giant":
+                    return 1100;
+
+                case "Sudarsky class V gas giant":
+                    return 1000;
+
+                case "Gas giant with water based life":
+                    return 880;
+
+                case "Gas giant with ammonia based life":
+                    return 770;
+
+                case "Helium rich gas giant":
+                    return 900;
+
+                case "Helium gas giant":
+                    return 900;
+
+                case "Water giant":
+                    return 670;
+
+                case "Water giant with life":
+                    return 670;
+
+                case "Rocky ice body":
+                    return 500;
+
+                case "Ice body":
+                    return 500;
+
+                default:
+                    Logger.DevUpdateLog(MethodName, "New Untracked Body: " + O.PlanetClass + " | Terraform State" + O.TerraformState, Logger.Purple);
+                    return 0;
+            }
+        }        
+        #endregion
 
         #region Update Methods
         public void Update_ModfyingEvent(string Value) { this.ModfyingEvent = Value; }
@@ -191,6 +325,11 @@ namespace ALICE_Objects
             }
         }
         #endregion
+
+        public class Responses
+        {
+
+        }
 
         public class AirComposite
         {
