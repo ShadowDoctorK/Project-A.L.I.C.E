@@ -51,8 +51,18 @@ namespace ALICE_Settings
         public bool Masslock { get; set; }
         #endregion
 
-        #region Navigation
+        #region Exploration
         public decimal ScanDistLimit { get; set; }
+        public bool BodyEarthLike { get; set; }
+        public bool BodyWaterTerra { get; set; }
+        public bool BodyHMCTerra { get; set; }
+        public bool BodyAmmonia { get; set; }
+        public bool BodyRockyTerra { get; set; }
+        public bool BodyWater { get; set; }
+        public bool BodyMetalRich { get; set; }
+        public bool BodyGasGiantII { get; set; }
+        public bool BodyHMC { get; set; }
+
         #endregion
 
         #region Miscellaneous
@@ -92,8 +102,17 @@ namespace ALICE_Settings
             TargetWanted = true;
             Masslock = true;
 
-            //Navigation
-            ScanDistLimit = 250000;    //Distance In Light Seconds.
+            //Exploration
+            ScanDistLimit = 250000;     //Distance In Light Seconds.
+            BodyEarthLike = true;       
+            BodyWaterTerra = true;
+            BodyHMCTerra = true;
+            BodyAmmonia = true;
+            BodyRockyTerra = true;
+            BodyWater = true;
+            BodyMetalRich = false;
+            BodyGasGiantII = false;
+            BodyHMC = false;
         }
 
         #region PlugIn

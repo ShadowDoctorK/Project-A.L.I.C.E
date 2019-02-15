@@ -27,9 +27,20 @@ namespace ALICE_Community_Toolkit
     {
         public MainWindow()
         {
+            Data.LoadUserSettings();
+            Data.StartMonitor();
+
             InitializeComponent();
             Paths.CreateDir();
             Interface_StackPanel.Children.Add(Interface_Dashboard);
+
+            Data.SettingInit = true;
+        }
+
+        public static void UpdateButtons()
+        {
+            //Update Plugin Settings Buttons
+            Interface_Dashboard.Interface_Reports.UpdateButtons();
         }
 
         #region Application Shared Methods
@@ -74,7 +85,7 @@ namespace ALICE_Community_Toolkit
         #endregion
 
         #region Response Generator
-        Response_Generator Interface_Response = new Response_Generator();
+        private static Response_Generator Interface_Response = new Response_Generator();
 
         private void btn_ResponseGen_Click(object sender, RoutedEventArgs e)
         {
@@ -91,7 +102,7 @@ namespace ALICE_Community_Toolkit
         #endregion
 
         #region Synthesizer Controls
-        Synthesizer_Controls Interface_Synthesizer = new Synthesizer_Controls();
+        private static Synthesizer_Controls Interface_Synthesizer = new Synthesizer_Controls();
         private void btn_SynthControl_Click(object sender, RoutedEventArgs e)
         {
             Interface_StackPanel.Children.Clear();
@@ -107,7 +118,7 @@ namespace ALICE_Community_Toolkit
         #endregion
 
         #region Dashboard
-        Dashboard Interface_Dashboard = new Dashboard();
+        private static Dashboard Interface_Dashboard = new Dashboard();
 
         private void btn_Dashboard_Click(object sender, RoutedEventArgs e)
         {
@@ -120,6 +131,23 @@ namespace ALICE_Community_Toolkit
             Interface_StackPanel.Children.Clear();
             Interface_Dashboard = new Dashboard();
             Interface_StackPanel.Children.Add(Interface_Dashboard);
+        }
+        #endregion
+
+        #region Exploration
+        private static Exploration Interface_Exploration = new Exploration();
+
+        private void btn_Exploration_Click(object sender, RoutedEventArgs e)
+        {
+            Interface_StackPanel.Children.Clear();
+            Interface_StackPanel.Children.Add(Interface_Exploration);
+        }
+
+        private void btn_Exploration_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Interface_StackPanel.Children.Clear();
+            Interface_Exploration = new Exploration();
+            Interface_StackPanel.Children.Add(Interface_Exploration);
         }
         #endregion
 

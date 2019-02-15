@@ -68,11 +68,9 @@
     <Compile Include="Childern Dashboard\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Exploration.xaml.cs">
+    <Compile Include="Data.cs" />
+    <Compile Include="Main Interfaces\Exploration.xaml.cs">
       <DependentUpon>Exploration.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ExplorationData.xaml.cs">
-      <DependentUpon>ExplorationData.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main Interfaces\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
@@ -90,11 +88,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Exploration.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ExplorationData.xaml">
+    <Page Include="Main Interfaces\Exploration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
