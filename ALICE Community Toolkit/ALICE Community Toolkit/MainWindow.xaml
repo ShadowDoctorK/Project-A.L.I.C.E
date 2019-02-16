@@ -42,8 +42,10 @@
                 </Button.Background>
             </Button>
         </StackPanel>
+        
+        <Label x:Name="Label_Commander" Content="Default Settings" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,200" Width="171" Foreground="#FFCE5A05" FontWeight="Bold" Height="27" VerticalAlignment="Bottom"/>
+       
         <Label x:Name="Label_Version" Content="A.L.I.C.E Version 3.4.0 (Open Beta 1.2.1)" HorizontalAlignment="Left" Margin="0,0,0,-1" Width="185" Foreground="#FFCE5A05" FontSize="9" Height="22" VerticalAlignment="Bottom" FontWeight="Bold"/>
-        <Label x:Name="Label_Version_Copy" Content="EXPERIMENTAL BUILD" HorizontalAlignment="Left" Margin="26,0,0,200" Width="139" Foreground="#FFCE5A05" FontWeight="Bold" Height="27" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Window>

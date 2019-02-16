@@ -231,7 +231,7 @@ namespace ALICE_EventLogic
 
                 Thread.Sleep(100);
 
-                if (ISettings.User.WeaponSafety == true)
+                if (ISettings.WeaponSafety == true)
                 {
                     IObjects.Status.WeaponSafety = true;
                     Call.Action.AnalysisMode(true, false);
@@ -1694,7 +1694,10 @@ namespace ALICE_EventLogic
         public static void Scan(Scan Event)
         {
             //Update Current System Information
-            IObjects.SystemCurrent.Update_StellarBody(Event); 
+            IObjects.SystemCurrent.Update_StellarBody(Event);
+
+            //Evaluate Scan Data
+            IStatus.Scan.Evaluate(Event.BodyID);
         }
 
         public static void SetUserShipName(SetUserShipName Event)
@@ -2013,7 +2016,7 @@ namespace ALICE_EventLogic
             new Thread((ThreadStart)(() =>
             {
                 #region Hanger Entry & Open Station Services
-                Thread.Sleep(1000 + ISettings.User.OffsetPanels);
+                Thread.Sleep(1000 + ISettings.OffsetPanels);
 
                 Call.Key.Press(Call.Key.UI_Panel_Up_Press, 500);
                 Call.Key.Press(Call.Key.UI_Panel_Up_Release, 100);

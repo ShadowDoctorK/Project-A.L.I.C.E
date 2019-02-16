@@ -2695,7 +2695,7 @@ namespace ALICE_Actions
 
             if (FighterNumber == 2)
             {
-                Thread.Sleep(100 + ISettings.User.OffsetPanels);
+                Thread.Sleep(100 + ISettings.OffsetPanels);
                 Call.Key.Press(Call.Key.UI_Panel_Down, 100, Call.Key.DelayPanel);
             }
 

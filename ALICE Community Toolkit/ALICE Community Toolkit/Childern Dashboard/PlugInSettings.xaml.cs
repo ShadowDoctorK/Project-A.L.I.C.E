@@ -25,7 +25,7 @@ namespace ALICE_Community_Toolkit
     /// </summary>
     public partial class Reports : UserControl
     {
-        public static string MethodName = "Toolkit Settings";
+        public static string MethodName = "(Toolkit) Plugin Settings";
 
         public Reports()
         {
@@ -90,50 +90,46 @@ namespace ALICE_Community_Toolkit
 
         public void UpdateButtons()
         {
-            string MethodName = "(Toolkit) Update Buttons";
-
             this.Dispatcher.Invoke(() =>
             {
                 try
                 {
-                    Label_CommanderName.Content = "CMDR " + Data.User.Commander;
-
                     #region PlugIn
                     //Firegroup Offset
-                    Slider_DelayFiregroup.Value = Data.User.OffsetFireGroups;
-                    TextBox_DelayFiregroup.Text = Data.User.OffsetFireGroups.ToString() + "ms";
+                    Slider_DelayFiregroup.Value = Data.OffsetFireGroups;
+                    TextBox_DelayFiregroup.Text = Data.OffsetFireGroups.ToString() + "ms";
                     //Panel Offset
-                    Slider_DelayPanel.Value = Data.User.OffsetPanels;
-                    TextBox_DelayPanel.Text = Data.User.OffsetPanels.ToString() + "ms";
+                    Slider_DelayPanel.Value = Data.OffsetPanels;
+                    TextBox_DelayPanel.Text = Data.OffsetPanels.ToString() + "ms";
                     //Power Offset
-                    Slider_DelayPower.Value = Data.User.OffsetPips;
-                    TextBox_DelayPower.Text = Data.User.OffsetPips.ToString() + "ms";
+                    Slider_DelayPower.Value = Data.OffsetPips;
+                    TextBox_DelayPower.Text = Data.OffsetPips.ToString() + "ms";
                     //Throttle Offset
-                    Slider_DelayThrottle.Value = Data.User.OffsetThrottle;
-                    TextBox_DelayThrottle.Text = Data.User.OffsetThrottle.ToString() + "ms";
+                    Slider_DelayThrottle.Value = Data.OffsetThrottle;
+                    TextBox_DelayThrottle.Text = Data.OffsetThrottle.ToString() + "ms";
                     #endregion
 
                     #region Reports
-                    btn_FuelScoop.Foreground = Data.GetTextColor(Data.User.FuelScoop);
-                    btn_FuelStatus.Foreground = Data.GetTextColor(Data.User.FuelStatus);
-                    btn_MaterialCollected.Foreground = Data.GetTextColor(Data.User.MaterialCollected);
-                    btn_NoFireZone.Foreground = Data.GetTextColor(Data.User.NoFireZone);
-                    btn_StationStatus.Foreground = Data.GetTextColor(Data.User.StationStatus);
-                    btn_ShieldStatus.Foreground = Data.GetTextColor(Data.User.ShieldState);
-                    btn_CollectedBounty.Foreground = Data.GetTextColor(Data.User.CollectedBounty);
-                    btn_TargetEnemy.Foreground = Data.GetTextColor(Data.User.TargetEnemy);
-                    btn_WatnedTarget.Foreground = Data.GetTextColor(Data.User.TargetWanted);
-                    btn_RefinedMaterials.Foreground = Data.GetTextColor(Data.User.MaterialRefined);
-                    btn_Masslock.Foreground = Data.GetTextColor(Data.User.Masslock);
+                    btn_FuelScoop.Foreground = Data.GetTextColor(Data.FuelScoop);
+                    btn_FuelStatus.Foreground = Data.GetTextColor(Data.FuelStatus);
+                    btn_MaterialCollected.Foreground = Data.GetTextColor(Data.MaterialCollected);
+                    btn_NoFireZone.Foreground = Data.GetTextColor(Data.NoFireZone);
+                    btn_StationStatus.Foreground = Data.GetTextColor(Data.StationStatus);
+                    btn_ShieldStatus.Foreground = Data.GetTextColor(Data.ShieldState);
+                    btn_CollectedBounty.Foreground = Data.GetTextColor(Data.CollectedBounty);
+                    btn_TargetEnemy.Foreground = Data.GetTextColor(Data.TargetEnemy);
+                    btn_WatnedTarget.Foreground = Data.GetTextColor(Data.TargetWanted);
+                    btn_RefinedMaterials.Foreground = Data.GetTextColor(Data.MaterialRefined);
+                    btn_Masslock.Foreground = Data.GetTextColor(Data.Masslock);
                     #endregion
 
                     #region Orders
-                    btn_AssistedCombatPower.Foreground = Data.GetTextColor(Data.User.CombatPower);
-                    btn_AssistedSystemScans.Foreground = Data.GetTextColor(Data.User.AssistSystemScan);
-                    btn_AssistedDockingProcedures.Foreground = Data.GetTextColor(Data.User.AssistDocking);
-                    btn_AssistedHangerEntry.Foreground = Data.GetTextColor(Data.User.AssistHangerEntry);
-                    btn_PostJumpSafeties.Foreground = Data.GetTextColor(Data.User.PostHyperspaceSafety);
-                    btn_WeaponSafty.Foreground = Data.GetTextColor(Data.User.WeaponSafety);
+                    btn_AssistedCombatPower.Foreground = Data.GetTextColor(Data.CombatPower);
+                    btn_AssistedSystemScans.Foreground = Data.GetTextColor(Data.AssistSystemScan);
+                    btn_AssistedDockingProcedures.Foreground = Data.GetTextColor(Data.AssistDocking);
+                    btn_AssistedHangerEntry.Foreground = Data.GetTextColor(Data.AssistHangerEntry);
+                    btn_PostJumpSafeties.Foreground = Data.GetTextColor(Data.PostHyperspaceSafety);
+                    btn_WeaponSafty.Foreground = Data.GetTextColor(Data.WeaponSafety);
                     #endregion
                 }
                 catch (Exception ex)
@@ -266,26 +262,26 @@ namespace ALICE_Community_Toolkit
         #region PlugIn
         private void Slider_DelayPanel_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Data.User.OffsetPanels = (int)Slider_DelayPanel.Value;
-            Data.SaveUserSettings();
+            Data.OffsetPanels = (int)Slider_DelayPanel.Value;
+            //Data.SaveUserSettings();
         }
 
         private void Slider_DelayPower_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Data.User.OffsetPips = (int)Slider_DelayPower.Value;
-            Data.SaveUserSettings();
+            Data.OffsetPips = (int)Slider_DelayPower.Value;
+            //Data.SaveUserSettings();
         }
 
         private void Slider_DelayFiregroup_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Data.User.OffsetFireGroups = (int)Slider_DelayFiregroup.Value;
-            Data.SaveUserSettings();
+            Data.OffsetFireGroups = (int)Slider_DelayFiregroup.Value;
+            //Data.SaveUserSettings();
         }
 
         private void Slider_DelayThrottle_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Data.User.OffsetThrottle = (int)Slider_DelayThrottle.Value;
-            Data.SaveUserSettings();
+            Data.OffsetThrottle = (int)Slider_DelayThrottle.Value;
+            //Data.SaveUserSettings();
         }
         #endregion
 
@@ -294,9 +290,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.FuelScoop = !Data.User.FuelScoop;
-                btn_FuelScoop.Foreground = Data.GetTextColor(Data.User.FuelScoop);
-                Data.SaveUserSettings();
+                Data.FuelScoop = !Data.FuelScoop;
+                btn_FuelScoop.Foreground = Data.GetTextColor(Data.FuelScoop);
+                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -308,9 +304,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.FuelStatus = !Data.User.FuelStatus;
-                btn_FuelStatus.Foreground = Data.GetTextColor(Data.User.FuelStatus);
-                Data.SaveUserSettings();
+                Data.FuelStatus = !Data.FuelStatus;
+                btn_FuelStatus.Foreground = Data.GetTextColor(Data.FuelStatus);
+                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -322,9 +318,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.MaterialCollected = !Data.User.MaterialCollected;
-                btn_MaterialCollected.Foreground = Data.GetTextColor(Data.User.MaterialCollected);
-                Data.SaveUserSettings();
+                Data.MaterialCollected = !Data.MaterialCollected;
+                btn_MaterialCollected.Foreground = Data.GetTextColor(Data.MaterialCollected);
+                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -336,9 +332,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.NoFireZone = !Data.User.NoFireZone;
-                btn_NoFireZone.Foreground = Data.GetTextColor(Data.User.NoFireZone);
-                Data.SaveUserSettings();
+                Data.NoFireZone = !Data.NoFireZone;
+                btn_NoFireZone.Foreground = Data.GetTextColor(Data.NoFireZone);
+                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -350,9 +346,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.StationStatus = !Data.User.StationStatus;
-                btn_StationStatus.Foreground = Data.GetTextColor(Data.User.StationStatus);
-                Data.SaveUserSettings();
+                Data.StationStatus = !Data.StationStatus;
+                btn_StationStatus.Foreground = Data.GetTextColor(Data.StationStatus);
+                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -364,9 +360,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.ShieldState = !Data.User.ShieldState;
-                btn_ShieldStatus.Foreground = Data.GetTextColor(Data.User.ShieldState);
-                Data.SaveUserSettings();
+                Data.ShieldState = !Data.ShieldState;
+                btn_ShieldStatus.Foreground = Data.GetTextColor(Data.ShieldState);
+                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -378,9 +374,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.CollectedBounty = !Data.User.CollectedBounty;
-                btn_CollectedBounty.Foreground = Data.GetTextColor(Data.User.CollectedBounty);
-                Data.SaveUserSettings();
+                Data.CollectedBounty = !Data.CollectedBounty;
+                btn_CollectedBounty.Foreground = Data.GetTextColor(Data.CollectedBounty);
+                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -392,9 +388,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.TargetEnemy = !Data.User.TargetEnemy;
-                btn_TargetEnemy.Foreground = Data.GetTextColor(Data.User.TargetEnemy);
-                Data.SaveUserSettings();
+                Data.TargetEnemy = !Data.TargetEnemy;
+                btn_TargetEnemy.Foreground = Data.GetTextColor(Data.TargetEnemy);
+                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -406,9 +402,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.TargetWanted = !Data.User.TargetWanted;
-                btn_WatnedTarget.Foreground = Data.GetTextColor(Data.User.TargetWanted);
-                Data.SaveUserSettings();
+                Data.TargetWanted = !Data.TargetWanted;
+                btn_WatnedTarget.Foreground = Data.GetTextColor(Data.TargetWanted);
+                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -420,9 +416,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.MaterialRefined = !Data.User.MaterialRefined;
-                btn_RefinedMaterials.Foreground = Data.GetTextColor(Data.User.MaterialRefined);
-                Data.SaveUserSettings();
+                Data.MaterialRefined = !Data.MaterialRefined;
+                btn_RefinedMaterials.Foreground = Data.GetTextColor(Data.MaterialRefined);
+                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -434,9 +430,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.Masslock = !Data.User.Masslock;
-                btn_Masslock.Foreground = Data.GetTextColor(Data.User.Masslock);
-                Data.SaveUserSettings();
+                Data.Masslock = !Data.Masslock;
+                btn_Masslock.Foreground = Data.GetTextColor(Data.Masslock);
+                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -451,9 +447,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.CombatPower = !Data.User.CombatPower;
-                btn_AssistedCombatPower.Foreground = Data.GetTextColor(Data.User.CombatPower);
-                Data.SaveUserSettings();
+                Data.CombatPower = !Data.CombatPower;
+                btn_AssistedCombatPower.Foreground = Data.GetTextColor(Data.CombatPower);
+                ////Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -465,9 +461,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.AssistSystemScan = !Data.User.AssistSystemScan;
-                btn_AssistedSystemScans.Foreground = Data.GetTextColor(Data.User.AssistSystemScan);
-                Data.SaveUserSettings();
+                Data.AssistSystemScan = !Data.AssistSystemScan;
+                btn_AssistedSystemScans.Foreground = Data.GetTextColor(Data.AssistSystemScan);
+                ////Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -479,9 +475,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.AssistDocking = !Data.User.AssistDocking;
-                btn_AssistedDockingProcedures.Foreground = Data.GetTextColor(Data.User.AssistDocking);
-                Data.SaveUserSettings();
+                Data.AssistDocking = !Data.AssistDocking;
+                btn_AssistedDockingProcedures.Foreground = Data.GetTextColor(Data.AssistDocking);
+                ////Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -493,9 +489,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.AssistHangerEntry = !Data.User.AssistHangerEntry;
-                btn_AssistedHangerEntry.Foreground = Data.GetTextColor(Data.User.AssistHangerEntry);
-                Data.SaveUserSettings();
+                Data.AssistHangerEntry = !Data.AssistHangerEntry;
+                btn_AssistedHangerEntry.Foreground = Data.GetTextColor(Data.AssistHangerEntry);
+                ////Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -507,9 +503,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.PostHyperspaceSafety = !Data.User.PostHyperspaceSafety;
-                btn_PostJumpSafeties.Foreground = Data.GetTextColor(Data.User.PostHyperspaceSafety);
-                Data.SaveUserSettings();
+                Data.PostHyperspaceSafety = !Data.PostHyperspaceSafety;
+                btn_PostJumpSafeties.Foreground = Data.GetTextColor(Data.PostHyperspaceSafety);
+                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -521,9 +517,9 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.User.WeaponSafety = !Data.User.WeaponSafety;
-                btn_WeaponSafty.Foreground = Data.GetTextColor(Data.User.WeaponSafety);
-                Data.SaveUserSettings();
+                Data.WeaponSafety = !Data.WeaponSafety;
+                btn_WeaponSafty.Foreground = Data.GetTextColor(Data.WeaponSafety);
+                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {

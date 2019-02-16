@@ -705,10 +705,10 @@ namespace ALICE_Keybinds
 			finally
 			{
 				#region Sleep After KeyPress
-				if (Delay == DelayPanel) { ExtraSleep = ExtraSleep + ISettings.User.OffsetPanels; }
-				if (Delay == DelayFireGroup) { ExtraSleep = ExtraSleep + ISettings.User.OffsetFireGroups; }
-				if (Delay == DelayPower) { ExtraSleep = ExtraSleep + ISettings.User.OffsetPips; }
-				if (Delay == DelayThrottle) { ExtraSleep = ExtraSleep + ISettings.User.OffsetThrottle; }
+				if (Delay == DelayPanel) { ExtraSleep = ExtraSleep + ISettings.OffsetPanels; }
+				if (Delay == DelayFireGroup) { ExtraSleep = ExtraSleep + ISettings.OffsetFireGroups; }
+				if (Delay == DelayPower) { ExtraSleep = ExtraSleep + ISettings.OffsetPips; }
+				if (Delay == DelayThrottle) { ExtraSleep = ExtraSleep + ISettings.OffsetThrottle; }
 				Thread.Sleep(ExtraSleep);
 				#endregion
 			}

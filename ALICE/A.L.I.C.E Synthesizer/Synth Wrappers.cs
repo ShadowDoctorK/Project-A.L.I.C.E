@@ -2,7 +2,7 @@
 
 namespace ALICE_Synthesizer
 {
-    #region Response Wrappers | Auto Generated: 01/26/2019 1:28 AM
+    #region Response Wrappers | Auto Generated: 02/15/2019 10:16 PM
 
     public static class Crime
     {
@@ -67,10 +67,10 @@ namespace ALICE_Synthesizer
     public static class EQ_External_Lights
     {
         public static List<string> No_Hyperspace = new List<string> { "EQ External Lights", "No Hyperspace" };
-        public static List<string> Deenergizing = new List<string> { "EQ External Lights", "Deenergizing" };
         public static List<string> Energizing = new List<string> { "EQ External Lights", "Energizing" };
         public static List<string> Currently_Deenergized = new List<string> { "EQ External Lights", "Currently Deenergized" };
         public static List<string> Currently_Energized = new List<string> { "EQ External Lights", "Currently Energized" };
+        public static List<string> Deenergizing = new List<string> { "EQ External Lights", "Deenergizing" };
     }
 
     public static class EQ_Fighter
@@ -126,6 +126,8 @@ namespace ALICE_Synthesizer
         public static List<string> SC_Disengaging = new List<string> { "EQ Frame Shift Drive", "SC Disengaging" };
         public static List<string> SC_Entering = new List<string> { "EQ Frame Shift Drive", "SC Entering" };
         public static List<string> Negaive = new List<string> { "EQ Frame Shift Drive", "Negaive" };
+        public static List<string> Reached_Destination = new List<string> { "EQ Frame Shift Drive", "Reached Destination" };
+        public static List<string> Navigation_Update = new List<string> { "EQ Frame Shift Drive", "Navigation Update" };
     }
 
     public static class EQ_Full_Spectrum_Scanner
@@ -173,7 +175,6 @@ namespace ALICE_Synthesizer
     public static class EQ_Landing_Gear
     {
         public static List<string> Retracting = new List<string> { "EQ Landing Gear", "Retracting" };
-        public static List<string> Deploying = new List<string> { "EQ Landing Gear", "Deploying" };
         public static List<string> Currently_Retracted = new List<string> { "EQ Landing Gear", "Currently Retracted" };
         public static List<string> Currently_Deployed = new List<string> { "EQ Landing Gear", "Currently Deployed" };
         public static List<string> Touchdown = new List<string> { "EQ Landing Gear", "Touchdown" };
@@ -181,6 +182,7 @@ namespace ALICE_Synthesizer
         public static List<string> Fighter_Deployed = new List<string> { "EQ Landing Gear", "Fighter Deployed" };
         public static List<string> Not_Mothership = new List<string> { "EQ Landing Gear", "Not Mothership" };
         public static List<string> Not_Normal_Space = new List<string> { "EQ Landing Gear", "Not Normal Space" };
+        public static List<string> Deploying = new List<string> { "EQ Landing Gear", "Deploying" };
     }
 
     public static class EQ_Shield_Cell
@@ -210,6 +212,11 @@ namespace ALICE_Synthesizer
         public static List<string> Collected = new List<string> { "EVT Bounty", "Collected" };
     }
 
+    public static class EVT_FSSAllBodiesFound
+    {
+        public static List<string> Default = new List<string> { "EVT FSSAllBodiesFound", "Default" };
+    }
+
     public static class EVT_HeatDamage
     {
         public static List<string> Default = new List<string> { "EVT HeatDamage", "Default" };
@@ -217,8 +224,8 @@ namespace ALICE_Synthesizer
 
     public static class EVT_HeatWarning
     {
-        public static List<string> Modifier = new List<string> { "EVT HeatWarning", "Modifier" };
         public static List<string> Default = new List<string> { "EVT HeatWarning", "Default" };
+        public static List<string> Modifier = new List<string> { "EVT HeatWarning", "Modifier" };
     }
 
     public static class EVT_HullDamage
@@ -237,6 +244,15 @@ namespace ALICE_Synthesizer
     {
         public static List<string> Exited = new List<string> { "EVT NoFireZone", "Exited" };
         public static List<string> Entered = new List<string> { "EVT NoFireZone", "Entered" };
+    }
+
+    public static class EVT_Scan
+    {
+        public static List<string> Target_Aquired = new List<string> { "EVT Scan", "Target Aquired" };
+        public static List<string> Est_Detailed_Scan = new List<string> { "EVT Scan", "Est Detailed Scan" };
+        public static List<string> Outside_Distance = new List<string> { "EVT Scan", "Outside Distance" };
+        public static List<string> Terraformable = new List<string> { "EVT Scan", "Terraformable" };
+        public static List<string> Landable_Volcanism = new List<string> { "EVT Scan", "Landable Volcanism" };
     }
 
     public static class EVT_Shipyard_Arrived
@@ -340,8 +356,8 @@ namespace ALICE_Synthesizer
 
     public static class GN_Landing_Preparations
     {
-        public static List<string> Modifier = new List<string> { "GN Landing Preparations", "Modifier" };
         public static List<string> Default = new List<string> { "GN Landing Preparations", "Default" };
+        public static List<string> Modifier = new List<string> { "GN Landing Preparations", "Modifier" };
     }
 
     public static class GN_Negative
@@ -425,8 +441,8 @@ namespace ALICE_Synthesizer
     {
         public static List<string> Hostile_Faction = new List<string> { "GN Target Ship", "Hostile Faction" };
         public static List<string> Wanted = new List<string> { "GN Target Ship", "Wanted" };
-        public static List<string> Bounty = new List<string> { "GN Target Ship", "Bounty" };
         public static List<string> Bounty_Update = new List<string> { "GN Target Ship", "Bounty Update" };
+        public static List<string> Bounty = new List<string> { "GN Target Ship", "Bounty" };
     }
 
     public static class GN_Targeting_System
@@ -438,7 +454,6 @@ namespace ALICE_Synthesizer
         public static List<string> Blacklist_Pilot = new List<string> { "GN Targeting System", "Blacklist Pilot" };
         public static List<string> Whitelist_Contains = new List<string> { "GN Targeting System", "Whitelist Contains" };
         public static List<string> Whitelist_Empty = new List<string> { "GN Targeting System", "Whitelist Empty" };
-        public static List<string> Scan_Start_Hostile_Modifier = new List<string> { "GN Targeting System", "Scan Start Hostile Modifier" };
         public static List<string> Scan_Continue = new List<string> { "GN Targeting System", "Scan Continue" };
         public static List<string> Scan_Terminated = new List<string> { "GN Targeting System", "Scan Terminated" };
         public static List<string> Scan_Pause = new List<string> { "GN Targeting System", "Scan Pause" };
@@ -452,6 +467,7 @@ namespace ALICE_Synthesizer
         public static List<string> Whitelist_Clear = new List<string> { "GN Targeting System", "Whitelist Clear" };
         public static List<string> Whitelist_Faction = new List<string> { "GN Targeting System", "Whitelist Faction" };
         public static List<string> Whitelist_Pilot = new List<string> { "GN Targeting System", "Whitelist Pilot" };
+        public static List<string> Scan_Start_Hostile_Modifier = new List<string> { "GN Targeting System", "Scan Start Hostile Modifier" };
     }
 
     public static class GN_Thank_You

@@ -131,9 +131,9 @@ namespace ALICE_Internal
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Loading Last Written User Settings...", Logger.Blue);
 
-                    //Load User Settings
-                    ISettings.User = ISettings.User.Load(ISettings.SettingsUser, MethodName);
-                   
+                    //Start User Settings Watcher
+                    ISettings.Watcher.Watch();
+
                     //Journal Monitor
                     if (Journal == true)
                     {
@@ -166,8 +166,7 @@ namespace ALICE_Internal
                         true, //Json
                         true, //Internal
                         true, //Panel
-                        true, //Order
-                        true  //Report
+                        true  //Firegroup
                         );
 
                     //Open Toolkit If None Are Detected

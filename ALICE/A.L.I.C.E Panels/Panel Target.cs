@@ -210,7 +210,7 @@ namespace ALICE_Panels
                 Open(MethodName);
 
                 if (Load) { Thread.Sleep(100); UpdateCursor(1, 2, false); }
-                Thread.Sleep(ISettings.User.OffsetPanels);
+                Thread.Sleep(ISettings.OffsetPanels);
                 UpdateCursor(2, 1, false); Select();
             }
         }

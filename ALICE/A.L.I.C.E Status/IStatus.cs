@@ -11,5 +11,6 @@ namespace ALICE_Core
     {
         public static Status_Docking Docking = new Status_Docking();
         public static Status_Planet Planet = new Status_Planet();
+        public static Status_Scan Scan = new Status_Scan();
     }
 }

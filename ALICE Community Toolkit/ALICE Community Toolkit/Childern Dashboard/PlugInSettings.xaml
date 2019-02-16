@@ -34,7 +34,7 @@
             <Button x:Name="btn_WeaponSafty" Content="Weapon Safeties" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Width="150" Click="btn_WeaponSafty_Click" Height="26"/>
         </StackPanel>
 
-        <RichTextBox Margin="10,10,10,703" Background="{x:Null}" Foreground="#FFCE5A05">
+        <RichTextBox Margin="10,10,10,703" Background="{x:Null}" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05">
             <FlowDocument>
                 <Paragraph>
                     <Run Text="Plug-In Settings : This area is provided for Commanders to manually change settings for various orders, reports, and to display game data. Want A.L.I.C.E to report something? Ask about it in the discord and if its something that can be supported we'll toss it on the feature request! We'll be adding items here as new features are developed."/>
@@ -71,7 +71,6 @@
             </StackPanel>
 
         </StackPanel>
-        <Label x:Name="Label_CommanderName" Content="Default" Foreground="#FFCE5A05" Margin="10,0,0,672" HorizontalAlignment="Left" Width="156" Height="26" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"/>
         <StackPanel x:Name="StackBox_1_Copy" Orientation="Horizontal" Margin="654,88,10,10">
 
             <StackPanel x:Name="StackBox_Module" HorizontalAlignment="Left" Width="162" Margin="0,0,0,21">

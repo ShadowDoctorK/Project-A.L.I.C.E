@@ -67,6 +67,7 @@
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Scan.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\ISynthesizer.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Wrappers.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Response.cs" />
@@ -424,6 +425,9 @@
     <None Include="A.L.I.C.E Response\EVT Bounty.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="A.L.I.C.E Response\EVT FSSAllBodiesFound.Response">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="A.L.I.C.E Response\EVT HeatDamage.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -437,6 +441,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="A.L.I.C.E Response\EVT NoFireZone.Response">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="A.L.I.C.E Response\EVT Scan.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="A.L.I.C.E Response\EVT Shipyard Arrived.Response">
