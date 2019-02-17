@@ -676,6 +676,11 @@ namespace ALICE_EventLogic
 
         #region Journal Event Logic
 
+        public static void AsteroidCracked(AsteroidCracked Event)
+        {
+
+        }
+
         public static void ApproachBody(ApproachBody Event)
         {
             string MethodName = "Logic ApproachBody";
@@ -1184,6 +1189,9 @@ namespace ALICE_EventLogic
             Call.Panel.System.Open = false;
             Call.Panel.Target.Open = false;
             Call.Panel.Role.Open = false;
+
+            IObjects.Status.Hyperspace = false;
+            IObjects.Status.Supercruise = true;
             #endregion
 
             Post.FSDJump(Event);
@@ -1751,6 +1759,8 @@ namespace ALICE_EventLogic
             Call.Panel.Comms.Open = false;
             IObjects.Status.Docked = false;
             IObjects.Status.WeaponSafety = false;
+            IObjects.Status.Hyperspace = true;
+            IObjects.Status.Supercruise = false;            
             #endregion
 
             //Audio - Supercruise      
@@ -1807,6 +1817,9 @@ namespace ALICE_EventLogic
             IObjects.Status.Docked = false;
             IStatus.Docking.Preparations = false;
             IObjects.Status.WeaponSafety = false;
+
+            IObjects.Status.Hyperspace = false;
+            IObjects.Status.Supercruise = false;
             #endregion
 
             if (Check.Internal.TriggerEvents(true, MethodName) == true)
@@ -1833,6 +1846,8 @@ namespace ALICE_EventLogic
             IObjects.Status.Docked = false;
             IStatus.Docking.Preparations = false;
             IObjects.Status.WeaponSafety = false;
+            IObjects.Status.Hyperspace = false;
+            IObjects.Status.Supercruise = true;
 
             //Exiting Planet Prevents Abort Decent Report While Leaving The Planet.
             IStatus.Planet.ExitingPlanet = true;
@@ -1843,6 +1858,8 @@ namespace ALICE_EventLogic
         {
             #region Logic Table
             IObjects.Status.WeaponSafety = false;
+            IObjects.Status.Hyperspace = false;
+            IObjects.Status.Supercruise = false;
             #endregion
         }
 
@@ -1864,6 +1881,9 @@ namespace ALICE_EventLogic
             IObjects.Status.Supercruise = false;
             IObjects.Status.FighterDeployed = false;
             IObjects.Status.Docked = false;
+
+            IObjects.Status.Hyperspace = false;
+            IObjects.Status.Supercruise = false;
             #endregion
 
             if (Check.Internal.TriggerEvents(true, MethodName) == true)

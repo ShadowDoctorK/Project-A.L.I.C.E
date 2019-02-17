@@ -122,6 +122,12 @@ namespace ALICE_JournalReader
                                     IEvents.UpdateEvents(EventName, Event);
                                     IEvents.ApproachSettlement.Logic();
                                 }
+                                else if (EventName == "AsteroidCracked")
+                                {
+                                    var Event = JsonConvert.DeserializeObject<ALICE_Events.AsteroidCracked>(RawLine);
+                                    IEvents.UpdateEvents(EventName, Event);
+                                    IEvents.AsteroidCracked.Logic();
+                                }
                                 #endregion
 
                                 #region B

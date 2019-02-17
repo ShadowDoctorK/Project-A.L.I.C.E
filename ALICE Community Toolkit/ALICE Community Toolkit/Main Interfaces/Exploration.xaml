@@ -113,7 +113,7 @@
 
             </StackPanel>
             <ComboBox x:Name="CB_SCTravelDist" SelectionChanged="CB_SCTravelDistChanged" SelectedIndex="0" Foreground="#FF000000" Margin="238,371,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="160"/>
-            <RichTextBox Margin="10,10,0,0" Background="{x:Null}" Foreground="#FFCE5A05" Height="51" VerticalAlignment="Top" BorderBrush="#FFCE5A05" HorizontalAlignment="Left" Width="388">
+            <RichTextBox IsReadOnly="True" Margin="10,10,0,0" Background="{x:Null}" Foreground="#FFCE5A05" Height="51" VerticalAlignment="Top" BorderBrush="#FFCE5A05" HorizontalAlignment="Left" Width="388">
                 <FlowDocument>
                     <Paragraph>
                         <Run Text="Enabling an item below will make A.L.I.C.E give you reports on the bodies you scan that match the Planet Type. You may also get feedback on travel distance by setting you Travel Distance Threshold."/>
@@ -122,14 +122,14 @@
             </RichTextBox>
             <Label Content="Supercruise Travel Distance Threshold" VerticalContentAlignment="Center" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05" Margin="10,369,0,0" HorizontalAlignment="Left" Width="223" Height="25" VerticalAlignment="Top"/>
             <Image HorizontalAlignment="Left" Height="780" Margin="403,10,0,0" VerticalAlignment="Top" Width="600" Source="/ALICE Community Toolkit;component/Resources/Goldilock Zone.png"/>
-            <RichTextBox Margin="462,76,21,0" Background="{x:Null}" Foreground="#FFCE5A05" BorderBrush="{x:Null}" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="82" VerticalAlignment="Top">
+            <RichTextBox IsReadOnly="True" Margin="462,76,21,0" Background="{x:Null}" Foreground="#FFCE5A05" BorderBrush="{x:Null}" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="82" VerticalAlignment="Top">
                 <FlowDocument>
                     <Paragraph>
                         <Run Text="CIRCUMSTELLAR HABITABLE ZONE AKA GOLDILOCKS ZONE IS THE RANGE OF ORBITS AROUND A STAR WITHIN WHICH A PLANETARY SURFACE CAN SUPPORT LIQUID WATER GIVEN CERTAIN ATMOSPHERIC CONDITIONS. IN ELITE DANGEROUS THE HABITABLE ZONE HAS THE HIGHEST CHANCE OF CONTAINING TERRAFORMING CANDIDATE PLANETS AND EARTH LIKE WORLDS. THIS CHART GIVE THE APPROXIMATE DISTANCES FOR EVERY MAIN SEQUENCE STAR CLASS. NOTE THAT IT IS POSSIBLE TO FIND A TFC/ELW BEYOND THE DISTANCES SPECIFIED BY THE CHART."/>
                     </Paragraph>
                 </FlowDocument>
             </RichTextBox>
-            <RichTextBox Margin="462,163,21,591" Background="{x:Null}" Foreground="#FFA49182" BorderBrush="{x:Null}" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+            <RichTextBox IsReadOnly="True" Margin="462,163,21,591" Background="{x:Null}" Foreground="#FFA49182" BorderBrush="{x:Null}" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
                 <FlowDocument>
                     <Paragraph>
                         <Run Text="ARABIC NUMBERS FOLLOWING THE STAR CLASS DENOTE THEIR TEMPERATURES (CAN BE SEEN WHEN TARGETING A SYSTEM FROM THE GALAXY MAP). HOTTER STARS ARE MORE LIKELY TO HAVE TERRAFORMABLES FURTHER AWAY IN THE HABITABLE ZONE."/>

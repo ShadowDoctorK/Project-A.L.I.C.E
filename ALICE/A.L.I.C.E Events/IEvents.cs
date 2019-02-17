@@ -186,6 +186,7 @@ namespace ALICE_Events
         public static Event_AfmuRepairs AfmuRepairs = new Event_AfmuRepairs();
         public static Event_ApproachBody ApproachBody = new Event_ApproachBody();
         public static Event_ApproachSettlement ApproachSettlement = new Event_ApproachSettlement();
+        public static Event_AsteroidCracked AsteroidCracked = new Event_AsteroidCracked();
         #endregion
 
         #region B

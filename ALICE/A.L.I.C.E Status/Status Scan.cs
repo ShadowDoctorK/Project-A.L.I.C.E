@@ -174,7 +174,7 @@ namespace ALICE_Status
                 case "Rocky ice body":
                     return 500;
 
-                case "Ice body":
+                case "Icy body":
                     return 500;
 
                 default:
@@ -267,7 +267,7 @@ namespace ALICE_Status
                 case "Rocky ice body":
                     return 1100;
 
-                case "Ice body":
+                case "Icy body":
                     return 1000;
 
                 default:
@@ -481,7 +481,7 @@ namespace ALICE_Status
                 case "Rocky ice body":
                     return false;
 
-                case "Ice body":
+                case "Icy body":
                     return false;
 
                 default:

@@ -64,6 +64,7 @@
     <Compile Include="A.L.I.C.E Core\Journal Monitor\Current Journal Logs.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment FuelTank.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment FighterHanger.cs" />
+    <Compile Include="A.L.I.C.E Events\[Sandbox]\Event AsteroidCracked.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
