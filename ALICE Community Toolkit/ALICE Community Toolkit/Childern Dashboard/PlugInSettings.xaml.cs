@@ -121,6 +121,10 @@ namespace ALICE_Community_Toolkit
                     btn_WatnedTarget.Foreground = Data.GetTextColor(Data.TargetWanted);
                     btn_RefinedMaterials.Foreground = Data.GetTextColor(Data.MaterialRefined);
                     btn_Masslock.Foreground = Data.GetTextColor(Data.Masslock);
+                    btn_HighGravity.Foreground = Data.GetTextColor(Data.HighGravDescent);
+                    btn_TravelDistance.Foreground = Data.GetTextColor(Data.ScanTravelDist);
+                    btn_LandableVolcanism.Foreground = Data.GetTextColor(Data.LandableVolcanism);
+                    btn_GlideStatus.Foreground = Data.GetTextColor(Data.GlideStatus);
                     #endregion
 
                     #region Orders
@@ -263,25 +267,21 @@ namespace ALICE_Community_Toolkit
         private void Slider_DelayPanel_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Data.OffsetPanels = (int)Slider_DelayPanel.Value;
-            //Data.SaveUserSettings();
         }
 
         private void Slider_DelayPower_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Data.OffsetPips = (int)Slider_DelayPower.Value;
-            //Data.SaveUserSettings();
         }
 
         private void Slider_DelayFiregroup_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Data.OffsetFireGroups = (int)Slider_DelayFiregroup.Value;
-            //Data.SaveUserSettings();
         }
 
         private void Slider_DelayThrottle_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Data.OffsetThrottle = (int)Slider_DelayThrottle.Value;
-            //Data.SaveUserSettings();
         }
         #endregion
 
@@ -292,7 +292,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.FuelScoop = !Data.FuelScoop;
                 btn_FuelScoop.Foreground = Data.GetTextColor(Data.FuelScoop);
-                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -306,7 +305,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.FuelStatus = !Data.FuelStatus;
                 btn_FuelStatus.Foreground = Data.GetTextColor(Data.FuelStatus);
-                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -320,7 +318,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.MaterialCollected = !Data.MaterialCollected;
                 btn_MaterialCollected.Foreground = Data.GetTextColor(Data.MaterialCollected);
-                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -334,7 +331,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.NoFireZone = !Data.NoFireZone;
                 btn_NoFireZone.Foreground = Data.GetTextColor(Data.NoFireZone);
-                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -348,7 +344,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.StationStatus = !Data.StationStatus;
                 btn_StationStatus.Foreground = Data.GetTextColor(Data.StationStatus);
-                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -362,7 +357,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.ShieldState = !Data.ShieldState;
                 btn_ShieldStatus.Foreground = Data.GetTextColor(Data.ShieldState);
-                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -376,7 +370,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.CollectedBounty = !Data.CollectedBounty;
                 btn_CollectedBounty.Foreground = Data.GetTextColor(Data.CollectedBounty);
-                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -390,7 +383,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.TargetEnemy = !Data.TargetEnemy;
                 btn_TargetEnemy.Foreground = Data.GetTextColor(Data.TargetEnemy);
-                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -404,7 +396,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.TargetWanted = !Data.TargetWanted;
                 btn_WatnedTarget.Foreground = Data.GetTextColor(Data.TargetWanted);
-                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -418,7 +409,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.MaterialRefined = !Data.MaterialRefined;
                 btn_RefinedMaterials.Foreground = Data.GetTextColor(Data.MaterialRefined);
-                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -432,7 +422,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.Masslock = !Data.Masslock;
                 btn_Masslock.Foreground = Data.GetTextColor(Data.Masslock);
-                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -449,7 +438,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.CombatPower = !Data.CombatPower;
                 btn_AssistedCombatPower.Foreground = Data.GetTextColor(Data.CombatPower);
-                ////Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -463,7 +451,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.AssistSystemScan = !Data.AssistSystemScan;
                 btn_AssistedSystemScans.Foreground = Data.GetTextColor(Data.AssistSystemScan);
-                ////Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -477,7 +464,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.AssistDocking = !Data.AssistDocking;
                 btn_AssistedDockingProcedures.Foreground = Data.GetTextColor(Data.AssistDocking);
-                ////Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -491,7 +477,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.AssistHangerEntry = !Data.AssistHangerEntry;
                 btn_AssistedHangerEntry.Foreground = Data.GetTextColor(Data.AssistHangerEntry);
-                ////Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -505,7 +490,6 @@ namespace ALICE_Community_Toolkit
             {
                 Data.PostHyperspaceSafety = !Data.PostHyperspaceSafety;
                 btn_PostJumpSafeties.Foreground = Data.GetTextColor(Data.PostHyperspaceSafety);
-                //Data.SaveUserSettings();
             }
             catch (Exception ex)
             {
@@ -519,7 +503,59 @@ namespace ALICE_Community_Toolkit
             {
                 Data.WeaponSafety = !Data.WeaponSafety;
                 btn_WeaponSafty.Foreground = Data.GetTextColor(Data.WeaponSafety);
-                //Data.SaveUserSettings();
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Execption: " + ex);
+            }
+        }
+
+
+        private void btn_GlideStatus_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Data.GlideStatus = !Data.GlideStatus;
+                btn_GlideStatus.Foreground = Data.GetTextColor(Data.GlideStatus);
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Execption: " + ex);
+            }
+        }
+
+        private void btn_HighGravityDescent_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Data.HighGravDescent = !Data.HighGravDescent;
+                btn_HighGravity.Foreground = Data.GetTextColor(Data.HighGravDescent);
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Execption: " + ex);
+            }
+        }
+
+        private void btn_LandableVolcanism_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Data.LandableVolcanism = !Data.LandableVolcanism;
+                btn_LandableVolcanism.Foreground = Data.GetTextColor(Data.LandableVolcanism);
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Execption: " + ex);
+            }
+        }
+
+        private void btn_TravelDistance_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Data.ScanTravelDist = !Data.ScanTravelDist;
+                btn_TravelDistance.Foreground = Data.GetTextColor(Data.ScanTravelDist);
             }
             catch (Exception ex)
             {
@@ -864,6 +900,6 @@ namespace ALICE_Community_Toolkit
             Data.Firegroup.ScannerWake.FireMode = (Settings_Firegroups.Fire)CB_SNWAKEFire.SelectedIndex;
             Data.SaveFiregroupSettings();
         }
-        #endregion   
+        #endregion
     }
 }

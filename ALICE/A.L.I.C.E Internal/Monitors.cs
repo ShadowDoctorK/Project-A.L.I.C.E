@@ -487,7 +487,7 @@ namespace ALICE_Internal
                                     //Load Toolkit Settings
                                     ISettings.Firegroup = (Settings_Firegroups)ISettings.LoadValues<Settings_Firegroups>(ISettings.SettingsFiregroup + ".FGConfig");
                                     ISettings.Firegroup.Save(MethodName); CheckSettings(ISettings.SettingsFiregroup + ".FGConfig");
-                                    Logger.Log(MethodName, "(Toolkit) Firegroup Settings Updated", Logger.Green);
+                                    Logger.Log(MethodName, "Firegroup Settings Updated", Logger.Green);
                                 }
                             }
 

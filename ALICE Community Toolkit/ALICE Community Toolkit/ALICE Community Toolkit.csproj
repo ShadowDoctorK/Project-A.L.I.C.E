@@ -178,5 +178,8 @@
   <ItemGroup>
     <Resource Include="Resources\Patreon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Goldilock Zone.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

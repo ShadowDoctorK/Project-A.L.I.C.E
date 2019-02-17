@@ -9,7 +9,7 @@
 
     <Grid Background="Black">
 
-        <StackPanel HorizontalAlignment="Left" Height="378" VerticalAlignment="Top" Width="156" Margin="10,83,0,0">
+        <StackPanel HorizontalAlignment="Left" Height="503" VerticalAlignment="Top" Width="156" Margin="10,83,0,0">
             <Label Content="              Reports" Foreground="#FFCE5A05" FontWeight="Bold"/>
             <Button x:Name="btn_FuelScoop" Content="Fuel Scooping" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_FuelScoop_Click" Height="26" HorizontalAlignment="Left" Width="150" Margin="2.5"/>
             <Button x:Name="btn_MaterialCollected" Content="Collected Materials" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_MaterialCollected_Click" Height="26" HorizontalAlignment="Left" Width="150" />
@@ -22,6 +22,10 @@
             <Button x:Name="btn_ShieldStatus" Content="Shield Status" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_ShieldStatus_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
             <Button x:Name="btn_StationStatus" Content="Station Information" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_StationStatus_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
             <Button x:Name="btn_NoFireZone" Content="No Fire Zone" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_NoFireZone_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_GlideStatus" Content="Glide Status" Margin="2,2.5,0,2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_GlideStatus_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_HighGravity" Content="High Gravity Descent" Margin="2,2.5,0,2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_HighGravityDescent_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_LandableVolcanism" Content="Volcanism (Landable)" Margin="2.5,2.5,0,2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_LandableVolcanism_Click" Height="26" HorizontalAlignment="Left" Width="150" />
+            <Button x:Name="btn_TravelDistance" Content="Travel Distance Threshold" Margin="2.5,2.5,0,2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_TravelDistance_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Left" Height="227" VerticalAlignment="Top" Width="156" Margin="166,83,0,0">

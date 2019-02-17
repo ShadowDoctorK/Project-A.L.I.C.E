@@ -9,17 +9,13 @@
     <Grid Background="#FF171616" Height="800">
 
         <Grid x:Name="Dashboard_StackPanel" Background="Black">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="381*"/>
-                <RowDefinition Height="419*"/>
-            </Grid.RowDefinitions>
 
-            <StackPanel Height="83" VerticalAlignment="Top" Margin="10,18,0,0" HorizontalAlignment="Left" Width="156" Grid.Row="1">
+            <StackPanel Height="83" VerticalAlignment="Top" Margin="20,400,0,0" HorizontalAlignment="Left" Width="156">
                 <Label Content="                Orders" Foreground="#FFCE5A05" FontWeight="Bold"/>
                 <Button x:Name="btn_AssistedSystemScans" Content="System Scans" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Width="150" Click="btn_AssistedSystemScans_Click" Height="26"/>
             </StackPanel>
 
-            <StackPanel Height="164" VerticalAlignment="Top" Margin="10,83,0,0" HorizontalAlignment="Left" Width="156" Grid.Row="1">
+            <StackPanel Height="164" VerticalAlignment="Top" Margin="20,465,0,0" HorizontalAlignment="Left" Width="156">
                 <Label Content="              Reports" Foreground="#FFCE5A05" FontWeight="Bold"/>
                 <Button x:Name="btn_GlideStatus" Content="Glide Status" Margin="2,2.5,0,2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_GlideStatus_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
                 <Button x:Name="btn_HighGravity" Content="High Gravity Descent" Margin="2,2.5,0,2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_HighGravityDescent_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
@@ -116,7 +112,7 @@
                 </StackPanel>
 
             </StackPanel>
-            <ComboBox x:Name="CB_SCTravelDist" SelectionChanged="CB_SCTravelDistChanged" SelectedIndex="0" Foreground="#FF000000" Margin="238,371,0,0" Height="25" VerticalAlignment="Top" Grid.RowSpan="2" HorizontalAlignment="Left" Width="160"/>
+            <ComboBox x:Name="CB_SCTravelDist" SelectionChanged="CB_SCTravelDistChanged" SelectedIndex="0" Foreground="#FF000000" Margin="238,371,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="160"/>
             <RichTextBox Margin="10,10,0,0" Background="{x:Null}" Foreground="#FFCE5A05" Height="51" VerticalAlignment="Top" BorderBrush="#FFCE5A05" HorizontalAlignment="Left" Width="388">
                 <FlowDocument>
                     <Paragraph>
@@ -124,7 +120,22 @@
                     </Paragraph>
                 </FlowDocument>
             </RichTextBox>
-            <Label Content="Supercruise Travel Distance Threshold" VerticalContentAlignment="Center" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05" Margin="10,369,0,0" HorizontalAlignment="Left" Width="223" Height="25" VerticalAlignment="Top" Grid.RowSpan="2"/>
+            <Label Content="Supercruise Travel Distance Threshold" VerticalContentAlignment="Center" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05" Margin="10,369,0,0" HorizontalAlignment="Left" Width="223" Height="25" VerticalAlignment="Top"/>
+            <Image HorizontalAlignment="Left" Height="780" Margin="403,10,0,0" VerticalAlignment="Top" Width="600" Source="/ALICE Community Toolkit;component/Resources/Goldilock Zone.png"/>
+            <RichTextBox Margin="462,76,21,0" Background="{x:Null}" Foreground="#FFCE5A05" BorderBrush="{x:Null}" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="82" VerticalAlignment="Top">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="CIRCUMSTELLAR HABITABLE ZONE AKA GOLDILOCKS ZONE IS THE RANGE OF ORBITS AROUND A STAR WITHIN WHICH A PLANETARY SURFACE CAN SUPPORT LIQUID WATER GIVEN CERTAIN ATMOSPHERIC CONDITIONS. IN ELITE DANGEROUS THE HABITABLE ZONE HAS THE HIGHEST CHANCE OF CONTAINING TERRAFORMING CANDIDATE PLANETS AND EARTH LIKE WORLDS. THIS CHART GIVE THE APPROXIMATE DISTANCES FOR EVERY MAIN SEQUENCE STAR CLASS. NOTE THAT IT IS POSSIBLE TO FIND A TFC/ELW BEYOND THE DISTANCES SPECIFIED BY THE CHART."/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+            <RichTextBox Margin="462,163,21,591" Background="{x:Null}" Foreground="#FFA49182" BorderBrush="{x:Null}" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="ARABIC NUMBERS FOLLOWING THE STAR CLASS DENOTE THEIR TEMPERATURES (CAN BE SEEN WHEN TARGETING A SYSTEM FROM THE GALAXY MAP). HOTTER STARS ARE MORE LIKELY TO HAVE TERRAFORMABLES FURTHER AWAY IN THE HABITABLE ZONE."/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
 
         </Grid>
 

@@ -51,11 +51,12 @@ namespace ALICE_Community_Toolkit
 
             //Update Plugin Settings Buttons
             Interface_Dashboard.Interface_Reports.UpdateButtons();
+            Interface_Dashboard.Interface_Reports.UpdateFiregroupItems();
 
             //Update Exploration Buttons
             Interface_Exploration.UpdateButtons();
         }
-
+        
         public void UpdateUI()
         {
             string MethodName = "(Toolkit) Update Main UI";
