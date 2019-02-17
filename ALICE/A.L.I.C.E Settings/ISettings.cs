@@ -30,111 +30,125 @@ namespace ALICE_Settings
         {
             string MethodName = "User Settings (Compare)";
 
-            if (IEvents.TriggerEvents)
+            if (RefUser == null) { RefUser = ISettings.Load(RefUser, ISettings.SettingsUser, MethodName); }
+            if (User == null) { User = ISettings.Load(RefUser, ISettings.SettingsUser, MethodName); }
+
+            try
             {
-                #region Orders
-                if (User.WeaponSafety != RefUser.WeaponSafety)
+                if (IEvents.TriggerEvents)
                 {
-                    Order_Update(RefUser.WeaponSafety, User.WeaponSafety, "Weapon Safety Interlocks");
-                }
+                    #region Orders
+                    if (User.WeaponSafety != RefUser.WeaponSafety)
+                    {
+                        Order_Update(RefUser.WeaponSafety, User.WeaponSafety, "Weapon Safety Interlocks");
+                    }
 
-                if (User.CombatPower != RefUser.CombatPower)
-                {
-                    Order_Update(RefUser.CombatPower, User.CombatPower, "Combat Power Management");
-                }
+                    if (User.CombatPower != RefUser.CombatPower)
+                    {
+                        Order_Update(RefUser.CombatPower, User.CombatPower, "Combat Power Management");
+                    }
 
-                if (User.AssistSystemScan != RefUser.AssistSystemScan)
-                {
-                    Order_Update(RefUser.AssistSystemScan, User.AssistSystemScan, "Assisted System Scans");
-                }
+                    if (User.AssistSystemScan != RefUser.AssistSystemScan)
+                    {
+                        Order_Update(RefUser.AssistSystemScan, User.AssistSystemScan, "Assisted System Scans");
+                    }
 
-                if (User.AssistDocking != RefUser.AssistDocking)
-                {
-                    Order_Update(RefUser.AssistDocking, User.AssistDocking, "Assisted Docking Procedures");
-                }
+                    if (User.AssistDocking != RefUser.AssistDocking)
+                    {
+                        Order_Update(RefUser.AssistDocking, User.AssistDocking, "Assisted Docking Procedures");
+                    }
 
-                if (User.AssistHangerEntry != RefUser.AssistHangerEntry)
-                {
-                    Order_Update(RefUser.AssistHangerEntry, User.AssistHangerEntry, "Assisted Hanger Entry");
-                }
+                    if (User.AssistHangerEntry != RefUser.AssistHangerEntry)
+                    {
+                        Order_Update(RefUser.AssistHangerEntry, User.AssistHangerEntry, "Assisted Hanger Entry");
+                    }
 
-                if (User.PostHyperspaceSafety != RefUser.PostHyperspaceSafety)
-                {
-                    Order_Update(RefUser.PostHyperspaceSafety, User.PostHyperspaceSafety, "Post Jump Safeties");
-                }
-                #endregion
+                    if (User.PostHyperspaceSafety != RefUser.PostHyperspaceSafety)
+                    {
+                        Order_Update(RefUser.PostHyperspaceSafety, User.PostHyperspaceSafety, "Post Jump Safeties");
+                    }
+                    #endregion
 
-                #region Reports
-                if (User.FuelScoop != RefUser.FuelScoop)
-                {
-                    Report_Update(RefUser.FuelScoop, User.FuelScoop, "Fuel Scooping");
-                }
+                    #region Reports
+                    if (User.FuelScoop != RefUser.FuelScoop)
+                    {
+                        Report_Update(RefUser.FuelScoop, User.FuelScoop, "Fuel Scooping");
+                    }
 
-                if (User.FuelStatus != RefUser.FuelStatus)
-                {
-                    Report_Update(RefUser.FuelStatus, User.FuelStatus, "Fuel Status");
-                }
+                    if (User.FuelStatus != RefUser.FuelStatus)
+                    {
+                        Report_Update(RefUser.FuelStatus, User.FuelStatus, "Fuel Status");
+                    }
 
-                if (User.MaterialCollected != RefUser.MaterialCollected)
-                {
-                    Report_Update(RefUser.MaterialCollected, User.MaterialCollected, "Collected Material");
-                }
+                    if (User.MaterialCollected != RefUser.MaterialCollected)
+                    {
+                        Report_Update(RefUser.MaterialCollected, User.MaterialCollected, "Collected Material");
+                    }
 
-                if (User.MaterialRefined != RefUser.MaterialRefined)
-                {
-                    Report_Update(RefUser.MaterialRefined, User.MaterialRefined, "Refined Material");
-                }
+                    if (User.MaterialRefined != RefUser.MaterialRefined)
+                    {
+                        Report_Update(RefUser.MaterialRefined, User.MaterialRefined, "Refined Material");
+                    }
 
-                if (User.NoFireZone != RefUser.NoFireZone)
-                {
-                    Report_Update(RefUser.NoFireZone, User.NoFireZone, "No Fire Zone");
-                }
+                    if (User.NoFireZone != RefUser.NoFireZone)
+                    {
+                        Report_Update(RefUser.NoFireZone, User.NoFireZone, "No Fire Zone");
+                    }
 
-                if (User.StationStatus != RefUser.StationStatus)
-                {
-                    Report_Update(RefUser.StationStatus, User.StationStatus, "Station Status");
-                }
+                    if (User.StationStatus != RefUser.StationStatus)
+                    {
+                        Report_Update(RefUser.StationStatus, User.StationStatus, "Station Status");
+                    }
 
-                if (User.ShieldState != RefUser.ShieldState)
-                {
-                    Report_Update(RefUser.ShieldState, User.ShieldState, "Shield State");
-                }
+                    if (User.ShieldState != RefUser.ShieldState)
+                    {
+                        Report_Update(RefUser.ShieldState, User.ShieldState, "Shield State");
+                    }
 
-                if (User.CollectedBounty != RefUser.CollectedBounty)
-                {
-                    Report_Update(RefUser.CollectedBounty, User.CollectedBounty, "Collected Bounty");
-                }
+                    if (User.CollectedBounty != RefUser.CollectedBounty)
+                    {
+                        Report_Update(RefUser.CollectedBounty, User.CollectedBounty, "Collected Bounty");
+                    }
 
-                if (User.TargetEnemy != RefUser.TargetEnemy)
-                {
-                    Report_Update(RefUser.TargetEnemy, User.TargetEnemy, "Hostile Faction");
-                }
+                    if (User.TargetEnemy != RefUser.TargetEnemy)
+                    {
+                        Report_Update(RefUser.TargetEnemy, User.TargetEnemy, "Hostile Faction");
+                    }
 
-                if (User.Masslock != RefUser.Masslock)
-                {
-                    Report_Update(RefUser.Masslock, User.Masslock, "Masslock");
-                }
+                    if (User.Masslock != RefUser.Masslock)
+                    {
+                        Report_Update(RefUser.Masslock, User.Masslock, "Masslock");
+                    }
 
-                if (User.HighGravDescent != RefUser.HighGravDescent)
-                {
-                    Report_Update(RefUser.HighGravDescent, User.HighGravDescent, "High Gravity Descent");
-                }
+                    if (User.HighGravDescent != RefUser.HighGravDescent)
+                    {
+                        Report_Update(RefUser.HighGravDescent, User.HighGravDescent, "High Gravity Descent");
+                    }
 
-                if (User.GlideStatus != RefUser.GlideStatus)
-                {
-                    Report_Update(RefUser.GlideStatus, User.GlideStatus, "Glide Status");
-                }
+                    if (User.GlideStatus != RefUser.GlideStatus)
+                    {
+                        Report_Update(RefUser.GlideStatus, User.GlideStatus, "Glide Status");
+                    }
 
-                if (User.ScanTravelDist != RefUser.ScanTravelDist)
-                {
-                    Report_Update(RefUser.ScanTravelDist, User.ScanTravelDist, "Travel Distance Threshold");
-                }
+                    if (User.ScanTravelDist != RefUser.ScanTravelDist)
+                    {
+                        Report_Update(RefUser.ScanTravelDist, User.ScanTravelDist, "Travel Distance Threshold");
+                    }
 
-                if (User.LandableVolcanism != RefUser.LandableVolcanism)
-                {
-                    Report_Update(RefUser.LandableVolcanism, User.LandableVolcanism, "Landable Volcanism");
+                    if (User.LandableVolcanism != RefUser.LandableVolcanism)
+                    {
+                        Report_Update(RefUser.LandableVolcanism, User.LandableVolcanism, "Landable Volcanism");
+                    }
+                    #endregion
                 }
-                #endregion
+            }
+            catch (NullReferenceException ex)
+            {
+                Logger.Exception(MethodName, "Null Reference Exception: " + ex);
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Exception: " + ex);
             }
             
             RefUser = Load(RefUser, ISettings.SettingsUser, MethodName);
@@ -1377,29 +1391,6 @@ namespace ALICE_Settings
                 return;
             }
         }
-
-        ///// <summary>
-        ///// Try To Save The User Settings. Catches, Logs and Reports Exceptions.
-        ///// </summary>
-        //public static DateTime Save(this Settings_User S, string MethodName, bool ReturnTime)
-        //{
-        //    if (S == null) { return default; }
-
-        //    try
-        //    {
-        //        S.TimeStamp = DateTime.UtcNow;
-        //        if (S.Commander != "CurrentUser") { ISettings.SaveValues<Settings_User>(S, S.Commander + ".Settings"); }
-        //        ISettings.SaveValues<Settings_User>(S, SettingsUser + ".Settings");
-        //        Logger.DebugLine(MethodName, "User Settings Saved", Logger.Blue);
-        //        return S.TimeStamp;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Logger.Exception(MethodName, "Exception:" + ex);
-        //        Logger.Exception(MethodName, "Something Went Wrong And Settings Were Not Saved.");
-        //        return default;
-        //    }
-        //}
 
         /// <summary>
         /// Checks/Loads the Motherships Firegroup Configuration if the File Exist. Else it will load the defaults and create a new File.
