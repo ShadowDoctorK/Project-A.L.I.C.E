@@ -60,11 +60,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="A.L.I.C.E Collections\Collection Events.cs" />
+    <Compile Include="A.L.I.C.E Collections\Collection EventTypes.cs" />
+    <Compile Include="A.L.I.C.E Collections\Collection Variables.cs" />
     <Compile Include="A.L.I.C.E Core\Json Monitor\Event Status.cs" />
     <Compile Include="A.L.I.C.E Core\Journal Monitor\Current Journal Logs.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment FuelTank.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment FighterHanger.cs" />
-    <Compile Include="A.L.I.C.E Events\[Sandbox]\Event AsteroidCracked.cs" />
+    <Compile Include="A.L.I.C.E Events\[Sandbox]\E AsteroidCracked.cs" />
+    <Compile Include="A.L.I.C.E Events\[Updating]\Event AsteroidCracked.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -82,7 +86,7 @@
     <Compile Include="A.L.I.C.E Equipment\Equipment LimpetCollector.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment WakeScanner.cs" />
     <Compile Include="A.L.I.C.E Events\[Retired Events]\Event DiscoveryScan.cs" />
-    <Compile Include="A.L.I.C.E Events\[Sandbox]\Event ProspectedAsteroid.cs" />
+    <Compile Include="A.L.I.C.E Events\[Updating]\Event ProspectedAsteroid.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event ReservoirReplenished.cs" />
     <Compile Include="A.L.I.C.E Interface\ICommands.cs" />
     <Compile Include="A.L.I.C.E Interface\IScreenshot.cs" />

@@ -47,6 +47,7 @@ namespace ALICE_Internal
             AfmuRepairs,                      //Journal Log
             ApproachBody,                     //Journal Log
             ApproachSettlement,               //Journal Log
+            AsteroidCracked,                  //Journal Log
             Bounty,                           //Journal Log
             BuyAmmo,                          //Journal Log
             BuyDrones,                        //Journal Log
@@ -143,6 +144,7 @@ namespace ALICE_Internal
             PowerplayVote,                    //Journal Log
             Progress,                         //Journal Log
             Promotion,                        //Journal Log
+            ProspectedAsteroid,               //Journal Log
             QuitACrew,                        //Journal Log
             Rank,                             //Journal Log
             RebootRepair,                     //Journal Log
