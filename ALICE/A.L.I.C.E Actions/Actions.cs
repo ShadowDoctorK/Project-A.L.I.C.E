@@ -854,7 +854,7 @@ namespace ALICE_Actions
             {
                 if (CMD_State == true)
                 {
-                    IEquipment.DiscoveryScanner.Activating(CommandAudio);
+                    IEquipment.DiscoveryScanner.FSSActivating(CommandAudio);
                     Call.Key.Press(Call.Key.FSS_Enter, 0);
                     IEquipment.DiscoveryScanner.Mode = CMD_State;
 

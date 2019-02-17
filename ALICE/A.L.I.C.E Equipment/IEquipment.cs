@@ -1327,7 +1327,7 @@ namespace ALICE_Core
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Speak("".Phrase(GN_Positive.Default, true) + "Activating.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(GN_Positive.Default, true) + ". Activating.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void SelectionFailed(bool CommandAudio, bool Var1 = true, bool Var2 = true,
