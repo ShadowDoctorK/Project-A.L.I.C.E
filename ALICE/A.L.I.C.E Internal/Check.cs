@@ -408,6 +408,12 @@ namespace ALICE_Internal
                 string Order = "Material Collected";
                 return Check_Report(TargetState, MethodName, State, Order, DisableDebug);
             }
+            public bool MaterialRefined(bool TargetState, string MethodName, bool DisableDebug = false)
+            {
+                bool State = ISettings.MaterialRefined;
+                string Order = "Material Refined";
+                return Check_Report(TargetState, MethodName, State, Order, DisableDebug);
+            }
             public bool TargetWanted(bool TargetState, string MethodName, bool DisableDebug = false)
             {
                 bool State = ISettings.TargetWanted;

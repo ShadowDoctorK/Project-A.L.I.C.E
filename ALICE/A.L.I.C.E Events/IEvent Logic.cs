@@ -1546,7 +1546,24 @@ namespace ALICE_EventLogic
 
         public static void MiningRefined(MiningRefined Event)
         {
-            //Audio
+            string MethodName = "Logic MaterialCollected";
+
+            Logger.Log(MethodName, Event.Type_Localised + " Refined", Logger.Yellow, true);
+
+            #region Audio
+            if (PlugIn.Audio == "TTS")
+            {
+                Speech.Speak
+                    (
+                    Event.Type_Localised + " Refined.",
+                    true,
+                    Check.Internal.TriggerEvents(true, MethodName),
+                    Check.Report.MaterialRefined(true, MethodName)
+                    );
+            }
+            else if (PlugIn.Audio == "File") { }
+            else if (PlugIn.Audio == "External") { }
+            #endregion     
         }
 
         public static void Music(Music Event)
