@@ -71,6 +71,7 @@
     <Compile Include="A.L.I.C.E Events\Updating\Event AsteroidCracked.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event AfmuRepairs.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event ApproachBody.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event ApproachSettlement.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -159,7 +160,7 @@
     <Compile Include="A.L.I.C.E Events\Json Events\Event Masslock.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event AfmuRepairs.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event ApproachBody.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ApproachSettlement.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event ApproachSettlement.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event Bounty.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event BuyAmmo.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event BuyDrones.cs" />
