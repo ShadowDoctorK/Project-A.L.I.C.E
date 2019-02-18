@@ -575,7 +575,7 @@ namespace ALICE_Events
         /// </summary>
         /// <param name="E">(Event Name) Target Event's Name</param>
         /// <param name="O">(Object) Event's Object</param>
-        public static void UpdateEvents(IEnums.Events E, object O)
+        public void Record(IEnums.Events E, object O)
         {
             //Pass Event To Collections Record Method
             IEvents.Event.Record(E, O);
@@ -600,12 +600,47 @@ namespace ALICE_Events
         }
 
         /// <summary>
+        /// Method Used To Build Custom Events Based On Log Event Data.
+        /// </summary>        
+        /// <returns>Constructed Events Object</returns>
+        public virtual object Construct(object O)
+        {
+            //No Code In Virtual Method, Override Method Will Contain The Logic
+            //This Is Here For The Structured Calls
+
+            return null;
+        }
+
+        /// <summary>
         /// Method Use To Update Game State Logic Per Event
         /// </summary>
         public void Logic()
         {
             //Get Recorded Event
             object Event = Get();
+
+            //Process Event Logic
+            Process(Event);
+
+            //Process Variables
+            if (WriteVariables)
+            {
+                Variables.Clear();
+                Generate(Event);
+                Variables.Write();
+            }
+
+            //Trigger
+            Trigger();
+        }
+
+        /// <summary>
+        /// Method Use To Build Custom Events & Update Game State Logic
+        /// </summary>
+        public void Logic(object O)
+        {
+            //Construct Event
+            object Event = Construct(O);
 
             //Process Event Logic
             Process(Event);
