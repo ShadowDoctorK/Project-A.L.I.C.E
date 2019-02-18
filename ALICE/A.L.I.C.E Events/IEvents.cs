@@ -411,12 +411,6 @@ namespace ALICE_Events
 
             return Temp;
         }
-
-        //public static void RecordUndefinedEvent(string RawLine)
-        //{
-        //    //Undefined.Events.Add(RawLine);
-        //    Logger.DevUpdateLog(MethodName, "I've Found A New/Untracked Event: " + )
-        //}
         #endregion
 
         #region Extension Methods
@@ -480,6 +474,11 @@ namespace ALICE_Events
                 }
             }
         }
+
+        /// <summary>
+        /// Simple String call for the class name.
+        /// </summary>
+        public string ClassName => Name.ToString();
 
         /// <summary>
         /// Enables / Disables event triggering on the event level.

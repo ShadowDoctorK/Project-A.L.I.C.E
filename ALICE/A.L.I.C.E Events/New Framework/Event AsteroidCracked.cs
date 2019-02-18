@@ -9,12 +9,12 @@ namespace ALICE_Events
     /// <summary>
     /// Object Data Class
     /// </summary>
-    public class T_AsteroidCracked : Base
+    public class ASDF_AsteroidCracked : Base
     {
         public string Body { get; set; }
 
         //Default Constructor
-        public T_AsteroidCracked()
+        public ASDF_AsteroidCracked()
         {
             Body = Str();
         }
@@ -23,7 +23,7 @@ namespace ALICE_Events
     /// <summary>
     /// Event Logic & Data Storage Class
     /// </summary>
-    public class E_AsteroidCracked : Event
+    public class QWER_AsteroidCracked : Event
     {
         //Variable Generation
         public override void Generate(object O)
