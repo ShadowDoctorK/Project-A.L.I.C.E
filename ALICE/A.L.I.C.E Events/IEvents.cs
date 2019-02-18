@@ -715,6 +715,16 @@ namespace ALICE_Events
             return false;
         }
 
+        /// <summary>
+        /// /// Function that returns a standard Default DateTime value duing contstruction
+        /// to allow tracking of unused properties in events.
+        /// </summary>
+        /// <returns>"1/1/0001 12:00:00 AM"</returns>
+        public DateTime Dtg()
+        {
+            return default(DateTime);
+        }
+
         [JsonExtensionData]
         public IDictionary<string, object> Undefined { get; set; }
 

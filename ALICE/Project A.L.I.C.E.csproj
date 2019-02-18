@@ -85,7 +85,8 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event CodexEntry.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event CollectCargo.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event Commander.cs" />
-    <Compile Include="A.L.I.C.E Events\[Sandbox]\Event CommitCrime.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event CommitCrime.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event CommunityGoal.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -191,7 +192,7 @@
     <Compile Include="A.L.I.C.E Events\Journal Events\Event CollectCargo.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event Commander.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event CommitCrime.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event CommunityGoal.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event CommunityGoal.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event CrewAssign.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event CrewFire.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event CrewHire.cs" />
@@ -585,6 +586,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="A.L.I.C.E Equipment\[Sandbox]\" />
+    <Folder Include="A.L.I.C.E Events\[Sandbox]\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
