@@ -74,6 +74,7 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event ApproachSettlement.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event Bounty.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event BuyAmmo.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event BuyDrones.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -166,7 +167,7 @@
     <Compile Include="A.L.I.C.E Events\Journal Events\Event ApproachSettlement.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event Bounty.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event BuyAmmo.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event BuyDrones.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event BuyDrones.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event BuyExplorationData.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event BuyTradeData.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event Cargo.cs" />
