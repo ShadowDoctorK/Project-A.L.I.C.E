@@ -78,6 +78,7 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event BuyExplorationData.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event BuyTradeData.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event Cargo.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event CargoDepot.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -174,7 +175,7 @@
     <Compile Include="A.L.I.C.E Events\Journal Events\Event BuyExplorationData.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event BuyTradeData.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event Cargo.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event CargoDepot.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event CargoDepot.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event ChangeCrewRole.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event ClearSaveGame.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event CockpitBreached.cs" />
