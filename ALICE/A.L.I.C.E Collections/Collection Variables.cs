@@ -182,5 +182,38 @@ namespace ALICE_Collections
                 Logger.Exception(MethodName, "Exception: " + ex);
             }
         }
+
+        /// <summary>
+        /// Records the passed variable information.
+        /// </summary>
+        public void Record(string VariableName, bool VariableValue)
+        {
+            string MethodName = ClassName + " (Record)";
+
+            try
+            {
+                //Platform Validation
+                switch (IPlatform.Interface)
+                {
+                    //case IPlatform.Interfaces.Internal:
+
+                    //    //Nothing To Do
+
+                    //    return;
+
+                    default:
+
+                        //Store Variable
+                        Storage.Add(VariableName, VariableValue.ToString());
+
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                //Exception Logger
+                Logger.Exception(MethodName, "Exception: " + ex);
+            }
+        }
     }
 }
