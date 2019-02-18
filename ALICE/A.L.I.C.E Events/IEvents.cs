@@ -646,7 +646,10 @@ namespace ALICE_Events
         /// Shared Event property used by all Events.
         /// </summary>
         public string Event { get; set; }
+    }
 
+    public class Catch
+    {
         /// <summary>
         /// Function that returns a standard Default String value duing contstruction
         /// to prevent null values from being assinged in unused event properties.
@@ -666,10 +669,17 @@ namespace ALICE_Events
         {
             return -1;
         }
-    }
 
-    public class Catch
-    {
+        /// <summary>
+        /// Function that returns a standard Default Boolean (false) value duing contstruction
+        /// to prevent null values from being assinged in unused event properties.
+        /// </summary>
+        /// <returns>"false"</returns>
+        public bool Bool()
+        {
+            return false;
+        }
+
         [JsonExtensionData]
         public IDictionary<string, object> Undefined { get; set; }
 

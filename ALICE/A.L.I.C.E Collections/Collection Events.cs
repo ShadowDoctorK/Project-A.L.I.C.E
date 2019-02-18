@@ -140,8 +140,6 @@ namespace ALICE_Collections
             }
         }
 
-        public E_AsteroidCracked AsteroidCracked = new E_AsteroidCracked();
-
         public void Process(IEnums.Events E)
         {
             switch (E)
@@ -165,7 +163,7 @@ namespace ALICE_Collections
                 case IEnums.Events.ApproachSettlement:
                     break;
                 case IEnums.Events.AsteroidCracked:
-                    AsteroidCracked.Logic();
+                    //AsteroidCracked.Logic();
                     break;
                 case IEnums.Events.Bounty:
                     break;

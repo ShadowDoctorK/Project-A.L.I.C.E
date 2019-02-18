@@ -68,13 +68,15 @@
     <Compile Include="A.L.I.C.E Equipment\Equipment FuelTank.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment FighterHanger.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event AsteroidCracked.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event AsteroidCracked.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event AsteroidCracked.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event AfmuRepairs.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event ApproachBody.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event ApproachSettlement.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event Bounty.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Bounty.cs" />
     <Compile Include="A.L.I.C.E Status\Status Scan.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\ISynthesizer.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Wrappers.cs" />
@@ -161,7 +163,7 @@
     <Compile Include="A.L.I.C.E Events\Journal Events\Event AfmuRepairs.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event ApproachBody.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event ApproachSettlement.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Bounty.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event Bounty.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event BuyAmmo.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event BuyDrones.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event BuyExplorationData.cs" />
