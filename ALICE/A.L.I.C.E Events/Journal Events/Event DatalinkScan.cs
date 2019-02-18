@@ -67,7 +67,7 @@ namespace ALICE_Events
         public DatalinkScan()
         {
             Message = Default.String;
-            Message = Default.String;
+            Message_Localised = Default.String;
         }
     }
     #endregion
