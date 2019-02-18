@@ -84,6 +84,7 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event CockpitBreached.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event CodexEntry.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event CollectCargo.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event Commander.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -186,7 +187,7 @@
     <Compile Include="A.L.I.C.E Events\Journal Events\Event CockpitBreached.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event CodexEntry.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event CollectCargo.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Commander.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event Commander.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event CommitCrime.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event CommunityGoal.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event CrewAssign.cs" />
