@@ -1,5 +1,6 @@
 ﻿using ALICE_Internal;
 using ALICE_JournalReader;
+using ALICE_Monitors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,15 @@ namespace ALICE_Debug_Console
             Thread.Sleep(500000);
         }
 
+        public static Monitor_Journal Journal = new Monitor_Journal();
+
         public static void Debug()
         {
-            PlugIn.Initialize(true, true);
-            Thread.Sleep(500000);
+            //PlugIn.Initialize(true, true);
+            //Thread.Sleep(500000);
             //JournalReader.EventProcessor();
+
+            Journal.Start();
         }
     }
 }

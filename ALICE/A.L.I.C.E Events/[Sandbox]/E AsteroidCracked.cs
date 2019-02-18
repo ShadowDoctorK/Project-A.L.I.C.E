@@ -30,7 +30,7 @@ namespace ALICE_Events
         {
             try
             {
-                var Event = (T_AsteroidCracked)O;
+                var Event = (AsteroidCracked)O;
 
                 Variables.Record(Name + "_Location", Event.Body);
             }
@@ -45,7 +45,7 @@ namespace ALICE_Events
         {
             try
             {
-                //var Event = (T_AsteroidCracked)O;
+                var Event = (AsteroidCracked)O;
             }
             catch (Exception ex)
             {

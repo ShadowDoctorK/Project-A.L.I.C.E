@@ -79,6 +79,12 @@ namespace ALICE_Settings
 
             WeaponSafety = true;
             CombatPower = true;
+            AssistSystemScan = false;
+            AssistDocking = false;
+            AssistRefuel = false;
+            AssistRearm = false;
+            AssistRepair = false;
+            AssistHangerEntry = false;
             PostHyperspaceSafety = true;
 
             FuelScoop = true;
@@ -105,6 +111,8 @@ namespace ALICE_Settings
             BodyRockyTerra = true;
             BodyWater = true;
             BodyWaterTerra = true;
+            BodyGasGiantII = false;
+            BodyHMC = false;
         }    
     }
 }

@@ -217,14 +217,14 @@ namespace ALICE_Collections
         /// </summary>
         /// <param name="S">Event string to Check</param>
         /// <returns>Pass, Fail or Error</returns>
-        public A Exists(string S)
+        public A Exists(string S, bool LogEx = true)
         {
             string MethodName = "Event (Exists)";
             IEnums.Events E = IEnums.Events.None;
 
             try
             {
-                E = IEnums.ToEnum<IEnums.Events>(S);
+                E = IEnums.ToEnum<IEnums.Events>(S, LogEx);
             }
             catch (Exception ex)
             {

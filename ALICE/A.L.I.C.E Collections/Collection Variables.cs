@@ -85,11 +85,11 @@ namespace ALICE_Collections
                 //Platform Validation
                 switch (IPlatform.Interface)
                 {
-                    case IPlatform.Interfaces.Internal:
+                    //case IPlatform.Interfaces.Internal:
 
-                        //Nothing To Do
+                    //    //Nothing To Do
 
-                        return;
+                    //    return;
 
                     default:
 
@@ -125,11 +125,11 @@ namespace ALICE_Collections
                 //Platform Validation
                 switch (IPlatform.Interface)
                 {
-                    case IPlatform.Interfaces.Internal:
+                    //case IPlatform.Interfaces.Internal:
 
-                        //Nothing To Do
+                    //    //Nothing To Do
 
-                        return;
+                    //    return;
 
                     default:
 

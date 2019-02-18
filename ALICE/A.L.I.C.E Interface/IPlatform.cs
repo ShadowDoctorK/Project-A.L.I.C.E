@@ -57,7 +57,7 @@ namespace ALICE_Interface
                 switch (Interface)
                 {
                     case Interfaces.Internal:
-                        Logger.Log(MethodName, "(" + Interface.ToString() + ") Command Does Not Exist - " + Command, Logger.Yellow);
+                        Logger.Log(MethodName, "(" + Interface.ToString() + "): Simulated Executing " + Command, Logger.Yellow);
                         break;
 
                     case Interfaces.VoiceAttack:
@@ -82,7 +82,8 @@ namespace ALICE_Interface
                 switch (Interface)
                 {
                     case Interfaces.Internal:
-                        Logger.Log(MethodName, "(" + Interface.ToString() + ")", Logger.Yellow);
+                        Logger.Log(MethodName, "(" + Interface.ToString() + "): Simulated Check For " + Command, Logger.Yellow);
+                        Answer = true;
                         break;
 
                     case Interfaces.VoiceAttack:

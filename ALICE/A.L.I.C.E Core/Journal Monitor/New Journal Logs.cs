@@ -57,10 +57,16 @@ namespace ALICE_Monitors
 
                 try
                 {
+                    //Track Processing File Name
+                    string FileCurrent = "";
+                    if (File != null)
+                    {
+                        FileCurrent = File.Name;
+                    }                    
+
                     //Check For New / Updated Logs
                     foreach (FileInfo Log in GameData.EnumerateFiles("Journal*.log", SearchOption.TopDirectoryOnly))
                     {
-                        //Record Current File Name
                         string FileName = null;
                         if (File != null) { FileName = File.Name; }
 
@@ -91,10 +97,13 @@ namespace ALICE_Monitors
                                 Answer = true;
                             }
                         }
+                    }
 
-                        //Log New Target Log File.
-                        if (FileName != File.Name)
-                        { Logger.Event("Elite Dangerous Log: " + File.Name); }
+                    //Log New Target Log File.
+                    if (FileCurrent != File.Name)
+                    {
+                        FileCurrent = File.Name;
+                        Logger.Event("Elite Dangerous Log: " + File.Name);
                     }
                 }
                 catch (Exception ex)
@@ -175,7 +184,7 @@ namespace ALICE_Monitors
                                     Journal.EventName = Journal.Line.Substring(47, Journal.Line.IndexOf("\"", 47) - 47);
 
                                     //Check Event & Type Exists, Increase EventCount
-                                    switch (IEvents.Types.Exists(Journal.EventName))
+                                    switch (IEvents.Types.Exists(Journal.EventName, false))
                                     {
                                         //Event Exists, Convert Enum
                                         case CollectionEventTypes.A.Pass:
@@ -184,7 +193,7 @@ namespace ALICE_Monitors
                                             E = IEnums.ToEnum<IEnums.Events>(Journal.EventName);
 
                                             //Debug Logger
-                                            Logger.DebugLine(MethodName, E + "Event Converted", Logger.Blue);
+                                            Logger.DebugLine(MethodName, E + " Converted", Logger.Blue);
 
                                             //Increase Event Count
                                             Journal.EventCount++;
@@ -195,7 +204,10 @@ namespace ALICE_Monitors
                                         case CollectionEventTypes.A.Fail:
 
                                             //Log & Record Event To Developer Log
-                                            Logger.DevUpdateLog(MethodName, "(" + Journal.EventName + ") New or Untracked Event Found", Logger.Purple);
+                                            if (Settings.Initialized == true)
+                                            {                                                
+                                                Logger.DevUpdateLog(MethodName, "Untracked Event [" + Journal.EventName + "] " + Journal.Line, Logger.Purple);
+                                            }                                            
 
                                             //Increase Event Count
                                             Journal.EventCount++;
@@ -228,6 +240,7 @@ namespace ALICE_Monitors
                                 {
                                     Logger.Exception(MethodName, "Exception: " + ex);
                                     Logger.Exception(MethodName, "(Failed) The Cypher Hamster Made A Mistake And Forgot What He Was Doing...");
+                                    Journal.EventCount++;
                                 }
 
                                 try
@@ -245,7 +258,7 @@ namespace ALICE_Monitors
                                             IEvents.Event.Record(E, Event);
 
                                             //Process Event
-                                            //IEvents.Process(E);
+                                            IEvents.Event.Process(E);
                                         }
                                     }
                                     else
@@ -258,6 +271,12 @@ namespace ALICE_Monitors
                                     Logger.Exception(MethodName, "Exception: " + ex);
                                     Logger.Exception(MethodName, "(Failed) The Decoder Hamster Made A Mistake And Forgot What He Was Doing...");
                                 }
+                            }
+
+                            if (Settings.Initialized != true)
+                            {
+                                //Execute Alice Online
+                                Settings.Initialized = true;
                             }
                         }
                     }

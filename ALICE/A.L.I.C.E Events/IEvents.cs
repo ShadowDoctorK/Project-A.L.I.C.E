@@ -12,6 +12,13 @@ namespace ALICE_Events
 {
     public static class IEvents
     {
+        #region Old Collections
+        //Most Current Processed Event
+        public static Dictionary<string, object> Events = new Dictionary<string, object>();
+        //Previously Stored Event
+        public static Dictionary<string, object> PreviousEvents = new Dictionary<string, object>();
+        #endregion
+
         /// <summary>
         /// Static Instatnce of the Event Type collection.
         /// </summary>
@@ -362,13 +369,6 @@ namespace ALICE_Events
         public static Event_Masslock Masslock = new Event_Masslock();
         #endregion
 
-        #region Collections
-        //Most Current Processed Event
-        public static Dictionary<string, object> Events = new Dictionary<string, object>();
-        //Previously Stored Event
-        public static Dictionary<string, object> PreviousEvents = new Dictionary<string, object>();
-        #endregion
-
         #region Methods / Functions
         public static void UpdateEvents(string EventName, object Event)
         {
@@ -462,7 +462,8 @@ namespace ALICE_Events
         {
             get
             {
-                string Name = this.GetType().Name.Replace("Event_", "");
+                //string Name = this.GetType().Name.Replace("Event_", "");
+                string Name = this.GetType().Name.Replace("E_", "");
 
                 //Process Event Type & Return Enum Name
                 try { return IEnums.ToEnum<IEnums.Events>(Name); }

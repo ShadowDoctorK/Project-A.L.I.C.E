@@ -495,7 +495,7 @@ namespace ALICE_Internal
         //    Xeno_Scanner
         //}
 
-        public static T ToEnum<T>(this string value)
+        public static T ToEnum<T>(this string value, bool LogEx = true)
         {
             string MethodName = "To Enum (Conversion)";
 
@@ -505,8 +505,11 @@ namespace ALICE_Internal
             }
             catch (Exception ex)
             {
-                Logger.Exception(MethodName, "Exception: " + ex);
-                Logger.Exception(MethodName, "(Failed) The Check Hamster Made A Mistake And Returned The Default Solution...");               
+                if (LogEx)
+                {
+                    Logger.Exception(MethodName, "Exception: " + ex);
+                    Logger.Exception(MethodName, "(Failed) The Check Hamster Made A Mistake And Returned The Default Solution...");
+                }                
                 return default(T);
             }
         }
