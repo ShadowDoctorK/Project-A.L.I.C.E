@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using ALICE_Objects;
 using ALICE_Actions;
 using ALICE_Internal;
+using ALICE_EventLogic;
 
 namespace ALICE_Events
 {
@@ -37,7 +38,7 @@ namespace ALICE_Events
                 }
             }
 
-            //IObjects.Logic_CrewFire((CrewFire)GetEvent());
+            Process.CrewFire((CrewFire)GetEvent());
 
             TriggerEvent();
         }
