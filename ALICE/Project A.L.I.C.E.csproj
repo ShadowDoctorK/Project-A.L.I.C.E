@@ -87,10 +87,12 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event Commander.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event CommitCrime.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event CommunityGoal.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event CrewAssign.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
     <Compile Include="A.L.I.C.E Status\Status Bounty.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Crew.cs" />
     <Compile Include="A.L.I.C.E Status\Status Crime.cs" />
     <Compile Include="A.L.I.C.E Status\Status Scan.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\ISynthesizer.cs" />
@@ -193,7 +195,7 @@
     <Compile Include="A.L.I.C.E Events\Journal Events\Event Commander.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event CommitCrime.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event CommunityGoal.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event CrewAssign.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event CrewAssign.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event CrewFire.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event CrewHire.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event DatalinkScan.cs" />

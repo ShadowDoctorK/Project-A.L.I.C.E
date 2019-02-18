@@ -753,54 +753,12 @@ namespace ALICE_EventLogic
             Miscellanous.Default.Save();
             #endregion
 
-            #region Audio: NPC Crew (Acitve Duty) || NPC Crew (On Shore Leave)
-            if (PlugIn.MasterAudio == true && Check.Internal.TriggerEvents(true, MethodName) == true)
-            {
-                #region NPC Crew (Acitve Duty)
-                if (Event.Role == "Active")
-                {
-                    if (PlugIn.Audio == "TTS")
-                    {
-                        string Line = "".Phrase(NPC_Crew.Active_Duty).Replace("[CREW MEMBER]", Event.Name);
+            //Update Status Object
+            IStatus.Crew.Update(Event);
 
-                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
-                        thread.IsBackground = true;
-                        thread.Start();
-                    }
-                    else if (PlugIn.Audio == "File")
-                    {
-
-                    }
-                    else if (PlugIn.Audio == "External")
-                    {
-
-                    }
-                }
-                #endregion
-
-                #region NPC Crew (On Shore Leave)
-                else if (Event.Role == "OnShoreLeave")
-                {
-                    if (PlugIn.Audio == "TTS")
-                    {
-                        string Line = "".Phrase(NPC_Crew.On_Shore_Leave).Replace("[CREW MEMBER]", Event.Name);
-
-                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
-                        thread.IsBackground = true;
-                        thread.Start();
-                    }
-                    else if (PlugIn.Audio == "File")
-                    {
-
-                    }
-                    else if (PlugIn.Audio == "External")
-                    {
-
-                    }
-                }
-                #endregion
-            }
-            #endregion
+            //Crew Report Audio
+            IStatus.Crew.Response.ActiveDuty(Check.Internal.TriggerEvents(true, MethodName));
+            IStatus.Crew.Response.OnShoreLeave(Check.Internal.TriggerEvents(true, MethodName));
         }
 
         public static void CockpitBreached(CockpitBreached Event)
