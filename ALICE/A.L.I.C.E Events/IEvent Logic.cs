@@ -761,6 +761,31 @@ namespace ALICE_EventLogic
             IStatus.Crew.Response.OnShoreLeave(Check.Internal.TriggerEvents(true, MethodName));
         }
 
+        public static void CrewFire(CrewFire Event)
+        {
+            string MethodName = "Logic CrewFire";
+
+            //Update Status Object
+            IStatus.Crew.Update(Event);
+
+            //Crew Fire Audio
+            IStatus.Crew.Response.Fire(
+                Check.Internal.TriggerEvents(true, MethodName));     //Check Log Has Initialized
+        }
+
+        public static void CrewHire(CrewHire Event)
+        {
+            string MethodName = "Logic CrewHire";
+
+            //Update Status Object
+            IStatus.Crew.Update(Event);
+
+            //Crew Hire Audio
+            IStatus.Crew.Response.Hire(
+                Check.Internal.TriggerEvents(true, MethodName));     //Check Log Has Initialized
+
+        }
+
         public static void CockpitBreached(CockpitBreached Event)
         {
             //Audio

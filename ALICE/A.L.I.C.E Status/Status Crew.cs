@@ -34,6 +34,18 @@ namespace ALICE_Status
             DutyStatus = Event.Role;
         }
 
+        public void Update(CrewFire Event)
+        {
+            Name = Event.Name;
+            ID = Event.CrewID;
+        }
+
+        public void Update(CrewHire Event)
+        {
+            Name = Event.Name;
+            ID = Event.CrewID;
+        }
+
         public class Responses
         {
             string MethodName = "Crew Status";
@@ -56,6 +68,26 @@ namespace ALICE_Status
 
                 Speech.Speak(""
                     .Phrase(NPC_Crew.On_Shore_Leave)
+                    .Token("[CREW MEMBER]", IStatus.Crew.Name),
+                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            }
+
+            public void Hire(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
+            {
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, IStatus.Crew.Name + " Has Been Added To Crew Manifest", Logger.Yellow); }
+
+                Speech.Speak("[CREW MEMBER] Has Been Added To The Crew Manifest, And Granted Access To The Ship."                    
+                    .Token("[CREW MEMBER]", IStatus.Crew.Name),
+                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            }
+
+            public void Fire(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
+            {
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, IStatus.Crew.Name + " Has Been Released From Service", Logger.Yellow); }
+
+                Speech.Speak("[CREW MEMBER] Has Been Removed From The Crew Manifest, And Ship Access Revoked."
                     .Token("[CREW MEMBER]", IStatus.Crew.Name),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }

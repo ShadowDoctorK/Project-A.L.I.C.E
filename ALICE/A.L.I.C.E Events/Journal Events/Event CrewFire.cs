@@ -62,10 +62,12 @@ namespace ALICE_Events
     public class CrewFire : Base
     {
         public string Name { get; set; }
+        public decimal CrewID { get; set; }
 
         public CrewFire()
         {
             Name = Default.String;
+            CrewID = Default.Decimal;
         }
     }
     #endregion
