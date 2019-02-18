@@ -5,114 +5,57 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ALICE_Interface;
-using ALICE_Objects;
 using ALICE_Internal;
-using ALICE_EventLogic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
+using ALICE_Collections;
 
 namespace ALICE_Events
 {
     public static class IEvents
     {
-        #region Collections
-        public static EventType Types = new EventType();
-
+        #region Old Collections
         //Most Current Processed Event
         public static Dictionary<string, object> Events = new Dictionary<string, object>();
         //Previously Stored Event
         public static Dictionary<string, object> PreviousEvents = new Dictionary<string, object>();
         #endregion
 
-        #region Variables
+        /// <summary>
+        /// Static Instatnce of the Event Type collection.
+        /// </summary>
+        public static CollectionEventTypes Types = new CollectionEventTypes();
+
+        /// <summary>
+        /// Statis Instance of the Events collection which contains all the processed Journal Log Events      
+        /// </summary>
+        public static CollectionEvents Event = new CollectionEvents();
+
+        /// <summary>
+        /// Enables / Disables the Variable Write feature for all Events.
+        /// </summary>
         public static bool WriteVariables = false;
+
+        /// <summary>
+        /// Enables / Disables the Event Triggering feature for all Events.
+        /// </summary>
         public static bool TriggerEvents = false;
+
+        /// <summary>
+        /// Tracks the Initial execution of the AliceOnline Event.
+        /// </summary>
         public static bool ExecuteOnline = true;
-        #endregion
 
-        #region Methods / Functions
-        public static void UpdateEvents(string EventName, object Event)
-        {
-            if (Events.ContainsKey(EventName) == false)
-            {
-                Events.Add(EventName, Event);
-            }
-            else
-            {
-                var Temp = Events[EventName];
-                PreviousEvents[EventName] = Temp;
-                Events[EventName] = Event;
-            }
-        }
-
-        public static bool EventExist(string EventName, bool Answer = false)
-        {
-            string MethodName = "Event Manager (Event Exist)";
-
-            string DebugText = "Event Exist Check Failed, " + EventName + " Has Not Been Recorded.";
-            string Color = Logger.Yellow;
-
-            if (IEvents.Events.ContainsKey(EventName) == true)
-            { Answer = true; }
-
-            if (Answer == false)
-            { Logger.DebugLine(MethodName, DebugText, Color); }
-
-            return Answer;
-        }
-
-        public static object GetEvent(string EventName)
-        {
-            object Temp = null;
-
-            if (EventExist(EventName))
-            {
-                Temp = Events[EventName];
-            }
-
-            return Temp;
-        }
-
-        //public static void RecordUndefinedEvent(string RawLine)
-        //{
-        //    //Undefined.Events.Add(RawLine);
-        //    Logger.DevUpdateLog(MethodName, "I've Found A New/Untracked Event: " + )
-        //}
-
+        /// <summary>
+        /// Simple Method To Update TriggerEvents & ExecuteOnline Properies
+        /// once the initial Joural Read has processed.
+        /// </summary>
         public static void Online()
         {
             TriggerEvents = true;
             ExecuteOnline = false;
         }
-        #endregion
 
-        #region Extension Methods
-        public static string Variable(this decimal Dec)
-        {            
-            return Dec.ToString();
-        }
 
-        public static string Variable(this string Str)
-        {
-            if (Str == null)
-            { return "None"; }
-
-            return Str;
-        }
-
-        public static string Variable(this bool Bol)
-        {
-            return Bol.ToString();
-        }
-
-        public static string Variable(this DateTime time)
-        {
-            if (time != null)
-            { return time.ToString(); }
-
-            return null;
-        }
-        #endregion
+        //Old Items To Remove After Conversion
 
         #region Custom Events
 
@@ -186,6 +129,7 @@ namespace ALICE_Events
         public static Event_AfmuRepairs AfmuRepairs = new Event_AfmuRepairs();
         public static Event_ApproachBody ApproachBody = new Event_ApproachBody();
         public static Event_ApproachSettlement ApproachSettlement = new Event_ApproachSettlement();
+        public static Event_AsteroidCracked AsteroidCracked = new Event_AsteroidCracked();
         #endregion
 
         #region B
@@ -425,333 +369,327 @@ namespace ALICE_Events
         public static Event_Masslock Masslock = new Event_Masslock();
         #endregion
 
-        public class EventType
+        #region Methods / Functions
+        public static void UpdateEvents(string EventName, object Event)
         {
-            /// <summary>
-            /// (Answer) Enum Used as a return value to give more detailed information.
-            /// </summary>
-            public enum A { Default, Pass, Fail, Error }
-
-            //Collection Of Event Types Accesed Via Enums
-            public static readonly Dictionary<IEnums.Events, Type> Type = new Dictionary<IEnums.Events, Type>()
+            if (Events.ContainsKey(EventName) == false)
             {
-                //Json Events:
-                //{ IEnums.Events.Modules, typeof(Modules) }
-                { IEnums.Events.Shipyard, typeof(Shipyard) },
-                { IEnums.Events.Status, typeof(Status) },
-
-                //Shared Events:
-                { IEnums.Events.Cargo, typeof(Cargo) },
-                { IEnums.Events.Market, typeof(Market) },
-                { IEnums.Events.Outfitting, typeof(Outfitting) },
-
-                //Journal Events:
-                { IEnums.Events.AfmuRepairs, typeof(AfmuRepairs) },
-                { IEnums.Events.ApproachBody, typeof(ApproachBody) },
-                { IEnums.Events.ApproachSettlement, typeof(ApproachSettlement) },
-                { IEnums.Events.Bounty, typeof(Bounty) },
-                { IEnums.Events.BuyAmmo, typeof(BuyAmmo) },
-                { IEnums.Events.BuyDrones, typeof(BuyDrones) },
-                { IEnums.Events.BuyExplorationData, typeof(BuyExplorationData) },
-                { IEnums.Events.BuyTradeData, typeof(BuyTradeData) },
-                { IEnums.Events.CargoDepot, typeof(CargoDepot) },
-                { IEnums.Events.ChangeCrewRole, typeof(ChangeCrewRole) },
-                { IEnums.Events.ClearSaveGame, typeof(ClearSaveGame) },
-                { IEnums.Events.CockpitBreached, typeof(CockpitBreached) },
-                { IEnums.Events.CodexEntry, typeof(CodexEntry) },
-                { IEnums.Events.CollectCargo, typeof(CollectCargo) },
-                { IEnums.Events.Commander, typeof(Commander) },
-                { IEnums.Events.CommitCrime, typeof(CommitCrime) },
-                { IEnums.Events.CommunityGoal, typeof(CommunityGoal) },
-                { IEnums.Events.CrewAssign, typeof(CrewAssign) },
-                { IEnums.Events.CrewFire, typeof(CrewFire) },
-                { IEnums.Events.CrewHire, typeof(CrewHire) },
-                { IEnums.Events.DatalinkScan, typeof(DatalinkScan) },
-                { IEnums.Events.DatalinkVoucher, typeof(DatalinkVoucher) },
-                { IEnums.Events.DataScanned, typeof(DataScanned) },
-                { IEnums.Events.Died, typeof(Died) },
-                { IEnums.Events.Docked, typeof(Docked) },
-                { IEnums.Events.DockFighter, typeof(DockFighter) },
-                { IEnums.Events.DockingCancelled, typeof(DockingCancelled) },
-                { IEnums.Events.DockingGranted, typeof(DockingGranted) },
-                { IEnums.Events.DockingRequested, typeof(DockingRequested) },
-                { IEnums.Events.DockSRV, typeof(DockSRV) },
-                { IEnums.Events.EjectCargo, typeof(EjectCargo) },
-                { IEnums.Events.EngineerContribution, typeof(EngineerContribution) },
-                { IEnums.Events.EngineerCraft, typeof(EngineerCraft) },
-                { IEnums.Events.EngineerProgress, typeof(EngineerProgress) },
-                { IEnums.Events.EscapeInterdiction, typeof(EscapeInterdiction) },
-                { IEnums.Events.FactionKillBond, typeof(FactionKillBond) },
-                { IEnums.Events.FetchRemoteModule, typeof(FetchRemoteModule) },
-                { IEnums.Events.FighterDestroyed, typeof(FighterDestroyed) },
-                { IEnums.Events.FighterRebuilt, typeof(FighterRebuilt) },
-                { IEnums.Events.Fileheader, typeof(Fileheader) },
-                { IEnums.Events.Friends, typeof(Friends) },
-                { IEnums.Events.FSDJump, typeof(FSDJump) },
-                { IEnums.Events.FSDTarget, typeof(FSDTarget) },
-                { IEnums.Events.FSSAllBodiesFound, typeof(FSSAllBodiesFound) },
-                { IEnums.Events.FSSDiscoveryScan, typeof(FSSDiscoveryScan) },
-                { IEnums.Events.FSSSignalDiscovered, typeof(FSSSignalDiscovered) },
-                { IEnums.Events.FuelScoop, typeof(FuelScoop) },
-                { IEnums.Events.HeatDamage, typeof(HeatDamage) },
-                { IEnums.Events.HeatWarning, typeof(HeatWarning) },
-                { IEnums.Events.HullDamage, typeof(HullDamage) },
-                { IEnums.Events.Interdicted, typeof(Interdicted) },
-                { IEnums.Events.JetConeBoost, typeof(JetConeBoost) },
-                { IEnums.Events.LaunchDrone, typeof(LaunchDrone) },
-                { IEnums.Events.LaunchFighter, typeof(LaunchFighter) },
-                { IEnums.Events.LaunchSRV, typeof(LaunchSRV) },
-                { IEnums.Events.LeaveBody, typeof(LeaveBody) },
-                { IEnums.Events.Liftoff, typeof(Liftoff) },
-                { IEnums.Events.LoadGame, typeof(LoadGame) },
-                { IEnums.Events.Loadout, typeof(Loadout) },
-                { IEnums.Events.Location, typeof(Location) },
-                { IEnums.Events.MarketBuy, typeof(MarketBuy) },
-                { IEnums.Events.MarketSell, typeof(MarketSell) },
-                { IEnums.Events.MassModuleStore, typeof(MassModuleStore) },
-                { IEnums.Events.MaterialCollected, typeof(MaterialCollected) },
-                { IEnums.Events.MaterialDiscovered, typeof(MaterialDiscovered) },
-                { IEnums.Events.Materials, typeof(Materials) },
-                { IEnums.Events.MaterialTrade, typeof(MaterialTrade) },
-                { IEnums.Events.MiningRefined, typeof(MiningRefined) },
-                { IEnums.Events.MissionAbandoned, typeof(MissionAbandoned) },
-                { IEnums.Events.MissionAccepted, typeof(MissionAccepted) },
-                { IEnums.Events.MissionCompleted, typeof(MissionCompleted) },
-                { IEnums.Events.MissionFailed, typeof(MissionFailed) },
-                { IEnums.Events.MissionRedirected, typeof(MissionRedirected) },
-                { IEnums.Events.Missions, typeof(Missions) },
-                { IEnums.Events.ModuleBuy, typeof(ModuleBuy) },
-                { IEnums.Events.ModuleInfo, typeof(ModuleInfo) },
-                { IEnums.Events.ModuleRetrieve, typeof(ModuleRetrieve) },
-                { IEnums.Events.ModuleSell, typeof(ModuleSell) },
-                { IEnums.Events.ModuleSellRemote, typeof(ModuleSellRemote) },
-                { IEnums.Events.ModuleStore, typeof(ModuleStore) },
-                { IEnums.Events.ModuleSwap, typeof(ModuleSwap) },
-                { IEnums.Events.MultiSellExplorationData, typeof(MultiSellExplorationData) },
-                { IEnums.Events.Music, typeof(Music) },
-                { IEnums.Events.NavBeaconScan, typeof(NavBeaconScan) },
-                { IEnums.Events.NpcCrewPaidWage, typeof(NpcCrewPaidWage) },
-                { IEnums.Events.NpcCrewRank, typeof(NpcCrewRank) },
-                { IEnums.Events.PayBounties, typeof(PayBounties) },
-                { IEnums.Events.PayFines, typeof(PayFines) },
-                { IEnums.Events.Powerplay, typeof(Powerplay) },
-                { IEnums.Events.PowerplayCollect, typeof(PowerplayCollect) },
-                { IEnums.Events.PowerplayDefect, typeof(PowerplayDefect) },
-                { IEnums.Events.PowerplayDeliver, typeof(PowerplayDeliver) },
-                { IEnums.Events.PowerplayFastTrack, typeof(PowerplayFastTrack) },
-                { IEnums.Events.PowerplayJoin, typeof(PowerplayJoin) },
-                { IEnums.Events.PowerplayLeave, typeof(PowerplayLeave) },
-                { IEnums.Events.PowerplaySalary, typeof(PowerplaySalary) },
-                { IEnums.Events.PowerplayVote, typeof(PowerplayVote) },
-                { IEnums.Events.Progress, typeof(Progress) },
-                { IEnums.Events.Promotion, typeof(Promotion) },
-                { IEnums.Events.QuitACrew, typeof(QuitACrew) },
-                { IEnums.Events.Rank, typeof(Rank) },
-                { IEnums.Events.RebootRepair, typeof(RebootRepair) },
-                { IEnums.Events.ReceiveText, typeof(ReceiveText) },
-                { IEnums.Events.RedeemVoucher, typeof(RedeemVoucher) },
-                { IEnums.Events.RefuelAll, typeof(RefuelAll) },
-                { IEnums.Events.Repair, typeof(Repair) },
-                { IEnums.Events.RepairAll, typeof(RepairAll) },
-                { IEnums.Events.RepairDrone, typeof(RepairDrone) },
-                { IEnums.Events.Reputation, typeof(Reputation) },
-                { IEnums.Events.ReservoirReplenished, typeof(ReservoirReplenished) },
-                { IEnums.Events.RestockVehicle, typeof(RestockVehicle) },
-                { IEnums.Events.Resurrect, typeof(Resurrect) },
-                { IEnums.Events.SAAScanComplete, typeof(SAAScanComplete) },
-                { IEnums.Events.Scan, typeof(Scan) },
-                { IEnums.Events.Scanned, typeof(Scanned) },
-                { IEnums.Events.ScientificResearch, typeof(ScientificResearch) },
-                { IEnums.Events.Screenshot, typeof(Screenshot) },
-                { IEnums.Events.SearchAndRescue, typeof(SearchAndRescue) },
-                { IEnums.Events.SelfDestruct, typeof(SelfDestruct) },
-                { IEnums.Events.SellDrones, typeof(SellDrones) },
-                { IEnums.Events.SellExplorationData, typeof(SellExplorationData) },
-                { IEnums.Events.SendText, typeof(SendText) },
-                { IEnums.Events.SetUserShipName, typeof(SetUserShipName) },
-                { IEnums.Events.ShieldState, typeof(ShieldState) },
-                { IEnums.Events.ShipTargeted, typeof(ShipTargeted) },
-                { IEnums.Events.ShipyardBuy, typeof(ShipyardBuy) },
-                { IEnums.Events.ShipyardNew, typeof(ShipyardNew) },
-                { IEnums.Events.ShipyardSwap, typeof(ShipyardSwap) },
-                { IEnums.Events.ShipyardTransfer, typeof(ShipyardTransfer) },
-                { IEnums.Events.Shutdown, typeof(Shutdown) },
-                { IEnums.Events.SRVDestroyed, typeof(SRVDestroyed) },
-                { IEnums.Events.StartJump, typeof(StartJump) },
-                { IEnums.Events.Statistics, typeof(Statistics) },
-                { IEnums.Events.StoredModules, typeof(StoredModules) },
-                { IEnums.Events.StoredShips, typeof(StoredShips) },
-                { IEnums.Events.SupercruiseEntry, typeof(SupercruiseEntry) },
-                { IEnums.Events.SupercruiseExit, typeof(SupercruiseExit) },
-                { IEnums.Events.Synthesis, typeof(Synthesis) },
-                { IEnums.Events.SystemsShutdown, typeof(SystemsShutdown) },
-                { IEnums.Events.SquadronStartup, typeof(SquadronStartup) },
-                { IEnums.Events.TechnologyBroker, typeof(TechnologyBroker) },
-                { IEnums.Events.Touchdown, typeof(Touchdown) },
-                { IEnums.Events.Undefined, typeof(Undefined) },
-                { IEnums.Events.UnderAttack, typeof(UnderAttack) },
-                { IEnums.Events.Undocked, typeof(Undocked) },
-                { IEnums.Events.USSDrop, typeof(USSDrop) },
-                { IEnums.Events.VehicleSwitch, typeof(VehicleSwitch) },
-                { IEnums.Events.WingAdd, typeof(WingAdd) },
-                { IEnums.Events.WingInvite, typeof(WingInvite) },
-                { IEnums.Events.WingJoin, typeof(WingJoin) },
-                { IEnums.Events.WingLeave, typeof(WingLeave) }
-            };
-
-            /// <summary>
-            /// Checks the Event Type Dictionary to see if the Passed Event Exists
-            /// </summary>
-            /// <param name="E">Event to Check</param>
-            /// <returns></returns>
-            public A Exists(IEnums.Events E)
+                Events.Add(EventName, Event);
+            }
+            else
             {
-                string MethodName = "Event (Exists)";
+                var Temp = Events[EventName];
+                PreviousEvents[EventName] = Temp;
+                Events[EventName] = Event;
+            }
+        }
 
-                try
-                {
-                    //Check If Event Is In The Type Dictionary
-                    if (Type.ContainsKey(E)) { return A.Pass; }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Exception(MethodName, "Exception: " + ex);
-                    Logger.Exception(MethodName, "(Failed) The Check Hamster Made A Mistake And Forgot What He Was Doing...");
-                    return A.Error;
-                }
+        public static bool EventExist(string EventName, bool Answer = false)
+        {
+            string MethodName = "Event Manager (Event Exist)";
 
-                //Event Didnt' Exist
-                return A.Fail;
+            string DebugText = "Event Exist Check Failed, " + EventName + " Has Not Been Recorded.";
+            string Color = Logger.Yellow;
+
+            if (IEvents.Events.ContainsKey(EventName) == true)
+            { Answer = true; }
+
+            if (Answer == false)
+            { Logger.DebugLine(MethodName, DebugText, Color); }
+
+            return Answer;
+        }
+
+        public static object GetEvent(string EventName)
+        {
+            object Temp = null;
+
+            if (EventExist(EventName))
+            {
+                Temp = Events[EventName];
             }
 
-            /// <summary>
-            /// Checks the Event Type Dictionary to see if the Passed Event Exists
-            /// </summary>
-            /// <param name="S">Event string to Check</param>
-            /// <returns></returns>
-            public A Exists(string S)
-            {
-                string MethodName = "Event (Exists)";
-                IEnums.Events E = IEnums.Events.None;
+            return Temp;
+        }
+        #endregion
 
-                try
-                {
-                    E = IEnums.ToEnum<IEnums.Events>(S);
-                }
+        #region Extension Methods
+        public static string Variable(this decimal Dec)
+        {            
+            return Dec.ToString();
+        }
+
+        public static string Variable(this string Str)
+        {
+            if (Str == null)
+            { return "None"; }
+
+            return Str;
+        }
+
+        public static string Variable(this bool Bol)
+        {
+            return Bol.ToString();
+        }
+
+        public static string Variable(this DateTime time)
+        {
+            if (time != null)
+            { return time.ToString(); }
+
+            return null;
+        }
+        #endregion
+    }
+
+    public class Event
+    {
+        /// <summary>
+        /// Custom Collection with all the controls to handle variable tracking and generation per Event.
+        /// </summary>
+        public CollectionVariables Variables = new CollectionVariables();
+
+        /// <summary>
+        /// Name Property for each event as an Enum.
+        /// </summary>
+        public IEnums.Events Name
+        {
+            get
+            {
+                //string Name = this.GetType().Name.Replace("Event_", "");
+                string Name = this.GetType().Name.Replace("E_", "");
+
+                //Process Event Type & Return Enum Name
+                try { return IEnums.ToEnum<IEnums.Events>(Name); }
+
+                //Exception Handling
                 catch (Exception ex)
                 {
-                    Logger.Exception(MethodName, "Exception: " + ex);
-                    Logger.Exception(MethodName, "(Failed) The Lookup Hamster Made A Mistake And Forgot What He Was Doing...");
-                }
+                    //Exception Logger
+                    Logger.Exception("Event (Name)", "Exception: " + ex);
+                    Logger.Exception("Event (Name)", "Exception Occured While Processing " + Name + " Event");
 
-                try
-                {
-                    //Check If Event Is In The Type Dictionary
-                    if (E != IEnums.Events.None && Type.ContainsKey(E)) { return A.Pass; }
+                    //Default Return
+                    return IEnums.Events.None;                    
                 }
-                catch (Exception ex)
-                {
-                    Logger.Exception(MethodName, "Exception: " + ex);
-                    Logger.Exception(MethodName, "(Failed) The Check Hamster Made A Mistake And Forgot What He Was Doing...");
-                    return A.Error;
-                }
-
-                //Event Didnt' Exist
-                return A.Fail;
             }
+        }
 
-            /// <summary>
-            /// Gets the Event Type from the Dictionary.
-            /// </summary>
-            /// <param name="E">Event your requesting the type of.</param>
-            /// <param name="Override">When Override is set to false it will perform a check on the Dictionary</param>
-            /// <returns></returns>
-            public Type GetType(IEnums.Events E, bool Override = true)
+        /// <summary>
+        /// Simple String call for the class name.
+        /// </summary>
+        public string ClassName => Name.ToString();
+
+        /// <summary>
+        /// Enables / Disables event triggering on the event level.
+        /// </summary>
+        public bool TriggerEvent = true;
+
+        /// <summary>
+        /// Enables / Disables writing variables on the event level.
+        /// </summary>
+        public bool WriteVariables = false;
+
+        /// <summary>
+        /// Validates Triggers Are Enabled & Triggers Events
+        /// </summary>
+        public void Trigger()
+        {
+            string MethodName = "Trigger (" + Name + ")";
+
+            //Check Main Trigger Control
+            if (IEvents.TriggerEvents == false)
             {
-                string MethodName = "Event (Get Type)";
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Global Event Triggers Disabled.", Logger.Blue);
 
-                if (Override == false)
-                {
-                    switch (Exists(E))
-                    {
-                        case A.Pass:
-                            Logger.DebugLine(MethodName, E + " Found, Returning Type", Logger.Blue);
-                            break;
-                        case A.Fail:
-                            Logger.DebugLine(MethodName, E + " Not Found, Returning Null", Logger.Blue);
-                            return null;
-                        case A.Error:
-                            Logger.Error(MethodName, "An Error Was Detected While Procssing " + E, Logger.Red);
-                            return null;
-                        default:
-                            Logger.Error(MethodName, "Returned Using The Default Switch", Logger.Red);
-                            return null;
-                    }
-                }
-
-                return Type[E];
+                return;
             }
 
-            /// <summary>
-            /// Gets the Event Type from the Dictionary.
-            /// </summary>
-            /// <param name="S">Event string your requesting the type of.</param>
-            /// <param name="Override">When Override is set to false it will perform a check on the Dictionary</param>
-            /// <returns></returns>
-            public Type GetType(string S, bool Override = true)
+            //Check Event Trigger Control
+            if (TriggerEvent == false)
             {
-                string MethodName = "Event (Get Type)";
-                IEnums.Events E = IEnums.Events.None;
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Local Event Triggers Disabled.", Logger.Blue);
 
-                try
-                {
-                    E = IEnums.ToEnum<IEnums.Events>(S);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Exception(MethodName, "Exception: " + ex);
-                    Logger.Exception(MethodName, "(Failed) The Lookup Hamster Made A Mistake And Forgot What He Was Doing...");
-                }
-
-                if (Override == false && E != IEnums.Events.None)
-                {
-                    switch (Exists(E))
-                    {
-                        case A.Pass:
-                            Logger.DebugLine(MethodName, E + " Found, Returning Type", Logger.Blue);
-                            break;
-                        case A.Fail:
-                            Logger.DebugLine(MethodName, E + " Not Found, Returning Null", Logger.Blue);
-                            return null;
-                        case A.Error:
-                            Logger.Error(MethodName, "An Error Was Detected While Procssing " + E, Logger.Red);
-                            return null;
-                        default:
-                            Logger.Error(MethodName, "Returned Using The Default Switch", Logger.Red);
-                            return null;
-                    }
-                }
-
-                return Type[E];
+                return;
             }
+
+            //Execute Event
+            IPlatform.ExecuteCommand("EVENT - " + Name);
+
+            //Log Event Execution For Game Tracking Purposes.
+            Logger.AliceLog("Event: " + Name);
+        }
+
+        /// <summary>
+        /// Checks If The Target Event Exists
+        /// </summary>
+        /// <param name="E">(Event Name) Target Event</param>
+        /// <returns>True or False</returns>
+        public bool Exist(IEnums.Events E)
+        {
+            string MethodName = "Event Manager (Event Exist)";
+            
+            switch (IEvents.Event.Exist(E))
+            {                
+                case IEnums.A.Postive:
+                    return true;
+
+                case IEnums.A.Negative:
+                    return false;
+
+                case IEnums.A.Error:
+                    return false;
+
+                default:
+
+                    //Error Logger
+                    Logger.Error(MethodName, "Returned Using Default Swtich, Returning False", Logger.Red);
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// Will Get the calling class' event from the dictionary if it exists.
+        /// </summary>
+        /// <returns>Event Object, or Null if doesn't exist.</returns>
+        public object Get()
+        {
+            //Return Event or Null
+            return IEvents.Event.Get(Name);            
+        }
+
+        /// <summary>
+        /// Will Get the target event from the dictionary if it exists.
+        /// </summary>
+        /// <returns>Event Object, or Null if doesn't exist.</returns>
+        public object Get(IEnums.Events E)
+        {
+            //Return Event or Null
+            return IEvents.Event.Get(E);
+        }
+
+        /// <summary>
+        /// Will Record the passed Event to the Event Storage
+        /// </summary>
+        /// <param name="E">(Event Name) Target Event's Name</param>
+        /// <param name="O">(Object) Event's Object</param>
+        public static void UpdateEvents(IEnums.Events E, object O)
+        {
+            //Pass Event To Collections Record Method
+            IEvents.Event.Record(E, O);
+        }
+
+        /// <summary>
+        /// Method Used To Generate The Event Variables
+        /// </summary>
+        public virtual void Generate(object O)
+        {
+            //No Code In Virtual Method, Override Method Will Contain The Logic
+            //This Is Here For The Structured Calls
+        }
+
+        /// <summary>
+        /// Method Used To Process Plugin Functions Based On Event Data.
+        /// </summary>
+        public virtual void Process(object O)
+        {
+            //No Code In Virtual Method, Override Method Will Contain The Logic
+            //This Is Here For The Structured Calls
+        }
+
+        /// <summary>
+        /// Method Use To Update Game State Logic Per Event
+        /// </summary>
+        public void Logic()
+        {
+            //Get Recorded Event
+            object Event = Get();
+
+            //Process Event Logic
+            Process(Event);
+
+            //Process Variables
+            if (WriteVariables)
+            {
+                Variables.Clear();
+                Generate(Event);
+                Variables.Write();
+            }
+
+            //Trigger
+            Trigger();
+        }
+
+        public void ExceptionProcess(Exception ex)
+        {
+            Logger.Exception(Name.ToString(), "Exception: " + ex);
+            Logger.Exception(Name.ToString(), "An Exception Occured While Processing The Event");
+        }
+
+        public void ExceptionGenerate(Exception ex)
+        {
+            Logger.Exception(Name.ToString(), "Exception: " + ex);
+            Logger.Exception(Name.ToString(), "An Exception Occured While Generating Variables");
         }
     }
 
-    /// <summary>
-    /// These Defaults are used to prevent working with optionally logged properties and the need to track and check if an item was set.
-    /// </summary>
-    public static class Default
+    public class Base : Catch
     {
-        public static readonly string String = "None";
-        public static readonly decimal Decimal = -1;
-        public static readonly bool False = false;
-        public static readonly bool True = true;
-        public static readonly DateTime DTime = default(DateTime);
+        /// <summary>
+        /// Shared Timestamp property used by all Events.
+        /// </summary>
+        public DateTime Timestamp { get; set; }
 
-        //FSDJump Event
-        public static readonly string Independant = "Independant";
+        /// <summary>
+        /// Shared Event property used by all Events.
+        /// </summary>
+        public string Event { get; set; }
     }
 
+    public class Catch
+    {
+        /// <summary>
+        /// Function that returns a standard Default String value duing contstruction
+        /// to prevent null values from being assinged in unused event properties.
+        /// </summary>
+        /// <returns>"None"</returns>
+        public string Str()
+        {
+            return "None";
+        }
+
+        /// <summary>
+        /// /// Function that returns a standard Default Decimal value duing contstruction
+        /// to allow tracking of unused properties in events.
+        /// </summary>
+        /// <returns>"-1"</returns>
+        public decimal Dec()
+        {
+            return -1;
+        }
+
+        /// <summary>
+        /// Function that returns a standard Default Boolean (false) value duing contstruction
+        /// to prevent null values from being assinged in unused event properties.
+        /// </summary>
+        /// <returns>"false"</returns>
+        public bool Bool()
+        {
+            return false;
+        }
+
+        [JsonExtensionData]
+        public IDictionary<string, object> Undefined { get; set; }
+
+        public IDictionary<string, object> UndefinedProperties()
+        {
+            return Undefined;
+        }
+    }
+
+    #region Old Items To Remove After Framework Conversion
     public class Event_Base
     {
         #region Collctions
@@ -853,20 +791,19 @@ namespace ALICE_Events
         #endregion
     }
 
-    public class Catch
+    /// <summary>
+    /// These Defaults are used to prevent working with optionally logged properties and the need to track and check if an item was set.
+    /// </summary>
+    public static class Default
     {
-        [JsonExtensionData]
-        public IDictionary<string, object> Undefined { get; set; }
+        public static readonly string String = "None";
+        public static readonly decimal Decimal = -1;
+        public static readonly bool False = false;
+        public static readonly bool True = true;
+        public static readonly DateTime DTime = default(DateTime);
 
-        public IDictionary<string, object> UndefinedProperties()
-        {
-            return Undefined;
-        }
+        //FSDJump Event
+        public static readonly string Independant = "Independant";
     }
-
-    public class Base : Catch
-    {
-        public DateTime Timestamp { get; set; }
-        public string Event { get; set; }
-    }
+    #endregion
 }

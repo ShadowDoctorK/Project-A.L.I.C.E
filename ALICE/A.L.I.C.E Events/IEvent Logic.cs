@@ -176,24 +176,8 @@ namespace ALICE_EventLogic
             if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
             if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
 
-            switch (IVehicles.Vehicle)
-            {
-                case IVehicles.V.Mothership:
-                    IObjects.Mothership.F.Critical = true;
-                    IObjects.Mothership.F.FuelCritical(true);
-                    break;
-
-                case IVehicles.V.Fighter:
-                    break;
-
-                case IVehicles.V.SRV:
-                    IObjects.SRV.F.Critical = true;
-                    IObjects.SRV.F.FuelCritical(true);
-                    break;
-
-                default:
-                    return;
-            }
+            IEquipment.FuelTank.Critical = true;
+            IEquipment.FuelTank.FuelCritical(true);
         }
 
         public static void FuelLow(FuelLow Event)
@@ -203,24 +187,8 @@ namespace ALICE_EventLogic
             if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
             if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
 
-            switch (IVehicles.Vehicle)
-            {
-                case IVehicles.V.Mothership:
-                    IObjects.Mothership.F.Low = true;
-                    IObjects.Mothership.F.FuelLow(true);
-                    break;
-
-                case IVehicles.V.Fighter:
-                    break;
-
-                case IVehicles.V.SRV:
-                    IObjects.SRV.F.Low = true;
-                    IObjects.SRV.F.FuelLow(true);
-                    break;
-
-                default:
-                    return;
-            }
+            IEquipment.FuelTank.Low = true;
+            IEquipment.FuelTank.FuelLow(true);
         }
 
         public static void FuelHalfThreshold(FuelHalfThreshold Event)
@@ -230,26 +198,10 @@ namespace ALICE_EventLogic
             if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
             if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
 
+            IEquipment.FuelTank.HalfThreshold = true;
+
             //Notes: Commented Out Audio Due To Main Audio Playing Twice.            
-
-            //switch (IVehicles.Vehicle)
-            //{
-            //    case IVehicles.V.Mothership:
-            //        IObjects.Mothership.F.HalfThreshold = true;
-            //        IObjects.Mothership.F.FuelHalf(true, Check.Report.FuelStatus(true, MethodName));
-            //        break;
-
-            //    case IVehicles.V.Fighter:
-            //        break;
-
-            //    case IVehicles.V.SRV:
-            //        IObjects.SRV.F.HalfThreshold = true;
-            //        IObjects.SRV.F.FuelHalf(true, Check.Report.FuelStatus(true, MethodName));
-            //        break;
-
-            //    default:
-            //        return;
-            //}
+            //IEquipment.FuelTank.FuelHalf(true);
         }
 
         public static void NoFireZone(NoFireZone Event)
@@ -279,7 +231,7 @@ namespace ALICE_EventLogic
 
                 Thread.Sleep(100);
 
-                if (ISettings.User.WeaponSafety == true)
+                if (ISettings.WeaponSafety == true)
                 {
                     IObjects.Status.WeaponSafety = true;
                     Call.Action.AnalysisMode(true, false);
@@ -723,6 +675,11 @@ namespace ALICE_EventLogic
         #endregion
 
         #region Journal Event Logic
+
+        public static void AsteroidCracked(AsteroidCracked Event)
+        {
+
+        }
 
         public static void ApproachBody(ApproachBody Event)
         {
@@ -1226,12 +1183,15 @@ namespace ALICE_EventLogic
             IObjects.Status.WeaponSafety = false;
             IStatus.Planet.OrbitalMode = false;
             IStatus.Planet.DecentReport = false;
-            IObjects.Mothership.F.ScoopingReset();
+            IEquipment.FuelTank.ScoopingReset();
 
             Call.Panel.Comms.Open = false;
             Call.Panel.System.Open = false;
             Call.Panel.Target.Open = false;
             Call.Panel.Role.Open = false;
+
+            IObjects.Status.Hyperspace = false;
+            IObjects.Status.Supercruise = true;
             #endregion
 
             Post.FSDJump(Event);
@@ -1278,7 +1238,8 @@ namespace ALICE_EventLogic
             string MethodName = "Logic FuelScoop";
 
             //Only Report If Scoop Is Enabled && Tank Is Full
-            if (IObjects.Mothership.F.GetPercent() == 100) { IObjects.Mothership.F.ReportScooping(MethodName); }            
+            if (IEquipment.FuelTank.GetPercent() == 100)
+            { IEquipment.FuelTank.ReportScooping(MethodName); }            
         }
 
         public static void HeatDamage(HeatDamage Event)
@@ -1452,25 +1413,14 @@ namespace ALICE_EventLogic
             ISettings.Firegroup.Load();
 
             //Update Fuel Status
-            switch (IVehicles.Vehicle)
-            {
-                case IVehicles.V.Mothership:
-                    IObjects.Mothership.F.Update(Event);
-                    break;
-                case IVehicles.V.Fighter:
-                    break;
-                case IVehicles.V.SRV:
-                    IObjects.SRV.F.Update(Event);
-                    break;
-                default:
-                    break;
-            }
+            IEquipment.FuelTank.Update(Event);
         }
 
         public static void Loadout(Loadout Event)
         {
             string MethodName = "Logic Loadout";
 
+            #region Load Mothership
             Data.ShipModules.Clear();
 
             //Vehicle Check
@@ -1524,12 +1474,8 @@ namespace ALICE_EventLogic
                     //Update Object Data
                     IObjects.Mothership.Update(Event);
 
-                    //Save Data Only If Event Data Is Newer The Object Data
-                    if (IObjects.Mothership.EventTimeStamp == Event.Timestamp)
-                    {
-                        //Save Mothership Data.
-                        new Object_Mothership().Save(IObjects.Mothership, MethodName);
-                    }
+                    //Save Mothership Data.
+                    new Object_Mothership().Save(IObjects.Mothership, MethodName);
 
                     break;
                 case IVehicles.V.Fighter:
@@ -1548,7 +1494,12 @@ namespace ALICE_EventLogic
                 Miscellanous.Default.Save();
             }
 
-            Logger.Log(MethodName, "Loaded " + IObjects.Mothership.I.FingerPrint, Logger.Purple);            
+            //Update Equipment Settings.           
+            IVehicles.PullEquipmentSettings();
+
+            //Log Mothership Load
+            Logger.Log(MethodName, "Loaded " + IObjects.Mothership.I.FingerPrint, Logger.Purple);
+            #endregion
 
             //Load Firegroup Settings
             ISettings.Firegroup.Load();
@@ -1595,7 +1546,24 @@ namespace ALICE_EventLogic
 
         public static void MiningRefined(MiningRefined Event)
         {
-            //Audio
+            string MethodName = "Logic MaterialCollected";
+
+            Logger.Log(MethodName, Event.Type_Localised + " Refined", Logger.Yellow, true);
+
+            #region Audio
+            if (PlugIn.Audio == "TTS")
+            {
+                Speech.Speak
+                    (
+                    Event.Type_Localised + " Refined.",
+                    true,
+                    Check.Internal.TriggerEvents(true, MethodName),
+                    Check.Report.MaterialRefined(true, MethodName)
+                    );
+            }
+            else if (PlugIn.Audio == "File") { }
+            else if (PlugIn.Audio == "External") { }
+            #endregion     
         }
 
         public static void Music(Music Event)
@@ -1750,7 +1718,11 @@ namespace ALICE_EventLogic
 
         public static void Scan(Scan Event)
         {
+            //Update Current System Information
             IObjects.SystemCurrent.Update_StellarBody(Event);
+
+            //Evaluate Scan Data
+            IStatus.Scan.Evaluate(Event.BodyID);
         }
 
         public static void SetUserShipName(SetUserShipName Event)
@@ -1804,6 +1776,8 @@ namespace ALICE_EventLogic
             Call.Panel.Comms.Open = false;
             IObjects.Status.Docked = false;
             IObjects.Status.WeaponSafety = false;
+            IObjects.Status.Hyperspace = true;
+            IObjects.Status.Supercruise = false;            
             #endregion
 
             //Audio - Supercruise      
@@ -1860,6 +1834,9 @@ namespace ALICE_EventLogic
             IObjects.Status.Docked = false;
             IStatus.Docking.Preparations = false;
             IObjects.Status.WeaponSafety = false;
+
+            IObjects.Status.Hyperspace = false;
+            IObjects.Status.Supercruise = false;
             #endregion
 
             if (Check.Internal.TriggerEvents(true, MethodName) == true)
@@ -1886,6 +1863,8 @@ namespace ALICE_EventLogic
             IObjects.Status.Docked = false;
             IStatus.Docking.Preparations = false;
             IObjects.Status.WeaponSafety = false;
+            IObjects.Status.Hyperspace = false;
+            IObjects.Status.Supercruise = true;
 
             //Exiting Planet Prevents Abort Decent Report While Leaving The Planet.
             IStatus.Planet.ExitingPlanet = true;
@@ -1896,6 +1875,8 @@ namespace ALICE_EventLogic
         {
             #region Logic Table
             IObjects.Status.WeaponSafety = false;
+            IObjects.Status.Hyperspace = false;
+            IObjects.Status.Supercruise = false;
             #endregion
         }
 
@@ -1917,6 +1898,9 @@ namespace ALICE_EventLogic
             IObjects.Status.Supercruise = false;
             IObjects.Status.FighterDeployed = false;
             IObjects.Status.Docked = false;
+
+            IObjects.Status.Hyperspace = false;
+            IObjects.Status.Supercruise = false;
             #endregion
 
             if (Check.Internal.TriggerEvents(true, MethodName) == true)
@@ -2069,7 +2053,7 @@ namespace ALICE_EventLogic
             new Thread((ThreadStart)(() =>
             {
                 #region Hanger Entry & Open Station Services
-                Thread.Sleep(1000 + ISettings.User.OffsetPanels);
+                Thread.Sleep(1000 + ISettings.OffsetPanels);
 
                 Call.Key.Press(Call.Key.UI_Panel_Up_Press, 500);
                 Call.Key.Press(Call.Key.UI_Panel_Up_Release, 100);
@@ -2154,8 +2138,8 @@ namespace ALICE_EventLogic
             #endregion
 
             #region Fuel Reports
-            Logger.Log(MethodName, "Fuel Levels At " + decimal.Round(IObjects.Mothership.F.GetPercent(), 2).ToString() + " Percent", Logger.Blue);
-            if (Check.Report.FuelStatus(true, MethodName) == true) { IObjects.Mothership.F.Report = true; }
+            Logger.Log(MethodName, "Fuel Levels At " + decimal.Round(IEquipment.FuelTank.GetPercent(), 2).ToString() + " Percent", Logger.Blue);
+            if (Check.Report.FuelStatus(true, MethodName) == true) { IEquipment.FuelTank.Report = true; }
             #endregion
 
             //System Report. Security, Allegiance, ect...
@@ -2165,125 +2149,14 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Post Supercruise";
 
-            #region Assisted Docking Procedure
-            if (Check.Order.AssistDocking(true, MethodName) == true)
-            {
-                if (Check.Event.SupercruiseExit.BodyType(IEnums.Station, true, MethodName) == true)
-                {
-                    Thread thread =
-                    new Thread((ThreadStart)(() =>
-                    {
-                        Logger.Log(MethodName, "Assisted Docking: Standing By To Send Docking Request...", Logger.Yellow, true);
-                        //While Assisted Docking is True and BodyType equals Station Check For Next Trigger for 60 Seconds.
-                        int i = 600; while (i > 0 && Check.Order.AssistDocking(true, MethodName, true) == true && Check.Event.SupercruiseExit.BodyType(IEnums.Station, true, MethodName, true) == true)
-                        {
-                            //Check NoFireZone and Masslock. If both true send a Docking Request.
-                            i--; if (Check.Event.NoFireZone.Entered(true, MethodName) == true && Check.Variable.MassLocked(true, MethodName) == true)
-                            {
-                                Call.Action.Docking(IEnums.CMD.True, true, false);
-                                return;
-                            }
-                            Thread.Sleep(100);
-                        }
-                        Logger.Log(MethodName, "Assisted Docking: Switched To Manual Docking. You Took Too Long...", Logger.Yellow, true);
-                    }))
-                    { IsBackground = false };
-                    thread.Start();
-                }
-            }
-            #endregion
+            //Assisted Docking Procedure
+            IStatus.Docking.AssistedDocking(Event);
 
-            #region Assisted Landing Preparations
-            if (Event.BodyType == IEnums.Planet && IObjects.Status.Altitude != 0)
-            {
-                Thread LandingPrep_thread =
-                new Thread((ThreadStart)(() =>
-                {                    
-                    Logger.Log(MethodName, "Assisted Landing Preparations: Waiting To Exit Glide...", Logger.Yellow, true);
+            //Glide Monitor
+            IStatus.Planet.Glide(Event);
 
-                    //If BodyType = Planet & FSD Cooldown = True it means the ship has left Glide.
-                    int i2 = 600; while (IEquipment.FrameShiftDrive.Cooldown != true)
-                    {
-                        i2--; if (i2 <= 0)
-                        {
-                            Logger.Log(MethodName, "Assisted Landing Preparations: Landing Preparations Deactivated. Did Not Detect Exiting Glide In A Timely Manner...", Logger.Yellow, true);                            
-                            return;
-                        }
-                        Thread.Sleep(100);
-                    }
-
-                    Logger.Log(MethodName, "Assisted Landing Preparations: Monitoring Altitude for 60 Seconds...", Logger.Yellow, true);
-                    
-                    //Monitor Altitude For 60 Seconds.
-                    int i = 600; while (i > 0 && IObjects.Status.Altitude > 500)
-                    {
-                        Thread.Sleep(100); i--; if (i <= 0)
-                        {
-                            Logger.Log(MethodName, "Assisted Landing Preparations:  Timmed Out, You Took Too Long...", Logger.Yellow, true);
-                            return;
-                        }
-                    }
-
-                    if (IObjects.Status.Altitude <= 500)
-                    {                        
-                        Call.Action.LandingPreparations(true);
-                    }
-
-                }))
-                {
-                    IsBackground = false
-                };
-                LandingPrep_thread.Start();
-            }
-            #endregion
-
-            #region Glide Montior
-            if (Event.BodyType == "Planet" && IObjects.Status.Altitude != 0)
-            {
-                Thread Glide_thread =
-                new Thread((ThreadStart)(() =>
-                {
-                    //If BodyType = Planet And FSD Cooldown = True it means the ship has left Glide.
-                    Logger.Log(MethodName, "Glide Monitor: Monitoring...", Logger.Yellow, true);
-                    int i2 = 600; while (IEquipment.FrameShiftDrive.Cooldown != true)
-                    {
-                        i2--; if (i2 <= 0)
-                        {
-                            Logger.Log(MethodName, "Glide Monitor: Stopped Montitoring, You Took To Long...", Logger.Yellow, true);
-                            return;
-                        }
-                        Thread.Sleep(100);
-                    }
-
-                    //If Altitude is less than 10km then the Glide Should have been sucessful.
-                    if (IObjects.Status.Altitude < 10000)
-                    {
-                        #region Audio
-                        if (PlugIn.Audio == "TTS")
-                        {
-                            Speech.Speak
-                                (
-                                "".Phrase(GN_Planetary_Interaction.Glide_Complete),
-                                true
-                                );
-                        }
-                        else if (PlugIn.Audio == "File") { }
-                        else if (PlugIn.Audio == "External") { }
-                        #endregion
-                    }
-                    //if Altitdue is more then 10km then the Glide Failed.
-                    else
-                    {
-                        Logger.Log(MethodName, "Glide Monitor: Glide Failed, Better Luck Next Time...", Logger.Yellow, true);
-                        //Audio
-                    }
-                }))
-                {
-                    IsBackground = false
-                };
-                Glide_thread.Start();
-            }
-            #endregion
+            //Assisted Landing Preparations
+            IStatus.Planet.AssistedLanding(Event);
         }
 
         public static void Undocked(Undocked Event)

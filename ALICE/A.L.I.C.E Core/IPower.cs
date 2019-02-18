@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using ALICE_Internal;
 using ALICE_Actions;
+using System.Collections.Generic;
 
 namespace ALICE_Core
 {
@@ -56,7 +57,28 @@ namespace ALICE_Core
                 }; Max = Numbers.Max();
             }
         }
-        public class GamePower : Base { }
+        public class GamePower : Base
+        {
+            public void Set(List<decimal> Value)
+            {
+                string MethodName = "Game Power (Set)";
+
+                try
+                {
+                    if (Value.Count != 3) { return; }
+
+                    System = Value[0];
+                    Engine = Value[1];
+                    Weapon = Value[2];
+                }
+                catch (Exception ex)
+                {
+                    Logger.Exception(MethodName, "Exception: " + ex);
+                }
+
+                Logger.DebugLine(MethodName, "Processor Power: S" + System + " | E" + Engine + " | W" + Weapon, Logger.Yellow);
+            }
+        }
         public class RecordedPower : Base { }
         public class ProcessorPower : Base
         {
@@ -152,7 +174,6 @@ namespace ALICE_Core
                     {
                         Setting.Processed = Setting.Request;
                         Setting.Init = false;
-                        Logger.Log(MethodName, "Initialized And Standing By...", Logger.Purple);
                     }
 
                     while (true)
@@ -169,7 +190,7 @@ namespace ALICE_Core
                         Setting.Processed = Setting.Request; Setting.Loop = 0;
                         #endregion
 
-                        Logger.DebugLine(MethodName, "Ordered Power: S" + Order.System + " | E" + Order.Engine + " | W" + Order.Weapon, Logger.Yellow);
+                        Logger.DebugLine(MethodName, "Ordered Power: S" + Order.System + " | E" + Order.Engine + " | W" + Order.Weapon, Logger.Yellow);                       
 
                         #region Balance Power (Check)
                         if (Order.Weapon == 4 && Order.Engine == 4 && Order.System == 4)
@@ -187,7 +208,7 @@ namespace ALICE_Core
 
                             if (CheckHyperspace(MethodName) == false)
                             {
-                                //No Action Required.
+                                //No Action Required, Waits To Return.
                             }
 
                             #region Calculate Difference
@@ -436,14 +457,7 @@ namespace ALICE_Core
             {
                 Answer = false;
             }
-            //if (Difference.AbsoluteMax == Difference.Max)
-            //{
-            //    Answer = true;
-            //    DebugText = "Balance Power Check Passed, Do Not Need To Balance.";
-            //    Color = Logger.Blue;
-            //}
-            //else
-            else if (Difference.AbsoluteMax >= 4)
+            else if (Difference.AbsoluteMax >= 3)
             {
                 Answer = true;
                 DebugText = "Balanceing Power...";

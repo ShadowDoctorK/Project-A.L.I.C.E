@@ -9,7 +9,7 @@
 
     <Grid Background="Black">
 
-        <StackPanel HorizontalAlignment="Left" Height="378" VerticalAlignment="Top" Width="156" Margin="10,83,0,0">
+        <StackPanel HorizontalAlignment="Left" Height="503" VerticalAlignment="Top" Width="156" Margin="10,83,0,0">
             <Label Content="              Reports" Foreground="#FFCE5A05" FontWeight="Bold"/>
             <Button x:Name="btn_FuelScoop" Content="Fuel Scooping" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_FuelScoop_Click" Height="26" HorizontalAlignment="Left" Width="150" Margin="2.5"/>
             <Button x:Name="btn_MaterialCollected" Content="Collected Materials" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_MaterialCollected_Click" Height="26" HorizontalAlignment="Left" Width="150" />
@@ -22,6 +22,10 @@
             <Button x:Name="btn_ShieldStatus" Content="Shield Status" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_ShieldStatus_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
             <Button x:Name="btn_StationStatus" Content="Station Information" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_StationStatus_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
             <Button x:Name="btn_NoFireZone" Content="No Fire Zone" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_NoFireZone_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_GlideStatus" Content="Glide Status" Margin="2,2.5,0,2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_GlideStatus_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_HighGravity" Content="High Gravity Descent" Margin="2,2.5,0,2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_HighGravityDescent_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            <Button x:Name="btn_LandableVolcanism" Content="Volcanism (Landable)" Margin="2.5,2.5,0,2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_LandableVolcanism_Click" Height="26" HorizontalAlignment="Left" Width="150" />
+            <Button x:Name="btn_TravelDistance" Content="Travel Distance Threshold" Margin="2.5,2.5,0,2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_TravelDistance_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Left" Height="227" VerticalAlignment="Top" Width="156" Margin="166,83,0,0">
@@ -34,7 +38,7 @@
             <Button x:Name="btn_WeaponSafty" Content="Weapon Safeties" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Width="150" Click="btn_WeaponSafty_Click" Height="26"/>
         </StackPanel>
 
-        <RichTextBox Margin="10,10,10,703" Background="{x:Null}" Foreground="#FFCE5A05">
+        <RichTextBox Margin="10,10,10,703" Background="{x:Null}" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05">
             <FlowDocument>
                 <Paragraph>
                     <Run Text="Plug-In Settings : This area is provided for Commanders to manually change settings for various orders, reports, and to display game data. Want A.L.I.C.E to report something? Ask about it in the discord and if its something that can be supported we'll toss it on the feature request! We'll be adding items here as new features are developed."/>
@@ -71,7 +75,6 @@
             </StackPanel>
 
         </StackPanel>
-        <Label x:Name="Label_CommanderName" Content="Default" Foreground="#FFCE5A05" Margin="10,0,0,672" HorizontalAlignment="Left" Width="156" Height="26" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"/>
         <StackPanel x:Name="StackBox_1_Copy" Orientation="Horizontal" Margin="654,88,10,10">
 
             <StackPanel x:Name="StackBox_Module" HorizontalAlignment="Left" Width="162" Margin="0,0,0,21">

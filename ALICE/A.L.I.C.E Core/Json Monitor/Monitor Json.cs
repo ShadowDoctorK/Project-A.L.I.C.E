@@ -503,17 +503,17 @@ namespace ALICE_Monitors
                     IObjects.Status.FuelScooping = true;
                     Value.Flags = Value.Flags - 2048;
 
-                    if (IObjects.Mothership.F.ScoopingCommenced == false && Settings.Initialized)
-                    { IObjects.Mothership.F.ReportScooping(MethodName); }
+                    if (IEquipment.FuelTank.ScoopingCommenced == false && Settings.Initialized)
+                    { IEquipment.FuelTank.ReportScooping(MethodName); }
                 }
                 else
                 {
                     IObjects.Status.FuelScooping = false;
-                    if (IObjects.Mothership.F.ScoopingCommenced == true && Settings.Initialized)
-                    { IObjects.Mothership.F.ReportScooping(MethodName); }
+                    if (IEquipment.FuelTank.ScoopingCommenced == true && Settings.Initialized)
+                    { IEquipment.FuelTank.ReportScooping(MethodName); }
                     //Reset variables once we finish scooping.
-                    if (IObjects.Mothership.F.ScoopingCompleted == true && Settings.Initialized)
-                    { Thread.Sleep(100); IObjects.Mothership.F.ScoopingReset(); }
+                    if (IEquipment.FuelTank.ScoopingCompleted == true && Settings.Initialized)
+                    { Thread.Sleep(100); IEquipment.FuelTank.ScoopingReset(); }
                 }
                 #endregion
 
@@ -683,9 +683,8 @@ namespace ALICE_Monitors
                 #region Pip Flag
                 if (Value.Pips.Count != 0)
                 {
-                    Call.Power.Game.System = Value.Pips[0];
-                    Call.Power.Game.Engine = Value.Pips[1];
-                    Call.Power.Game.Weapon = Value.Pips[2];
+                    Logger.DebugLine(MethodName, "S: " + Value.Pips[0] + " | E: " + Value.Pips[1] + " | W: " + Value.Pips[2], Logger.Blue);                
+                    Call.Power.Game.Set(Value.Pips);
                 }
                 #endregion
 
@@ -786,7 +785,7 @@ namespace ALICE_Monitors
                 IObjects.Status.Heading = Value.Heading;
                 IObjects.Status.CargoMass = Value.Cargo;
 
-                IVehicles.SetFuelLevels(Value.Fuel);
+                IEquipment.FuelTank.Update(Value.Fuel);                
 
                 //End: Logic Processor: Status
                 #endregion

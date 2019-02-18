@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using ALICE_Core;
 using ALICE_Internal;
+using ALICE_Objects;
 using ALICE_Synthesizer;
 
 namespace ALICE_Equipment
 {
-    public class Equipment_ShutdownFieldNeutraliser : Equipment_General
+    public class Equipment_ShutdownFieldNeutrailser : Equipment_General
     {
-        public Equipment_ShutdownFieldNeutraliser()
+        public Equipment_ShutdownFieldNeutrailser()
         {
             Settings.Equipment = IEquipment.E.Shutdown_Field_Neutraliser;
             Settings.Mode = IEquipment.M.Both;
@@ -19,10 +20,10 @@ namespace ALICE_Equipment
             Settings.Enabled = true;
         }
 
-        public Equipment_ShutdownFieldNeutraliser New() { return new Equipment_ShutdownFieldNeutraliser(); }
+        public Equipment_ShutdownFieldNeutrailser New() { return new Equipment_ShutdownFieldNeutrailser(); }
 
         #region Audio
-        
+
         #endregion
     }
 }

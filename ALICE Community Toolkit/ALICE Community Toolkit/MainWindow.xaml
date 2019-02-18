@@ -15,6 +15,7 @@
             <Label Content="Community Toolkit" Background="#FFCE5A05" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Width="162" FontFamily="Malgun Gothic Semilight" Foreground="White" FontSize="16" FontWeight="Bold" Margin="10,0,0,0"/>
             <Label Content="    Double Click Tabs To Reset" Foreground="#FFCE5A05" Margin="0,0,0.333,0" FontWeight="Bold"/>
             <Button x:Name="btn_Dashboard" Content="Dashboard" Height="40" Margin="0,0,0.333,0" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="btn_Dashboard_Click" MouseDoubleClick="btn_Dashboard_MouseDoubleClick"/>
+            <Button x:Name="btn_Exploration" Content="Exploration" Height="40" Margin="0,0,0.333,0" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="btn_Exploration_Click" MouseDoubleClick="btn_Exploration_MouseDoubleClick"/>
             <Button x:Name="btn_ResponseGen" Content="Response Generator" Height="40" Margin="0,0,0.333,0" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="btn_ResponseGen_Click" MouseDoubleClick="btn_ResponseGen_MouseDoubleClick"/>
             <Button x:Name="btn_SynthControl" Content="Synthesizer Controls" Height="40" Margin="0,0,0.333,0" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="btn_SynthControl_Click" MouseDoubleClick="btn_SynthControl_MouseDoubleClick"/>
         </StackPanel>
@@ -41,8 +42,10 @@
                 </Button.Background>
             </Button>
         </StackPanel>
+        
+        <Label x:Name="Label_Commander" Content="Default Settings" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,200" Width="171" Foreground="#FFCE5A05" FontWeight="Bold" Height="27" VerticalAlignment="Bottom"/>
+       
         <Label x:Name="Label_Version" Content="A.L.I.C.E Version 3.4.0 (Open Beta 1.2.1)" HorizontalAlignment="Left" Margin="0,0,0,-1" Width="185" Foreground="#FFCE5A05" FontSize="9" Height="22" VerticalAlignment="Bottom" FontWeight="Bold"/>
-        <Label x:Name="Label_Version_Copy" Content="EXPERIMENTAL BUILD" HorizontalAlignment="Left" Margin="26,0,0,200" Width="139" Foreground="#FFCE5A05" FontWeight="Bold" Height="27" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Window>

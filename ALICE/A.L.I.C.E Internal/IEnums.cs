@@ -47,6 +47,7 @@ namespace ALICE_Internal
             AfmuRepairs,                      //Journal Log
             ApproachBody,                     //Journal Log
             ApproachSettlement,               //Journal Log
+            AsteroidCracked,                  //Journal Log
             Bounty,                           //Journal Log
             BuyAmmo,                          //Journal Log
             BuyDrones,                        //Journal Log
@@ -143,6 +144,7 @@ namespace ALICE_Internal
             PowerplayVote,                    //Journal Log
             Progress,                         //Journal Log
             Promotion,                        //Journal Log
+            ProspectedAsteroid,               //Journal Log
             QuitACrew,                        //Journal Log
             Rank,                             //Journal Log
             RebootRepair,                     //Journal Log
@@ -493,7 +495,7 @@ namespace ALICE_Internal
         //    Xeno_Scanner
         //}
 
-        public static T ToEnum<T>(this string value)
+        public static T ToEnum<T>(this string value, bool LogEx = true)
         {
             string MethodName = "To Enum (Conversion)";
 
@@ -503,8 +505,11 @@ namespace ALICE_Internal
             }
             catch (Exception ex)
             {
-                Logger.Exception(MethodName, "Exception: " + ex);
-                Logger.Exception(MethodName, "(Failed) The Check Hamster Made A Mistake And Returned The Default Solution...");               
+                if (LogEx)
+                {
+                    Logger.Exception(MethodName, "Exception: " + ex);
+                    Logger.Exception(MethodName, "(Failed) The Check Hamster Made A Mistake And Returned The Default Solution...");
+                }                
                 return default(T);
             }
         }

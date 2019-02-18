@@ -854,7 +854,7 @@ namespace ALICE_Actions
             {
                 if (CMD_State == true)
                 {
-                    IEquipment.DiscoveryScanner.Activating(CommandAudio);
+                    IEquipment.DiscoveryScanner.FSSActivating(CommandAudio);
                     Call.Key.Press(Call.Key.FSS_Enter, 0);
                     IEquipment.DiscoveryScanner.Mode = CMD_State;
 
@@ -2695,7 +2695,7 @@ namespace ALICE_Actions
 
             if (FighterNumber == 2)
             {
-                Thread.Sleep(100 + ISettings.User.OffsetPanels);
+                Thread.Sleep(100 + ISettings.OffsetPanels);
                 Call.Key.Press(Call.Key.UI_Panel_Down, 100, Call.Key.DelayPanel);
             }
 
@@ -3469,7 +3469,7 @@ namespace ALICE_Actions
             {
                 Speech.Speak
                     (
-                    "Crew Override Acivated.",
+                    "Crew Override Activated.",
                     CommandAudio
                     );
             }
@@ -3612,11 +3612,6 @@ namespace ALICE_Actions
             //WHILE YOU'RE ON THE BRIDGE. CAN YOU IMAGINE ALL THE GAMES OF EYE SPY WE ARE GOING TO PLAY? I BELIEVE WE WILL BE BEST FRIENDS.
         }
         #endregion
-    }
-
-    class Repair
-    {
-       
     }
 
     public static class Targeting

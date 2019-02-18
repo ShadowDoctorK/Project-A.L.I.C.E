@@ -33,8 +33,7 @@ namespace ALICE_Objects
         {
             I = new Information();
             E = new Equipment();
-            C = new Status_Cargo();
-            F = new Status_Fuel();            
+            C = new Status_Cargo();           
         }
 
         /// <summary>
@@ -46,7 +45,6 @@ namespace ALICE_Objects
             I = new Information();
             E = new Equipment();
             C = new Status_Cargo();
-            F = new Status_Fuel();
         }
 
         public void Update(LoadGame Event)
@@ -77,8 +75,26 @@ namespace ALICE_Objects
 
             try
             {
+                //Reset Fuel Capacity For New Calulation.
+                switch (IVehicles.Exists(IEquipment.E.Fuel_Tank))
+                {                    
+                    case IEnums.A.Postive:
+                        var Tank = IVehicles.Get(IEquipment.E.Fuel_Tank);
+                        Tank.Capacity = 0;
+                        IVehicles.Set(Tank);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Exception " + ex);
+                Logger.Exception(MethodName, "Exception Occured While Restting Values");
+            }
+
+            try
+            {
                 //Custom Properties
-                I.U_FingerPrint(Event.Event, Event.ShipID, Event.Ship);
+                I.U_FingerPrint(Event.Event, Event.ShipID, Event.Ship);                
 
                 //Event Properties
                 I.U_ShipID(Event.Event, Event.ShipID);
@@ -93,7 +109,7 @@ namespace ALICE_Objects
             {
                 Logger.Exception(MethodName, "Exception " + ex);
                 Logger.Exception(MethodName, "Exception Occured When Updating Ships Information");
-            }               
+            }
 
             foreach (var Mod in Event.Modules)
             {
@@ -113,17 +129,23 @@ namespace ALICE_Objects
                     Temp.Mount = GM.Mount;
 
                     //Update Modules Status
+                    //Adds Module Settings To the EquipmentConfigCollection
                     IEquipment.ModuleStatus(Temp);
 
-                    //Update Outfitting
-                    E.U_Module(Temp);                    
+                    //Update Temp Outfitting Collection
+                    int Index = E.Exists(Temp); if (Index != -1)
+                    {
+                        E.Outfitting.RemoveAt(Index);                        
+                    }
+
+                    E.Outfitting.Add(Temp);                    
                 }
                 catch (Exception ex)
                 {
                     Logger.Exception(MethodName, "Exception " + ex);
                     Logger.Exception(MethodName, "Exception Occured When Assigning The Following Slot: " + Mod.Slot + " | Item: " + Mod.Item);
                 }                
-            }
+            }          
 
             if (EventTimeStamp < Event.Timestamp)
             {
@@ -253,6 +275,94 @@ namespace ALICE_Objects
                 Logger.Exception(MethodName, "Something Went Wrong And File Was Not Saved.");
             }
         }
+    }
+
+    public class Object_Fighter : Object_VehicleBase
+    {
+
+    }
+
+    public class Object_SRV : Object_VehicleBase
+    {
+
+    }
+
+    public class Object_VehicleBase : Object_Base
+    {
+        /// <summary>
+        /// Vehicle Equipment Status
+        /// </summary>
+        public Equipment E = new Equipment();
+
+        /// <summary>
+        /// Vehicle Cargo Status
+        /// </summary>
+        public Status_Cargo C = new Status_Cargo();
+
+        #region Base Save/Load Methods
+        /// <summary>
+        /// Generic Loader for Deserializing JSON settings.
+        /// </summary>
+        /// <typeparam name="T">Object Type</typeparam>
+        /// <param name="FileName">The name of the target file.</param>
+        /// <param name="FilePath">The path of the target file. Default Path is the Settings Folder.</param>
+        /// <returns></returns>
+        public static object LoadValues<T>(string FileName, string FilePath = null)
+        {
+            T Temp = default(T);
+            if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
+            if (FileName == null) { return null; }
+
+            FileStream FS = null;
+            try
+            {
+                if (File.Exists(FilePath + FileName))
+                {
+                    FS = new FileStream(FilePath + FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    using (StreamReader SR = new StreamReader(FS))
+                    {
+                        while (!SR.EndOfStream)
+                        {
+                            string Line = SR.ReadLine();
+                            Temp = JsonConvert.DeserializeObject<T>(Line);
+                        }
+                    }
+                }
+
+                return Temp;
+            }
+            catch (Exception ex)
+            {
+                return Temp;
+            }
+            finally
+            {
+                if (FS != null)
+                { FS.Dispose(); }
+            }
+        }
+
+        /// <summary>
+        /// Generic Saver for Serializing object settings to JSON.
+        /// </summary>
+        /// <typeparam name="T">Object Type</typeparam>
+        /// <param name="Settings">The Object</param>
+        /// <param name="FileName">The name of the target file.</param>
+        /// <param name="FilePath">The path of the target file. Default Path is the Settings Folder.</param>
+        public static void SaveValues<T>(object Settings, string FileName, string FilePath = null)
+        {
+            if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
+
+            using (FileStream FS = new FileStream(FilePath + FileName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            {
+                using (StreamWriter file = new StreamWriter(FS))
+                {
+                    var Line = JsonConvert.SerializeObject((T)Settings);
+                    file.WriteLine(Line);
+                }
+            }
+        }
+        #endregion
 
         public class Information
         {
@@ -389,111 +499,106 @@ namespace ALICE_Objects
             }
             #endregion
         }
-    }
-
-    public class Object_Fighter : Object_VehicleBase
-    {
-
-    }
-
-    public class Object_SRV : Object_VehicleBase
-    {
-
-    }
-
-    public class Object_VehicleBase : Object_Base
-    {
-        /// <summary>
-        /// Vehicle Equipment Status
-        /// </summary>
-        public Equipment E = new Equipment();
-
-        /// <summary>
-        /// Vehicle Cargo Status
-        /// </summary>
-        public Status_Cargo C = new Status_Cargo();
-
-        /// <summary>
-        /// Vehcile Fule Status
-        /// </summary>
-        public Status_Fuel F = new Status_Fuel();
-
-        #region Base Save/Load Methods
-        /// <summary>
-        /// Generic Loader for Deserializing JSON settings.
-        /// </summary>
-        /// <typeparam name="T">Object Type</typeparam>
-        /// <param name="FileName">The name of the target file.</param>
-        /// <param name="FilePath">The path of the target file. Default Path is the Settings Folder.</param>
-        /// <returns></returns>
-        public static object LoadValues<T>(string FileName, string FilePath = null)
-        {
-            T Temp = default(T);
-            if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
-            if (FileName == null) { return null; }
-
-            FileStream FS = null;
-            try
-            {
-                if (File.Exists(FilePath + FileName))
-                {
-                    FS = new FileStream(FilePath + FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    using (StreamReader SR = new StreamReader(FS))
-                    {
-                        while (!SR.EndOfStream)
-                        {
-                            string Line = SR.ReadLine();
-                            Temp = JsonConvert.DeserializeObject<T>(Line);
-                        }
-                    }
-                }
-
-                return Temp;
-            }
-            catch (Exception)
-            {
-                return Temp;
-            }
-            finally
-            {
-                if (FS != null)
-                { FS.Dispose(); }
-            }
-        }
-
-        /// <summary>
-        /// Generic Saver for Serializing object settings to JSON.
-        /// </summary>
-        /// <typeparam name="T">Object Type</typeparam>
-        /// <param name="Settings">The Object</param>
-        /// <param name="FileName">The name of the target file.</param>
-        /// <param name="FilePath">The path of the target file. Default Path is the Settings Folder.</param>
-        public static void SaveValues<T>(object Settings, string FileName, string FilePath = null)
-        {
-            if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
-
-            using (FileStream FS = new FileStream(FilePath + FileName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-            {
-                using (StreamWriter file = new StreamWriter(FS))
-                {
-                    var Line = JsonConvert.SerializeObject((T)Settings);
-                    file.WriteLine(Line);
-                }
-            }
-        }
-        #endregion
 
         public class Equipment
         {
+            /// <summary>
+            /// Collection of Equipment Config's
+            /// </summary>
+            public EquipmentConfigCollection Settings = new EquipmentConfigCollection();
+
             /// <summary>
             /// Current Ships Loadout.
             /// </summary>
             public List<Module> Outfitting = new List<Module>();
 
+            public void Update(Module Module)
+            {
+                bool NewModule = true;
+                int ListNumber = 0;
+
+                foreach (Module Mod in Outfitting)
+                {
+                    if (Module.Slot == Mod.Slot)
+                    {
+                        NewModule = false;
+                        Outfitting[ListNumber] = Module;
+                    }
+                    ListNumber++;
+                }
+
+                if (NewModule == true)
+                {
+                    Outfitting.Add(Module);
+                }
+            }
+
+            public int Exists(Module Module)
+            {
+                int ListNumber = 0;
+
+                foreach (Module Mod in Outfitting)
+                {
+                    if (Module.Slot == Mod.Slot)
+                    {
+                        return ListNumber;
+                    }
+                    ListNumber++;
+                }
+
+                return -1;
+            }
+
             /// <summary>
-            /// Collection of Equipment Config's
+            /// Returns the entire Outfitting Collection.
             /// </summary>
-            public EquipmentConfigCollection Settings = new EquipmentConfigCollection();
+            /// <returns>Returns a List<Module></returns>
+            public List<Module> Get()
+            {
+                return Outfitting;
+            }
+
+            /// <summary>
+            /// Sets the Outffting Collection to the Passed Value
+            /// </summary>
+            /// <param name="Collection">List<Module> Collection </param>
+            /// <returns>True if Set, False if Not Set</returns>
+            public bool Set(List<Module> Value)
+            {
+                try
+                {
+                    Outfitting = Value;
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            public void Log_ShipsLoadout()
+            {
+                Logger.Simple(" ", Logger.Yellow);
+
+                foreach (var Mod in Outfitting)
+                {
+                    Logger.Simple("Slot: " + Mod.Slot + " | " + Mod.Item, Logger.Yellow);
+                }
+
+                Logger.Simple("Ship Finger Print: " + IObjects.Mothership.I.FingerPrint, Logger.Yellow);
+                Logger.Simple("SHIP LOADOUT REPORT", Logger.Yellow);
+                Logger.Simple(" ", Logger.Yellow);
+            }
+
+            private string GetModuleName(Module M)
+            {
+                string ModuleName = "Module Detected: " + M.Class + M.Rating + " " + M.Name;
+                if (M.Mount != null)
+                {
+                    ModuleName = ModuleName + " (" + M.Mount + ")";
+                }
+                return ModuleName;
+            }
 
             #region Ship Module Variables (Convert To Equipment)
             public bool Auto_Field_Maintenance_Unit = false;
@@ -546,51 +651,6 @@ namespace ALICE_Objects
             public bool Thrusters = false;
             public bool Torpedo_Pylon = false;
             #endregion
-
-            public void U_Module(Module Module)
-            {
-                bool NewModule = true;
-                int ListNumber = 0;
-
-                foreach (Object_Mothership.Module Mod in Outfitting)
-                {
-                    if (Module.Slot == Mod.Slot)
-                    {
-                        NewModule = false;
-                        Outfitting[ListNumber] = Module;
-                    }
-                    ListNumber++;
-                }
-
-                if (NewModule == true)
-                {
-                    Outfitting.Add(Module);
-                }
-            }
-
-            private string GetModuleName(Module M)
-            {
-                string ModuleName = "Module Detected: " + M.Class + M.Rating + " " + M.Name;
-                if (M.Mount != null)
-                {
-                    ModuleName = ModuleName + " (" + M.Mount + ")";
-                }
-                return ModuleName;
-            }
-
-            public void Log_ShipsLoadout()
-            {
-                Logger.Simple(" ", Logger.Yellow);
-
-                foreach (var Mod in Outfitting)
-                {
-                    Logger.Simple("Slot: " + Mod.Slot + " | " + Mod.Item, Logger.Yellow);
-                }
-
-                Logger.Simple("Ship Finger Print: " + IObjects.Mothership.I.FingerPrint, Logger.Yellow);
-                Logger.Simple("SHIP LOADOUT REPORT", Logger.Yellow);
-                Logger.Simple(" ", Logger.Yellow);
-            }
         }
 
         public class Module

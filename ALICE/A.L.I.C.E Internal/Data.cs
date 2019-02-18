@@ -164,14 +164,15 @@ namespace ALICE_Internal
             "Customisation",
             "VoicePack",
             "Cockpit",
-            "ModularCargoBayDoor"
+            "ModularCargoBayDoor",
+            "Guardian"
         };
 
         public static bool ModulesIgnoreCheck(string Module)
         {
             foreach (string Item in ModulesIgnore)
             {
-                if (Module.Contains(Item)) { return true; }
+                if (Module.ToLower().Contains(Item.ToLower())) { return true; }
             }
 
             return false;

@@ -22,7 +22,7 @@ namespace ALICE_Events
         public Status()
         {
             Flags = -1;
-            Pips = new List<decimal>() { 4, 4, 4 };
+            Pips = new List<decimal>();
             FireGroup = -1;
             GuiFocus = -1;
             Fuel = new FuelInfo() { FuelMain = -1, FuelReservoir = -1 };
@@ -33,7 +33,7 @@ namespace ALICE_Events
             Altitude = -1;
         }
     }
-
+    
     public class FuelInfo : Base
     {
         public decimal FuelMain { get; set; }

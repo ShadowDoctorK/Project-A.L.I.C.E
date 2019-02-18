@@ -239,7 +239,7 @@ namespace ALICE_Synthesizer
         public string Voice { get; set; }
         public int Rate { get; set; }
         public int Volume { get; set; }
-        public static readonly string FileName = "Synthisizer.Settings";
+        public static readonly string FileName = "Synthesizer.Settings";
 
         public SynthSetting()
         {

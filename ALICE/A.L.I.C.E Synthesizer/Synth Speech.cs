@@ -55,13 +55,13 @@ namespace ALICE_Synthesizer
         /// <param name="Text">Target Text for the Extension</param>
         /// <param name="Segment">List<string> which contains the Target Response Key, and the Target Segment in that response.</string></param>
         /// <param name="R">Allows the method to randomly decide if the Segments will be appended.</param>
-        /// <param name="W">Allows disabling Weight feature to use all choices.</param>
         /// <param name="E">Allows you to link the phrase to a function to decide if the Segment is enabled or disabled.</param>
+        /// <param name="W">Allows disabling Weight feature to use all choices.</param>
         /// <param name="FalseIsGood">Allows you to link the phrase to a function to decide if the Segment is enabled or disabled.</param>
         /// <param name="Percent">Percent chance the Unique/Alternate strings will be used in the response.</param>
         /// <param name="Override">Allows you to Force the use of Alterante or Standard Lines</param>
         /// <returns>Returns the updated working string, or the unmodified string for error and validation failures.</returns>
-        public static string Phrase(this string Text, List<string> Segment, bool R = false, bool W = true, bool E = true, 
+        public static string Phrase(this string Text, List<string> Segment, bool R = false, bool E = true, bool W = true, 
             bool FalseIsGood = false, int Percent = 20, ISynthesizer.Line Override = ISynthesizer.Line.Default)
         {
             string MethodName = "Speak (Extend)";
@@ -199,7 +199,7 @@ namespace ALICE_Synthesizer
         {
             string MethodName = "Token Replacement";
 
-            if (TargetText == null && Check.Internal.TriggerEvents(true, MethodName, true) == false)
+            if (TargetText == null && Check.Internal.TriggerEvents(true, MethodName, true))
             { Logger.Log(MethodName, "Token: " + TokenName + " - The Target Text For The Token Was Null.", Logger.Red); return Text; }
             if (Text.Contains(TokenName)) { Text = Text.Replace(TokenName, TargetText); }
             return Text;

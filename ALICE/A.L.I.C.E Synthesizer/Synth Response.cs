@@ -1,4 +1,5 @@
 ﻿using ALICE_Internal;
+using ALICE_Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,15 +52,24 @@ namespace ALICE_Synthesizer
                 switch (LineExists(L))
                 {
                     case ISynthesizer.Answer.Positive:
-                        Logger.DebugLine(MethodName, "Skipped Adding Line, Line Already Exists", Logger.Blue);
+
+                        //Debug Logger
+                        if (ISettings.Plugin.Debug.Responses)
+                        { Logger.DebugLine(MethodName, "Skipped Adding Line, Line Already Exists", Logger.Blue); }
                         return false;
+
                     case ISynthesizer.Answer.Negative:
+
                         Lines.Add(L);
                         return true;
+
                     case ISynthesizer.Answer.Error:
+
                         Logger.Error(MethodName, "Error Was Returned During Check. Aborted Adding Line", Logger.Red);
                         return false;
+
                     default:
+
                         Logger.Error(MethodName, "Returned Using The Default Swtich", Logger.Red);
                         return false;
                 }                
@@ -72,10 +82,12 @@ namespace ALICE_Synthesizer
                 int Temp = GetLineIndex(L); switch (Temp)
                 {
                     case -1:
+
                         Logger.Error(MethodName, "Unable To Remove The Line. Index Not Found.", Logger.Red);
                         return false;
 
                     default:
+
                         try
                         {
                             Lines.RemoveAt(Temp);
@@ -136,11 +148,16 @@ namespace ALICE_Synthesizer
                 //Check If We Are Resetting To Defaults
                 if (Change) { A = !A; }
 
-                Logger.DebugLine(MethodName, "Weighted: " + W + " | Alternate: " + A, Logger.Blue);
+                //Debug Logger
+                if (ISettings.Plugin.Debug.Responses)
+                { Logger.DebugLine(MethodName, "Weighted: " + W + " | Alternate: " + A, Logger.Blue); }                
 
                 //Get The Average Weight Of The Segment.
                 int Weight = GetWeight(A);
-                Logger.DebugLine(MethodName, "Average Response Weight: " + Weight, Logger.Blue);
+
+                //Debug Logger
+                if (ISettings.Plugin.Debug.Responses)
+                { Logger.DebugLine(MethodName, "Average Response Weight: " + Weight, Logger.Blue); }
 
                 //Emtpy List Of Int's To Store Valid Line Index's
                 List<int> ValidLines = new List<int>();
@@ -187,12 +204,19 @@ namespace ALICE_Synthesizer
                     //Pick A Random Valid Number Index
                     int Select = ValidLines[RanNum.Next(0, Count)];
 
-                    Logger.DebugLine(MethodName, "Total Valid Lines: " + Count, Logger.Blue);
-                    Logger.DebugLine(MethodName, "Selecting Line: " + Select + " | \"" + Lines[Select].Text + "\"", Logger.Blue);
+                    //Debug Logger
+                    if (ISettings.Plugin.Debug.Responses)
+                    {
+                        Logger.DebugLine(MethodName, "Total Valid Lines: " + Count, Logger.Blue);
+                        Logger.DebugLine(MethodName, "Selecting Line: " + Select + " | \"" + Lines[Select].Text + "\"", Logger.Blue);
+                    }                    
 
                     //Increase Line Weight Count
-                    Logger.DebugLine(MethodName, "Selected Response Weight: " + Lines[Select].Weight, Logger.Blue);
                     Lines[Select].Weight++;
+
+                    //Debug Logger
+                    if (ISettings.Plugin.Debug.Responses)
+                    { Logger.DebugLine(MethodName, "Selected Response Weight: " + Lines[Select].Weight, Logger.Blue); }
                     
                     //Return Line
                     Text = Lines[Select].Text;
@@ -203,13 +227,18 @@ namespace ALICE_Synthesizer
                     //First Time We Fail To Find Response
                     if (Change == false)
                     {
-                        Logger.DebugLine(MethodName, "There Wasn't Any Valid Returns Found, Trying Again With Defaults", Logger.Blue);
+                        //Debug Logger
+                        if (ISettings.Plugin.Debug.Responses)
+                        { Logger.DebugLine(MethodName, "There Wasn't Any Valid Returns Found, Trying Again With Defaults", Logger.Blue); }
+
                         Change = true; goto Start;
                     }
                     //
                     else if (Change)
                     {
-                        Logger.DebugLine(MethodName, "There Wasn't Any Valid Returns Found...", Logger.Blue);
+                        //Debug Logger
+                        if (ISettings.Plugin.Debug.Responses)
+                        { Logger.DebugLine(MethodName, "There Wasn't Any Valid Returns Found...", Logger.Blue); }
                     }
                 }
 
@@ -233,17 +262,25 @@ namespace ALICE_Synthesizer
                         //Looking For Alternate Lines Only
                         if (A && L.Alternate)
                         {
-                            Logger.DebugLine(MethodName, L.Weight + ": " + L.Text, Logger.Blue);
+                            //Debug Logger
+                            if (ISettings.Plugin.Debug.Responses)
+                            { Logger.DebugLine(MethodName, L.Weight + ": " + L.Text, Logger.Blue); }
+
                             Answer = Answer + L.Weight; Count++;
                         }
                         else if (A == false && L.Alternate == false)
                         {
-                            Logger.DebugLine(MethodName, L.Weight + ": " + L.Text, Logger.Blue);
+                            //Debug Logger
+                            if (ISettings.Plugin.Debug.Responses)
+                            { Logger.DebugLine(MethodName, L.Weight + ": " + L.Text, Logger.Blue); }
+
                             Answer = Answer + L.Weight; Count++;
                         }
                     }
 
-                    Logger.DebugLine(MethodName, Answer + " / " + Count, Logger.Blue);
+                    //Debug Logger
+                    if (ISettings.Plugin.Debug.Responses)
+                    { Logger.DebugLine(MethodName, Answer + " / " + Count, Logger.Blue); }
 
                     //If We Processed Any Lines Average The Answer
                     if (Count != 0) { Answer = Answer / Count; }

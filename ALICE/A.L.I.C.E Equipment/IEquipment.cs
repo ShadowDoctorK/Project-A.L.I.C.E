@@ -126,7 +126,7 @@ namespace ALICE_Core
         public static Equipment_LimpetResearch LimpetResearch = new Equipment_LimpetResearch();
         public static Equipment_PulseWaveScanner PulseWaveScanner = new Equipment_PulseWaveScanner();
         public static Equipment_ShieldCellBank ShieldCellBank = new Equipment_ShieldCellBank();
-        public static Equipment_ShutdownFieldNeutraliser ShutdownFieldNeutraliser = new Equipment_ShutdownFieldNeutraliser();
+        public static Equipment_ShutdownFieldNeutrailser ShutdownFieldNeutraliser = new Equipment_ShutdownFieldNeutrailser();
         public static Equipment_SurfaceScanner SurfaceScanner = new Equipment_SurfaceScanner();
         public static Equipment_WakeScanner WakeScanner = new Equipment_WakeScanner();
         public static Equipment_XenoScanner XenoScanner = new Equipment_XenoScanner();
@@ -539,8 +539,13 @@ namespace ALICE_Core
 
                 //Customized
                 case E.Fuel_Tank:
-                    decimal Capacity = FuelTank.Capacity + Convert.ToDecimal(Mod.Capacity);
-                    FuelTank.U_Capacity(MethodName, Capacity);
+                    //Update Default Value From -1 To 0 For Calulation.
+                    if (Temp.Capacity == -1) { Temp.Capacity = 0; }
+
+                    Temp.Equipment = Equip;
+                    Temp.Installed = true;
+                    Temp.Capacity = Temp.Capacity + Convert.ToDecimal(Mod.Capacity);
+
                     Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
@@ -1167,7 +1172,7 @@ namespace ALICE_Core
                 default:
                     if (Data.ModulesIgnoreCheck(Mod.Item) == false)
                     {
-                        Logger.DevUpdateLog(MethodName, "New Module Group Detected: " + Mod.Item, Logger.Red, true);
+                        Logger.DevUpdateLog(MethodName, "New Module Group Detected: " + Mod.Item, Logger.Yellow, true);
                     }
                     break;
             }
@@ -1184,6 +1189,11 @@ namespace ALICE_Core
         public EquipmentConfig Settings = new EquipmentConfig();
 
         public delegate bool WaitHandler();      //Allows Passing A Common WaitHandler Deleage.
+
+        public void GetSettings()
+        {
+            Settings = IVehicles.Get(Settings);
+        }
 
         #region Watcher
         //Default Watcher / Catch Report. This Allows use of a Common WaitHandler property to be used
@@ -1317,7 +1327,7 @@ namespace ALICE_Core
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
             Logger.Log(MethodName, "Using Generic Audio... Boooo Developer For Being Lazy. Add More Audio", Logger.Yellow);
-            Speech.Speak("".Phrase(GN_Positive.Default, true) + "Activating.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            Speech.Speak("".Phrase(GN_Positive.Default, true) + ". Activating.", CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public virtual void SelectionFailed(bool CommandAudio, bool Var1 = true, bool Var2 = true,
@@ -1370,11 +1380,6 @@ namespace ALICE_Core
         #endregion
 
         #region Utilities
-        public virtual void GetSettings()
-        {
-            Settings = IVehicles.Get(Settings.Equipment);
-        }
-
         public bool Check_Variable(bool TargetState, string MethodName, bool State, string Variable, bool DisableDebug = false, bool Answer = true)
         {
             string DebugText = Variable + " Check Equals Expected State (" + TargetState + ")";
@@ -1435,7 +1440,7 @@ namespace ALICE_Core
                     case IEnums.A.Postive:
 
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Equip + " Settings Found, Returning Settings", Logger.Yellow);
+                        //Logger.DebugLine(MethodName, Equip + " Settings Found, Returning Settings", Logger.Yellow);
 
                         //Return Equipment Settings
                         return Collection[Equip];
@@ -1443,7 +1448,7 @@ namespace ALICE_Core
                     case IEnums.A.Negative:
 
                         //Debug Logger
-                        Logger.DebugLine(MethodName, Equip + " Settings Did Not Exist, Returning Default Settings", Logger.Blue);
+                        //Logger.DebugLine(MethodName, Equip + " Settings Did Not Exist, Returning Default Settings", Logger.Blue);
 
                         //Return Default Settings
                         return new EquipmentConfig();

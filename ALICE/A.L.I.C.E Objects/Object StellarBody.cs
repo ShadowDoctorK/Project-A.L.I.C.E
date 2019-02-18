@@ -1,4 +1,6 @@
 ﻿using ALICE_Events;
+using ALICE_Internal;
+using ALICE_Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;

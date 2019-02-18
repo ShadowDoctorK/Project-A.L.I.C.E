@@ -33,7 +33,7 @@ namespace ALICE_Interface
 
         public static dynamic ProxyObject; //This is the object thats allows interfacing with Voice Attack.
 
-        private static readonly Dictionary<string, Color> Colors = new Dictionary<string, Color>
+        public static readonly Dictionary<string, Color> Colors = new Dictionary<string, Color>
         {
             { "Red", Color.Red }, { "Orange", Color.Orange }, { "Yellow", Color.Yellow }, { "Green", Color.Green }, { "Blue", Color.Blue },
             { "Indigo", Color.Indigo }, { "Violet", Color.Violet }, { "Black", Color.Black }, { "Brown", Color.Brown }, { "Cyan", Color.Cyan },
@@ -57,7 +57,7 @@ namespace ALICE_Interface
                 switch (Interface)
                 {
                     case Interfaces.Internal:
-                        Logger.Log(MethodName, "(" + Interface.ToString() + ") Command Does Not Exist - " + Command, Logger.Yellow);
+                        Logger.Log(MethodName, "(" + Interface.ToString() + "): Simulated Executing " + Command, Logger.Yellow);
                         break;
 
                     case Interfaces.VoiceAttack:
@@ -65,6 +65,7 @@ namespace ALICE_Interface
                         break;
 
                     case Interfaces.VoiceMacro:
+                        IVoiceMacro.CommandExecute(Command, true);
                         break;
 
                     default:
@@ -81,7 +82,8 @@ namespace ALICE_Interface
                 switch (Interface)
                 {
                     case Interfaces.Internal:
-                        Logger.Log(MethodName, "(" + Interface.ToString() + ") Returning True.", Logger.Yellow);
+                        Logger.Log(MethodName, "(" + Interface.ToString() + "): Simulated Check For " + Command, Logger.Yellow);
+                        Answer = true;
                         break;
 
                     case Interfaces.VoiceAttack:
@@ -89,6 +91,7 @@ namespace ALICE_Interface
                         break;
 
                     case Interfaces.VoiceMacro:
+                        Answer = IVoiceMacro.CommandExists(Command, true);
                         break;
 
                     default:
@@ -113,6 +116,7 @@ namespace ALICE_Interface
                     break;
 
                 case Interfaces.VoiceMacro:
+                    Answer = IVoiceMacro.GetText("ALICE_" + Variable.ToString());
                     break;
 
                 default:
@@ -139,6 +143,8 @@ namespace ALICE_Interface
                     break;
 
                 case Interfaces.VoiceMacro:
+                    Logger.DebugLine(MethodName, "ALICE_" + Variable.ToString() + " = " + Value, Logger.Yellow);
+                    IVoiceMacro.SetText("ALICE_" + Variable.ToString(), Value);
                     break;
 
                 default:
@@ -162,6 +168,8 @@ namespace ALICE_Interface
                     break;
 
                 case Interfaces.VoiceMacro:
+                    Logger.DebugLine(MethodName, "ALICE_" + Variable.ToString() + " = " + Value, Logger.Yellow);
+                    IVoiceMacro.SetText("ALICE_" + Variable.ToString(), Value);
                     break;
 
                 default:
@@ -169,12 +177,16 @@ namespace ALICE_Interface
             }
         }
 
-        public static void WriteToInterface(string LogText, string Color, string Debug = "")
+        public static void WriteToInterface(string LogText, string Color, string Sign = "", string StatusText = "")
         {
+            //Sign Validation
+            if (Sign.Length > 1) { Sign = ""; }
+
             switch (Interface)
             {
                 case Interfaces.Internal:
-                    if (ConsoleColors.ContainsKey(Color)) { Console.ForegroundColor = (ConsoleColor)ConsoleColors[Color]; }
+                    if (ConsoleColors.ContainsKey(Color))
+                    { Console.ForegroundColor = (ConsoleColor)ConsoleColors[Color]; }
                     Console.WriteLine(LogText); Console.ForegroundColor = ConsoleColor.White;
                     Logger.AliceLog(LogText);
                     break;
@@ -184,6 +196,7 @@ namespace ALICE_Interface
                     break;
 
                 case Interfaces.VoiceMacro:
+                    Logger.AliceLog(LogText); IVoiceMacro.WriteToLog(LogText, Color, Sign, StatusText);
                     break;
 
                 default:

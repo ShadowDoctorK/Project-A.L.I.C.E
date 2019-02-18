@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALICE Community Toolkit", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALICE Developer Toolkit", "ALICE Developer Toolkit\A.L.I.C.E Toolkit\ALICE Developer Toolkit.csproj", "{99B50BFB-6481-4994-82E6-32514ADB10B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALICE Debug Console", "ALICE Debug Console\ALICE Debug Console.csproj", "{4BE9EAC8-324D-4B0A-A11C-2093E2674BF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{99B50BFB-6481-4994-82E6-32514ADB10B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99B50BFB-6481-4994-82E6-32514ADB10B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99B50BFB-6481-4994-82E6-32514ADB10B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BE9EAC8-324D-4B0A-A11C-2093E2674BF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BE9EAC8-324D-4B0A-A11C-2093E2674BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BE9EAC8-324D-4B0A-A11C-2093E2674BF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BE9EAC8-324D-4B0A-A11C-2093E2674BF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

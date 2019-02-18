@@ -25,150 +25,115 @@ namespace ALICE_Community_Toolkit
     /// </summary>
     public partial class Reports : UserControl
     {
-        public Settings_User User = new Settings_User();
-        public Settings_Firegroups Firegroup = new Settings_Firegroups();
-        public static object LockFlag = new object();
-        public static object SaveLockFlag = new object();
-        public static bool Enabled = true;
-        public string TimeStampUser = null;
-        public string TimeStampFiregroup = null;
-        private bool Init = false;
-        private bool SaveFiregroup = true;
-
-        private static DirectoryInfo DirSettings = new DirectoryInfo(Paths.ALICE_Settings);
-
-        public static string MethodName = "Toolkit Settings";
-
-        public List<string> Group = new List<string>()
-        {
-            "None",
-            "Alpha",
-            "Bravo",
-            "Charlie",
-            "Delta",
-            "Echo",
-            "Foxtrot",
-            "Golf",
-            "Hotel"
-        };
-
-        public List<string> Fire = new List<string>()
-        {
-            "None",
-            "Primary",
-            "Secondary"
-        };
+        public static string MethodName = "(Toolkit) Plugin Settings";
 
         public Reports()
         {
             InitializeComponent();
 
             SetBindings();
-            LoadUserSettings();
             UpdateButtons();
-            StartMonitor();
-            Init = true;
         }
 
         public void SetBindings()
         {
-            CB_CF1Fire.ItemsSource = Fire;            
-            CB_CF2Fire.ItemsSource = Fire;
-            CB_ECMFire.ItemsSource = Fire;
-            CB_FSDIFire.ItemsSource = Fire;
-            CB_HS1Fire.ItemsSource = Fire;
-            CB_HS2Fire.ItemsSource = Fire;
-            CB_LIMCOLFire.ItemsSource = Fire;
-            CB_LIMDECFire.ItemsSource = Fire;
-            CB_LIMFFire.ItemsSource = Fire;
-            CB_LIMHBFire.ItemsSource = Fire;
-            CB_LIMPROFire.ItemsSource = Fire;
-            CB_LIMRECFire.ItemsSource = Fire;
-            CB_LIMREPFire.ItemsSource = Fire;
-            CB_LIMRESFire.ItemsSource = Fire;
-            CB_SC1Fire.ItemsSource = Fire;
-            CB_SC2Fire.ItemsSource = Fire;
-            CB_SFNFire.ItemsSource = Fire;
-            CB_SNCARGFire.ItemsSource = Fire;
-            CB_SNCOMPFire.ItemsSource = Fire;
-            CB_SNDISCFire.ItemsSource = Fire;
-            CB_SNKILLFire.ItemsSource = Fire;
-            CB_SNSURFFire.ItemsSource = Fire;
-            CB_SNWAKEFire.ItemsSource = Fire;
-            CB_SNXENOFire.ItemsSource = Fire;
+            CB_CF1Fire.ItemsSource = Data.Fire;            
+            CB_CF2Fire.ItemsSource = Data.Fire;
+            CB_ECMFire.ItemsSource = Data.Fire;
+            CB_FSDIFire.ItemsSource = Data.Fire;
+            CB_HS1Fire.ItemsSource = Data.Fire;
+            CB_HS2Fire.ItemsSource = Data.Fire;
+            CB_LIMCOLFire.ItemsSource = Data.Fire;
+            CB_LIMDECFire.ItemsSource = Data.Fire;
+            CB_LIMFFire.ItemsSource = Data.Fire;
+            CB_LIMHBFire.ItemsSource = Data.Fire;
+            CB_LIMPROFire.ItemsSource = Data.Fire;
+            CB_LIMRECFire.ItemsSource = Data.Fire;
+            CB_LIMREPFire.ItemsSource = Data.Fire;
+            CB_LIMRESFire.ItemsSource = Data.Fire;
+            CB_SC1Fire.ItemsSource = Data.Fire;
+            CB_SC2Fire.ItemsSource = Data.Fire;
+            CB_SFNFire.ItemsSource = Data.Fire;
+            CB_SNCARGFire.ItemsSource = Data.Fire;
+            CB_SNCOMPFire.ItemsSource = Data.Fire;
+            CB_SNDISCFire.ItemsSource = Data.Fire;
+            CB_SNKILLFire.ItemsSource = Data.Fire;
+            CB_SNSURFFire.ItemsSource = Data.Fire;
+            CB_SNWAKEFire.ItemsSource = Data.Fire;
+            CB_SNXENOFire.ItemsSource = Data.Fire;
 
-            CB_CF1Group.ItemsSource = Group;
-            CB_CF2Group.ItemsSource = Group;
-            CB_ECMGroup.ItemsSource = Group;
-            CB_FSDIGroup.ItemsSource = Group;
-            CB_HS1Group.ItemsSource = Group;
-            CB_HS2Group.ItemsSource = Group;
-            CB_LIMCOLGroup.ItemsSource = Group;
-            CB_LIMDECGroup.ItemsSource = Group;
-            CB_LIMFGroup.ItemsSource = Group;
-            CB_LIMHBGroup.ItemsSource = Group;
-            CB_LIMPROGroup.ItemsSource = Group;
-            CB_LIMRECGroup.ItemsSource = Group;
-            CB_LIMREPGroup.ItemsSource = Group;
-            CB_LIMRESGroup.ItemsSource = Group;
-            CB_SC1Group.ItemsSource = Group;
-            CB_SC2Group.ItemsSource = Group;
-            CB_SFNGroup.ItemsSource = Group;
-            CB_SNCARGGroup.ItemsSource = Group;
-            CB_SNCOMPGroup.ItemsSource = Group;
-            CB_SNDISCGroup.ItemsSource = Group;
-            CB_SNKILLGroup.ItemsSource = Group;
-            CB_SNSURFGroup.ItemsSource = Group;
-            CB_SNWAKEGroup.ItemsSource = Group;
-            CB_SNXENOGroup.ItemsSource = Group;
+            CB_CF1Group.ItemsSource = Data.Group;
+            CB_CF2Group.ItemsSource = Data.Group;
+            CB_ECMGroup.ItemsSource = Data.Group;
+            CB_FSDIGroup.ItemsSource = Data.Group;
+            CB_HS1Group.ItemsSource = Data.Group;
+            CB_HS2Group.ItemsSource = Data.Group;
+            CB_LIMCOLGroup.ItemsSource = Data.Group;
+            CB_LIMDECGroup.ItemsSource = Data.Group;
+            CB_LIMFGroup.ItemsSource = Data.Group;
+            CB_LIMHBGroup.ItemsSource = Data.Group;
+            CB_LIMPROGroup.ItemsSource = Data.Group;
+            CB_LIMRECGroup.ItemsSource = Data.Group;
+            CB_LIMREPGroup.ItemsSource = Data.Group;
+            CB_LIMRESGroup.ItemsSource = Data.Group;
+            CB_SC1Group.ItemsSource = Data.Group;
+            CB_SC2Group.ItemsSource = Data.Group;
+            CB_SFNGroup.ItemsSource = Data.Group;
+            CB_SNCARGGroup.ItemsSource = Data.Group;
+            CB_SNCOMPGroup.ItemsSource = Data.Group;
+            CB_SNDISCGroup.ItemsSource = Data.Group;
+            CB_SNKILLGroup.ItemsSource = Data.Group;
+            CB_SNSURFGroup.ItemsSource = Data.Group;
+            CB_SNWAKEGroup.ItemsSource = Data.Group;
+            CB_SNXENOGroup.ItemsSource = Data.Group;
         }
 
         public void UpdateButtons()
         {
-            string MethodName = "(Toolkit) Update Buttons";
-
             this.Dispatcher.Invoke(() =>
             {
                 try
                 {
-                    Label_CommanderName.Content = "CMDR " + User.Commander;
-
                     #region PlugIn
                     //Firegroup Offset
-                    Slider_DelayFiregroup.Value = User.OffsetFireGroups;
-                    TextBox_DelayFiregroup.Text = User.OffsetFireGroups.ToString() + "ms";
+                    Slider_DelayFiregroup.Value = Data.OffsetFireGroups;
+                    TextBox_DelayFiregroup.Text = Data.OffsetFireGroups.ToString() + "ms";
                     //Panel Offset
-                    Slider_DelayPanel.Value = User.OffsetPanels;
-                    TextBox_DelayPanel.Text = User.OffsetPanels.ToString() + "ms";
+                    Slider_DelayPanel.Value = Data.OffsetPanels;
+                    TextBox_DelayPanel.Text = Data.OffsetPanels.ToString() + "ms";
                     //Power Offset
-                    Slider_DelayPower.Value = User.OffsetPips;
-                    TextBox_DelayPower.Text = User.OffsetPips.ToString() + "ms";
+                    Slider_DelayPower.Value = Data.OffsetPips;
+                    TextBox_DelayPower.Text = Data.OffsetPips.ToString() + "ms";
                     //Throttle Offset
-                    Slider_DelayThrottle.Value = User.OffsetThrottle;
-                    TextBox_DelayThrottle.Text = User.OffsetThrottle.ToString() + "ms";
+                    Slider_DelayThrottle.Value = Data.OffsetThrottle;
+                    TextBox_DelayThrottle.Text = Data.OffsetThrottle.ToString() + "ms";
                     #endregion
 
                     #region Reports
-                    btn_FuelScoop.Foreground = GetTextColor(User.FuelScoop);
-                    btn_FuelStatus.Foreground = GetTextColor(User.FuelStatus);
-                    btn_MaterialCollected.Foreground = GetTextColor(User.MaterialCollected);
-                    btn_NoFireZone.Foreground = GetTextColor(User.NoFireZone);
-                    btn_StationStatus.Foreground = GetTextColor(User.StationStatus);
-                    btn_ShieldStatus.Foreground = GetTextColor(User.ShieldState);
-                    btn_CollectedBounty.Foreground = GetTextColor(User.CollectedBounty);
-                    btn_TargetEnemy.Foreground = GetTextColor(User.TargetEnemy);
-                    btn_WatnedTarget.Foreground = GetTextColor(User.TargetWanted);
-                    btn_RefinedMaterials.Foreground = GetTextColor(User.MaterialRefined);
-                    btn_Masslock.Foreground = GetTextColor(User.Masslock);
+                    btn_FuelScoop.Foreground = Data.GetTextColor(Data.FuelScoop);
+                    btn_FuelStatus.Foreground = Data.GetTextColor(Data.FuelStatus);
+                    btn_MaterialCollected.Foreground = Data.GetTextColor(Data.MaterialCollected);
+                    btn_NoFireZone.Foreground = Data.GetTextColor(Data.NoFireZone);
+                    btn_StationStatus.Foreground = Data.GetTextColor(Data.StationStatus);
+                    btn_ShieldStatus.Foreground = Data.GetTextColor(Data.ShieldState);
+                    btn_CollectedBounty.Foreground = Data.GetTextColor(Data.CollectedBounty);
+                    btn_TargetEnemy.Foreground = Data.GetTextColor(Data.TargetEnemy);
+                    btn_WatnedTarget.Foreground = Data.GetTextColor(Data.TargetWanted);
+                    btn_RefinedMaterials.Foreground = Data.GetTextColor(Data.MaterialRefined);
+                    btn_Masslock.Foreground = Data.GetTextColor(Data.Masslock);
+                    btn_HighGravity.Foreground = Data.GetTextColor(Data.HighGravDescent);
+                    btn_TravelDistance.Foreground = Data.GetTextColor(Data.ScanTravelDist);
+                    btn_LandableVolcanism.Foreground = Data.GetTextColor(Data.LandableVolcanism);
+                    btn_GlideStatus.Foreground = Data.GetTextColor(Data.GlideStatus);
                     #endregion
 
                     #region Orders
-                    btn_AssistedCombatPower.Foreground = GetTextColor(User.CombatPower);
-                    btn_AssistedSystemScans.Foreground = GetTextColor(User.AssistSystemScan);
-                    btn_AssistedDockingProcedures.Foreground = GetTextColor(User.AssistDocking);
-                    btn_AssistedHangerEntry.Foreground = GetTextColor(User.AssistHangerEntry);
-                    btn_PostJumpSafeties.Foreground = GetTextColor(User.PostHyperspaceSafety);
-                    btn_WeaponSafty.Foreground = GetTextColor(User.WeaponSafety);
+                    btn_AssistedCombatPower.Foreground = Data.GetTextColor(Data.CombatPower);
+                    btn_AssistedSystemScans.Foreground = Data.GetTextColor(Data.AssistSystemScan);
+                    btn_AssistedDockingProcedures.Foreground = Data.GetTextColor(Data.AssistDocking);
+                    btn_AssistedHangerEntry.Foreground = Data.GetTextColor(Data.AssistHangerEntry);
+                    btn_PostJumpSafeties.Foreground = Data.GetTextColor(Data.PostHyperspaceSafety);
+                    btn_WeaponSafty.Foreground = Data.GetTextColor(Data.WeaponSafety);
                     #endregion
                 }
                 catch (Exception ex)
@@ -182,109 +147,109 @@ namespace ALICE_Community_Toolkit
         public void UpdateFiregroupItems()
         {
             //Disables Saving So Changed Event Doesn't Trigger Saving The File.
-            SaveFiregroup = false;
+            Data.SaveFiregroup = false;
 
             this.Dispatcher.Invoke(() =>
             {
                 try
                 {
-                    Label_CurrentShip.Content = Firegroup.ShipAssignment;
+                    Label_CurrentShip.Content = Data.Firegroup.ShipAssignment;
 
                     //Chaff 1
-                    CB_CF1Fire.SelectedIndex = (int)Firegroup.LauncherChaffOne.FireMode;
-                    CB_CF1Group.SelectedIndex = (int)Firegroup.LauncherChaffOne.FireGroup;
+                    CB_CF1Fire.SelectedIndex = (int)Data.Firegroup.LauncherChaffOne.FireMode;
+                    CB_CF1Group.SelectedIndex = (int)Data.Firegroup.LauncherChaffOne.FireGroup;
 
                     //Chaff 2
-                    CB_CF2Fire.SelectedIndex = (int)Firegroup.LauncherChaffTwo.FireMode;
-                    CB_CF2Group.SelectedIndex = (int)Firegroup.LauncherChaffTwo.FireGroup;
+                    CB_CF2Fire.SelectedIndex = (int)Data.Firegroup.LauncherChaffTwo.FireMode;
+                    CB_CF2Group.SelectedIndex = (int)Data.Firegroup.LauncherChaffTwo.FireGroup;
 
                     //ECM
-                    CB_ECMFire.SelectedIndex = (int)Firegroup.ECM.FireMode; 
-                    CB_ECMGroup.SelectedIndex = (int)Firegroup.ECM.FireGroup;
+                    CB_ECMFire.SelectedIndex = (int)Data.Firegroup.ECM.FireMode; 
+                    CB_ECMGroup.SelectedIndex = (int)Data.Firegroup.ECM.FireGroup;
 
                     //FSD Interdictor
-                    CB_FSDIFire.SelectedIndex = (int)Firegroup.FSDInterdictor.FireMode;
-                    CB_FSDIGroup.SelectedIndex = (int)Firegroup.FSDInterdictor.FireGroup;
+                    CB_FSDIFire.SelectedIndex = (int)Data.Firegroup.FSDInterdictor.FireMode;
+                    CB_FSDIGroup.SelectedIndex = (int)Data.Firegroup.FSDInterdictor.FireGroup;
 
 
-                    CB_HS1Fire.SelectedIndex = (int)Firegroup.LauncherHeatSinkOne.FireMode;
-                    CB_HS1Group.SelectedIndex = (int)Firegroup.LauncherHeatSinkOne.FireGroup;
+                    CB_HS1Fire.SelectedIndex = (int)Data.Firegroup.LauncherHeatSinkOne.FireMode;
+                    CB_HS1Group.SelectedIndex = (int)Data.Firegroup.LauncherHeatSinkOne.FireGroup;
 
 
-                    CB_HS2Fire.SelectedIndex = (int)Firegroup.LauncherHeatSinkTwo.FireMode;
-                    CB_HS2Group.SelectedIndex = (int)Firegroup.LauncherHeatSinkTwo.FireGroup;
+                    CB_HS2Fire.SelectedIndex = (int)Data.Firegroup.LauncherHeatSinkTwo.FireMode;
+                    CB_HS2Group.SelectedIndex = (int)Data.Firegroup.LauncherHeatSinkTwo.FireGroup;
 
 
-                    CB_LIMCOLFire.SelectedIndex = (int)Firegroup.LimpetCollector.FireMode;
-                    CB_LIMCOLGroup.SelectedIndex = (int)Firegroup.LimpetCollector.FireGroup;
+                    CB_LIMCOLFire.SelectedIndex = (int)Data.Firegroup.LimpetCollector.FireMode;
+                    CB_LIMCOLGroup.SelectedIndex = (int)Data.Firegroup.LimpetCollector.FireGroup;
 
 
-                    CB_LIMDECFire.SelectedIndex = (int)Firegroup.LimpetDecontamination.FireMode;
-                    CB_LIMDECGroup.SelectedIndex = (int)Firegroup.LimpetDecontamination.FireGroup;
+                    CB_LIMDECFire.SelectedIndex = (int)Data.Firegroup.LimpetDecontamination.FireMode;
+                    CB_LIMDECGroup.SelectedIndex = (int)Data.Firegroup.LimpetDecontamination.FireGroup;
 
 
-                    CB_LIMFFire.SelectedIndex = (int)Firegroup.LimpetFuel.FireMode;
-                    CB_LIMFGroup.SelectedIndex = (int)Firegroup.LimpetFuel.FireGroup;
+                    CB_LIMFFire.SelectedIndex = (int)Data.Firegroup.LimpetFuel.FireMode;
+                    CB_LIMFGroup.SelectedIndex = (int)Data.Firegroup.LimpetFuel.FireGroup;
 
 
-                    CB_LIMHBFire.SelectedIndex = (int)Firegroup.LimpetHatchBreaker.FireMode;
-                    CB_LIMHBGroup.SelectedIndex = (int)Firegroup.LimpetHatchBreaker.FireGroup;
+                    CB_LIMHBFire.SelectedIndex = (int)Data.Firegroup.LimpetHatchBreaker.FireMode;
+                    CB_LIMHBGroup.SelectedIndex = (int)Data.Firegroup.LimpetHatchBreaker.FireGroup;
 
 
-                    CB_LIMPROFire.SelectedIndex = (int)Firegroup.LimpetProspector.FireMode;
-                    CB_LIMPROGroup.SelectedIndex = (int)Firegroup.LimpetProspector.FireGroup;
+                    CB_LIMPROFire.SelectedIndex = (int)Data.Firegroup.LimpetProspector.FireMode;
+                    CB_LIMPROGroup.SelectedIndex = (int)Data.Firegroup.LimpetProspector.FireGroup;
 
 
-                    CB_LIMRECFire.SelectedIndex = (int)Firegroup.LimpetRecon.FireMode;
-                    CB_LIMRECGroup.SelectedIndex = (int)Firegroup.LimpetRecon.FireGroup;
+                    CB_LIMRECFire.SelectedIndex = (int)Data.Firegroup.LimpetRecon.FireMode;
+                    CB_LIMRECGroup.SelectedIndex = (int)Data.Firegroup.LimpetRecon.FireGroup;
 
 
-                    CB_LIMREPFire.SelectedIndex = (int)Firegroup.LimpetRepair.FireMode;
-                    CB_LIMREPGroup.SelectedIndex = (int)Firegroup.LimpetRepair.FireGroup;
+                    CB_LIMREPFire.SelectedIndex = (int)Data.Firegroup.LimpetRepair.FireMode;
+                    CB_LIMREPGroup.SelectedIndex = (int)Data.Firegroup.LimpetRepair.FireGroup;
 
 
-                    CB_LIMRESFire.SelectedIndex = (int)Firegroup.LimpetResearch.FireMode;
-                    CB_LIMRESGroup.SelectedIndex = (int)Firegroup.LimpetResearch.FireGroup;
+                    CB_LIMRESFire.SelectedIndex = (int)Data.Firegroup.LimpetResearch.FireMode;
+                    CB_LIMRESGroup.SelectedIndex = (int)Data.Firegroup.LimpetResearch.FireGroup;
 
 
-                    CB_SC1Fire.SelectedIndex = (int)Firegroup.ShieldCellOne.FireMode;
-                    CB_SC1Group.SelectedIndex = (int)Firegroup.ShieldCellOne.FireGroup;
+                    CB_SC1Fire.SelectedIndex = (int)Data.Firegroup.ShieldCellOne.FireMode;
+                    CB_SC1Group.SelectedIndex = (int)Data.Firegroup.ShieldCellOne.FireGroup;
 
 
-                    CB_SC2Fire.SelectedIndex = (int)Firegroup.ShieldCellTwo.FireMode;
-                    CB_SC2Group.SelectedIndex = (int)Firegroup.ShieldCellTwo.FireGroup;
+                    CB_SC2Fire.SelectedIndex = (int)Data.Firegroup.ShieldCellTwo.FireMode;
+                    CB_SC2Group.SelectedIndex = (int)Data.Firegroup.ShieldCellTwo.FireGroup;
 
 
-                    CB_SFNFire.SelectedIndex = (int)Firegroup.FieldNeutraliser.FireMode;
-                    CB_SFNGroup.SelectedIndex = (int)Firegroup.FieldNeutraliser.FireGroup;
+                    CB_SFNFire.SelectedIndex = (int)Data.Firegroup.FieldNeutraliser.FireMode;
+                    CB_SFNGroup.SelectedIndex = (int)Data.Firegroup.FieldNeutraliser.FireGroup;
 
 
-                    CB_SNCARGFire.SelectedIndex = (int)Firegroup.ScannerCagro.FireMode;
-                    CB_SNCARGGroup.SelectedIndex = (int)Firegroup.ScannerCagro.FireGroup;
+                    CB_SNCARGFire.SelectedIndex = (int)Data.Firegroup.ScannerCagro.FireMode;
+                    CB_SNCARGGroup.SelectedIndex = (int)Data.Firegroup.ScannerCagro.FireGroup;
 
 
-                    CB_SNCOMPFire.SelectedIndex = (int)Firegroup.ScannerComposite.FireMode;
-                    CB_SNCOMPGroup.SelectedIndex = (int)Firegroup.ScannerComposite.FireGroup;
+                    CB_SNCOMPFire.SelectedIndex = (int)Data.Firegroup.ScannerComposite.FireMode;
+                    CB_SNCOMPGroup.SelectedIndex = (int)Data.Firegroup.ScannerComposite.FireGroup;
 
 
-                    CB_SNDISCFire.SelectedIndex = (int)Firegroup.ScannerDiscovery.FireMode;
-                    CB_SNDISCGroup.SelectedIndex = (int)Firegroup.ScannerDiscovery.FireGroup;
+                    CB_SNDISCFire.SelectedIndex = (int)Data.Firegroup.ScannerDiscovery.FireMode;
+                    CB_SNDISCGroup.SelectedIndex = (int)Data.Firegroup.ScannerDiscovery.FireGroup;
 
 
-                    CB_SNKILLFire.SelectedIndex = (int)Firegroup.ScannerKillwarrent.FireMode;
-                    CB_SNKILLGroup.SelectedIndex = (int)Firegroup.ScannerKillwarrent.FireGroup;
+                    CB_SNKILLFire.SelectedIndex = (int)Data.Firegroup.ScannerKillwarrent.FireMode;
+                    CB_SNKILLGroup.SelectedIndex = (int)Data.Firegroup.ScannerKillwarrent.FireGroup;
 
 
-                    CB_SNSURFFire.SelectedIndex = (int)Firegroup.ScannerSurface.FireMode;
-                    CB_SNSURFGroup.SelectedIndex = (int)Firegroup.ScannerSurface.FireGroup;
+                    CB_SNSURFFire.SelectedIndex = (int)Data.Firegroup.ScannerSurface.FireMode;
+                    CB_SNSURFGroup.SelectedIndex = (int)Data.Firegroup.ScannerSurface.FireGroup;
 
 
-                    CB_SNWAKEFire.SelectedIndex = (int)Firegroup.ScannerWake.FireMode;
-                    CB_SNWAKEGroup.SelectedIndex = (int)Firegroup.ScannerWake.FireGroup;
+                    CB_SNWAKEFire.SelectedIndex = (int)Data.Firegroup.ScannerWake.FireMode;
+                    CB_SNWAKEGroup.SelectedIndex = (int)Data.Firegroup.ScannerWake.FireGroup;
 
 
-                    CB_SNXENOFire.SelectedIndex = (int)Firegroup.ScannerXeno.FireMode;
-                    CB_SNXENOGroup.SelectedIndex = (int)Firegroup.ScannerXeno.FireGroup;
+                    CB_SNXENOFire.SelectedIndex = (int)Data.Firegroup.ScannerXeno.FireMode;
+                    CB_SNXENOGroup.SelectedIndex = (int)Data.Firegroup.ScannerXeno.FireGroup;
 
                 }
                 catch (Exception ex)
@@ -295,32 +260,28 @@ namespace ALICE_Community_Toolkit
             });
 
             //Enable Saving
-            SaveFiregroup = true;
+            Data.SaveFiregroup = true;
         }
 
         #region PlugIn
         private void Slider_DelayPanel_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            User.OffsetPanels = (int)Slider_DelayPanel.Value;
-            SaveUserSettings();
+            Data.OffsetPanels = (int)Slider_DelayPanel.Value;
         }
 
         private void Slider_DelayPower_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            User.OffsetPips = (int)Slider_DelayPower.Value;
-            SaveUserSettings();
+            Data.OffsetPips = (int)Slider_DelayPower.Value;
         }
 
         private void Slider_DelayFiregroup_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            User.OffsetFireGroups = (int)Slider_DelayFiregroup.Value;
-            SaveUserSettings();
+            Data.OffsetFireGroups = (int)Slider_DelayFiregroup.Value;
         }
 
         private void Slider_DelayThrottle_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            User.OffsetThrottle = (int)Slider_DelayThrottle.Value;
-            SaveUserSettings();
+            Data.OffsetThrottle = (int)Slider_DelayThrottle.Value;
         }
         #endregion
 
@@ -329,9 +290,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.FuelScoop = !User.FuelScoop;
-                btn_FuelScoop.Foreground = GetTextColor(User.FuelScoop);
-                SaveUserSettings();
+                Data.FuelScoop = !Data.FuelScoop;
+                btn_FuelScoop.Foreground = Data.GetTextColor(Data.FuelScoop);
             }
             catch (Exception ex)
             {
@@ -343,9 +303,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.FuelStatus = !User.FuelStatus;
-                btn_FuelStatus.Foreground = GetTextColor(User.FuelStatus);
-                SaveUserSettings();
+                Data.FuelStatus = !Data.FuelStatus;
+                btn_FuelStatus.Foreground = Data.GetTextColor(Data.FuelStatus);
             }
             catch (Exception ex)
             {
@@ -357,9 +316,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.MaterialCollected = !User.MaterialCollected;
-                btn_MaterialCollected.Foreground = GetTextColor(User.MaterialCollected);
-                SaveUserSettings();
+                Data.MaterialCollected = !Data.MaterialCollected;
+                btn_MaterialCollected.Foreground = Data.GetTextColor(Data.MaterialCollected);
             }
             catch (Exception ex)
             {
@@ -371,9 +329,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.NoFireZone = !User.NoFireZone;
-                btn_NoFireZone.Foreground = GetTextColor(User.NoFireZone);
-                SaveUserSettings();
+                Data.NoFireZone = !Data.NoFireZone;
+                btn_NoFireZone.Foreground = Data.GetTextColor(Data.NoFireZone);
             }
             catch (Exception ex)
             {
@@ -385,9 +342,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.StationStatus = !User.StationStatus;
-                btn_StationStatus.Foreground = GetTextColor(User.StationStatus);
-                SaveUserSettings();
+                Data.StationStatus = !Data.StationStatus;
+                btn_StationStatus.Foreground = Data.GetTextColor(Data.StationStatus);
             }
             catch (Exception ex)
             {
@@ -399,9 +355,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.ShieldState = !User.ShieldState;
-                btn_ShieldStatus.Foreground = GetTextColor(User.ShieldState);
-                SaveUserSettings();
+                Data.ShieldState = !Data.ShieldState;
+                btn_ShieldStatus.Foreground = Data.GetTextColor(Data.ShieldState);
             }
             catch (Exception ex)
             {
@@ -413,9 +368,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.CollectedBounty = !User.CollectedBounty;
-                btn_CollectedBounty.Foreground = GetTextColor(User.CollectedBounty);
-                SaveUserSettings();
+                Data.CollectedBounty = !Data.CollectedBounty;
+                btn_CollectedBounty.Foreground = Data.GetTextColor(Data.CollectedBounty);
             }
             catch (Exception ex)
             {
@@ -427,9 +381,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.TargetEnemy = !User.TargetEnemy;
-                btn_TargetEnemy.Foreground = GetTextColor(User.TargetEnemy);
-                SaveUserSettings();
+                Data.TargetEnemy = !Data.TargetEnemy;
+                btn_TargetEnemy.Foreground = Data.GetTextColor(Data.TargetEnemy);
             }
             catch (Exception ex)
             {
@@ -441,9 +394,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.TargetWanted = !User.TargetWanted;
-                btn_WatnedTarget.Foreground = GetTextColor(User.TargetWanted);
-                SaveUserSettings();
+                Data.TargetWanted = !Data.TargetWanted;
+                btn_WatnedTarget.Foreground = Data.GetTextColor(Data.TargetWanted);
             }
             catch (Exception ex)
             {
@@ -455,9 +407,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.MaterialRefined = !User.MaterialRefined;
-                btn_RefinedMaterials.Foreground = GetTextColor(User.MaterialRefined);
-                SaveUserSettings();
+                Data.MaterialRefined = !Data.MaterialRefined;
+                btn_RefinedMaterials.Foreground = Data.GetTextColor(Data.MaterialRefined);
             }
             catch (Exception ex)
             {
@@ -469,9 +420,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.Masslock = !User.Masslock;
-                btn_Masslock.Foreground = GetTextColor(User.Masslock);
-                SaveUserSettings();
+                Data.Masslock = !Data.Masslock;
+                btn_Masslock.Foreground = Data.GetTextColor(Data.Masslock);
             }
             catch (Exception ex)
             {
@@ -486,9 +436,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.CombatPower = !User.CombatPower;
-                btn_AssistedCombatPower.Foreground = GetTextColor(User.CombatPower);
-                SaveUserSettings();
+                Data.CombatPower = !Data.CombatPower;
+                btn_AssistedCombatPower.Foreground = Data.GetTextColor(Data.CombatPower);
             }
             catch (Exception ex)
             {
@@ -500,9 +449,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.AssistSystemScan = !User.AssistSystemScan;
-                btn_AssistedSystemScans.Foreground = GetTextColor(User.AssistSystemScan);
-                SaveUserSettings();
+                Data.AssistSystemScan = !Data.AssistSystemScan;
+                btn_AssistedSystemScans.Foreground = Data.GetTextColor(Data.AssistSystemScan);
             }
             catch (Exception ex)
             {
@@ -514,9 +462,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.AssistDocking = !User.AssistDocking;
-                btn_AssistedDockingProcedures.Foreground = GetTextColor(User.AssistDocking);
-                SaveUserSettings();
+                Data.AssistDocking = !Data.AssistDocking;
+                btn_AssistedDockingProcedures.Foreground = Data.GetTextColor(Data.AssistDocking);
             }
             catch (Exception ex)
             {
@@ -528,9 +475,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.AssistHangerEntry = !User.AssistHangerEntry;
-                btn_AssistedHangerEntry.Foreground = GetTextColor(User.AssistHangerEntry);
-                SaveUserSettings();
+                Data.AssistHangerEntry = !Data.AssistHangerEntry;
+                btn_AssistedHangerEntry.Foreground = Data.GetTextColor(Data.AssistHangerEntry);
             }
             catch (Exception ex)
             {
@@ -542,9 +488,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.PostHyperspaceSafety = !User.PostHyperspaceSafety;
-                btn_PostJumpSafeties.Foreground = GetTextColor(User.PostHyperspaceSafety);
-                SaveUserSettings();
+                Data.PostHyperspaceSafety = !Data.PostHyperspaceSafety;
+                btn_PostJumpSafeties.Foreground = Data.GetTextColor(Data.PostHyperspaceSafety);
             }
             catch (Exception ex)
             {
@@ -556,9 +501,61 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                User.WeaponSafety = !User.WeaponSafety;
-                btn_WeaponSafty.Foreground = GetTextColor(User.WeaponSafety);
-                SaveUserSettings();
+                Data.WeaponSafety = !Data.WeaponSafety;
+                btn_WeaponSafty.Foreground = Data.GetTextColor(Data.WeaponSafety);
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Execption: " + ex);
+            }
+        }
+
+
+        private void btn_GlideStatus_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Data.GlideStatus = !Data.GlideStatus;
+                btn_GlideStatus.Foreground = Data.GetTextColor(Data.GlideStatus);
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Execption: " + ex);
+            }
+        }
+
+        private void btn_HighGravityDescent_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Data.HighGravDescent = !Data.HighGravDescent;
+                btn_HighGravity.Foreground = Data.GetTextColor(Data.HighGravDescent);
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Execption: " + ex);
+            }
+        }
+
+        private void btn_LandableVolcanism_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Data.LandableVolcanism = !Data.LandableVolcanism;
+                btn_LandableVolcanism.Foreground = Data.GetTextColor(Data.LandableVolcanism);
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(MethodName, "Execption: " + ex);
+            }
+        }
+
+        private void btn_TravelDistance_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Data.ScanTravelDist = !Data.ScanTravelDist;
+                btn_TravelDistance.Foreground = Data.GetTextColor(Data.ScanTravelDist);
             }
             catch (Exception ex)
             {
@@ -570,538 +567,338 @@ namespace ALICE_Community_Toolkit
         #region Firegroup Items
         private void CB_ECMGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ECM.FireGroup = (Settings_Firegroups.Group)CB_ECMGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ECM.FireGroup = (Settings_Firegroups.Group)CB_ECMGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_ECMFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ECM.FireMode = (Settings_Firegroups.Fire)CB_ECMFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ECM.FireMode = (Settings_Firegroups.Fire)CB_ECMFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SFNGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.FieldNeutraliser.FireGroup = (Settings_Firegroups.Group)CB_SFNGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.FieldNeutraliser.FireGroup = (Settings_Firegroups.Group)CB_SFNGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SFNFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.FieldNeutraliser.FireMode = (Settings_Firegroups.Fire)CB_SFNFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.FieldNeutraliser.FireMode = (Settings_Firegroups.Fire)CB_SFNFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_FSDIGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.FSDInterdictor.FireGroup = (Settings_Firegroups.Group)CB_FSDIGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.FSDInterdictor.FireGroup = (Settings_Firegroups.Group)CB_FSDIGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_FSDIFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.FSDInterdictor.FireMode = (Settings_Firegroups.Fire)CB_FSDIFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.FSDInterdictor.FireMode = (Settings_Firegroups.Fire)CB_FSDIFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMCOLGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetCollector.FireGroup = (Settings_Firegroups.Group)CB_LIMCOLGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetCollector.FireGroup = (Settings_Firegroups.Group)CB_LIMCOLGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMCOLFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetCollector.FireMode = (Settings_Firegroups.Fire)CB_LIMCOLFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetCollector.FireMode = (Settings_Firegroups.Fire)CB_LIMCOLFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMDECGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetDecontamination.FireGroup = (Settings_Firegroups.Group)CB_LIMDECGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetDecontamination.FireGroup = (Settings_Firegroups.Group)CB_LIMDECGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMDECFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetDecontamination.FireMode = (Settings_Firegroups.Fire)CB_LIMDECFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetDecontamination.FireMode = (Settings_Firegroups.Fire)CB_LIMDECFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMFGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetFuel.FireGroup = (Settings_Firegroups.Group)CB_LIMFGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetFuel.FireGroup = (Settings_Firegroups.Group)CB_LIMFGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMFFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetFuel.FireMode = (Settings_Firegroups.Fire)CB_LIMFFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetFuel.FireMode = (Settings_Firegroups.Fire)CB_LIMFFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMHBGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetHatchBreaker.FireGroup = (Settings_Firegroups.Group)CB_LIMHBGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetHatchBreaker.FireGroup = (Settings_Firegroups.Group)CB_LIMHBGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMHBFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetHatchBreaker.FireMode = (Settings_Firegroups.Fire)CB_LIMHBFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetHatchBreaker.FireMode = (Settings_Firegroups.Fire)CB_LIMHBFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMRECGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetRecon.FireGroup = (Settings_Firegroups.Group)CB_LIMRECGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetRecon.FireGroup = (Settings_Firegroups.Group)CB_LIMRECGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMRECFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetRecon.FireMode = (Settings_Firegroups.Fire)CB_LIMRECFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetRecon.FireMode = (Settings_Firegroups.Fire)CB_LIMRECFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMREPGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetRepair.FireGroup = (Settings_Firegroups.Group)CB_LIMREPGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetRepair.FireGroup = (Settings_Firegroups.Group)CB_LIMREPGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMREPFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetRepair.FireMode = (Settings_Firegroups.Fire)CB_LIMREPFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetRepair.FireMode = (Settings_Firegroups.Fire)CB_LIMREPFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMRESGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetResearch.FireGroup = (Settings_Firegroups.Group)CB_LIMRESGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetResearch.FireGroup = (Settings_Firegroups.Group)CB_LIMRESGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMRESFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetResearch.FireMode = (Settings_Firegroups.Fire)CB_LIMRESFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetResearch.FireMode = (Settings_Firegroups.Fire)CB_LIMRESFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMPROGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetProspector.FireGroup = (Settings_Firegroups.Group)CB_LIMPROGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetProspector.FireGroup = (Settings_Firegroups.Group)CB_LIMPROGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_LIMPROFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LimpetProspector.FireMode = (Settings_Firegroups.Fire)CB_LIMPROFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LimpetProspector.FireMode = (Settings_Firegroups.Fire)CB_LIMPROFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_HS1GroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LauncherHeatSinkOne.FireGroup = (Settings_Firegroups.Group)CB_HS1Group.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LauncherHeatSinkOne.FireGroup = (Settings_Firegroups.Group)CB_HS1Group.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_HS1FireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LauncherHeatSinkOne.FireMode = (Settings_Firegroups.Fire)CB_HS1Fire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LauncherHeatSinkOne.FireMode = (Settings_Firegroups.Fire)CB_HS1Fire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_HS2GroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LauncherHeatSinkTwo.FireGroup = (Settings_Firegroups.Group)CB_HS2Group.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LauncherHeatSinkTwo.FireGroup = (Settings_Firegroups.Group)CB_HS2Group.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_HS2FireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LauncherHeatSinkTwo.FireMode = (Settings_Firegroups.Fire)CB_HS2Fire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LauncherHeatSinkTwo.FireMode = (Settings_Firegroups.Fire)CB_HS2Fire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SC1GroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ShieldCellOne.FireGroup = (Settings_Firegroups.Group)CB_SC1Group.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ShieldCellOne.FireGroup = (Settings_Firegroups.Group)CB_SC1Group.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SC1FireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ShieldCellOne.FireMode = (Settings_Firegroups.Fire)CB_SC1Fire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ShieldCellOne.FireMode = (Settings_Firegroups.Fire)CB_SC1Fire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SC2GroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ShieldCellTwo.FireGroup = (Settings_Firegroups.Group)CB_SC2Group.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ShieldCellTwo.FireGroup = (Settings_Firegroups.Group)CB_SC2Group.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SC2FireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ShieldCellTwo.FireMode = (Settings_Firegroups.Fire)CB_SC2Fire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ShieldCellTwo.FireMode = (Settings_Firegroups.Fire)CB_SC2Fire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_CF1GroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LauncherChaffOne.FireGroup = (Settings_Firegroups.Group)CB_CF1Group.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LauncherChaffOne.FireGroup = (Settings_Firegroups.Group)CB_CF1Group.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_CF1FireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LauncherChaffOne.FireMode = (Settings_Firegroups.Fire)CB_CF1Fire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LauncherChaffOne.FireMode = (Settings_Firegroups.Fire)CB_CF1Fire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_CF2GroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LauncherChaffTwo.FireGroup = (Settings_Firegroups.Group)CB_CF2Group.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LauncherChaffTwo.FireGroup = (Settings_Firegroups.Group)CB_CF2Group.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_CF2FireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.LauncherChaffTwo.FireMode = (Settings_Firegroups.Fire)CB_CF2Fire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.LauncherChaffTwo.FireMode = (Settings_Firegroups.Fire)CB_CF2Fire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNCARGGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerCagro.FireGroup = (Settings_Firegroups.Group)CB_SNCARGGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerCagro.FireGroup = (Settings_Firegroups.Group)CB_SNCARGGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNCARGFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerCagro.FireMode = (Settings_Firegroups.Fire)CB_SNCARGFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerCagro.FireMode = (Settings_Firegroups.Fire)CB_SNCARGFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNCOMPGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerComposite.FireGroup = (Settings_Firegroups.Group)CB_SNCOMPGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerComposite.FireGroup = (Settings_Firegroups.Group)CB_SNCOMPGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNCOMPFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerComposite.FireMode = (Settings_Firegroups.Fire)CB_SNCOMPFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerComposite.FireMode = (Settings_Firegroups.Fire)CB_SNCOMPFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNDISCGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerDiscovery.FireGroup = (Settings_Firegroups.Group)CB_SNDISCGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerDiscovery.FireGroup = (Settings_Firegroups.Group)CB_SNDISCGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNDISCFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerDiscovery.FireMode = (Settings_Firegroups.Fire)CB_SNDISCFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerDiscovery.FireMode = (Settings_Firegroups.Fire)CB_SNDISCFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNKILLGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerKillwarrent.FireGroup = (Settings_Firegroups.Group)CB_SNKILLGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerKillwarrent.FireGroup = (Settings_Firegroups.Group)CB_SNKILLGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNKILLFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerKillwarrent.FireMode = (Settings_Firegroups.Fire)CB_SNKILLFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerKillwarrent.FireMode = (Settings_Firegroups.Fire)CB_SNKILLFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNSURFGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerSurface.FireGroup = (Settings_Firegroups.Group)CB_SNSURFGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerSurface.FireGroup = (Settings_Firegroups.Group)CB_SNSURFGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNSURFFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerSurface.FireMode = (Settings_Firegroups.Fire)CB_SNSURFFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerSurface.FireMode = (Settings_Firegroups.Fire)CB_SNSURFFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNXENOGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerXeno.FireGroup = (Settings_Firegroups.Group)CB_SNXENOGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerXeno.FireGroup = (Settings_Firegroups.Group)CB_SNXENOGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNXENOFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerXeno.FireMode = (Settings_Firegroups.Fire)CB_SNXENOFire.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerXeno.FireMode = (Settings_Firegroups.Fire)CB_SNXENOFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNWAKEGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerWake.FireGroup = (Settings_Firegroups.Group)CB_SNWAKEGroup.SelectedIndex;
-            SaveFiregroupSettings();
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerWake.FireGroup = (Settings_Firegroups.Group)CB_SNWAKEGroup.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
 
         private void CB_SNWAKEFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Init == false) { return; }
-            Firegroup.ScannerWake.FireMode = (Settings_Firegroups.Fire)CB_SNWAKEFire.SelectedIndex;
-            SaveFiregroupSettings();
-        }
-        #endregion
-
-        #region Support Methods / Functions
-        public void SaveUserSettings()
-        {
-            SaveValues<Settings_User>(User, ISettings.SettingsUser + ".Settings");
-        }
-
-        public void LoadUserSettings()
-        {            
-            User = (Settings_User)LoadValues<Settings_User>(ISettings.SettingsUser + ".Settings");
-            Logger.Log(MethodName, "User Settings Loaded", Logger.Yellow);
-        }
-
-        public void SaveFiregroupSettings()
-        {
-            if (Monitor.TryEnter(SaveLockFlag))
-            {
-                Start:
-                try
-                {
-                    if (SaveFiregroup == false) { return; }
-                    SaveValues<Settings_Firegroups>(Firegroup, ISettings.SettingsFiregroup + ".FGConfig");
-                    Logger.Log(MethodName, "Firegroup Settings Saved", Logger.Yellow);
-                }
-                catch (Exception)
-                {
-                    Logger.Exception(MethodName, "Couldn't Access The File, Trying Again...");
-                    Thread.Sleep(100); goto Start;
-                }
-                finally
-                {
-                    Monitor.Exit(SaveLockFlag);
-                }
-            }
-        }
-
-        public void LoadFiregroupSettings()
-        {
-            Firegroup = (Settings_Firegroups)LoadValues<Settings_Firegroups>(ISettings.SettingsFiregroup + ".FGConfig");
-            Logger.Log(MethodName, "Firegroup Settings Loaded", Logger.Yellow);
-        }
-
-        public SolidColorBrush GetTextColor(bool Value)
-        {
-            SolidColorBrush Brush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-            if (Value) { Brush = new SolidColorBrush(Color.FromRgb(0, 255, 0)); }
-
-            return Brush;
-        }
-
-        public void SaveValues<T>(object Settings, string FileName, string FilePath = null)
-        {
-            string MethodName = "(Toolkit) Save Values";
-
-            try
-            {
-                if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
-
-                using (FileStream FS = new FileStream(FilePath + FileName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-                {
-                    using (StreamWriter file = new StreamWriter(FS))
-                    {
-                        var Line = JsonConvert.SerializeObject((T)Settings);
-                        file.WriteLine(Line);
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                Logger.Exception(MethodName, "Couldn't Access The File, Trying Again...");
-            }
-        }
-
-        public static object LoadValues<T>(string FileName, string FilePath = null)
-        {
-            string MethodName = "(Toolkit) Load Values";
-
-            T Temp = default(T);
-            if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
-            if (FileName == null) { return null; }
-
-            FileStream FS = null;
-            try
-            {
-                if (File.Exists(FilePath + FileName))
-                {
-                    FS = new FileStream(FilePath + FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    using (StreamReader SR = new StreamReader(FS))
-                    {
-                        while (!SR.EndOfStream)
-                        {
-                            string Line = SR.ReadLine();
-                            Temp = JsonConvert.DeserializeObject<T>(Line);
-                            Logger.Log(MethodName, "Loaded Settings", Logger.Yellow);
-                        }
-                    }
-                }
-
-                return Temp;
-            }
-            catch (Exception ex)
-            {
-                Logger.Exception(MethodName, "Exception" + ex);
-                Logger.Exception(MethodName, "Somthing Went Wrong While Loading Values");
-                return Temp;
-            }
-            finally
-            {
-                if (FS != null)
-                { FS.Dispose(); }
-            }
-        }
-
-        public void StartMonitor()
-        {
-            string MethodName = "(Toolkit) Monitor";
-            Thread thread =
-            new Thread((ThreadStart)(() =>
-            {
-                try
-                {
-                    if (Monitor.TryEnter(LockFlag))
-                    {
-                        while (Enabled)
-                        {
-                            Thread.Sleep(1000);
-
-                            if (CheckSettings(ISettings.SettingsUser + ".Settings"))
-                            {
-                                LoadUserSettings();
-                                UpdateButtons();
-                            }
-
-                            if (CheckSettings(ISettings.SettingsFiregroup + ".FGConfig"))
-                            {
-                                LoadFiregroupSettings();
-                                UpdateFiregroupItems();
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Exception(MethodName, "Exception" + ex);
-                    Logger.Exception(MethodName, "Somthing Went Wrong With The Monitor");
-                }
-                finally
-                {
-                    Monitor.Exit(LockFlag);
-                }
-            }))
-            { IsBackground = true }; thread.Start();
-        }
-
-        public bool CheckSettings(string FileName)
-        {
-            string MethodName = "(Toolkit) Check Settings";
-            string TimeStamp = null; switch (FileName)
-            {
-                case "CurrentUser.Settings":
-                    TimeStamp = TimeStampUser;
-                    break;
-                case "CurrentFiregroup.FGConfig":
-                    TimeStamp = TimeStampFiregroup;
-                    break;
-                default:
-                    Logger.Log(MethodName, "File Name Does Not Match Expected Options.", Logger.Yellow);
-                    return false;
-            }
-
-            try
-            {
-                foreach (FileInfo File in DirSettings.EnumerateFiles(FileName, SearchOption.TopDirectoryOnly))
-                {
-                    if (TimeStamp == null || TimeStamp != File.LastWriteTime.ToString())
-                    {
-                        switch (FileName)
-                        {
-                            case "CurrentUser.Settings":
-                                TimeStampUser = File.LastWriteTime.ToString();
-                                break;
-                            case "CurrentFiregroup.FGConfig":
-                                TimeStampFiregroup = File.LastWriteTime.ToString();
-                                break;
-                        }                        
-                        Logger.Log(MethodName, "Settings Update Detected", Logger.Yellow);
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-            catch (Exception ex)
-            {
-                Logger.Exception(MethodName, "Exception" + ex);
-                Logger.Exception(MethodName, "We Encountered An Error While Checking The Settings File");
-                return false;
-            }
+            if (Data.SettingInit == false) { return; }
+            Data.Firegroup.ScannerWake.FireMode = (Settings_Firegroups.Fire)CB_SNWAKEFire.SelectedIndex;
+            Data.SaveFiregroupSettings();
         }
         #endregion
     }

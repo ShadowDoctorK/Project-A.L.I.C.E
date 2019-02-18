@@ -801,99 +801,99 @@ namespace ALICE_Interface
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_AutoSystemScans(true);
+                        ISettings.U_AutoSystemScans(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_AutoSystemScans(false);
+                        ISettings.U_AutoSystemScans(false);
                     }
                 }
                 else if (Command.Check("Automatic Docking Procedures:"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_AutoDockingProcedure(true);
+                        ISettings.U_AutoDockingProcedure(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_AutoDockingProcedure(false);
+                        ISettings.U_AutoDockingProcedure(false);
                     }
                 }
                 else if (Command.Check("Automatic Refuel:"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_AutoRefuel(true);
+                        ISettings.U_AutoRefuel(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_AutoRefuel(false);
+                        ISettings.U_AutoRefuel(false);
                     }
                 }
                 else if (Command.Check("Automatic Rearm:"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_AutoRearm(true);
+                        ISettings.U_AutoRearm(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_AutoRearm(false);
+                        ISettings.U_AutoRearm(false);
                     }
                 }
                 else if (Command.Check("Automatic Repair:"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_AutoRepair(true);
+                        ISettings.U_AutoRepair(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_AutoRepair(false);
+                        ISettings.U_AutoRepair(false);
                     }
                 }
                 else if (Command.Check("Automatic Hanger Entry:"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_AutoHangerEntry(true);
+                        ISettings.U_AutoHangerEntry(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_AutoHangerEntry(false);
+                        ISettings.U_AutoHangerEntry(false);
                     }
                 }
                 else if (Command.Check("Combat Power Management"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_CombatPower(true);
+                        ISettings.U_CombatPower(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_CombatPower(false);
+                        ISettings.U_CombatPower(false);
                     }
                 }
                 else if (Command.Check("Post Jump Safety:"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_PostJumpSafety(true);
+                        ISettings.U_PostJumpSafety(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_PostJumpSafety(false);
+                        ISettings.U_PostJumpSafety(false);
                     }
                 }
                 else if (Command.Check("Weapon Safety"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_WeaponSafety(true);
+                        ISettings.U_WeaponSafety(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_WeaponSafety(false);
+                        ISettings.U_WeaponSafety(false);
                     }
                 }
             }
@@ -1169,125 +1169,125 @@ namespace ALICE_Interface
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_NoFireZone(true);
+                        ISettings.U_NoFireZone(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_NoFireZone(false);
+                        ISettings.U_NoFireZone(false);
                     }
                 }
                 else if (Command.Check("Wanted Target"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_TargetWanted(true);
+                        ISettings.U_TargetWanted(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_TargetWanted(false);
+                        ISettings.U_TargetWanted(false);
                     }
                 }
                 else if (Command.Check("Enemy Target"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_TargetEnemy(true);
+                        ISettings.U_TargetEnemy(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_TargetEnemy(false);
+                        ISettings.U_TargetEnemy(false);
                     }
                 }
                 else if (Command.Check("Collected Bounties"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_CollectedBounty(true);
+                        ISettings.U_CollectedBounty(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_CollectedBounty(false);
+                        ISettings.U_CollectedBounty(false);
                     }
                 }
                 else if (Command.Check("Material Collected"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_MaterialCollected(true);
+                        ISettings.U_MaterialCollected(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_MaterialCollected(false);
+                        ISettings.U_MaterialCollected(false);
                     }
                 }
                 else if (Command.Check("Material Refined"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_MaterialRefined(true);
+                        ISettings.U_MaterialRefined(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_MaterialRefined(false);
+                        ISettings.U_MaterialRefined(false);
                     }
                 }
                 else if (Command.Check("Station Status"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_StationStatus(true);
+                        ISettings.U_StationStatus(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_StationStatus(false);
+                        ISettings.U_StationStatus(false);
                     }
                 }
                 else if (Command.Check("Shield State"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_ShieldState(true);
+                        ISettings.U_ShieldState(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_ShieldState(false);
+                        ISettings.U_ShieldState(false);
+                    }
+                }
+                else if (Command.Check("Masslock"))
+                {
+                    if (Command.Check("Enable"))
+                    {
+                        ISettings.U_Masslock(true);
+                    }
+                    else if (Command.Check("Disable"))
+                    {
+                        ISettings.U_Masslock(false);
                     }
                 }
                 else if (Command.Check("Fuel Scooping"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_FuelScoop(true);
+                        ISettings.U_FuelScoop(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_FuelScoop(false);
+                        ISettings.U_FuelScoop(false);
                     }
                 }
                 else if (Command.Check("Fuel Report"))
                 {
                     if (Command.Check("Enable"))
                     {
-                        ISettings.User.U_FuelStatus(true);
+                        ISettings.U_FuelStatus(true);
                     }
                     else if (Command.Check("Disable"))
                     {
-                        ISettings.User.U_FuelStatus(false);
+                        ISettings.U_FuelStatus(false);
                     }
                     else if (Command.Check("Status"))
                     {
-                        switch (IVehicles.Vehicle)
-                        {                            
-                            case IVehicles.V.Mothership:
-                                IObjects.Mothership.F.FuelLevel(true);
-                                break;
-                            case IVehicles.V.Fighter:
-                                IObjects.Fighter.F.FuelLevel(true);
-                                break;
-                            case IVehicles.V.SRV:
-                                IObjects.SRV.F.FuelLevel(true);
-                                break;                            
-                        }                       
+                        IEquipment.FuelTank.FuelLevel(true);
                     }
                 }
             }
@@ -1760,44 +1760,44 @@ namespace ALICE_Interface
             {
                 if (Command.Check("Increase"))
                 {
-                    ISettings.User.PipSpeed(false);
+                    ISettings.PipSpeed(false);
                 }
                 else if (Command.Check("Decrease"))
                 {
-                    ISettings.User.PipSpeed(true);
+                    ISettings.PipSpeed(true);
                 }
             }
             else if (Command.Check("Panel Speed"))
             {
                 if (Command.Check("Increase"))
                 {
-                    ISettings.User.PanelSpeed(false);
+                    ISettings.PanelSpeed(false);
                 }
                 else if (Command.Check("Decrease"))
                 {
-                    ISettings.User.PanelSpeed(true);
+                    ISettings.PanelSpeed(true);
                 }
             }
             else if (Command.Check("Fire Group Speed"))
             {
                 if (Command.Check("Increase"))
                 {
-                    ISettings.User.FireGroupSpeed(false);
+                    ISettings.FireGroupSpeed(false);
                 }
                 else if (Command.Check("Decrease"))
                 {
-                    ISettings.User.FireGroupSpeed(true);
+                    ISettings.FireGroupSpeed(true);
                 }
             }
             else if (Command.Check("Throttle Speed"))
             {
                 if (Command.Check("Increase"))
                 {
-                    ISettings.User.ThrottleSpeed(false);
+                    ISettings.ThrottleSpeed(false);
                 }
                 else if (Command.Check("Decrease"))
                 {
-                    ISettings.User.ThrottleSpeed(true);
+                    ISettings.ThrottleSpeed(true);
                 }
             }
             else if (Command.Check("Extended Logging"))

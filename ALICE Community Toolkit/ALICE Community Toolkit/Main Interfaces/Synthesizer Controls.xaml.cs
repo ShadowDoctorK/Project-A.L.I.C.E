@@ -52,7 +52,7 @@ namespace ALICE_Community_Toolkit
 
         public static void SaveSettings(SynthSetting Settings)
         {
-            using (FileStream FS = new FileStream(Paths.ALICE_Settings + @"Synthisizer.Setting", FileMode.Create, FileAccess.Write, FileShare.None))
+            using (FileStream FS = new FileStream(Paths.ALICE_Settings + @"Synthesizer.Settings", FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 using (StreamWriter file = new StreamWriter(FS))
                 {
@@ -65,9 +65,9 @@ namespace ALICE_Community_Toolkit
         public static SynthSetting LoadSettings()
         {
             SynthSetting Temp = new SynthSetting();
-            if (File.Exists(Paths.ALICE_Settings + @"Synthisizer.Setting"))
+            if (File.Exists(Paths.ALICE_Settings + @"Synthesizer.Settings"))
             {
-                using (FileStream FS = new FileStream(Paths.ALICE_Settings + @"Synthisizer.Setting", FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (FileStream FS = new FileStream(Paths.ALICE_Settings + @"Synthesizer.Settings", FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 using (StreamReader SR = new StreamReader(FS))
                 {
                     while (!SR.EndOfStream)

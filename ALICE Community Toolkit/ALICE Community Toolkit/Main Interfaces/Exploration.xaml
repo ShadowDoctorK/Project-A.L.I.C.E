@@ -1,0 +1,143 @@
+﻿<UserControl x:Class="ALICE_Community_Toolkit.Exploration"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ALICE_Community_Toolkit"
+             mc:Ignorable="d" 
+   d:DesignHeight="800" d:DesignWidth="1013">
+    <Grid Background="#FF171616" Height="800">
+
+        <Grid x:Name="Dashboard_StackPanel" Background="Black">
+
+            <StackPanel Height="83" VerticalAlignment="Top" Margin="20,400,0,0" HorizontalAlignment="Left" Width="156">
+                <Label Content="                Orders" Foreground="#FFCE5A05" FontWeight="Bold"/>
+                <Button x:Name="btn_AssistedSystemScans" Content="System Scans" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Width="150" Click="btn_AssistedSystemScans_Click" Height="26"/>
+            </StackPanel>
+
+            <StackPanel Height="164" VerticalAlignment="Top" Margin="20,465,0,0" HorizontalAlignment="Left" Width="156">
+                <Label Content="              Reports" Foreground="#FFCE5A05" FontWeight="Bold"/>
+                <Button x:Name="btn_GlideStatus" Content="Glide Status" Margin="2,2.5,0,2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_GlideStatus_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+                <Button x:Name="btn_HighGravity" Content="High Gravity Descent" Margin="2,2.5,0,2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_HighGravityDescent_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+                <Button x:Name="btn_LandableVolcanism" Content="Volcanism (Landable)" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_LandableVolcanism_Click" Height="26" HorizontalAlignment="Left" Width="150" />
+                <Button x:Name="btn_TravelDistance" Content="Travel Distance Threshold" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Click="btn_TravelDistance_Click" Height="26" HorizontalAlignment="Left" Width="150"/>
+            </StackPanel>
+
+            <StackPanel Height="286" Margin="10,66,0,0" VerticalAlignment="Top" Background="#FF7A3502" HorizontalAlignment="Left" Width="388">
+
+                <StackPanel Height="40" Background="Black" VerticalAlignment="Top" Orientation="Horizontal" Margin="2,2,2,1">
+
+                    <TextBox IsReadOnly="True" Text="Enable" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="#FFCE5A05" BorderBrush="{x:Null}" Background="{x:Null}" SelectionBrush="{x:Null}" Width="44">
+                        <TextBox.LayoutTransform>
+                            <RotateTransform Angle="270" />
+                        </TextBox.LayoutTransform>
+                    </TextBox>
+
+                    <TextBox IsReadOnly="True" Text="Planet Type" TextAlignment="Center" VerticalContentAlignment="Center" Width="155" Foreground="#FFCE5A05" BorderBrush="{x:Null}" Margin="0,0,0,0" Background="{x:Null}" SelectionBrush="{x:Null}"/>
+                    <TextBox IsReadOnly="True" Text="Spectrum Scan Value" TextWrapping="Wrap" TextAlignment="Center" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="{x:Null}" Margin="0,0,0,0" Background="{x:Null}" SelectionBrush="{x:Null}"/>
+                    <TextBox IsReadOnly="True" Text="Detailed Scan Value" TextWrapping="Wrap" TextAlignment="Center" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="{x:Null}" Margin="0,0,0,0" Background="{x:Null}" SelectionBrush="{x:Null}"/>
+                    <TextBox IsReadOnly="True" Text="Discovery Bonus" TextWrapping="Wrap" TextAlignment="Center" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="{x:Null}" Margin="0,0,0,0" Background="{x:Null}" SelectionBrush="{x:Null}"/>
+                </StackPanel>
+
+                <StackPanel Height="25" Background="Black" VerticalAlignment="Top" Orientation="Horizontal" Margin="2,1,2,1">
+                    <CheckBox Name="CheckBox_Earthlike" VerticalContentAlignment="Center" Width="19" Checked="CheckBox_EarthlikeChanged" Unchecked="CheckBox_EarthlikeChanged"/>
+                    <Label Content="Earthlike World" VerticalContentAlignment="Center" Width="155" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="270,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="830,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="2,100,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                </StackPanel>
+
+                <StackPanel Height="25" Background="Black" VerticalAlignment="Top" Orientation="Horizontal" Margin="2,1,2,1">
+                    <CheckBox Name="CheckBox_WaterTerra" VerticalContentAlignment="Center" Width="19" Checked="CheckBox_WaterTeraChanged" Unchecked="CheckBox_WaterTeraChanged"/>
+                    <Label Content="Terraformable Water World" VerticalContentAlignment="Center" Width="155" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="270,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="830,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="2,100,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                </StackPanel>
+
+                <StackPanel Height="25" Background="Black" VerticalAlignment="Top" Orientation="Horizontal" Margin="2,1,2,1">
+                    <CheckBox Name="CheckBox_HMCTera" VerticalContentAlignment="Center" Width="19" Checked="CheckBox_HMCTeraChanged" Unchecked="CheckBox_HMCTeraChanged"/>
+                    <Label Content="Terraformable H.M.C." VerticalContentAlignment="Center" Width="155" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="160,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="520,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="1,320,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                </StackPanel>
+
+                <StackPanel Height="25" Background="Black" VerticalAlignment="Top" Orientation="Horizontal" Margin="2,1,2,1">
+                    <CheckBox Name="CheckBox_Ammonia" VerticalContentAlignment="Center" Width="19" Checked="CheckBox_AmmoniaChanged" Unchecked="CheckBox_AmmoniaChanged"/>
+                    <Label Content="Ammonia World" VerticalContentAlignment="Center" Width="155" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="140,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="460,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="1,240,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                </StackPanel>
+
+                <StackPanel Height="25" Background="Black" VerticalAlignment="Top" Orientation="Horizontal" Margin="2,1,2,1">
+                    <CheckBox Name="CheckBox_RockyTerra" VerticalContentAlignment="Center" Width="19" Checked="CheckBox_RockyTeraChanged" Unchecked="CheckBox_RockyTeraChanged"/>
+                    <Label Content="Terraformable Rocky Body" VerticalContentAlignment="Center" Width="155" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="130,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="410,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="1,180,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                </StackPanel>
+
+                <StackPanel Height="25" Background="Black" VerticalAlignment="Top" Orientation="Horizontal" Margin="2,1,2,1">
+                    <CheckBox Name="CheckBox_Water" VerticalContentAlignment="Center" Width="19" Checked="CheckBox_WaterChanged" Unchecked="CheckBox_WaterChanged"/>
+                    <Label Content="Water World" VerticalContentAlignment="Center" Width="155" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="100,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="320,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="880,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                </StackPanel>
+
+                <StackPanel Height="25" Background="Black" VerticalAlignment="Top" Orientation="Horizontal" Margin="2,1,2,1">
+                    <CheckBox Name="CheckBox_MetalRich" VerticalContentAlignment="Center" Width="19" Checked="CheckBox_MetalRichChanged" Unchecked="CheckBox_MetalRichChanged"/>
+                    <Label Content="Metal Rich Body" VerticalContentAlignment="Center" Width="155" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="30,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="100,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="250,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                </StackPanel>
+
+                <StackPanel Height="25" Background="Black" VerticalAlignment="Top" Orientation="Horizontal" Margin="2,1,2,1">
+                    <CheckBox Name="CheckBox_GasGiantII" VerticalContentAlignment="Center" Width="19" Checked="CheckBox_GasGiantIIChanged" Unchecked="CheckBox_GasGiantIIChanged"/>
+                    <Label Content="Class II Gas Giant" VerticalContentAlignment="Center" Width="155" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="28,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="92,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="220,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                </StackPanel>
+
+                <StackPanel Height="25" Background="Black" VerticalAlignment="Top" Orientation="Horizontal" Margin="2,1,2,1">
+                    <CheckBox Name="CheckBox_HMC" VerticalContentAlignment="Center" Width="19" Checked="CheckBox_HMCChanged" Unchecked="CheckBox_HMCChanged"/>
+                    <Label Content="High Metal Content World" VerticalContentAlignment="Center" Width="155" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="14,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="46,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                    <Label Content="110,000" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="70" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05"/>
+                </StackPanel>
+
+            </StackPanel>
+            <ComboBox x:Name="CB_SCTravelDist" SelectionChanged="CB_SCTravelDistChanged" SelectedIndex="0" Foreground="#FF000000" Margin="238,371,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="160"/>
+            <RichTextBox IsReadOnly="True" Margin="10,10,0,0" Background="{x:Null}" Foreground="#FFCE5A05" Height="51" VerticalAlignment="Top" BorderBrush="#FFCE5A05" HorizontalAlignment="Left" Width="388">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="Enabling an item below will make A.L.I.C.E give you reports on the bodies you scan that match the Planet Type. You may also get feedback on travel distance by setting you Travel Distance Threshold."/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+            <Label Content="Supercruise Travel Distance Threshold" VerticalContentAlignment="Center" Foreground="#FFCE5A05" BorderBrush="#FFCE5A05" Margin="10,369,0,0" HorizontalAlignment="Left" Width="223" Height="25" VerticalAlignment="Top"/>
+            <Image HorizontalAlignment="Left" Height="780" Margin="403,10,0,0" VerticalAlignment="Top" Width="600" Source="/ALICE Community Toolkit;component/Resources/Goldilock Zone.png"/>
+            <RichTextBox IsReadOnly="True" Margin="462,76,21,0" Background="{x:Null}" Foreground="#FFCE5A05" BorderBrush="{x:Null}" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="82" VerticalAlignment="Top">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="CIRCUMSTELLAR HABITABLE ZONE AKA GOLDILOCKS ZONE IS THE RANGE OF ORBITS AROUND A STAR WITHIN WHICH A PLANETARY SURFACE CAN SUPPORT LIQUID WATER GIVEN CERTAIN ATMOSPHERIC CONDITIONS. IN ELITE DANGEROUS THE HABITABLE ZONE HAS THE HIGHEST CHANCE OF CONTAINING TERRAFORMING CANDIDATE PLANETS AND EARTH LIKE WORLDS. THIS CHART GIVE THE APPROXIMATE DISTANCES FOR EVERY MAIN SEQUENCE STAR CLASS. NOTE THAT IT IS POSSIBLE TO FIND A TFC/ELW BEYOND THE DISTANCES SPECIFIED BY THE CHART."/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+            <RichTextBox IsReadOnly="True" Margin="462,163,21,591" Background="{x:Null}" Foreground="#FFA49182" BorderBrush="{x:Null}" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="ARABIC NUMBERS FOLLOWING THE STAR CLASS DENOTE THEIR TEMPERATURES (CAN BE SEEN WHEN TARGETING A SYSTEM FROM THE GALAXY MAP). HOTTER STARS ARE MORE LIKELY TO HAVE TERRAFORMABLES FURTHER AWAY IN THE HABITABLE ZONE."/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+
+        </Grid>
+
+    </Grid>
+</UserControl>
