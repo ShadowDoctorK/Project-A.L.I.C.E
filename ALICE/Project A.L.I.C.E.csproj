@@ -91,6 +91,7 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event CrewFire.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event CrewHire.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event DatalinkScan.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event DatalinkVoucher.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -202,7 +203,7 @@
     <Compile Include="A.L.I.C.E Events\Journal Events\Event CrewFire.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event CrewHire.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event DatalinkScan.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event DatalinkVoucher.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event DatalinkVoucher.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event DataScanned.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event Died.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event SquadronStartup.cs" />
