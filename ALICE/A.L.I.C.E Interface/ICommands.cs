@@ -2292,7 +2292,9 @@ namespace ALICE_Interface
                 }
                 else if (Command.Check("Collector Limpet"))
                 {
-                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetCollector);
+                    bool Select = true;
+                    if (Command.Check("Activate")) { Select = false; }
+                    Call.Action.CollectorLimpet(PlugIn.CommandAudio, Select);                    
                 }
                 else if (Command.Check("Decontamination Limpet"))
                 {
@@ -2300,7 +2302,9 @@ namespace ALICE_Interface
                 }
                 else if (Command.Check("Fuel Limpet"))
                 {
-                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetFuel);
+                    bool Select = true;
+                    if (Command.Check("Activate")) { Select = false; }
+                    Call.Action.FuelLimpet(PlugIn.CommandAudio, Select);                    
                 }
                 else if (Command.Check("Hatch Breaker Limpet"))
                 {
@@ -2308,15 +2312,21 @@ namespace ALICE_Interface
                 }
                 else if (Command.Check("Prospector Limpet"))
                 {
-                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetProspector);
+                    bool Select = true;
+                    if (Command.Check("Activate")) { Select = false; }
+                    Call.Action.ProspectorLimpet(PlugIn.CommandAudio, Select);                   
                 }
                 else if (Command.Check("Recon Limpet"))
                 {
-                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetRecon);
+                    bool Select = true;
+                    if (Command.Check("Activate")) { Select = false; }
+                    Call.Action.ReconLimpet(PlugIn.CommandAudio, Select);
                 }
                 else if (Command.Check("Repair Limpet"))
                 {
-                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetRepair);
+                    bool Select = true;
+                    if (Command.Check("Activate")) { Select = false; }
+                    Call.Action.RepairLimpet(PlugIn.CommandAudio, Select);                    
                 }
                 else if (Command.Check("Reserch Limpet"))
                 {

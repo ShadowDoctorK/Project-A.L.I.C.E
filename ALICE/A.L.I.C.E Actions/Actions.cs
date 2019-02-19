@@ -3446,7 +3446,318 @@ namespace ALICE_Actions
                 Logger.Log(MethodName, "Liftoff Complete, Controls Released.", Logger.Yellow, true);
             }
         }
+
+        public void CollectorLimpet(bool CommandAudio, bool SelectOnly = false)
+        {
+            string MethodName = "Collector Limpet Controller";
+
+            //Record Current Firegroup
+            decimal Temp = Call.Firegroup.Current;
+
+            #region Vaildtion Checks
+            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            {
+                IEquipment.LimpetCollector.NoHyperspace(CommandAudio);
+                return;
+            }
+            #endregion
+
+            #region Fire Group Management
+            //Select Firegroup
+            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetCollector))
+            {
+                case Settings_Firegroups.S.CurrentlySelected:
+                    if (SelectOnly) { IEquipment.LimpetCollector.CurrentlySelected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.Selected:
+                    if (SelectOnly) { IEquipment.LimpetCollector.Selected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.NotAssigned:
+                    IEquipment.LimpetCollector.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.Failed:
+                    IEquipment.LimpetCollector.SelectionFailed(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.InHyperspace:
+                    IEquipment.LimpetCollector.NoHyperspace(CommandAudio);
+                    return;
+                default:
+                    return;
+            }
+
+            //Exit If Only Selecting Item.
+            if (SelectOnly) { return; }
+
+            //Activate Module
+            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetCollector))
+            {
+                case Settings_Firegroups.A.Hyperspace:
+                    //Audio
+                    return;
+                case Settings_Firegroups.A.NotAssigned:
+                    IEquipment.LimpetCollector.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.A.Complete:
+                    IEquipment.LimpetCollector.Activating(CommandAudio);
+                    break;
+                default:
+                    return;
+            }
+            #endregion
+
+            //Return To Previou Firegroup.
+            Call.Firegroup.Select(Temp, false);
+        }
+
+        public void FuelLimpet(bool CommandAudio, bool SelectOnly = false)
+        {
+            string MethodName = "Fuel Limpet Controller";
+
+            //Record Current Firegroup
+            decimal Temp = Call.Firegroup.Current;
+
+            #region Vaildtion Checks
+            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            {
+                IEquipment.LimpetFuel.NoHyperspace(CommandAudio);
+                return;
+            }
+            #endregion
+
+            #region Fire Group Management
+            //Select Firegroup
+            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetFuel))
+            {
+                case Settings_Firegroups.S.CurrentlySelected:
+                    if (SelectOnly) { IEquipment.LimpetFuel.CurrentlySelected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.Selected:
+                    if (SelectOnly) { IEquipment.LimpetFuel.Selected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.NotAssigned:
+                    IEquipment.LimpetFuel.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.Failed:
+                    IEquipment.LimpetFuel.SelectionFailed(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.InHyperspace:
+                    IEquipment.LimpetFuel.NoHyperspace(CommandAudio);
+                    return;
+                default:
+                    return;
+            }
+
+            //Exit If Only Selecting Item.
+            if (SelectOnly) { return; }
+
+            //Activate Module
+            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetFuel))
+            {
+                case Settings_Firegroups.A.Hyperspace:
+                    //Audio
+                    return;
+                case Settings_Firegroups.A.NotAssigned:
+                    IEquipment.LimpetFuel.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.A.Complete:
+                    IEquipment.LimpetFuel.Activating(CommandAudio);
+                    break;
+                default:
+                    return;
+            }
+            #endregion
+
+            //Return To Previou Firegroup.
+            Call.Firegroup.Select(Temp, false);
+        }
+
+        public void ProspectorLimpet(bool CommandAudio, bool SelectOnly = false)
+        {
+            string MethodName = "Prospector Limpet Controller";
+
+            //Record Current Firegroup
+            decimal Temp = Call.Firegroup.Current;
+
+            #region Vaildtion Checks
+            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            {
+                IEquipment.LimpetProspector.NoHyperspace(CommandAudio);
+                return;
+            }
+            #endregion
+
+            #region Fire Group Management
+            //Select Firegroup
+            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetProspector))
+            {
+                case Settings_Firegroups.S.CurrentlySelected:
+                    if (SelectOnly) { IEquipment.LimpetProspector.CurrentlySelected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.Selected:
+                    if (SelectOnly) { IEquipment.LimpetProspector.Selected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.NotAssigned:
+                    IEquipment.LimpetProspector.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.Failed:
+                    IEquipment.LimpetProspector.SelectionFailed(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.InHyperspace:
+                    IEquipment.LimpetProspector.NoHyperspace(CommandAudio);
+                    return;
+                default:
+                    return;
+            }
+
+            //Exit If Only Selecting Item.
+            if (SelectOnly) { return; }
+
+            //Activate Module
+            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetProspector))
+            {
+                case Settings_Firegroups.A.Hyperspace:
+                    //Audio
+                    return;
+                case Settings_Firegroups.A.NotAssigned:
+                    IEquipment.LimpetProspector.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.A.Complete:
+                    IEquipment.LimpetProspector.Activating(CommandAudio);
+                    break;
+                default:
+                    return;
+            }
+            #endregion
+
+            //Return To Previou Firegroup.
+            Call.Firegroup.Select(Temp, false);
+        }
+
+        public void ReconLimpet(bool CommandAudio, bool SelectOnly = false)
+        {
+            string MethodName = "Recon Limpet Controller";
+
+            //Record Current Firegroup
+            decimal Temp = Call.Firegroup.Current;
+
+            #region Vaildtion Checks
+            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            {
+                IEquipment.LimpetRecon.NoHyperspace(CommandAudio);
+                return;
+            }
+            #endregion
+
+            #region Fire Group Management
+            //Select Firegroup
+            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetRecon))
+            {
+                case Settings_Firegroups.S.CurrentlySelected:
+                    if (SelectOnly) { IEquipment.LimpetRecon.CurrentlySelected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.Selected:
+                    if (SelectOnly) { IEquipment.LimpetRecon.Selected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.NotAssigned:
+                    IEquipment.LimpetRecon.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.Failed:
+                    IEquipment.LimpetRecon.SelectionFailed(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.InHyperspace:
+                    IEquipment.LimpetRecon.NoHyperspace(CommandAudio);
+                    return;
+                default:
+                    return;
+            }
+
+            //Exit If Only Selecting Item.
+            if (SelectOnly) { return; }
+
+            //Activate Module
+            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetRecon))
+            {
+                case Settings_Firegroups.A.Hyperspace:
+                    //Audio
+                    return;
+                case Settings_Firegroups.A.NotAssigned:
+                    IEquipment.LimpetRecon.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.A.Complete:
+                    IEquipment.LimpetRecon.Activating(CommandAudio);
+                    break;
+                default:
+                    return;
+            }
+            #endregion
+
+            //Return To Previou Firegroup.
+            Call.Firegroup.Select(Temp, false);
+        }
+
+        public void RepairLimpet(bool CommandAudio, bool SelectOnly = false)
+        {
+            string MethodName = "Repair Limpet Controller";
+
+            //Record Current Firegroup
+            decimal Temp = Call.Firegroup.Current;
+
+            #region Vaildtion Checks
+            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            {
+                IEquipment.LimpetRepair.NoHyperspace(CommandAudio);
+                return;
+            }
+            #endregion
+
+            #region Fire Group Management
+            //Select Firegroup
+            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetRepair))
+            {
+                case Settings_Firegroups.S.CurrentlySelected:
+                    if (SelectOnly) { IEquipment.LimpetRepair.CurrentlySelected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.Selected:
+                    if (SelectOnly) { IEquipment.LimpetRepair.Selected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.NotAssigned:
+                    IEquipment.LimpetRepair.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.Failed:
+                    IEquipment.LimpetRepair.SelectionFailed(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.InHyperspace:
+                    IEquipment.LimpetRepair.NoHyperspace(CommandAudio);
+                    return;
+                default:
+                    return;
+            }
+
+            //Exit If Only Selecting Item.
+            if (SelectOnly) { return; }
+
+            //Activate Module
+            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetRepair))
+            {
+                case Settings_Firegroups.A.Hyperspace:
+                    //Audio
+                    return;
+                case Settings_Firegroups.A.NotAssigned:
+                    IEquipment.LimpetRepair.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.A.Complete:
+                    IEquipment.LimpetRepair.Activating(CommandAudio);
+                    break;
+                default:
+                    return;
+            }
+            #endregion
+
+            //Return To Previou Firegroup.
+            Call.Firegroup.Select(Temp, false);
+        }
         #endregion
+
     }
 
     /// <summary>
