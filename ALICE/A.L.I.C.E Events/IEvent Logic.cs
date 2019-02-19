@@ -893,11 +893,27 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic Docked";
 
+            //Update Current System Object
             IObjects.SystemCurrent.Update_Facility(Event);
 
-            if (Check.Internal.TriggerEvents(true, MethodName) == true && 
-                IStatus.Docking.State == IEnums.DockingState.Granted)
-            { Post.Docked(Event); }
+            //Docked Datalink Audio
+            IStatus.Docking.Response.Datalink(
+                Check.Report.StationStatus(true, MethodName),               //Check User Settings Report Enabled
+                Check.Internal.TriggerEvents(true, MethodName),             //Check Plugin Initialized
+                (IStatus.Docking.State == IEnums.DockingState.Granted));    //Check Docking State Is Granted
+
+            //Sleep To Maintain Audio Order
+            Thread.Sleep(100);
+
+            //Docked Datalink Audio
+            IStatus.Docking.Response.StationStatus(
+                Check.Report.StationStatus(true, MethodName),               //Check User Settings Report Enabled
+                Check.Internal.TriggerEvents(true, MethodName),             //Check Plugin Initialized
+                (IStatus.Docking.State == IEnums.DockingState.Granted));    //Check Docking State Is Granted
+
+            //Enter Station Services & Conduct Post Docking Actions
+            IStatus.Docking.PostDockingActions();
+            IStatus.Docking.Update(Event);
 
             #region Logic Table
             IObjects.Status.Docked = true;
@@ -906,13 +922,9 @@ namespace ALICE_EventLogic
             IObjects.Status.Touchdown = false;
             IObjects.Status.LandingGear = true;
             IObjects.Status.FighterDeployed = false;
-            IStatus.Docking.State = IEnums.DockingState.Docked;
-            IStatus.Docking.StationName = Event.StationName;
-            IStatus.Docking.StationType = Event.StationType;
-            IStatus.Docking.Denial = IEnums.DockingDenial.NoReason;
-            IStatus.Docking.LandingPad = -1;
             #endregion
 
+            //Extended Logging
             IStatus.Docking.Log.Status();
         }
 
@@ -1987,112 +1999,6 @@ namespace ALICE_EventLogic
             {
                 IStatus.Planet.Response.OrbitalGravityWarning(true, Check.Internal.TriggerEvents(true, MethodName));
             }
-        }
-
-        public static void Docked(Docked Event)
-        {
-            string MethodName = "Post Docked";
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Facility_Report.Docked)
-                    .Phrase(GN_Facility_Report.Datalink)
-                    .Token("[STATION]", IObjects.FacilityCurrent.Name),
-                    true,
-                    Check.Report.StationStatus(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-
-            Thread.Sleep(100);
-            #endregion
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Facility_Report.Government)
-                    .Phrase(GN_Facility_Report.Economy)
-                    .Phrase(GN_Facility_Report.State, false, true, (Check.State.FacilityCurrent_State("None", false, MethodName)))
-                    .Token("[ECONOMY]", IObjects.FacilityCurrent.Economy)
-                    .Token("[GOVERNMENT]", IObjects.FacilityCurrent.Government)
-                    .Token("[ALLEGIANCE]", IObjects.FacilityCurrent.Allegiance)
-                    .Token("[STATION]", IObjects.FacilityCurrent.Name)
-                    .Token("[STATE]", IObjects.FacilityCurrent.ControlFactionState),
-                    Check.Report.StationStatus(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-
-            #region Station Services / Hanger Entry
-            Thread Action =
-            new Thread((ThreadStart)(() =>
-            {
-                #region Hanger Entry & Open Station Services
-                Thread.Sleep(1000 + ISettings.OffsetPanels);
-
-                Call.Key.Press(Call.Key.UI_Panel_Up_Press, 500);
-                Call.Key.Press(Call.Key.UI_Panel_Up_Release, 100);
-
-                if (Check.Order.AssistHangerEntry(true, MethodName))
-                {
-                    Call.Key.Press(Call.Key.UI_Panel_Down, 100);
-                    Call.Key.Press(Call.Key.UI_Panel_Select, 100);
-                    Call.Key.Press(Call.Key.UI_Panel_Up, 100);
-                }
-
-                Call.Key.Press(Call.Key.UI_Panel_Select, 100);
-                #endregion
-
-                #region Action: Refuel | Rearm | Repair
-
-                //if (Check.Order.AssistRearm(true, MethodName) || Check.Order.AssistRefuel(true, MethodName) || Check.Order.AssistRepair(true, MethodName))
-                //{
-                //    Thread.Sleep(7000 + PlugIn.Sleep_PanelSpeed);
-
-                //    Call.Key.Press(Call.Key.UI_Panel_Right, 100);
-                //    Call.Key.Press(Call.Key.UI_Panel_Right, 100);
-                //    Call.Key.Press(Call.Key.UI_Panel_Down, 100);
-                //    Call.Key.Press(Call.Key.UI_Panel_Down, 100);
-
-                //    if (Check.Order.AssistRefuel(true, MethodName))
-                //    {
-                //        Call.Key.Press(Call.Key.UI_Panel_Select, 100);
-                //        Call.Key.Press(Call.Key.UI_Panel_Down, 100);
-                //    }
-                //    else if (Check.Order.AssistRepair(true, MethodName) || Check.Order.AssistRearm(true, MethodName))
-                //    {
-                //        Call.Key.Press(Call.Key.UI_Panel_Down, 100);
-                //    }
-
-                //    if (Check.Order.AssistRepair(true, MethodName))
-                //    {
-                //        Call.Key.Press(Call.Key.UI_Panel_Select, 100);
-                //        Call.Key.Press(Call.Key.UI_Panel_Down, 100);
-                //    }
-                //    else if (Check.Order.AssistRearm(true, MethodName))
-                //    {
-                //        Call.Key.Press(Call.Key.UI_Panel_Down, 100);
-                //    }
-
-                //    if (Check.Order.AssistRearm(true, MethodName))
-                //    {
-                //        Call.Key.Press(Call.Key.UI_Panel_Select, 100);
-                //    }
-                //}
-
-                #endregion
-            }))
-            { IsBackground = true };
-            Action.Start();
-            #endregion
         }
 
         public static void FSDJump(FSDJump Event)

@@ -4,6 +4,7 @@ using ALICE_Events;
 using ALICE_Interface;
 using ALICE_Internal;
 using ALICE_Objects;
+using ALICE_Settings;
 using ALICE_Synthesizer;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,15 @@ namespace ALICE_Status
         public bool Pending = false;
         public Logging Log = new Logging();
         public Responces Response = new Responces();
+
+        public void Update(Docked Event)
+        {
+            State = IEnums.DockingState.Docked;
+            StationName = Event.StationName;
+            StationType = Event.StationType;
+            Denial = IEnums.DockingDenial.NoReason;
+            LandingPad = -1;
+        }
 
         public bool WatchRequest()
         {
@@ -135,6 +145,48 @@ namespace ALICE_Status
             }))
             { IsBackground = false };
             thread.Start();
+        }
+        
+        public void PostDockingActions()
+        {
+            string MethodName = "Post Docking";
+
+            //Validate Plugin Is Initialized
+            if (Check.Internal.TriggerEvents(true, MethodName) == false)
+            {
+                //No Logging Requrired.
+                return;
+            }
+
+            if(State != IEnums.DockingState.Granted)
+            {
+                Logger.DebugLine(MethodName, "Docking State Does Not Equal Granted", Logger.Yellow);
+                return;
+            }
+
+            //Station Services & Assisted Hanger Entry
+            Thread Action =
+            new Thread((ThreadStart)(() =>
+            {
+                #region Hanger Entry & Open Station Services
+                Thread.Sleep(1000 + ISettings.OffsetPanels);
+
+                Call.Key.Press(Call.Key.UI_Panel_Up_Press, 500);
+                Call.Key.Press(Call.Key.UI_Panel_Up_Release, 100);
+
+                //Assisted Hanger Entry
+                if (Check.Order.AssistHangerEntry(true, MethodName))
+                {
+                    Call.Key.Press(Call.Key.UI_Panel_Down, 100);
+                    Call.Key.Press(Call.Key.UI_Panel_Select, 100);
+                    Call.Key.Press(Call.Key.UI_Panel_Up, 100);
+                }
+
+                Call.Key.Press(Call.Key.UI_Panel_Select, 100);
+                #endregion
+            }))
+            { IsBackground = true };
+            Action.Start();
         }
 
         public class Responces
@@ -276,6 +328,35 @@ namespace ALICE_Status
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Unknown.", Logger.Yellow); }
 
                 Speech.Speak("It Is Unclear Why We Were Denied Docking Access Commander.",
+                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            }
+
+            public void Datalink(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
+            {
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Successfully Docked.", Logger.Yellow); }
+
+                Speech.Speak(""
+                    .Phrase(GN_Facility_Report.Docked)
+                    .Phrase(GN_Facility_Report.Datalink)
+                    .Token("[STATION]", IObjects.FacilityCurrent.Name),
+                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            }
+
+            public void StationStatus(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
+            {
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Station Status Report Muted.", Logger.Yellow); }
+
+                Speech.Speak(""
+                    .Phrase(GN_Facility_Report.Government)
+                    .Phrase(GN_Facility_Report.Economy)
+                    .Phrase(GN_Facility_Report.State, false, true, (Check.State.FacilityCurrent_State("None", false, MethodName)))
+                    .Token("[ECONOMY]", IObjects.FacilityCurrent.Economy)
+                    .Token("[GOVERNMENT]", IObjects.FacilityCurrent.Government)
+                    .Token("[ALLEGIANCE]", IObjects.FacilityCurrent.Allegiance)
+                    .Token("[STATION]", IObjects.FacilityCurrent.Name)
+                    .Token("[STATE]", IObjects.FacilityCurrent.ControlFactionState),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
         }
