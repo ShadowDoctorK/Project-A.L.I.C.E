@@ -144,14 +144,6 @@ namespace ALICE_Events
                 IStatus.Docking.PostDockingActions();
                 IStatus.Docking.Update(Event);
 
-                //Plugin Alignments
-                IObjects.Status.Docked = true;
-                IVehicles.Vehicle = IVehicles.V.Mothership;
-                IObjects.Status.Hardpoints = false;
-                IObjects.Status.Touchdown = false;
-                IObjects.Status.LandingGear = true;
-                IObjects.Status.FighterDeployed = false;
-
                 //Extended Logging
                 IStatus.Docking.Log.Status();
             }
@@ -159,6 +151,17 @@ namespace ALICE_Events
             {
                 ExceptionProcess(ex);
             }
+        }
+
+        //Plugin Property Aligment
+        public override void Alignment()
+        {
+            IObjects.Status.Docked = true;
+            IVehicles.Vehicle = IVehicles.V.Mothership;
+            IObjects.Status.Hardpoints = false;
+            IObjects.Status.Touchdown = false;
+            IObjects.Status.LandingGear = true;
+            IObjects.Status.FighterDeployed = false;
         }
     }
 }

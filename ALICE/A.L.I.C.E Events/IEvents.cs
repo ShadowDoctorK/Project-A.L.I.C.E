@@ -612,6 +612,15 @@ namespace ALICE_Events
         }
 
         /// <summary>
+        /// Method Used To Align Plugin States To Known True Values Based On Event Execution.
+        /// </summary>
+        public virtual void Alignment()
+        {
+            //No Code In Virtual Method, Override Method Will Contain The Logic
+            //This Is Here For The Structured Calls
+        }
+
+        /// <summary>
         /// Method Use To Update Game State Logic Per Event
         /// </summary>
         public void Logic()
@@ -621,6 +630,9 @@ namespace ALICE_Events
 
             //Process Event Logic
             Process(Event);
+
+            //Plugin Alignment
+            Alignment();
 
             //Process Variables
             if (WriteVariables)
@@ -644,6 +656,9 @@ namespace ALICE_Events
 
             //Process Event Logic
             Process(Event);
+
+            //Plugin Alignment
+            Alignment();
 
             //Process Variables
             if (WriteVariables)

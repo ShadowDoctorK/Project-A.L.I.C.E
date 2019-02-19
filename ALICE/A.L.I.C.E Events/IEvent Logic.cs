@@ -934,27 +934,8 @@ namespace ALICE_EventLogic
 
             IObjects.Status.FighterStatus = "Docked";
 
-            #region Audio: Fighter Docked
-            if (PlugIn.MasterAudio == true && Check.Internal.TriggerEvents(true, MethodName) == true)
-            {
-                if (PlugIn.Audio == "TTS")
-                {
-                    string Line = "".Phrase(EQ_Fighter.Docked).Phrase(EQ_Fighter.Docked_Modifier, true);
-
-                    Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
-                    thread.IsBackground = true;
-                    thread.Start();
-                }
-                else if (PlugIn.Audio == "File")
-                {
-
-                }
-                else if (PlugIn.Audio == "External")
-                {
-
-                }
-            }
-            #endregion
+            IStatus.Fighter.Response.Docked(
+                Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
 
             #region Logic Table
             IObjects.Status.FighterDeployed = false;
