@@ -599,10 +599,10 @@ namespace ALICE_Internal
                 string DebugText = "Environment Check Passed (" + Not + TargetEnvironment + ")";
                 string Color = Logger.Blue;
 
-                if (IObjects.Status.Hyperspace == true)
+                if (IStatus.Hyperspace == true)
                 { Environment = IEnums.Hyperspace; }
 
-                else if (IObjects.Status.Supercruise == true)
+                else if (IStatus.Supercruise == true)
                 { Environment = IEnums.Supercruise; }
 
                 if (DesiredEnvironment == true && Environment != TargetEnvironment)
@@ -650,7 +650,7 @@ namespace ALICE_Internal
 
             public bool Altitude(decimal LowAltitude, decimal HighAltitude, bool InsideBand, string MethodName, bool DisableDebug = false, bool Answer = true)
             {
-                decimal Altitude = IObjects.Status.Altitude;
+                decimal Altitude = IStatus.Altitude;
                 string DebugText = "Altitude Check Passed (Low: " + LowAltitude + " | High: " + HighAltitude + ")";
                 string Color = Logger.Blue;
 
@@ -809,7 +809,7 @@ namespace ALICE_Internal
         {
             public bool AnalysisMode(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Status.AnalysisMode;
+                bool State = IStatus.AnalysisMode;
                 string Variable = "Analysis Mode";
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
@@ -817,7 +817,7 @@ namespace ALICE_Internal
             #region Cargo Scoop
             public bool CargoScoop(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Status.CargoScoop;
+                bool State = IStatus.CargoScoop;
                 string Variable = "Cargo Scoop";
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
@@ -825,7 +825,7 @@ namespace ALICE_Internal
             public bool CargoScoop(string MethodName, bool DisableDebug = false)
             {
                 string Variable = "Cargo Scoop";
-                bool Value = IObjects.Status.CargoScoop;
+                bool Value = IStatus.CargoScoop;
                 if (DisableDebug == false) { Logger.DebugLine(MethodName, Variable + " Check Returned (" + Value + ")", Logger.Blue); }
 
                 return Value;
@@ -834,21 +834,37 @@ namespace ALICE_Internal
 
             public bool NPC_Crew(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Status.NPC_Crew;
+                bool State = IStatus.NPC_Crew;
                 string Variable = "NPC Crew";
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
 
             public bool FighterDeployed(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Status.FighterDeployed;
+                bool State = IStatus.FighterDeployed;
                 string Variable = "Fighter Deployed";
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
 
+            public bool FlightAssist(bool TargetState, string MethodName, bool DisableDebug = false)
+            {
+                bool State = IStatus.FlightAssist;
+                string Variable = "Flight Assist";
+                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
+            }
+
+            public bool FlightAssist(string MethodName, bool DisableDebug = false)
+            {
+                string Variable = "Flight Assist";
+                bool Value = IStatus.FlightAssist;
+                if (DisableDebug == false) { Logger.DebugLine(MethodName, Variable + " Check Returned (" + Value + ")", Logger.Blue); }
+
+                return Value;
+            }
+
             public bool FuelScooping(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Status.FuelScooping;
+                bool State = IStatus.FuelScooping;
                 string Variable = "Fuel Scooping";
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
@@ -856,7 +872,7 @@ namespace ALICE_Internal
             #region Hardpoints
             public bool Hardpoints(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Status.Hardpoints;
+                bool State = IStatus.Hardpoints;
                 string Variable = "Hardpoints";
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
@@ -864,7 +880,7 @@ namespace ALICE_Internal
             public bool Hardpoints(string MethodName, bool DisableDebug = false)
             {
                 string Variable = "Hardpoints";
-                bool Value = IObjects.Status.Hardpoints;
+                bool Value = IStatus.Hardpoints;
                 if (DisableDebug == false) { Logger.DebugLine(MethodName, Variable + " Check Returned (" + Value + ")", Logger.Blue); }
 
                 return Value;
@@ -874,7 +890,7 @@ namespace ALICE_Internal
             #region Landing Gear
             public bool LandingGear(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Status.LandingGear;
+                bool State = IStatus.LandingGear;
                 string Variable = "Landing Gear";
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
@@ -882,7 +898,7 @@ namespace ALICE_Internal
             public bool LandingGear(string MethodName, bool DisableDebug = false)
             {
                 string Variable = "Landing Gear";
-                bool Value = IObjects.Status.LandingGear;
+                bool Value = IStatus.LandingGear;
                 if (DisableDebug == false) { Logger.DebugLine(MethodName, Variable + " Check Returned (" + Value + ")", Logger.Blue); }
                 return Value;
             }
@@ -890,7 +906,7 @@ namespace ALICE_Internal
 
             public bool MassLocked(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Status.Masslocked;
+                bool State = IStatus.Masslocked;
                 string Variable = "Mass Locked";
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
@@ -898,7 +914,7 @@ namespace ALICE_Internal
             #region Over Heating
             public bool Overheating(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Status.Overheating;
+                bool State = IStatus.Overheating;
                 string Variable = "Over Heating";
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
@@ -906,7 +922,7 @@ namespace ALICE_Internal
             public bool Overheating(string MethodName, bool DisableDebug = false)
             {
                 string Variable = "Over Heating";
-                bool Value = IObjects.Status.Overheating;
+                bool Value = IStatus.Overheating;
                 if (DisableDebug == false) { Logger.DebugLine(MethodName, Variable + " Check Returned (" + Value + ")", Logger.Blue); }
 
                 return Value;
@@ -915,7 +931,7 @@ namespace ALICE_Internal
 
             public bool Shields(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Status.Shields;
+                bool State = IStatus.Shields;
                 string Variable = "Shields";
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
@@ -923,7 +939,7 @@ namespace ALICE_Internal
             #region Silent Running
             public bool SilentRunning(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Status.SilentRunning;
+                bool State = IStatus.SilentRunning;
                 string Variable = "Silent Running";
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
@@ -931,7 +947,7 @@ namespace ALICE_Internal
             public bool SilentRunning(string MethodName, bool DisableDebug = false)
             {
                 string Variable = "Silent Running";
-                bool Value = IObjects.Status.SilentRunning;
+                bool Value = IStatus.SilentRunning;
                 if (DisableDebug == false) { Logger.DebugLine(MethodName, Variable + " Check Returned (" + Value + ")", Logger.Blue); }
 
                 return Value;
@@ -940,7 +956,7 @@ namespace ALICE_Internal
 
             public bool Touchdown(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IObjects.Status.Touchdown;
+                bool State = IStatus.Touchdown;
                 string Variable = "Touchdown";
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }

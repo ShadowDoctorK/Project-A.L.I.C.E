@@ -81,14 +81,14 @@ namespace ALICE_Status
             }           
 
             //Check Altitude Is Being Updated
-            if (IObjects.Status.Altitude == 0)
+            if (IStatus.Altitude == 0)
             {
                 Logger.DebugLine(MethodName, "Altitude Is Not Being Updated", Logger.Yellow);
                 return;
             }
 
             //Check HasLatLong
-            if (IObjects.Status.HasLatLong == false)
+            if (IStatus.HasLatLong == false)
             {
                 Logger.DebugLine(MethodName, "We Do Not Have Lat / Long.", Logger.Yellow);
                 return;
@@ -119,7 +119,7 @@ namespace ALICE_Status
                 }
 
                 //If Altitude is less than 10km then the Glide Should have been sucessful.
-                if (IObjects.Status.Altitude < 10000)
+                if (IStatus.Altitude < 10000)
                 {
                     IStatus.Planet.Response.GlideComplete(true);
                 }
@@ -153,14 +153,14 @@ namespace ALICE_Status
             }
 
             //Check Altitude Is Being Updated
-            if (IObjects.Status.Altitude == 0)
+            if (IStatus.Altitude == 0)
             {
                 Logger.DebugLine(MethodName, "Altitude Is Not Being Updated", Logger.Yellow);
                 return;
             }
 
             //Check HasLatLong
-            if (IObjects.Status.HasLatLong == false)
+            if (IStatus.HasLatLong == false)
             {
                 Logger.DebugLine(MethodName, "We Do Not Have Lat / Long.", Logger.Yellow);
                 return;
@@ -187,7 +187,7 @@ namespace ALICE_Status
                 Logger.Log(MethodName, "Monitoring Altitude for 90 Seconds...", Logger.Yellow, true);
 
                 //Monitor Altitude For 90 Seconds.
-                int i = 900; while (i > 0 && IObjects.Status.Altitude > 500)
+                int i = 900; while (i > 0 && IStatus.Altitude > 500)
                 {
                     Thread.Sleep(100); i--; if (i <= 0)
                     {
@@ -197,7 +197,7 @@ namespace ALICE_Status
                 }
 
                 //Alitude Less Than 500 Meters Deploy Gear
-                if (IObjects.Status.Altitude <= 500)
+                if (IStatus.Altitude <= 500)
                 {
                     Call.Action.LandingPreparations(true);
                 }

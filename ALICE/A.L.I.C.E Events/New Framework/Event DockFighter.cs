@@ -55,12 +55,12 @@ namespace ALICE_Events
         //Plugin Property Aligment
         public override void Alignment()
         {
-            IObjects.Status.FighterDeployed = false;
-            IObjects.Status.Supercruise = false;
-            IObjects.Status.Hyperspace = false;
-            IObjects.Status.LandingGear = false;
-            IObjects.Status.Touchdown = false;
-            IObjects.Status.Docked = false;
+            IStatus.FighterDeployed = false;
+            IStatus.Supercruise = false;
+            IStatus.Hyperspace = false;
+            IStatus.LandingGear = false;
+            IStatus.Touchdown = false;
+            IStatus.Docked = false;
             IStatus.Docking.State = IEnums.DockingState.Undocked;
         }
     }

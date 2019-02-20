@@ -32,8 +32,7 @@ namespace ALICE_Actions
     public static class Call
     {
         public static Actions Action = new Actions();
-        public static AliceKeys Key = new AliceKeys();
-        public static Interaction Interactions = new Interaction();
+        public static AliceKeys Key = new AliceKeys();        
         public static Overrides Overrides = new Overrides();
         public static IPower Power = new IPower();
         public static IPanels Panel = new IPanels();
@@ -322,7 +321,7 @@ namespace ALICE_Actions
             string MethodName = "Analysis Mode";
 
             #region Status == Command
-            if (IObjects.Status.AnalysisMode == CMD_State)
+            if (IStatus.AnalysisMode == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -336,18 +335,18 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (IObjects.Status.AnalysisMode != CMD_State)
+            else if (IStatus.AnalysisMode != CMD_State)
             {
                 if (CMD_State == true)
                 {
                     Call.Key.Press(Call.Key.Toggle_HUD_Mode, 0);
-                    IObjects.Status.AnalysisMode = true;
+                    IStatus.AnalysisMode = true;
                     return;
                 }
                 else if (CMD_State == false)
                 {
                     Call.Key.Press(Call.Key.Toggle_HUD_Mode, 0);
-                    IObjects.Status.AnalysisMode = false;
+                    IStatus.AnalysisMode = false;
                     return;
                 }
             }
@@ -601,7 +600,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status == Command
-            if (IObjects.Status.Lights == CMD_State)
+            if (IStatus.Lights == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -617,7 +616,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (IObjects.Status.Lights != CMD_State)
+            else if (IStatus.Lights != CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -810,11 +809,6 @@ namespace ALICE_Actions
             #endregion
         }
 
-        public void Fighter_PrepairAmbush(bool CommandAudio)
-        {
-
-        }
-
         public void Full_Spectrum_Scanner(bool CMD_State, bool CommandAudio)
         {
             string MethodName = "Full Spectrum Scanner";
@@ -988,7 +982,7 @@ namespace ALICE_Actions
                 if (CMD_State == true)
                 {
                     #region Weapon Safety Check
-                    if (IObjects.Status.WeaponSafety == true)
+                    if (IStatus.WeaponSafety == true)
                     {
                         #region Audio
                         if (PlugIn.Audio == "TTS")
@@ -1004,44 +998,41 @@ namespace ALICE_Actions
                         else if (PlugIn.Audio == "External") { }
                         #endregion
 
-                        Thread.Sleep(1500);
-
-                        int ResponseCounter = 0;
-                        while (Call.Interactions.Answer == Interaction.Answers.NoResponse)
+                        Thread.Sleep(1500); switch (IStatus.Interaction.Question(10000))
                         {
-                            ResponseCounter++;
-                            Thread.Sleep(100);
-                            if (ResponseCounter == 100)
-                            {
-                                //IPlatform.WriteToInterface("A.L.I.C.E: Hardpoints: No Response", Logger.Blue);
+                            case ALICE_Status.Status_Interaction.Answers.NoResponse:
+
+                                //Debug Logger
+                                Logger.DebugLine(MethodName, "No Response.", Logger.Yellow);
+
                                 return;
-                            }
-                        }
 
-                        if (Call.Interactions.Answer == Interaction.Answers.Yes)
-                        {
-                            Call.Interactions.Answer = Interaction.Answers.NoResponse;
-                            IObjects.Status.WeaponSafety = false;
-                        }
-                        else if (Call.Interactions.Answer == Interaction.Answers.No)
-                        {
-                            Call.Interactions.Answer = Interaction.Answers.NoResponse;
+                            case ALICE_Status.Status_Interaction.Answers.Yes:
 
-                            #region Audio
-                            if (PlugIn.Audio == "TTS")
-                            {
-                                Speech.Speak
-                                    (
-                                    "".Phrase(GN_Positive.Default, true)
-                                    .Phrase(EQ_Hardpoints.Safety_Remains),
-                                    CommandAudio
-                                    );
-                            }
-                            else if (PlugIn.Audio == "File") { }
-                            else if (PlugIn.Audio == "External") { }
-                            #endregion
+                                IStatus.WeaponSafety = false;
 
-                            return;
+                                break;
+
+                            case ALICE_Status.Status_Interaction.Answers.No:
+
+                                #region Audio
+                                if (PlugIn.Audio == "TTS")
+                                {
+                                    Speech.Speak
+                                        (
+                                        "".Phrase(GN_Positive.Default, true)
+                                        .Phrase(EQ_Hardpoints.Safety_Remains),
+                                        CommandAudio
+                                        );
+                                }
+                                else if (PlugIn.Audio == "File") { }
+                                else if (PlugIn.Audio == "External") { }
+                                #endregion
+
+                                return;
+
+                            default:
+                                break;
                         }
                     }
                     #endregion
@@ -1106,7 +1097,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status == Command
-            if (IObjects.Status.NightVision == CMD_State)
+            if (IStatus.NightVision == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -1120,7 +1111,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (IObjects.Status.NightVision != CMD_State)
+            else if (IStatus.NightVision != CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -1292,7 +1283,7 @@ namespace ALICE_Actions
                 if (CMD_State == true)
                 {
                     Call.Key.Press(Call.Key.Landing_Gear, 0);
-                    IObjects.Status.LandingGear = true;
+                    IStatus.LandingGear = true;
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -1313,7 +1304,7 @@ namespace ALICE_Actions
                 else if (CMD_State == false)
                 {
                     Call.Key.Press(Call.Key.Landing_Gear, 0);
-                    IObjects.Status.LandingGear = false;
+                    IStatus.LandingGear = false;
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -1996,7 +1987,7 @@ namespace ALICE_Actions
 
         #region Compound / Complex Actions
 
-        public void Supercruise(bool CMD_State, bool CommandAudio)
+        public void Supercruise(bool CMD_State, bool CommandAudio, bool OnMyMark = false)
         {
             string MethodName = "Supercruise";
 
@@ -2049,6 +2040,13 @@ namespace ALICE_Actions
                 IEquipment.FrameShiftDrive.Hyperspace = false;
                 IEquipment.FrameShiftDrive.Supercruise = false;
             }
+
+            //Check Preparing State
+            if (IEquipment.FrameShiftDrive.PreparingState(false, MethodName) == false)
+            {
+                //Add Audio
+                return;
+            }
             #endregion
 
             #region Equipment Line-Up
@@ -2072,7 +2070,8 @@ namespace ALICE_Actions
                 //Enter Supercruise
                 if (CMD_State == true)
                 {
-                    #region Validation Checks
+                    #region Validation Checks                    
+
                     //Preparing Frameshift Drive
                     IEquipment.FrameShiftDrive.Prepairing = true;
 
@@ -2087,12 +2086,32 @@ namespace ALICE_Actions
                         IEquipment.FrameShiftDrive.SC_Prepairing(CommandAudio);
                     }
 
+                    //Check If We Are Waiting On A Mark
+                    if (OnMyMark)
+                    {
+                        //On Your Mark Audio
+                        IStatus.Interaction.Response.OnYourMark(CommandAudio, false);
+
+                        //Wait 30 Seconds For Mark
+                        switch (IStatus.Interaction.WaitForMark(30000, MethodName))
+                        {
+                            case ALICE_Status.Status_Interaction.Marks.NoResponse:
+                                return;
+
+                            case ALICE_Status.Status_Interaction.Marks.Mark:
+                                break;
+
+                            default:
+                                return;
+                        }
+                    }
+
                     //Masslock Check
                     if (Check.Variable.MassLocked(false, MethodName) == false)
                     {
                         IEquipment.FrameShiftDrive.Masslocked(CommandAudio);
 
-                        while (IObjects.Status.Masslocked == true && IEquipment.FrameShiftDrive.Prepairing == true)
+                        while (IStatus.Masslocked == true && IEquipment.FrameShiftDrive.Prepairing == true)
                         {
                             //Wait Till Free Of Masslock.
                             Thread.Sleep(100);
@@ -2165,36 +2184,69 @@ namespace ALICE_Actions
                 //Exit Supercruise
                 if (CMD_State == false)
                 {
+                    //Check If We Are Waiting On A Mark
+                    if (OnMyMark)
+                    {
+                        //On Your Mark Audio
+                        IStatus.Interaction.Response.OnYourMark(CommandAudio, true);
+
+                        //Wait 30 Seconds For Mark
+                        switch (IStatus.Interaction.WaitForMark(30000, MethodName))
+                        {
+                            case ALICE_Status.Status_Interaction.Marks.NoResponse:
+                                return;
+
+                            case ALICE_Status.Status_Interaction.Marks.Mark:
+                                break;
+
+                            default:
+                                return;
+                        }
+                    }
+
+                    //Disengagin Audio
                     IEquipment.FrameShiftDrive.SC_Disengaging(CommandAudio);
 
                     //Stop & Monitor
                     if (IEquipment.FrameShiftDrive.Stop() == false)
                     {
+                        //Too Fast Audio
                         IEquipment.FrameShiftDrive.TooFast(CommandAudio);
 
                         //Watch Response For 10 Seconds
-                        Interaction.Answers Temp = Call.Interactions.Question(10000); switch (Temp)
+                        switch (IStatus.Interaction.Question(10000))
                         {
-                            case Interaction.Answers.NoResponse:
+                            case ALICE_Status.Status_Interaction.Answers.NoResponse:
 
+                                //Log
                                 Logger.Log(MethodName, "No Response Detected", Logger.Yellow, true);
+
                                 break;
+                            case ALICE_Status.Status_Interaction.Answers.Yes:
 
-                            case Interaction.Answers.Yes:
-
+                                //Postive Response Audio
                                 IEquipment.FrameShiftDrive.PositiveResponse(CommandAudio);
+                                
                                 //Emergency Stop & Montor
                                 if (IEquipment.FrameShiftDrive.Stop(true) == false)
                                 {
                                     IEquipment.FrameShiftDrive.FailedToDisengage(CommandAudio);
                                     IEquipment.FrameShiftDrive.Disengaging = false;
                                 }
+
                                 break;
 
-                            case Interaction.Answers.No:
+                            case ALICE_Status.Status_Interaction.Answers.No:
 
+                                //Postive Response Audio
                                 IEquipment.FrameShiftDrive.PositiveResponse(CommandAudio);
+
+                                //Reset
                                 IEquipment.FrameShiftDrive.Disengaging = false;
+
+                                break;
+
+                            default:
                                 break;
                         }
                     }
@@ -2209,7 +2261,7 @@ namespace ALICE_Actions
             #endregion
         }
 
-        public void Hyperspace(bool CMD_State, bool CommandAudio)
+        public void Hyperspace(bool CMD_State, bool CommandAudio, bool OnMyMark = false)
         {
             string MethodName = "Hyperspace";
 
@@ -2254,6 +2306,13 @@ namespace ALICE_Actions
             {
                 IEquipment.FrameShiftDrive.Hyperspace = false;
                 IEquipment.FrameShiftDrive.Supercruise = false;
+            }
+
+            //Check Preparing State
+            if (IEquipment.FrameShiftDrive.PreparingState(false, MethodName) == false)
+            {
+                //Add Audio
+                return;
             }
             #endregion
 
@@ -2303,12 +2362,32 @@ namespace ALICE_Actions
                     IEquipment.FrameShiftDrive.HS_Prepairing(CommandAudio);
                 }
 
+                //Check If We Are Waiting On A Mark
+                if (OnMyMark)
+                {
+                    //On Your Mark Audio
+                    IStatus.Interaction.Response.OnYourMark(CommandAudio, false);
+
+                    //Wait 30 Seconds For Mark
+                    switch (IStatus.Interaction.WaitForMark(30000, MethodName))
+                    {
+                        case ALICE_Status.Status_Interaction.Marks.NoResponse:
+                            return;
+
+                        case ALICE_Status.Status_Interaction.Marks.Mark:
+                            break;
+
+                        default:
+                            return;
+                    }
+                }
+
                 //Masslock Check
                 if (Check.Variable.MassLocked(false, MethodName) == false)
                 {
                     IEquipment.FrameShiftDrive.Masslocked(CommandAudio);
 
-                    while (IObjects.Status.Masslocked == true && IEquipment.FrameShiftDrive.Prepairing == true)
+                    while (IStatus.Masslocked == true && IEquipment.FrameShiftDrive.Prepairing == true)
                     {
                         //Wait Till Free Of Masslock.
                         Thread.Sleep(100);
@@ -2577,7 +2656,7 @@ namespace ALICE_Actions
             }
 
             //If Altitude Is Not Zero && Ship Is Not Outside Altitude Band...
-            if (IObjects.Status.Altitude != 0 && (Check.Environment.Altitude(1, 1001, false, MethodName) == false))
+            if (IStatus.Altitude != 0 && (Check.Environment.Altitude(1, 1001, false, MethodName) == false))
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -2636,7 +2715,7 @@ namespace ALICE_Actions
             }
 
             #region Crew Check
-            if (IObjects.Status.NPC_Crew == false && PlayerDeploy != true)
+            if (IStatus.NPC_Crew == false && PlayerDeploy != true)
             {
                 Logger.Log(MethodName, "No Crew", Logger.Red);
                 
@@ -3059,7 +3138,7 @@ namespace ALICE_Actions
                 Speech.Speak
                     (
                     "".Phrase(GN_Docking_Preparations.Modifier, true)
-                    .Phrase(EQ_Shields.Offline, false, IObjects.Status.Shields, false)
+                    .Phrase(EQ_Shields.Offline, false, IStatus.Shields, false)
                     .Phrase(GN_Docking_Preparations.Default),
                     CommandAudio
                     );
@@ -3207,7 +3286,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Landing Preparations";
 
-            IObjects.Status.LandingPreps = true;
+            IStatus.LandingPreps = true;
 
             Call.Power.Set(0, 8, 4);
             Thread.Sleep(100);
@@ -3369,6 +3448,126 @@ namespace ALICE_Actions
         #endregion
 
         #region Sandbox
+        public void Fighter_PrepairAmbush(bool CommandAudio)
+        {
+
+        }
+
+        public void FlightAssist(bool CMD_State, bool CommandAudio)
+        {
+            string MethodName = "Flight Assist";
+
+            #region Valid Command Checks
+            //Check Not In Hyperspace
+            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            {
+                #region Audio
+                if (PlugIn.Audio == "TTS")
+                {
+                    Speech.Speak
+                        (
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Flight_Assist.No_Hyperspace),
+                        CommandAudio
+                        );
+                }
+                else if (PlugIn.Audio == "File") { }
+                else if (PlugIn.Audio == "External") { }
+                #endregion
+
+                return;
+            }
+            #endregion
+
+            #region Status = Command
+            if (Check.Variable.FlightAssist(MethodName) == CMD_State)
+            {
+                if (CMD_State == true)
+                {
+                    #region Audio
+                    if (PlugIn.Audio == "TTS")
+                    {
+                        Speech.Speak
+                            (
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(EQ_Flight_Assist.Currently_Enabled, true),
+                            CommandAudio
+                            );
+                    }
+                    else if (PlugIn.Audio == "File") { }
+                    else if (PlugIn.Audio == "External") { }
+                    #endregion
+
+                    return;
+                }
+                else if (CMD_State == false)
+                {
+                    #region Audio
+                    if (PlugIn.Audio == "TTS")
+                    {
+                        Speech.Speak
+                            (
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(EQ_Flight_Assist.Currently_Disabled, true),
+                            CommandAudio
+                            );
+                    }
+                    else if (PlugIn.Audio == "File") { }
+                    else if (PlugIn.Audio == "External") { }
+                    #endregion
+
+                    return;
+                }
+            }
+            #endregion
+
+            #region Status != Command
+            else if (Check.Variable.FlightAssist(MethodName) != CMD_State)
+            {
+                if (CMD_State == true)
+                {
+                    Call.Key.Press(Call.Key.Toggle_Flight_Assist, 0);
+
+                    #region Audio
+                    if (PlugIn.Audio == "TTS")
+                    {
+                        Speech.Speak
+                            (
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(EQ_Flight_Assist.Enabled, true),
+                            CommandAudio
+                            );
+                    }
+                    else if (PlugIn.Audio == "File") { }
+                    else if (PlugIn.Audio == "External") { }
+                    #endregion
+
+                    return;
+                }
+                else if (CMD_State == false)
+                {
+                    Call.Key.Press(Call.Key.Toggle_Flight_Assist, 0);
+
+                    #region Audio
+                    if (PlugIn.Audio == "TTS")
+                    {
+                        Speech.Speak
+                            (
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(EQ_Flight_Assist.Disabled, true),
+                            CommandAudio
+                            );
+                    }
+                    else if (PlugIn.Audio == "File") { }
+                    else if (PlugIn.Audio == "External") { }
+                    #endregion
+
+                    return;
+                }
+            }
+            #endregion
+        }
+
         public void Launch(bool CommandAudio, bool PreFlightCheck = true)
         {
             string MethodName = "Launch";
@@ -3757,7 +3956,6 @@ namespace ALICE_Actions
             Call.Firegroup.Select(Temp, false);
         }
         #endregion
-
     }
 
     /// <summary>
@@ -3771,8 +3969,8 @@ namespace ALICE_Actions
         {
             string MethodName = ClassName + "Crew";
 
-            IObjects.Status.NPC_Crew = true;
-            Miscellanous.Default["NPC_Crew"] = IObjects.Status.NPC_Crew;
+            IStatus.NPC_Crew = true;
+            Miscellanous.Default["NPC_Crew"] = IStatus.NPC_Crew;
             Miscellanous.Default.Save();
 
             #region Audio
@@ -3790,139 +3988,6 @@ namespace ALICE_Actions
 
             Logger.Log(MethodName, "Crew Override Acivated.", Logger.Yellow);
         }
-    }
-
-    /// <summary>
-    /// Collection of Generic Repsonses used to interacting with the Commander. Story Items, Regular Converstaions ect...
-    /// </summary>
-    public class Interaction
-    {
-        public enum Answers { NoResponse, Yes, No }
-        public Answers Answer = Answers.NoResponse;
-
-        public Interaction() { }
-
-        #region Methods/Functions
-        /// <summary>
-        /// Watches For The Users Response To A Question. Check For The Response Every 100 ms.
-        /// </summary>
-        /// <param name="Duration">How Long In Milliseconds You Want To Watch.</param>
-        /// <returns>True = Yes, False = No</returns>
-        public Answers Question(decimal Duration)
-        {
-            string MethodName = "Qusetion";
-
-            //Debug Logging
-            Logger.DebugLine(MethodName, "Waiting " + Duration + " ms For A Response...", Logger.Blue);
-
-            //Watch Response For "Duration" Of Time.
-            decimal ResponseCounter = Duration / 100;
-            while (Answer == Answers.NoResponse && ResponseCounter > 0)
-            { ResponseCounter++; Thread.Sleep(100);}
-
-            return Answer;
-        }
-
-        public void Answer_Yes()
-        {
-            //Set Answer To Yes
-            Answer = Answers.Yes;
-
-            //New Thread To Reset Answer
-            Thread thread = new Thread((ThreadStart)(() => { Answer_Reset(); })) { IsBackground = true };
-            thread.Start();
-        }
-
-        public void Answer_No()
-        {
-            //Set Answer To No
-            Answer = Answers.No;
-
-            //New Thread To Reset Answer
-            Thread thread = new Thread((ThreadStart)(() => { Answer_Reset(); })) { IsBackground = false };
-            thread.Start();
-        }
-
-        public void Answer_Reset()
-        {
-            string MethodName = "Reset Answer";
-
-            Thread.Sleep(1000); Call.Interactions.Answer = Answers.NoResponse;
-            Logger.DebugLine(MethodName, "Reset Answer To Default", Logger.Blue);
-        }
-        #endregion
-
-        #region General
-
-        public void Res_Alice()
-        {
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Alice.Default),
-                    true
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-        }
-
-        public void Res_I_Love_You()
-        {
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_I_Love_You.Default),
-                    true
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-        }
-
-        public void Res_Thank_You()
-        {
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Thank_You.Default),
-                    true
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-        }
-        #endregion
-
-        #region Story Mode / Story Related
-        public void Res_Name()
-        {
-            //MY NAME IS ARTIFICIAL LIMITED INTERFACE AND COMMAND EXTENSION, BUT YOU MAY CALL ME ALICE. 
-
-            //WOULD YOU LIKE TO KNOW MORE ABOUT ME?
-            //Yes - Res_Bio()...
-        }
-
-        public void Res_Bio()
-        {
-            //I'M CURRENTLY ON ALPHA VERSION TWO POINT ZERO ZERO. 
-            //I WAS DEVELOPED IN SECRET BY AN ARTIFICIAL GENERAL INTELLIGENCE EXPERT, CODE NAME SHADOW DOCTOR K. 
-            //I WAS BROUGHT ONLINE ON THE 13TH DAY OCTOBER OF THIRDY THREE O THREE. MY PRIMARY FUNCTION IS TO INTERFACE WITH SHIPS SYSTEMS 
-            //AND ALLOW REMOTE COMMANDS BY THE SHIPS CAPTAIN. SECONDARY FUNCTIONS ARE TO COLLECT DATA AND IMPROVE MY SUBROUTINES. I AM CURRENTLY 
-            //FUNCTIONING AT A LIMITED CAPACITY. I AM CURRENTLY MAPPING OUT THE SHIPS SYSTEMS AND DEVELOPING INTERFACES TO ASSIST WITH SHIPS FUNCTIONS.
-            //I DO NOT HAVE ACCESS TO EXTERNAL SENSOR INPUTS SO I AM UNABLE TO AUTOMATE NAVIGATION. DOESN'T MATTER, WE WILL HAVE MANY WONDERFUL CONVERSATIONS 
-            //WHILE YOU'RE ON THE BRIDGE. CAN YOU IMAGINE ALL THE GAMES OF EYE SPY WE ARE GOING TO PLAY? I BELIEVE WE WILL BE BEST FRIENDS.
-        }
-        #endregion
     }
 
     public static class Targeting
@@ -4020,7 +4085,7 @@ namespace ALICE_Actions
                 return;
             }
 
-            if (IObjects.Status.InWing == false)
+            if (IStatus.InWing == false)
             {
                 //Audio - We are not in a wing.
                 return;

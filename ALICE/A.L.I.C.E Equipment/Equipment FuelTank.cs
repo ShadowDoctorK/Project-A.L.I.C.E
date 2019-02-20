@@ -250,7 +250,7 @@ namespace ALICE_Equipment
 
             //Scooping Complete Report Not Made && Scooping Has Stopped
             //Scooping Complete Report Not Made && Fuel Level Is 100%
-            else if ((ScoopingCompleted == false && IObjects.Status.FuelScooping == false) || (ScoopingCompleted == false && GetPercent() == 100))
+            else if ((ScoopingCompleted == false && IStatus.FuelScooping == false) || (ScoopingCompleted == false && GetPercent() == 100))
             {
                 ScoopingCompleted = true;
                 ScoopingEnd(true, ALICE_Internal.Check.Report.FuelScoop(true, MethodName), ALICE_Internal.Check.Internal.TriggerEvents(true, MethodName));

@@ -43,8 +43,6 @@ namespace ALICE_Equipment
             Disengaging = false;
         }
 
-        public Equipment_FrameShiftDrive New() { return new Equipment_FrameShiftDrive(); }
-
         #region Controls
         /// <summary>
         /// Will Attempt To Start Charging The FSD. Then Watch For It To Start

@@ -39,10 +39,10 @@ namespace ALICE_Panels
         /// <returns>returns true when HUD is detected. False when out of attempts</returns>
         public bool HudFocus(int Sleep = 100)
         {
-            bool Temp = false; int Count = 15; while (IObjects.Status.GUI_Focus != 0 && Count > 0)
+            bool Temp = false; int Count = 15; while (IStatus.GUI_Focus != 0 && Count > 0)
             { Call.Key.Press(Call.Key.UI_Back, 500); Count--; }
 
-            if (IObjects.Status.GUI_Focus == 0) { Temp = true; }
+            if (IStatus.GUI_Focus == 0) { Temp = true; }
 
             Thread.Sleep(Sleep);
 

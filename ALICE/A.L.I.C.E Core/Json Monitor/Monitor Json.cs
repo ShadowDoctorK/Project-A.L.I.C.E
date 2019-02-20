@@ -293,11 +293,11 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 268435456)
                 {
                     Value.Flags = Value.Flags - 268435456;
-                    IObjects.Status.NightVision = true;
+                    IStatus.NightVision = true;
                 }
                 else
                 {
-                    IObjects.Status.NightVision = false;
+                    IStatus.NightVision = false;
                 }
                 #endregion
 
@@ -305,11 +305,11 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 134217728)
                 {
                     Value.Flags = Value.Flags - 134217728;
-                    IObjects.Status.AnalysisMode = true;
+                    IStatus.AnalysisMode = true;
                 }
                 else
                 {
-                    IObjects.Status.AnalysisMode = false;
+                    IStatus.AnalysisMode = false;
                 }
                 #endregion
 
@@ -334,31 +334,31 @@ namespace ALICE_Monitors
                 #region Interdiction Flag
                 if (Value.Flags >= 8388608)
                 {
-                    IObjects.Status.Interdiction = true;
+                    IStatus.Interdiction = true;
                     Value.Flags = Value.Flags - 8388608;
                 }
                 else
                 {
-                    IObjects.Status.Interdiction = false;
+                    IStatus.Interdiction = false;
                 }
                 #endregion
 
                 #region Is In Danger Flag
                 if (Value.Flags >= 4194304)
                 {
-                    IObjects.Status.InDanger = true;
+                    IStatus.InDanger = true;
                     Value.Flags = Value.Flags - 4194304;
                 }
                 else
                 {
-                    IObjects.Status.InDanger = false;
+                    IStatus.InDanger = false;
                 }
                 #endregion
 
                 #region Has Lat & Lon Flag
                 if (Value.Flags >= 2097152)
                 {
-                    IObjects.Status.HasLatLong = true;
+                    IStatus.HasLatLong = true;
                     Value.Flags = Value.Flags - 2097152;
                     Process.Position(Value.Latitude, Value.Longitude, Value.Altitude, Value.Heading);
 
@@ -366,7 +366,7 @@ namespace ALICE_Monitors
                 }
                 else
                 {
-                    IObjects.Status.HasLatLong = false;
+                    IStatus.HasLatLong = false;
 
                     Call.Report.GPSLocation.Status(false);
                 }
@@ -376,11 +376,11 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 1048576)
                 {
                     Value.Flags = Value.Flags - 1048576;
-                    IObjects.Status.Overheating = true;
+                    IStatus.Overheating = true;
                 }
                 else
                 {
-                    IObjects.Status.Overheating = false;
+                    IStatus.Overheating = false;
                 }
                 #endregion
 
@@ -388,11 +388,11 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 524288)
                 {
                     Value.Flags = Value.Flags - 524288;
-                    IObjects.Status.LowFuel = true;
+                    IStatus.LowFuel = true;
                 }
                 else
                 {
-                    IObjects.Status.LowFuel = false;
+                    IStatus.LowFuel = false;
                 }
                 #endregion
 
@@ -433,13 +433,13 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 65536)
                 {
                     Value.Flags = Value.Flags - 65536;
-                    IObjects.Status.Masslocked = true;
+                    IStatus.Masslocked = true;
 
                     IEvents.Masslock.Construct(true);
                 }
                 else
                 {
-                    IObjects.Status.Masslocked = false;
+                    IStatus.Masslocked = false;
 
                     IEvents.Masslock.Construct(false);
                 }
@@ -450,11 +450,11 @@ namespace ALICE_Monitors
                 {
                     //SRV Drive Assist
                     Value.Flags = Value.Flags - 32768;
-                    IObjects.Status.SRV_DriveAssist = true;
+                    IStatus.SRV_DriveAssist = true;
                 }
                 else
                 {
-                    IObjects.Status.SRV_DriveAssist = false;
+                    IStatus.SRV_DriveAssist = false;
                 }
                 #endregion
 
@@ -463,11 +463,11 @@ namespace ALICE_Monitors
                 {
                     //SRV Under Ship
                     Value.Flags = Value.Flags - 16384;
-                    IObjects.Status.SRV_NearMothership = true;
+                    IStatus.SRV_NearMothership = true;
                 }
                 else
                 {
-                    IObjects.Status.SRV_NearMothership = false;
+                    IStatus.SRV_NearMothership = false;
                 }
                 #endregion
 
@@ -475,12 +475,12 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 8192)
                 {
                     //SRV Turret
-                    IObjects.Status.SRV_Turret = true;
+                    IStatus.SRV_Turret = true;
                     Value.Flags = Value.Flags - 8192;
                 }
                 else
                 {
-                    IObjects.Status.SRV_Turret = false;
+                    IStatus.SRV_Turret = false;
                 }
                 #endregion
 
@@ -488,19 +488,19 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 4096)
                 {
                     //SRV Handbreak
-                    IObjects.Status.SRV_Handbreak = true;
+                    IStatus.SRV_Handbreak = true;
                     Value.Flags = Value.Flags - 4096;
                 }
                 else
                 {
-                    IObjects.Status.SRV_Handbreak = false;
+                    IStatus.SRV_Handbreak = false;
                 }
                 #endregion
 
                 #region Scooping Fuel
                 if (Value.Flags >= 2048)
                 {
-                    IObjects.Status.FuelScooping = true;
+                    IStatus.FuelScooping = true;
                     Value.Flags = Value.Flags - 2048;
 
                     if (IEquipment.FuelTank.ScoopingCommenced == false && Settings.Initialized)
@@ -508,7 +508,7 @@ namespace ALICE_Monitors
                 }
                 else
                 {
-                    IObjects.Status.FuelScooping = false;
+                    IStatus.FuelScooping = false;
                     if (IEquipment.FuelTank.ScoopingCommenced == true && Settings.Initialized)
                     { IEquipment.FuelTank.ReportScooping(MethodName); }
                     //Reset variables once we finish scooping.
@@ -522,13 +522,13 @@ namespace ALICE_Monitors
                 {
                     //Silent Running
                     Value.Flags = Value.Flags - 1024;
-                    IObjects.Status.SilentRunning = true;
+                    IStatus.SilentRunning = true;
 
                     Call.Report.SilentRunning.Status(true);
                 }
                 else
                 {
-                    IObjects.Status.SilentRunning = false;
+                    IStatus.SilentRunning = false;
 
                     Call.Report.SilentRunning.Status(false);
                 }
@@ -539,11 +539,11 @@ namespace ALICE_Monitors
                 {
                     //Cargo Scoop Deployed
                     Value.Flags = Value.Flags - 512;
-                    IObjects.Status.CargoScoop = true;
+                    IStatus.CargoScoop = true;
                 }
                 else
                 {
-                    IObjects.Status.CargoScoop = false;
+                    IStatus.CargoScoop = false;
                 }
                 #endregion
 
@@ -552,11 +552,11 @@ namespace ALICE_Monitors
                 {
                     //Light On
                     Value.Flags = Value.Flags - 256;
-                    IObjects.Status.Lights = true;
+                    IStatus.Lights = true;
                 }
                 else
                 {
-                    IObjects.Status.Lights = false;
+                    IStatus.Lights = false;
                 }
                 #endregion
 
@@ -565,11 +565,11 @@ namespace ALICE_Monitors
                 {
                     //In a Wing
                     Value.Flags = Value.Flags - 128;
-                    IObjects.Status.InWing = true;
+                    IStatus.InWing = true;
                 }
                 else
                 {
-                    IObjects.Status.InWing = false;
+                    IStatus.InWing = false;
                 }
                 #endregion
 
@@ -577,12 +577,12 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 64)
                 {
                     //Hardpoints Deployed
-                    IObjects.Status.Hardpoints = true;
+                    IStatus.Hardpoints = true;
                     Value.Flags = Value.Flags - 64;
                 }
                 else
                 {
-                    IObjects.Status.Hardpoints = false;
+                    IStatus.Hardpoints = false;
                 }
                 #endregion
 
@@ -590,12 +590,12 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 32)
                 {
                     //Flight Assist Off
-                    IObjects.Status.FlightAssist = true;
+                    IStatus.FlightAssist = true;
                     Value.Flags = Value.Flags - 32;
                 }
                 else
                 {
-                    IObjects.Status.FlightAssist = false;
+                    IStatus.FlightAssist = false;
                 }
                 #endregion
 
@@ -603,12 +603,12 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 16)
                 {
                     //Supercruise
-                    IObjects.Status.Supercruise = true;
+                    IStatus.Supercruise = true;
                     Value.Flags = Value.Flags - 16;
                 }
                 else
                 {
-                    IObjects.Status.Supercruise = false;
+                    IStatus.Supercruise = false;
                 }
                 #endregion
 
@@ -616,7 +616,7 @@ namespace ALICE_Monitors
                 //Shields Online...
                 if (Value.Flags >= 8)
                 {
-                    IObjects.Status.Shields = true;
+                    IStatus.Shields = true;
                     Value.Flags = Value.Flags - 8;
 
                     Call.Report.Shield.Status(true);
@@ -624,7 +624,7 @@ namespace ALICE_Monitors
                 //Shields Offline...
                 else
                 {
-                    IObjects.Status.Shields = false;
+                    IStatus.Shields = false;
 
                     Call.Report.Shield.Status(false);
                 }
@@ -634,12 +634,12 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 4)
                 {
                     //Landing Gear Down
-                    IObjects.Status.LandingGear = true;
+                    IStatus.LandingGear = true;
                     Value.Flags = Value.Flags - 4;
                 }
                 else
                 {
-                    IObjects.Status.LandingGear = false;
+                    IStatus.LandingGear = false;
                 }
                 #endregion
 
@@ -647,12 +647,12 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 2)
                 {
                     //Touchdown
-                    IObjects.Status.Touchdown = true;
+                    IStatus.Touchdown = true;
                     Value.Flags = Value.Flags - 2;
                 }
                 else
                 {
-                    IObjects.Status.Touchdown = false;
+                    IStatus.Touchdown = false;
                 }
                 #endregion
 
@@ -660,13 +660,13 @@ namespace ALICE_Monitors
                 if (Value.Flags == 1)
                 {
                     IStatus.Docking.State = IEnums.DockingState.Docked;
-                    IObjects.Status.Docked = true;
-                    IObjects.Status.WeaponSafety = true;
+                    IStatus.Docked = true;
+                    IStatus.WeaponSafety = true;
                     Value.Flags = Value.Flags - 1;
                 }
                 else
                 {
-                    IObjects.Status.Docked = false;
+                    IStatus.Docked = false;
                 }
                 #endregion
 
@@ -693,10 +693,10 @@ namespace ALICE_Monitors
                 #endregion
 
                 #region GUI Flag
-                IObjects.Status.GUI_Focus = Value.GuiFocus;
+                IStatus.GUI_Focus = Value.GuiFocus;
 
                 #region 3.4 Panel Items
-                if (IObjects.Status.GUI_Focus == 0)
+                if (IStatus.GUI_Focus == 0)
                 {
                     // No Focus - Close All Panels
                     Call.Panel.Comms.Open = false;
@@ -707,7 +707,7 @@ namespace ALICE_Monitors
                     Call.Panel.GalaxyMap.Open = false;
                     //Call.Panel.StarportServicesFocus = false;
                 }
-                else if (IObjects.Status.GUI_Focus == 1)
+                else if (IStatus.GUI_Focus == 1)
                 {
                     Call.Panel.System.Open = true;
                     Call.Panel.Comms.Open = false;
@@ -716,7 +716,7 @@ namespace ALICE_Monitors
                     Call.Panel.SystemMap.Open = false;
                     Call.Panel.GalaxyMap.Open = false;
                 }
-                else if (IObjects.Status.GUI_Focus == 2)
+                else if (IStatus.GUI_Focus == 2)
                 {
                     Call.Panel.Target.Open = true;
                     Call.Panel.Comms.Open = false;
@@ -726,7 +726,7 @@ namespace ALICE_Monitors
                     Call.Panel.GalaxyMap.Open = false;
 
                 }
-                else if (IObjects.Status.GUI_Focus == 3)
+                else if (IStatus.GUI_Focus == 3)
                 {
                     Call.Panel.Comms.Open = true;
                     Call.Panel.Role.Open = false;
@@ -736,7 +736,7 @@ namespace ALICE_Monitors
                     Call.Panel.GalaxyMap.Open = false;
 
                 }
-                else if (IObjects.Status.GUI_Focus == 4)
+                else if (IStatus.GUI_Focus == 4)
                 {
                     Call.Panel.Role.Open = true;
                     Call.Panel.Comms.Open = false;
@@ -745,7 +745,7 @@ namespace ALICE_Monitors
                     Call.Panel.SystemMap.Open = false;
                     Call.Panel.GalaxyMap.Open = false;
                 }
-                else if (IObjects.Status.GUI_Focus == 5)
+                else if (IStatus.GUI_Focus == 5)
                 {
                     //Call.Panel.StarportServicesFocus = true;
                     Call.Panel.Comms.Open = false;
@@ -755,7 +755,7 @@ namespace ALICE_Monitors
                     Call.Panel.SystemMap.Open = false;
                     Call.Panel.GalaxyMap.Open = false;
                 }
-                else if (IObjects.Status.GUI_Focus == 6)
+                else if (IStatus.GUI_Focus == 6)
                 {
                     Call.Panel.GalaxyMap.Open = true;
                     Call.Panel.Comms.Open = false;
@@ -765,7 +765,7 @@ namespace ALICE_Monitors
                     Call.Panel.SystemMap.Open = false;
                     //Call.Panel.StarportServicesFocus = false;
                 }
-                else if (IObjects.Status.GUI_Focus == 7)
+                else if (IStatus.GUI_Focus == 7)
                 {
                     Call.Panel.SystemMap.Open = true;
                     Call.Panel.Comms.Open = false;
@@ -779,11 +779,11 @@ namespace ALICE_Monitors
 
                 #endregion
 
-                IObjects.Status.Altitude = Value.Altitude;
-                IObjects.Status.Latitude = Value.Latitude;
-                IObjects.Status.Longitude = Value.Longitude;
-                IObjects.Status.Heading = Value.Heading;
-                IObjects.Status.CargoMass = Value.Cargo;
+                IStatus.Altitude = Value.Altitude;
+                IStatus.Latitude = Value.Latitude;
+                IStatus.Longitude = Value.Longitude;
+                IStatus.Heading = Value.Heading;
+                IStatus.CargoMass = Value.Cargo;
 
                 IEquipment.FuelTank.Update(Value.Fuel);                
 

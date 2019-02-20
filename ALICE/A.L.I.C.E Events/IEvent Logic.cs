@@ -233,7 +233,7 @@ namespace ALICE_EventLogic
 
                 if (ISettings.WeaponSafety == true)
                 {
-                    IObjects.Status.WeaponSafety = true;
+                    IStatus.WeaponSafety = true;
                     Call.Action.AnalysisMode(true, false);
 
                     if (Check.Variable.Hardpoints(true, MethodName) == true)
@@ -275,7 +275,7 @@ namespace ALICE_EventLogic
             }
             else if (Event.Entered == false)
             {
-                IObjects.Status.WeaponSafety = false;
+                IStatus.WeaponSafety = false;
 
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -745,11 +745,11 @@ namespace ALICE_EventLogic
 
             #region Default Settings Update
             if (Event.Role == "Active")
-            { IObjects.Status.NPC_Crew = true; }
+            { IStatus.NPC_Crew = true; }
             else
-            { IObjects.Status.NPC_Crew = false; }
+            { IStatus.NPC_Crew = false; }
 
-            Miscellanous.Default["NPC_Crew"] = IObjects.Status.NPC_Crew;
+            Miscellanous.Default["NPC_Crew"] = IStatus.NPC_Crew;
             Miscellanous.Default.Save();
             #endregion
 
@@ -916,12 +916,12 @@ namespace ALICE_EventLogic
             IStatus.Docking.Update(Event);
 
             #region Logic Table
-            IObjects.Status.Docked = true;
+            IStatus.Docked = true;
             IVehicles.Vehicle = IVehicles.V.Mothership;
-            IObjects.Status.Hardpoints = false;
-            IObjects.Status.Touchdown = false;
-            IObjects.Status.LandingGear = true;
-            IObjects.Status.FighterDeployed = false;
+            IStatus.Hardpoints = false;
+            IStatus.Touchdown = false;
+            IStatus.LandingGear = true;
+            IStatus.FighterDeployed = false;
             #endregion
 
             //Extended Logging
@@ -932,13 +932,13 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic DockFighter";
 
-            IObjects.Status.FighterStatus = "Docked";
+            IStatus.FighterStatus = "Docked";
 
             IStatus.Fighter.Response.Docked(
                 Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
 
             #region Logic Table
-            IObjects.Status.FighterDeployed = false;
+            IStatus.FighterDeployed = false;
             #endregion
         }
 
@@ -1026,7 +1026,7 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic FighterDestroyed";
 
-            IObjects.Status.FighterStatus = "Destroyed";
+            IStatus.FighterStatus = "Destroyed";
 
             #region Fighter Destroyed
             if (PlugIn.MasterAudio == true && Check.Internal.TriggerEvents(true, MethodName) == true)
@@ -1051,7 +1051,7 @@ namespace ALICE_EventLogic
             #endregion
 
             #region Logic Table
-            IObjects.Status.FighterDeployed = false;
+            IStatus.FighterDeployed = false;
             #endregion
         }
 
@@ -1063,7 +1063,7 @@ namespace ALICE_EventLogic
             if (PlugIn.MasterAudio == true && Check.Internal.TriggerEvents(true, MethodName) == true)
             {
                 #region Fighter Rebuilt (Docked)
-                if (IObjects.Status.FighterStatus == "Docked")
+                if (IStatus.FighterStatus == "Docked")
                 {
                     if (PlugIn.Audio == "TTS")
                     {
@@ -1085,7 +1085,7 @@ namespace ALICE_EventLogic
                 #endregion
 
                 #region Fighter Rebuilt (Destroyed)
-                else if (IObjects.Status.FighterStatus == "Destroyed")
+                else if (IStatus.FighterStatus == "Destroyed")
                 {
                     if (PlugIn.Audio == "TTS")
                     {
@@ -1130,7 +1130,7 @@ namespace ALICE_EventLogic
             }
             #endregion
 
-            IObjects.Status.FighterStatus = "Ready";
+            IStatus.FighterStatus = "Ready";
         }
 
         public static void FSDTarget(FSDTarget Event)
@@ -1150,13 +1150,13 @@ namespace ALICE_EventLogic
             IEquipment.DiscoveryScanner.FirstScan = true;
 
             IVehicles.Vehicle = IVehicles.V.Mothership;
-            IObjects.Status.Hardpoints = false;
-            IObjects.Status.Touchdown = false;
-            IObjects.Status.CargoScoop = false;
-            IObjects.Status.LandingGear = false;
-            IObjects.Status.Hyperspace = false;
-            IObjects.Status.FighterDeployed = false;
-            IObjects.Status.WeaponSafety = false;
+            IStatus.Hardpoints = false;
+            IStatus.Touchdown = false;
+            IStatus.CargoScoop = false;
+            IStatus.LandingGear = false;
+            IStatus.Hyperspace = false;
+            IStatus.FighterDeployed = false;
+            IStatus.WeaponSafety = false;
             IStatus.Planet.OrbitalMode = false;
             IStatus.Planet.DecentReport = false;
             IEquipment.FuelTank.ScoopingReset();
@@ -1166,8 +1166,8 @@ namespace ALICE_EventLogic
             Call.Panel.Target.Open = false;
             Call.Panel.Role.Open = false;
 
-            IObjects.Status.Hyperspace = false;
-            IObjects.Status.Supercruise = true;
+            IStatus.Hyperspace = false;
+            IStatus.Supercruise = true;
             #endregion
 
             Post.FSDJump(Event);
@@ -1264,18 +1264,18 @@ namespace ALICE_EventLogic
 
         public static void LaunchFighter(LaunchFighter Event)
         {
-            IObjects.Status.FighterStatus = "Deployed";
+            IStatus.FighterStatus = "Deployed";
 
             #region Logic Table
             Call.Action.Wait_FighterLaunch = false;
-            IObjects.Status.FighterDeployed = true;
+            IStatus.FighterDeployed = true;
             #endregion
         }
 
         public static void Liftoff(Liftoff Event)
         {
             #region Logic Table
-            IObjects.Status.WeaponSafety = false;
+            IStatus.WeaponSafety = false;
             #endregion
 
             Call.Action.LandingGear(false, false);            
@@ -1465,8 +1465,8 @@ namespace ALICE_EventLogic
             //Validate NPC Crew Member
             if (IVehicles.Installed(IEquipment.E.Fighter_Hangar) == false)
             {
-                IObjects.Status.NPC_Crew = false;
-                Miscellanous.Default["NPC_Crew"] = IObjects.Status.NPC_Crew;
+                IStatus.NPC_Crew = false;
+                Miscellanous.Default["NPC_Crew"] = IStatus.NPC_Crew;
                 Miscellanous.Default.Save();
             }
 
@@ -1740,20 +1740,20 @@ namespace ALICE_EventLogic
 
             #region Logic Table
             IEquipment.FrameShiftDrive.Prepairing = false;
-            IObjects.Status.Hardpoints = false;
-            IObjects.Status.Touchdown = false;
-            IObjects.Status.CargoScoop = false;
-            IObjects.Status.LandingGear = false;
-            IObjects.Status.Hyperspace = false;
-            IObjects.Status.FighterDeployed = false;
+            IStatus.Hardpoints = false;
+            IStatus.Touchdown = false;
+            IStatus.CargoScoop = false;
+            IStatus.LandingGear = false;
+            IStatus.Hyperspace = false;
+            IStatus.FighterDeployed = false;
             Call.Panel.System.Open = false;
             Call.Panel.Target.Open = false;
             Call.Panel.Role.Open = false;
             Call.Panel.Comms.Open = false;
-            IObjects.Status.Docked = false;
-            IObjects.Status.WeaponSafety = false;
-            IObjects.Status.Hyperspace = true;
-            IObjects.Status.Supercruise = false;            
+            IStatus.Docked = false;
+            IStatus.WeaponSafety = false;
+            IStatus.Hyperspace = true;
+            IStatus.Supercruise = false;            
             #endregion
 
             //Audio - Supercruise      
@@ -1796,23 +1796,23 @@ namespace ALICE_EventLogic
             IStatus.Docking.Sending = false;
             IEvents.FireInNoFireZone.FirstReport = true;
 
-            IObjects.Status.Hardpoints = false;
-            IObjects.Status.Touchdown = false;
-            IObjects.Status.CargoScoop = false;
-            IObjects.Status.LandingGear = false;
-            IObjects.Status.Hyperspace = false;
-            IObjects.Status.Supercruise = false;
-            IObjects.Status.FighterDeployed = false;
+            IStatus.Hardpoints = false;
+            IStatus.Touchdown = false;
+            IStatus.CargoScoop = false;
+            IStatus.LandingGear = false;
+            IStatus.Hyperspace = false;
+            IStatus.Supercruise = false;
+            IStatus.FighterDeployed = false;
             Call.Panel.System.Open = false;
             Call.Panel.Target.Open = false;
             Call.Panel.Role.Open = false;
             Call.Panel.Comms.Open = false;
-            IObjects.Status.Docked = false;
+            IStatus.Docked = false;
             IStatus.Docking.Preparations = false;
-            IObjects.Status.WeaponSafety = false;
+            IStatus.WeaponSafety = false;
 
-            IObjects.Status.Hyperspace = false;
-            IObjects.Status.Supercruise = false;
+            IStatus.Hyperspace = false;
+            IStatus.Supercruise = false;
             #endregion
 
             if (Check.Internal.TriggerEvents(true, MethodName) == true)
@@ -1826,21 +1826,21 @@ namespace ALICE_EventLogic
             IStatus.Docking.Sending = false;
             IEvents.FireInNoFireZone.FirstReport = true;
 
-            IObjects.Status.Hardpoints = false;
-            IObjects.Status.Touchdown = false;
-            IObjects.Status.CargoScoop = false;
-            IObjects.Status.LandingGear = false;
-            IObjects.Status.Hyperspace = false;
-            IObjects.Status.FighterDeployed = false;
+            IStatus.Hardpoints = false;
+            IStatus.Touchdown = false;
+            IStatus.CargoScoop = false;
+            IStatus.LandingGear = false;
+            IStatus.Hyperspace = false;
+            IStatus.FighterDeployed = false;
             Call.Panel.System.Open = false;
             Call.Panel.Target.Open = false;
             Call.Panel.Role.Open = false;
             Call.Panel.Comms.Open = false;
-            IObjects.Status.Docked = false;
+            IStatus.Docked = false;
             IStatus.Docking.Preparations = false;
-            IObjects.Status.WeaponSafety = false;
-            IObjects.Status.Hyperspace = false;
-            IObjects.Status.Supercruise = true;
+            IStatus.WeaponSafety = false;
+            IStatus.Hyperspace = false;
+            IStatus.Supercruise = true;
 
             //Exiting Planet Prevents Abort Decent Report While Leaving The Planet.
             IStatus.Planet.ExitingPlanet = true;
@@ -1850,9 +1850,9 @@ namespace ALICE_EventLogic
         public static void Touchdown(Touchdown Event)
         {
             #region Logic Table
-            IObjects.Status.WeaponSafety = false;
-            IObjects.Status.Hyperspace = false;
-            IObjects.Status.Supercruise = false;
+            IStatus.WeaponSafety = false;
+            IStatus.Hyperspace = false;
+            IStatus.Supercruise = false;
             #endregion
         }
 
@@ -1866,17 +1866,17 @@ namespace ALICE_EventLogic
             IStatus.Docking.Denial = IEnums.DockingDenial.NoReason;
             IEvents.FireInNoFireZone.FirstReport = true;
             IStatus.Docking.Preparations = false;
-            IObjects.Status.Hardpoints = false;
-            IObjects.Status.Touchdown = false;
-            IObjects.Status.CargoScoop = false;
-            IObjects.Status.LandingGear = true;
-            IObjects.Status.Hyperspace = false;
-            IObjects.Status.Supercruise = false;
-            IObjects.Status.FighterDeployed = false;
-            IObjects.Status.Docked = false;
+            IStatus.Hardpoints = false;
+            IStatus.Touchdown = false;
+            IStatus.CargoScoop = false;
+            IStatus.LandingGear = true;
+            IStatus.Hyperspace = false;
+            IStatus.Supercruise = false;
+            IStatus.FighterDeployed = false;
+            IStatus.Docked = false;
 
-            IObjects.Status.Hyperspace = false;
-            IObjects.Status.Supercruise = false;
+            IStatus.Hyperspace = false;
+            IStatus.Supercruise = false;
             #endregion
 
             if (Check.Internal.TriggerEvents(true, MethodName) == true)

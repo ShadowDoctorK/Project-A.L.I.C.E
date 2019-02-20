@@ -951,7 +951,7 @@ namespace ALICE_Interface
                     Assisted.Power.Weapons_Light(PlugIn.CommandAudio);
                 }
 
-                if (IObjects.Status.Hardpoints == true)
+                if (IStatus.Hardpoints == true)
                 {
                     Assisted.Power.CombatPowerManagement();
                 }
@@ -1122,13 +1122,17 @@ namespace ALICE_Interface
                 {
                     if (Command.Check("Yes") == true)
                     {
-                        Call.Interactions.Answer_Yes();
+                        IStatus.Interaction.Yes();
                     }
                     else if (Command.Check("No") == true)
                     {
-                        Call.Interactions.Answer_No();
+                        IStatus.Interaction.No();
                     }
-                }
+                    else if (Command.Check("Mark") == true)
+                    {
+                        IStatus.Interaction.Mark();
+                    }
+                }                
             }
             #endregion
 
@@ -1557,26 +1561,26 @@ namespace ALICE_Interface
                 {
                     if (Command.Check("A.L.I.C.E"))
                     {
-                        Call.Interactions.Res_Alice();
+                        IStatus.Interaction.Response.Alice(true);                        
                     }
                     else if (Command.Check("I Love You"))
                     {
-                        Call.Interactions.Res_I_Love_You();
+                        IStatus.Interaction.Response.ILoveYou(true);
                     }
                     else if (Command.Check("Thank You"))
                     {
-                        Call.Interactions.Res_Thank_You();
-                    }
+                        IStatus.Interaction.Response.ThankYou(true);
+                    }                    
                 }
                 else if (Command.Check("Story"))
                 {
                     if (Command.Check("Bio"))
-                    {
-                        Call.Interactions.Res_Bio();
+                    {   
+                        
                     }
                     else if (Command.Check("Name"))
                     {
-                        Call.Interactions.Res_Name();
+                        
                     }
 
                 }
@@ -1598,7 +1602,7 @@ namespace ALICE_Interface
                 }
                 else if (Command.Check("Toggle"))
                 {
-                    Call.Action.AnalysisMode(!IObjects.Status.AnalysisMode, PlugIn.CommandAudio);
+                    Call.Action.AnalysisMode(!IStatus.AnalysisMode, PlugIn.CommandAudio);
                 }
             }
             else if (Command.Check("Cancel Docking"))
@@ -1711,7 +1715,22 @@ namespace ALICE_Interface
                 }
                 else if (Command.Check("Toggle"))
                 {
-                    Call.Action.NightVision(!IObjects.Status.NightVision, PlugIn.CommandAudio);
+                    Call.Action.NightVision(!IStatus.NightVision, PlugIn.CommandAudio);
+                }
+            }
+            else if (Command.Check("Flight Assist"))
+            {
+                if (Command.Check("Enable"))
+                {
+                    Call.Action.FlightAssist(true, PlugIn.CommandAudio);
+                }
+                else if (Command.Check("Disable"))
+                {
+                    Call.Action.FlightAssist(false, PlugIn.CommandAudio);
+                }
+                else if (Command.Check("Toggle"))
+                {
+                    Call.Action.FlightAssist(!IStatus.NightVision, PlugIn.CommandAudio);
                 }
             }
             else if (Command.Check("Full Spectrum Scanner"))

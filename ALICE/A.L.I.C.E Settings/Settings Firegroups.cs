@@ -625,7 +625,7 @@ namespace ALICE_Settings
                 #region Duration Logic
                 if (Duration <= 75) { Thread.Sleep(Duration); } else
                 {
-                    bool Hold = true; decimal Count = Duration / 50; while (IObjects.Status.Hyperspace == false && Hold == true)
+                    bool Hold = true; decimal Count = Duration / 50; while (IStatus.Hyperspace == false && Hold == true)
                     { Thread.Sleep(50); if (Count <= 0) { Hold = false; } Count--; }
 
                     if (Count > 0)

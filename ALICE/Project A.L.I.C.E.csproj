@@ -104,6 +104,7 @@
     <Compile Include="A.L.I.C.E Status\Status Crime.cs" />
     <Compile Include="A.L.I.C.E Status\Status Fighter.cs" />
     <Compile Include="A.L.I.C.E Status\Status Scan.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Interaction.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\ISynthesizer.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Wrappers.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Response.cs" />
@@ -431,6 +432,9 @@
     <None Include="A.L.I.C.E Response\EQ Fighter.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="A.L.I.C.E Response\EQ Flight Assist.Response">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="A.L.I.C.E Response\EQ Frame Shift Drive.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -585,6 +589,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="A.L.I.C.E Audio Files\Scan_AdditionData.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="A.L.I.C.E Audio Files\Mark_StoppedWaiting.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="A.L.I.C.E Audio Files\Scan_Paused.wav">

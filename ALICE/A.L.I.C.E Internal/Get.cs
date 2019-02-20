@@ -1,4 +1,5 @@
 ﻿using System;
+using ALICE_Core;
 using ALICE_Events;
 using ALICE_Interface;
 using ALICE_Objects;
@@ -254,10 +255,14 @@ namespace ALICE_Internal
             {
                 string Answer = IEnums.Normal_Space;
 
-                if (IObjects.Status.Hyperspace == true)
-                { Answer = IEnums.Hyperspace; }
-                else if (IObjects.Status.Supercruise == true)
-                { Answer = IEnums.Supercruise; }
+                if (IStatus.Hyperspace == true)
+                {
+                    Answer = IEnums.Hyperspace;
+                }
+                else if (IStatus.Supercruise == true)
+                {
+                    Answer = IEnums.Supercruise;
+                }
 
                 return Answer;
             }      
