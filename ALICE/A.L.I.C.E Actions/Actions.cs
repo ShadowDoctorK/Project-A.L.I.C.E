@@ -3183,7 +3183,7 @@ namespace ALICE_Actions
                 Speech.Speak
                     (
                     "".Phrase(GN_Docking_Preparations.Modifier, true)
-                    .Phrase(EQ_Shields.Offline, false, IStatus.Shields, false)
+                    .Phrase(EQ_Shields.Offline, false, !IStatus.Shields, false)
                     .Phrase(GN_Docking_Preparations.Default),
                     CommandAudio
                     );
