@@ -774,6 +774,26 @@ namespace ALICE_Community_Toolkit
             return Brush;
         }
 
+        public static SolidColorBrush GetFGLabelColor(int A, int B)
+        {
+            //Default Color Red
+            SolidColorBrush Brush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+
+            //Return Yellow
+            if ((A == 0 && B != 0) || (A != 0 && B == 0))
+            {
+                Brush = new SolidColorBrush(Color.FromRgb(212, 230, 30));
+            }            
+            //Return Green
+            else if (A != 0 && B != 0)
+            {
+                Brush = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+            }
+            
+            //Return Color
+            return Brush;
+        }
+
         public static void SaveValues<T>(object Settings, string FileName, string FilePath = null)
         {
             string MethodName = "(Toolkit) Save Values";
