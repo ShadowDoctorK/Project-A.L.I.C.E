@@ -1145,15 +1145,21 @@ namespace ALICE_Interface
                 }
                 else if (Command.Check("Hyperspace"))
                 {
-                    Call.Action.Hyperspace(true, PlugIn.CommandAudio);
+                    bool OnMyMark = false;
+                    if (Command.Check("On My Mark")) { OnMyMark = true; }
+                    Call.Action.Hyperspace(true, PlugIn.CommandAudio, OnMyMark);
                 }
                 else if (Command.Check("Supercruise"))
                 {
-                    Call.Action.Supercruise(true, PlugIn.CommandAudio);
+                    bool OnMyMark = false;
+                    if (Command.Check("On My Mark")) { OnMyMark = true; }
+                    Call.Action.Supercruise(true, PlugIn.CommandAudio, OnMyMark);
                 }
                 else if (Command.Check("Disengage"))
                 {
-                    Call.Action.Supercruise(false, PlugIn.CommandAudio);
+                    bool OnMyMark = false;
+                    if (Command.Check("On My Mark")) { OnMyMark = true; }
+                    Call.Action.Supercruise(false, PlugIn.CommandAudio, OnMyMark);
                 }
             }
             //End: Navigation

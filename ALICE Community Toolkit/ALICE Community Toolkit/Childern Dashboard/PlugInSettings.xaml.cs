@@ -273,7 +273,7 @@ namespace ALICE_Community_Toolkit
                     //Xeno Scanner
                     CB_SNXENOFire.SelectedIndex = (int)Data.Firegroup.ScannerXeno.FireMode;
                     CB_SNXENOGroup.SelectedIndex = (int)Data.Firegroup.ScannerXeno.FireGroup;
-                    Label_SNXENO.Foreground = Data.GetFGLabelColor(CB_LIMDECFire.SelectedIndex, CB_SNXENOGroup.SelectedIndex);
+                    Label_SNXENO.Foreground = Data.GetFGLabelColor(CB_SNXENOFire.SelectedIndex, CB_SNXENOGroup.SelectedIndex);
                 }
                 catch (Exception ex)
                 {
