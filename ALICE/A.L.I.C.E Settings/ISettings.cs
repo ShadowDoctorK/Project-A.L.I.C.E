@@ -29,7 +29,7 @@ namespace ALICE_Settings
             string MethodName = "User Settings (Compare)";
 
             if (RefUser == null) { RefUser = ISettings.Load(RefUser, ISettings.SettingsUser, MethodName); }
-            if (User == null) { User = ISettings.Load(RefUser, ISettings.SettingsUser, MethodName); }
+            if (User == null) { User = ISettings.Load(User, ISettings.SettingsUser, MethodName); }
 
             try
             {
@@ -149,7 +149,7 @@ namespace ALICE_Settings
                 Logger.Exception(MethodName, "Exception: " + ex);
             }
             
-            RefUser = Load(RefUser, ISettings.SettingsUser, MethodName);
+            RefUser = Load(RefUser, ISettings.SettingsUser, MethodName, false);
         }
 
         //Updated Via U_Commander Method
@@ -1260,7 +1260,6 @@ namespace ALICE_Settings
 
         #endregion
 
-
         //End: User Settings
         #endregion
 
@@ -1317,7 +1316,7 @@ namespace ALICE_Settings
         /// <param name="S">The Settings Object</param>
         /// <param name="CMDRName">The Commanders Name</param>
         /// <returns>Returns the Users Settings or Default if its not found</returns>
-        public static Settings_User Load(this Settings_User S, string CMDRName, string MethodName)
+        public static Settings_User Load(this Settings_User S, string CMDRName, string MethodName, bool Logging = true)
         {
             //Create Default Settings
             if (S == null) { S = new Settings_User(); }
@@ -1328,13 +1327,13 @@ namespace ALICE_Settings
                 if (File.Exists(Paths.ALICE_Settings + CMDRName + ".Settings"))
                 {
                     S = (Settings_User)LoadValues<Settings_User>(CMDRName + ".Settings");
-                    Logger.DebugLine(MethodName, CMDRName + ".Settings Loaded", Logger.Blue);
+                    if (Logging) { Logger.DebugLine(MethodName, CMDRName + ".Settings Loaded", Logger.Blue); }                    
                 }
                 //Create New Settings File
                 else
                 {
                     S.Commander = CMDRName; S.Save(MethodName);
-                    Logger.Log(MethodName, "Created " + CMDRName + "'s User Settings.", Logger.Purple);
+                    if (Logging) { Logger.Log(MethodName, "Created " + CMDRName + "'s User Settings.", Logger.Purple); }
                 }
             }
             catch (Exception ex)

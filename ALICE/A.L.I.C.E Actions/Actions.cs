@@ -2044,8 +2044,21 @@ namespace ALICE_Actions
             //Check Preparing State
             if (IEquipment.FrameShiftDrive.PreparingState(false, MethodName) == false)
             {
-                //Add Audio
-                return;
+                //Check Supercruise Preps
+                if (IEquipment.FrameShiftDrive.PreparingSupercruise(false, MethodName) == false)
+                {
+                    //Add Audio
+                    return;
+                }
+
+                //Reset Hyperspace Preps & Continue
+                IEquipment.FrameShiftDrive.PrepHyperspace = false;                
+            }   
+            //Not Preparing
+            else
+            {
+                IEquipment.FrameShiftDrive.PrepHyperspace = false;
+                IEquipment.FrameShiftDrive.PrepSupercruise = false;
             }
             #endregion
 
@@ -2074,6 +2087,7 @@ namespace ALICE_Actions
 
                     //Preparing Frameshift Drive
                     IEquipment.FrameShiftDrive.Prepairing = true;
+                    IEquipment.FrameShiftDrive.PrepSupercruise = true;
 
                     //Supercruse Charge Check
                     if (IEquipment.FrameShiftDrive.SupercruiseCharge(false, MethodName) == false)
@@ -2089,17 +2103,23 @@ namespace ALICE_Actions
                     //Check If We Are Waiting On A Mark
                     if (OnMyMark)
                     {
+                        //Sleep To Queue Audio In Synthesizer Correctly
+                        Thread.Sleep(100);
+
                         //On Your Mark Audio
                         IStatus.Interaction.Response.OnYourMark(CommandAudio, false);
 
                         //Wait 30 Seconds For Mark
-                        switch (IStatus.Interaction.WaitForMark(30000, MethodName))
+                        switch (IStatus.Interaction.WaitForMark(30000, ref IEquipment.FrameShiftDrive.PrepSupercruise, MethodName))
                         {
                             case ALICE_Status.Status_Interaction.Marks.NoResponse:
                                 return;
 
                             case ALICE_Status.Status_Interaction.Marks.Mark:
                                 break;
+
+                            case ALICE_Status.Status_Interaction.Marks.EarlyReturn:
+                                return;
 
                             default:
                                 return;
@@ -2131,10 +2151,11 @@ namespace ALICE_Actions
                     }
 
                     //Prepairing Check
-                    if (IEquipment.FrameShiftDrive.PreparingState(true, MethodName) == false)
+                    if (IEquipment.FrameShiftDrive.PreparingState(true, MethodName) == false || 
+                        IEquipment.FrameShiftDrive.PreparingSupercruise(true, MethodName) == false)
                     {
                         //Jump Was Aborted While We Waited, Exit Method.
-                        Logger.Log(MethodName, "We Stopped FSD Preparations Cause The Jump Was Cancelled", Logger.Yellow, true);
+                        Logger.Log(MethodName, "We Stopped FSD Preparations Cause The Supercruise Was Cancelled", Logger.Yellow, true);
                         return;
                     }
                     #endregion
@@ -2190,8 +2211,11 @@ namespace ALICE_Actions
                         //On Your Mark Audio
                         IStatus.Interaction.Response.OnYourMark(CommandAudio, true);
 
+                        //Fake Reference Bool
+                        bool Temp = true;
+
                         //Wait 30 Seconds For Mark
-                        switch (IStatus.Interaction.WaitForMark(30000, MethodName))
+                        switch (IStatus.Interaction.WaitForMark(30000, ref Temp, MethodName))
                         {
                             case ALICE_Status.Status_Interaction.Marks.NoResponse:
                                 return;
@@ -2311,8 +2335,21 @@ namespace ALICE_Actions
             //Check Preparing State
             if (IEquipment.FrameShiftDrive.PreparingState(false, MethodName) == false)
             {
-                //Add Audio
-                return;
+                //Check Hyperspace Preps
+                if (IEquipment.FrameShiftDrive.PreparingHyperspace(false, MethodName) == false)
+                {
+                    //Add Audio
+                    return;
+                }
+
+                //Reset Supercruise Preps & Continue
+                IEquipment.FrameShiftDrive.PrepSupercruise = false;
+            }
+            //Not Preparing
+            else
+            {
+                IEquipment.FrameShiftDrive.PrepHyperspace = false;
+                IEquipment.FrameShiftDrive.PrepSupercruise = false;
             }
             #endregion
 
@@ -2350,6 +2387,7 @@ namespace ALICE_Actions
                 #region Validation Checks
                 //Preparing Frameshift Drive
                 IEquipment.FrameShiftDrive.Prepairing = true;
+                IEquipment.FrameShiftDrive.PrepHyperspace = true;
 
                 //Supercruse Charge Check
                 if (IEquipment.FrameShiftDrive.HyperspaceCharge(false, MethodName) == false)
@@ -2365,17 +2403,23 @@ namespace ALICE_Actions
                 //Check If We Are Waiting On A Mark
                 if (OnMyMark)
                 {
+                    //Sleep To Queue Audio In Synthesizer Correctly
+                    Thread.Sleep(100);
+
                     //On Your Mark Audio
                     IStatus.Interaction.Response.OnYourMark(CommandAudio, false);
 
                     //Wait 30 Seconds For Mark
-                    switch (IStatus.Interaction.WaitForMark(30000, MethodName))
+                    switch (IStatus.Interaction.WaitForMark(30000, ref IEquipment.FrameShiftDrive.PrepHyperspace, MethodName))
                     {
                         case ALICE_Status.Status_Interaction.Marks.NoResponse:
                             return;
 
                         case ALICE_Status.Status_Interaction.Marks.Mark:
                             break;
+
+                        case ALICE_Status.Status_Interaction.Marks.EarlyReturn:
+                            return;
 
                         default:
                             return;
@@ -2407,10 +2451,11 @@ namespace ALICE_Actions
                 }
 
                 //Prepairing Check
-                if (IEquipment.FrameShiftDrive.PreparingState(true, MethodName) == false)
+                if (IEquipment.FrameShiftDrive.PreparingState(true, MethodName) == false ||
+                    IEquipment.FrameShiftDrive.PreparingHyperspace(true, MethodName) == false)
                 {
                     //Jump Was Aborted While We Waited, Exit Method.
-                    Logger.Log(MethodName, "We Stopped FSD Preparations Cause The Jump Was Cancelled", Logger.Yellow, true);
+                    Logger.Log(MethodName, "We Stopped FSD Preparations Cause The Hyperspace Was Cancelled", Logger.Yellow, true);
                     return;
                 }
                 #endregion
@@ -3490,7 +3535,7 @@ namespace ALICE_Actions
                         Speech.Speak
                             (
                             "".Phrase(GN_Negative.Default, true)
-                            .Phrase(EQ_Flight_Assist.Currently_Enabled, true),
+                            .Phrase(EQ_Flight_Assist.Currently_Enabled),
                             CommandAudio
                             );
                     }
@@ -3508,7 +3553,7 @@ namespace ALICE_Actions
                         Speech.Speak
                             (
                             "".Phrase(GN_Negative.Default, true)
-                            .Phrase(EQ_Flight_Assist.Currently_Disabled, true),
+                            .Phrase(EQ_Flight_Assist.Currently_Disabled),
                             CommandAudio
                             );
                     }
@@ -3534,7 +3579,7 @@ namespace ALICE_Actions
                         Speech.Speak
                             (
                             "".Phrase(GN_Positive.Default, true)
-                            .Phrase(EQ_Flight_Assist.Enabled, true),
+                            .Phrase(EQ_Flight_Assist.Enabled),
                             CommandAudio
                             );
                     }
@@ -3554,7 +3599,7 @@ namespace ALICE_Actions
                         Speech.Speak
                             (
                             "".Phrase(GN_Positive.Default, true)
-                            .Phrase(EQ_Flight_Assist.Disabled, true),
+                            .Phrase(EQ_Flight_Assist.Disabled),
                             CommandAudio
                             );
                     }
@@ -3654,9 +3699,17 @@ namespace ALICE_Actions
             decimal Temp = Call.Firegroup.Current;
 
             #region Vaildtion Checks
+            //Check Not In Hyperspace
             if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
             {
                 IEquipment.LimpetCollector.NoHyperspace(CommandAudio);
+                return;
+            }
+
+            //Check Installed
+            if (Check.Equipment.CollectorLimpetController(true, MethodName) == false)
+            {
+                IEquipment.LimpetCollector.NotInstalled(CommandAudio);
                 return;
             }
             #endregion
@@ -3716,9 +3769,17 @@ namespace ALICE_Actions
             decimal Temp = Call.Firegroup.Current;
 
             #region Vaildtion Checks
+            //Check Not In Hyperspace
             if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
             {
                 IEquipment.LimpetFuel.NoHyperspace(CommandAudio);
+                return;
+            }
+
+            //Check Installed
+            if (Check.Equipment.FuelLimpetController(true, MethodName) == false)
+            {
+                IEquipment.LimpetFuel.NotInstalled(CommandAudio);
                 return;
             }
             #endregion
@@ -3778,9 +3839,17 @@ namespace ALICE_Actions
             decimal Temp = Call.Firegroup.Current;
 
             #region Vaildtion Checks
+            //Check Not In Hyperspace
             if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
             {
                 IEquipment.LimpetProspector.NoHyperspace(CommandAudio);
+                return;
+            }
+
+            //Check Installed
+            if (Check.Equipment.ProspectorLimpetController(true, MethodName) == false)
+            {
+                IEquipment.LimpetProspector.NotInstalled(CommandAudio);
                 return;
             }
             #endregion
@@ -3840,9 +3909,17 @@ namespace ALICE_Actions
             decimal Temp = Call.Firegroup.Current;
 
             #region Vaildtion Checks
+            //Check Not In Hyperspace
             if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
             {
                 IEquipment.LimpetRecon.NoHyperspace(CommandAudio);
+                return;
+            }
+
+            //Check Installed
+            if (Check.Equipment.ReconLimpetController(true, MethodName) == false)
+            {
+                IEquipment.LimpetRecon.NotInstalled(CommandAudio);
                 return;
             }
             #endregion
@@ -3902,9 +3979,17 @@ namespace ALICE_Actions
             decimal Temp = Call.Firegroup.Current;
 
             #region Vaildtion Checks
+            //Check Not In Hyperspace
             if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
             {
-                IEquipment.LimpetRepair.NoHyperspace(CommandAudio);
+                IEquipment.LimpetRecon.NoHyperspace(CommandAudio);
+                return;
+            }
+
+            //Check Installed
+            if (Check.Equipment.RepairLimpetController(true, MethodName) == false)
+            {
+                IEquipment.LimpetRepair.NotInstalled(CommandAudio);
                 return;
             }
             #endregion

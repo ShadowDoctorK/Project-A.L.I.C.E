@@ -15,7 +15,7 @@ namespace ALICE_Status
     public class Status_Interaction
     {
         public enum Answers { NoResponse, Yes, No }
-        public enum Marks { NoResponse, Mark }
+        public enum Marks { NoResponse, Mark, EarlyReturn }
 
         public Answers Answer = Answers.NoResponse;
         public Marks Marker = Marks.NoResponse;
@@ -55,8 +55,9 @@ namespace ALICE_Status
         /// </summary>
         /// <param name="Duration">How Long In Milliseconds You Want To Watch.</param>
         /// <param name="Method">Method Name Calling This Function.</param>
+        /// <param name="Tracker">Tracking reference to allow calling method to exit this watcher early if needed.</param>
         /// <returns>Yes, No or NoResponse</returns>
-        public Marks WaitForMark(decimal Duration, string Method)
+        public Marks WaitForMark(decimal Duration, ref bool Tracker, string Method)
         {
             string MethodName = "Interaction Status (" + Method + ")";
 
@@ -73,6 +74,14 @@ namespace ALICE_Status
                 while (Marker == Marks.NoResponse && ResponseCounter > 0)
                 {
                     ResponseCounter++; Thread.Sleep(100);
+
+                    if (Tracker == false)
+                    {
+                        //Debug Logger
+                        Logger.DebugLine(MethodName, "Stopped Watching Early", Logger.Yellow);
+
+                        return Marks.EarlyReturn;
+                    }
                 }
 
                 //No Response Check
@@ -201,7 +210,7 @@ namespace ALICE_Status
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Standing By For Your Mark.", Logger.Yellow); }
 
                 Speech.Speak(""
-                    .Phrase(GN_Positive.Default, PositiveAudio)
+                    .Phrase(GN_Positive.Default, true, PositiveAudio)
                     .Phrase(GN_Alice.On_Your_Mark),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }

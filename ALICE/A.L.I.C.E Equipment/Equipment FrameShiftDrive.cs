@@ -27,6 +27,8 @@ namespace ALICE_Equipment
         public bool Cooldown { get; set; }
         public bool Prepairing { get; set; }
         public bool Disengaging { get; set; }
+        public bool PrepHyperspace = false;
+        public bool PrepSupercruise = false;
 
         public Equipment_FrameShiftDrive()
         {
@@ -92,6 +94,14 @@ namespace ALICE_Equipment
             //Aborted
             return true;
         }
+
+        public void Reset()
+        {
+            PrepHyperspace = false;
+            PrepSupercruise = false;
+            Prepairing = false;
+            Charging = false;
+        }
         #endregion        
 
         #region Checks
@@ -127,6 +137,20 @@ namespace ALICE_Equipment
         {
             bool State = IEquipment.FrameShiftDrive.Prepairing;
             string Equipment = "FSD Preparation State";
+            return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
+        }
+
+        public bool PreparingHyperspace(bool TargetState, string MethodName, bool DisableDebug = false)
+        {
+            bool State = IEquipment.FrameShiftDrive.PrepHyperspace;
+            string Equipment = "FSD Hyperspace Preps";
+            return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
+        }
+
+        public bool PreparingSupercruise(bool TargetState, string MethodName, bool DisableDebug = false)
+        {
+            bool State = IEquipment.FrameShiftDrive.PrepSupercruise;
+            string Equipment = "FSD Supercruise Preps";
             return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
         }
         #endregion

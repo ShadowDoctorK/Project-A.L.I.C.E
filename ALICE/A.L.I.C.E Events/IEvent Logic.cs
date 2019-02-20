@@ -1791,6 +1791,7 @@ namespace ALICE_EventLogic
             string MethodName = "Logic SupercruiseExit";
 
             #region Logic Table
+            IEquipment.FrameShiftDrive.Reset();
             IEquipment.FrameShiftDrive.Disengaging = false;            
             IStatus.Docking.Pending = false;
             IStatus.Docking.Sending = false;
@@ -1821,6 +1822,8 @@ namespace ALICE_EventLogic
 
         public static void SupercruiseEntry(SupercruiseEntry Event)
         {
+            IEquipment.FrameShiftDrive.Reset();
+
             #region Logic Table
             IStatus.Docking.Pending = false;
             IStatus.Docking.Sending = false;

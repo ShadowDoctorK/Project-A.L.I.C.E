@@ -587,15 +587,17 @@ namespace ALICE_Monitors
                 #endregion
 
                 #region Flight Assist
+                //Booleans Are Inverted
                 if (Value.Flags >= 32)
                 {
                     //Flight Assist Off
-                    IStatus.FlightAssist = true;
+                    IStatus.FlightAssist = false;
                     Value.Flags = Value.Flags - 32;
                 }
                 else
                 {
-                    IStatus.FlightAssist = false;
+                    //Flight Assist On
+                    IStatus.FlightAssist = true;
                 }
                 #endregion
 
