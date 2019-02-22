@@ -17,6 +17,7 @@ namespace ALICE_Core
         public static Status_Interaction Interaction = new Status_Interaction();
         public static Status_Planet Planet = new Status_Planet();
         public static Status_Scan Scan = new Status_Scan();
+        public static Status_System System = new Status_System();
 
         public static decimal GUI_Focus = 0;
         public static decimal Latitude = -1;

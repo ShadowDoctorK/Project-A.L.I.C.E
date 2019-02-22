@@ -24,11 +24,11 @@ namespace ALICE_Debug_Console
 
         public static void Debug()
         {
-            //PlugIn.Initialize(true, true);
-            //Thread.Sleep(500000);
+            PlugIn.Initialize(true, true);
+            Thread.Sleep(500000);
             //JournalReader.EventProcessor();
 
-            Journal.Start();
+            //Journal.Start();
         }
     }
 }

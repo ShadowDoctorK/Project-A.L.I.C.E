@@ -1135,16 +1135,21 @@ namespace ALICE_EventLogic
 
         public static void FSDTarget(FSDTarget Event)
         {
-
+            IStatus.System.Update(Event);
         }
 
         public static void FSDJump(FSDJump Event)
         {
             string MethodName = "Logic FSDJump";
 
+            //Save Previous Systems Information
             IObjects.SysetmPrevious = IObjects.SystemCurrent;
-            IObjects.SystemCurrent = new Object_System();
-            IObjects.SystemCurrent = IObjects.SystemCurrent.Update_SystemData(Event);
+
+            //Check Arrival Report
+            IStatus.System.TargetArrival(Event);
+
+            //Check System Status & Update Current System Object
+            IStatus.System.Status(Event);
 
             #region Logic Table
             IEquipment.DiscoveryScanner.FirstScan = true;
@@ -1176,7 +1181,7 @@ namespace ALICE_EventLogic
         public static void FSSAllBodiesFound(FSSAllBodiesFound Event)
         {
             string MethodName = "Logic FSSAllBodiesFound";
-
+            
             IObjects.SystemCurrent.Update_SystemData(Event);
         }
 
@@ -1184,29 +1189,30 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic FSSDiscoveryScan";
 
-            IEquipment.DiscoveryScanner.Waiting = false;
+            //New Returns Audio
+            IEquipment.DiscoveryScanner.NewReturns(
+                Event.BodyCount,                                                //Number Of Bodies
+                Check.Internal.TriggerEvents(true, MethodName),                 //Check Plugin Initialized
+                (IObjects.SystemCurrent.StellarBodies != Event.BodyCount));     //Check For New Returns
 
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(EQ_Discovery_Scanner.New_Returns)
-                    .Phrase(EQ_Discovery_Scanner.Updating, false, IEquipment.DiscoveryScanner.FirstScan)
-                    .Token("[SCANNUM]", Event.BodyCount),
-                    true,
-                    Check.Internal.TriggerEvents(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
+            //No New Returns Audio
+            IEquipment.DiscoveryScanner.NoReturns(
+                Check.Internal.TriggerEvents(true, MethodName),                 //Check Plugin Initialized
+                (IObjects.SystemCurrent.StellarBodies == Event.BodyCount));     //Check For No New Returns
 
+            //Update Discovery Scanner Settings
             IEquipment.DiscoveryScanner.FirstScan = false;
+            IEquipment.DiscoveryScanner.Active = false;
+
+            //Update Current System Object
             IObjects.SystemCurrent.Update_SystemData(Event);
 
-            if (PlugIn.ExtendedLogging && Check.Internal.TriggerEvents(true, MethodName, true))
-            { IObjects.SystemCurrent.Log_SystemBodies(); }            
+            //Extended Logging: Log System Info
+            if (PlugIn.ExtendedLogging && 
+                Check.Internal.TriggerEvents(true, MethodName, true))
+            {
+                IObjects.SystemCurrent.Log_SystemBodies();
+            }            
         }
 
         public static void FuelScoop(FuelScoop Event)

@@ -14,7 +14,7 @@ namespace ALICE_Equipment
 {
     public class Equipment_DiscoveryScanner : Equipment_General
     {
-        public bool Waiting = false;          //Allows Tracking The Status Of Active Scans.
+        public bool Active = false;           //Allows Tracking The Status Of Active Scans.
         public bool FirstScan = true;         //Allows Tracking The First Scan In System.
         public bool Mode { get; set; }
 
@@ -26,15 +26,19 @@ namespace ALICE_Equipment
             Settings.Enabled = true;
         }
 
-        public Equipment_DiscoveryScanner New() { return new Equipment_DiscoveryScanner(); }
-
         #region Watcher
-        //Sets "Waiting" to true when constructed. Then watches the variable for 2 seconds when Invoked.
-        public override WaitHandler Watch() { Waiting = true; return new WaitHandler(Watcher); }
+        //Sets "Active" to true when constructed. Then watches the variable for 2 seconds when Invoked.
+        public override WaitHandler Watch() { Active = true; return new WaitHandler(Watcher); }
         public override bool Watcher()
         {
-            decimal Count = 2000 / 50; while (Waiting != false)
-            { Count--; if (Count <= 0) { Waiting = false; return false; } Thread.Sleep(50); }
+            decimal Count = 2000 / 50; while (Active != false)
+            {
+                Count--; if (Count <= 0)
+                {
+                    Active = false; return false;
+                }
+                Thread.Sleep(50);
+            }
 
             return true;
         }
@@ -84,16 +88,28 @@ namespace ALICE_Equipment
             Speech.Speak("".Phrase(EQ_Discovery_Scanner.Scan_Failed), CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
-        public void NewReturns(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+        public void NewReturns(decimal Returns, bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Speak("".Phrase(EQ_Discovery_Scanner.New_Returns), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, Returns + "New Returns Detected.", Logger.Yellow); }
+
+            Speech.Speak(""
+                .Phrase(EQ_Discovery_Scanner.New_Returns)
+                .Phrase(EQ_Discovery_Scanner.Updating, false, IEquipment.DiscoveryScanner.FirstScan)
+                .Token("[SCANNUM]", Returns)                        //Number Of Bodies
+                .Token("Bodies", "Body", (Returns == 1))            //Singular Tense
+                .Token("Returns", "Return", (Returns == 1)),        //Singular Tense
+                CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public void NoReturns(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)
         {
-            Speech.Speak("".Phrase(EQ_Discovery_Scanner.No_Returns), CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "No New Returns Detected.", Logger.Yellow); }
+
+            Speech.Speak(""
+                .Phrase(EQ_Discovery_Scanner.No_Returns), 
+                CommandAudio, Var1, Var2, Var3, Priority, Voice);
         }
 
         public void FSSActivating(bool CommandAudio, bool Var1 = true, bool Var2 = true,

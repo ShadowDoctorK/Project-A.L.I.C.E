@@ -105,6 +105,7 @@
     <Compile Include="A.L.I.C.E Status\Status Fighter.cs" />
     <Compile Include="A.L.I.C.E Status\Status Scan.cs" />
     <Compile Include="A.L.I.C.E Status\Status Interaction.cs" />
+    <Compile Include="A.L.I.C.E Status\Status System.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\ISynthesizer.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Wrappers.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Response.cs" />

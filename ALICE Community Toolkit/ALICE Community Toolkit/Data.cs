@@ -17,7 +17,13 @@ namespace ALICE_Community_Toolkit
     public static class Data
     {
         #region User Settings
-        private static Settings_User_TK User = Load(User, ISettings.SettingsUser, "Initialize");
+        private static Settings_User_TK _User = Load(_User, ISettings.SettingsUser, "Initialize");
+
+        public static Settings_User_TK User
+        {
+            get => _User;
+            set => _User = value;
+        }
 
         public static bool UserSettingsSave = false;
         public static bool UserSettingsUpdating = false;
@@ -1061,7 +1067,7 @@ namespace ALICE_Community_Toolkit
     public static class Paths
     {
         #region File Names
-        public static readonly string ALICE_BindsFile = "A.L.I.C.E Profile.3.0.binds";
+        public static readonly string FILE_BindsFile = "A.L.I.C.E Profile.3.0.binds";
         public static readonly string FILE_AliceManual = "Project A.L.I.C.E.pdf";
         #endregion
 
@@ -1083,7 +1089,7 @@ namespace ALICE_Community_Toolkit
         #endregion
 
         #region File Paths  
-        public static readonly string ALICE_BindsPath = Binds_Location + ALICE_BindsFile;
+        public static readonly string ALICE_BindsPath = Binds_Location + FILE_BindsFile;
         public static readonly string ALICE_ManualPath = ALICE_RootFolder + FILE_AliceManual;
         #endregion
 
@@ -1239,10 +1245,15 @@ namespace ALICE_Community_Toolkit
         public string Commander = "Default";
 
         #region Plugin
+        //Speed Offsets
         public int OffsetPanels { get; set; }
         public int OffsetPips { get; set; }
         public int OffsetFireGroups { get; set; }
         public int OffsetThrottle { get; set; }
+
+        //Keybinds
+        public bool UsersBindFile { get; set; }
+        public string BindsFile { get; set; }
         #endregion
 
         #region Orders
@@ -1296,8 +1307,17 @@ namespace ALICE_Community_Toolkit
             OffsetPips = 0;
             OffsetThrottle = 0;
 
+            UsersBindFile = false;
+            BindsFile = "A.L.I.C.E Profile.3.0.binds";
+
             WeaponSafety = true;
             CombatPower = true;
+            AssistSystemScan = false;
+            AssistDocking = false;
+            AssistRefuel = false;
+            AssistRearm = false;
+            AssistRepair = false;
+            AssistHangerEntry = false;
             PostHyperspaceSafety = true;
 
             FuelScoop = true;
@@ -1324,6 +1344,8 @@ namespace ALICE_Community_Toolkit
             BodyRockyTerra = true;
             BodyWater = true;
             BodyWaterTerra = true;
+            BodyGasGiantII = false;
+            BodyHMC = false;
         }
     }
 }

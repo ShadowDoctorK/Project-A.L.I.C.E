@@ -15,6 +15,7 @@ namespace ALICE_Objects
         public string Name { get; set; }
         public decimal Address { get; set; }
         public Coordinates Coordinate { get; set; }
+        public bool FirstVisit { get; set; }
         public decimal StellarBodies { get; set; }
         public decimal SignalBodies { get; set; }
         public bool AllBodiesFound { get; set; }
@@ -43,6 +44,7 @@ namespace ALICE_Objects
             Name = IObjects.String;
             Address = IObjects.Decimal;
             Coordinate = new Coordinates();
+            FirstVisit = true;
             StellarBodies = IObjects.Decimal;
             SignalBodies = IObjects.Decimal;
             Allegiance = IObjects.String;
@@ -61,7 +63,7 @@ namespace ALICE_Objects
             CodexEntries = new List<string>();
             DataVersion = Default.Decimal;
         }
-      
+
         #region Event Updates
         public Object_System Update_SystemData(FSDJump Event)
         {
@@ -156,11 +158,28 @@ namespace ALICE_Objects
             Temp.Update_SystemList();
             return Temp;
         }
+        public Object_System Load(decimal SystemAddress)
+        {
+            return Get_SystemData(SystemAddress);
+        }
         public void Update_StellarBody(SAAScanComplete Event)
         {
             if (Bodies.ContainsKey(Event.BodyID))
             {
                 Bodies[Event.BodyID].SurfaceScanned = true;
+                Update_SystemList();
+            }
+            else
+            {
+                Object_StellarBody Temp = new Object_StellarBody();                  
+                Temp.Update_ModfyingEvent(Event.Event);
+                Temp.Update_EventTimeStamp(Event.Timestamp);
+                Temp.Update_ID(Event.BodyID);
+                Temp.Update_Name(Event.BodyName);
+                Temp.SurfaceScanned = true;
+                Temp.BodyType = "Unknown";
+
+                Bodies.Add(Temp.ID, Temp);
                 Update_SystemList();
             }
         }
@@ -244,6 +263,16 @@ namespace ALICE_Objects
             
             IObjects.SystemCurrent.Update_Facility(IObjects.FacilityCurrent);
         }
+        public void Update_FirstVisit(decimal SystemAddress)
+        {
+            Object_System Temp = Get_SystemData(SystemAddress);
+
+            if (Temp.FirstVisit == true)
+            {
+                Temp.FirstVisit = false;
+                Temp.Update_SystemList();
+            }
+        }
         #endregion
 
         #region Update Methods
@@ -255,6 +284,7 @@ namespace ALICE_Objects
             { Temp = Data.Systems[SystemAddress]; }
             return Temp;
         }
+
         public void Update_ModifyingEvent(string EventName) { this.ModfyingEvent = IObjects.StringCheck(EventName); }
         public void Update_TimeStamp(DateTime TimeStamp) { this.EventTimeStamp = TimeStamp; }
         public void Update_Name(string Value) { this.Name = IObjects.StringCheck(Value); }
@@ -298,14 +328,19 @@ namespace ALICE_Objects
             }
         }
         public void Update_DataVersion() { this.DataVersion = PlugIn.DataVersion; }
+
         public void Update_SystemList()
         {
             DataVersion = PlugIn.DataVersion;
 
             if (Data.Systems.ContainsKey(this.Address))
-            { Data.Systems[this.Address] = this; }
+            {
+                Data.Systems[this.Address] = this;
+            }
             else
-            { Data.Systems.Add(this.Address, this); }
+            {
+                Data.Systems.Add(this.Address, this);
+            }
 
             IObjects.SystemCurrent = Data.Systems[this.Address];
 

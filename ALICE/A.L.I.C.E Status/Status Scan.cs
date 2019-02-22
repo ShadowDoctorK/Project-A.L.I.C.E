@@ -28,11 +28,18 @@ namespace ALICE_Status
             //Track Terraforming
             bool Terraforamable = false;
 
-            //Check ScanType Is Not AutoScan
+            //Check ScanTypes:
             //Not Processing AutoScan To Prevent Overloading User With Reports.
             if (Body.ScanType == "AutoScan")
             {
                 Logger.DebugLine(MethodName, "Scan Type Is AutoScan.", Logger.Yellow);
+                return;
+            }
+            
+            //Check If Body Was Surface Scanned.
+            if (Body.SurfaceScanned == true)
+            {
+                Logger.DebugLine(MethodName, "Body Surface Scanned.", Logger.Yellow);
                 return;
             }
 

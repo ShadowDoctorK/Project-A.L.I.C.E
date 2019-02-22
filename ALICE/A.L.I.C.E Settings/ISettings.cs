@@ -1,4 +1,5 @@
 ﻿
+using ALICE_Actions;
 using ALICE_Events;
 using ALICE_Internal;
 using ALICE_Synthesizer;
@@ -12,9 +13,9 @@ namespace ALICE_Settings
     public static class ISettings
     {
         #region User Settings        
-        private static Settings_User User = Load(User, ISettings.SettingsUser, "Initialize");
+        public static Settings_User User = Load(User, ISettings.SettingsUser, "Initialize");
         private static Settings_User RefUser = Load(RefUser, ISettings.SettingsUser, "Initialize");
-
+       
         public static bool UserSettingsSave = false;
         public static bool UserSettingsUpdating = false;
         public static void UserSettingsLoad(bool UpdateRef = false)
@@ -1263,7 +1264,8 @@ namespace ALICE_Settings
         //End: User Settings
         #endregion
 
-        private static DirectoryInfo DirSettings = new DirectoryInfo(Paths.ALICE_Settings);         
+        private static DirectoryInfo DirSettings = new DirectoryInfo(Paths.ALICE_Settings);
+        private static DirectoryInfo DirKeybinds = new DirectoryInfo(Paths.Binds_Location);
 
         public static readonly string SettingsUser = "CurrentUser";
         public static readonly string SettingsFiregroup = "CurrentFiregroup";
@@ -1366,7 +1368,6 @@ namespace ALICE_Settings
                 Logger.Exception(MethodName, "Something Went Wrong And Settings Were Not Saved.");
             }
         }
-
 
         /// <summary>
         /// Try To Save The User Settings. Catches, Logs and Reports Exceptions.
@@ -1558,6 +1559,18 @@ namespace ALICE_Settings
                 TimeStamp = "None";
             }
 
+            private void Restart()
+            {
+                Thread thread =
+                new Thread((ThreadStart)(() =>
+                {
+                    Thread.Sleep(5000);
+
+                    Watch();
+                }))
+                { IsBackground = true }; thread.Start();
+            }
+
             public void Watch()
             {
                 string MethodName = "Watcher (Settings)";
@@ -1571,6 +1584,10 @@ namespace ALICE_Settings
                         {
                             ISettings.UserSettingsLoad(true);
                         }
+                        if (CheckKeybinds(ISettings.User.BindsFile))
+                        {
+                            //Do Nothing, Just Wanted To Update The File Timestamp.
+                        }
 
                         if (Monitor.TryEnter(LockFlag))
                         {
@@ -1578,6 +1595,7 @@ namespace ALICE_Settings
                             {
                                 Thread.Sleep(1000);
 
+                                #region Settings File
                                 //Check If Settings Need Saved
                                 if (UserSettingsSave)
                                 {
@@ -1605,6 +1623,15 @@ namespace ALICE_Settings
                                 }
 
                                 ISettings.UserSettingsCompare(User);
+                                #endregion
+
+                                #region Keybinds
+                                if (CheckKeybinds(ISettings.User.BindsFile))
+                                {
+                                    Call.Key.Load_Keybinds();
+                                    Logger.Log(MethodName, "Loaded Updated Keybinds.", Logger.Purple);
+                                }
+                                #endregion
                             }
 
                             Logger.Log(MethodName, "Stopped Watching...", Logger.Yellow);
@@ -1613,7 +1640,8 @@ namespace ALICE_Settings
                     catch (Exception ex)
                     {
                         Logger.Exception(MethodName, "Exception " + ex);
-                        Logger.Exception(MethodName, "Something Went Wrong With The Settings Watcher...");
+                        Logger.Exception(MethodName, "Something Went Wrong With The Settings Watcher. Restarting In 5 Seconds.");
+                        Restart();
                     }
                     finally
                     {
@@ -1633,6 +1661,7 @@ namespace ALICE_Settings
             public decimal UpdateNumber { get; set; }
             public string TimeStamp { get; set; }
             public string SettingsFile { get; set; }
+            public string BindsStamp { get; set; }            
 
             public bool CheckSettings(string FileName)
             {
@@ -1653,6 +1682,30 @@ namespace ALICE_Settings
                 {
                     Logger.Exception(MethodName, "Exception: " + ex);
                     Logger.Exception(MethodName, "Something Went Wrong While Checking The Settings File...");
+                    return false;
+                }
+            }
+
+            public bool CheckKeybinds(string FileName)
+            {
+                try
+                {
+                    foreach (FileInfo Binds in DirKeybinds.EnumerateFiles(FileName, SearchOption.TopDirectoryOnly))
+                    {
+                        if (BindsStamp == null || BindsStamp != Binds.LastWriteTime.ToString())
+                        {
+                            BindsStamp = Binds.LastWriteTime.ToString();
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Exception(MethodName, "Exception: " + ex);
+                    Logger.Error(MethodName, "Something Went Wrong While Checking The Keybinds File. We'll Try Again In A Second.", Logger.Red);                    
+                    BindsStamp = "";
                     return false;
                 }
             }

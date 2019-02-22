@@ -16,6 +16,7 @@ using System.Threading;
 using WinForms = System.Windows.Forms;
 using ALICE_Actions;
 using System.IO;
+using ALICE_Synthesizer;
 
 namespace ALICE_Community_Toolkit
 {
@@ -52,13 +53,31 @@ namespace ALICE_Community_Toolkit
             try
             {
                 #region Audio
-                string Line = "Select The File You Want To Import From";
+                string Line = "Please Select The File You Want Me To Use To Import Keybinds From.";
 
-                //Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Say(Line, true, 3, null); })) { IsBackground = true };
-                //thread.Start();
+                Thread thread = new Thread((ThreadStart)(() => 
+                { Speech.Speak(Line, true); })) { IsBackground = true };
+                thread.Start();
                 #endregion
 
-                Call.Key.ImportUserBinds(ShowBinds());
+                string FilePath = ShowBinds();
+
+                if (FilePath != "")
+                {
+                    string FileName = FilePath.Replace(Paths.Binds_Location, "");
+                    Data.User.BindsFile = FileName;
+
+                    if (FileName == Paths.FILE_BindsFile)
+                    {
+                        Data.User.UsersBindFile = false;
+                    }
+                    else
+                    {
+                        Data.User.UsersBindFile = true;
+                    }
+
+                    Data.UserSettingsSave = true;
+                }                
             }
             catch (Exception)
             {

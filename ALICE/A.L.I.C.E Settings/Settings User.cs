@@ -20,10 +20,15 @@ namespace ALICE_Settings
         public string Commander = "Default";
 
         #region Plugin
+        //Speed Offsets
         public int OffsetPanels { get; set; }
         public int OffsetPips { get; set; }
         public int OffsetFireGroups { get; set; }
         public int OffsetThrottle { get; set; }
+
+        //Keybinds
+        public bool UsersBindFile { get; set; }
+        public string BindsFile { get; set; }
         #endregion
 
         #region Orders
@@ -76,6 +81,9 @@ namespace ALICE_Settings
             OffsetPanels = 0;
             OffsetPips = 0;
             OffsetThrottle = 0;
+
+            UsersBindFile = false;
+            BindsFile = "A.L.I.C.E Profile.3.0.binds";
 
             WeaponSafety = true;
             CombatPower = true;

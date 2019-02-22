@@ -76,9 +76,11 @@ namespace ALICE_Internal
                             break;
                     }
 
-
                     //Simple Logger
                     Logger.Simple("Project A.L.I.C.E " + IPlatform.Version + " Initializing...", Logger.Purple);
+
+                    //Load User Settings
+                    ISettings.UserSettingsLoad(true);
 
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Verifying Alice Binds File...", Logger.Blue);
@@ -86,30 +88,12 @@ namespace ALICE_Internal
                     //Check Alice Binds File
                     Paths.Load_UpdateBindsFile();
 
-                    //Debug Logger
-                    Logger.DebugLine(MethodName, "Loading Game Binds...", Logger.Blue);
-
-                    //Load Game Binds
-                    Call.Key.GetGameBinds();
-
-                    //Debug Logger
+                    //Debug Logger                    
                     Logger.DebugLine(MethodName, "Loading Keybinds...", Logger.Blue);
 
-                    //Load Keybinds
-                    switch (IPlatform.Interface)
-                    {
-                        case IPlatform.Interfaces.Internal:
-                            break;
-                        case IPlatform.Interfaces.VoiceAttack:
-                            Call.Key.Load_VoiceAttackVariables();
-                            break;
-                        case IPlatform.Interfaces.VoiceMacro:
-                            Call.Key.Load_VoiceMacroVariables();
-                            break;
-                        default:
-                            break;
-                    }
-
+                    //Load Game Binds
+                    Call.Key.Load_Keybinds();
+                    
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Loading Response Files...", Logger.Blue);
 

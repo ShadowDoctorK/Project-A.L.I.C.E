@@ -195,10 +195,11 @@ namespace ALICE_Synthesizer
         /// <param name="TokenName">The Token string to be replaced</param>
         /// <param name="TargetText">The Text to replace the Token with.</param>
         /// <returns>Returns the updated working string.</returns>
-        public static string Token(this string Text, string TokenName, string TargetText)
+        public static string Token(this string Text, string TokenName, string TargetText, bool Enabled = true)
         {
             string MethodName = "Token Replacement";
 
+            if (Enabled == false) { return Text; }
             if (TargetText == null && Check.Internal.TriggerEvents(true, MethodName, true))
             { Logger.Log(MethodName, "Token: " + TokenName + " - The Target Text For The Token Was Null.", Logger.Red); return Text; }
             if (Text.Contains(TokenName)) { Text = Text.Replace(TokenName, TargetText); }
@@ -212,8 +213,9 @@ namespace ALICE_Synthesizer
         /// <param name="TokenName">The Token string to be replaced</param>
         /// <param name="TargetText">The Text to replace the Token with.</param>
         /// <returns>Returns the updated working string.</returns>
-        public static string Token(this string Text, string TokenName, decimal TargetText)
+        public static string Token(this string Text, string TokenName, decimal TargetText, bool Enabled = true)
         {
+            if (Enabled == false) { return Text; }
             if (Text.Contains(TokenName)) { Text = Text.Replace(TokenName, TargetText.ToString()); }
             return Text;
         }

@@ -2979,7 +2979,7 @@ namespace ALICE_Actions
                     return;
                 case Settings_Firegroups.A.Complete:
 
-                    IEquipment.DiscoveryScanner.ScanComplete(CommandAudio);
+                    //IEquipment.DiscoveryScanner.ScanComplete(CommandAudio);
                     break;
                 case Settings_Firegroups.A.Fail:
                     IEquipment.DiscoveryScanner.ScanFailed(CommandAudio);
