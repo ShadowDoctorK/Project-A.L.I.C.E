@@ -114,6 +114,7 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event Friends.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event FSDJump.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event FSDTarget.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event FSSAllBodiesFound.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -279,7 +280,7 @@
     <Compile Include="A.L.I.C.E Events\Updating\Event MissionAbandoned.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event MissionAccepted.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event JetConeBoost.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FSSAllBodiesFound.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event FSSAllBodiesFound.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event MultiSellExplorationData.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event MissionCompleted.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event MissionFailed.cs" />
