@@ -102,6 +102,7 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event DockingRequested.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event DockSRV.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event EjectCargo.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event EngineerContribution.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -228,7 +229,7 @@
     <Compile Include="A.L.I.C.E Events\Journal Events\Event DockingRequested.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event DockSRV.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event EjectCargo.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event EngineerContribution.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event EngineerContribution.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event EngineerCraft.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event EngineerProgress.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event EscapeInterdiction.cs" />
