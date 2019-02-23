@@ -49,6 +49,17 @@ namespace ALICE_Status
             LandingPad = -1;
         }
 
+        public void Update(DockingCancelled Event)
+        {
+            State = IEnums.DockingState.Cancelled;
+            StationName = Event.StationName;
+            StationType = Event.StationType;
+            Denial = IEnums.DockingDenial.NoReason;
+            LandingPad = -1;
+            Pending = false;
+            Sending = false;
+        }
+
         public bool WatchRequest()
         {
             string MethodName = "Watch Request";

@@ -96,6 +96,7 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event Died.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event Docked.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event DockFighter.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event DockingCancelled.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -216,7 +217,7 @@
     <Compile Include="A.L.I.C.E Events\Updating\Event SquadronStartup.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event Docked.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event DockFighter.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event DockingCancelled.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event DockingCancelled.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event DockingDenied.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event DockingGranted.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event DockingRequested.cs" />

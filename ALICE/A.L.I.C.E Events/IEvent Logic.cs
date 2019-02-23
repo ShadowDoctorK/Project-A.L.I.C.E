@@ -995,14 +995,8 @@ namespace ALICE_EventLogic
 
         public static void DockingCancelled(DockingCancelled Event)
         {
-            IStatus.Docking.State = IEnums.DockingState.Cancelled;
-            IStatus.Docking.StationName = Event.StationName;
-            IStatus.Docking.LandingPad = -1;
-
-            #region Logic Table
-            IStatus.Docking.Pending = false;
-            IStatus.Docking.Sending = false;
-            #endregion
+            //Update Status Obbject
+            IStatus.Docking.Update(Event);
 
             IStatus.Docking.Log.Status();
         }
