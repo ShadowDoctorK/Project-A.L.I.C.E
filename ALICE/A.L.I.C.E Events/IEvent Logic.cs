@@ -690,14 +690,6 @@ namespace ALICE_EventLogic
             Post.ApproachBody(Event);
         }
 
-        public static void LeaveBody(LeaveBody Event)
-        {
-            string MethodName = "Logic LeaveBody";
-            
-            IStatus.Planet.OrbitalCruise(false);
-            IStatus.Planet.Response.OrbitaCruiseExit(true, Check.Internal.TriggerEvents(true, MethodName));
-        }
-
         public static void Bounty(ALICE_Events.Bounty Event)
         {
             string MethodName = "Logic Bounty";
@@ -978,17 +970,7 @@ namespace ALICE_EventLogic
 
         public static void EngineerProgress(EngineerProgress Event)
         {
-            foreach (var Item in Event.Engineers)
-            {
-                var Target =  IObjects.Engineer.Get(Item.Engineer);
-
-                Target.Name = Item.Engineer;
-                Target.Rank = Item.Rank;
-                Target.RankProgress = Item.RankProgress;
-                Target.Progress = Item.Progress;
-
-                IObjects.Engineer.Update(Target);
-            }
+            IObjects.Engineer.Update(Event);
         }
 
         public static void FighterDestroyed(FighterDestroyed Event)
@@ -1245,6 +1227,14 @@ namespace ALICE_EventLogic
             Call.Action.Wait_FighterLaunch = false;
             IStatus.FighterDeployed = true;
             #endregion
+        }
+
+        public static void LeaveBody(LeaveBody Event)
+        {
+            string MethodName = "Logic LeaveBody";
+
+            IStatus.Planet.OrbitalCruise(false);
+            IStatus.Planet.Response.OrbitaCruiseExit(true, Check.Internal.TriggerEvents(true, MethodName));
         }
 
         public static void Liftoff(Liftoff Event)
