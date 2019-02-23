@@ -107,6 +107,7 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event EngineerProgress.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event EscapeInterdiction.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event FactionKillBond.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event FetchRemoteModule.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -238,7 +239,7 @@
     <Compile Include="A.L.I.C.E Events\Journal Events\Event EngineerProgress.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event EscapeInterdiction.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event FactionKillBond.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FetchRemoteModule.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event FetchRemoteModule.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event FighterDestroyed.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event FighterRebuilt.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event Fileheader.cs" />
