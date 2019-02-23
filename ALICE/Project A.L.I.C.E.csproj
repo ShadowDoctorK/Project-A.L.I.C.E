@@ -117,6 +117,7 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event FSSAllBodiesFound.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event FSSDiscoveryScan.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event FSSSignalDiscovered.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event FuelScoop.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -257,7 +258,7 @@
     <Compile Include="A.L.I.C.E Events\Journal Events\Event FSDTarget.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event FSSDiscoveryScan.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event FSSSignalDiscovered.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FuelScoop.cs" />
+    <Compile Include="A.L.I.C.E Events\[Sandbox]\Event FuelScoop.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event HeatDamage.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event HeatWarning.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event HullDamage.cs" />
@@ -626,7 +627,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="A.L.I.C.E Equipment\[Sandbox]\" />
-    <Folder Include="A.L.I.C.E Events\[Sandbox]\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

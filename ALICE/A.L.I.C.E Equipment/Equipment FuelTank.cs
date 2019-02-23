@@ -36,7 +36,14 @@ namespace ALICE_Equipment
             Settings.Capacity = -1;    //Loadout Event Property - Total Capacity Of Fuel
         }
 
-        public Equipment_FuelTank New() { return new Equipment_FuelTank(); }
+        public void Update(FuelScoop Event)
+        {
+            //Only Report If Scoop Is Enabled && Tank Is Full
+            if (GetPercent() >= 100)
+            {
+                ReportScooping(MethodName);
+            }
+        }
 
         #region Conversions
         /// <summary>

@@ -1109,9 +1109,7 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic FuelScoop";
 
-            //Only Report If Scoop Is Enabled && Tank Is Full
-            if (IEquipment.FuelTank.GetPercent() == 100)
-            { IEquipment.FuelTank.ReportScooping(MethodName); }            
+            IEquipment.FuelTank.Update(Event);
         }
 
         public static void HeatDamage(HeatDamage Event)
