@@ -110,6 +110,7 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event FetchRemoteModule.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event FighterDestroyed.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event FighterRebuilt.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event Fileheader.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -244,7 +245,7 @@
     <Compile Include="A.L.I.C.E Events\Journal Events\Event FetchRemoteModule.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event FighterDestroyed.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event FighterRebuilt.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Fileheader.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event Fileheader.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event Friends.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event FSDJump.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event FSDTarget.cs" />
