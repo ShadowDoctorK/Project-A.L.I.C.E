@@ -113,6 +113,7 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event Fileheader.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event Friends.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event FSDJump.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event FSDTarget.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -250,7 +251,7 @@
     <Compile Include="A.L.I.C.E Events\Journal Events\Event Fileheader.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event Friends.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event FSDJump.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FSDTarget.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event FSDTarget.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event FSSDiscoveryScan.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event FSSSignalDiscovered.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event FuelScoop.cs" />
