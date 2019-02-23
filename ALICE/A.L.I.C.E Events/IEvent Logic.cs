@@ -1064,8 +1064,7 @@ namespace ALICE_EventLogic
             IStatus.Fighter.Deployed = false;
             IStatus.WeaponSafety = false;
             IStatus.Planet.OrbitalMode = false;
-            IStatus.Planet.DecentReport = false;
-            IStatus.Hyperspace = false;
+            IStatus.Planet.DecentReport = false;            
             IStatus.Supercruise = true;
         }
 
