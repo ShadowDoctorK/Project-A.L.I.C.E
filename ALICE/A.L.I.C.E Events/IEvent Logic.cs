@@ -1038,10 +1038,24 @@ namespace ALICE_EventLogic
             //Check System Status & Update Current System Object
             IStatus.System.Status(Event);
 
-            #region Logic Table
-            IEquipment.DiscoveryScanner.FirstScan = true;
+            //Post Jump Safeties
+            if (Check.Order.PostJumpSafety(true, MethodName))
+            {
+                Call.Key.Press(Call.Key.Set_Speed_To_0, 0);
+            }
 
-            IVehicles.Vehicle = IVehicles.V.Mothership;
+            //Fuel Status Report
+            IEquipment.FuelTank.ScoopingReset();
+            if (Check.Report.FuelStatus(true, MethodName) == true)
+            {
+                IEquipment.FuelTank.Report = true;
+            }
+
+            //Assisted System Scans
+            IEquipment.DiscoveryScanner.FirstScan = true;
+            IEquipment.DiscoveryScanner.Scan();
+
+            //Plugin Property Alignment
             IStatus.Hardpoints = false;
             IStatus.Touchdown = false;
             IStatus.CargoScoop = false;
@@ -1051,18 +1065,8 @@ namespace ALICE_EventLogic
             IStatus.WeaponSafety = false;
             IStatus.Planet.OrbitalMode = false;
             IStatus.Planet.DecentReport = false;
-            IEquipment.FuelTank.ScoopingReset();
-
-            Call.Panel.Comms.Open = false;
-            Call.Panel.System.Open = false;
-            Call.Panel.Target.Open = false;
-            Call.Panel.Role.Open = false;
-
             IStatus.Hyperspace = false;
             IStatus.Supercruise = true;
-            #endregion
-
-            Post.FSDJump(Event);
         }
 
         public static void FSSAllBodiesFound(FSSAllBodiesFound Event)
@@ -1880,40 +1884,7 @@ namespace ALICE_EventLogic
             {
                 IStatus.Planet.Response.OrbitalGravityWarning(true, Check.Internal.TriggerEvents(true, MethodName));
             }
-        }
-
-        public static void FSDJump(FSDJump Event)
-        {
-            string MethodName = "Post Jump Checks";
-
-            if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
-
-            Thread.Sleep(100);
-
-            #region Discovery Scan (New Thread)
-            if (Check.Order.AssistSystemScan(true, MethodName))
-            {
-                Thread DisScan = new Thread((ThreadStart)(() => { Call.Action.DiscoveryScanner(true, true); }));
-                DisScan.IsBackground = true;
-                DisScan.Start();
-            }
-            #endregion
-
-            #region Post Hyperspace Safety
-            if (Check.Order.PostJumpSafety(true, MethodName))
-            {
-                Logger.DebugLine(MethodName, "Post Jump Safeties Are Enabled.", Logger.Blue);                
-                Call.Key.Press(Call.Key.Set_Speed_To_0, 0);
-            }
-            #endregion
-
-            #region Fuel Reports
-            Logger.Log(MethodName, "Fuel Levels At " + decimal.Round(IEquipment.FuelTank.GetPercent(), 2).ToString() + " Percent", Logger.Blue);
-            if (Check.Report.FuelStatus(true, MethodName) == true) { IEquipment.FuelTank.Report = true; }
-            #endregion
-
-            //System Report. Security, Allegiance, ect...
-        }
+        }       
 
         public static void SupercruiseExit(SupercruiseExit Event)
         {

@@ -26,6 +26,19 @@ namespace ALICE_Equipment
             Settings.Enabled = true;
         }
 
+        public void Scan()
+        {
+            if (Check.Order.AssistSystemScan(true, MethodName))
+            {
+                Thread DisScan = new Thread((ThreadStart)(() => 
+                {
+                    Call.Action.DiscoveryScanner(true, true);
+                }));
+                DisScan.IsBackground = true;
+                DisScan.Start();
+            }
+        }
+
         #region Watcher
         //Sets "Active" to true when constructed. Then watches the variable for 2 seconds when Invoked.
         public override WaitHandler Watch() { Active = true; return new WaitHandler(Watcher); }
