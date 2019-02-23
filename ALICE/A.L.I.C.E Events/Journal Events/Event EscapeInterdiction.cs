@@ -63,13 +63,13 @@ namespace ALICE_Events
     {
         public string Interdictor { get; set; }
         public string Interdictor_Localised { get; set; }
-        public string IsPlayer { get; set; }
+        public bool IsPlayer { get; set; }
 
         public EscapeInterdiction()
         {
             Interdictor = Default.String;
             Interdictor_Localised = Default.String;
-            IsPlayer = Default.String;
+            IsPlayer = Default.False;
         }
     }
     #endregion
