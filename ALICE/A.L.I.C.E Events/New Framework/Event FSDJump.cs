@@ -144,36 +144,9 @@ namespace ALICE_Events
                 Variables.Record(Name + "_Faction", Event.SystemFaction.Name);
                 Variables.Record(Name + "_State", Event.SystemFaction.FactionState);
                 Variables.Record(Name + "_PowerplayState", Event.PowerplayState);
-
-                //Check For Powerplay Faction #1
-                if (Event.Powers.Count != 0)
-                {
-                    Variables.Record(Name + "_Power1", Event.Powers[0]);
-                }
-                else
-                {
-                    Variables.Record(Name + "_Power1", "None");
-                }
-
-                //Check For Powerplay Faction #2
-                if (Event.Powers.Count > 0)
-                {
-                    Variables.Record(Name + "_Power2", Event.Powers[1]);
-                }
-                else
-                {
-                    Variables.Record(Name + "_Power2", "None");
-                }
-
-                //Check Population
-                if (Event.Population != -1)
-                {
-                    Variables.Record(Name + "_Population", Event.Population);
-                }
-                else
-                {
-                    Variables.Record(Name + "_Population", "0");
-                }
+                Variables.Switch(Name + "_Population", Event.Population, 0);
+                Variables.Switch(Name + "_Power1", Event.Powers, 0, "None");
+                Variables.Switch(Name + "_Power2", Event.Powers, 1, "None");
             }
             catch (Exception ex)
             {

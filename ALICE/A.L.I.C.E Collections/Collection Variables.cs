@@ -114,6 +114,129 @@ namespace ALICE_Collections
         }
 
         /// <summary>
+        /// Will set the variable based on evaluating the switch case. This Method allows a single simple function to pick between two variable values.
+        /// </summary>
+        /// <param name="VariableName">Full name of the Variable</param>
+        /// <param name="VariableVallue">Primary Target Value</param>
+        /// <param name="FallbackValue">Backup Value</param>
+        /// <param name="Case">Trigger that will cause the use of the Fallback Value</param>
+        public void Switch(string VariableName, string VariableVallue, string FallbackValue, string Case = "None")
+        {
+            //Check Value Does Not Equal Case
+            if (VariableVallue != Case)
+            {
+                Record(VariableName, VariableVallue);
+            }
+            //Use Fallback Value
+            else
+            {
+                Record(VariableName, FallbackValue);
+            }
+        }
+
+        /// <summary>
+        /// Will set the variable based on evaluating the switch case. This Method allows a single simple function to pick between two variable values.
+        /// </summary>
+        /// <param name="VariableName">Full name of the Variable</param>
+        /// <param name="VariableVallue">Primary Target Value</param>
+        /// <param name="FallbackValue">Backup Value</param>
+        /// <param name="Case">Trigger that will cause the use of the Fallback Value</param>
+        public void Switch(string VariableName, decimal VariableVallue, decimal FallbackValue, decimal Case = -1)
+        {
+            //Check Value Does Not Equal Case
+            if (VariableVallue != Case)
+            {
+                Record(VariableName, VariableVallue);
+            }
+            //Use Fallback Value
+            else
+            {
+                Record(VariableName, FallbackValue);
+            }
+        }
+
+        /// <summary>
+        /// Will set the variable based on evaluating the switch case. This Method allows a single simple function to pick between two variable values.
+        /// </summary>
+        /// <param name="VariableName">Full name of the Variable</param>
+        /// <param name="VariableVallue">Primary Target Value</param>
+        /// <param name="FallbackValue">Backup Value</param>
+        /// <param name="Case">Trigger that will cause the use of the Fallback Value</param>
+        public void Switch(string VariableName, decimal VariableVallue, string FallbackValue, decimal Case = -1)
+        {
+            //Check Value Does Not Equal Case
+            if (VariableVallue != Case)
+            {
+                Record(VariableName, VariableVallue);
+            }
+            //Use Fallback Value
+            else
+            {
+                Record(VariableName, FallbackValue);
+            }
+        }
+
+        /// <summary>
+        /// Will set the variable based on evaluating the switch case. This Method allows a single simple function to pick between two values based on the passed boolean.
+        /// </summary>
+        /// <param name="VariableName">Full name of the Variable</param>
+        /// <param name="State">State of the boolean value being checked</param>
+        /// <param name="VariableVallue">Primary Target Value</param>
+        /// <param name="FallbackValue">Backup Value</param>
+        /// <param name="Case">Trigger that will cause the use of the Fallback Value</param>
+        public void Switch(string VariableName, bool State, string VariableVallue, string FallbackValue, bool Case = false)
+        {
+            //Check Value Does Not Equal Case
+            if (State != Case)
+            {                
+                Record(VariableName, VariableVallue);
+            }
+            //Use Fallback Value
+            else
+            {
+                Record(VariableName, FallbackValue);
+            }
+        }
+
+        /// <summary>
+        /// Will set the variable based on validating the list item exists then evalutating the vaule against the case. Will use the fallback value 
+        /// if the item doesn't exist, or the evaluation against the case fails.
+        /// </summary>
+        /// <param name="VariableName">Full name of the Variable</param>
+        /// <param name="Values">The list you're working with</param>
+        /// <param name="TargetItem">The item you want to check</param>
+        /// <param name="FallbackValue">Backup Value</param>
+        /// <param name="Case">Trigger that will cause the use of the Fallback Value</param>
+        public void Switch(string VariableName, List<string> Values, int TargetItem, string FallbackValue, string Case = "None")
+        {
+            try
+            {
+                //Check Target Item Exists
+                if (Values.Count - 1 < TargetItem)
+                {
+                    //Use Fallback Value
+                    Record(VariableName, FallbackValue);
+                    return;
+                }
+
+                //Check Value Does Not Equal Case
+                if (Values[TargetItem] != Case)
+                {
+                    Record(VariableName, Values[TargetItem]);
+                }
+                //Use Fallback Value
+                else
+                {
+                    Record(VariableName, FallbackValue);
+                }
+            }
+            catch (Exception)
+            {
+                
+            }            
+        }
+
+        /// <summary>
         /// Records the passed variable information.
         /// </summary>
         public void Record(string VariableName, string VariableValue)

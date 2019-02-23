@@ -42,26 +42,8 @@ namespace ALICE_Events
                 var Event = (FactionKillBond)O;
 
                 Variables.Record(Name + "_Credits", Event.Reward);
-
-                //Victim Faction
-                if (Event.VictimFaction_Localised != "None")
-                {
-                    Variables.Record(Name + "_VictimFaction", Event.VictimFaction_Localised);
-                }
-                else
-                {
-                    Variables.Record(Name + "_VictimFaction", Event.VictimFaction);
-                }
-
-                //Awarding Faction
-                if (Event.AwardingFaction_Localised != "None")
-                {
-                    Variables.Record(Name + "_AwardingFaction", Event.AwardingFaction_Localised);
-                }
-                else
-                {
-                    Variables.Record(Name + "_AwardingFaction", Event.AwardingFaction);
-                }
+                Variables.Switch(Name + "_VictimFaction", Event.VictimFaction_Localised, Event.VictimFaction);
+                Variables.Switch(Name + "_AwardingFaction", Event.AwardingFaction_Localised, Event.AwardingFaction);
             }
             catch (Exception ex)
             {

@@ -37,25 +37,8 @@ namespace ALICE_Events
             {
                 var Event = (EscapeInterdiction)O;
 
-                //Pilots Name
-                if (Event.Interdictor_Localised != "None")
-                {
-                    Variables.Record(Name + "_Pilot", Event.Interdictor_Localised);
-                }
-                else
-                {
-                    Variables.Record(Name + "_Pilot", Event.Interdictor);
-                }
-
-                //Pilot Type
-                if (Event.IsPlayer)
-                {
-                    Variables.Record(Name + "_Type", "Commander");
-                }
-                else
-                {
-                    Variables.Record(Name + "_Type", "NPC");
-                }
+                Variables.Switch(Name + "_Pilot", Event.Interdictor_Localised, Event.Interdictor);
+                Variables.Switch(Name + "_Type", Event.IsPlayer, "Commander", "NPC");
             }
             catch (Exception ex)
             {
