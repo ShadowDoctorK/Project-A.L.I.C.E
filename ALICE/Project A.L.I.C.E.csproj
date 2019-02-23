@@ -98,6 +98,7 @@
     <Compile Include="A.L.I.C.E Events\New Framework\Event DockFighter.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event DockingCancelled.cs" />
     <Compile Include="A.L.I.C.E Events\New Framework\Event DockingDenied.cs" />
+    <Compile Include="A.L.I.C.E Events\New Framework\Event DockingGranted.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
@@ -220,7 +221,7 @@
     <Compile Include="A.L.I.C.E Events\Journal Events\Event DockFighter.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event DockingCancelled.cs" />
     <Compile Include="A.L.I.C.E Events\Journal Events\Event DockingDenied.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event DockingGranted.cs" />
+    <Compile Include="A.L.I.C.E Events\Journal Events\Event DockingGranted.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event DockingRequested.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event DockSRV.cs" />
     <Compile Include="A.L.I.C.E Events\Updating\Event EjectCargo.cs" />

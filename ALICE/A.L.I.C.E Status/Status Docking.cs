@@ -62,6 +62,27 @@ namespace ALICE_Status
             Sending = false;
         }
 
+        public void Update(DockingGranted Event)
+        {
+            State = IEnums.DockingState.Granted;
+            StationName = Event.StationName;
+            StationType = Event.StationType;
+            Denial = IEnums.DockingDenial.NoReason;
+            LandingPad = Event.LandingPad;
+            Pending = false;
+        }
+
+        public void Update(DockingRequested Event)
+        {
+            State = IEnums.DockingState.Requested;
+            StationName = Event.StationName;
+            StationType = Event.StationType;
+            Denial = IEnums.DockingDenial.NoReason;
+            LandingPad = -1;
+            Pending = true;
+            Sending = false;
+        }
+
         public void Update(DockingDenied Event)
         {
             State = IEnums.DockingState.Denied;

@@ -944,30 +944,16 @@ namespace ALICE_EventLogic
 
         public static void DockingRequested(DockingRequested Event)
         {
-            IStatus.Docking.State = IEnums.DockingState.Requested;
-            IStatus.Docking.StationName = Event.StationName;
-            IStatus.Docking.StationType = Event.StationType;
-            IStatus.Docking.Denial = IEnums.DockingDenial.NoReason;
-
-            #region Logic Table
-            IStatus.Docking.Sending = false;
-            IStatus.Docking.Pending = true;
-            #endregion
+            //Update Status Object
+            IStatus.Docking.Update(Event);
 
             IStatus.Docking.Log.Status();
         }
 
         public static void DockingGranted(DockingGranted Event)
         {
-            IStatus.Docking.State = IEnums.DockingState.Granted;
-            IStatus.Docking.StationName = Event.StationName;
-            IStatus.Docking.StationType = Event.StationType;
-            IStatus.Docking.LandingPad = Event.LandingPad;
-            IStatus.Docking.Denial = IEnums.DockingDenial.NoReason;
-
-            #region Logic Table
-            IStatus.Docking.Pending = false;
-            #endregion
+            //Update Status Object
+            IStatus.Docking.Update(Event);
 
             IStatus.Docking.Log.Status();
         }
@@ -976,7 +962,7 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic DockingDenied";
 
-            //Udpate Status Object
+            //Update Status Object
             IStatus.Docking.Update(Event);
 
             IStatus.Docking.Log.Status();
