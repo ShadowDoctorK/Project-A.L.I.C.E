@@ -91,7 +91,7 @@ namespace ALICE_Actions
         #region Properties
         public bool Default = true;
         public decimal Num_Boost = 0;
-        public bool Wait_FighterLaunch = false;
+        //public bool Wait_FighterLaunch = false;
         #endregion
 
         public Actions() { }
@@ -2804,7 +2804,7 @@ namespace ALICE_Actions
             else if (PlugIn.Audio == "External") { }
             #endregion
 
-            Wait_FighterLaunch = true;
+            IStatus.Fighter.WaitLaunch = true;
 
             #region Panel Control: Launch Figther
             if (Check.Panel.Fighters(MethodName) == false)
@@ -2847,9 +2847,9 @@ namespace ALICE_Actions
             #endregion
 
             #region Wait: LaunchFighter Event
-            int LaunchCounter = 0; while (Wait_FighterLaunch == true && Check.Environment.Space(IEnums.Normal_Space, true, MethodName, true) == true)
+            int LaunchCounter = 0; while (IStatus.Fighter.WaitLaunch == true && Check.Environment.Space(IEnums.Normal_Space, true, MethodName, true) == true)
             {
-                Logger.DebugLine(MethodName, "Checking: (Wait) LaunchFighter Event = " + Wait_FighterLaunch + " | Environment Is Normalspace = " + Check.Environment.Space(IEnums.Normal_Space, true, MethodName), Logger.Blue);
+                Logger.DebugLine(MethodName, "Checking: (Wait) LaunchFighter Event = " + IStatus.Fighter.WaitLaunch + " | Environment Is Normalspace = " + Check.Environment.Space(IEnums.Normal_Space, true, MethodName), Logger.Blue);
 
                 if (LaunchCounter > 100)
                 {
@@ -2865,13 +2865,13 @@ namespace ALICE_Actions
                     else if (PlugIn.Audio == "File") { }
                     else if (PlugIn.Audio == "External") { }
                     #endregion
-                
-                    Wait_FighterLaunch = false;
+
+                    IStatus.Fighter.WaitLaunch = false;
                     return;
                 } Thread.Sleep(100); LaunchCounter++;
             }
 
-            Logger.DebugLine(MethodName, "Checking: (Wait) LaunchFighter Event = " + Wait_FighterLaunch + " | Environment Is Normalspace = " + Check.Environment.Space(IEnums.Normal_Space, true, MethodName), Logger.Blue);
+            Logger.DebugLine(MethodName, "Checking: (Wait) LaunchFighter Event = " + IStatus.Fighter.WaitLaunch + " | Environment Is Normalspace = " + Check.Environment.Space(IEnums.Normal_Space, true, MethodName), Logger.Blue);
 
             if (Check.Environment.Space(IEnums.Normal_Space, false, MethodName, true) == true)
             {

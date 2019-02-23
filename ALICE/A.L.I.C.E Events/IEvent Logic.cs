@@ -10,6 +10,7 @@ using ALICE_Synthesizer;
 using ALICE_Settings;
 using ALICE_Interface;
 using System.Collections.Generic;
+using ALICE_Status;
 
 namespace ALICE_EventLogic
 {
@@ -913,7 +914,7 @@ namespace ALICE_EventLogic
             IStatus.Hardpoints = false;
             IStatus.Touchdown = false;
             IStatus.LandingGear = true;
-            IStatus.FighterDeployed = false;
+            IStatus.Fighter.Deployed = false;
             #endregion
 
             //Extended Logging
@@ -924,14 +925,12 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic DockFighter";
 
-            IStatus.FighterStatus = "Docked";
-
+            //Fighter Docked Audio
             IStatus.Fighter.Response.Docked(
                 Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
 
-            #region Logic Table
-            IStatus.FighterDeployed = false;
-            #endregion
+            //Update Status Object
+            IStatus.Fighter.Update(Event);
         }
 
         public static void DockingRequested(DockingRequested Event)
@@ -977,111 +976,48 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic FighterDestroyed";
 
-            IStatus.FighterStatus = "Destroyed";
+            //Fighter Destroyed Audio
+            IStatus.Fighter.Response.Destroyed(
+                Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
 
-            #region Fighter Destroyed
-            if (PlugIn.MasterAudio == true && Check.Internal.TriggerEvents(true, MethodName) == true)
-            {
-                if (PlugIn.Audio == "TTS")
-                {
-                    string Line = "".Phrase(EQ_Fighter.Destroyed);
-
-                    Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
-                    thread.IsBackground = true;
-                    thread.Start();
-                }
-                else if (PlugIn.Audio == "File")
-                {
-
-                }
-                else if (PlugIn.Audio == "External")
-                {
-
-                }
-            }
-            #endregion
-
-            #region Logic Table
-            IStatus.FighterDeployed = false;
-            #endregion
+            //Update Status Object
+            IStatus.Fighter.Update(Event);
         }
 
         public static void FighterRebuilt(FighterRebuilt Event)
         {
             string MethodName = "Logic FighterRebuilt";
 
-            #region Audio: Fighter Rebuilt (Docked) || Fighter Rebuilt (Destroyed) || Fighter Rebuilt (Other)
-            if (PlugIn.MasterAudio == true && Check.Internal.TriggerEvents(true, MethodName) == true)
+            //Fighter Rebuilt Audio
+            switch (IStatus.Fighter.Status)
             {
-                #region Fighter Rebuilt (Docked)
-                if (IStatus.FighterStatus == "Docked")
-                {
-                    if (PlugIn.Audio == "TTS")
-                    {
-                        string Line = "".Phrase(EQ_Fighter.Rebuilt_Docked);
+                case Status_Fighter.S.Docked:
 
-                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
-                        thread.IsBackground = true;
-                        thread.Start();
-                    }
-                    else if (PlugIn.Audio == "File")
-                    {
+                    //Fighter Rebuilt (Docked)
+                    IStatus.Fighter.Response.RebuiltDocked(
+                        Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
 
-                    }
-                    else if (PlugIn.Audio == "External")
-                    {
+                    break;
 
-                    }
-                }
-                #endregion
+                case Status_Fighter.S.Destroyed:
 
-                #region Fighter Rebuilt (Destroyed)
-                else if (IStatus.FighterStatus == "Destroyed")
-                {
-                    if (PlugIn.Audio == "TTS")
-                    {
-                        string Line = "".Phrase(EQ_Fighter.Rebuilt_Destroyed);
+                    //Fighter Rebuilt (Destroyed)
+                    IStatus.Fighter.Response.RebuiltDestroyed(
+                        Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
 
-                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
-                        thread.IsBackground = true;
-                        thread.Start();
-                    }
-                    else if (PlugIn.Audio == "File")
-                    {
+                    break;
 
-                    }
-                    else if (PlugIn.Audio == "External")
-                    {
+                default:
 
-                    }
-                }
-                #endregion
+                    //Fighter Rebuilt (Other)
+                    IStatus.Fighter.Response.RebuiltOther(
+                        Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
 
-                #region Fighter Rebuilt (Other)
-                else
-                {
-                    if (PlugIn.Audio == "TTS")
-                    {
-                        string Line = "".Phrase(EQ_Fighter.Rebuilt_Other);
-
-                        Thread thread = new Thread((ThreadStart)(() => { SpeechService.Instance.Process(Line, true); }));
-                        thread.IsBackground = true;
-                        thread.Start();
-                    }
-                    else if (PlugIn.Audio == "File")
-                    {
-
-                    }
-                    else if (PlugIn.Audio == "External")
-                    {
-
-                    }
-                }
-                #endregion
+                    break;
             }
-            #endregion
 
-            IStatus.FighterStatus = "Ready";
+            //Update Status Object
+            IStatus.Fighter.Update(Event);
         }
 
         public static void FSDTarget(FSDTarget Event)
@@ -1111,7 +1047,7 @@ namespace ALICE_EventLogic
             IStatus.CargoScoop = false;
             IStatus.LandingGear = false;
             IStatus.Hyperspace = false;
-            IStatus.FighterDeployed = false;
+            IStatus.Fighter.Deployed = false;
             IStatus.WeaponSafety = false;
             IStatus.Planet.OrbitalMode = false;
             IStatus.Planet.DecentReport = false;
@@ -1221,12 +1157,8 @@ namespace ALICE_EventLogic
 
         public static void LaunchFighter(LaunchFighter Event)
         {
-            IStatus.FighterStatus = "Deployed";
-
-            #region Logic Table
-            Call.Action.Wait_FighterLaunch = false;
-            IStatus.FighterDeployed = true;
-            #endregion
+            //Update Status Object
+            IStatus.Fighter.Update(Event);
         }
 
         public static void LeaveBody(LeaveBody Event)
@@ -1710,7 +1642,7 @@ namespace ALICE_EventLogic
             IStatus.CargoScoop = false;
             IStatus.LandingGear = false;
             IStatus.Hyperspace = false;
-            IStatus.FighterDeployed = false;
+            IStatus.Fighter.Deployed = false;
             Call.Panel.System.Open = false;
             Call.Panel.Target.Open = false;
             Call.Panel.Role.Open = false;
@@ -1768,7 +1700,7 @@ namespace ALICE_EventLogic
             IStatus.LandingGear = false;
             IStatus.Hyperspace = false;
             IStatus.Supercruise = false;
-            IStatus.FighterDeployed = false;
+            IStatus.Fighter.Deployed = false;
             Call.Panel.System.Open = false;
             Call.Panel.Target.Open = false;
             Call.Panel.Role.Open = false;
@@ -1799,7 +1731,7 @@ namespace ALICE_EventLogic
             IStatus.CargoScoop = false;
             IStatus.LandingGear = false;
             IStatus.Hyperspace = false;
-            IStatus.FighterDeployed = false;
+            IStatus.Fighter.Deployed = false;
             Call.Panel.System.Open = false;
             Call.Panel.Target.Open = false;
             Call.Panel.Role.Open = false;
@@ -1840,7 +1772,7 @@ namespace ALICE_EventLogic
             IStatus.LandingGear = true;
             IStatus.Hyperspace = false;
             IStatus.Supercruise = false;
-            IStatus.FighterDeployed = false;
+            IStatus.Fighter.Deployed = false;
             IStatus.Docked = false;
 
             IStatus.Hyperspace = false;

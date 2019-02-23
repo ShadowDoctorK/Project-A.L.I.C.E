@@ -51,7 +51,7 @@ namespace ALICE_Events
         {
             IStatus.Touchdown = true;
             IStatus.LandingGear = true;
-            IStatus.FighterDeployed = false;
+            IStatus.Fighter.Deployed = false;
             IStatus.CargoScoop = false;
             IStatus.Supercruise = false;
             IStatus.Hyperspace = false;

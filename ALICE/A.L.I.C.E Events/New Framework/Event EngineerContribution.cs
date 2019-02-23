@@ -81,7 +81,7 @@ namespace ALICE_Events
             IStatus.Docked = true;
             IStatus.Hardpoints = false;
             IStatus.LandingGear = true;
-            IStatus.FighterDeployed = false;
+            IStatus.Fighter.Deployed = false;
         }
     }
 }

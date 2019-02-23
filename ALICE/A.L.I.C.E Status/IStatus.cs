@@ -54,9 +54,6 @@ namespace ALICE_Core
         //StartJump Event
         public static bool Hyperspace = false;
 
-        //Launch, Destroyed & Docked Fighter Event
-        public static bool FighterDeployed = false;
-
         //Music Event
         public static bool FSSMode = false;
 
@@ -65,7 +62,6 @@ namespace ALICE_Core
 
         //Miscellaneous
         public static bool NPC_Crew = Convert.ToBoolean(Miscellanous.Default["NPC_Crew"]);
-        public static string FighterStatus = "Ready";
         public static bool LandingPreps = false;
     }
 }

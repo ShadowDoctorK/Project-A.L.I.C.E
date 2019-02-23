@@ -841,7 +841,7 @@ namespace ALICE_Internal
 
             public bool FighterDeployed(bool TargetState, string MethodName, bool DisableDebug = false)
             {
-                bool State = IStatus.FighterDeployed;
+                bool State = IStatus.Fighter.Deployed;
                 string Variable = "Fighter Deployed";
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }

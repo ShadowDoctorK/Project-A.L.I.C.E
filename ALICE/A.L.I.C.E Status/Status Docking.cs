@@ -17,15 +17,15 @@ namespace ALICE_Status
 {
     public class Status_Docking
     {
-        /*Data Sources
-        * 1. Docked Event
-        * 2. Undocked Event
-        * 3. DockingDenied Event
-        * 4. DockingRequested Event
-        * 5. DockingGranted Event
-        * 6. DockingCancelled Event
-        * 7. Location Event
-        */
+        /* Data Sources
+         * 1. Docked Event
+         * 2. Undocked Event
+         * 3. DockingDenied Event
+         * 4. DockingRequested Event
+         * 5. DockingGranted Event
+         * 6. DockingCancelled Event
+         * 7. Location Event
+         */
 
         public static readonly string MethodName = "Docking Status";
 

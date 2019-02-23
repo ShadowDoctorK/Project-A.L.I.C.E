@@ -83,7 +83,7 @@ namespace ALICE_Events
             IStatus.Hyperspace = false;
             IStatus.Touchdown = false;
             IStatus.Hardpoints = false;
-            IStatus.FighterDeployed = false;
+            IStatus.Fighter.Deployed = false;
         }
     }
 }
