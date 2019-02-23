@@ -976,26 +976,15 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic DockingDenied";
 
-            IStatus.Docking.State = IEnums.DockingState.Denied;
-            IStatus.Docking.StationName = Event.StationName;
-            IStatus.Docking.StationType = Event.StationType;
-            IStatus.Docking.LandingPad = -1;
-            IStatus.Docking.Denial = Utilities.ToEnum<IEnums.DockingDenial>(Event.Reason);
-
-            if (IStatus.Docking.Denial == IEnums.DockingDenial.NotSet)
-            { Logger.DevUpdateLog(MethodName, "Undefined Docking Denial State Detected: " + Event.Reason, Logger.Red); }
-
-            #region Logic Table
-            IStatus.Docking.Pending = false;
-            IStatus.Docking.Sending = false;
-            #endregion
+            //Udpate Status Object
+            IStatus.Docking.Update(Event);
 
             IStatus.Docking.Log.Status();
         }
 
         public static void DockingCancelled(DockingCancelled Event)
         {
-            //Update Status Obbject
+            //Update Status Object
             IStatus.Docking.Update(Event);
 
             IStatus.Docking.Log.Status();

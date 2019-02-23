@@ -27,6 +27,8 @@ namespace ALICE_Status
         * 7. Location Event
         */
 
+        public static readonly string MethodName = "Docking Status";
+
         public IEnums.DockingState State = IEnums.DockingState.Undocked;
         public IEnums.DockingDenial Denial = IEnums.DockingDenial.NoReason;
         public string StationName = "Unknown";
@@ -55,6 +57,26 @@ namespace ALICE_Status
             StationName = Event.StationName;
             StationType = Event.StationType;
             Denial = IEnums.DockingDenial.NoReason;
+            LandingPad = -1;
+            Pending = false;
+            Sending = false;
+        }
+
+        public void Update(DockingDenied Event)
+        {
+            State = IEnums.DockingState.Denied;
+            StationName = Event.StationName;
+            StationType = Event.StationType;
+
+            //Convert & Set Denial Reason
+            Denial = IEnums.ToEnum<IEnums.DockingDenial>(Event.Reason);
+
+            //Track New Denial Reasons
+            if (Denial == IEnums.DockingDenial.NotSet)
+            {
+                Logger.DevUpdateLog(MethodName, "New Denial Reason Detected: " + Event.Reason, Logger.Yellow);
+            }
+
             LandingPad = -1;
             Pending = false;
             Sending = false;
