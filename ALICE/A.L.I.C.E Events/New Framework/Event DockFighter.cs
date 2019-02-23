@@ -60,7 +60,7 @@ namespace ALICE_Events
             IStatus.Hyperspace = false;
             IStatus.LandingGear = false;
             IStatus.Touchdown = false;
-            IStatus.Docked = false;
+            IStatus.Docking.Docked = false;
             IStatus.Docking.State = IEnums.DockingState.Undocked;
         }
     }

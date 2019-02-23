@@ -330,9 +330,9 @@ namespace ALICE_Internal
                         Touchdown = IStatus.Touchdown;
                         Updates.Add("(" + MethodName + ") Touchdown = " + Touchdown);
                     }
-                    if (Docked != IStatus.Docked)
+                    if (Docked != IStatus.Docking.Docked)
                     {
-                        Docked = IStatus.Docked;
+                        Docked = IStatus.Docking.Docked;
                         Updates.Add("(" + MethodName + ") Docked = " + Docked);
                     }
                     #endregion

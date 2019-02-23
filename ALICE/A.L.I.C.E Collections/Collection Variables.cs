@@ -120,17 +120,19 @@ namespace ALICE_Collections
         /// <param name="VariableVallue">Primary Target Value</param>
         /// <param name="FallbackValue">Backup Value</param>
         /// <param name="Case">Trigger that will cause the use of the Fallback Value</param>
-        public void Switch(string VariableName, string VariableVallue, string FallbackValue, string Case = "None")
+        public bool Switch(string VariableName, string VariableVallue, string FallbackValue, string Case = "None")
         {
             //Check Value Does Not Equal Case
             if (VariableVallue != Case)
             {
                 Record(VariableName, VariableVallue);
+                return true;
             }
             //Use Fallback Value
             else
             {
                 Record(VariableName, FallbackValue);
+                return false;
             }
         }
 
@@ -141,17 +143,20 @@ namespace ALICE_Collections
         /// <param name="VariableVallue">Primary Target Value</param>
         /// <param name="FallbackValue">Backup Value</param>
         /// <param name="Case">Trigger that will cause the use of the Fallback Value</param>
-        public void Switch(string VariableName, decimal VariableVallue, decimal FallbackValue, decimal Case = -1)
+        /// <returns>Returns true if Target Value was used, false if Fallback Value was used</returns>
+        public bool Switch(string VariableName, decimal VariableValue, decimal FallbackValue, decimal Case = -1)
         {
             //Check Value Does Not Equal Case
-            if (VariableVallue != Case)
+            if (VariableValue != Case)
             {
-                Record(VariableName, VariableVallue);
+                Record(VariableName, VariableValue);
+                return true;
             }
             //Use Fallback Value
             else
             {
                 Record(VariableName, FallbackValue);
+                return false;
             }
         }
 
@@ -162,17 +167,20 @@ namespace ALICE_Collections
         /// <param name="VariableVallue">Primary Target Value</param>
         /// <param name="FallbackValue">Backup Value</param>
         /// <param name="Case">Trigger that will cause the use of the Fallback Value</param>
-        public void Switch(string VariableName, decimal VariableVallue, string FallbackValue, decimal Case = -1)
+        /// <returns>Returns true if Target Value was used, false if Fallback Value was used</returns>
+        public bool Switch(string VariableName, decimal VariableValue, string FallbackValue, decimal Case = -1)
         {
             //Check Value Does Not Equal Case
-            if (VariableVallue != Case)
+            if (VariableValue != Case)
             {
-                Record(VariableName, VariableVallue);
+                Record(VariableName, VariableValue);
+                return true;
             }
             //Use Fallback Value
             else
             {
                 Record(VariableName, FallbackValue);
+                return false;
             }
         }
 
@@ -184,17 +192,20 @@ namespace ALICE_Collections
         /// <param name="VariableVallue">Primary Target Value</param>
         /// <param name="FallbackValue">Backup Value</param>
         /// <param name="Case">Trigger that will cause the use of the Fallback Value</param>
-        public void Switch(string VariableName, bool State, string VariableVallue, string FallbackValue, bool Case = false)
+        /// <returns>Returns true if Target Value was used, false if Fallback Value was used</returns>
+        public bool Switch(string VariableName, bool State, string VariableValue, string FallbackValue, bool Case = false)
         {
             //Check Value Does Not Equal Case
             if (State != Case)
             {                
-                Record(VariableName, VariableVallue);
+                Record(VariableName, VariableValue);
+                return true;
             }
             //Use Fallback Value
             else
             {
                 Record(VariableName, FallbackValue);
+                return false;
             }
         }
 
@@ -207,7 +218,8 @@ namespace ALICE_Collections
         /// <param name="TargetItem">The item you want to check</param>
         /// <param name="FallbackValue">Backup Value</param>
         /// <param name="Case">Trigger that will cause the use of the Fallback Value</param>
-        public void Switch(string VariableName, List<string> Values, int TargetItem, string FallbackValue, string Case = "None")
+        /// <returns>Returns true if Target Value was used, false if Fallback Value was used</returns>
+        public bool Switch(string VariableName, List<string> Values, int TargetItem, string FallbackValue, string Case = "None")
         {
             try
             {
@@ -216,23 +228,25 @@ namespace ALICE_Collections
                 {
                     //Use Fallback Value
                     Record(VariableName, FallbackValue);
-                    return;
+                    return false;
                 }
 
                 //Check Value Does Not Equal Case
                 if (Values[TargetItem] != Case)
                 {
                     Record(VariableName, Values[TargetItem]);
+                    return true;
                 }
                 //Use Fallback Value
                 else
                 {
                     Record(VariableName, FallbackValue);
+                    return false;
                 }
             }
             catch (Exception)
             {
-                
+                return false;
             }            
         }
 

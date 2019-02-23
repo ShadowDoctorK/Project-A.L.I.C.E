@@ -206,7 +206,7 @@ namespace ALICE_Events
             IStatus.Supercruise = true;
             IStatus.Hyperspace = false;
             IStatus.Touchdown = false;
-            IStatus.Docked = false;
+            IStatus.Docking.Docked = false;
             IStatus.LandingGear = false;
             IStatus.CargoScoop = false;
             IStatus.Fighter.Deployed = false;

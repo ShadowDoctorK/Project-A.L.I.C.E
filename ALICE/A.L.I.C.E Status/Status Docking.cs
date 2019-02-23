@@ -29,12 +29,12 @@ namespace ALICE_Status
 
         public static readonly string MethodName = "Docking Status";
 
+        public bool Docked = false;
         public IEnums.DockingState State = IEnums.DockingState.Undocked;
         public IEnums.DockingDenial Denial = IEnums.DockingDenial.NoReason;
         public string StationName = "Unknown";
         public string StationType = "Unknown";
         public decimal LandingPad = -1;
-        //public string DeniedReason = "NoReason";
 
         public bool Preparations = false;
         public bool Sending = false;
@@ -100,6 +100,25 @@ namespace ALICE_Status
 
             LandingPad = -1;
             Pending = false;
+            Sending = false;
+        }
+
+        public void Update(Location Event)
+        {
+            switch (Event.Docked)
+            {
+                case true:
+                    State = IEnums.DockingState.Docked; break;                    
+                default:
+                    State = IEnums.DockingState.Undocked; break;
+            }
+
+            Docked = Event.Docked;
+            StationName = Event.StationName;
+            StationType = Event.StationType;
+            Denial = IEnums.DockingDenial.NoReason;
+            LandingPad = -1;
+            Pending = true;
             Sending = false;
         }
 
@@ -245,7 +264,7 @@ namespace ALICE_Status
 
         public class Responces
         {
-            string MethodName = "Docking";
+            string MethodName = "Docking Status";
 
             public void Positve(bool CommandAudio, bool Var1 = true, bool Var2 = true,
                 bool Var3 = true, int Priority = 3, string Voice = null)

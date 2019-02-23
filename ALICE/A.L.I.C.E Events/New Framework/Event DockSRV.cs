@@ -55,7 +55,7 @@ namespace ALICE_Events
             IStatus.CargoScoop = false;
             IStatus.Supercruise = false;
             IStatus.Hyperspace = false;
-            IStatus.Docked = false;
+            IStatus.Docking.Docked = false;
             IStatus.Hardpoints = false;
         }
     }

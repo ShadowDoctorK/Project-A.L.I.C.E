@@ -78,7 +78,7 @@ namespace ALICE_Events
         public override void Alignment()
         {
             IStatus.LandingGear = true;
-            IStatus.Docked = true;
+            IStatus.Docking.Docked = true;
             IStatus.Supercruise = false;
             IStatus.Hyperspace = false;
             IStatus.Touchdown = false;

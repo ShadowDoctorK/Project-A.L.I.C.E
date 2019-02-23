@@ -14,9 +14,7 @@ namespace ALICE_Status
         public bool DecentReport { get; set; }
         public bool PostGlideReport { get; set; }
         public bool ExitingPlanet { get; set; }
-        public decimal Altitude { get; set; }
-        public decimal TempC { get; set; }
-        public decimal TempF { get; set; }        
+        public decimal Altitude { get; set; }      
 
         public Responses Response = new Responses();
 
@@ -26,6 +24,16 @@ namespace ALICE_Status
             DecentReport = false;
             PostGlideReport = false;
             ExitingPlanet = false;
+        }
+
+        /// <summary>
+        /// Process' Updates & Functions for the Liftoff Event
+        /// </summary>
+        /// <param name="Event"></param>
+        public void Update(Liftoff Event)
+        {
+            //Retract Landing Gear
+            Call.Action.LandingGear(false, false);
         }
 
         /// <summary>

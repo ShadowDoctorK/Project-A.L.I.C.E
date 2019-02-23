@@ -909,7 +909,7 @@ namespace ALICE_EventLogic
             IStatus.Docking.Update(Event);
 
             #region Logic Table
-            IStatus.Docked = true;
+            IStatus.Docking.Docked = true;
             IVehicles.Vehicle = IVehicles.V.Mothership;
             IStatus.Hardpoints = false;
             IStatus.Touchdown = false;
@@ -1116,39 +1116,16 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic HeatDamage";
 
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(EVT_HeatDamage.Default),
-                    true,
-                    Check.Internal.TriggerEvents(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
+            //Update Status Object
+            IStatus.Heat.Update(Event);
         }
 
         public static void HeatWarning(HeatWarning Event)
         {
             string MethodName = "Logic HeatWarning";
 
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(EVT_HeatWarning.Default)
-                    .Phrase(EVT_HeatWarning.Modifier, true),
-                    true,
-                    Check.Internal.TriggerEvents(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
+            //Update Status Object
+            IStatus.Heat.Update(Event);
         }
 
         public static void HullDamage(HullDamage Event)
@@ -1167,7 +1144,8 @@ namespace ALICE_EventLogic
             string MethodName = "Logic LeaveBody";
 
             IStatus.Planet.OrbitalCruise(false);
-            IStatus.Planet.Response.OrbitaCruiseExit(true, Check.Internal.TriggerEvents(true, MethodName));
+            IStatus.Planet.Response.OrbitaCruiseExit(
+                Check.Internal.TriggerEvents(true, MethodName));     //Check Plugin Initialized
         }
 
         public static void Liftoff(Liftoff Event)
@@ -1176,24 +1154,20 @@ namespace ALICE_EventLogic
             IStatus.WeaponSafety = false;
             #endregion
 
-            Call.Action.LandingGear(false, false);            
+            //Update Status Object
+            IStatus.Planet.Update(Event);
         }
 
         public static void Location(Location Event)
         {
-            if (Event.Docked == true || Event.Docked == false)
-            {
-                if (Event.Docked == true) { IStatus.Docking.State = IEnums.DockingState.Docked; }
-                else { IStatus.Docking.State = IEnums.DockingState.Undocked; }
-            }
-            if (Event.StationName != null) { IStatus.Docking.StationName = Event.StationName; }
-            if (Event.StationType != null) { IStatus.Docking.StationType = Event.StationType; }
+            //Update Docked State
+            IStatus.Docking.Update(Event);
 
+            //Update Current System Object
             IObjects.SysetmPrevious = IObjects.SystemCurrent;
-            IObjects.SystemCurrent = new Object_System();
             IObjects.SystemCurrent = IObjects.SystemCurrent.Update_SystemData(Event);
 
-            IObjects.SystemCurrent.Update_SystemList();
+            //Extended Logging
             IStatus.Docking.Log.Status();
         }
 
@@ -1648,7 +1622,7 @@ namespace ALICE_EventLogic
             Call.Panel.Target.Open = false;
             Call.Panel.Role.Open = false;
             Call.Panel.Comms.Open = false;
-            IStatus.Docked = false;
+            IStatus.Docking.Docked = false;
             IStatus.WeaponSafety = false;
             IStatus.Hyperspace = true;
             IStatus.Supercruise = false;            
@@ -1706,7 +1680,7 @@ namespace ALICE_EventLogic
             Call.Panel.Target.Open = false;
             Call.Panel.Role.Open = false;
             Call.Panel.Comms.Open = false;
-            IStatus.Docked = false;
+            IStatus.Docking.Docked = false;
             IStatus.Docking.Preparations = false;
             IStatus.WeaponSafety = false;
 
@@ -1737,7 +1711,7 @@ namespace ALICE_EventLogic
             Call.Panel.Target.Open = false;
             Call.Panel.Role.Open = false;
             Call.Panel.Comms.Open = false;
-            IStatus.Docked = false;
+            IStatus.Docking.Docked = false;
             IStatus.Docking.Preparations = false;
             IStatus.WeaponSafety = false;
             IStatus.Hyperspace = false;
@@ -1774,14 +1748,16 @@ namespace ALICE_EventLogic
             IStatus.Hyperspace = false;
             IStatus.Supercruise = false;
             IStatus.Fighter.Deployed = false;
-            IStatus.Docked = false;
+            IStatus.Docking.Docked = false;
 
             IStatus.Hyperspace = false;
             IStatus.Supercruise = false;
             #endregion
 
             if (Check.Internal.TriggerEvents(true, MethodName) == true)
-            { Post.Undocked(Event); }
+            {
+                Post.Undocked(Event);
+            }
         }
         #endregion
 

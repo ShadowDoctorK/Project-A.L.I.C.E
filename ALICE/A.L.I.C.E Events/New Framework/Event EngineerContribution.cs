@@ -78,7 +78,7 @@ namespace ALICE_Events
             IStatus.Supercruise = false;
             IStatus.Hyperspace = false;
             IStatus.Touchdown = false;
-            IStatus.Docked = true;
+            IStatus.Docking.Docked = true;
             IStatus.Hardpoints = false;
             IStatus.LandingGear = true;
             IStatus.Fighter.Deployed = false;

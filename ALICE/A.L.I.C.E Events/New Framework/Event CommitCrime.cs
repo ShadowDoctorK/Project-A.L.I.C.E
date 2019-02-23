@@ -50,17 +50,10 @@ namespace ALICE_Events
                 Variables.Record(Name + "_Faction", Event.Faction);
                 Variables.Record(Name + "_Victim", Event.Victim_Localised);
 
-                //Fine
-                if (Event.Fine != -1)
+                switch (Variables.Switch(Name + "_Credits", Event.Fine, Event.Bounty))
                 {
-                    Variables.Record(Name + "_Charge", "Fine");
-                    Variables.Record(Name + "_Credits", Event.Fine);
-                }                     
-                //Bounty
-                else if (Event.Bounty != -1)
-                {
-                    Variables.Record(Name + "_Charge", "Bounty");
-                    Variables.Record(Name + "_Credits", Event.Bounty);
+                    case true: Variables.Record(Name + "_Charge", "Fine"); break;
+                    case false: Variables.Record(Name + "_Charge", "Bounty"); break;
                 }
             }
             catch (Exception ex)

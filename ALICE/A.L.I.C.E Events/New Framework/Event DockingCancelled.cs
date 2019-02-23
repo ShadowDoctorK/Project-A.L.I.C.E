@@ -69,7 +69,7 @@ namespace ALICE_Events
             IStatus.Supercruise = false;
             IStatus.Hyperspace = false;
             IStatus.Touchdown = false;
-            IStatus.Docked = false;
+            IStatus.Docking.Docked = false;
         }
     }
 }

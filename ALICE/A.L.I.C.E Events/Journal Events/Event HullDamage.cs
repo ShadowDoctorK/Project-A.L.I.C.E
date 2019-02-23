@@ -64,14 +64,14 @@ namespace ALICE_Events
     public class HullDamage : Base
     {
         public decimal Health { get; set; }
-        public string PlayerPilot { get; set; }
-        public string Fighter { get; set; }
+        public bool PlayerPilot { get; set; }
+        public bool Fighter { get; set; }
 
         public HullDamage()
         {
             Health = Default.Decimal;
-            PlayerPilot = Default.String;
-            Fighter = Default.String;
+            PlayerPilot = Default.False;
+            Fighter = Default.False;
         }
     }
     #endregion

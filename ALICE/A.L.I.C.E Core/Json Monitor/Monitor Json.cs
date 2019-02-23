@@ -662,13 +662,13 @@ namespace ALICE_Monitors
                 if (Value.Flags == 1)
                 {
                     IStatus.Docking.State = IEnums.DockingState.Docked;
-                    IStatus.Docked = true;
+                    IStatus.Docking.Docked = true;
                     IStatus.WeaponSafety = true;
                     Value.Flags = Value.Flags - 1;
                 }
                 else
                 {
-                    IStatus.Docked = false;
+                    IStatus.Docking.Docked = false;
                 }
                 #endregion
 

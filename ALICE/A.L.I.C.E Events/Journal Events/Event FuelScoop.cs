@@ -2,69 +2,9 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-02T03:46:56Z", "event":"FuelScoop", "Scooped":5.007301, "Total":29.415503 }
 
+using ALICE_EventLogic;
+using ALICE_Internal;
 using System;
-
-namespace ALICE_Events
-{
-    /// <summary>
-    /// Object Data Class
-    /// </summary>
-    public class ASDF_Fileheader : Base
-    {
-        public decimal Scooped { get; set; }
-        public decimal Total { get; set; }
-
-        //Default Constructor
-        public ASDF_Fileheader()
-        {
-            Scooped = Dec();
-            Total = Dec();
-        }
-    }
-
-    /// <summary>
-    /// Event Logic & Data Storage Class
-    /// </summary>
-    public class QWER_Fileheader : Event
-    {
-        //Variable Generation
-        public override void Generate(object O)
-        {
-            try
-            {
-                var Event = (Fileheader)O;
-
-                Variables.Record(Name + "_Part", Event.Part);
-                Variables.Record(Name + "_Language", Event.Language);
-                Variables.Record(Name + "_Version", Event.Gameversion);
-                Variables.Record(Name + "_Build", Event.Build);
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(ex);
-            }
-        }
-
-        //Plugin Logic Process
-        public override void Process(object O)
-        {
-            try
-            {
-                var Event = (Fileheader)O;
-            }
-            catch (Exception ex)
-            {
-                ExceptionProcess(ex);
-            }
-        }
-
-        //Plugin Property Aligment
-        public override void Alignment()
-        {
-            //No Updates
-        }
-    }
-}
 
 namespace ALICE_Events
 {

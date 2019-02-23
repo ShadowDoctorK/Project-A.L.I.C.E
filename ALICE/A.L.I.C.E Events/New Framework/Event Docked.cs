@@ -156,7 +156,7 @@ namespace ALICE_Events
         //Plugin Property Aligment
         public override void Alignment()
         {
-            IStatus.Docked = true;
+            IStatus.Docking.Docked = true;
             IVehicles.Vehicle = IVehicles.V.Mothership;
             IStatus.Hardpoints = false;
             IStatus.Touchdown = false;
