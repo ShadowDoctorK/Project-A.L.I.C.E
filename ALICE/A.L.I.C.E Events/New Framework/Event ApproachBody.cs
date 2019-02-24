@@ -48,7 +48,7 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionGenerate(ex);
+                ExceptionGenerate(Name, ex);
             }
         }
 
@@ -65,16 +65,16 @@ namespace ALICE_Events
                 //Update Orbital Cruise Variables
                 IStatus.Planet.OrbitalCruise(true);
 
-                //Orbital Cruse Audio
+                //Audio - Orbital Cruse
                 IStatus.Planet.Response.OrbitaCruiseEntry(true, 
                     Check.Internal.TriggerEvents(true, ClassName));         //CommandAudio
 
-                //Not Scanned Audio
+                //Audio - Not Scanned
                 IStatus.Planet.Response.OrbitalNotScanned(true, 
                     Check.Internal.TriggerEvents(true, ClassName),          //CommandAudio
                     (IObjects.StellarBodyCurrent.ID != Event.BodyID));      //Returns Default StellarBody If Not Scanned
 
-                //High Gravity Entry Audio
+                //Audio - High Gravity Warning
                 IStatus.Planet.Response.OrbitalGravityWarning(true,
                     Check.Internal.TriggerEvents(true, ClassName),          //CommandAudio
                     (IObjects.StellarBodyCurrent.Gravity > 1.2M),           //High Gravity Verification
@@ -82,7 +82,7 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionProcess(ex);
+                ExceptionProcess(Name, ex);
             }
         }
     }

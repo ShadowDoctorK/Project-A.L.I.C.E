@@ -1134,6 +1134,14 @@ namespace ALICE_Actions
             string MethodName = "Landing Gear";
 
             #region Valid Command Checks
+            //Check Plugin Initialized
+            if (Check.Internal.TriggerEvents(true, MethodName) == true)
+            {
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Plugin Not Initialized", Logger.Yellow);
+                return;
+            }
+
             //If Not In Normal Space...
             if (Check.Environment.Space(IEnums.Normal_Space, true, MethodName) == false)
             {

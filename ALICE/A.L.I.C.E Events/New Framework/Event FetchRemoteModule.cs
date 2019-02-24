@@ -57,33 +57,27 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionGenerate(ex);
-            }
-        }
-
-        //Plugin Logic Process
-        public override void Process(object O)
-        {
-            try
-            {
-                var Event = (FetchRemoteModule)O;
-            }
-            catch (Exception ex)
-            {
-                ExceptionProcess(ex);
+                ExceptionGenerate(Name, ex);
             }
         }
 
         //Plugin Property Aligment
-        public override void Alignment()
+        public override void Alignment(object O)
         {
-            IStatus.LandingGear = true;
-            IStatus.Docking.Docked = true;
-            IStatus.Supercruise = false;
-            IStatus.Hyperspace = false;
-            IStatus.Touchdown = false;
-            IStatus.Hardpoints = false;
-            IStatus.Fighter.Deployed = false;
+            try
+            {
+                IStatus.LandingGear = true;
+                IStatus.Docking.Docked = true;
+                IStatus.Supercruise = false;
+                IStatus.Hyperspace = false;
+                IStatus.Touchdown = false;
+                IStatus.Hardpoints = false;
+                IStatus.Fighter.Deployed = false;
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
+            }
         }
     }
 }

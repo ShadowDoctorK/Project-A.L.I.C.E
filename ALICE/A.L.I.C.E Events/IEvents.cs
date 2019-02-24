@@ -614,7 +614,16 @@ namespace ALICE_Events
         /// <summary>
         /// Method Used To Align Plugin States To Known True Values Based On Event Execution.
         /// </summary>
-        public virtual void Alignment()
+        public virtual void Alignment(object O)
+        {
+            //No Code In Virtual Method, Override Method Will Contain The Logic
+            //This Is Here For The Structured Calls
+        }
+
+        /// <summary>
+        /// Method Used To Align Plugin States To Known True Values Prior To Executing The Logic Process.
+        /// </summary>
+        public virtual void Prepare(object O)
         {
             //No Code In Virtual Method, Override Method Will Contain The Logic
             //This Is Here For The Structured Calls
@@ -628,11 +637,14 @@ namespace ALICE_Events
             //Get Recorded Event
             object Event = Get();
 
+            //Prepare For Event Logic
+            Prepare(Event);
+
             //Process Event Logic
             Process(Event);
 
             //Plugin Alignment
-            Alignment();
+            Alignment(Event);
 
             //Process Variables
             if (WriteVariables)
@@ -654,11 +666,14 @@ namespace ALICE_Events
             //Construct Event
             object Event = Construct(O);
 
+            //Prepare For Event Logic
+            Prepare(Event);
+
             //Process Event Logic
             Process(Event);
 
             //Plugin Alignment
-            Alignment();
+            Alignment(Event);
 
             //Process Variables
             if (WriteVariables)
@@ -672,16 +687,34 @@ namespace ALICE_Events
             Trigger();
         }
 
-        public void ExceptionProcess(Exception ex)
+        public void ExceptionAlignment(IEnums.Events E, Exception ex)
         {
-            Logger.Exception(Name.ToString(), "Exception: " + ex);
-            Logger.Exception(Name.ToString(), "An Exception Occured While Processing The Event");
+            Logger.Exception(E.ToString(), "Exception: " + ex);
+            Logger.Exception(E.ToString(), "An Exception Occured While Aligning Post Event Properties");
         }
 
-        public void ExceptionGenerate(Exception ex)
+        public void ExceptionConstruct(IEnums.Events E, Exception ex)
         {
-            Logger.Exception(Name.ToString(), "Exception: " + ex);
-            Logger.Exception(Name.ToString(), "An Exception Occured While Generating Variables");
+            Logger.Exception(E.ToString(), "Exception: " + ex);
+            Logger.Exception(E.ToString(), "An Exception Occured While Custom Events");
+        }
+
+        public void ExceptionGenerate(IEnums.Events E, Exception ex)
+        {
+            Logger.Exception(E.ToString(), "Exception: " + ex);
+            Logger.Exception(E.ToString(), "An Exception Occured While Generating Variables");
+        }
+
+        public void ExceptionPrepare(IEnums.Events E, Exception ex)
+        {
+            Logger.Exception(E.ToString(), "Exception: " + ex);
+            Logger.Exception(E.ToString(), "An Exception Occured While Preparing For The Event");
+        }
+
+        public void ExceptionProcess(IEnums.Events E, Exception ex)
+        {
+            Logger.Exception(E.ToString(), "Exception: " + ex);
+            Logger.Exception(E.ToString(), "An Exception Occured While Processing The Event");
         }
 
         /// <summary>

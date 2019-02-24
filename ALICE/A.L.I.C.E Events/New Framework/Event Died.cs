@@ -50,30 +50,6 @@ namespace ALICE_Events
     /// </summary>
     public class QWER_Died : Event
     {
-        //Variable Generation
-        public override void Generate(object O)
-        {
-            try
-            {
-                var Event = (Died)O;
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(ex);
-            }
-        }
-
-        //Plugin Logic Process
-        public override void Process(object O)
-        {
-            try
-            {
-                var Event = (Died)O;
-            }
-            catch (Exception ex)
-            {
-                ExceptionProcess(ex);
-            }
-        }
+        //No Processing
     }
 }

@@ -20,43 +20,24 @@ namespace ALICE_Events
     /// </summary>
     public class QWER_DockSRV : Event
     {
-        //Variable Generation
-        public override void Generate(object O)
-        {
-            try
-            {
-                var Event = (DockSRV)O;
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(ex);
-            }
-        }
-
-        //Plugin Logic Process
-        public override void Process(object O)
-        {
-            try
-            {
-                var Event = (DockSRV)O;                
-            }
-            catch (Exception ex)
-            {
-                ExceptionProcess(ex);
-            }
-        }
-
         //Plugin Property Aligment
-        public override void Alignment()
+        public override void Alignment(object O)
         {
-            IStatus.Touchdown = true;
-            IStatus.LandingGear = true;
-            IStatus.Fighter.Deployed = false;
-            IStatus.CargoScoop = false;
-            IStatus.Supercruise = false;
-            IStatus.Hyperspace = false;
-            IStatus.Docking.Docked = false;
-            IStatus.Hardpoints = false;
+            try
+            {
+                IStatus.Touchdown = true;
+                IStatus.LandingGear = true;
+                IStatus.Fighter.Deployed = false;
+                IStatus.CargoScoop = false;
+                IStatus.Supercruise = false;
+                IStatus.Hyperspace = false;
+                IStatus.Docking.Docked = false;
+                IStatus.Hardpoints = false;
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
+            }
         }
     }
 }

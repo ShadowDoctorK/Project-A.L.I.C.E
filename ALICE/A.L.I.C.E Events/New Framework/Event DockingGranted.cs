@@ -46,7 +46,7 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionGenerate(ex);
+                ExceptionGenerate(Name, ex);
             }
         }
 
@@ -62,17 +62,24 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionProcess(ex);
+                ExceptionProcess(Name, ex);
             }
         }
 
         //Plugin Property Aligment
-        public override void Alignment()
+        public override void Alignment(object O)
         {
-            IStatus.Supercruise = false;
-            IStatus.Hyperspace = false;
-            IStatus.Touchdown = false;
-            IStatus.Docking.Docked = false;
+            try
+            {
+                IStatus.Supercruise = false;
+                IStatus.Hyperspace = false;
+                IStatus.Touchdown = false;
+                IStatus.Docking.Docked = false;
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
+            }
         }
     }
 }

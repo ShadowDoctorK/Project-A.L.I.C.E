@@ -46,19 +46,6 @@ namespace ALICE_Events
     /// </summary>
     public class QWER_EngineerProgress : Event
     {
-        //Variable Generation
-        public override void Generate(object O)
-        {
-            try
-            {
-                var Event = (EngineerProgress)O;
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(ex);
-            }
-        }
-
         //Plugin Logic Process
         public override void Process(object O)
         {
@@ -71,14 +58,8 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionProcess(ex);
+                ExceptionProcess(Name, ex);
             }
-        }
-
-        //Plugin Property Aligment
-        public override void Alignment()
-        {
-            //No Updates
         }
     }
 }

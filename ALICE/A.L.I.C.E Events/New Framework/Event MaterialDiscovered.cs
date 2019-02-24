@@ -45,27 +45,21 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionGenerate(ex);
-            }
-        }
-
-        //Plugin Logic Process
-        public override void Process(object O)
-        {
-            try
-            {
-                var Event = (MaterialDiscovered)O;
-            }
-            catch (Exception ex)
-            {
-                ExceptionProcess(ex);
+                ExceptionGenerate(Name, ex);
             }
         }
 
         //Plugin Property Aligment
-        public override void Alignment()
+        public override void Alignment(object O)
         {
-            IStatus.Hyperspace = false;
+            try
+            {
+                IStatus.Hyperspace = false;
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
+            }
         }
     }
 }

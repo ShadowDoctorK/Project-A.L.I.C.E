@@ -93,27 +93,8 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionGenerate(ex);
+                ExceptionGenerate(Name, ex);
             }
-        }
-
-        //Plugin Logic Process
-        public override void Process(object O)
-        {
-            try
-            {
-                var Event = (MissionAccepted)O;
-            }
-            catch (Exception ex)
-            {
-                ExceptionProcess(ex);
-            }
-        }
-
-        //Plugin Property Aligment
-        public override void Alignment()
-        {
-            //No Updates
         }
     }
 }

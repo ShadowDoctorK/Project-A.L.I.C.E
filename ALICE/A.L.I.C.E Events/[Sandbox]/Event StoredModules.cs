@@ -4,95 +4,68 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ALICE_Objects;
-using ALICE_Internal;
 
 namespace ALICE_Events
 {
-    public class Event_StoredModules : Event_Base
-    {
-        public Event_StoredModules()
-        {
-            Name = "StoredModules";
-        }
-
-        public void Logic()
-        {
-            if (IEvents.WriteVariables && WriteVariables)
-            {
-                try
-                {
-                    Variables_Clear();
-                    Variables_Generate();
-                    Variables_Write();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Exception(Name, "An Exception Occured While Updating Variables");
-                    Logger.Exception(Name, "Exception: " + ex);
-                }
-            }
-
-            //Custom Logic Here.
-
-            TriggerEvent();
-        }
-
-        public void Variables_Generate()
-        {
-            StoredModules Event = (StoredModules)IEvents.GetEvent(Name);
-
-            Variables.Clear();
-
-            #region Custom Variables
-
-            #endregion
-
-            #region Event Variables
-            Variable_Craft("MarketID", Event.MarketID.Variable());
-            Variable_Craft("StationName", Event.StationName.Variable());
-            Variable_Craft("StarSystem", Event.StarSystem.Variable());
-            //Variable_Craft("Items", Event.Items.Variable());
-            #endregion
-        }
-    }
-
-    #region StoredModules Event
-    public class StoredModules : Base
+    /// <summary>
+    /// Object Data Class
+    /// </summary>
+    public class ASDF_StoredModules : Base
     {
         public decimal MarketID { get; set; }
         public string StationName { get; set; }
         public string StarSystem { get; set; }
         public List<Item> Items { get; set; }
+
+        //Default Constructor
+        public ASDF_StoredModules()
+        {
+            MarketID = Dec();
+            StationName = Str();
+            StarSystem = Str();
+            Items = new List<Item>();
+        }
+
+        public class Item : Catch
+        {
+            public string Name { get; set; }
+            public string Name_Localised { get; set; }
+            public decimal StorageSlot { get; set; }
+            public string StarSystem { get; set; }
+            public decimal MarketID { get; set; }
+            public decimal TransferCost { get; set; }
+            public decimal TransferTime { get; set; }
+            public decimal BuyPrice { get; set; }
+            public bool Hot { get; set; }
+            public string EngineerModifications { get; set; }
+            public decimal Level { get; set; }
+            public decimal Quality { get; set; }
+            public bool InTransit { get; set; }
+
+            public Item()
+            {
+                Name = Str();
+                Name_Localised = Str();
+                StorageSlot = Dec();
+                StarSystem = Str();
+                MarketID = Dec();
+                TransferCost = Dec();
+                TransferTime = Dec();
+                BuyPrice = Dec();
+                Hot = Bool();
+                EngineerModifications = Str();
+                Level = Dec();
+                Quality = Dec();
+                InTransit = Bool();
+            }
+        }
     }
 
-    public class Item : Catch
+    /// <summary>
+    /// Event Logic & Data Storage Class
+    /// </summary>
+    public class QWER_StoredModules : Event
     {
-        public string Name { get; set; }
-        public string Name_Localised { get; set; }
-        public decimal StorageSlot { get; set; }
-        public string StarSystem { get; set; }
-        public decimal MarketID { get; set; }
-        public decimal TransferCost { get; set; }
-        public decimal TransferTime { get; set; }
-        public decimal BuyPrice { get; set; }
-        public bool Hot { get; set; }
-        public string EngineerModifications { get; set; }
-        public decimal Level { get; set; }
-        public decimal Quality { get; set; }
-        public bool InTransit { get; set; }
+        //No Processing
     }
-    #endregion
 }
-
-//Journal Reader Code Chunk.
-
-// else if (EventName == StoredModules)
-// {
-//     var Event = JsonConvert.DeserializeObject<ALICE_Events.StoredModules>(RawLine);
-//     IEvents.UpdateEvents(EventName, Event);
-//     IEvents.Bounty.Logic();
-// }

@@ -51,33 +51,27 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionGenerate(ex);
-            }
-        }
-
-        //Plugin Logic Process
-        public override void Process(object O)
-        {
-            try
-            {
-                var Event = (Interdicted)O;
-            }
-            catch (Exception ex)
-            {
-                ExceptionProcess(ex);
+                ExceptionGenerate(Name, ex);
             }
         }
 
         //Plugin Property Aligment
-        public override void Alignment()
+        public override void Alignment(object O)
         {
-            IStatus.WeaponSafety = false;
-            IStatus.Planet.OrbitalMode = false;
-            IStatus.Planet.DecentReport = false;
-            IStatus.Supercruise = false;
-            IStatus.Hyperspace = false;
-            IStatus.Touchdown = false;
-            IStatus.Docking.Docked = false;
+            try
+            {
+                IStatus.WeaponSafety = false;
+                IStatus.Planet.OrbitalMode = false;
+                IStatus.Planet.DecentReport = false;
+                IStatus.Supercruise = false;
+                IStatus.Hyperspace = false;
+                IStatus.Touchdown = false;
+                IStatus.Docking.Docked = false;
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
+            }
         }
     }
 }

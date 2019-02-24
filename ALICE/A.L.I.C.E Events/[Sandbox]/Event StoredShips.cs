@@ -4,65 +4,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ALICE_Objects;
-using ALICE_Internal;
 
 namespace ALICE_Events
 {
-    public class Event_StoredShips : Event_Base
-    {
-        public Event_StoredShips()
-        {
-            Name = "StoredShips";
-        }
-
-        public void Logic()
-        {
-            if (IEvents.WriteVariables && WriteVariables)
-            {
-                try
-                {
-                    Variables_Clear();
-                    Variables_Generate();
-                    Variables_Write();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Exception(Name, "An Exception Occured While Updating Variables");
-                    Logger.Exception(Name, "Exception: " + ex);
-                }
-            }
-
-            //Custom Logic Here.
-
-            TriggerEvent();
-        }
-
-        public void Variables_Generate()
-        {
-            StoredShips Event = (StoredShips)IEvents.GetEvent(Name);
-
-            Variables.Clear();
-
-            #region Custom Variables
-
-            #endregion
-
-            #region Event Variables
-            Variable_Craft("StationName", Event.StationName.Variable());
-            Variable_Craft("MarketID", Event.MarketID.Variable());
-            Variable_Craft("StarSystem", Event.StarSystem.Variable());
-            //Variable_Craft("ShipsHere", Event.ShipsHere.Variable());
-            //Variable_Craft("ShipsRemote", Event.ShipsRemote.Variable());
-            #endregion
-        }
-    }
-
-    #region StoredShips Event
-    public class StoredShips : Base
+    /// <summary>
+    /// Object Data Class
+    /// </summary>
+    public class ASDF_StoredShips : Base
     {
         public string StationName { get; set; }
         public decimal MarketID { get; set; }
@@ -70,7 +18,17 @@ namespace ALICE_Events
         public List<Ship> ShipsHere { get; set; }
         public List<Ship> ShipsRemote { get; set; }
 
-        public class Ship
+        //Default Constructor
+        public ASDF_StoredShips()
+        {
+            StationName = Str();
+            MarketID = Dec();
+            StarSystem = Str();
+            ShipsHere = new List<Ship>();
+            ShipsRemote = new List<Ship>();
+        }
+
+        public class Ship : Catch
         {
             public decimal ShipID { get; set; }
             public string ShipType { get; set; }
@@ -83,16 +41,63 @@ namespace ALICE_Events
             public decimal Value { get; set; }
             public bool Hot { get; set; }
             public bool InTransit { get; set; }
+
+            public Ship()
+            {
+                ShipID = Dec();
+                ShipType = Str();
+                ShipType_Localised = Str();
+                Name = Str();
+                StarSystem = Str();
+                ShipMarketID = Dec();
+                TransferPrice = Dec();
+                TransferTime = Dec();
+                Value = Dec();
+                Hot = Bool();
+                InTransit = Bool();
+            }
+
+            public class Item : Catch
+            {
+                public string Name { get; set; }
+                public string Name_Localised { get; set; }
+                public decimal StorageSlot { get; set; }
+                public string StarSystem { get; set; }
+                public decimal MarketID { get; set; }
+                public decimal TransferCost { get; set; }
+                public decimal TransferTime { get; set; }
+                public decimal BuyPrice { get; set; }
+                public bool Hot { get; set; }
+                public string EngineerModifications { get; set; }
+                public decimal Level { get; set; }
+                public decimal Quality { get; set; }
+                public bool InTransit { get; set; }
+
+                public Item()
+                {
+                    Name = Str();
+                    Name_Localised = Str();
+                    StorageSlot = Dec();
+                    StarSystem = Str();
+                    MarketID = Dec();
+                    TransferCost = Dec();
+                    TransferTime = Dec();
+                    BuyPrice = Dec();
+                    Hot = Bool();
+                    EngineerModifications = Str();
+                    Level = Dec();
+                    Quality = Dec();
+                    InTransit = Bool();
+                }
+            }
         }
     }
-    #endregion
+
+    /// <summary>
+    /// Event Logic & Data Storage Class
+    /// </summary>
+    public class QWER_StoredShips : Event
+    {
+        //No Processing
+    }
 }
-
-//Journal Reader Code Chunk.
-
-// else if (EventName == StoredShips)
-// {
-//     var Event = JsonConvert.DeserializeObject<ALICE_Events.StoredShips>(RawLine);
-//     IEvents.UpdateEvents(EventName, Event);
-//     IEvents.Bounty.Logic();
-// }

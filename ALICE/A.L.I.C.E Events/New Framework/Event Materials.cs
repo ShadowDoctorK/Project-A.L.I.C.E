@@ -45,36 +45,17 @@ namespace ALICE_Events
     /// </summary>
     public class QWER_Materials : Event
     {
-        //Variable Generation
-        public override void Generate(object O)
-        {
-            try
-            {
-                var Event = (Materials)O;
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(ex);
-            }
-        }
-
-        //Plugin Logic Process
-        public override void Process(object O)
-        {
-            try
-            {
-                var Event = (Materials)O; 
-            }
-            catch (Exception ex)
-            {
-                ExceptionProcess(ex);
-            }
-        }
-
         //Plugin Property Aligment
-        public override void Alignment()
+        public override void Alignment(object O)
         {
-            IStatus.Hyperspace = false;
+            try
+            {
+                IStatus.Hyperspace = false;
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
+            }
         }
     }
 }

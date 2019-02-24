@@ -79,7 +79,7 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionGenerate(ex);
+                ExceptionGenerate(Name, ex);
             }
         }
 
@@ -193,14 +193,8 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionProcess(ex);
+                ExceptionProcess(Name, ex);
             }
-        }
-
-        //Plugin Property Aligment
-        public override void Alignment()
-        {
-            //No Updates
         }
     }
 }

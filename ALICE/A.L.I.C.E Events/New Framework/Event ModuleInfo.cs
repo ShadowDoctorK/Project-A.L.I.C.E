@@ -19,36 +19,6 @@ namespace ALICE_Events
     /// </summary>
     public class QWER_ModuleInfo : Event
     {
-        //Variable Generation
-        public override void Generate(object O)
-        {
-            try
-            {
-                var Event = (ModuleInfo)O;
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(ex);
-            }
-        }
-
-        //Plugin Logic Process
-        public override void Process(object O)
-        {
-            try
-            {
-                var Event = (ModuleInfo)O;
-            }
-            catch (Exception ex)
-            {
-                ExceptionProcess(ex);
-            }
-        }
-
-        //Plugin Property Aligment
-        public override void Alignment()
-        {
-            //No Updates
-        }
+        //No Processing
     }
 }

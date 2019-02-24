@@ -80,6 +80,14 @@ namespace ALICE_Core
         {
             string MethodName = "Update Fire Groups";
 
+            //Check Plugin Initialized
+            if (Check.Internal.TriggerEvents(true, MethodName) == true)
+            {
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Plugin Not Initialized", Logger.Yellow);
+                return;
+            }
+
             decimal Saved = Current;
             decimal Tracked = 1;
 

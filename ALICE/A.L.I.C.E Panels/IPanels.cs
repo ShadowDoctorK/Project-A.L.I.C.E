@@ -48,6 +48,14 @@ namespace ALICE_Panels
 
             return Temp;
         }
+
+        public void MainFourIsFalse()
+        {
+            Call.Panel.System.Open = false;
+            Call.Panel.Comms.Open = false;
+            Call.Panel.Target.Open = false;
+            Call.Panel.Role.Open = false;
+        }
     }
 
     public class BasePanel : BaseShared

@@ -40,7 +40,7 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionGenerate(ex);
+                ExceptionGenerate(Name, ex);
             }
         }
 
@@ -56,24 +56,31 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionProcess(ex);
+                ExceptionProcess(Name, ex);
             }
         }
 
         //Plugin Property Aligment
-        public override void Alignment()
+        public override void Alignment(object O)
         {
-            IStatus.Supercruise = true;
-            IStatus.WeaponSafety = false;
-            IStatus.Planet.OrbitalMode = false;
-            IStatus.Planet.DecentReport = false;
-            IStatus.Hyperspace = false;
-            IStatus.Touchdown = false;
-            IStatus.Docking.Docked = false;
-            IStatus.LandingGear = false;
-            IStatus.CargoScoop = false;
-            IStatus.Fighter.Deployed = false;
-            IStatus.Hardpoints = false;
+            try
+            {
+                IStatus.Supercruise = true;
+                IStatus.WeaponSafety = false;
+                IStatus.Planet.OrbitalMode = false;
+                IStatus.Planet.DecentReport = false;
+                IStatus.Hyperspace = false;
+                IStatus.Touchdown = false;
+                IStatus.Docking.Docked = false;
+                IStatus.LandingGear = false;
+                IStatus.CargoScoop = false;
+                IStatus.Fighter.Deployed = false;
+                IStatus.Hardpoints = false;
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
+            }
         }
     }
 }

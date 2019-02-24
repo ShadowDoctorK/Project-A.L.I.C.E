@@ -29,16 +29,17 @@ namespace ALICE_Status
 
         private readonly string MethodName = "Docking Status";
 
-        public bool Docked = false;
-        public IEnums.DockingState State = IEnums.DockingState.Undocked;
-        public IEnums.DockingDenial Denial = IEnums.DockingDenial.NoReason;
-        public string StationName = "Unknown";
-        public string StationType = "Unknown";
-        public decimal LandingPad = -1;
+        public bool Docked = false;                                             //Status.Json Property
+        public IEnums.DockingState State = IEnums.DockingState.Undocked;        //Event Property
+        public IEnums.DockingDenial Denial = IEnums.DockingDenial.NoReason;     //Event Property
+        public string StationName = "Unknown";                                  //Event Property
+        public string StationType = "Unknown";                                  //Event Property
+        public decimal LandingPad = -1;                                         //Event Property
 
-        public bool Preparations = false;
-        public bool Sending = false;
-        public bool Pending = false;
+        public bool Preparations = false;                                       //Custom Property
+        public bool Sending = false;                                            //Custom Property
+        public bool Pending = false;                                            //Custom Property
+
         public Logging Log = new Logging();
         public Responces Response = new Responces();
 
@@ -103,6 +104,19 @@ namespace ALICE_Status
             Sending = false;
         }
 
+        public void Update(Undocked Event)
+        {
+            State = IEnums.DockingState.Undocked;
+            StationName = Event.StationName;
+            StationType = Event.StationType;
+            Denial = IEnums.DockingDenial.NoReason;
+            LandingPad = -1;
+            Preparations = false;
+            Pending = false;
+            Sending = false;
+            Docked = false;
+        }
+
         public void Update(Location Event)
         {
             switch (Event.Docked)
@@ -120,6 +134,32 @@ namespace ALICE_Status
             LandingPad = -1;
             Pending = true;
             Sending = false;
+        }
+
+        public void Update(SupercruiseEntry Event)
+        {
+            State = IEnums.DockingState.Undocked;
+            Denial = IEnums.DockingDenial.NoReason;
+            StationName = "Unknown";
+            StationType = "Unknown";
+            LandingPad = -1;
+            Pending = false;
+            Sending = false;
+            Preparations = false;
+            Docked = false;
+        }
+
+        public void Update(SupercruiseExit Event)
+        {
+            State = IEnums.DockingState.Undocked;
+            Denial = IEnums.DockingDenial.NoReason;
+            StationName = "Unknown";
+            StationType = "Unknown";
+            LandingPad = -1;
+            Pending = false;
+            Sending = false;
+            Preparations = false;
+            Docked = false;
         }
 
         public bool WatchRequest()
@@ -183,7 +223,15 @@ namespace ALICE_Status
         {
             string MethodName = "Docking Status (Assisted Docking)";
 
-            //
+            //Check Plugin Initialized
+            if (Check.Internal.TriggerEvents(true, MethodName) == true)
+            {
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Plugin Not Initialized", Logger.Yellow);
+                return;
+            }
+
+            //Check Order Enabled
             if (Check.Order.AssistDocking(true, MethodName) == false)
             {
                 //No Logger Required. Check Already Logs.
@@ -430,6 +478,17 @@ namespace ALICE_Status
                     .Token("[ALLEGIANCE]", IObjects.FacilityCurrent.Allegiance)
                     .Token("[STATION]", IObjects.FacilityCurrent.Name)
                     .Token("[STATE]", IObjects.FacilityCurrent.ControlFactionState),
+                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            }
+
+            public void Undocked(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
+            {
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Ship Is Undocked.", Logger.Yellow); }
+
+                Speech.Speak(""
+                    .Phrase(GN_Facility_Report.Undocked)
+                    .Phrase(GN_Facility_Report.Undocked_Modifier),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
         }

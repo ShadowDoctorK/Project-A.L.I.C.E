@@ -16,7 +16,16 @@ namespace ALICE_Collections
         /// <summary>
         /// Collection of variable Name / Value for each Property processed by the generator for an Event
         /// </summary>
-        public Dictionary<IEnums.Events, object> Storage = new Dictionary<IEnums.Events, object>();
+        private Dictionary<IEnums.Events, object> _Storage = new Dictionary<IEnums.Events, object>();
+
+        /// <summary>
+        /// Collection of variable Name / Value for each Property processed by the generator for an Event
+        /// </summary>
+        public Dictionary<IEnums.Events, object> Storage
+        {
+            get => _Storage;
+            set => _Storage = value;
+        }
 
         /// <summary>
         /// Readonly string defining the Class Name for tracking use with the Logger function.
@@ -142,330 +151,171 @@ namespace ALICE_Collections
 
         public void Process(IEnums.Events E)
         {
-            switch (E)
-            {
-                case IEnums.Events.None:
-                    break;
-                case IEnums.Events.Shipyard:
-                    break;
-                case IEnums.Events.Status:
-                    break;
-                case IEnums.Events.Cargo:
-                    break;
-                case IEnums.Events.Market:
-                    break;
-                case IEnums.Events.Outfitting:
-                    break;
-                case IEnums.Events.AfmuRepairs:
-                    break;
-                case IEnums.Events.ApproachBody:
-                    break;
-                case IEnums.Events.ApproachSettlement:
-                    break;
-                case IEnums.Events.AsteroidCracked:
-                    //AsteroidCracked.Logic();
-                    break;
-                case IEnums.Events.Bounty:
-                    break;
-                case IEnums.Events.BuyAmmo:
-                    break;
-                case IEnums.Events.BuyDrones:
-                    break;
-                case IEnums.Events.BuyExplorationData:
-                    break;
-                case IEnums.Events.BuyTradeData:
-                    break;
-                case IEnums.Events.CargoDepot:
-                    break;
-                case IEnums.Events.ChangeCrewRole:
-                    break;
-                case IEnums.Events.ClearSaveGame:
-                    break;
-                case IEnums.Events.CockpitBreached:
-                    break;
-                case IEnums.Events.CodexEntry:
-                    break;
-                case IEnums.Events.CollectCargo:
-                    break;
-                case IEnums.Events.Commander:
-                    break;
-                case IEnums.Events.CommitCrime:
-                    break;
-                case IEnums.Events.CommunityGoal:
-                    break;
-                case IEnums.Events.CrewAssign:
-                    break;
-                case IEnums.Events.CrewFire:
-                    break;
-                case IEnums.Events.CrewHire:
-                    break;
-                case IEnums.Events.DatalinkScan:
-                    break;
-                case IEnums.Events.DatalinkVoucher:
-                    break;
-                case IEnums.Events.DataScanned:
-                    break;
-                case IEnums.Events.Died:
-                    break;
-                case IEnums.Events.Docked:
-                    break;
-                case IEnums.Events.DockFighter:
-                    break;
-                case IEnums.Events.DockingCancelled:
-                    break;
-                case IEnums.Events.DockingGranted:
-                    break;
-                case IEnums.Events.DockingRequested:
-                    break;
-                case IEnums.Events.DockSRV:
-                    break;
-                case IEnums.Events.EjectCargo:
-                    break;
-                case IEnums.Events.EngineerContribution:
-                    break;
-                case IEnums.Events.EngineerCraft:
-                    break;
-                case IEnums.Events.EngineerProgress:
-                    break;
-                case IEnums.Events.EscapeInterdiction:
-                    break;
-                case IEnums.Events.FactionKillBond:
-                    break;
-                case IEnums.Events.FetchRemoteModule:
-                    break;
-                case IEnums.Events.FighterDestroyed:
-                    break;
-                case IEnums.Events.FighterRebuilt:
-                    break;
-                case IEnums.Events.Fileheader:
-                    break;
-                case IEnums.Events.Friends:
-                    break;
-                case IEnums.Events.FSDJump:
-                    break;
-                case IEnums.Events.FSDTarget:
-                    break;
-                case IEnums.Events.FSSAllBodiesFound:
-                    break;
-                case IEnums.Events.FSSDiscoveryScan:
-                    break;
-                case IEnums.Events.FSSSignalDiscovered:
-                    break;
-                case IEnums.Events.FuelScoop:
-                    break;
-                case IEnums.Events.HeatDamage:
-                    break;
-                case IEnums.Events.HeatWarning:
-                    break;
-                case IEnums.Events.HullDamage:
-                    break;
-                case IEnums.Events.Interdicted:
-                    break;
-                case IEnums.Events.JetConeBoost:
-                    break;
-                case IEnums.Events.LaunchDrone:
-                    break;
-                case IEnums.Events.LaunchFighter:
-                    break;
-                case IEnums.Events.LaunchSRV:
-                    break;
-                case IEnums.Events.LeaveBody:
-                    break;
-                case IEnums.Events.Liftoff:
-                    break;
-                case IEnums.Events.LoadGame:
-                    break;
-                case IEnums.Events.Loadout:
-                    break;
-                case IEnums.Events.Location:
-                    break;
-                case IEnums.Events.MarketBuy:
-                    break;
-                case IEnums.Events.MarketSell:
-                    break;
-                case IEnums.Events.MassModuleStore:
-                    break;
-                case IEnums.Events.MaterialCollected:
-                    break;
-                case IEnums.Events.MaterialDiscovered:
-                    break;
-                case IEnums.Events.Materials:
-                    break;
-                case IEnums.Events.MaterialTrade:
-                    break;
-                case IEnums.Events.MiningRefined:
-                    break;
-                case IEnums.Events.MissionAbandoned:
-                    break;
-                case IEnums.Events.MissionAccepted:
-                    break;
-                case IEnums.Events.MissionCompleted:
-                    break;
-                case IEnums.Events.MissionFailed:
-                    break;
-                case IEnums.Events.MissionRedirected:
-                    break;
-                case IEnums.Events.Missions:
-                    break;
-                case IEnums.Events.ModuleBuy:
-                    break;
-                case IEnums.Events.ModuleInfo:
-                    break;
-                case IEnums.Events.ModuleRetrieve:
-                    break;
-                case IEnums.Events.ModuleSell:
-                    break;
-                case IEnums.Events.ModuleSellRemote:
-                    break;
-                case IEnums.Events.ModuleStore:
-                    break;
-                case IEnums.Events.ModuleSwap:
-                    break;
-                case IEnums.Events.MultiSellExplorationData:
-                    break;
-                case IEnums.Events.Music:
-                    break;
-                case IEnums.Events.NavBeaconScan:
-                    break;
-                case IEnums.Events.NpcCrewPaidWage:
-                    break;
-                case IEnums.Events.NpcCrewRank:
-                    break;
-                case IEnums.Events.PayBounties:
-                    break;
-                case IEnums.Events.PayFines:
-                    break;
-                case IEnums.Events.Powerplay:
-                    break;
-                case IEnums.Events.PowerplayCollect:
-                    break;
-                case IEnums.Events.PowerplayDefect:
-                    break;
-                case IEnums.Events.PowerplayDeliver:
-                    break;
-                case IEnums.Events.PowerplayFastTrack:
-                    break;
-                case IEnums.Events.PowerplayJoin:
-                    break;
-                case IEnums.Events.PowerplayLeave:
-                    break;
-                case IEnums.Events.PowerplaySalary:
-                    break;
-                case IEnums.Events.PowerplayVote:
-                    break;
-                case IEnums.Events.Progress:
-                    break;
-                case IEnums.Events.Promotion:
-                    break;
-                case IEnums.Events.ProspectedAsteroid:
-                    break;
-                case IEnums.Events.QuitACrew:
-                    break;
-                case IEnums.Events.Rank:
-                    break;
-                case IEnums.Events.RebootRepair:
-                    break;
-                case IEnums.Events.ReceiveText:
-                    break;
-                case IEnums.Events.RedeemVoucher:
-                    break;
-                case IEnums.Events.RefuelAll:
-                    break;
-                case IEnums.Events.Repair:
-                    break;
-                case IEnums.Events.RepairAll:
-                    break;
-                case IEnums.Events.RepairDrone:
-                    break;
-                case IEnums.Events.Reputation:
-                    break;
-                case IEnums.Events.ReservoirReplenished:
-                    break;
-                case IEnums.Events.RestockVehicle:
-                    break;
-                case IEnums.Events.Resurrect:
-                    break;
-                case IEnums.Events.SAAScanComplete:
-                    break;
-                case IEnums.Events.Scan:
-                    break;
-                case IEnums.Events.Scanned:
-                    break;
-                case IEnums.Events.ScientificResearch:
-                    break;
-                case IEnums.Events.Screenshot:
-                    break;
-                case IEnums.Events.SearchAndRescue:
-                    break;
-                case IEnums.Events.SelfDestruct:
-                    break;
-                case IEnums.Events.SellDrones:
-                    break;
-                case IEnums.Events.SellExplorationData:
-                    break;
-                case IEnums.Events.SendText:
-                    break;
-                case IEnums.Events.SetUserShipName:
-                    break;
-                case IEnums.Events.ShieldState:
-                    break;
-                case IEnums.Events.ShipTargeted:
-                    break;
-                case IEnums.Events.ShipyardBuy:
-                    break;
-                case IEnums.Events.ShipyardNew:
-                    break;
-                case IEnums.Events.ShipyardSwap:
-                    break;
-                case IEnums.Events.ShipyardTransfer:
-                    break;
-                case IEnums.Events.Shutdown:
-                    break;
-                case IEnums.Events.SRVDestroyed:
-                    break;
-                case IEnums.Events.StartJump:
-                    break;
-                case IEnums.Events.Statistics:
-                    break;
-                case IEnums.Events.StoredModules:
-                    break;
-                case IEnums.Events.StoredShips:
-                    break;
-                case IEnums.Events.SupercruiseEntry:
-                    break;
-                case IEnums.Events.SupercruiseExit:
-                    break;
-                case IEnums.Events.Synthesis:
-                    break;
-                case IEnums.Events.SystemsShutdown:
-                    break;
-                case IEnums.Events.SquadronStartup:
-                    break;
-                case IEnums.Events.TechnologyBroker:
-                    break;
-                case IEnums.Events.Touchdown:
-                    break;
-                case IEnums.Events.Undefined:
-                    break;
-                case IEnums.Events.UnderAttack:
-                    break;
-                case IEnums.Events.Undocked:
-                    break;
-                case IEnums.Events.USSDrop:
-                    break;
-                case IEnums.Events.VehicleSwitch:
-                    break;
-                case IEnums.Events.WingAdd:
-                    break;
-                case IEnums.Events.WingInvite:
-                    break;
-                case IEnums.Events.WingJoin:
-                    break;
-                case IEnums.Events.WingLeave:
-                    break;
-                default:
-                    break;
-            }
+            //switch (E)
+            //{
+            //    case IEnums.Events.None:
+            //        break;
+            //    case IEnums.Events.Shipyard: Shipyard.Logic(); break;
+            //    case IEnums.Events.Status: Status.Logic(); break;
+            //    case IEnums.Events.Cargo: Cargo.Logic(); break;
+            //    case IEnums.Events.Market: Market.Logic(); break;
+            //    case IEnums.Events.Outfitting: Outfitting.Logic(); break;
+            //    case IEnums.Events.AfmuRepairs: AfmuRepairs.Logic(); break;
+            //    case IEnums.Events.ApproachBody: ApproachBody.Logic(); break;
+            //    case IEnums.Events.ApproachSettlement: ApproachSettlement.Logic(); break;
+            //    case IEnums.Events.AsteroidCracked: AsteroidCracked.Logic(); break;
+            //    case IEnums.Events.Bounty: Bounty.Logic(); break;
+            //    case IEnums.Events.BuyAmmo: BuyAmmo.Logic(); break;
+            //    case IEnums.Events.BuyDrones: BuyDrones.Logic(); break;
+            //    case IEnums.Events.BuyExplorationData: BuyExplorationData.Logic(); break;
+            //    case IEnums.Events.BuyTradeData: BuyTradeData.Logic(); break;
+            //    case IEnums.Events.CargoDepot: CargoDepot.Logic(); break;
+            //    case IEnums.Events.ChangeCrewRole: ChangeCrewRole.Logic(); break;
+            //    case IEnums.Events.ClearSaveGame: ClearSaveGame.Logic(); break;
+            //    case IEnums.Events.CockpitBreached: CockpitBreached.Logic(); break;
+            //    case IEnums.Events.CodexEntry: CodexEntry.Logic(); break;
+            //    case IEnums.Events.CollectCargo: CollectCargo.Logic(); break;
+            //    case IEnums.Events.Commander: Commander.Logic(); break;
+            //    case IEnums.Events.CommitCrime: CommitCrime.Logic(); break;
+            //    case IEnums.Events.CommunityGoal: CommunityGoal.Logic(); break;
+            //    case IEnums.Events.CrewAssign: CrewAssign.Logic(); break;
+            //    case IEnums.Events.CrewFire: CrewFire.Logic(); break;
+            //    case IEnums.Events.CrewHire: CrewHire.Logic(); break;
+            //    case IEnums.Events.DatalinkScan: DatalinkScan.Logic(); break;
+            //    case IEnums.Events.DatalinkVoucher: DatalinkVoucher.Logic(); break;
+            //    case IEnums.Events.DataScanned: DataScanned.Logic(); break;
+            //    case IEnums.Events.Died: Died.Logic(); break;
+            //    case IEnums.Events.Docked: Docked.Logic(); break;
+            //    case IEnums.Events.DockFighter: DockFighter.Logic(); break;
+            //    case IEnums.Events.DockingCancelled: DockingCancelled.Logic(); break;
+            //    case IEnums.Events.DockingGranted: DockingGranted.Logic(); break;
+            //    case IEnums.Events.DockingRequested: DockingRequested.Logic(); break;
+            //    case IEnums.Events.DockSRV: DockSRV.Logic(); break;
+            //    case IEnums.Events.EjectCargo: EjectCargo.Logic(); break;
+            //    case IEnums.Events.EngineerContribution: EngineerContribution.Logic(); break;
+            //    case IEnums.Events.EngineerCraft: EngineerCraft.Logic(); break;
+            //    case IEnums.Events.EngineerProgress: EngineerProgress.Logic(); break;
+            //    case IEnums.Events.EscapeInterdiction: EscapeInterdiction.Logic(); break;
+            //    case IEnums.Events.FactionKillBond: FactionKillBond.Logic(); break;
+            //    case IEnums.Events.FetchRemoteModule: FetchRemoteModule.Logic(); break;
+            //    case IEnums.Events.FighterDestroyed: FighterDestroyed.Logic(); break;
+            //    case IEnums.Events.FighterRebuilt: FighterRebuilt.Logic(); break;
+            //    case IEnums.Events.Fileheader: Fileheader.Logic(); break;
+            //    case IEnums.Events.Friends: Friends.Logic(); break;
+            //    case IEnums.Events.FSDJump: FSDJump.Logic(); break;
+            //    case IEnums.Events.FSDTarget: FSDTarget.Logic(); break;
+            //    case IEnums.Events.FSSAllBodiesFound: FSSAllBodiesFound.Logic(); break;
+            //    case IEnums.Events.FSSDiscoveryScan: FSSDiscoveryScan.Logic(); break;
+            //    case IEnums.Events.FSSSignalDiscovered: FSSSignalDiscovered.Logic(); break;
+            //    case IEnums.Events.FuelScoop: FuelScoop.Logic(); break;
+            //    case IEnums.Events.HeatDamage: HeatDamage.Logic(); break;
+            //    case IEnums.Events.HeatWarning: HeatWarning.Logic(); break;
+            //    case IEnums.Events.HullDamage: HullDamage.Logic(); break;
+            //    case IEnums.Events.Interdicted: Interdicted.Logic(); break;
+            //    case IEnums.Events.JetConeBoost: JetConeBoost.Logic(); break;
+            //    case IEnums.Events.LaunchDrone: LaunchDrone.Logic(); break;
+            //    case IEnums.Events.LaunchFighter: LaunchFighter.Logic(); break;
+            //    case IEnums.Events.LaunchSRV: LaunchSRV.Logic(); break;
+            //    case IEnums.Events.LeaveBody: LeaveBody.Logic(); break;
+            //    case IEnums.Events.Liftoff: Liftoff.Logic(); break;
+            //    case IEnums.Events.LoadGame: LoadGame.Logic(); break;
+            //    case IEnums.Events.Loadout: Loadout.Logic(); break;
+            //    case IEnums.Events.Location: Location.Logic(); break;
+            //    case IEnums.Events.MarketBuy: MarketBuy.Logic(); break;
+            //    case IEnums.Events.MarketSell: MarketSell.Logic(); break;
+            //    case IEnums.Events.MassModuleStore: MassModuleStore.Logic(); break;
+            //    case IEnums.Events.MaterialCollected: MaterialCollected.Logic(); break;
+            //    case IEnums.Events.MaterialDiscovered: MaterialDiscovered.Logic(); break;
+            //    case IEnums.Events.Materials: Materials.Logic(); break;
+            //    case IEnums.Events.MaterialTrade: MaterialTrade.Logic(); break;
+            //    case IEnums.Events.MiningRefined: MiningRefined.Logic(); break;
+            //    case IEnums.Events.MissionAbandoned: MissionAbandoned.Logic(); break;
+            //    case IEnums.Events.MissionAccepted: MissionAccepted.Logic(); break;
+            //    case IEnums.Events.MissionCompleted: MissionCompleted.Logic(); break;
+            //    case IEnums.Events.MissionFailed: MissionFailed.Logic(); break;
+            //    case IEnums.Events.MissionRedirected: MissionRedirected.Logic(); break;
+            //    case IEnums.Events.Missions: Missions.Logic(); break;
+            //    case IEnums.Events.ModuleBuy: ModuleBuy.Logic(); break;
+            //    case IEnums.Events.ModuleInfo: ModuleInfo.Logic(); break;
+            //    case IEnums.Events.ModuleRetrieve: ModuleRetrieve.Logic(); break;
+            //    case IEnums.Events.ModuleSell: ModuleSell.Logic(); break;
+            //    case IEnums.Events.ModuleSellRemote: ModuleSellRemote.Logic(); break;
+            //    case IEnums.Events.ModuleStore: ModuleStore.Logic(); break;
+            //    case IEnums.Events.ModuleSwap: ModuleSwap.Logic(); break;
+            //    case IEnums.Events.MultiSellExplorationData: MultiSellExplorationData.Logic(); break;
+            //    case IEnums.Events.Music: Music.Logic(); break;
+            //    case IEnums.Events.NavBeaconScan: NavBeaconScan.Logic(); break;
+            //    case IEnums.Events.NpcCrewPaidWage: NpcCrewPaidWage.Logic(); break;
+            //    case IEnums.Events.NpcCrewRank: NpcCrewRank.Logic(); break;
+            //    case IEnums.Events.PayBounties: PayBounties.Logic(); break;
+            //    case IEnums.Events.PayFines: PayFines.Logic(); break;
+            //    case IEnums.Events.Powerplay: Powerplay.Logic(); break;
+            //    case IEnums.Events.PowerplayCollect: PowerplayCollect.Logic(); break;
+            //    case IEnums.Events.PowerplayDefect: PowerplayDefect.Logic(); break;
+            //    case IEnums.Events.PowerplayDeliver: PowerplayDeliver.Logic(); break;
+            //    case IEnums.Events.PowerplayFastTrack: PowerplayFastTrack.Logic(); break;
+            //    case IEnums.Events.PowerplayJoin: PowerplayJoin.Logic(); break;
+            //    case IEnums.Events.PowerplayLeave: PowerplayLeave.Logic(); break;
+            //    case IEnums.Events.PowerplaySalary: PowerplaySalary.Logic(); break;
+            //    case IEnums.Events.PowerplayVote: PowerplayVote.Logic(); break;
+            //    case IEnums.Events.Progress: Progress.Logic(); break;
+            //    case IEnums.Events.Promotion: Promotion.Logic(); break;
+            //    case IEnums.Events.ProspectedAsteroid: ProspectedAsteroid.Logic(); break;
+            //    case IEnums.Events.QuitACrew: QuitACrew.Logic(); break;
+            //    case IEnums.Events.Rank: Rank.Logic(); break;
+            //    case IEnums.Events.RebootRepair: RebootRepair.Logic(); break;
+            //    case IEnums.Events.ReceiveText: ReceiveText.Logic(); break;
+            //    case IEnums.Events.RedeemVoucher: RedeemVoucher.Logic(); break;
+            //    case IEnums.Events.RefuelAll: RefuelAll.Logic(); break;
+            //    case IEnums.Events.Repair: Repair.Logic(); break;
+            //    case IEnums.Events.RepairAll: RepairAll.Logic(); break;
+            //    case IEnums.Events.RepairDrone: RepairDrone.Logic(); break;
+            //    case IEnums.Events.Reputation: Reputation.Logic(); break;
+            //    case IEnums.Events.ReservoirReplenished: ReservoirReplenished.Logic(); break;
+            //    case IEnums.Events.RestockVehicle: RestockVehicle.Logic(); break;
+            //    case IEnums.Events.Resurrect: Resurrect.Logic(); break;
+            //    case IEnums.Events.SAAScanComplete: SAAScanComplete.Logic(); break;
+            //    case IEnums.Events.Scan: Scan.Logic(); break;
+            //    case IEnums.Events.Scanned: Scanned.Logic(); break;
+            //    case IEnums.Events.ScientificResearch: ScientificResearch.Logic(); break;
+            //    case IEnums.Events.Screenshot: Screenshot.Logic(); break;
+            //    case IEnums.Events.SearchAndRescue: SearchAndRescue.Logic(); break;
+            //    case IEnums.Events.SelfDestruct: SelfDestruct.Logic(); break;
+            //    case IEnums.Events.SellDrones: SellDrones.Logic(); break;
+            //    case IEnums.Events.SellExplorationData: SellExplorationData.Logic(); break;
+            //    case IEnums.Events.SendText: SendText.Logic(); break;
+            //    case IEnums.Events.SetUserShipName: SetUserShipName.Logic(); break;
+            //    case IEnums.Events.ShieldState: ShieldState.Logic(); break;
+            //    case IEnums.Events.ShipTargeted: ShipTargeted.Logic(); break;
+            //    case IEnums.Events.ShipyardBuy: ShipyardBuy.Logic(); break;
+            //    case IEnums.Events.ShipyardNew: ShipyardNew.Logic(); break;
+            //    case IEnums.Events.ShipyardSwap: ShipyardSwap.Logic(); break;
+            //    case IEnums.Events.ShipyardTransfer: ShipyardTransfer.Logic(); break;
+            //    case IEnums.Events.Shutdown: Shutdown.Logic(); break;
+            //    case IEnums.Events.SRVDestroyed: SRVDestroyed.Logic(); break;
+            //    case IEnums.Events.StartJump: StartJump.Logic(); break;
+            //    case IEnums.Events.Statistics: Statistics.Logic(); break;
+            //    case IEnums.Events.StoredModules: StoredModules.Logic(); break;
+            //    case IEnums.Events.StoredShips: StoredShips.Logic(); break;
+            //    case IEnums.Events.SupercruiseEntry: SupercruiseEntry.Logic(); break;
+            //    case IEnums.Events.SupercruiseExit: SupercruiseExit.Logic(); break;
+            //    case IEnums.Events.Synthesis: Synthesis.Logic(); break;
+            //    case IEnums.Events.SystemsShutdown: SystemsShutdown.Logic(); break;
+            //    case IEnums.Events.SquadronStartup: SquadronStartup.Logic(); break;
+            //    case IEnums.Events.TechnologyBroker: TechnologyBroker.Logic(); break;
+            //    case IEnums.Events.Touchdown: Touchdown.Logic(); break;
+            //    case IEnums.Events.Undefined: Undefined.Logic(); break;
+            //    case IEnums.Events.UnderAttack: UnderAttack.Logic(); break;
+            //    case IEnums.Events.Undocked: Undocked.Logic(); break;
+            //    case IEnums.Events.USSDrop: USSDrop.Logic(); break;
+            //    case IEnums.Events.VehicleSwitch: VehicleSwitch.Logic(); break;
+            //    case IEnums.Events.WingAdd: WingAdd.Logic(); break;
+            //    case IEnums.Events.WingInvite: WingInvite.Logic(); break;
+            //    case IEnums.Events.WingJoin: WingJoin.Logic(); break;
+            //    case IEnums.Events.WingLeave: WingLeave.Logic(); break;
+            //    default:
+            //        break;
+            //}
         }
 
         //#region Custom Events

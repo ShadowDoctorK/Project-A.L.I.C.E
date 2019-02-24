@@ -111,7 +111,7 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionGenerate(ex);
+                ExceptionGenerate(Name, ex);
             }
         }
 
@@ -149,19 +149,26 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionProcess(ex);
+                ExceptionProcess(Name, ex);
             }
         }
 
         //Plugin Property Aligment
-        public override void Alignment()
+        public override void Alignment(object O)
         {
-            IStatus.Docking.Docked = true;
-            IVehicles.Vehicle = IVehicles.V.Mothership;
-            IStatus.Hardpoints = false;
-            IStatus.Touchdown = false;
-            IStatus.LandingGear = true;
-            IStatus.Fighter.Deployed = false;
+            try
+            {
+                IStatus.Docking.Docked = true;
+                IVehicles.Vehicle = IVehicles.V.Mothership;
+                IStatus.Hardpoints = false;
+                IStatus.Touchdown = false;
+                IStatus.LandingGear = true;
+                IStatus.Fighter.Deployed = false;
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
+            }
         }
     }
 }

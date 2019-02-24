@@ -686,9 +686,26 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic ApproachBody";
 
+            //Update Current Stellar Body
+            IObjects.StellarBodyCurrent = IObjects.SystemCurrent.Get_StellarBody(Event.BodyID);
+
+            //Update Orbital Cruise Variables
             IStatus.Planet.OrbitalCruise(true);
 
-            Post.ApproachBody(Event);
+            //Audio - Orbital Cruse
+            IStatus.Planet.Response.OrbitaCruiseEntry(true,
+                Check.Internal.TriggerEvents(true, MethodName));        //CommandAudio
+
+            //Audio - Not Scanned
+            IStatus.Planet.Response.OrbitalNotScanned(true,
+                Check.Internal.TriggerEvents(true, MethodName),         //CommandAudio
+                (IObjects.StellarBodyCurrent.ID != Event.BodyID));      //Returns Default StellarBody If Not Scanned
+
+            //Audio - High Gravity Warning
+            IStatus.Planet.Response.OrbitalGravityWarning(true,
+                Check.Internal.TriggerEvents(true, MethodName),         //CommandAudio
+                (IObjects.StellarBodyCurrent.Gravity > 1.2M),           //High Gravity Verification
+                ISettings.HighGravDescent);                             //High Gravity Setting Check
         }
 
         public static void Bounty(ALICE_Events.Bounty Event)
@@ -1455,36 +1472,37 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic StartJump";
 
-            #region Logic Table
-            IEquipment.FrameShiftDrive.Prepairing = false;
+            Call.Panel.MainFourIsFalse();
+            IEquipment.FrameShiftDrive.Reset();
             IStatus.Hardpoints = false;
             IStatus.Touchdown = false;
             IStatus.CargoScoop = false;
             IStatus.LandingGear = false;
             IStatus.Hyperspace = false;
             IStatus.Fighter.Deployed = false;
-            Call.Panel.System.Open = false;
-            Call.Panel.Target.Open = false;
-            Call.Panel.Role.Open = false;
-            Call.Panel.Comms.Open = false;
             IStatus.Docking.Docked = false;
             IStatus.WeaponSafety = false;
-            IStatus.Hyperspace = true;
-            IStatus.Supercruise = false;            
-            #endregion
 
-            //Audio - Supercruise      
-            if (IEquipment.FrameShiftDrive.SupercruiseCharge(true, MethodName))
+            if (Event.JumpType == IEnums.Hyperspace)
             {
-                IEquipment.FrameShiftDrive.SC_Entering(
-                true, Check.Internal.TriggerEvents(true, MethodName));
+                IStatus.Hyperspace = true;
+                IStatus.Supercruise = false;
             }
+            else
+            {
+                IStatus.Hyperspace = false;
+                IStatus.Supercruise = true;
+            }
+
+            //Audio - Supercruise
+            IEquipment.FrameShiftDrive.SC_Entering(
+                Check.Internal.TriggerEvents(true, MethodName),                  //Check Plugin Initialized
+                IEquipment.FrameShiftDrive.SupercruiseCharge(true, MethodName)); //Check Supercruise Charge State
+
             //Audio - Hyperspace
-            if (IEquipment.FrameShiftDrive.HyperspaceCharge(true, MethodName))
-            {
-                IEquipment.FrameShiftDrive.HS_Entering(
-                true, Check.Internal.TriggerEvents(true, MethodName));
-            }
+            IEquipment.FrameShiftDrive.HS_Entering(
+                Check.Internal.TriggerEvents(true, MethodName),                  //Check Plugin Initialized
+                IEquipment.FrameShiftDrive.HyperspaceCharge(true, MethodName));  //Chekc Hyperspace Charge State
         }
 
         public static void ShieldState(ShieldState Event)
@@ -1498,9 +1516,8 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic Shipyard Transfer";
 
-            //Custom Event - Shipyard Arrived.
-            if (Check.Internal.TriggerEvents(true, MethodName))
-            { IEvents.ShipyardArrived.Construct(Event); }            
+            //Update Status Object
+            IStatus.Shipyard.Update(Event);
         }
 
         public static void SupercruiseExit(SupercruiseExit Event)
@@ -1533,38 +1550,36 @@ namespace ALICE_EventLogic
             IStatus.Supercruise = false;
             #endregion
 
-            if (Check.Internal.TriggerEvents(true, MethodName) == true)
-            { Post.SupercruiseExit(Event); }
+            //Assisted Docking Procedure
+            IStatus.Docking.AssistedDocking(Event);
+
+            //Glide Monitor
+            IStatus.Planet.Glide(Event);
+
+            //Assisted Landing Preparations
+            IStatus.Planet.AssistedLanding(Event);
         }
 
         public static void SupercruiseEntry(SupercruiseEntry Event)
         {
-            IEquipment.FrameShiftDrive.Reset();
+            //Exiting Planet Prevents Abort Decent 
+            //Report While Leaving The Planet.
+            IStatus.Planet.ExitingPlanet = true;
 
-            #region Logic Table
-            IStatus.Docking.Pending = false;
-            IStatus.Docking.Sending = false;
+            //Update Status Object
+            IStatus.Docking.Update(Event);
+
+            Call.Panel.MainFourIsFalse();
             IEvents.FireInNoFireZone.FirstReport = true;
-
+            IEquipment.FrameShiftDrive.Reset();
+            IStatus.Fighter.Deployed = false;
+            IStatus.Supercruise = true;
+            IStatus.Hyperspace = false;
             IStatus.Hardpoints = false;
             IStatus.Touchdown = false;
             IStatus.CargoScoop = false;
             IStatus.LandingGear = false;
-            IStatus.Hyperspace = false;
-            IStatus.Fighter.Deployed = false;
-            Call.Panel.System.Open = false;
-            Call.Panel.Target.Open = false;
-            Call.Panel.Role.Open = false;
-            Call.Panel.Comms.Open = false;
-            IStatus.Docking.Docked = false;
-            IStatus.Docking.Preparations = false;
             IStatus.WeaponSafety = false;
-            IStatus.Hyperspace = false;
-            IStatus.Supercruise = true;
-
-            //Exiting Planet Prevents Abort Decent Report While Leaving The Planet.
-            IStatus.Planet.ExitingPlanet = true;
-            #endregion
         }
 
         public static void Touchdown(Touchdown Event)
@@ -1599,10 +1614,23 @@ namespace ALICE_EventLogic
             IStatus.Supercruise = false;
             #endregion
 
-            if (Check.Internal.TriggerEvents(true, MethodName) == true)
+            //Audio - Undocked
+            IStatus.Docking.Response.Undocked(
+                Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
+
+            //Retract Landing Gear
+            Thread.Sleep(250); Call.Action.LandingGear(false, false);
+
+            //Update Firegroups
+            Thread Action =
+            new Thread((ThreadStart)(() =>
             {
-                Post.Undocked(Event);
-            }
+                Call.Firegroup.Update_Total(false);
+            }))
+            {
+                IsBackground = true
+            };
+            Action.Start();
         }
         #endregion
 
@@ -1680,73 +1708,5 @@ namespace ALICE_EventLogic
             }            
         }
         #endregion
-    }
-
-    /// <summary>
-    /// Post is a logic processing area for events which will run on a new thread, execute a complex process or should be completed once everything else has finished.
-    /// </summary>
-    public static class Post
-    {
-        public static void ApproachBody(ApproachBody Event)
-        {
-            string MethodName = "Post ApproachBody";
-
-            IStatus.Planet.Response.OrbitaCruiseEntry(true, Check.Internal.TriggerEvents(true, MethodName));
-
-            IObjects.StellarBodyCurrent = IObjects.SystemCurrent.Get_StellarBody(Event.BodyID);
-            if (IObjects.StellarBodyCurrent.ID != Event.BodyID)
-            {
-                IStatus.Planet.Response.OrbitalNotScanned(true, Check.Internal.TriggerEvents(true, MethodName));
-            }
-            else if (IObjects.StellarBodyCurrent.Gravity > 1.25M)
-            {
-                IStatus.Planet.Response.OrbitalGravityWarning(true, Check.Internal.TriggerEvents(true, MethodName));
-            }
-        }       
-
-        public static void SupercruiseExit(SupercruiseExit Event)
-        {
-            string MethodName = "Post Supercruise";
-
-            //Assisted Docking Procedure
-            IStatus.Docking.AssistedDocking(Event);
-
-            //Glide Monitor
-            IStatus.Planet.Glide(Event);
-
-            //Assisted Landing Preparations
-            IStatus.Planet.AssistedLanding(Event);
-        }
-
-        public static void Undocked(Undocked Event)
-        {
-            string MethodName = "Post Undocked";
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Facility_Report.Undocked)
-                    .Phrase(GN_Facility_Report.Undocked_Modifier),
-                    true,
-                    Check.Report.Masslock(true, MethodName),
-                    Check.Internal.TriggerEvents(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-
-            #region Landing Gear
-            Thread.Sleep(250);
-            Call.Action.LandingGear(false, false);
-            #endregion
-
-            #region Firegroup Update
-            Thread Action = new Thread((ThreadStart)(() => { Call.Firegroup.Update_Total(false); }))
-            { IsBackground = true }; Action.Start();
-            #endregion
-        }
     }
 }

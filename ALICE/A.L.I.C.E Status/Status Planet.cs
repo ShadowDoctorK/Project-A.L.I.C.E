@@ -81,6 +81,14 @@ namespace ALICE_Status
             string MethodName = "Planet Status (Glide Monitor)";
 
             #region Validation Checks
+            //Check Plugin Initialized
+            if (Check.Internal.TriggerEvents(true, MethodName) == true)
+            {
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Plugin Not Initialized", Logger.Yellow);
+                return;
+            }
+
             //Check BodyType is Planet
             if (Event.BodyType != IEnums.Planet)
             {
@@ -153,6 +161,14 @@ namespace ALICE_Status
             string MethodName = "Planet Status (Assisted Landing)";
 
             #region Validation Checks
+            //Check Plugin Initialized
+            if (Check.Internal.TriggerEvents(true, MethodName) == true)
+            {
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Plugin Not Initialized", Logger.Yellow);
+                return;
+            }
+
             //Check BodyType is Planet
             if (Event.BodyType != IEnums.Planet)
             {

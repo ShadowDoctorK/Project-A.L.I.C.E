@@ -22,19 +22,6 @@ namespace ALICE_Events
     /// </summary>
     public class QWER_DockFighter : Event
     {
-        //Variable Generation
-        public override void Generate(object O)
-        {
-            try
-            {
-                var Event = (DockFighter)O;
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(ex);
-            }
-        }
-
         //Plugin Logic Process
         public override void Process(object O)
         {
@@ -48,20 +35,27 @@ namespace ALICE_Events
             }
             catch (Exception ex)
             {
-                ExceptionProcess(ex);
+                ExceptionProcess(Name, ex);
             }
         }
 
         //Plugin Property Aligment
-        public override void Alignment()
+        public override void Alignment(object O)
         {
-            IStatus.Fighter.Deployed = false;
-            IStatus.Supercruise = false;
-            IStatus.Hyperspace = false;
-            IStatus.LandingGear = false;
-            IStatus.Touchdown = false;
-            IStatus.Docking.Docked = false;
-            IStatus.Docking.State = IEnums.DockingState.Undocked;
+            try
+            {
+                IStatus.Fighter.Deployed = false;
+                IStatus.Supercruise = false;
+                IStatus.Hyperspace = false;
+                IStatus.LandingGear = false;
+                IStatus.Touchdown = false;
+                IStatus.Docking.Docked = false;
+                IStatus.Docking.State = IEnums.DockingState.Undocked;
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
+            }
         }
     }
 }

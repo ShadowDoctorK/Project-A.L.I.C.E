@@ -3,76 +3,13 @@
 //Source Journal Line: { "timestamp":"2018-10-07T10:54:57Z", "event":"Statistics", "Bank_Account":{ "Current_Wealth":1906944578, "Spent_On_Ships":479577540, "Spent_On_Outfitting":569137977, "Spent_On_Repairs":2828425, "Spent_On_Fuel":116440, "Spent_On_Ammo_Consumables":499018, "Insurance_Claims":24, "Spent_On_Insurance":74328387 }, "Combat":{ "Bounties_Claimed":403, "Bounty_Hunting_Profit":22291478, "Combat_Bonds":242, "Combat_Bond_Profits":6563339, "Assassinations":1, "Assassination_Profits":10000, "Highest_Single_Reward":540269, "Skimmers_Killed":180 }, "Crime":{ "Notoriety":0, "Fines":62, "Total_Fines":1574271, "Bounties_Received":628, "Total_Bounties":1429645, "Highest_Bounty":10000 }, "Smuggling":{ "Black_Markets_Traded_With":6, "Black_Markets_Profits":494806, "Resources_Smuggled":106, "Average_Profit":70686.571428571, "Highest_Single_Transaction":485900 }, "Trading":{ "Markets_Traded_With":57, "Market_Profits":32073012, "Resources_Traded":22389, "Average_Profit":121950.61596958, "Highest_Single_Transaction":2726336 }, "Mining":{ "Mining_Profits":8354903, "Quantity_Mined":508, "Materials_Collected":8405 }, "Exploration":{ "Systems_Visited":1896, "Exploration_Profits":34946948, "Planets_Scanned_To_Level_2":144, "Planets_Scanned_To_Level_3":371, "Highest_Payout":1653085, "Total_Hyperspace_Distance":87761, "Total_Hyperspace_Jumps":2851, "Greatest_Distance_From_Start":12990.674998588, "Time_Played":3660360 }, "Passengers":{ "Passengers_Missions_Accepted":242, "Passengers_Missions_Disgruntled":0, "Passengers_Missions_Bulk":1531, "Passengers_Missions_VIP":538, "Passengers_Missions_Delivered":2069, "Passengers_Missions_Ejected":2 }, "Search_And_Rescue":{ "SearchRescue_Traded":0, "SearchRescue_Profit":0, "SearchRescue_Count":0 }, "TG_ENCOUNTERS":{ "TG_ENCOUNTER_TOTAL":2, "TG_ENCOUNTER_TOTAL_LAST_SYSTEM":"Pleiades Sector YP-O b6-1", "TG_ENCOUNTER_TOTAL_LAST_TIMESTAMP":"3304-06-28 01:02", "TG_ENCOUNTER_TOTAL_LAST_SHIP":"Alliance Chieftain", "TG_SCOUT_COUNT":2 }, "Crafting":{ "Count_Of_Used_Engineers":13, "Recipes_Generated":795, "Recipes_Generated_Rank_1":227, "Recipes_Generated_Rank_2":181, "Recipes_Generated_Rank_3":170, "Recipes_Generated_Rank_4":144, "Recipes_Generated_Rank_5":73 }, "Crew":{ "NpcCrew_TotalWages":88044645, "NpcCrew_Hired":3, "NpcCrew_Died":3 }, "Multicrew":{ "Multicrew_Time_Total":46135, "Multicrew_Gunner_Time_Total":24833, "Multicrew_Fighter_Time_Total":20195, "Multicrew_Credits_Total":10305372, "Multicrew_Fines_Total":41700 }, "Material_Trader_Stats":{ "Trades_Completed":61, "Materials_Traded":826, "Encoded_Materials_Traded":361, "Raw_Materials_Traded":72, "Grade_1_Materials_Traded":107, "Grade_2_Materials_Traded":167, "Grade_3_Materials_Traded":191, "Grade_4_Materials_Traded":260, "Grade_5_Materials_Traded":101 }, "CQC":{ "CQC_Credits_Earned":22156, "CQC_Time_Played":16200, "CQC_KD":0.4070796460177, "CQC_Kills":46, "CQC_WL":0.028571428571429 } }
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ALICE_Objects;
-using ALICE_Internal;
 
 namespace ALICE_Events
 {
-    public class Event_Statistics : Event_Base
-    {
-        public Event_Statistics()
-        {
-            Name = "Statistics";
-        }
-
-        public void Logic()
-        {
-            if (IEvents.WriteVariables && WriteVariables)
-            {
-                try
-                {
-                    Variables_Clear();
-                    Variables_Generate();
-                    Variables_Write();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Exception(Name, "An Exception Occured While Updating Variables");
-                    Logger.Exception(Name, "Exception: " + ex);
-                }
-            }
-
-            //Custom Logic Here.
-
-            TriggerEvent();
-        }
-
-        public void Variables_Generate()
-        {
-            Statistics Event = (Statistics)IEvents.GetEvent(Name);
-
-            Variables.Clear();
-
-            #region Custom Variables
-
-            #endregion
-
-            #region Event Variables
-            //Variable_Craft("Bank_Account", Event.Bank_Account.Variable());
-            //Variable_Craft("Combat", Event.Combat.Variable());
-            //Variable_Craft("Crime", Event.Crime.Variable());
-            //Variable_Craft("Smuggling", Event.Smuggling.Variable());
-            //Variable_Craft("Trading", Event.Trading.Variable());
-            //Variable_Craft("Mining", Event.Mining.Variable());
-            //Variable_Craft("Exploration", Event.Exploration.Variable());
-            //Variable_Craft("Passengers", Event.Passengers.Variable());
-            //Variable_Craft("Search_And_Rescue", Event.Search_And_Rescue.Variable());
-            //Variable_Craft("TG_ENCOUNTERS", Event.TG_ENCOUNTERS.Variable());
-            //Variable_Craft("Crafting", Event.Crafting.Variable());
-            //Variable_Craft("Crew", Event.Crew.Variable());
-            //Variable_Craft("Multicrew", Event.Multicrew.Variable());
-            //Variable_Craft("Material_Trader_Stats", Event.Material_Trader_Stats.Variable());
-            //Variable_Craft("CQC", Event.CQC.Variable());
-            #endregion
-        }
-    }
-
-    #region Statistics Event
-    public class Statistics : Base
+    /// <summary>
+    /// Object Data Class
+    /// </summary>
+    public class ASDF_Statistics : Base
     {
         public BankAccountStat Bank_Account { get; set; }
         public CombatStat Combat { get; set; }
@@ -90,6 +27,26 @@ namespace ALICE_Events
         public TG_Encounters TG_ENCOUNTERS { get; set; }
         public CQCStat CQC { get; set; }
 
+        //Default Constructor
+        public ASDF_Statistics()
+        {
+            Bank_Account = new BankAccountStat();
+            Combat = new CombatStat();
+            Crime = new CrimeStat();
+            Smuggling = new SmugglingStat();
+            Trading = new TradingStat();
+            Mining = new MiningStat();
+            Exploration = new ExplorationStat();
+            Passengers = new PassengersStat();
+            Search_And_Rescue = new Search_And_RescueStat();
+            Crafting = new CraftingStat();
+            Crew = new CrewStat();
+            Multicrew = new MulticrewStat();
+            Material_Trader_Stats = new Material_TraderStat();
+            TG_ENCOUNTERS = new TG_Encounters();
+            CQC = new CQCStat();
+        }
+
         public class BankAccountStat : Catch
         {
             public decimal Current_Wealth { get; set; }
@@ -100,6 +57,18 @@ namespace ALICE_Events
             public decimal Spent_On_Ammo_Consumables { get; set; }
             public decimal Insurance_Claims { get; set; }
             public decimal Spent_On_Insurance { get; set; }
+
+            public BankAccountStat()
+            {
+                Current_Wealth = Dec();
+                Spent_On_Ships = Dec();
+                Spent_On_Outfitting = Dec();
+                Spent_On_Repairs = Dec();
+                Spent_On_Fuel = Dec();
+                Spent_On_Ammo_Consumables = Dec();
+                Insurance_Claims = Dec();
+                Spent_On_Insurance = Dec();                
+            }
         }
 
         public class CombatStat : Catch
@@ -112,6 +81,18 @@ namespace ALICE_Events
             public decimal Assassination_Profits { get; set; }
             public decimal Highest_Single_Reward { get; set; }
             public decimal Skimmers_Killed { get; set; }
+
+            public CombatStat()
+            {
+                Bounties_Claimed = Dec();
+                Bounty_Hunting_Profit = Dec();
+                Combat_Bonds = Dec();
+                Combat_Bond_Profits = Dec();
+                Assassinations = Dec();
+                Assassination_Profits = Dec();
+                Highest_Single_Reward = Dec();
+                Skimmers_Killed = Dec();
+            }
         }
 
         public class CrimeStat : Catch
@@ -122,6 +103,16 @@ namespace ALICE_Events
             public decimal Bounties_Received { get; set; }
             public decimal Total_Bounties { get; set; }
             public decimal Highest_Bounty { get; set; }
+
+            public CrimeStat()
+            {
+                Notoriety = Dec();
+                Fines = Dec();
+                Total_Fines = Dec();
+                Bounties_Received = Dec();
+                Total_Bounties = Dec();
+                Highest_Bounty = Dec();
+            }
         }
 
         public class SmugglingStat : Catch
@@ -131,6 +122,15 @@ namespace ALICE_Events
             public decimal Resources_Smuggled { get; set; }
             public decimal Average_Profit { get; set; }
             public decimal Highest_Single_Transaction { get; set; }
+
+            public SmugglingStat()
+            {
+                Black_Markets_Traded_With = Dec();
+                Black_Markets_Profits = Dec();
+                Resources_Smuggled = Dec();
+                Average_Profit = Dec();
+                Highest_Single_Transaction = Dec();                
+            }
         }
 
         public class TradingStat : Catch
@@ -140,6 +140,15 @@ namespace ALICE_Events
             public decimal Resources_Traded { get; set; }
             public decimal Average_Profit { get; set; }
             public decimal Highest_Single_Transaction { get; set; }
+
+            public TradingStat()
+            {
+                Markets_Traded_With = Dec();
+                Market_Profits = Dec();
+                Resources_Traded = Dec();
+                Average_Profit = Dec();
+                Highest_Single_Transaction = Dec();
+            }
         }
 
         public class MiningStat : Catch
@@ -147,6 +156,13 @@ namespace ALICE_Events
             public decimal Mining_Profits { get; set; }
             public decimal Quantity_Mined { get; set; }
             public decimal Materials_Collected { get; set; }
+
+            public MiningStat()
+            {
+                Mining_Profits = Dec();
+                Quantity_Mined = Dec();
+                Materials_Collected = Dec();
+            }
         }
 
         public class ExplorationStat : Catch
@@ -160,6 +176,19 @@ namespace ALICE_Events
             public decimal Total_Hyperspace_Jumps { get; set; }
             public decimal Greatest_Distance_From_Start { get; set; }
             public decimal Time_Played { get; set; }
+
+            public ExplorationStat()
+            {
+                Systems_Visited = Dec();
+                Exploration_Profits = Dec();
+                Planets_Scanned_To_Level_2 = Dec();
+                Planets_Scanned_To_Level_3 = Dec();
+                Highest_Payout = Dec();
+                Total_Hyperspace_Distance = Dec();
+                Total_Hyperspace_Jumps = Dec();
+                Greatest_Distance_From_Start = Dec();
+                Time_Played = Dec();
+            }
         }
 
         public class PassengersStat : Catch
@@ -170,6 +199,16 @@ namespace ALICE_Events
             public decimal Passengers_Missions_VIP { get; set; }
             public decimal Passengers_Missions_Delivered { get; set; }
             public decimal Passengers_Missions_Ejected { get; set; }
+
+            public PassengersStat()
+            {
+                Passengers_Missions_Accepted = Dec();
+                Passengers_Missions_Disgruntled = Dec();
+                Passengers_Missions_Bulk = Dec();
+                Passengers_Missions_VIP = Dec();
+                Passengers_Missions_Delivered = Dec();
+                Passengers_Missions_Ejected = Dec();
+            }
         }
 
         public class Search_And_RescueStat : Catch
@@ -177,6 +216,13 @@ namespace ALICE_Events
             public decimal SearchRescue_Traded { get; set; }
             public decimal SearchRescue_Profit { get; set; }
             public decimal SearchRescue_Count { get; set; }
+
+            public Search_And_RescueStat()
+            {
+                SearchRescue_Traded = Dec();
+                SearchRescue_Profit = Dec();
+                SearchRescue_Count = Dec();
+            }
         }
 
         public class TG_Encounters : Catch
@@ -187,6 +233,16 @@ namespace ALICE_Events
             public DateTime TG_ENCOUNTER_TOTAL_LAST_TIMESTAMP { get; set; }
             public string TG_ENCOUNTER_TOTAL_LAST_SHIP { get; set; }
             public decimal TG_SCOUT_COUNT { get; set; }
+
+            public TG_Encounters()
+            {
+                TG_ENCOUNTER_IMPRINT = Dec();
+                TG_ENCOUNTER_TOTAL = Dec();
+                TG_ENCOUNTER_TOTAL_LAST_SYSTEM = Str();
+                TG_ENCOUNTER_TOTAL_LAST_TIMESTAMP = Dtg();
+                TG_ENCOUNTER_TOTAL_LAST_SHIP = Str();
+                TG_SCOUT_COUNT = Dec();
+            }
         }
 
         public class CraftingStat : Catch
@@ -198,6 +254,17 @@ namespace ALICE_Events
             public decimal Recipes_Generated_Rank_3 { get; set; }
             public decimal Recipes_Generated_Rank_4 { get; set; }
             public decimal Recipes_Generated_Rank_5 { get; set; }
+
+            public CraftingStat()
+            {
+                Count_Of_Used_Engineers = Dec();
+                Recipes_Generated = Dec();
+                Recipes_Generated_Rank_1 = Dec();
+                Recipes_Generated_Rank_2 = Dec();
+                Recipes_Generated_Rank_3 = Dec();
+                Recipes_Generated_Rank_4 = Dec();
+                Recipes_Generated_Rank_5 = Dec();
+            }
         }
 
         public class CrewStat : Catch
@@ -206,6 +273,14 @@ namespace ALICE_Events
             public decimal NpcCrew_Hired { get; set; }
             public decimal NpcCrew_Fired { get; set; }
             public decimal NpcCrew_Died { get; set; }
+
+            public CrewStat()
+            {
+                NpcCrew_TotalWages = Dec();
+                NpcCrew_Hired = Dec();
+                NpcCrew_Fired = Dec();
+                NpcCrew_Died = Dec();
+            }
         }
 
         public class MulticrewStat : Catch
@@ -215,6 +290,15 @@ namespace ALICE_Events
             public decimal Multicrew_Fighter_Time_Total { get; set; }
             public decimal Multicrew_Credits_Total { get; set; }
             public decimal Multicrew_Fines_Total { get; set; }
+
+            public MulticrewStat()
+            {
+                Multicrew_Time_Total = Dec();
+                Multicrew_Gunner_Time_Total = Dec();
+                Multicrew_Fighter_Time_Total = Dec();
+                Multicrew_Credits_Total = Dec();
+                Multicrew_Fines_Total = Dec();
+            }
         }
 
         public class Material_TraderStat : Catch
@@ -228,6 +312,19 @@ namespace ALICE_Events
             public decimal Grade_3_Materials_Traded { get; set; }
             public decimal Grade_4_Materials_Traded { get; set; }
             public decimal Grade_5_Materials_Traded { get; set; }
+
+            public Material_TraderStat()
+            {
+                Trades_Completed = Dec();
+                Materials_Traded = Dec();
+                Encoded_Materials_Traded = Dec();
+                Raw_Materials_Traded = Dec();
+                Grade_1_Materials_Traded = Dec();
+                Grade_2_Materials_Traded = Dec();
+                Grade_3_Materials_Traded = Dec();
+                Grade_4_Materials_Traded = Dec();
+                Grade_5_Materials_Traded = Dec();
+            }
         }
 
         public class CQCStat : Catch
@@ -237,16 +334,23 @@ namespace ALICE_Events
             public decimal CQC_KD { get; set; }
             public decimal CQC_Kills { get; set; }
             public decimal CQC_WL { get; set; }
+
+            public CQCStat()
+            {
+                CQC_Credits_Earned = Dec();
+                CQC_Time_Played = Dec();
+                CQC_KD = Dec();
+                CQC_Kills = Dec();
+                CQC_WL = Dec();
+            }
         }
     }
-    #endregion
+
+    /// <summary>
+    /// Event Logic & Data Storage Class
+    /// </summary>
+    public class QWER_Statistics : Event
+    {
+        //No Processing
+    }
 }
-
-//Journal Reader Code Chunk.
-
-// else if (EventName == Statistics)
-// {
-//     var Event = JsonConvert.DeserializeObject<ALICE_Events.Statistics>(RawLine);
-//     IEvents.UpdateEvents(EventName, Event);
-//     IEvents.Bounty.Logic();
-// }
