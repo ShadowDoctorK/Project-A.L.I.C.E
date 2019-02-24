@@ -257,18 +257,5 @@ namespace ALICE_Events
         {
             //No Updates
         }
-
-        //Support Functions
-        public string GetSlot(string SlotName)
-        {
-            //Remove All Slot Variations
-            int i = 10; while (i != 0)
-            {
-                SlotName = SlotName.Replace("_Size" + i, ""); i--;
-            }
-
-            //Return Formmated Slot Name
-            return "_" + SlotName;
-        }
     }
 }

@@ -12,7 +12,7 @@ namespace ALICE_Status
 {
     public class Status_System
     {
-        public readonly string MethodName = "System Status";
+        private readonly string MethodName = "System Status";
 
         public string TargetSystem = "";
         public decimal TargetAddress = -1;

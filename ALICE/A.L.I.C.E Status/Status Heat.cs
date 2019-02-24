@@ -11,7 +11,7 @@ namespace ALICE_Status
 {
     public class Status_Heat
     {
-        public static readonly string MethodName = "Heat Status";
+        private readonly string MethodName = "Heat Status";
 
         public Responses Response = new Responses();
         //public Checks Check = new Checks();

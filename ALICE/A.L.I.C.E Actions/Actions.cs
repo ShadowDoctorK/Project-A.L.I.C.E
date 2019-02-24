@@ -2113,15 +2113,21 @@ namespace ALICE_Actions
                         switch (IStatus.Interaction.WaitForMark(30000, ref IEquipment.FrameShiftDrive.PrepSupercruise, MethodName))
                         {
                             case ALICE_Status.Status_Interaction.Marks.NoResponse:
+                                IEquipment.FrameShiftDrive.Prepairing = false;
+                                IEquipment.FrameShiftDrive.PrepSupercruise = false;
                                 return;
 
                             case ALICE_Status.Status_Interaction.Marks.Mark:
                                 break;
 
                             case ALICE_Status.Status_Interaction.Marks.EarlyReturn:
+                                IEquipment.FrameShiftDrive.Prepairing = false;
+                                IEquipment.FrameShiftDrive.PrepSupercruise = false;
                                 return;
 
                             default:
+                                IEquipment.FrameShiftDrive.Prepairing = false;
+                                IEquipment.FrameShiftDrive.PrepSupercruise = false;
                                 return;
                         }
                     }
@@ -2187,6 +2193,7 @@ namespace ALICE_Actions
                     if (IEquipment.FrameShiftDrive.Start(false) == false)
                     {
                         IEquipment.FrameShiftDrive.FailedToEngage(CommandAudio);
+                        IEquipment.FrameShiftDrive.Reset();
                     }
                     #endregion
                 }
@@ -2413,15 +2420,21 @@ namespace ALICE_Actions
                     switch (IStatus.Interaction.WaitForMark(30000, ref IEquipment.FrameShiftDrive.PrepHyperspace, MethodName))
                     {
                         case ALICE_Status.Status_Interaction.Marks.NoResponse:
+                            IEquipment.FrameShiftDrive.Prepairing = false;
+                            IEquipment.FrameShiftDrive.PrepHyperspace = false;
                             return;
 
                         case ALICE_Status.Status_Interaction.Marks.Mark:
                             break;
 
                         case ALICE_Status.Status_Interaction.Marks.EarlyReturn:
+                            IEquipment.FrameShiftDrive.Prepairing = false;
+                            IEquipment.FrameShiftDrive.PrepHyperspace = false;
                             return;
 
                         default:
+                            IEquipment.FrameShiftDrive.Prepairing = false;
+                            IEquipment.FrameShiftDrive.PrepHyperspace = false;
                             return;
                     }
                 }
@@ -2487,6 +2500,7 @@ namespace ALICE_Actions
                 if (IEquipment.FrameShiftDrive.Start(true) == false)
                 {
                     IEquipment.FrameShiftDrive.FailedToEngage(CommandAudio);
+                    IEquipment.FrameShiftDrive.Reset();
                 }
                 #endregion
             }

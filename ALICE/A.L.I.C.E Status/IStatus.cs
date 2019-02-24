@@ -10,12 +10,15 @@ namespace ALICE_Core
 {
     public static class IStatus
     {
+        public static Status_Cargo Cargo = new Status_Cargo();
         public static Status_Crew Crew = new Status_Crew();
         public static Status_Bounty Bounty = new Status_Bounty();
         public static Status_Docking Docking = new Status_Docking();
         public static Status_Fighter Fighter = new Status_Fighter();
         public static Status_Heat Heat = new Status_Heat();
         public static Status_Interaction Interaction = new Status_Interaction();
+        public static Status_Materials Materials = new Status_Materials();
+        public static Status_Music Music = new Status_Music();
         public static Status_Planet Planet = new Status_Planet();
         public static Status_Scan Scan = new Status_Scan();
         public static Status_System System = new Status_System();

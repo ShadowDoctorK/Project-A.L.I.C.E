@@ -34,6 +34,15 @@ namespace ALICE_Status
         public class Responses
         {
             string MethodName = "Cargo Status";
+
+            public void Refined(string Item, bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
+            {
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Collected: " + Item, Logger.Yellow); }
+
+                Speech.Speak(Item + "Refined.",
+                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            }
         }
 
         public class Checks

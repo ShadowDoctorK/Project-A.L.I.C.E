@@ -78,7 +78,7 @@ namespace ALICE_Events
         public string LocalisedName { get; set; }
         public string TargetType { get; set; }
         public string TargetType_Localised { get; set; }
-        public string Donation { get; set; }
+        public decimal Donation { get; set; }
         public string Commodity { get; set; }
         public string Commodity_Localised { get; set; }
         public decimal Count { get; set; }
@@ -102,7 +102,7 @@ namespace ALICE_Events
             LocalisedName = Default.String;
             TargetType = Default.String;
             TargetType_Localised = Default.String;
-            Donation = Default.String;
+            Donation = Default.Decimal;
             Commodity = Default.String;
             Commodity_Localised = Default.String;
             Count = Default.Decimal;

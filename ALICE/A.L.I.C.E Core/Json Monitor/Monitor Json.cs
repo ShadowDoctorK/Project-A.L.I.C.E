@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
-using System.Text.RegularExpressions;
 using ALICE_Actions;
 using ALICE_Objects;
-using System.Runtime.InteropServices;
 using Newtonsoft.Json;
-using ALICE_Interface;
 using ALICE_Internal;
 using ALICE_Events;
 using ALICE_Core;
@@ -90,7 +84,7 @@ namespace ALICE_Monitors
         public void Start()
         {
             string MethodName = "Json Monitor";
-
+           
             try
             {                               
                 //Enter Monitor State And Lock The Door Behind Us...

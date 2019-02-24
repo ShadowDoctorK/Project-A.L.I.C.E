@@ -27,7 +27,7 @@ namespace ALICE_Status
          * 7. Location Event
          */
 
-        public static readonly string MethodName = "Docking Status";
+        private readonly string MethodName = "Docking Status";
 
         public bool Docked = false;
         public IEnums.DockingState State = IEnums.DockingState.Undocked;

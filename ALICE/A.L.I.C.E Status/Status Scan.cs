@@ -12,7 +12,7 @@ namespace ALICE_Status
 {
     public class Status_Scan
     {
-        string MethodName = "Scan Report";
+        private readonly string MethodName = "Scan Report";
 
         //Get Scanned Body Data
         Object_StellarBody Body;

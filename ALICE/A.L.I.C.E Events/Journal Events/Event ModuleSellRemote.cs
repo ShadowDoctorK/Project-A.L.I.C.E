@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ALICE_Ships_Datalink_Interface;
+using ALICE_Objects;
 using ALICE_Internal;
 
 namespace ALICE_Events
@@ -21,7 +21,7 @@ namespace ALICE_Events
 
         public void Logic()
         {
-            if (Manager.WriteVariables && WriteVariables)
+            if (IEvents.WriteVariables && WriteVariables)
             {
                 try
                 {
@@ -43,7 +43,7 @@ namespace ALICE_Events
 
         public void Variables_Generate()
         {
-            ModuleSellRemote Event = (ModuleSellRemote)Manager.GetEvent(Name);
+            ModuleSellRemote Event = (ModuleSellRemote)IEvents.GetEvent(Name);
 
             Variables.Clear();
 
@@ -82,6 +82,6 @@ namespace ALICE_Events
 // else if (EventName == ModuleSellRemote)
 // {
 //     var Event = JsonConvert.DeserializeObject<ALICE_Events.ModuleSellRemote>(RawLine);
-//     Manager.UpdateEvents(EventName, Event);
-//     Manager.Bounty.Logic();
+//     IEvents.UpdateEvents(EventName, Event);
+//     IEvents.Bounty.Logic();
 // }

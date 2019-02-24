@@ -1357,34 +1357,15 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic MaterialCollected";
 
-            Logger.Log(MethodName, Event.Name.FirstCharToUpper() + " Collected", Logger.Yellow, true);
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    Event.Name + " Collected.",
-                    true,
-                    Check.Internal.TriggerEvents(true, MethodName),
-                    Check.Report.MaterialCollected(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion         
+            IStatus.Materials.Response.Collected(
+                Event.Name,                                         //Material
+                Check.Internal.TriggerEvents(true, MethodName),     //Check Plugin Initialized
+                Check.Report.MaterialCollected(true, MethodName));  //Check Material Reports Enabled      
         }
 
         public static void MarketBuy(MarketBuy Event)
         {
-            //string Source = "Unknown";
-            //if (IEvents.Events.ContainsKey("Docked"))
-            //{
-            //    Docked Dock = (Docked)IEvents.GetEvent("Docked");
-            //    Source = Dock.StationName;
-            //}
-
-            //IObjects.Ship.Cargo_Add(Event.Type_Localised, Event.BuyPrice, Event.Count, Event.TotalCost, false, Source, Event.MarketID);
+            
         }
 
         public static void MarketSell(MarketSell Event)
@@ -1398,119 +1379,18 @@ namespace ALICE_EventLogic
 
             Logger.Log(MethodName, Event.Type_Localised + " Refined", Logger.Yellow, true);
 
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    Event.Type_Localised + " Refined.",
-                    true,
-                    Check.Internal.TriggerEvents(true, MethodName),
-                    Check.Report.MaterialRefined(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion     
+            IStatus.Cargo.Response.Refined(
+                Event.Type_Localised,                               //Material
+                Check.Internal.TriggerEvents(true, MethodName),     //Check Plugin Initialized
+                Check.Report.MaterialRefined(true, MethodName));    //Check Report Enabled
         }
 
         public static void Music(Music Event)
         {
             string MethodName = "Logic Music";
 
-            IEnums.MusicState M = Utilities.ToEnum<IEnums.MusicState>(Event.MusicTrack);
-
-            switch (M)
-            {
-                case IEnums.MusicState.CapitalShip:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.Codex:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.Combat_Dogfight:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.Combat_SRV:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.Combat_Unknown:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.CombatLargeDogFight:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.CQC:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.CQCMenu:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.DestinationFromHyperspace:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.DestinationFromSupercruise:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.DockingComputer:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.Exploration:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.GalacticPowers:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.GalaxyMap:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.Interdiction:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.Lifeform_FogCloud:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.MainMenu:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.NoTrack:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.Supercruise:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.Starport:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.Squadrons:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.SystemAndSurfaceScanner:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.SystemMap:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.Unknown_Exploration:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.Unknown_Encounter:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                case IEnums.MusicState.Unknown_Settlement:
-                    Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
-                    break;
-                default:
-                    Logger.Log(MethodName, "New Music State Detected. " + Event.MusicTrack + " Recorded In The Devloper Update Log.", Logger.Yellow);
-                    Logger.RecordUpdate(Event.MusicTrack, MethodName);
-                    break;
-            }
-
-            if (M != IEnums.MusicState.SystemAndSurfaceScanner)
-            {
-                IEquipment.SurfaceScanner.Mode = false;
-                IEquipment.DiscoveryScanner.Mode = false;
-            }
+            //Update Status Object
+            IStatus.Music.Update(Event);
         }
 
         public static void NavBeconScan(NavBeaconScan Event)

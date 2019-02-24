@@ -66,14 +66,14 @@ namespace ALICE_Events
     {
         public string Category { get; set; }
         public string Name { get; set; }
-        //public string Name_Localised { get; set; }
+        public string Name_Localised { get; set; }
         public decimal Count { get; set; }
 
         public MaterialCollected()
         {
             Category = Default.String;
             Name = Default.String;
-            //Name_Localised = Default.String;
+            Name_Localised = Default.String;
             Count = Default.Decimal;
         }
     }

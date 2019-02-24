@@ -683,6 +683,27 @@ namespace ALICE_Events
             Logger.Exception(Name.ToString(), "Exception: " + ex);
             Logger.Exception(Name.ToString(), "An Exception Occured While Generating Variables");
         }
+
+        /// <summary>
+        /// Support Function To Format Ship Slots
+        /// </summary>
+        /// <param name="SlotName">Ship Slot To Be Processed</param>
+        /// <param name="Dash">Enable Disable The "_" During Formatting</param>
+        /// <returns>Formatted Slot</returns>
+        public string GetSlot(string SlotName, bool Dash = true)
+        {
+            string Underscore = "";
+            if (Dash) { Underscore = "_"; }
+
+            //Remove All Slot Variations
+            int i = 10; while (i != 0)
+            {
+                SlotName = SlotName.Replace("_Size" + i, ""); i--;
+            }
+
+            //Return Formmated Slot Name
+            return Underscore + SlotName;
+        }
     }
 
     public class Base : Catch
