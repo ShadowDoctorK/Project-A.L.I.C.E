@@ -22,8 +22,6 @@ namespace ALICE_Equipment
             Settings.Capacity = -1;
         }
 
-        public Equipment_FighterHanger New() { return new Equipment_FighterHanger(); }
-
         #region Audio
 
         #endregion

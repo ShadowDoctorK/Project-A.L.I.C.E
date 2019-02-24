@@ -20,8 +20,6 @@ namespace ALICE_Equipment
             Settings.Enabled = true;            
         }
 
-        public Equipment_CompositeScanner New() { return new Equipment_CompositeScanner(); }
-
         #region Audio
         public override void Assigned(string Group, string FireMode, bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)

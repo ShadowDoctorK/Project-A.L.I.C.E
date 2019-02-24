@@ -22,8 +22,6 @@ namespace ALICE_Equipment
             Settings.Capacity = -1;
         }
 
-        public Equipment_LimpetFuel New() { return new Equipment_LimpetFuel(); }
-
         #region Audio
         public override void NotInstalled(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)

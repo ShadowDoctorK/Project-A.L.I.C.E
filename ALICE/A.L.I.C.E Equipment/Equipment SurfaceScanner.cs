@@ -25,8 +25,6 @@ namespace ALICE_Equipment
             Mode = false;
         }
 
-        public Equipment_SurfaceScanner New() { return new Equipment_SurfaceScanner(); }
-
         #region Audio
         public override void NotInstalled(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)

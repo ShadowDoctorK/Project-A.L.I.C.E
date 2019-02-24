@@ -17,7 +17,12 @@ namespace ALICE_Settings
     {
         public DateTime TimeStamp { get; set; }
 
-        public string Commander = "Default";
+        private string _Commander = "Default";
+        public string Commander
+        {
+            get => _Commander;
+            set => _Commander = value;
+        }
 
         #region Plugin
         //Speed Offsets

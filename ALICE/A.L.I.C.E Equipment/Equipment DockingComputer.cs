@@ -25,8 +25,6 @@ namespace ALICE_Equipment
             AsisstedDockingReport = true;
         }
 
-        public Equipment_DockingComputer New() { return new Equipment_DockingComputer(); }
-
         #region Audio
         public override void NotInstalled(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)

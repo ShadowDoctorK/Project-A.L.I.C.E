@@ -20,8 +20,6 @@ namespace ALICE_Equipment
             Settings.Enabled = true;
         }
 
-        public Equipment_XenoScanner New() { return new Equipment_XenoScanner(); }
-
         #region Audio
 
         #endregion

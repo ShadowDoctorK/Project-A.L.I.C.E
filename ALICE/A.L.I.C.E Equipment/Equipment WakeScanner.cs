@@ -20,8 +20,6 @@ namespace ALICE_Equipment
             Settings.Enabled = true;
         }
 
-        public Equipment_WakeScanner New() { return new Equipment_WakeScanner(); }
-
         #region Audio
 
         #endregion

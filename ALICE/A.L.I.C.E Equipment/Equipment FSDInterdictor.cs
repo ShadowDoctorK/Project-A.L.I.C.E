@@ -20,8 +20,6 @@ namespace ALICE_Equipment
             Settings.Enabled = true;
         }
 
-        public Equipment_FSDInterdictor New() { return new Equipment_FSDInterdictor(); }
-
         #region Audio
         public override void NotInstalled(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)

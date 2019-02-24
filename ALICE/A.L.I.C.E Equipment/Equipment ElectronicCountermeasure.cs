@@ -20,8 +20,6 @@ namespace ALICE_Equipment
             Settings.Enabled = true;            
         }
 
-        public Equipment_ElectronicCountermeasure New() { return new Equipment_ElectronicCountermeasure(); }
-
         #region Audio
         public override void NotInstalled(bool CommandAudio, bool Var1 = true, bool Var2 = true,
             bool Var3 = true, int Priority = 3, string Voice = null)

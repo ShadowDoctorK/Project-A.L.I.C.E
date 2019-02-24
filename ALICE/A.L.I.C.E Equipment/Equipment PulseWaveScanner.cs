@@ -20,8 +20,6 @@ namespace ALICE_Equipment
             Settings.Enabled = true;
         }
 
-        public Equipment_PulseWaveScanner New() { return new Equipment_PulseWaveScanner(); }
-
         #region Audio
 
         #endregion

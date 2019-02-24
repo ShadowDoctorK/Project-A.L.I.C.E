@@ -20,8 +20,6 @@ namespace ALICE_Equipment
             Settings.Enabled = true;
         }
 
-        public Equipment_ShutdownFieldNeutrailser New() { return new Equipment_ShutdownFieldNeutrailser(); }
-
         #region Audio
 
         #endregion
