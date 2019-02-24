@@ -96,6 +96,8 @@ namespace ALICE_Objects
         {
             string MethodName = "Target (Process)";
 
+            if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
+
             #region Target vs Event Debug Lines
             Logger.DebugLine(MethodName, "Target Locked: " + Targeted + " | Event: " + Event.TargetLocked, Logger.Yellow);
             Logger.DebugLine(MethodName, "Scan Stage: " + ScanStage + " | Event: " + Event.ScanStage, Logger.Yellow);

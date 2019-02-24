@@ -1413,10 +1413,11 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic SAAScanComplete";
 
+            //Update Current System Objects
             IObjects.SystemCurrent.Update_StellarBody(Event);
 
-            if (PlugIn.ExtendedLogging && Check.Internal.TriggerEvents(true, MethodName, true))
-            { IObjects.SystemCurrent.Log_SystemBodies(); }
+            //Extended Logger
+            IObjects.SystemCurrent.Log_SystemBodies();
         }
 
         public static void Scan(Scan Event)
@@ -1432,29 +1433,18 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic SetUserShipName";
 
+            //Update Mothership Data
             IObjects.Mothership.Update(Event);
-
-            //Save Data Only If Event Data Is Newer The Object Data
-            if (IObjects.Mothership.EventTimeStamp == Event.Timestamp)
-            {
-                //Save Mothership Data.
-                new Object_Mothership().Save(IObjects.Mothership, MethodName);
-            }
         }
 
         public static void ShipTargeted(ShipTargeted Event)
         {
             string MethodName = "Logic ShipTargeted";
 
-            #region Validation Check: Trigger Events = True
-            if (Check.Internal.TriggerEvents(true, MethodName) == false)
-            {
-                return;
-            }
-            #endregion
-
+            //Update Current Target Object
             IObjects.TargetCurrent.Process(Event);
 
+            //Targeting System Update
             if (Event.TargetLocked == true)
             {
                 Assisted.Targeting.Wait_Targeted = false;

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ALICE.Properties;
 using ALICE_Status;
 
@@ -22,6 +18,7 @@ namespace ALICE_Core
         public static Status_Music Music = new Status_Music();
         public static Status_Planet Planet = new Status_Planet();
         public static Status_Scan Scan = new Status_Scan();
+        public static Status_Scanned Scanned = new Status_Scanned();
         public static Status_System System = new Status_System();
 
         public static decimal GUI_Focus = 0;

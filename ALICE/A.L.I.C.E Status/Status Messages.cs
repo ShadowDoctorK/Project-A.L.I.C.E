@@ -21,6 +21,11 @@ namespace ALICE_Status
             EventGeneration(Event);
         }
 
+        public void Update(SendText Event)
+        {
+            //No Logic
+        }
+
         public void EventGeneration(ReceiveText Event)
         {
             //No Fire Zone

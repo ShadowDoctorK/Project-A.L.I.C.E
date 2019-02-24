@@ -391,6 +391,9 @@ namespace ALICE_Objects
         #region Utility Methods
         public void Log_SystemBodies()
         {
+            if (PlugIn.ExtendedLogging == false) { return; }
+            if (Check.Internal.TriggerEvents(true, "System Object", true) == false) { return; }
+
             int BodyCount = 0;
             if (this.StellarBodies == -1) { return; }
 

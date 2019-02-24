@@ -66,6 +66,7 @@ namespace ALICE_Events
         public string Name { get; set; }
         public string Category { get; set; }
         public decimal Count { get; set; }
+        public decimal MarketID { get; set; }
     }
     #endregion
 }

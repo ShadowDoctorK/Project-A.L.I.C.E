@@ -172,6 +172,8 @@ namespace ALICE_Objects
                 //Event Properties
                 I.U_ShipID(Event.Event, Event.ShipID);
                 I.U_Type(Event.Event, Event.ShipID, Event.Ship);
+                I.U_Name(Event.Event, Event.ShipID, Event.UserShipName);
+                I.U_Identifier(Event.Event, Event.ShipID, Event.UserShipId);
             }
             catch (Exception ex)
             {
@@ -187,6 +189,9 @@ namespace ALICE_Objects
                 //Update Properties
                 EventTimeStamp = Event.Timestamp;
                 ModfyingEvent = Event.Event;
+
+                //Save Mothership Data
+                Save(IObjects.Mothership, MethodName);
             }
         }
 
