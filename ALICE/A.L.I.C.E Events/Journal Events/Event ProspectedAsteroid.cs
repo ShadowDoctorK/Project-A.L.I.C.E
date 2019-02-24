@@ -64,6 +64,7 @@ namespace ALICE_Events
         public List<Material> Materials { get; set; }
         public string Content { get; set; }
         public string Content_Localised { get; set; }
+        public string MotherlodeMaterial { get; set; }
         public decimal Remaining { get; set; }
 
         public ProspectedAsteroid()
@@ -71,6 +72,8 @@ namespace ALICE_Events
             Content = Default.String;
             Content_Localised = Default.String;
             Remaining = Default.Decimal;
+            MotherlodeMaterial = Default.String;
+            Materials = new List<Material>();
         }
 
         public class Material

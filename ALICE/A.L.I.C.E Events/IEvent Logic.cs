@@ -1405,33 +1405,8 @@ namespace ALICE_EventLogic
 
         public static void ReceivedText(ReceiveText Event)
         {
-            //No Fire Zone
-            if (Event.Message.Contains(IEnums.NoFireZone))
-            { IEvents.NoFireZone.Construct(Event); }
-
-            //Block Landing Pad Warning
-            else if (Event.Message.Contains(IEnums.DockingPadBlockWarning))
-            { IEvents.BlockLandingPadWarning.Construct(Event); }
-
-            //Block Airlock Warning
-            else if (Event.Message.Contains(IEnums.DockingDoorBlockWarning))
-            { IEvents.BlockAirlockWarning.Construct(Event); }
-
-            //Block Landing Pad Hostile
-            else if (Event.Message.Contains(IEnums.DockingPadBlockHostile))
-            { IEvents.BlockLandingPadWarning.Construct(Event); }
-
-            //Block Airlock Hostile
-            else if (Event.Message.Contains(IEnums.DockingDoorBlockHostile))
-            { IEvents.BlockAirlockWarning.Construct(Event); }
-
-            //Station Damage
-            else if (Event.Message.Contains(IEnums.AccidentalDamage))
-            { IEvents.StationDamage.Construct(Event); }
-
-            //Station Hostile
-            else if (Event.Message.Contains(IEnums.StationAggressorResponse))
-            { IEvents.StationHostile.Construct(Event); }
+            //Update Status Object
+            IStatus.Messages.Update(Event);
         }
 
         public static void SAAScanComplete(SAAScanComplete Event)

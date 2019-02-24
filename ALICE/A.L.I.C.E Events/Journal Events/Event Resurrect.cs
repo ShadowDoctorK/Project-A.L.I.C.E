@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ALICE_Ships_Datalink_Interface;
+using ALICE_Objects;
 using ALICE_Internal;
 
 namespace ALICE_Events
@@ -21,7 +21,7 @@ namespace ALICE_Events
 
         public void Logic()
         {
-            if (Manager.WriteVariables && WriteVariables)
+            if (IEvents.WriteVariables && WriteVariables)
             {
                 try
                 {
@@ -43,7 +43,7 @@ namespace ALICE_Events
 
         public void Variables_Generate()
         {
-            Resurrect Event = (Resurrect)Manager.GetEvent(Name);
+            Resurrect Event = (Resurrect)IEvents.GetEvent(Name);
 
             Variables.Clear();
 
@@ -64,7 +64,7 @@ namespace ALICE_Events
     {
         public string Option { get; set; }
         public decimal Cost { get; set; }
-        public string Bankrupt { get; set; }
+        public bool Bankrupt { get; set; }
     }
     #endregion
 }
@@ -74,6 +74,6 @@ namespace ALICE_Events
 // else if (EventName == Resurrect)
 // {
 //     var Event = JsonConvert.DeserializeObject<ALICE_Events.Resurrect>(RawLine);
-//     Manager.UpdateEvents(EventName, Event);
-//     Manager.Bounty.Logic();
+//     IEvents.UpdateEvents(EventName, Event);
+//     IEvents.Bounty.Logic();
 // }

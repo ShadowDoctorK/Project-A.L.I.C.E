@@ -251,6 +251,60 @@ namespace ALICE_Collections
         }
 
         /// <summary>
+        /// Will check that the Value does not equal the Case. If it does it will not set the value.
+        /// </summary>
+        /// <param name="VariableName">Full name of the Variable</param>
+        /// <param name="VariableVallue">Value to check</param>        
+        /// <param name="Case">Trigger that will cause the variable to not be set</param>
+        public bool Validate(string VariableName, string VariableVallue, string Case = "None")
+        {
+            //Check Value Does Not Equal Case
+            if (VariableVallue != Case)
+            {
+                Record(VariableName, VariableVallue);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Will check that the Value does not equal the Case. If it does it will not set the value.
+        /// </summary>
+        /// <param name="VariableName">Full name of the Variable</param>
+        /// <param name="VariableVallue">Value to check</param>        
+        /// <param name="Case">Trigger that will cause the variable to not be set</param>
+        public bool Validate(string VariableName, decimal VariableVallue, decimal Case = -1)
+        {
+            //Check Value Does Not Equal Case
+            if (VariableVallue != Case)
+            {
+                Record(VariableName, VariableVallue);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Will check that the Value does not equal the Case. If it does it will not set the value.
+        /// </summary>
+        /// <param name="VariableName">Full name of the Variable</param>
+        /// <param name="VariableVallue">Value to check</param>        
+        /// <param name="Case">Trigger that will cause the variable to not be set</param>
+        public bool Validate(string VariableName, bool VariableVallue, bool Case = false)
+        {
+            //Check Value Does Not Equal Case
+            if (VariableVallue != Case)
+            {
+                Record(VariableName, VariableVallue);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Records the passed variable information.
         /// </summary>
         public void Record(string VariableName, string VariableValue)

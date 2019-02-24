@@ -46,6 +46,16 @@ namespace ALICE_Status
             ID = Event.CrewID;
         }
 
+        public void Update(NpcCrewPaidWage Event)
+        {
+
+        }
+
+        public void Update(NpcCrewRank Event)
+        {
+
+        }
+
         public class Responses
         {
             string MethodName = "Crew Status";

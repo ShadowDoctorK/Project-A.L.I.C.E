@@ -18,6 +18,7 @@ namespace ALICE_Core
         public static Status_Heat Heat = new Status_Heat();
         public static Status_Interaction Interaction = new Status_Interaction();
         public static Status_Materials Materials = new Status_Materials();
+        public static Status_Messages Messages = new Status_Messages();
         public static Status_Music Music = new Status_Music();
         public static Status_Planet Planet = new Status_Planet();
         public static Status_Scan Scan = new Status_Scan();
