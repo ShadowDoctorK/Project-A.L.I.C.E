@@ -1,11 +1,6 @@
 ﻿using ALICE_Events;
 using ALICE_Internal;
 using ALICE_Synthesizer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ALICE_Status
 {
@@ -14,8 +9,6 @@ namespace ALICE_Status
         private readonly string MethodName = "Heat Status";
 
         public Responses Response = new Responses();
-        //public Checks Check = new Checks();
-        public Logging Log = new Logging();
 
         public void Update(HeatDamage Event)
         {
@@ -53,16 +46,6 @@ namespace ALICE_Status
                     .Phrase(EVT_HeatWarning.Modifier, true),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
-        }
-
-        public class Checks
-        {
-
-        }
-
-        public class Logging
-        {
-
         }
     }
 }

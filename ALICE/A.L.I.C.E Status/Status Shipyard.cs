@@ -1,5 +1,6 @@
 ﻿using ALICE_Events;
 using ALICE_Internal;
+using ALICE_Synthesizer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,6 @@ namespace ALICE_Status
         public readonly string MethodName = "Shipyard Status";
 
         public Responses Response = new Responses();
-        //public Checks Check = new Checks();
-        public Logging Log = new Logging();
 
         public void Update(Shipyard Event)
         {
@@ -52,16 +51,19 @@ namespace ALICE_Status
         public class Responses
         {
             string MethodName = "Shipyard Status";
-        }
 
-        public class Checks
-        {
+            public void ThreeMinWarning(string Destination, string Ship, string Station, bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
+            {
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "3 Min Till Your " + Ship + " Arrives In " + Destination, Logger.Yellow); }
 
-        }
-
-        public class Logging
-        {
-
+                Speech.Speak(""
+                    .Phrase(EVT_Shipyard_Arrived.Three_Min_Warning)
+                    .Token("[DESTINATION]", Destination)
+                    .Token("[SHIP]", Ship)
+                    .Token("[STATION]", Station),
+                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            }
         }
     }
 }

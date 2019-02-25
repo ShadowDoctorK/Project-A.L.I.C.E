@@ -20,6 +20,13 @@ namespace ALICE_Core
             set => _Crew = value;
         }
 
+        private static Status_Crime _Crime = new Status_Crime();
+        public static Status_Crime Crime
+        {
+            get => _Crime;
+            set => _Crime = value;
+        }
+
         private static Status_Bounty _Bounty = new Status_Bounty();
         public static Status_Bounty Bounty
         {

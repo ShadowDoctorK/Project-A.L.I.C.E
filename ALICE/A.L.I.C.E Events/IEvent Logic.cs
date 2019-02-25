@@ -8,7 +8,6 @@ using ALICE_Internal;
 using ALICE_Core;
 using ALICE_Synthesizer;
 using ALICE_Settings;
-using ALICE_Interface;
 using System.Collections.Generic;
 using ALICE_Status;
 
@@ -209,30 +208,19 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic: No Fire Zone";
 
-            if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
-
+            //Entering No Fire Zone
             if (Event.Entered == true)
             {
                 IEvents.FireInNoFireZone.FirstReport = true;
 
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(EVT_NoFireZone.Entered)
-                        .Replace("[STATION]", Event.Station),
-                        true,
-                        IEvents.TriggerEvents
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
+                //Audio - Entered No Fire Zone
+                IStatus.Docking.Response.NoFireZoneEntered(
+                    Event.Station,                                      //Pass Station Name
+                    Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
 
                 Thread.Sleep(100);
 
-                if (ISettings.WeaponSafety == true)
+                if (Check.Order.WeaponSafety(true, MethodName))
                 {
                     IStatus.WeaponSafety = true;
                     Call.Action.AnalysisMode(true, false);
@@ -241,75 +229,36 @@ namespace ALICE_EventLogic
                     {
                         Call.Action.Hardpoint(false, false);
 
-                        #region Audio
-                        if (PlugIn.Audio == "TTS")
-                        {
-                            Speech.Speak
-                                (
-                                "".Phrase(EQ_Hardpoints.Retracting)
-                                .Phrase(EQ_Hardpoints.Safety_Engaging),
-                                true,
-                                IEvents.TriggerEvents
-                                );
-                        }
-                        else if (PlugIn.Audio == "File") { }
-                        else if (PlugIn.Audio == "External") { }
-                        #endregion
+                        //Audio - Enabling Weapon Safeties (Deployed)
+                        IStatus.Docking.Response.WeaponSafetiesEnablingDeployed(                            
+                            Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
 
                         return;
                     }
 
-                    #region Audio
-                    if (PlugIn.Audio == "TTS")
-                    {
-                        Speech.Speak
-                            (
-                            "".Phrase(EQ_Hardpoints.Safety_Engaging),
-                            true,
-                            IEvents.TriggerEvents
-                            );
-                    }
-                    else if (PlugIn.Audio == "File") { }
-                    else if (PlugIn.Audio == "External") { }
-                    #endregion
+                    //Audio - Enabling Weapon Safeties
+                    IStatus.Docking.Response.WeaponSafetiesEnablingDeployed(                        
+                        Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
                 }
             }
+
+            //Exiting No Fire Zone
             else if (Event.Entered == false)
             {
                 IStatus.WeaponSafety = false;
 
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(EVT_NoFireZone.Exited)
-                        .Replace("[STATION]", Event.Station),
-                        true,
-                        IEvents.TriggerEvents
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
+                //Audio - Exited No Fire Zone
+                IStatus.Docking.Response.NoFireZoneExited(
+                    Event.Station,                                      //Pass Station Name
+                    Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
 
                 Thread.Sleep(100);
 
                 if (Check.Order.WeaponSafety(true, MethodName))
                 {
-                    #region Audio
-                    if (PlugIn.Audio == "TTS")
-                    {
-                        Speech.Speak
-                            (
-                            "".Phrase(EQ_Hardpoints.Safety_Disengaging),
-                            true,
-                            IEvents.TriggerEvents
-                            );
-                    }
-                    else if (PlugIn.Audio == "File") { }
-                    else if (PlugIn.Audio == "External") { }
-                    #endregion
+                    //Audio - Disabling Weapon Safeties
+                    IStatus.Docking.Response.WeaponSafetiesDisabling(
+                        Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
                 }
             }
         }
@@ -397,42 +346,22 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic: Station Damage";
 
-            StationHostile Temp = (StationHostile)IEvents.GetEvent(IEnums.StationHostile);
+            //StationHostile Temp = (StationHostile)IEvents.GetEvent(IEnums.StationHostile);
 
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Station_Reports.Damaged)
-                    .Replace("[STATON]", Event.Station),
-                    true,
-                    Check.Internal.TriggerEvents(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
+            //Audio - Station Damaged
+            IStatus.Messages.Response.StationDamaged(
+                Event.Station,                                      //Pass Station Name
+                Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
         }
 
         public static void StationHostile(StationHostile Event)
         {
             string MethodName = "Logic: Station Hostile";
 
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Station_Reports.Hostile)
-                    .Replace("[STATON]", Event.Station),
-                    true,
-                    Check.Internal.TriggerEvents(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
+            //Audio - Station Damaged
+            IStatus.Messages.Response.StationHostile(
+                Event.Station,                                      //Pass Station Name
+                Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
         }
 
         #region Under Construction

@@ -1,17 +1,11 @@
 ﻿using ALICE_Actions;
 using ALICE_Core;
 using ALICE_Events;
-using ALICE_Interface;
 using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Settings;
 using ALICE_Synthesizer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ALICE_Status
 {
@@ -489,6 +483,58 @@ namespace ALICE_Status
                 Speech.Speak(""
                     .Phrase(GN_Facility_Report.Undocked)
                     .Phrase(GN_Facility_Report.Undocked_Modifier),
+                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            }
+
+            public void NoFireZoneEntered(string Station, bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
+            {
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Entered No Fire Zone.", Logger.Yellow); }
+
+                Speech.Speak(""
+                    .Phrase(EVT_NoFireZone.Entered)
+                    .Token("[STATION]", Station),
+                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            }
+
+            public void NoFireZoneExited(string Station, bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
+            {
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Exited No Fire Zone.", Logger.Yellow); }
+
+                Speech.Speak(""
+                    .Phrase(EVT_NoFireZone.Exited)
+                    .Token("[STATION]", Station),
+                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            }
+
+            public void WeaponSafetiesEnabling(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
+            {
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Enabled Weapon Safeties.", Logger.Yellow); }
+
+                Speech.Speak(""
+                    .Phrase(EQ_Hardpoints.Safety_Engaging),
+                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            }
+
+            public void WeaponSafetiesDisabling(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
+            {
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Disabled Weapon Safeties.", Logger.Yellow); }
+
+                Speech.Speak(""
+                    .Phrase(EQ_Hardpoints.Safety_Disengaging),
+                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            }
+
+            public void WeaponSafetiesEnablingDeployed(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
+            {
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Retracting Hardpoints, Enabling Weapon Safeties.", Logger.Yellow); }
+
+                Speech.Speak(""
+                    .Phrase(EQ_Hardpoints.Safety_Disengaging),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
         }

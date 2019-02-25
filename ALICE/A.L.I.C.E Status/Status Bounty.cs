@@ -26,8 +26,6 @@ namespace ALICE_Status
         public string VictimFaction = "Unknown";        //Bounty Event
 
         public Responses Response = new Responses();
-        public Checks Check = new Checks();
-        public Logging Log = new Logging();
 
         public void Update(Bounty Event)
         {
@@ -95,16 +93,6 @@ namespace ALICE_Status
                     .Token("[PILOTNAME]", IStatus.Bounty.Pilot),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
-        }
-
-        public class Checks
-        {
-
-        }
-
-        public class Logging
-        {
-
         }
     }
 }

@@ -18,8 +18,6 @@ namespace ALICE_Status
         public decimal TargetAddress = -1;
 
         public Responses Response = new Responses();
-        //public Checks Check = new Checks();
-        public Logging Log = new Logging();
 
         public void Update(FSDTarget Event)
         {
@@ -77,16 +75,6 @@ namespace ALICE_Status
                     .Token("[STARSYSTEM]", SystemName),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
-        }
-
-        public class Checks
-        {
-
-        }
-
-        public class Logging
-        {
-
         }
     }
 }

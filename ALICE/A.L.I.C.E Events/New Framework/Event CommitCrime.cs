@@ -4,6 +4,7 @@
 //Reference Journal Line: { "timestamp":"2018-11-22T01:47:10Z", "event":"CommitCrime", "CrimeType":"dockingMinorBlockingAirlock", "Faction":"Eureka Mining Co-Operative", "Fine":300 }
 //Reference Journal Line: { "timestamp":"2018-11-22T01:47:55Z", "event":"CommitCrime", "CrimeType":"dockingMinorBlockingLandingPad", "Faction":"Eureka Mining Co-Operative", "Fine":300 }
 
+using ALICE_Core;
 using ALICE_Internal;
 using ALICE_Synthesizer;
 using System;
@@ -76,84 +77,78 @@ namespace ALICE_Events
                 switch (Crime)
                 {
                     case IEnums.CrimeType.Assault:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
-                        IEvents.Assult.Construct(Event);
-                        break;
+
+                        //Construct Assult Event
+                        IEvents.Assult.Construct(Event); break;
+
                     case IEnums.CrimeType.MinorBlockingAirlock:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
-                        IEvents.BlockAirlockMinor.Construct(Event);
+
+                        //IEvents.BlockAirlock.Construct(Event);
                         break;
                     case IEnums.CrimeType.MajorBlockingAirlock:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
-                        IEvents.BlockAirlockMajor.Construct(Event);
+
+                        //IEvents.BlockAirlock.Construct(Event);
                         break;
+
                     case IEnums.CrimeType.MinorBlockingLandingPad:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
-                        IEvents.BlockLandingPadMinor.Construct(Event);
+
+                        //IEvents.BlockLandingPadMinor.Construct(Event);
                         break;
                     case IEnums.CrimeType.MajorBlockingLandingPad:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
-                        IEvents.BlockLandingPadMajor.Construct(Event);
+
+                        //IEvents.BlockLandingPadMajor.Construct(Event);
                         break;
                     case IEnums.CrimeType.FireInNoFireZone:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
-                        IEvents.FireInNoFireZone.Construct(Event);
+
+                        //IEvents.FireInNoFireZone.Construct(Event);
                         break;
                     case IEnums.CrimeType.Murder:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
-                        IEvents.Murder.Construct(Event);
+
+                        //IEvents.Murder.Construct(Event);
                         break;
                     case IEnums.CrimeType.Piracy:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
+
                         break;
                     case IEnums.CrimeType.Interdicting:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
+
                         break;
                     case IEnums.CrimeType.IllegalCargo:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
+
                         break;
                     case IEnums.CrimeType.DisobeyPolice:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
+
                         break;
                     case IEnums.CrimeType.FireInStation:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
-                        IEvents.FireInStation.Construct(Event);
+
+                        //IEvents.FireInStation.Construct(Event);
                         break;
                     case IEnums.CrimeType.DumpingDangerous:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
+
                         break;
                     case IEnums.CrimeType.DumpingNearStation:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
+
                         break;
                     case IEnums.CrimeType.DockingMinor_Trespass:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
+
                         break;
                     case IEnums.CrimeType.DockingMajor_Trespass:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
+
                         break;
                     case IEnums.CrimeType.CollidedAtSpeedInNoFireZone:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
+
                         break;
                     case IEnums.CrimeType.CollidedAtSpeedInNoFireZone_HullDamage:
-                        Logger.Log(ClassName, Crime.ToString(), Logger.Yellow, true);
-                        break;
-                    default:
-                        #region Audio
-                        if (PlugIn.Audio == "TTS")
-                        {
-                            Speech.Speak
-                                (
-                                "".Phrase(ALICE_Synthesizer.Crime.Default),
-                                true,
-                                Check.Internal.TriggerEvents(true, ClassName)
-                                );
-                        }
-                        else if (PlugIn.Audio == "File") { }
-                        else if (PlugIn.Audio == "External") { }
-                        #endregion
 
-                        Logger.Log(ClassName, "Detected New Crime Type: " + Event.CrimeType, Logger.Yellow);
-                        Logger.Log(ClassName, "Please Provide Your Most Recent Journal Log To The Developers", Logger.Yellow);
+                        break;
+
+                    default:
+
+                        //Audio - Generic Crime
+                        IStatus.Crime.Response.Generic(
+                            Check.Internal.TriggerEvents(true, ClassName));     //Check Plugin Initialized
+
+                        //Record New Items To Developer Log
+                        Logger.DeveloperLog("Developer Record: [CommitCrime:CrimeType] " + Event.CrimeType);
                         break;
                 }
             }

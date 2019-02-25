@@ -5,11 +5,6 @@
 //Reference Journal Line: { "timestamp":"2018-11-22T16:58:32Z", "event":"CommitCrime", "CrimeType":"assault", "Faction":"Independent Detention Foundation", "Victim":"The Heart of Orion", "Bounty":300 }
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ALICE_Objects;
 using ALICE_Internal;
 using ALICE_EventLogic;
 
@@ -58,7 +53,7 @@ namespace ALICE_Events
             Variable_Craft("Faction", Event.Faction.ToString());
             Variable_Craft("Victim", Event.Victim.ToString());
             Variable_Craft("Amount", Event.Amount.ToString());
-            Variable_Craft("ChargeType", Event.ChargeType.ToString());
+            Variable_Craft("Charge", Event.Charge.ToString());
             #endregion
         }
 
@@ -66,7 +61,7 @@ namespace ALICE_Events
         {
             Assult Temp = new Assult()
             {
-                ChargeType = "Bounty",
+                Charge = "Bounty",
                 Faction = Event.Faction,
                 Victim = Event.Victim,
                 Amount = Event.Bounty
@@ -80,10 +75,11 @@ namespace ALICE_Events
     #region Assult Event
     public class Assult : Base
     {
-        public string Faction { get; set; }
+        public string Violation { get; set; }
         public string Victim { get; set; }
+        public string Faction { get; set; }
+        public string Charge { get; set; }
         public decimal Amount { get; set; }
-        public string ChargeType { get; set; }
     }
     #endregion
 }

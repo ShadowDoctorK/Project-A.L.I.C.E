@@ -600,18 +600,6 @@ namespace ALICE_Events
         }
 
         /// <summary>
-        /// Method Used To Build Custom Events Based On Log Event Data.
-        /// </summary>        
-        /// <returns>Constructed Events Object</returns>
-        public virtual object Construct(object O)
-        {
-            //No Code In Virtual Method, Override Method Will Contain The Logic
-            //This Is Here For The Structured Calls
-
-            return null;
-        }
-
-        /// <summary>
         /// Method Used To Align Plugin States To Known True Values Based On Event Execution.
         /// </summary>
         public virtual void Alignment(object O)
@@ -636,35 +624,6 @@ namespace ALICE_Events
         {
             //Get Recorded Event
             object Event = Get();
-
-            //Prepare For Event Logic
-            Prepare(Event);
-
-            //Process Event Logic
-            Process(Event);
-
-            //Plugin Alignment
-            Alignment(Event);
-
-            //Process Variables
-            if (WriteVariables)
-            {
-                Variables.Clear();
-                Generate(Event);
-                Variables.Write();
-            }
-
-            //Trigger
-            Trigger();
-        }
-
-        /// <summary>
-        /// Method Use To Build Custom Events & Update Game State Logic
-        /// </summary>
-        public void Logic(object O)
-        {
-            //Construct Event
-            object Event = Construct(O);
 
             //Prepare For Event Logic
             Prepare(Event);
@@ -736,6 +695,26 @@ namespace ALICE_Events
 
             //Return Formmated Slot Name
             return Underscore + SlotName;
+        }
+
+        /// <summary>
+        /// Atempts to cast objects to the passed type.
+        /// </summary>
+        /// <typeparam name="T">(Type) Object Type</typeparam>
+        /// <param name="O">(Object) The Data</param>
+        /// <returns>Casted Object or Default on Exception</returns>
+        public T Caster<T>(object O)
+        {                        
+            try
+            {
+                return (T)O;
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(ClassName, "Exception: " + ex);
+            }
+
+            return default(T);
         }
     }
 

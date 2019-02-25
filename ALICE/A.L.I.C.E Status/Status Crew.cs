@@ -2,11 +2,6 @@
 using ALICE_Events;
 using ALICE_Internal;
 using ALICE_Synthesizer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ALICE_Status
 {
@@ -17,8 +12,6 @@ namespace ALICE_Status
         public string DutyStatus { get; set; }
 
         public Responses Response = new Responses();
-        public Checks Check = new Checks();
-        public Logging Log = new Logging();
 
         public Status_Crew()
         {
@@ -101,16 +94,6 @@ namespace ALICE_Status
                     .Token("[CREW MEMBER]", IStatus.Crew.Name),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
-        }
-
-        public class Checks
-        {
-
-        }
-
-        public class Logging
-        {
-
         }
     }
 }

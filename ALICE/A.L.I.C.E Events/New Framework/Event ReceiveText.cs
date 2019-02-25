@@ -2,7 +2,8 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-21T23:06:18Z", "event":"ReceiveText", "From":"$npc_name_decorate:#name=Henke 'Kniiip' Löfqvist;", "From_Localised":"Henke 'Kniiip' Löfqvist", "Message":"$Commuter_HostileScan05;", "Message_Localised":"Your ship's ID has been logged, any active hostilities will result in criminal charges being brought against you.", "Channel":"npc" }
 
-using ALICE_Core;
+using ALICE_Data;
+using ALICE_Internal;
 using System;
 
 namespace ALICE_Events
@@ -58,8 +59,54 @@ namespace ALICE_Events
             {
                 var Event = (ReceiveText)O;
 
-                //Update Status Object
-                IStatus.Messages.Update(Event);
+                //No Fire Zone
+                if (Event.Message.Contains(IData.Messages.NoFireZone))
+                {
+                    IEvents.NoFireZone.Construct(Event);
+                }
+
+                //Block Landing Pad Warning
+                else if (Event.Message.Contains(IData.Messages.DockingPadBlockWarning))
+                {
+                    //IEvents.BlockLandingPadWarning.Construct(Event);
+                }
+
+                //Block Airlock Warning
+                else if (Event.Message.Contains(IData.Messages.DockingDoorBlockWarning))
+                {
+                    //IEvents.BlockAirlockWarning.Construct(Event);
+                }
+
+                //Block Landing Pad Hostile
+                else if (Event.Message.Contains(IData.Messages.DockingPadBlockHostile))
+                {
+                    //IEvents.BlockLandingPadWarning.Construct(Event);
+                }
+
+                //Block Airlock Hostile
+                else if (Event.Message.Contains(IData.Messages.DockingDoorBlockHostile))
+                {
+                    //IEvents.BlockAirlockWarning.Construct(Event);
+                }
+
+                //Station Damage
+                else if (Event.Message.Contains(IData.Messages.AccidentalDamage))
+                {
+                    IEvents.StationDamage.Construct(Event);
+                }
+
+                //Station Hostile
+                else if (Event.Message.Contains(IData.Messages.StationAggressorResponse))
+                {
+                    //IEvents.StationHostile.Construct(Event);
+                }
+
+                //Record New Message Types
+                else
+                {
+                    Logger.DeveloperLog("Developer Record: [ReceiveText:Message] " + Event.Message);
+                    Logger.DeveloperLog("Developer Record: [ReceiveText:Message_Localised] " + Event.Message_Localised);
+                }
             }
             catch (Exception ex)
             {

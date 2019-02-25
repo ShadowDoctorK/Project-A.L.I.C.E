@@ -14,8 +14,6 @@ namespace ALICE_Status
         private readonly string MethodName = "Music Status";
 
         public Responses Response = new Responses();
-        public Checks Check = new Checks();
-        public Logging Log = new Logging();
 
         public void Update(Music Event)
         {
@@ -153,16 +151,6 @@ namespace ALICE_Status
         public class Responses
         {
             string MethodName = "Music Status";
-        }
-
-        public class Checks
-        {
-
-        }
-
-        public class Logging
-        {
-
         }
     }
 }

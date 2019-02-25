@@ -1,10 +1,6 @@
 ﻿using ALICE_Internal;
 using ALICE_Synthesizer;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ALICE_Status
 {
@@ -14,15 +10,7 @@ namespace ALICE_Status
         public List<Material> Manufactured { get; set; }
         public List<Material> Encoded { get; set; }
 
-
         public Responses Response = new Responses();
-        public Checks Check = new Checks();
-        public Logging Log = new Logging();
-
-        public void Update()
-        {
-
-        }
 
         public class Material
         {
@@ -50,16 +38,6 @@ namespace ALICE_Status
                 Speech.Speak(Material + "Collected.",
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
-        }
-
-        public class Checks
-        {
-
-        }
-
-        public class Logging
-        {
-
         }
     }
 }

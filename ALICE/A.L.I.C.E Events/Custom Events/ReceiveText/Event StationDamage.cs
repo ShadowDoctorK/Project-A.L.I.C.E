@@ -5,13 +5,9 @@
 //Reference Journal Line: { "timestamp":"2018-11-22T16:58:32Z", "event":"ReceiveText", "From":"The Heart of Orion", "Message":"$StationAggressorResponseMessage;", "Message_Localised":"Hostility logged, lethal response authorised.", "Channel":"npc" }
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ALICE_Objects;
 using ALICE_Internal;
 using ALICE_EventLogic;
+using ALICE_Data;
 
 namespace ALICE_Events
 {
@@ -67,7 +63,8 @@ namespace ALICE_Events
                 Station = Event.From
             };
 
-            if (Event.Message.ToLower().Contains(IEnums.StationAggressorResponse))
+            if (Event.Message.ToLower().Contains(
+                IData.Messages.StationAggressorResponse))
             { Temp.Hostile = true; }
 
             UpdateEvents(Name, Temp);

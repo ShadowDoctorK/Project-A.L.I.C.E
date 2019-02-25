@@ -18,8 +18,6 @@ namespace ALICE_Status
         public enum S { Default, Cargo, Crime, Cabin, Data, Unknown }
 
         public Responses Response = new Responses();
-        public Checks Check = new Checks();
-        public Logging Log = new Logging();
 
         public void Update(Scanned Event)
         {
@@ -62,16 +60,6 @@ namespace ALICE_Status
         public class Responses
         {
             string MethodName = "Scanned Status";
-        }
-
-        public class Checks
-        {
-
-        }
-
-        public class Logging
-        {
-
         }
     }
 }

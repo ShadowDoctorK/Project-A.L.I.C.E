@@ -1,14 +1,9 @@
-﻿using ALICE_Actions;
-using ALICE_Internal;
+﻿using ALICE_Internal;
 using ALICE_Synthesizer;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Media;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ALICE_Status
 {
@@ -21,8 +16,6 @@ namespace ALICE_Status
         public Marks Marker = Marks.NoResponse;
 
         public Responses Response = new Responses();
-        public Checks Check = new Checks();
-        public Logging Log = new Logging();
 
         /// <summary>
         /// Watches For The Users Response To A Question. Checks For The Response Every 100 ms.
@@ -214,16 +207,6 @@ namespace ALICE_Status
                     .Phrase(GN_Alice.On_Your_Mark),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
-        }
-
-        public class Checks
-        {
-
-        }
-
-        public class Logging
-        {
-
         }
     }
 }

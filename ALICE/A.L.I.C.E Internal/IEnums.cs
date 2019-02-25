@@ -196,7 +196,30 @@ namespace ALICE_Internal
             WingAdd,                          //Journal Log
             WingInvite,                       //Journal Log
             WingJoin,                         //Journal Log
-            WingLeave                         //Journal Log
+            WingLeave,                        //Journal Log
+
+            //Custom Event (Mulit Source)
+            BlockAirlock,                     //Alice Event - CommitCrime / Receive Text
+            BlockLandingPad,                  //Alice Event - CommitCrime / Receive Text
+
+            //Custom CommitCrime Events              
+            Assult,                           //Alice Event
+            DisobeyPolice,                    //Alice Event
+            DockingTrespass,                  //Alice Event
+            DumpingDangerous,                 //Alice Event
+            DumpingNearStation,               //Alice Event            
+            FireInNoFireZone,                 //Alice Event
+            FireInStation,                    //Alice Event
+            IllegalCargo,                     //Alice Event
+            Interdicting,                     //Alice Event
+            Murder,                           //Alice Event
+            Piracy,                           //Alice Event
+            WrecklessFlying,                  //Alice Event
+
+            //Custom ReceiveText Events
+            StationHostile,                   //Alice Event
+            StationDamage,                    //Alice Event
+            NoFireZone                        //Alice Event            
         }
 
         public enum CMD
@@ -374,19 +397,6 @@ namespace ALICE_Internal
         public static readonly string MapGalaxy = "GalaxyMap";
         public static readonly string MapSystem = "SystemMap";
         public static readonly string Starport = "Starport";
-        #endregion
-
-        #region Message Identification
-        public static readonly string NoFireZoneExit = "NoFireZone_exited";
-        public static readonly string NoFireZoneEnter = "NoFireZone_entered";
-        public static readonly string DockingOffenceCleared = "DockingOffenceCleared";
-        public static readonly string DockingPadBlockWarning = "DockingPadBlockWarningComms";
-        public static readonly string DockingPadBlockHostile = "DockingPadBlockHostileComms";
-        public static readonly string DockingDoorBlockWarning = "DockingDoorBlockWarningComms";
-        public static readonly string DockingDoorBlockHostile = "DockingDoorBlockHostileComms";
-        public static readonly string DockingChatterAllied = "DockingChatter_Allied";
-        public static readonly string AccidentalDamage = "AccidentalDamage";
-        public static readonly string StationAggressorResponse = "StationAggressorResponseMessage";
         #endregion
 
         #region FSS Signal Names
