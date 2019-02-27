@@ -7,6 +7,7 @@ using System.Threading;
 using ALICE_Internal;
 using ALICE_Core;
 using ALICE_Settings;
+using ALICE_Equipment;
 
 namespace ALICE_Interface
 {

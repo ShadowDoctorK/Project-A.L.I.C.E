@@ -1,4 +1,5 @@
 ﻿using ALICE_Core;
+using ALICE_Equipment;
 using ALICE_Events;
 using ALICE_Internal;
 using System;

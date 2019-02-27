@@ -2,6 +2,7 @@ using ALICE_Objects;
 using ALICE_Synthesizer;
 using ALICE_Internal;
 using ALICE_Core;
+using ALICE_Equipment;
 
 namespace ALICE_Actions
 {

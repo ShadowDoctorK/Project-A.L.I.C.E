@@ -1,4 +1,5 @@
-﻿using ALICE_Events;
+﻿using ALICE_Debug;
+using ALICE_Events;
 using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Synthesizer;
@@ -27,6 +28,9 @@ namespace ALICE_Status
 
         public void TargetArrival(FSDJump Event)
         {
+            //Check Plugin Initialized
+            if (ICheck.Initialized(MethodName) == false) { return; }
+
             //Check If We Have Arrived At Our Target Destination
             if (TargetAddress == Event.SystemAddress)
             {

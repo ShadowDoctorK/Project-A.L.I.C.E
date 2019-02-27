@@ -4,10 +4,8 @@ using System.Threading;
 using ALICE_Events;
 using ALICE_Actions;
 using ALICE_Interface;
-using ALICE_JournalReader;
 using ALICE_Synthesizer;
 using ALICE_Monitors;
-using ALICE.Properties;
 using SysDiag = System.Diagnostics;
 using System.Linq;
 using ALICE_Settings;
@@ -17,6 +15,7 @@ namespace ALICE_Internal
     public static class PlugIn
     {
         public static Monitor_Json M_Json = new Monitor_Json(true, false, true, false, false, false, false, false, true);
+        public static Monitor_Journal M_Journal = new Monitor_Journal();
 
         public static readonly string VersionShort = "3.4.0.2";
         public static readonly string VersionLong = "3.4.0.2 (Open Beta 1.2.3)";
@@ -75,7 +74,7 @@ namespace ALICE_Internal
                         default:
                             break;
                     }
-
+                 
                     //Simple Logger
                     Logger.Simple("Project A.L.I.C.E " + IPlatform.Version + " Initializing...", Logger.Purple);
 
@@ -125,7 +124,7 @@ namespace ALICE_Internal
                         Logger.DebugLine(MethodName, "Initializing Journal Monitor...", Logger.Blue);
 
                         //Start Journal Monitor On New Thread
-                        Thread journal = new Thread((ThreadStart)(() => { JournalReader.EventProcessor(); }))
+                        Thread journal = new Thread((ThreadStart)(() => { M_Journal.Start(); }))
                         { IsBackground = true }; journal.Start();
                     }
 

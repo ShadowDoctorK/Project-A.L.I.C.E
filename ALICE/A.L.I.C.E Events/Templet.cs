@@ -3,7 +3,6 @@
 //Source Journal Line: (Custom A.L.I.C.E Event)
 //Reference Journal Line:
 
-using ALICE_Internal;
 using System;
 
 namespace ALICE_Events
@@ -27,13 +26,20 @@ namespace ALICE_Events
     /// </summary>
     public class Event_Templet : Event
     {
+        //Event Instance
+        public Templet I = new Templet();
+
+        //Construct Event
+        public void Contstruct()
+        {
+
+        }
+
         //Variable Generation
         public override void Generate(object O)
         {
             try
             {
-                var Event = (Templet)O;
-
                 //Variables.Record(Name + "_Type", Event.Type);
             }
             catch (Exception ex)
@@ -47,7 +53,6 @@ namespace ALICE_Events
         {
             try
             {
-                var Event = (Templet)O;
                 //No Preparations
             }
             catch (Exception ex)
@@ -61,7 +66,6 @@ namespace ALICE_Events
         {
             try
             {
-                var Event = (Templet)O;
                 //No Logic Process
             }
             catch (Exception ex)
@@ -75,7 +79,6 @@ namespace ALICE_Events
         {
             try
             {
-                var Event = (Templet)O;
                 //No Updates
             }
             catch (Exception ex)

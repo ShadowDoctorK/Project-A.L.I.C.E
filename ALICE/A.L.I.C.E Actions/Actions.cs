@@ -14,6 +14,8 @@ using ALICE.Properties;
 using ALICE_Panels;
 using ALICE_Synthesizer;
 using ALICE_Settings;
+using ALICE_Debug;
+using ALICE_Equipment;
 
 namespace ALICE_Actions
 {
@@ -380,7 +382,7 @@ namespace ALICE_Actions
                 Pause = true;
             }
 
-            if (Check.Variable.LandingGear(false, MethodName) == false)
+            if (ICheck.LandingGear.Status(MethodName, false) == false)
             {
                 Call.Action.LandingGear(false, false);
                 Pause = true;
@@ -1135,7 +1137,7 @@ namespace ALICE_Actions
 
             #region Valid Command Checks
             //Check Plugin Initialized
-            if (Check.Internal.TriggerEvents(true, MethodName) == true)
+            if (Check.Internal.TriggerEvents(true, MethodName) == false)
             {
                 //Debug Logger
                 Logger.DebugLine(MethodName, "Plugin Not Initialized", Logger.Yellow);
@@ -1244,7 +1246,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status == Command
-            if (Check.Variable.LandingGear(MethodName) == CMD_State)
+            if (ICheck.LandingGear.Status(MethodName) == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -1286,7 +1288,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (Check.Variable.LandingGear(MethodName) != CMD_State)
+            else if (ICheck.LandingGear.Status(MethodName) != CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -2078,7 +2080,7 @@ namespace ALICE_Actions
             }
 
             //Landing Gear Check
-            if (Check.Variable.LandingGear(false, MethodName) == false)
+            if (ICheck.LandingGear.Status(MethodName, false) == false)
             {
                 Call.Action.LandingGear(false, false);
             }
@@ -2182,7 +2184,7 @@ namespace ALICE_Actions
                     }
 
                     //Landing Gear Check (Incase It Was Lowered While Waiting)
-                    if (Check.Variable.LandingGear(false, MethodName) == false)
+                    if (ICheck.LandingGear.Status(MethodName, false) == false)
                     {
                         Call.Action.LandingGear(false, false);
                     }
@@ -2389,7 +2391,7 @@ namespace ALICE_Actions
             }
 
             //Landing Gear Check
-            if (Check.Variable.LandingGear(false, MethodName) == false)
+            if (ICheck.LandingGear.Status(MethodName, false) == false)
             {
                 Call.Action.LandingGear(false, false);
             }
@@ -2489,7 +2491,7 @@ namespace ALICE_Actions
                 }
 
                 //Landing Gear Check (Incase It Was Lowered While Waiting)
-                if (Check.Variable.LandingGear(false, MethodName) == false)
+                if (ICheck.LandingGear.Status(MethodName, false) == false)
                 {
                     Call.Action.LandingGear(false, false);
                 }
@@ -2703,7 +2705,7 @@ namespace ALICE_Actions
             }
 
             //If Not Outside No Fire Zone...
-            if (Check.Event.NoFireZone.Entered(false, MethodName) == false)
+            if (ICheck.NoFireZone.Status(MethodName, false) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -2797,14 +2799,14 @@ namespace ALICE_Actions
 
             #region Landing Gear Check
             //If Landing Gear Is True...
-            if (Check.Variable.LandingGear(true, MethodName) == true)
+            if (ICheck.LandingGear.Status(MethodName, true) == true)
             {
                 Call.Action.LandingGear(false, CommandAudio);
 
                 Thread.Sleep(1000);
 
                 //If Landing Gear Is True...
-                if (Check.Variable.LandingGear(true, MethodName) == true)
+                if (ICheck.LandingGear.Status(MethodName, true) == true)
                 {
                     Logger.DebugLine(MethodName, "Landing Gear Failed To Retract.", Logger.Red);
 
@@ -3139,7 +3141,8 @@ namespace ALICE_Actions
                                 return;
 
                             case false:
-                                IEquipment.DockingComputer.NotInstalled(CommandAudio, IEquipment.DockingComputer.AsisstedDockingReport);
+                                IEquipment.DockingComputer.NotInstalled(CommandAudio, 
+                                    IEquipment.DockingComputer.AsisstedDockingReport);
 
                                 //Prevents Reporting No Docking Computer more then once.
                                 IEquipment.DockingComputer.AsisstedDockingReport = false;
@@ -3160,8 +3163,11 @@ namespace ALICE_Actions
                     switch (IStatus.Docking.State)
                     {
                         case IEnums.DockingState.Granted:
-                            if (Check.Variable.LandingGear(true, MethodName) == true)
-                            { Call.Action.LandingGear(false, false); }
+
+                            if (ICheck.LandingGear.Status(MethodName, true) == true)
+                            {
+                                Call.Action.LandingGear(false, false);
+                            }
                             Call.Panel.Target.Contacts.DockingRequest();
                             Call.Panel.Target.Panel(false);
                             return;

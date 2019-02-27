@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ALICE.Properties;
 using ALICE_Actions;
+using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Objects;
 
@@ -81,12 +82,7 @@ namespace ALICE_Core
             string MethodName = "Update Fire Groups";
 
             //Check Plugin Initialized
-            if (Check.Internal.TriggerEvents(true, MethodName) == true)
-            {
-                //Debug Logger
-                Logger.DebugLine(MethodName, "Plugin Not Initialized", Logger.Yellow);
-                return;
-            }
+            if (ICheck.Initialized(MethodName) == false) { return; }
 
             decimal Saved = Current;
             decimal Tracked = 1;

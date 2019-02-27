@@ -1,4 +1,5 @@
-﻿using ALICE_Internal;
+﻿using ALICE_Events;
+using ALICE_Internal;
 using ALICE_Synthesizer;
 using System;
 using System.IO;
@@ -166,6 +167,17 @@ namespace ALICE_Status
         public class Responses
         {
             string MethodName = "Interaction Status";
+
+            public void Online(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+                bool Var3 = true, int Priority = 3, string Voice = null)
+            {
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Yes Commander?.", Logger.Yellow); }
+
+                Speech.Speak(""
+                    .Phrase(GN_Alice.Online)
+                    .Token("[VERSION]", IEvents.AliceOnline.I.Version),     //Pass Version
+                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
+            }
 
             public void Alice(bool CommandAudio, bool Var1 = true, bool Var2 = true,
                 bool Var3 = true, int Priority = 3, string Voice = null)

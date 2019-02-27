@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ALICE_Equipment;
 using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Synthesizer;
 
-namespace ALICE_Core
+namespace ALICE_Equipment
 {
     public static class IEquipment
     {
@@ -171,6 +167,13 @@ namespace ALICE_Core
             set => _FuelTank = value;
         }
 
+        private static LandingGear _LandingGear = new LandingGear();
+        public static LandingGear LandingGear
+        {
+            get => _LandingGear;
+            set => _LandingGear = value;
+        }
+
         private static Equipment_LimpetCollector _LimpetCollector = new Equipment_LimpetCollector();
         public static Equipment_LimpetCollector LimpetCollector
         {
@@ -292,7 +295,7 @@ namespace ALICE_Core
             //Try To Convert Module
             E Equip = E.Default; try
             {
-                Equip = IEnums.ToEnum<E>(Mod.Name.Replace(" ", "_").Replace("-", "_"));
+                Equip = IEnums.ToEnum<E>(Mod.Name.Replace(" ", "_").Replace("-", "_"),false);
             }
             catch (Exception ex)
             {

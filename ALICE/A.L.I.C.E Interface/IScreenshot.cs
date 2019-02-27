@@ -14,6 +14,7 @@ using ALICE_Keybinds;
 using ALICE_Objects;
 using ALICE_Settings;
 using System.Diagnostics;
+using ALICE_Debug;
 
 namespace ALICE_Interface
 {
@@ -114,9 +115,11 @@ namespace ALICE_Interface
             string MethodName = "Screenshot (Get File Name)";
 
             //Check If We Are Exploring A Planet or Ring
-            string Mod = ""; if (Check.Event.SupercruiseExit.BodyType(IEnums.Planet, true, MethodName) || Check.Event.SupercruiseExit.BodyType(IEnums.PlanetaryRing, true, MethodName))
+            string Mod = ""; if (
+                ICheck.SupercruiseExit.BodyType(MethodName, true, IEnums.Planet) ||
+                ICheck.SupercruiseExit.BodyType(MethodName, true, IEnums.PlanetaryRing))
             {
-                Mod = "-" + Get.Event.SupercruiseExit.Body();
+                Mod = "-" + ICheck.SupercruiseExit.Body(MethodName);
             }
 
             string Time = DateTime.UtcNow.ToString("s").Replace(":", ".").Replace("-", ".");

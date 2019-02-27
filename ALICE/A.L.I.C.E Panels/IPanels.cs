@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using ALICE_Actions;
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Objects;
 
@@ -146,13 +147,13 @@ namespace ALICE_Panels
         {
             Start:
             bool Recheck = false;
-            if (Check.Event.Music.MusicTrack(IEnums.Squadrons, false, MethodName) == false)
+            if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Squadrons) == false)
             { Recheck = true; }
 
-            if (Check.Event.Music.MusicTrack(IEnums.GalacticPowers, false, MethodName) == false)
+            if (ICheck.Music.MusicTrack(MethodName, false, IEnums.GalacticPowers) == false)
             { Recheck = true; }
 
-            if (Check.Event.Music.MusicTrack(IEnums.Codex, false, MethodName) == false)
+            if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Codex) == false)
             { Recheck = true; }
 
             if (Recheck) { Call.Key.Press(Call.Key.UI_Back, 600); goto Start; }
@@ -224,7 +225,7 @@ namespace ALICE_Panels
                 if (State == true)
                 {
                     //Watch For Galaxy Map To Open / Soft Exit Timer.
-                    int Count = 50; while (Check.Event.Music.MusicTrack(IEnums.MusicState.GalaxyMap.ToString(), true, MethodName) == false)
+                    int Count = 50; while (ICheck.Music.MusicTrack(MethodName, true, IEnums.GalaxyMap) == false)                        
                     {
                         Logger.DebugLine(MethodName, "Galaxy Map: Wait Timer = " + Count, Logger.Blue);
                         Thread.Sleep(100); if (Count <= 0)
@@ -237,7 +238,7 @@ namespace ALICE_Panels
                 else if (State == false)
                 {
                     //Watch For Galaxy Map To Close / Soft Exit Timer.
-                    int Count = 50; while (Check.Event.Music.MusicTrack(IEnums.MusicState.GalaxyMap.ToString(), false, MethodName) == false)
+                    int Count = 50; while (ICheck.Music.MusicTrack(MethodName, false, IEnums.GalaxyMap) == false)
                     {
                         Logger.DebugLine(MethodName, "Galaxy Map: Wait Timer = " + Count, Logger.Blue);
                         Thread.Sleep(100); if (Count <= 0)

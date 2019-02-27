@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ALICE_Actions;
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Synthesizer;
@@ -28,6 +29,9 @@ namespace ALICE_Equipment
 
         public void Scan()
         {
+            //Check Plugin Initialized
+            if (ICheck.Initialized(MethodName) == false) { return; }
+
             if (Check.Order.AssistSystemScan(true, MethodName))
             {
                 Thread DisScan = new Thread((ThreadStart)(() => 

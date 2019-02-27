@@ -1,4 +1,5 @@
 ﻿using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Events;
 using ALICE_Internal;
 using System;
@@ -80,9 +81,9 @@ namespace ALICE_Objects
 
         public string Get_Body()
         {
-            string Temp = Get.Event.SupercruiseExit.Body();            
-            if (Temp == null) { Temp = Default.String; }
-            return Temp;
+            string MethodName = "Codex Entry";
+
+            return ICheck.SupercruiseExit.Body(MethodName);
         }
 
         public string Get_Enviornment()

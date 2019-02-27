@@ -9,6 +9,7 @@ using ALICE_Internal;
 using ALICE_Events;
 using ALICE_Core;
 using ALICE_EventLogic;
+using ALICE_Equipment;
 
 namespace ALICE_Monitors
 {

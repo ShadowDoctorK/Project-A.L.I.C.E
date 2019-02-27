@@ -74,6 +74,7 @@ namespace ALICE_Internal
             DockingCancelled,                 //Journal Log
             DockingGranted,                   //Journal Log
             DockingRequested,                 //Journal Log
+            DockingTimeout,                   //Journal Log
             DockSRV,                          //Journal Log
             EjectCargo,                       //Journal Log
             EngineerContribution,             //Journal Log
@@ -187,8 +188,7 @@ namespace ALICE_Internal
             SystemsShutdown,                  //Journal Log
             SquadronStartup,                  //Journal Log
             TechnologyBroker,                 //Journal Log
-            Touchdown,                        //Journal Log
-            Undefined,                        //Journal Log
+            Touchdown,                        //Journal Log            
             UnderAttack,                      //Journal Log
             Undocked,                         //Journal Log
             USSDrop,                          //Journal Log
@@ -198,12 +198,15 @@ namespace ALICE_Internal
             WingJoin,                         //Journal Log
             WingLeave,                        //Journal Log
 
+            //Custom Internal Events
+            AliceOnline,                      //Alice Event  
+
             //Custom Event (Mulit Source)
             BlockAirlock,                     //Alice Event - CommitCrime / Receive Text
             BlockLandingPad,                  //Alice Event - CommitCrime / Receive Text
 
             //Custom CommitCrime Events              
-            Assult,                           //Alice Event
+            Assault,                           //Alice Event
             DisobeyPolice,                    //Alice Event
             DockingTrespass,                  //Alice Event
             DumpingDangerous,                 //Alice Event
@@ -219,7 +222,10 @@ namespace ALICE_Internal
             //Custom ReceiveText Events
             StationHostile,                   //Alice Event
             StationDamage,                    //Alice Event
-            NoFireZone                        //Alice Event            
+            NoFireZone,                       //Alice Event
+
+            //Custom Status.Json Events
+            Masslock                          //Alice Event
         }
 
         public enum CMD

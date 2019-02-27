@@ -1,5 +1,7 @@
 ﻿using System;
 using ALICE.Properties;
+using ALICE_Equipment;
+using ALICE_Events;
 using ALICE_Status;
 
 namespace ALICE_Core
@@ -118,6 +120,16 @@ namespace ALICE_Core
             set => _System = value;
         }
 
+        public static bool Masslocked
+        {
+            get => IEvents.Masslock.I.Status;
+            set => IEvents.Masslock.I.Status = value;
+        }
+        public static bool LandingGear
+        {
+            get => IEquipment.LandingGear.Status;
+            set => IEquipment.LandingGear.Status = value;
+        }
 
         public static decimal GUI_Focus = 0;
         public static decimal Latitude = -1;
@@ -133,7 +145,6 @@ namespace ALICE_Core
         public static bool HasLatLong = false;
         public static bool Overheating = false;
         public static bool LowFuel = false;                
-        public static bool Masslocked = false;
         public static bool SRV_DriveAssist = false;
         public static bool SRV_NearMothership = false;
         public static bool SRV_Turret = false;
@@ -147,7 +158,6 @@ namespace ALICE_Core
         public static bool FlightAssist = false;
         public static bool Supercruise = false;
         public static bool Shields = false;
-        public static bool LandingGear = false;
         public static bool Touchdown = false;
 
         //StartJump Event
