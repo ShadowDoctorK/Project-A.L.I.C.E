@@ -32,12 +32,20 @@ namespace ALICE_Events
     /// </summary>
     public class Event_StationDamage : Event
     {
+        //Event Instance
+        private StationDamage i = new StationDamage();
+        public StationDamage I
+        {
+            get => i;
+            set => i = value;
+        }
+
         //Construct Custom Event
         public void Construct(ReceiveText Event)
         {
             try
             {
-                StationDamage Temp = new StationDamage()
+                I = new StationDamage()
                 {
                     Event = "StationDamage",
                     Timestamp = Event.Timestamp,
@@ -48,10 +56,10 @@ namespace ALICE_Events
                 if (Event.Message.ToLower().Contains(
                     IData.Messages.StationAggressorResponse))
                 {
-                    Temp.Hostile = true;
+                    I.Hostile = true;
                 }
 
-                Record(Name, Temp);
+                Record(Name, I);
                 Logic();
             }
             catch (Exception ex)
@@ -65,10 +73,8 @@ namespace ALICE_Events
         {
             try
             {
-                var Event = (StationDamage)O;
-
-                Variables.Record(Name + "_Station", Event.Station);
-                Variables.Record(Name + "_Hostile", Event.Hostile);                
+                Variables.Record(Name + "_Station", I.Station);
+                Variables.Record(Name + "_Hostile", I.Hostile);                
             }
             catch (Exception ex)
             {
@@ -81,11 +87,9 @@ namespace ALICE_Events
         {
             try
             {
-                var Event = (StationDamage)O;
-
                 //Audio - Station Damaged
                 IStatus.Messages.Response.StationDamaged(
-                    Event.Station,                                      //Pass Station Name
+                    I.Station,                                          //Pass Station Name
                     Check.Internal.TriggerEvents(true, ClassName));     //Check Plugin Initialized
             }
             catch (Exception ex)

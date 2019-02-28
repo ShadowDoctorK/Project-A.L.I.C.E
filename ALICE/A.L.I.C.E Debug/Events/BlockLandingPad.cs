@@ -5,7 +5,7 @@ namespace ALICE_DebugItems
 {
     public class BlockLandingPad : Debug
     {
-        private ALICE_Events.BlockLandingPad E { get => IEvents.BlockLandingPad.I; }
+        private static ALICE_Events.BlockLandingPad E { get => IEvents.BlockLandingPad.I; }
 
         public bool Station(string M, bool T, string C, bool L = true)
         { return Evaluate(M, "Station", T, C, E.Station, L); }

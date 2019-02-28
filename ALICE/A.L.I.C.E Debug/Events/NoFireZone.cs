@@ -5,7 +5,7 @@ namespace ALICE_DebugItems
 {
     public class NoFireZone : Debug
     {
-        private ALICE_Events.NoFireZone E { get => IEvents.NoFireZone.I; }
+        private static ALICE_Events.NoFireZone E { get => IEvents.NoFireZone.I; }
 
         public bool Status(string M, bool T, bool L = true)
         { return Evaluate(M, "Status", T, E.Status, L); }

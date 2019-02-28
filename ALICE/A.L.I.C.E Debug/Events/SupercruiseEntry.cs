@@ -5,7 +5,7 @@ namespace ALICE_DebugItems
 {
     public class SupercruiseEntry : Debug
     {
-        private ALICE_Events.SupercruiseEntry E { get => IEvents.SupercruiseEntry.I; }
+        private static ALICE_Events.SupercruiseEntry E { get => IEvents.SupercruiseEntry.I; }
 
         public bool StarSystem(string M, bool T, string C, bool L = true)
         { return Evaluate(M, "StarSystem", T, C, E.StarSystem, L); }

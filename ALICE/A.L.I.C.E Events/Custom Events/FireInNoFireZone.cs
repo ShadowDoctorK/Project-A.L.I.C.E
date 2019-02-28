@@ -40,7 +40,12 @@ namespace ALICE_Events
     public class Event_FireInNoFireZone : Event
     {
         //Event Instance
-        public FireInNoFireZone I = new FireInNoFireZone();
+        private FireInNoFireZone i = new FireInNoFireZone();
+        public FireInNoFireZone I
+        {
+            get => i;
+            set => i = value;
+        }
 
         //Construct Event
         public void Construct(CommitCrime Event)

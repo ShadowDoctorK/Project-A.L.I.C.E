@@ -8,7 +8,7 @@ namespace ALICE_Data
 {
     public class Data_Messages
     {
-        private Dictionary<string, string> Associations = new Dictionary<string, string>
+        private readonly Dictionary<string, string> Associations = new Dictionary<string, string>
         {
             { "$STATION_docking_timeexpired", "DockingTimeout" },                        //Docking took too long, permission removed.
             { "$STATION_docking_granted", "DockingGranted" },                            //Docking request granted.

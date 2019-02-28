@@ -5,7 +5,7 @@ namespace ALICE_DebugItems
 {
     public class Docked : Debug
     {
-        private ALICE_Events.Docked E { get => IEvents.Docked.I; }
+        private static ALICE_Events.Docked E { get => IEvents.Docked.I; }
 
         public bool Station(string M, bool T, string C, bool L = true)
         { return Evaluate(M, "StationName", T, C, E.StationName, L); }

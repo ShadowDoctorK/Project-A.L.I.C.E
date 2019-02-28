@@ -8,7 +8,16 @@ namespace ALICE_Data
 {
     public static class IData
     {
-        public static Data_CrimeTypes CrimeType = new Data_CrimeTypes();
-        public static Data_Messages Messages = new Data_Messages();
+        private static Data_CrimeTypes _CrimeType = new Data_CrimeTypes();
+        public static Data_CrimeTypes CrimeType
+        {
+            get => _CrimeType;
+        }
+
+        private static Data_Messages _Messages = new Data_Messages();
+        public static Data_Messages Messages
+        {
+            get => _Messages;
+        }
     }
 }

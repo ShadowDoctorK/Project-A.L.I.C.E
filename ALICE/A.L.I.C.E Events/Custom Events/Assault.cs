@@ -38,7 +38,12 @@ namespace ALICE_Events
     public class Event_Assault : Event
     {
         //Event Instance
-        public Assault I = new Assault();
+        private Assault i = new Assault();
+        public Assault I
+        {
+            get => i;
+            set => i = value;
+        }
 
         //Construct Event
         public void Construct(CommitCrime Event)

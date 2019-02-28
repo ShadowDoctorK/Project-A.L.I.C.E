@@ -35,7 +35,12 @@ namespace ALICE_Events
     public class Event_DumpingDangerous : Event
     {
         //Event Instance
-        public DumpingDangerous I = new DumpingDangerous();
+        private DumpingDangerous i = new DumpingDangerous();
+        public DumpingDangerous I
+        {
+            get => i;
+            set => i = value;
+        }
 
         //Construct Event
         public void Construct(CommitCrime Event)

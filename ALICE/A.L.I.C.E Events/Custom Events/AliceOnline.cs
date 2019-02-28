@@ -34,7 +34,12 @@ namespace ALICE_Events
     public class Event_AliceOnline : Event
     {
         //Event Instance
-        public AliceOnline I = new AliceOnline();
+        private AliceOnline i = new AliceOnline();
+        public AliceOnline I
+        {
+            get => i;
+            set => i = value;
+        }
 
         //Variable Generation
         public override void Generate(object O)

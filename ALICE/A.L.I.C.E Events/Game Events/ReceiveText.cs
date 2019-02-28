@@ -36,7 +36,12 @@ namespace ALICE_Events
     public class Event_ReceiveText : Event
     {
         //Event Instance
-        public ReceiveText I = new ReceiveText();
+        private ReceiveText i = new ReceiveText();
+        public ReceiveText I
+        {
+            get => i;
+            set => i = value;
+        }
 
         //Variable Generation
         public override void Generate(object O)

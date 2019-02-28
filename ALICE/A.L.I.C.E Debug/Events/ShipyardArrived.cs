@@ -5,7 +5,7 @@ namespace ALICE_DebugItems
 {
     public class ShipyardArrived : Debug
     {
-        private ALICE_Events.ShipyardArrived E { get => IEvents.ShipyardArrived.I; }
+        private static ALICE_Events.ShipyardArrived E { get => IEvents.ShipyardArrived.I; }
 
         public bool StartLocation(string M, bool T, string C, bool L = true)
         { return Evaluate(M, "StartLocation", T, C, E.StartLocation, L); }

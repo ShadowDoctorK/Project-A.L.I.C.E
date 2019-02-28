@@ -41,7 +41,12 @@ namespace ALICE_Events
     public class Event_CommitCrime : Event
     {
         //Event Instance
-        public CommitCrime I = new CommitCrime();
+        private CommitCrime i = new CommitCrime();
+        public CommitCrime I
+        {
+            get => i;
+            set => i = value;
+        }
 
         //Variable Generation
         public override void Generate(object O)

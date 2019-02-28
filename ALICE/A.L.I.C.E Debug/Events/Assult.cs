@@ -5,7 +5,7 @@ namespace ALICE_DebugItems
 {
     public class Assault : Debug
     {
-        private ALICE_Events.Assault E { get => IEvents.Assault.I; }
+        private static ALICE_Events.Assault E { get => IEvents.Assault.I; }
 
         public bool Violation(string M, bool T, string C, bool L = true)
         { return Evaluate(M, "Violation", T, C, E.Violation, L); }

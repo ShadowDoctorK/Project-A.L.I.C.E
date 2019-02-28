@@ -29,7 +29,12 @@ namespace ALICE_Events
     public class Event_Masslock : Event
     {
         //Event Instance
-        public Masslock I = new Masslock();
+        private Masslock i = new Masslock();
+        public Masslock I
+        {
+            get => i;
+            set => i = value;
+        }
 
         //Construct Event
         public void Construct(bool State)

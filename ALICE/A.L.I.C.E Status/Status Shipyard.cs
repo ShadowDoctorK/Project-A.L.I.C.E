@@ -11,34 +11,34 @@ namespace ALICE_Status
     {
         public readonly string MethodName = "Shipyard Status";
 
-        public List<ShipyardArrived> Tranfers = new List<ShipyardArrived>();
-        public object Montior = new object();
+        private List<ShipyardArrived> Tranfers = new List<ShipyardArrived>();
+        private object Montior = new object();
 
         public Responses Response = new Responses();
 
         public void Update(Shipyard Event)
         {
-
+            //Pending Logic
         }
 
         public void Update(ShipyardTransfer Event)
         {
-
+            //Pending Logic
         }
 
         public void Update(ShipyardBuy Event)
         {
-
+            //Pending Logic
         }
 
         public void Update(ShipyardNew Event)
         {
-
+            //Pending Logic
         }
 
         public void Update(ShipyardSwap Event)
         {
-
+            //Pending Logic
         }
 
         public void Update(ShipyardArrived Event)

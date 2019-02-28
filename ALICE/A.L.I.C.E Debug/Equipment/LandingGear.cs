@@ -5,7 +5,7 @@ namespace ALICE_DebugItems
 {
     public class LandingGear : Debug
     {
-        private ALICE_Equipment.LandingGear E { get => IEquipment.LandingGear; }
+        private static ALICE_Equipment.LandingGear E { get => IEquipment.LandingGear; }
 
         public bool Status(string M, bool T, bool L = true)
         { return Evaluate(M, "Landing Gear (Status)", T, E.Status, L); }

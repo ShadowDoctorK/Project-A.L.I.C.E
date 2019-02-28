@@ -41,7 +41,12 @@ namespace ALICE_Events
     public class Event_BlockAirlock : Event
     {
         //Event Instance
-        public BlockAirlock I = new BlockAirlock();
+        private BlockAirlock i = new BlockAirlock();
+        public BlockAirlock I
+        {
+            get => i;
+            set => i = value;
+        }
 
         //Construct Event
         public void Construct(ReceiveText Event)

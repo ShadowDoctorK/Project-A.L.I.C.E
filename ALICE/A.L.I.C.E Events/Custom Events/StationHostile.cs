@@ -32,7 +32,12 @@ namespace ALICE_Events
     public class Event_StationHostile : Event
     {
         //Event Instance
-        public StationHostile I = new StationHostile();
+        private StationHostile i = new StationHostile();
+        public StationHostile I
+        {
+            get => i;
+            set => i = value;
+        }
 
         //Construct Event
         public void Construct(ReceiveText Event)

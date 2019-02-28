@@ -8,9 +8,7 @@ namespace ALICE_Data
 {
     public class Data_CrimeTypes
     {
-        //dockingMinorBlockingLandingPad
-
-        private Dictionary<string, string> Associations = new Dictionary<string, string>
+        private readonly Dictionary<string, string> Associations = new Dictionary<string, string>
         {
             { "dockingMinorBlockingLandingPad", "MinorBlockingLandingPad" },
             { "dockingMajorBlockingLandingPad", "MajorBlockingLandingPad" },

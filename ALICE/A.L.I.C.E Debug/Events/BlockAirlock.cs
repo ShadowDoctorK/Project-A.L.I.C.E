@@ -5,7 +5,7 @@ namespace ALICE_DebugItems
 {
     public class BlockAirlock : Debug
     {
-        private ALICE_Events.BlockAirlock E { get => IEvents.BlockAirlock.I; }
+        private static ALICE_Events.BlockAirlock E { get => IEvents.BlockAirlock.I; }
 
         public bool Station(string M, bool T, string C, bool L = true)
         { return Evaluate(M, "Station", T, C, E.Station, L); }

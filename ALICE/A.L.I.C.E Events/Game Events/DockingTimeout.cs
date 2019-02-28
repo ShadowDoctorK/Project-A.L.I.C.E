@@ -21,7 +21,12 @@ namespace ALICE_Events
     public class Event_DockingTimeout : Event
     {
         //Event Instance
-        DockingTimeout I = new DockingTimeout();
+        private DockingTimeout i = new DockingTimeout();
+        public DockingTimeout I
+        {
+            get => i;
+            set => i = value;
+        }
 
         //Plugin Logic Preparations
         public override void Prepare(object O)

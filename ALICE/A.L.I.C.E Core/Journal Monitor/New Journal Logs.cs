@@ -128,9 +128,19 @@ namespace ALICE_Monitors
             }
         }
 
-        public SettingsJournal Settings = new SettingsJournal();
-        public LogFile Journal = new LogFile();
-        public readonly string MethodName = "Journal Reader";
+        public SettingsJournal _Settings = new SettingsJournal();
+        public SettingsJournal Settings
+        {
+            get => _Settings;
+            set => _Settings = value;
+        }
+        private LogFile _Journal = new LogFile();
+        public LogFile Journal
+        {
+            get => _Journal;
+            private set => _Journal = value;
+        }
+        private readonly string MethodName = "Journal Reader";
 
         public void Start()
         {
