@@ -7,6 +7,7 @@ using ALICE_Internal;
 using ALICE_Events;
 using ALICE_Settings;
 using ALICE_Debug;
+using ALICE_Interface;
 
 namespace ALICE_Objects
 {
@@ -345,7 +346,7 @@ namespace ALICE_Objects
 
             IObjects.SystemCurrent = Data.Systems[this.Address];
 
-            SaveValues<Object_System>(this, this.Name + ".System", Paths.ALICE_SystemData);
+            INewtownSoft.Save<Object_System>(this, this.Name + ".System", Paths.ALICE_SystemData);
         }
 
         //Stellar Body Methods

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ALICE_Data;
 using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Synthesizer;
@@ -1310,7 +1311,7 @@ namespace ALICE_Equipment
                     break;
 
                 default:
-                    if (Data.ModulesIgnoreCheck(Mod.Item) == false)
+                    if (IData.Module.IgnoreCheck(Mod.Item) == false)
                     {
                         Logger.DevUpdateLog(MethodName, "New Module Group Detected: " + Mod.Item, Logger.Yellow, true);
                     }

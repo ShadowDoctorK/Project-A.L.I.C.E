@@ -64,6 +64,8 @@
     <Compile Include="A.L.I.C.E Collections\Collection EventTypes.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection Variables.cs" />
     <Compile Include="A.L.I.C.E Core\Json Monitor\Event Status.cs" />
+    <Compile Include="A.L.I.C.E Data\Data Modules.cs" />
+    <Compile Include="A.L.I.C.E Data\Data Commodies.cs" />
     <Compile Include="A.L.I.C.E Data\Data CrimeTypes.cs" />
     <Compile Include="A.L.I.C.E Data\Data Messages.cs" />
     <Compile Include="A.L.I.C.E Data\IData.cs" />
@@ -246,6 +248,7 @@
     <Compile Include="A.L.I.C.E Events\Custom Events\StationDamage.cs" />
     <Compile Include="A.L.I.C.E Events\Custom Events\BlockLandingPad.cs" />
     <Compile Include="A.L.I.C.E Events\Game Events\DockingTimeout.cs" />
+    <Compile Include="A.L.I.C.E Interface\INewtownSoft.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />

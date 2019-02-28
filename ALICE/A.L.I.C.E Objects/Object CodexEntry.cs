@@ -1,6 +1,7 @@
 ﻿using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Events;
+using ALICE_Interface;
 using ALICE_Internal;
 using System;
 using System.Collections.Generic;
@@ -132,10 +133,12 @@ namespace ALICE_Objects
         {
             string FileName = CodexID + " - " + Name + ".Codex";
             string Path = Paths.ALICE_CodexDiscoveries;
+
             if (Utilities.CheckDirectory(Path))
             {
                 if (File.Exists(Path + FileName)) { return; }
-                SaveValues<Object_CodexEntry>(this, FileName, Path);
+
+                INewtownSoft.Save<Object_CodexEntry>(this, FileName, Path);
             }
         }
 

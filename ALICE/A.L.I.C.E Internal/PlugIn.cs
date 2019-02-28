@@ -103,9 +103,6 @@ namespace ALICE_Internal
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Loading Module Data...", Logger.Blue);
 
-                    //Load Module Data
-                    Data.Load_Modules();
-
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Starting Power Management...", Logger.Blue);
 

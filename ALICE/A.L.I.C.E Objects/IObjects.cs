@@ -24,17 +24,65 @@ namespace ALICE_Objects
         #endregion
 
         #region Static Objects
-        public static Object_Engineers Engineer = new Object_Engineers();
-        public static Object_Mothership Mothership = new Object_Mothership();
-        public static Object_SRV SRV = new Object_SRV();
-        public static Object_Fighter Fighter = new Object_Fighter();
-        public static Object_System SystemCurrent = new Object_System();
-        public static Object_System SysetmPrevious = new Object_System();
-        public static Object_StellarBody StellarBodyCurrent = new Object_StellarBody();
-        public static Object_Facility FacilityCurrent = new Object_Facility();
-        public static Object_Facility FacilityPrevious = new Object_Facility();
-        public static Object_Target TargetCurrent = new Object_Target();
-        //public static Object_Target TargetPrevious = new Object_Target();
+        private static Object_Engineers _Engineer = new Object_Engineers();
+        public static Object_Engineers Engineer
+        {
+            get => _Engineer; set => _Engineer = value;
+        }
+
+        private static Object_Mothership _Mothership = new Object_Mothership();
+        public static Object_Mothership Mothership
+        {
+            get => _Mothership; set => _Mothership = value;
+        }
+
+        private static Object_SRV _SRV = new Object_SRV();
+        public static Object_SRV SRV
+        {
+            get => _SRV; set => _SRV = value;
+        }
+
+        private static Object_Fighter _Fighter = new Object_Fighter();
+        public static Object_Fighter Fighter
+        {
+            get => _Fighter; set => _Fighter = value;
+        }
+
+        private static Object_System _SystemCurrent = new Object_System();
+        public static Object_System SystemCurrent
+        {
+            get => _SystemCurrent; set => _SystemCurrent = value;
+        }
+
+        private static Object_System _SysetmPrevious = new Object_System();
+        public static Object_System SysetmPrevious
+        {
+            get => _SysetmPrevious; set => _SysetmPrevious = value;
+        }
+
+        private static Object_StellarBody _StellarBodyCurrent = new Object_StellarBody();
+        public static Object_StellarBody StellarBodyCurrent
+        {
+            get => _StellarBodyCurrent; set => _StellarBodyCurrent = value;
+        }
+
+        private static Object_Facility _FacilityCurrent = new Object_Facility();
+        public static Object_Facility FacilityCurrent
+        {
+            get => _FacilityCurrent; set => _FacilityCurrent = value;
+        }
+
+        private static Object_Facility _FacilityPrevious = new Object_Facility();
+        public static Object_Facility FacilityPrevious
+        {
+            get => _FacilityPrevious; set => _FacilityPrevious = value;
+        }
+
+        private static Object_Target _TargetCurrent = new Object_Target();
+        public static Object_Target TargetCurrent
+        {
+            get => _TargetCurrent; set => _TargetCurrent = value;
+        }
         #endregion
     }
 
@@ -45,54 +93,7 @@ namespace ALICE_Objects
 
     public class Object_Utilities : Object_Base
     {
-        public void SaveValues<T>(object Settings, string FileName, string FilePath = null)
-        {
-            if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
-
-            using (FileStream FS = new FileStream(FilePath + FileName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-            {
-                using (StreamWriter file = new StreamWriter(FS))
-                {
-                    var Line = JsonConvert.SerializeObject((T)Settings);
-                    file.WriteLine(Line);
-                }
-            }
-        }
-
-        public object LoadValues<T>(string FileName, string FilePath = null)
-        {
-            T Temp = default(T);
-            if (FilePath == null) { FilePath = Paths.ALICE_Settings; }
-            if (FileName == null) { return null; }
-
-            FileStream FS = null;
-            try
-            {
-                if (File.Exists(FilePath + FileName))
-                {
-                    FS = new FileStream(FilePath + FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    using (StreamReader SR = new StreamReader(FS))
-                    {
-                        while (!SR.EndOfStream)
-                        {
-                            string Line = SR.ReadLine();
-                            Temp = JsonConvert.DeserializeObject<T>(Line);
-                        }
-                    }
-                }
-
-                return Temp;
-            }
-            catch (Exception)
-            {
-                return Temp;
-            }
-            finally
-            {
-                if (FS != null)
-                { FS.Dispose(); }
-            }
-        }
+        //Removed Save And Load Methods
     }
 
     public class Object_Base

@@ -1,5 +1,6 @@
 ﻿using ALICE_Actions;
 using ALICE_Core;
+using ALICE_Data;
 using ALICE_Equipment;
 using ALICE_Events;
 using ALICE_Internal;
@@ -119,7 +120,7 @@ namespace ALICE_Objects
                     Module Temp = new Module(Mod);
 
                     //Add Game Module Data
-                    Data.GameModule GM = Data.GetGameModule(Temp.Item);
+                    GameModule GM = IData.Module.GetData(Temp.Item);
                     Temp.Name = GM.Name;
                     Temp.Rating = GM.Rating;
                     Temp.Class = GM.Class;
