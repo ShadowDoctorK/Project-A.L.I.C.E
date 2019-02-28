@@ -1,4 +1,5 @@
-﻿using ALICE_Events;
+﻿using ALICE_Debug;
+using ALICE_Events;
 using ALICE_Internal;
 using ALICE_Synthesizer;
 
@@ -13,13 +14,13 @@ namespace ALICE_Status
         public void Update(HeatDamage Event)
         {
             Response.Damage(
-                Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
+                ICheck.Initialized(MethodName));    //Check Plugin Initialized
         }
 
         public void Update(HeatWarning Event)
         {
             Response.Warning(
-                Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
+                ICheck.Initialized(MethodName));    //Check Plugin Initialized
         }
 
         public class Responses

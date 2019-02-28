@@ -245,15 +245,10 @@ namespace ALICE_Status
             string MethodName = "Docking Status (Assisted Docking)";
 
             //Check Plugin Initialized
-            if (Check.Internal.TriggerEvents(true, MethodName) == false)
-            {
-                //Debug Logger
-                Logger.DebugLine(MethodName, "Plugin Not Initialized", Logger.Yellow);
-                return;
-            }
+            if (ICheck.Initialized(MethodName) == false) { return; }
 
             //Check Order Enabled
-            if (Check.Order.AssistDocking(true, MethodName) == false)
+            if (ICheck.Order.AssistDocking(MethodName, true) == false)
             {
                 //No Logger Required. Check Already Logs.
                 return;
@@ -274,8 +269,8 @@ namespace ALICE_Status
 
                 //While Assisted Docking is True and BodyType equals Station Check For Next Trigger for 60 Seconds.
                 int i = 600;
-                while (i > 0 && 
-                Check.Order.AssistDocking(true, MethodName, true) == true && 
+                while (i > 0 &&
+                ICheck.Order.AssistDocking(MethodName, true, false) == true && 
                 ICheck.SupercruiseExit.BodyType(MethodName, true, IEnums.Station, false) == true)               
                 {
                     //Check NoFireZone and Masslock. If both true send a Docking Request.
@@ -299,11 +294,7 @@ namespace ALICE_Status
             string MethodName = "Post Docking";
 
             //Validate Plugin Is Initialized
-            if (Check.Internal.TriggerEvents(true, MethodName) == false)
-            {
-                //No Logging Requrired.
-                return;
-            }
+            if (ICheck.Initialized(MethodName) == false) { return; }
 
             if(State != IEnums.DockingState.Granted)
             {
@@ -322,7 +313,7 @@ namespace ALICE_Status
                 Call.Key.Press(Call.Key.UI_Panel_Up_Release, 100);
 
                 //Assisted Hanger Entry
-                if (Check.Order.AssistHangerEntry(true, MethodName))
+                if (ICheck.Order.AssistHangerEntry(MethodName, true))
                 {
                     Call.Key.Press(Call.Key.UI_Panel_Down, 100);
                     Call.Key.Press(Call.Key.UI_Panel_Select, 100);
@@ -581,7 +572,7 @@ namespace ALICE_Status
                 string MethodName = "Docking Status";
 
                 //Startup Check
-                if (ALICE_Internal.Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
+                if (ICheck.Initialized(MethodName) == false) { return; }
 
                 //Log Items
                 if (IStatus.Docking.Denial != IEnums.DockingDenial.NoReason) { Logger.Log(MethodName, "Denial Reason: " + IStatus.Docking.Denial, Logger.Yellow, true); }

@@ -1,4 +1,5 @@
-﻿using ALICE_Internal;
+﻿using ALICE_Debug;
+using ALICE_Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -200,7 +201,7 @@ namespace ALICE_Synthesizer
             string MethodName = "Token Replacement";
 
             if (Enabled == false) { return Text; }
-            if (TargetText == null && Check.Internal.TriggerEvents(true, MethodName, true))
+            if (TargetText == null && ICheck.Initialized(MethodName, true))
             { Logger.Log(MethodName, "Token: " + TokenName + " - The Target Text For The Token Was Null.", Logger.Red); return Text; }
             if (Text.Contains(TokenName)) { Text = Text.Replace(TokenName, TargetText); }
             return Text;

@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-10-14T23:16:32Z", "event":"LeaveBody", "StarSystem":"Col 173 Sector KY-Q d5-47", "SystemAddress":1625603164499, "Body":"Col 173 Sector KY-Q d5-47 8 c", "BodyID":24 }
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using System;
 
@@ -63,7 +64,7 @@ namespace ALICE_Events
 
                 //Orbital Cruise Exit Audio
                 IStatus.Planet.Response.OrbitaCruiseExit(
-                    Check.Internal.TriggerEvents(true, ClassName));     //Check Plugin Initialized
+                    ICheck.Initialized(ClassName));         //Check Plugin Initialized
             }
             catch (Exception ex)
             {

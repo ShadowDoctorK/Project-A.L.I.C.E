@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Events;
 using ALICE_Internal;
 using ALICE_Objects;
@@ -207,7 +208,7 @@ namespace ALICE_Equipment
 
                 if (Report)
                 {
-                    FuelLevel(true, ALICE_Internal.Check.Report.FuelStatus(true, MethodName));
+                    FuelLevel(true, ICheck.Report.FuelStatus(MethodName, true));
                     Report = false;
                 }
             }
@@ -246,13 +247,15 @@ namespace ALICE_Equipment
             string MethodName = "Fuel Status Scooping" + " (" + TriggeredMethodName + ")";
 
             //Fuel Scoop Report Check
-            if (ALICE_Internal.Check.Report.FuelScoop(true, MethodName) == false && ScoopingCompleted != true) { return; }
+            if (ICheck.Report.FuelScoop(MethodName, true) == false && ScoopingCompleted != true) { return; }
 
             //Scooping Commenced Report Not Made
             if (ScoopingCommenced == false)
             {
                 ScoopingCommenced = true; ScoopStartLv = Main;
-                ScoopingStart(true, ALICE_Internal.Check.Report.FuelScoop(true, MethodName), ALICE_Internal.Check.Internal.TriggerEvents(true, MethodName));
+                ScoopingStart(true, 
+                    ICheck.Report.FuelScoop(MethodName, true),
+                    ICheck.Initialized(MethodName));
             }
 
             //Scooping Complete Report Not Made && Scooping Has Stopped
@@ -260,7 +263,9 @@ namespace ALICE_Equipment
             else if ((ScoopingCompleted == false && IStatus.FuelScooping == false) || (ScoopingCompleted == false && GetPercent() == 100))
             {
                 ScoopingCompleted = true;
-                ScoopingEnd(true, ALICE_Internal.Check.Report.FuelScoop(true, MethodName), ALICE_Internal.Check.Internal.TriggerEvents(true, MethodName));
+                ScoopingEnd(true, 
+                    ICheck.Report.FuelScoop(MethodName, true),
+                    ICheck.Initialized(MethodName));
             }
         }
         #endregion

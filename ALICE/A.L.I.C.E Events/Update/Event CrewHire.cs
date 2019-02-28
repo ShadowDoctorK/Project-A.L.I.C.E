@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-10-26T10:17:57Z", "event":"CrewHire", "Name":"Korey Cannon", "CrewID":234686432, "Faction":"Eureka Mining Co-Operative", "Cost":15000, "CombatRank":0 }
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using System;
 
@@ -66,7 +67,7 @@ namespace ALICE_Events
 
                 //Active Duty Audio
                 IStatus.Crew.Response.Hire(
-                    Check.Internal.TriggerEvents(true, ClassName));     //Check Log Has Initialized
+                    ICheck.Initialized(ClassName));     //Check Log Has Initialized
             }
             catch (Exception ex)
             {

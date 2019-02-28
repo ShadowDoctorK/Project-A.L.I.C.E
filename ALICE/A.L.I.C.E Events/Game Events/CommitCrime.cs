@@ -6,6 +6,7 @@
 
 using ALICE_Core;
 using ALICE_Data;
+using ALICE_Debug;
 using ALICE_Internal;
 using System;
 
@@ -178,7 +179,7 @@ namespace ALICE_Events
 
                         //Audio - Generic Crime
                         IStatus.Crime.Response.Generic(
-                            Check.Internal.TriggerEvents(true, ClassName));     //Check Plugin Initialized
+                            ICheck.Initialized(ClassName));         //Check Plugin Initialized
 
                         //Record New Items To Developer Log
                         Logger.DeveloperLog("Developer Record: [CommitCrime:CrimeType] " + I.CrimeType);

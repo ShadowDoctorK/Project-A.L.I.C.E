@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-10-08T15:55:02Z", "event":"DockFighter" }
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Objects;
 using System;
@@ -31,7 +32,7 @@ namespace ALICE_Events
 
                 //Fighter Docked Audio
                 IStatus.Fighter.Response.Docked(
-                    Check.Internal.TriggerEvents(true, ClassName));    //Check Plugin Initialized
+                    ICheck.Initialized(ClassName));    //Check Plugin Initialized
             }
             catch (Exception ex)
             {

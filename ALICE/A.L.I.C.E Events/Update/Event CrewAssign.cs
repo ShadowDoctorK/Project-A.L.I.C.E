@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-10-26T10:17:05Z", "event":"CrewAssign", "Name":"Mackenzie Witt", "CrewID":257296352, "Role":"OnShoreLeave" }
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using System;
 
@@ -60,11 +61,11 @@ namespace ALICE_Events
 
                 //Active Duty Audio
                 IStatus.Crew.Response.ActiveDuty(
-                    Check.Internal.TriggerEvents(true, ClassName));     //Check Log Has Initialized
+                    ICheck.Initialized(ClassName));     //Check Log Has Initialized
 
                 //On Shore Leave Audio
                 IStatus.Crew.Response.OnShoreLeave(
-                    Check.Internal.TriggerEvents(true, ClassName));     //Check Log Has Initialized
+                    ICheck.Initialized(ClassName));     //Check Log Has Initialized
             }
             catch (Exception ex)
             {

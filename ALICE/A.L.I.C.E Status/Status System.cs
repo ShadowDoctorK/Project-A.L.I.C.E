@@ -3,11 +3,6 @@ using ALICE_Events;
 using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Synthesizer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ALICE_Status
 {
@@ -37,7 +32,7 @@ namespace ALICE_Status
                 //Arrival Audio
                 Response.Arrived(
                     Event.StarSystem,                                   //Pass The System Name
-                    Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
+                    ICheck.Initialized(MethodName));    //Check Plugin Initialized
             }
         }
 

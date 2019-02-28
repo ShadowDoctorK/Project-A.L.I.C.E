@@ -1,4 +1,5 @@
-﻿using ALICE_Internal;
+﻿using ALICE_Debug;
+using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Settings;
 using ALICE_Synthesizer;
@@ -72,7 +73,7 @@ namespace ALICE_Status
             }
 
             //Report Scan If Event Triggers Are Enabled.
-            Report(Terraforamable, OutOfRange, Check.Internal.TriggerEvents(true, MethodName));
+            Report(Terraforamable, OutOfRange, ICheck.Initialized(MethodName));
 
             //Clear Body Data
             Body = new Object_StellarBody();

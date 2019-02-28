@@ -14,8 +14,6 @@ namespace ALICE_Internal
         public static Equipments Equipment = new Equipments();
         public static Dockings Docking = new Dockings();
         public static Panels Panel = new Panels();
-        public static Reports Report = new Reports();
-        public static Orders Order = new Orders();
         public static Variables Variable = new Variables();
         public static GameState State = new GameState();
         public static Internals Internal = new Internals();
@@ -291,140 +289,6 @@ namespace ALICE_Internal
                 return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
             #endregion
-        }
-
-        public class Orders : Base
-        {
-            public bool AssistDocking(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.AssistDocking;
-                string Order = "Assisted Docking Procedures";
-                return Check_Order(TargetState, MethodName, State, Order, DisableDebug);
-            }
-
-            public bool AssistSystemScan(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.AssistSystemScan;
-                string Order = "Assisted System Scans";
-                return Check_Order(TargetState, MethodName, State, Order, DisableDebug);
-            }
-
-            public bool AssistRefuel(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.AssistRefuel;
-                string Order = "Assisted Station Refueling";
-                return Check_Order(TargetState, MethodName, State, Order, DisableDebug);
-            }
-
-            public bool AssistRearm(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.AssistRearm;
-                string Order = "Assisted Station Rearming";
-                return Check_Order(TargetState, MethodName, State, Order, DisableDebug);
-            }
-
-            public bool AssistRepair(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.AssistRepair;
-                string Order = "Assisted Station Repairing";
-                return Check_Order(TargetState, MethodName, State, Order, DisableDebug);
-            }
-
-            public bool AssistHangerEntry(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.AssistHangerEntry;
-                string Order = "Assisted Hanger Entry";
-                return Check_Order(TargetState, MethodName, State, Order, DisableDebug);
-            }
-
-            public bool CombatPower(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.CombatPower;
-                string Order = "Combat Power Management";
-                return Check_Order(TargetState, MethodName, State, Order, DisableDebug);
-            }
-
-            public bool PostJumpSafety(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.PostHyperspaceSafety;
-                string Order = "Post Jump Safeties";
-                return Check_Order(TargetState, MethodName, State, Order, DisableDebug);
-            }
-
-            public bool WeaponSafety(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.WeaponSafety;
-                string Order = "Weapon Safety Interlocks";
-                return Check_Order(TargetState, MethodName, State, Order, DisableDebug);
-            }
-        }
-
-        public class Reports : Base
-        {
-            public bool FuelStatus(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.FuelStatus;
-                string Order = "Fuel Report";
-                return Check_Report(TargetState, MethodName, State, Order, DisableDebug);
-            }
-
-            public bool FuelScoop(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.FuelScoop;
-                string Order = "Fuel Scoop";
-                return Check_Report(TargetState, MethodName, State, Order, DisableDebug);
-            }
-
-            public bool ShieldState(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.ShieldState;
-                string Order = "Shield State";
-                return Check_Report(TargetState, MethodName, State, Order, DisableDebug);
-            }
-
-            public bool CollectedBounty(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.CollectedBounty;
-                string Order = "Collected Bounty";
-                return Check_Report(TargetState, MethodName, State, Order, DisableDebug);
-            }
-
-            public bool Masslock(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.Masslock;
-                string Order = "Masslock";
-                return Check_Report(TargetState, MethodName, State, Order, DisableDebug);
-            }
-            public bool StationStatus(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.StationStatus;
-                string Order = "Station Status";
-                return Check_Report(TargetState, MethodName, State, Order, DisableDebug);
-            }
-            public bool MaterialCollected(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.MaterialCollected;
-                string Order = "Material Collected";
-                return Check_Report(TargetState, MethodName, State, Order, DisableDebug);
-            }
-            public bool MaterialRefined(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.MaterialRefined;
-                string Order = "Material Refined";
-                return Check_Report(TargetState, MethodName, State, Order, DisableDebug);
-            }
-            public bool TargetWanted(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.TargetWanted;
-                string Order = "Wanted Target";
-                return Check_Report(TargetState, MethodName, State, Order, DisableDebug);
-            }
-            public bool TargetEnemy(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = ISettings.TargetEnemy;
-                string Order = "Hostile Faction";
-                return Check_Report(TargetState, MethodName, State, Order, DisableDebug);
-            }
         }
 
         public class Equipments : Base
@@ -782,13 +646,6 @@ namespace ALICE_Internal
 
         public class Internals : Base
         {
-            public bool TriggerEvents(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IEvents.TriggerEvents;
-                string Variable = "Trigger Events";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
-            }
-
             public bool CommandExist(string CommandName, string MethodName, bool DisableDebug = false)
             {
                 bool State = IPlatform.CommandExists(CommandName);

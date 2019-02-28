@@ -4,6 +4,7 @@
 
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Equipment;
 using ALICE_Internal;
 using ALICE_Objects;
@@ -61,12 +62,12 @@ namespace ALICE_Events
                 //New Returns Audio
                 IEquipment.DiscoveryScanner.NewReturns(
                     Event.BodyCount,                                                //Number Of Bodies
-                    Check.Internal.TriggerEvents(true, ClassName),                  //Check Plugin Initialized
+                    ICheck.Initialized(ClassName),                                  //Check Plugin Initialized
                     (IObjects.SystemCurrent.StellarBodies != Event.BodyCount));     //Check For New Returns
 
                 //No New Returns Audio
                 IEquipment.DiscoveryScanner.NoReturns(
-                    Check.Internal.TriggerEvents(true, ClassName),                  //Check Plugin Initialized
+                    ICheck.Initialized(ClassName),                                  //Check Plugin Initialized
                     (IObjects.SystemCurrent.StellarBodies == Event.BodyCount));     //Check For No New Returns
 
                 //Update Discovery Scanner Settings
@@ -77,8 +78,7 @@ namespace ALICE_Events
                 IObjects.SystemCurrent.Update_SystemData(Event);
 
                 //Extended Logging: Log System Info
-                if (PlugIn.ExtendedLogging &&
-                    Check.Internal.TriggerEvents(true, ClassName, true))
+                if (PlugIn.ExtendedLogging && ICheck.Initialized(ClassName, false))
                 {
                     IObjects.SystemCurrent.Log_SystemBodies();
                 }

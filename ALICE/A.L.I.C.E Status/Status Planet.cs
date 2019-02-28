@@ -1,5 +1,6 @@
 ﻿using ALICE_Actions;
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Equipment;
 using ALICE_Events;
 using ALICE_Internal;
@@ -83,7 +84,7 @@ namespace ALICE_Status
 
             #region Validation Checks
             //Check Plugin Initialized
-            if (Check.Internal.TriggerEvents(true, MethodName) == false)
+            if (ICheck.Initialized(MethodName) == false)
             {
                 //Debug Logger
                 Logger.DebugLine(MethodName, "Plugin Not Initialized", Logger.Yellow);
@@ -163,7 +164,7 @@ namespace ALICE_Status
 
             #region Validation Checks
             //Check Plugin Initialized
-            if (Check.Internal.TriggerEvents(true, MethodName) == false)
+            if (ICheck.Initialized(MethodName) == false)
             {
                 //Debug Logger
                 Logger.DebugLine(MethodName, "Plugin Not Initialized", Logger.Yellow);

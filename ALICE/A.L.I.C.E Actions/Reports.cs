@@ -3,6 +3,7 @@ using ALICE_Synthesizer;
 using ALICE_Internal;
 using ALICE_Core;
 using ALICE_Equipment;
+using ALICE_Debug;
 
 namespace ALICE_Actions
 {
@@ -142,15 +143,14 @@ namespace ALICE_Actions
                 #region Status != Recorded
                 else if (Status != Recorded)
                 { 
-                    if (Status == true && Check.Internal.TriggerEvents(true, MethodName) == true)
+                    if (Status == true && ICheck.Initialized(MethodName))
                     {
                         Logger.DebugLine(MethodName, "True", Logger.Yellow);
                         IEquipment.FrameShiftDrive.ChargingStart(true);
                     }
-                    else if (Status == false && Check.Internal.TriggerEvents(true, MethodName) == true)
+                    else if (Status == false && ICheck.Initialized(MethodName))
                     {
-                        Logger.DebugLine(MethodName, "False", Logger.Yellow);
-                        //Logger.Log(MethodName, "Developer Needs To Add Frameshift Drive Powering Down Audio... Remind Him.", Logger.Red);
+                        Logger.DebugLine(MethodName, "False", Logger.Yellow);                        
                     }
 
                     Recorded = Status;

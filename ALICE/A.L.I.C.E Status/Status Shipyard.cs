@@ -44,7 +44,7 @@ namespace ALICE_Status
         public void Update(ShipyardArrived Event)
         {
             //Don't Track Old Ships
-            if (Check.Internal.TriggerEvents(true, MethodName)) { return; }
+            if (ICheck.Initialized(MethodName)) { return; }
 
             //Add Ship To Tranfers
             Tranfers.Add(Event);

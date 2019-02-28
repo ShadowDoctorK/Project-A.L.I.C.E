@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-10-03T04:15:57Z", "event":"MaterialCollected", "Category":"Manufactured", "Name":"guardian_sentinel_wreckagecomponents", "Name_Localised":"Guardian Wreckage Components", "Count":3 }
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using System;
 
@@ -58,9 +59,9 @@ namespace ALICE_Events
                 var Event = (MaterialCollected)O;
 
                 IStatus.Materials.Response.Collected(
-                        Event.Name,                                        //Material
-                        Check.Internal.TriggerEvents(true, ClassName),     //Check Plugin Initialized
-                        Check.Report.MaterialCollected(true, ClassName));  //Check Material Reports Enabled 
+                        Event.Name,                                         //Material
+                        ICheck.Initialized(ClassName),                      //Check Plugin Initialized
+                        ICheck.Report.MaterialCollected(ClassName, true));  //Check Material Reports Enabled 
             }
             catch (Exception ex)
             {

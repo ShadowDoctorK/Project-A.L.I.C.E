@@ -2,6 +2,7 @@
 //Class File Generated: 02/26/2019 8:59 PM
 //Source Journal Line: (Custom A.L.I.C.E Event)
 
+using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Synthesizer;
@@ -90,8 +91,8 @@ namespace ALICE_Events
                     Speech.Speak
                         (
                         "".Phrase(EVT_Masslock.Entered),                        
-                        Check.Report.Masslock(true, ClassName),                             //Check Report Enabled
-                        Check.Internal.TriggerEvents(true, ClassName),                      //Check Plugin Initialized
+                        ICheck.Report.Masslock(ClassName, true),                            //Check Report Enabled
+                        ICheck.Initialized(ClassName),                                      //Check Plugin Initialized
                         Check.Environment.Vehicle(IVehicles.V.Mothership, true, ClassName)  //Check Vehicle Is Mothership
                         );
                 }
@@ -102,8 +103,8 @@ namespace ALICE_Events
                     Speech.Speak
                         (
                         "".Phrase(EVT_Masslock.Exited),                        
-                        Check.Report.Masslock(true, ClassName),                             //Check Report Enabled
-                        Check.Internal.TriggerEvents(true, ClassName),                      //Check Plugin Initialized
+                        ICheck.Report.Masslock(ClassName, true),                            //Check Report Enabled
+                        ICheck.Initialized(ClassName),                                      //Check Plugin Initialized
                         Check.Environment.Vehicle(IVehicles.V.Mothership, true, ClassName)  //Check Vehicle Is Mothership
                         );
                 }               

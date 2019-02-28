@@ -2,6 +2,7 @@
 using ALICE.Properties;
 using ALICE_Equipment;
 using ALICE_Events;
+using ALICE_Internal;
 using ALICE_Status;
 
 namespace ALICE_Core
@@ -172,5 +173,21 @@ namespace ALICE_Core
         //Miscellaneous
         public static bool NPC_Crew = Convert.ToBoolean(Miscellanous.Default["NPC_Crew"]);
         public static bool LandingPreps = false;
+
+        public static string Space()
+        {
+            string Answer = IEnums.Normal_Space;
+
+            if (Hyperspace == true)
+            {
+                Answer = IEnums.Hyperspace;
+            }
+            else if (Supercruise == true)
+            {
+                Answer = IEnums.Supercruise;
+            }
+
+            return Answer;
+        }
     }
 }

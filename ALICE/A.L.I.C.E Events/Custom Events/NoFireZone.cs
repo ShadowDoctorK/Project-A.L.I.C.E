@@ -6,6 +6,7 @@
 
 using ALICE_Actions;
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using System;
 using System.Threading;
@@ -122,11 +123,11 @@ namespace ALICE_Events
                     //Audio - Entered No Fire Zone
                     IStatus.Docking.Response.NoFireZoneEntered(
                         I.Station,                                                  //Pass Station Name
-                        Check.Internal.TriggerEvents(true, ClassName));             //Check Plugin Initialized
+                        ICheck.Initialized(ClassName));                             //Check Plugin Initialized
 
                     Thread.Sleep(100);
 
-                    if (Check.Order.WeaponSafety(true, ClassName))
+                    if (ICheck.Order.WeaponSafety(ClassName, true))
                     {
                         IStatus.WeaponSafety = true;
                         Call.Action.AnalysisMode(true, false);
@@ -137,14 +138,14 @@ namespace ALICE_Events
 
                             //Audio - Enabling Weapon Safeties (Deployed)
                             IStatus.Docking.Response.WeaponSafetiesEnablingDeployed(
-                                Check.Internal.TriggerEvents(true, ClassName));     //Check Plugin Initialized
+                                ICheck.Initialized(ClassName));                     //Check Plugin Initialized
 
                             return;
                         }
 
                         //Audio - Enabling Weapon Safeties
                         IStatus.Docking.Response.WeaponSafetiesEnablingDeployed(
-                            Check.Internal.TriggerEvents(true, ClassName));         //Check Plugin Initialized
+                            ICheck.Initialized(ClassName));                         //Check Plugin Initialized
                     }
                 }
 
@@ -156,15 +157,15 @@ namespace ALICE_Events
                     //Audio - Exited No Fire Zone
                     IStatus.Docking.Response.NoFireZoneExited(
                         I.Station,                                                  //Pass Station Name
-                        Check.Internal.TriggerEvents(true, ClassName));             //Check Plugin Initialized
+                        ICheck.Initialized(ClassName));                             //Check Plugin Initialized
 
                     Thread.Sleep(100);
 
-                    if (Check.Order.WeaponSafety(true, ClassName))
+                    if (ICheck.Order.WeaponSafety(ClassName, true))
                     {
                         //Audio - Disabling Weapon Safeties
                         IStatus.Docking.Response.WeaponSafetiesDisabling(
-                            Check.Internal.TriggerEvents(true, ClassName));         //Check Plugin Initialized
+                            ICheck.Initialized(ClassName));                         //Check Plugin Initialized
                     }
                 }
             }

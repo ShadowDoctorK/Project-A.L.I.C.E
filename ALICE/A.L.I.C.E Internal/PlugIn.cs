@@ -9,6 +9,7 @@ using ALICE_Monitors;
 using SysDiag = System.Diagnostics;
 using System.Linq;
 using ALICE_Settings;
+using ALICE_Debug;
 
 namespace ALICE_Internal
 {
@@ -43,7 +44,7 @@ namespace ALICE_Internal
             try
             {
                 //Initilize If We Have Started Up Yet.
-                if (Check.Internal.TriggerEvents(true, MethodName) == false)
+                if (ICheck.Initialized(MethodName) == false)
                 {
                     //Profile Monitor (Voice Macro Only)
                     switch (IPlatform.Interface)

@@ -1,5 +1,8 @@
-﻿using ALICE_DebugItems;
+﻿using ALICE_Core;
+using ALICE_DebugItems;
+using ALICE_Interface;
 using ALICE_Internal;
+using System;
 
 namespace ALICE_Debug
 {
@@ -8,21 +11,93 @@ namespace ALICE_Debug
     /// </summary>
     public static class ICheck
     {
+        private static Platform _Platform = new Platform();
+        public static Platform Platform
+        {
+            get => _Platform; set => _Platform = value;
+        }
+
+        private static Orders _Orders = new Orders();
+        public static Orders Order
+        {
+            get => _Orders; set => _Orders = value;
+        }
+
+        private static Reports _Reports = new Reports();
+        public static Reports Report
+        {
+            get => _Reports; set => _Reports = value;
+        }
+
         #region Events
-        public static Assault Assault = new Assault();
-        public static BlockAirlock BlockAirlock = new BlockAirlock();
-        public static BlockLandingPad BlockLandingPad = new BlockLandingPad();
-        public static Docked Docked = new Docked();
-        public static FireInNoFireZone FireInNoFireZone = new FireInNoFireZone();
-        public static Music Music = new Music();
-        public static NoFireZone NoFireZone = new NoFireZone();
-        public static ShipyardArrived ShipyardArrived = new ShipyardArrived();
-        public static SupercruiseEntry SupercruiseEntry = new SupercruiseEntry();
-        public static SupercruiseExit SupercruiseExit = new SupercruiseExit();
+        private static Assault _Assault = new Assault();
+        public static Assault Assault
+        {
+            get => _Assault; set => _Assault = value;
+        }
+
+        private static BlockAirlock _BlockAirlock = new BlockAirlock();
+        public static BlockAirlock BlockAirlock
+        {
+            get => _BlockAirlock; set => _BlockAirlock = value;
+        }
+
+        private static BlockLandingPad _BlockLandingPad = new BlockLandingPad();
+        public static BlockLandingPad BlockLandingPad
+        {
+            get => _BlockLandingPad; set => _BlockLandingPad = value;
+        }
+
+        private static Docked _Docked = new Docked();
+        public static Docked Docked
+        {
+            get => _Docked; set => _Docked = value;
+        }
+
+        private static FireInNoFireZone _FireInNoFireZone = new FireInNoFireZone();
+        public static FireInNoFireZone FireInNoFireZone
+        {
+            get => _FireInNoFireZone; set => _FireInNoFireZone = value;
+        }
+
+        private static Music _Music = new Music();
+        public static Music Music
+        {
+            get => _Music; set => _Music = value;
+        }
+
+        private static NoFireZone _NoFireZone = new NoFireZone();
+        public static NoFireZone NoFireZone
+        {
+            get => _NoFireZone; set => _NoFireZone = value;
+        }
+
+        private static ShipyardArrived _ShipyardArrived = new ShipyardArrived();
+        public static ShipyardArrived ShipyardArrived
+        {
+            get => _ShipyardArrived; set => _ShipyardArrived = value;
+        }
+
+        private static SupercruiseEntry _SupercruiseEntry = new SupercruiseEntry();
+        public static SupercruiseEntry SupercruiseEntry
+        {
+            get => _SupercruiseEntry; set => _SupercruiseEntry = value;
+        }
+
+        private static SupercruiseExit _SupercruiseExit = new SupercruiseExit();
+        public static SupercruiseExit SupercruiseExit
+        {
+            get => _SupercruiseExit; set => _SupercruiseExit = value;
+        }
+
         #endregion
 
         #region Equipment
-        public static LandingGear LandingGear = new LandingGear();
+        private static LandingGear _LandingGear = new LandingGear();
+        public static LandingGear LandingGear
+        {
+            get => _LandingGear; set => _LandingGear = value;
+        }
         #endregion
 
         /// <summary>
@@ -30,13 +105,13 @@ namespace ALICE_Debug
         /// </summary>
         /// <param name="M">(Method) Simple Name Of The Calling Method</param>
         /// <returns>true or false</returns>
-        public static bool Initialized(string M)
+        public static bool Initialized(string M, bool L = true)
         {
             //Check Plugin Initialized
-            if (Check.Internal.TriggerEvents(true, M) == false)
+            if (PlugIn.M_Journal.Settings.Initialized == false)
             {
                 //Debug Logger
-                Logger.DebugLine(M, "Plugin Not Initialized", Logger.Yellow);
+                if (L) { Logger.DebugLine(M, "Plugin Not Initialized", Logger.Yellow); }
                 return false;
             }
 
@@ -49,6 +124,145 @@ namespace ALICE_Debug
     /// </summary>
     public class Debug
     {
+        /// <summary>
+        /// Retrieves the Target Variables value from the Interface that started Project A.L.I.C.E (Ie Voice Macro or Voice Attack)
+        /// </summary>
+        /// <param name="M">(Method) The Call Method</param>
+        /// <param name="V">(Variable) The Target Variable</param>
+        /// <param name="D">(Default) The Default Fallback Value</param>
+        /// <param name="Er">(Error) The Error Text Provided Upon Fallback</param>
+        /// <param name="L">(Log) Enable / Disable The Logging Function</param>
+        /// <returns></returns>
+        public string Retreive(string M, IPlatform.IVar V, string D, string Er, bool L = true)
+        {
+            string S = D;
+            bool Error = false;
+
+            try
+            {
+                S = IPlatform.GetText(V);
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(M, "Execption: " + ex);
+                Error = true;
+            }
+
+            if (Error && L)
+            {
+                Logger.Error(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": " + Er, Logger.Red);
+            }
+
+            if (L)
+            {
+                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Returned " + S, Logger.Blue);
+            }
+
+            return S;
+        }
+
+        /// <summary>
+        /// Retrieves the Target Variables value from the Interface that started Project A.L.I.C.E (Ie Voice Macro or Voice Attack)
+        /// </summary>
+        /// <param name="M">(Method) The Call Method</param>
+        /// <param name="V">(Variable) The Target Variable</param>
+        /// <param name="D">(Default) The Default Fallback Value</param>
+        /// <param name="Er">(Error) The Error Text Provided Upon Fallback</param>
+        /// <param name="Min">(Minimum) The Min Allowed Value</param>
+        /// <param name="Max">(Maximum) The Max Allowed Value</param>
+        /// <param name="L">(Log) Enable / Disable The Logging Function</param>
+        /// <returns></returns>
+        public decimal Retreive(string M, IPlatform.IVar V, decimal D, string Er, decimal Min = 0, decimal Max = 1000000000, bool L = true)
+        {
+            decimal S = D;
+            bool Error = false;
+
+            try
+            {
+                //Get Text Value From Platform
+                string T = IPlatform.GetText(V);
+
+                //Check Only Numbers
+                if (IsDigitsOnly(T))
+                {
+                    //Convert Value
+                    S = Convert.ToDecimal(T);
+
+                    //Check Range
+                    if (S > Max || S < Min)
+                    {
+                        Error = true;
+                    }
+                }   
+                else
+                {
+                    Error = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(M, "Execption: " + ex);
+                Error = true;
+            }
+
+            if (Error && L)
+            {
+                Logger.Error(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": " + Er, Logger.Red);
+            }
+
+            if (L)
+            {
+                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Returned " + S, Logger.Blue);
+            }
+
+            return S;
+        }
+
+        /// <summary>
+        /// Retrieves the Target Variables value from the Interface that started Project A.L.I.C.E (Ie Voice Macro or Voice Attack)
+        /// </summary>
+        /// <param name="M">(Method) The Call Method</param>
+        /// <param name="V">(Variable) The Target Variable</param>
+        /// <param name="Er">(Error) The Error Text Provided Upon Fallback</param>
+        /// <param name="L">(Log) Enable / Disable The Logging Function</param>
+        /// <returns></returns>
+        public bool Retreive(string M, IPlatform.IVar V, string Er, bool L = true)
+        {
+            bool S = false;
+            bool Error = false;
+
+            try
+            {
+                string T = IPlatform.GetText(V);
+
+                if (T.ToLower() == "true" || T.ToLower() == "false")
+                {
+                    S = Convert.ToBoolean(T);
+                }
+                else
+                {
+                    Error = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(M, "Execption: " + ex);
+                Error = true;
+            }
+
+            if (Error && L)
+            {
+                Logger.Error(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": " + Er, Logger.Red);
+            }
+
+            if (L)
+            {
+                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Returned " + S, Logger.Blue);
+            }
+
+            return S;
+        }
+
         /// <summary>
         /// Checks a boolean property wrapping the Debug Logger into the check.
         /// </summary>
@@ -182,6 +396,24 @@ namespace ALICE_Debug
         {
             if (L) { Logger.DebugLine(M, "[Value]: " + N + " Equals - " + P, Logger.Blue); }
             return P;
+        }
+
+        /// <summary>
+        /// Fucntion To Check String Contains Only Numbers
+        /// </summary>
+        /// <param name="S">(String) Text You Want To Check</param>
+        /// <returns></returns>
+        private bool IsDigitsOnly(string S)
+        {
+            foreach (char C in S)
+            {
+                if (C < '0' || C > '9')
+                {
+                    return false;
+                }                    
+            }
+
+            return true;
         }
     }
 }

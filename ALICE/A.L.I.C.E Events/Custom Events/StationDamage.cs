@@ -6,6 +6,7 @@
 
 using ALICE_Core;
 using ALICE_Data;
+using ALICE_Debug;
 using ALICE_Internal;
 using System;
 
@@ -90,7 +91,7 @@ namespace ALICE_Events
                 //Audio - Station Damaged
                 IStatus.Messages.Response.StationDamaged(
                     I.Station,                                          //Pass Station Name
-                    Check.Internal.TriggerEvents(true, ClassName));     //Check Plugin Initialized
+                    ICheck.Initialized(ClassName));                     //Check Plugin Initialized
             }
             catch (Exception ex)
             {

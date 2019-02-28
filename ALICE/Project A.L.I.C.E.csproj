@@ -67,6 +67,7 @@
     <Compile Include="A.L.I.C.E Data\Data CrimeTypes.cs" />
     <Compile Include="A.L.I.C.E Data\Data Messages.cs" />
     <Compile Include="A.L.I.C.E Data\IData.cs" />
+    <Compile Include="A.L.I.C.E Debug\Convert\Reports.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\FireInNoFireZone.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\ShipyardArrived.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\Docked.cs" />
@@ -79,6 +80,8 @@
     <Compile Include="A.L.I.C.E Debug\Events\Music.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\NoFireZone.cs" />
     <Compile Include="A.L.I.C.E Debug\ICheck.cs" />
+    <Compile Include="A.L.I.C.E Debug\Orders.cs" />
+    <Compile Include="A.L.I.C.E Debug\Platform.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment FuelTank.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment FighterHanger.cs" />
     <Compile Include="A.L.I.C.E Equipment\[Sandbox]\LandingGear.cs" />
@@ -277,7 +280,6 @@
     <Compile Include="A.L.I.C.E Equipment\IEquipment.cs" />
     <Compile Include="A.L.I.C.E Debug\Convert\Check.cs" />
     <Compile Include="A.L.I.C.E Data\Convert\Data.cs" />
-    <Compile Include="A.L.I.C.E Debug\Convert\Get.cs" />
     <Compile Include="A.L.I.C.E Internal\IEnums.cs" />
     <Compile Include="A.L.I.C.E Internal\Logger.cs" />
     <Compile Include="A.L.I.C.E Internal\Monitors.cs" />

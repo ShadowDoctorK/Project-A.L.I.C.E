@@ -5,6 +5,7 @@
 //Reference Journal Line: { "timestamp":"2018-11-22T16:58:32Z", "event":"ReceiveText", "From":"The Heart of Orion", "Message":"$StationAggressorResponseMessage;", "Message_Localised":"Hostility logged, lethal response authorised.", "Channel":"npc" }
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using System;
 
@@ -82,8 +83,8 @@ namespace ALICE_Events
             {
                 //Audio - Station Damaged
                 IStatus.Messages.Response.StationHostile(
-                    I.Name,                                            //Pass Station Name
-                    Check.Internal.TriggerEvents(true, ClassName));    //Check Plugin Initialized
+                    I.Name,                             //Pass Station Name
+                    ICheck.Initialized(ClassName));     //Check Plugin Initialized
             }
             catch (Exception ex)
             {

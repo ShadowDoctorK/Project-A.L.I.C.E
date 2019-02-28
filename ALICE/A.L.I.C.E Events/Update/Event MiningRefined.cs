@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-11-22T03:02:28Z", "event":"MiningRefined", "Type":"$bauxite_name;", "Type_Localised":"Bauxite" }
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using System;
 
@@ -54,8 +55,8 @@ namespace ALICE_Events
                 //Refined Audio
                 IStatus.Cargo.Response.Refined(
                     Event.Type_Localised,                               //Material
-                    Check.Internal.TriggerEvents(true, ClassName),      //Check Plugin Initialized
-                    Check.Report.MaterialRefined(true, ClassName));     //Check Report Enabled
+                    ICheck.Initialized(ClassName),                      //Check Plugin Initialized
+                    ICheck.Report.MaterialRefined(ClassName, true));    //Check Material Refined Report Enabled
             }
             catch (Exception ex)
             {

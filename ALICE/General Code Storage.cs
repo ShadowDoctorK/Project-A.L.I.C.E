@@ -343,7 +343,7 @@
         //        #region Write Updates
         //        if (Updates.Count > 0)
         //        {
-        //            if (Log && Check.Internal.TriggerEvents(true, MethodName))
+        //            if (Log && ICheck.Initialized(MethodName))
         //            {
         //                foreach (string Line in Updates)
         //                {
@@ -417,7 +417,7 @@
         //        #region Write Updates
         //        if (Updates.Count > 0)
         //        {
-        //            if (Log && Check.Internal.TriggerEvents(true, MethodName))
+        //            if (Log && ICheck.Initialized(MethodName))
         //            {
         //                foreach (string Line in Updates)
         //                {

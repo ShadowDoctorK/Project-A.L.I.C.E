@@ -4,6 +4,7 @@
 
 using ALICE_Actions;
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Equipment;
 using ALICE_Internal;
 using ALICE_Objects;
@@ -120,7 +121,7 @@ namespace ALICE_Events
                             IObjects.Mothership.I.ID != Event.ShipID)       //Ship ID Should Match, Otherwise Its A Different Ship.
                         {
                             //Event Logger
-                            if (Check.Internal.TriggerEvents(true, ClassName))
+                            if (ICheck.Initialized(ClassName))
                             {
                                 Logger.Event("Updating New Mothership Data.");
                             }
@@ -140,7 +141,7 @@ namespace ALICE_Events
                     default:
 
                         //Logger
-                        if (Check.Internal.TriggerEvents(true, ClassName))
+                        if (ICheck.Initialized(ClassName))
                         {
                             Logger.Log(ClassName, "Mothership Loadout Is Not Available, Loading Best Guess... Hope This Works.", Logger.Yellow);
                         }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ALICE_Internal;
 using ALICE_Events;
 using ALICE_Settings;
+using ALICE_Debug;
 
 namespace ALICE_Objects
 {
@@ -363,7 +364,7 @@ namespace ALICE_Objects
 
             Update_SystemList();
 
-            if (PlugIn.ExtendedLogging && Check.Internal.TriggerEvents(true, MethodName, true)) { Log_SystemBodies(); }
+            if (PlugIn.ExtendedLogging && ICheck.Initialized(MethodName, false)) { Log_SystemBodies(); }
         }
         
         //Facility Methods
@@ -392,7 +393,7 @@ namespace ALICE_Objects
         public void Log_SystemBodies()
         {
             if (PlugIn.ExtendedLogging == false) { return; }
-            if (Check.Internal.TriggerEvents(true, "System Object", true) == false) { return; }
+            if (ICheck.Initialized("System Object") == false) { return; }
 
             int BodyCount = 0;
             if (this.StellarBodies == -1) { return; }

@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2019-01-25T22:02:06Z", "event":"Docked", "StationName":"Haxel Port", "StationType":"Ocellus", "StarSystem":"LTT 15574", "SystemAddress":670149191105, "MarketID":3230440960, "StationFaction":{ "Name":"Democrats of LTT 15574", "FactionState":"Investment" }, "StationGovernment":"$government_Democracy;", "StationGovernment_Localised":"Democracy", "StationAllegiance":"Federation", "StationServices":[ "Dock", "Autodock", "BlackMarket", "Commodities", "Contacts", "Exploration", "Missions", "Outfitting", "CrewLounge", "Rearm", "Refuel", "Repair", "Shipyard", "Tuning", "Workshop", "MissionsGenerated", "FlightController", "StationOperations", "Powerplay", "SearchAndRescue", "MaterialTrader", "StationMenu" ], "StationEconomy":"$economy_Industrial;", "StationEconomy_Localised":"Industrial", "StationEconomies":[ { "Name":"$economy_Industrial;", "Name_Localised":"Industrial", "Proportion":0.770000 }, { "Name":"$economy_Extraction;", "Name_Localised":"Extraction", "Proportion":0.230000 } ], "DistFromStarLS":716.390076 }
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Objects;
 using System;
@@ -145,8 +146,8 @@ namespace ALICE_Events
 
                 //Docked Datalink Audio
                 IStatus.Docking.Response.Datalink(
-                    Check.Report.StationStatus(true, ClassName),                //Check User Settings Report Enabled
-                    Check.Internal.TriggerEvents(true, ClassName),              //Check Plugin Initialized
+                    ICheck.Report.StationStatus(ClassName, true),               //Check User Settings Report Enabled
+                    ICheck.Initialized(ClassName),                              //Check Plugin Initialized
                     (IStatus.Docking.State == IEnums.DockingState.Granted));    //Check Docking State Is Granted
 
                 //Sleep To Maintain Audio Order
@@ -154,8 +155,8 @@ namespace ALICE_Events
 
                 //Docked Datalink Audio
                 IStatus.Docking.Response.StationStatus(
-                    Check.Report.StationStatus(true, ClassName),                //Check User Settings Report Enabled
-                    Check.Internal.TriggerEvents(true, ClassName),              //Check Plugin Initialized
+                    ICheck.Report.StationStatus(ClassName, true),               //Check User Settings Report Enabled
+                    ICheck.Initialized(ClassName),                              //Check Plugin Initialized
                     (IStatus.Docking.State == IEnums.DockingState.Granted));    //Check Docking State Is Granted
 
                 //Enter Station Services & Conduct Post Docking Actions

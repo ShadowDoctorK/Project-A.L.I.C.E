@@ -389,12 +389,18 @@ namespace ALICE_Actions
             }
 
             if (Pause == true)
-            { Thread.Sleep(100); }
+            {
+                Thread.Sleep(100);
+            }
             #endregion
 
             #region Action: Set Power
-            if (ModifyPower && (Check.Variable.Hardpoints(false, MethodName) == true && Check.Order.CombatPower(true, MethodName)) == false)
-            { Call.Power.Set(0, 4, 8, true); }
+            if (ModifyPower && 
+                (Check.Variable.Hardpoints(false, MethodName) == true && 
+                ICheck.Order.CombatPower(MethodName, true) == false))
+            {
+                Call.Power.Set(0, 4, 8, true);
+            }
             #endregion
 
             #region Action: Boost
@@ -403,7 +409,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Action: Set Saved Power
-            if (ModifyPower && (Check.Variable.Hardpoints(false, MethodName) == true && Check.Order.CombatPower(true, MethodName)) == false)
+            if (ModifyPower && (Check.Variable.Hardpoints(false, MethodName) == true && ICheck.Order.CombatPower(MethodName, true)) == false)
             { Call.Power.SetRecorded(); }
             #endregion
         }
@@ -1054,7 +1060,7 @@ namespace ALICE_Actions
                             (
                             "".Phrase(GN_Positive.Default, true)
                             .Phrase(EQ_Hardpoints.Deploying)
-                            .Phrase(GN_Combat_Power.Online, false, Check.Order.CombatPower(true, MethodName)),
+                            .Phrase(GN_Combat_Power.Online, false, ICheck.Order.CombatPower(MethodName, true)),
                             CommandAudio
                             );
                     }
@@ -1073,7 +1079,7 @@ namespace ALICE_Actions
                             (
                             "".Phrase(GN_Positive.Default, true)
                             .Phrase(EQ_Hardpoints.Retracting)
-                            .Phrase(GN_Combat_Power.Offline, false, Check.Order.CombatPower(true, MethodName)),
+                            .Phrase(GN_Combat_Power.Offline, false, ICheck.Order.CombatPower(MethodName, true)),
                             CommandAudio
                             );
                     }
@@ -1137,7 +1143,7 @@ namespace ALICE_Actions
 
             #region Valid Command Checks
             //Check Plugin Initialized
-            if (Check.Internal.TriggerEvents(true, MethodName) == false)
+            if (ICheck.Initialized(MethodName) == false)
             {
                 //Debug Logger
                 Logger.DebugLine(MethodName, "Plugin Not Initialized", Logger.Yellow);
@@ -3124,7 +3130,7 @@ namespace ALICE_Actions
                     #endregion
 
                     #region Assisted Docking
-                    if (Check.Order.AssistDocking(true, MethodName))
+                    if (ICheck.Order.AssistDocking(MethodName, true))
                     {
                         switch (Check.Equipment.DockingComputer(true, MethodName))
                         {

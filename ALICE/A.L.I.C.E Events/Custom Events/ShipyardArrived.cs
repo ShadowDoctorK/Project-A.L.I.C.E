@@ -100,13 +100,13 @@ namespace ALICE_Events
             {
                 //Audio - Three Min Arrival Warning
                 IStatus.Shipyard.Response.ThreeMinWarning(
-                    Check.Internal.TriggerEvents(true, ClassName),          //Check Plugin Initialized
+                    ICheck.Initialized(ClassName),                          //Check Plugin Initialized
                     ICheck.ShipyardArrived.ThreeMinOut(ClassName, true),    //Check Three Min Warning
                     ICheck.ShipyardArrived.Time(ClassName, false, 0));      //Check Time Is Not Zero                    
 
                 //Audio - Arrived
                 IStatus.Shipyard.Response.Arrived(                    
-                    Check.Internal.TriggerEvents(true, ClassName),          //Check Plugin Initialized
+                    ICheck.Initialized(ClassName),                          //Check Plugin Initialized
                     ICheck.ShipyardArrived.Time(ClassName, true, 0));       //Check Time Is Zero  
             }
             catch (Exception ex)

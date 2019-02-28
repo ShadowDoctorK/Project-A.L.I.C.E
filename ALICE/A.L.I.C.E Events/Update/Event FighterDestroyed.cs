@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-10-02T04:54:56Z", "event":"FighterDestroyed" }
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using System;
 
@@ -30,7 +31,7 @@ namespace ALICE_Events
 
                 //Fighter Destroyed Audio
                 IStatus.Fighter.Response.Destroyed(
-                    Check.Internal.TriggerEvents(true, ClassName));    //Check Plugin Initialized
+                    ICheck.Initialized(ClassName));    //Check Plugin Initialized
 
                 //Update Status Object
                 IStatus.Fighter.Update(Event);

@@ -36,7 +36,7 @@ namespace ALICE_Objects
             Region = Default.String;
             SubCategory = Default.String;
             Body = Get_Body();
-            Enviornment = Get_Enviornment();
+            Enviornment = IStatus.Space();
             CodexID = Default.Decimal;
             Address = Get_Address();
             System = Get_System();
@@ -84,11 +84,6 @@ namespace ALICE_Objects
             string MethodName = "Codex Entry";
 
             return ICheck.SupercruiseExit.Body(MethodName);
-        }
-
-        public string Get_Enviornment()
-        {            
-            return Get.Environment.Space();
         }
 
         public void Check_EntryType(string EDName)

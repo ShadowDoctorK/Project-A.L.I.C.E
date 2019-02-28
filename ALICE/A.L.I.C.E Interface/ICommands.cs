@@ -8,6 +8,7 @@ using ALICE_Internal;
 using ALICE_Core;
 using ALICE_Settings;
 using ALICE_Equipment;
+using ALICE_Debug;
 
 namespace ALICE_Interface
 {
@@ -903,7 +904,7 @@ namespace ALICE_Interface
             #region Combat Power Management
             else if (Command.Check("Combat Power Management:"))
             {
-                if (ALICE_Internal.Check.Order.CombatPower(true, MethodName))
+                if (ICheck.Order.CombatPower(MethodName, true))
                 {
                     if (PlugIn.DebugMode == true)
                     { IPlatform.WriteToInterface("A.L.I.C.E: Context Mode - Combat Power Management Enabled", "Green"); }
@@ -993,7 +994,13 @@ namespace ALICE_Interface
                 {
                     Thread power =
                     new Thread((ThreadStart)(() =>
-                    { Call.Power.Set(Get.Variable.ALICE_WeaponPower(), Get.Variable.ALICE_SystemPower(), Get.Variable.ALICE_EnginePower(), Get.Variable.ALICE_RecordPower()); }))
+                    {
+                        Call.Power.Set(
+                            ICheck.Platform.WeaponPower(MethodName),
+                            ICheck.Platform.EnginePower(MethodName),
+                            ICheck.Platform.SystemPower(MethodName),
+                            ICheck.Platform.RecordPower(MethodName));
+                    }))
                     { IsBackground = true };
                     power.Start();
                 }

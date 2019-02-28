@@ -3,6 +3,7 @@
 //Source Journal Line: (Custom A.L.I.C.E Event)
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Interface;
 using ALICE_Internal;
 using ALICE_Synthesizer;
@@ -63,7 +64,7 @@ namespace ALICE_Events
             {
                 //Audio - AliceOnline
                 IStatus.Interaction.Response.Online(
-                    Check.Internal.TriggerEvents(true, ClassName));     //Check Plugin Initialized
+                    ICheck.Initialized(ClassName));     //Check Plugin Initialized
             }
             catch (Exception ex)
             {

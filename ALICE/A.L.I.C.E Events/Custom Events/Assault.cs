@@ -5,6 +5,7 @@
 //Reference Journal Line: { "timestamp":"2018-11-22T16:58:32Z", "event":"CommitCrime", "CrimeType":"assault", "Faction":"Independent Detention Foundation", "Victim":"The Heart of Orion", "Bounty":300 }
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using System;
 
@@ -121,7 +122,7 @@ namespace ALICE_Events
                 //Audio - Assault
                 IStatus.Crime.Response.Assault(
                     I.Victim,                                           //Victims Information
-                    Check.Internal.TriggerEvents(true, ClassName),      //Check Plugin Initialized
+                    ICheck.Initialized(ClassName),                      //Check Plugin Initialized
                     (I.Victim != IEvents.StationHostile.I.Name));       //Check Victim Is Not A Local Station
             }
             catch (Exception ex)

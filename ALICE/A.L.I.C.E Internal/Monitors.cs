@@ -7,6 +7,7 @@ using ALICE_Objects;
 using ALICE_Core;
 using ALICE_Settings;
 using ALICE_Equipment;
+using ALICE_Debug;
 
 namespace ALICE_Internal
 {
@@ -398,7 +399,7 @@ namespace ALICE_Internal
                     #region Write Updates
                     if (Updates.Count > 0)
                     {
-                        if (Log && Check.Internal.TriggerEvents(true, MethodName))
+                        if (Log && ICheck.Initialized(MethodName))
                         {
                             foreach (string Line in Updates)
                             {

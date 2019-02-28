@@ -3,6 +3,7 @@ using ALICE_Internal;
 using ALICE_Core;
 using ALICE_Synthesizer;
 using ALICE_Equipment;
+using ALICE_Debug;
 
 namespace ALICE_EventLogic
 {
@@ -17,7 +18,7 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic: Fuel Critical";
             if (Check.Internal.JsonInitialized(true, MethodName) == false) { return; }
-            if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
+            if (ICheck.Initialized(MethodName) == false) { return; }
             if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
 
             IEquipment.FuelTank.Critical = true;
@@ -28,7 +29,7 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic: Fuel Low";
             if (Check.Internal.JsonInitialized(true, MethodName) == false) { return; }
-            if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
+            if (ICheck.Initialized(MethodName) == false) { return; }
             if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
 
             IEquipment.FuelTank.Low = true;
@@ -39,7 +40,7 @@ namespace ALICE_EventLogic
         {
             string MethodName = "Logic: Fuel Half Threshold";
             if (Check.Internal.JsonInitialized(true, MethodName) == false) { return; }
-            if (Check.Internal.TriggerEvents(true, MethodName) == false) { return; }
+            if (ICheck.Initialized(MethodName) == false) { return; }
             if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
 
             IEquipment.FuelTank.HalfThreshold = true;
@@ -60,7 +61,7 @@ namespace ALICE_EventLogic
         //        //Audio - Entered No Fire Zone
         //        IStatus.Docking.Response.NoFireZoneEntered(
         //            Event.Station,                                      //Pass Station Name
-        //            Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
+        //            ICheck.Initialized(MethodName));    //Check Plugin Initialized
 
         //        Thread.Sleep(100);
 
@@ -75,14 +76,14 @@ namespace ALICE_EventLogic
 
         //                //Audio - Enabling Weapon Safeties (Deployed)
         //                IStatus.Docking.Response.WeaponSafetiesEnablingDeployed(                            
-        //                    Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
+        //                    ICheck.Initialized(MethodName));    //Check Plugin Initialized
 
         //                return;
         //            }
 
         //            //Audio - Enabling Weapon Safeties
         //            IStatus.Docking.Response.WeaponSafetiesEnablingDeployed(                        
-        //                Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
+        //                ICheck.Initialized(MethodName));    //Check Plugin Initialized
         //        }
         //    }
 
@@ -94,7 +95,7 @@ namespace ALICE_EventLogic
         //        //Audio - Exited No Fire Zone
         //        IStatus.Docking.Response.NoFireZoneExited(
         //            Event.Station,                                      //Pass Station Name
-        //            Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
+        //            ICheck.Initialized(MethodName));    //Check Plugin Initialized
 
         //        Thread.Sleep(100);
 
@@ -102,7 +103,7 @@ namespace ALICE_EventLogic
         //        {
         //            //Audio - Disabling Weapon Safeties
         //            IStatus.Docking.Response.WeaponSafetiesDisabling(
-        //                Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
+        //                ICheck.Initialized(MethodName));    //Check Plugin Initialized
         //        }
         //    }
         //}      
@@ -116,7 +117,7 @@ namespace ALICE_EventLogic
             //Audio - Station Damaged
             IStatus.Messages.Response.StationDamaged(
                 Event.Station,                                      //Pass Station Name
-                Check.Internal.TriggerEvents(true, MethodName));    //Check Plugin Initialized
+                ICheck.Initialized(MethodName));    //Check Plugin Initialized
         }
 
         #region Under Construction
@@ -131,7 +132,7 @@ namespace ALICE_EventLogic
                     (
                     "".Phrase(Crime.Disobey_Police),
                     true,
-                    Check.Internal.TriggerEvents(true, MethodName)
+                    ICheck.Initialized(MethodName)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -150,7 +151,7 @@ namespace ALICE_EventLogic
                     (
                     "".Phrase(Crime.Illegal_Cargo),
                     true,
-                    Check.Internal.TriggerEvents(true, MethodName)
+                    ICheck.Initialized(MethodName)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -169,7 +170,7 @@ namespace ALICE_EventLogic
                     (
                     "".Phrase(Crime.Interdicting),
                     true,
-                    Check.Internal.TriggerEvents(true, MethodName)
+                    ICheck.Initialized(MethodName)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -188,7 +189,7 @@ namespace ALICE_EventLogic
                     (
                     "".Phrase(Crime.Murder),
                     true,
-                    Check.Internal.TriggerEvents(true, MethodName)
+                    ICheck.Initialized(MethodName)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -207,7 +208,7 @@ namespace ALICE_EventLogic
                     (
                     "".Phrase(Crime.Piracy),
                     true,
-                    Check.Internal.TriggerEvents(true, MethodName)
+                    ICheck.Initialized(MethodName)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -226,7 +227,7 @@ namespace ALICE_EventLogic
                     (
                     "".Phrase(Crime.Trespass_Minor),
                     true,
-                    Check.Internal.TriggerEvents(true, MethodName)
+                    ICheck.Initialized(MethodName)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -245,7 +246,7 @@ namespace ALICE_EventLogic
                     (
                     "".Phrase(Crime.Dumping_Dangerous),
                     true,
-                    Check.Internal.TriggerEvents(true, MethodName)
+                    ICheck.Initialized(MethodName)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -264,7 +265,7 @@ namespace ALICE_EventLogic
                     (
                     "".Phrase(Crime.Dumping_Near_Station),
                     true,
-                    Check.Internal.TriggerEvents(true, MethodName)
+                    ICheck.Initialized(MethodName)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -283,7 +284,7 @@ namespace ALICE_EventLogic
                     (
                     "".Phrase(Crime.Block_Landing_Pad_Warning),
                     true,
-                    Check.Internal.TriggerEvents(true, MethodName)
+                    ICheck.Initialized(MethodName)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -302,7 +303,7 @@ namespace ALICE_EventLogic
                     (
                     "".Phrase(Crime.Wreckless_Flying),
                     true,
-                    Check.Internal.TriggerEvents(true, MethodName)
+                    ICheck.Initialized(MethodName)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -321,7 +322,7 @@ namespace ALICE_EventLogic
                     (
                     "".Phrase(Crime.Wreckless_Flying_Damage),
                     true,
-                    Check.Internal.TriggerEvents(true, MethodName)
+                    ICheck.Initialized(MethodName)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -347,7 +348,7 @@ namespace ALICE_EventLogic
             //3. Decent Report Not Made
             if (IStatus.Planet.OrbitalMode && Alt < 60000 && IStatus.Planet.DecentReport == false)
             {
-                IStatus.Planet.Response.OrbitalDecentPreps(true, Check.Internal.TriggerEvents(true, MethodName));
+                IStatus.Planet.Response.OrbitalDecentPreps(true, ICheck.Initialized(MethodName));
                 IStatus.Planet.DecentReport = true;
             }
 
@@ -358,7 +359,7 @@ namespace ALICE_EventLogic
             //4. We Are Not Exiting The Planet
             if (IStatus.Planet.OrbitalMode && Alt > 80000 && IStatus.Planet.DecentReport == true && IStatus.Planet.ExitingPlanet == false)
             {
-                IStatus.Planet.Response.OrbitalDecentAborted(true, Check.Internal.TriggerEvents(true, MethodName));
+                IStatus.Planet.Response.OrbitalDecentAborted(true, ICheck.Initialized(MethodName));
                 IStatus.Planet.DecentReport = false;
             }            
         }

@@ -173,14 +173,14 @@ namespace ALICE_Events
                 IStatus.System.Status(Event);
 
                 //Post Jump Safeties
-                if (Check.Order.PostJumpSafety(true, ClassName))
+                if (ICheck.Order.PostJumpSafety(ClassName, true))
                 {
                     Call.Key.Press(Call.Key.Set_Speed_To_0, 0);
                 }
 
                 //Fuel Status Report
                 IEquipment.FuelTank.ScoopingReset();
-                if (Check.Report.FuelStatus(true, ClassName) == true && 
+                if (ICheck.Report.FuelStatus(ClassName, true) == true && 
                     ICheck.Initialized(ClassName))
                 {
                     IEquipment.FuelTank.Report = true;

@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-11-20T22:01:00Z", "event":"CrewFire", "Name":"Donald Trump" }
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using System;
 
@@ -57,7 +58,7 @@ namespace ALICE_Events
 
                 //Crew Fire Audio
                 IStatus.Crew.Response.Fire(
-                    Check.Internal.TriggerEvents(true, ClassName));     //Check Log Has Initialized
+                    ICheck.Initialized(ClassName));     //Check Log Has Initialized
             }
             catch (Exception ex)
             {

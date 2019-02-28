@@ -146,7 +146,7 @@ namespace ALICE_Events
                 {
                     Speech.Speak(""
                         .Phrase(Crime.Block_Landing_Pad_Warning),
-                        Check.Internal.TriggerEvents(true, ClassName));     //Check Plugin Initialized
+                        ICheck.Initialized(ClassName));                     //Check Plugin Initialized
                 }
 
                 //Audio - Block Airlock Minor
@@ -159,7 +159,7 @@ namespace ALICE_Events
                         .Phrase(Crime.Fine, true)
                         .Token("[AMOUNT]", I.Amount)                        //Pass Amount
                         .Token("[STATON]", I.Station),                      //Pass Station Name
-                        Check.Internal.TriggerEvents(true, ClassName)       //Check Plugin Initialized
+                        ICheck.Initialized(ClassName)                       //Check Plugin Initialized
                         );
                 }
             }

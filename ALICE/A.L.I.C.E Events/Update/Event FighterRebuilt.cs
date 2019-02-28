@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-10-02T04:56:40Z", "event":"FighterRebuilt", "Loadout":"three" }
 
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Status;
 using System;
@@ -57,7 +58,7 @@ namespace ALICE_Events
 
                         //Fighter Rebuilt (Docked)
                         IStatus.Fighter.Response.RebuiltDocked(
-                            Check.Internal.TriggerEvents(true, ClassName));    //Check Plugin Initialized
+                            ICheck.Initialized(ClassName));    //Check Plugin Initialized
 
                         break;
 
@@ -65,7 +66,7 @@ namespace ALICE_Events
 
                         //Fighter Rebuilt (Destroyed)
                         IStatus.Fighter.Response.RebuiltDestroyed(
-                            Check.Internal.TriggerEvents(true, ClassName));    //Check Plugin Initialized
+                            ICheck.Initialized(ClassName));    //Check Plugin Initialized
 
                         break;
 
@@ -73,7 +74,7 @@ namespace ALICE_Events
 
                         //Fighter Rebuilt (Other)
                         IStatus.Fighter.Response.RebuiltOther(
-                            Check.Internal.TriggerEvents(true, ClassName));    //Check Plugin Initialized
+                            ICheck.Initialized(ClassName));    //Check Plugin Initialized
 
                         break;
                 }
