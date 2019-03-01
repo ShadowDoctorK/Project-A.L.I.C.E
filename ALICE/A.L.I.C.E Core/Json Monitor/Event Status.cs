@@ -25,7 +25,11 @@ namespace ALICE_Events
             Pips = new List<decimal>();
             FireGroup = -1;
             GuiFocus = -1;
-            Fuel = new FuelInfo() { FuelMain = -1, FuelReservoir = -1 };
+            Fuel = new FuelInfo()
+            {
+                FuelMain = -1,
+                FuelReservoir = -1
+            };
             Cargo = -1;
             Latitude = -1;
             Longitude = -1;

@@ -1,9 +1,23 @@
 ﻿using ALICE_Debug;
+using ALICE_Interface;
 
 namespace ALICE_DebugItems
 {
     public class Platform : Debug
-    {        
+    {
+        /// <summary>
+        /// Will Check If The Starting Platform Contains The Target Command.
+        /// </summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="C">(Command) The Target Command Name</param>
+        /// <param name="T">(Target) The Expected State</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
+        public bool CommandExist(string M, string C, bool T = true, bool L = true)
+        {
+            return Evaluate(M, "Command Exist", T, IPlatform.CommandExists(C), L);
+        }
+
         /// <summary>
         /// Will get the value for ALICE_EnginePower from the Starting Platform
         /// </summary>

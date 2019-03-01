@@ -52,11 +52,9 @@ namespace ALICE_Actions
                         if (PlugIn.Audio == "TTS")
                         {
                             Speech.Speak
-                                (
-                                "".Phrase(EQ_Shields.Online),
-                                true,
-                                Check.Internal.JsonInitialized(true, MethodName)                                
-                                );
+                                (""
+                                .Phrase(EQ_Shields.Online),
+                                ICheck.InitializedStatus(MethodName));
                         }
                         else if (PlugIn.Audio == "File") { }
                         else if (PlugIn.Audio == "External") { }
@@ -70,11 +68,9 @@ namespace ALICE_Actions
                         if (PlugIn.Audio == "TTS")
                         {
                             Speech.Speak
-                                (
-                                "".Phrase(EQ_Shields.Offline),
-                                true,
-                                Check.Internal.JsonInitialized(true, MethodName)
-                                );
+                                (""
+                                .Phrase(EQ_Shields.Offline),
+                                ICheck.InitializedStatus(MethodName));
                         }
                         else if (PlugIn.Audio == "File") { }
                         else if (PlugIn.Audio == "External") { }

@@ -16,7 +16,6 @@ namespace ALICE_Internal
         public static Panels Panel = new Panels();
         public static Variables Variable = new Variables();
         public static GameState State = new GameState();
-        public static Internals Internal = new Internals();
 
         public class Panels : Base
         {
@@ -641,23 +640,6 @@ namespace ALICE_Internal
                 if (DisableDebug == false) { Logger.DebugLine(MethodName, DebugText, Color); }
 
                 return Answer;
-            }
-        }
-
-        public class Internals : Base
-        {
-            public bool CommandExist(string CommandName, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IPlatform.CommandExists(CommandName);
-                string Variable = "Command Exist";
-                return Check_Variable(true, MethodName, State, Variable, DisableDebug);
-            }
-
-            public bool JsonInitialized(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = PlugIn.M_Json.Settings.Initialized;
-                string Variable = "JSON Reader Initialized";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
         }
 

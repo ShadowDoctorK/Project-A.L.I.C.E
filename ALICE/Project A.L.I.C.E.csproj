@@ -69,7 +69,7 @@
     <Compile Include="A.L.I.C.E Data\Data CrimeTypes.cs" />
     <Compile Include="A.L.I.C.E Data\Data Messages.cs" />
     <Compile Include="A.L.I.C.E Data\IData.cs" />
-    <Compile Include="A.L.I.C.E Debug\Convert\Reports.cs" />
+    <Compile Include="A.L.I.C.E Debug\Reports.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\FireInNoFireZone.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\ShipyardArrived.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\Docked.cs" />
