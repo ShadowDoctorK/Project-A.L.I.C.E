@@ -64,6 +64,7 @@
     <Compile Include="A.L.I.C.E Collections\Collection EventTypes.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection Variables.cs" />
     <Compile Include="A.L.I.C.E Core\Json Monitor\Event Status.cs" />
+    <Compile Include="A.L.I.C.E Data\Data Systems.cs" />
     <Compile Include="A.L.I.C.E Data\Data Modules.cs" />
     <Compile Include="A.L.I.C.E Data\Data Commodies.cs" />
     <Compile Include="A.L.I.C.E Data\Data CrimeTypes.cs" />

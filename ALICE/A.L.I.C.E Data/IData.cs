@@ -31,5 +31,11 @@ namespace ALICE_Data
         {
             get => _Modules;
         }
+
+        private static Data_Systems _Systems = new Data_Systems();
+        public static Data_Systems Systems
+        {
+            get => _Systems;
+        }
     }
 }

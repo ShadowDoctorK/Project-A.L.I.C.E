@@ -8,6 +8,7 @@ using ALICE_Events;
 using ALICE_Settings;
 using ALICE_Debug;
 using ALICE_Interface;
+using ALICE_Data;
 
 namespace ALICE_Objects
 {
@@ -282,8 +283,8 @@ namespace ALICE_Objects
         public Object_System Get_SystemData(decimal SystemAddress)
         {
             Object_System Temp = new Object_System();
-            if (Data.Systems.ContainsKey(SystemAddress))
-            { Temp = Data.Systems[SystemAddress]; }
+            if (IData.Systems.Data.ContainsKey(SystemAddress))
+            { Temp = IData.Systems.Data[SystemAddress]; }
             return Temp;
         }
 
@@ -335,16 +336,16 @@ namespace ALICE_Objects
         {
             DataVersion = PlugIn.DataVersion;
 
-            if (Data.Systems.ContainsKey(this.Address))
+            if (IData.Systems.Data.ContainsKey(this.Address))
             {
-                Data.Systems[this.Address] = this;
+                IData.Systems.Data[this.Address] = this;
             }
             else
             {
-                Data.Systems.Add(this.Address, this);
+                IData.Systems.Data.Add(this.Address, this);
             }
 
-            IObjects.SystemCurrent = Data.Systems[this.Address];
+            IObjects.SystemCurrent = IData.Systems.Data[this.Address];
 
             INewtonSoft.Save<Object_System>(this, this.Name + ".System", Paths.ALICE_SystemData);
         }

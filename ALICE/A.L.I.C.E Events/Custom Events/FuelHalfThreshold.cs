@@ -30,25 +30,6 @@ namespace ALICE_Events
             set => i = value;
         }
 
-        //Construct Event
-        public void Construct(CommitCrime Event)
-        {
-            try
-            {
-                I = new FuelHalfThreshold()
-                {
-                    //No Properties
-                };
-
-                Record(Name, I);
-                Logic();
-            }
-            catch (Exception ex)
-            {
-                ExceptionConstruct(Name, ex);
-            }
-        }
-
         //Plugin Logic Process
         public override void Process(object O)
         {
