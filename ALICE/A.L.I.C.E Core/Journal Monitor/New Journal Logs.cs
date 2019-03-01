@@ -261,7 +261,7 @@ namespace ALICE_Monitors
                                 if (E != IEnums.Events.None)
                                 {
                                     //Deserialize
-                                    var Event = Deserialize(Journal.Line, IEvents.Types.Get(E));
+                                    var Event = INewtonSoft.Deserialize(Journal.Line, IEvents.Types.Get(E));
 
                                     //Null Check Event
                                     if (Event != null)
@@ -322,22 +322,22 @@ namespace ALICE_Monitors
         /// <param name="Line">(Line) JSON Object String</param>
         /// <param name="T">(Type) The Objects Type</param>
         /// <returns>Object Data or Null</returns>
-        public object Deserialize(string L, Type T)
-        {
-            try
-            {
-                //Deserialize
-                return JsonConvert.DeserializeObject(L, T);
-            }
-            catch (Exception ex)
-            {
-                Logger.Exception(MethodName, "Exception: " + ex);
-                Logger.Exception(MethodName, "(Failed) The Decoder Hamster Couldn't Figure It Out...");
-            }
+        //public object Deserialize(string L, Type T)
+        //{
+        //    try
+        //    {
+        //        //Deserialize
+        //        return JsonConvert.DeserializeObject(L, T);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.Exception(MethodName, "Exception: " + ex);
+        //        Logger.Exception(MethodName, "(Failed) The Decoder Hamster Couldn't Figure It Out...");
+        //    }
 
-            //Deserialization Failed, Return Null Object
-            return null;
-        }
+        //    //Deserialization Failed, Return Null Object
+        //    return null;
+        //}
 
         /// <summary>
         /// Opens A Readonly FileStream with ReadWrite sharing.

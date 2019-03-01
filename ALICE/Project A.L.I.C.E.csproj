@@ -248,7 +248,7 @@
     <Compile Include="A.L.I.C.E Events\Custom Events\StationDamage.cs" />
     <Compile Include="A.L.I.C.E Events\Custom Events\BlockLandingPad.cs" />
     <Compile Include="A.L.I.C.E Events\Game Events\DockingTimeout.cs" />
-    <Compile Include="A.L.I.C.E Interface\INewtownSoft.cs" />
+    <Compile Include="A.L.I.C.E Interface\INewtonSoft.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />

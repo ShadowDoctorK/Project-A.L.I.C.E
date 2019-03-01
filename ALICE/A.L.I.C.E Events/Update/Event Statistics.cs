@@ -57,6 +57,7 @@ namespace ALICE_Events
             public decimal Spent_On_Ammo_Consumables { get; set; }
             public decimal Insurance_Claims { get; set; }
             public decimal Spent_On_Insurance { get; set; }
+            public decimal Owned_Ship_Count { get; set; }
 
             public BankAccountStat()
             {
@@ -67,7 +68,8 @@ namespace ALICE_Events
                 Spent_On_Fuel = Dec();
                 Spent_On_Ammo_Consumables = Dec();
                 Insurance_Claims = Dec();
-                Spent_On_Insurance = Dec();                
+                Spent_On_Insurance = Dec();
+                Owned_Ship_Count = Dec();
             }
         }
 
@@ -171,6 +173,7 @@ namespace ALICE_Events
             public decimal Exploration_Profits { get; set; }
             public decimal Planets_Scanned_To_Level_2 { get; set; }
             public decimal Planets_Scanned_To_Level_3 { get; set; }
+            public decimal Efficient_Scans { get; set; }
             public decimal Highest_Payout { get; set; }
             public decimal Total_Hyperspace_Distance { get; set; }
             public decimal Total_Hyperspace_Jumps { get; set; }
@@ -183,6 +186,7 @@ namespace ALICE_Events
                 Exploration_Profits = Dec();
                 Planets_Scanned_To_Level_2 = Dec();
                 Planets_Scanned_To_Level_3 = Dec();
+                Efficient_Scans = Dec();
                 Highest_Payout = Dec();
                 Total_Hyperspace_Distance = Dec();
                 Total_Hyperspace_Jumps = Dec();

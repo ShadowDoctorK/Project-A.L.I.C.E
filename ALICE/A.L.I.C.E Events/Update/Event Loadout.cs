@@ -24,6 +24,7 @@ namespace ALICE_Events
         public string ShipName { get; set; }
         public string ShipIdent { get; set; }
         public decimal HullValue { get; set; }
+        public decimal HullHealth { get; set; }
         public decimal ModulesValue { get; set; }
         public decimal Rebuy { get; set; }
         public List<Module> Modules { get; set; }
@@ -36,6 +37,7 @@ namespace ALICE_Events
             ShipName = Str();
             ShipIdent = Str();
             HullValue = Dec();
+            HullHealth = Dec();
             ModulesValue = Dec();
             Rebuy = Dec();
             Modules = new List<Module>();
@@ -128,6 +130,7 @@ namespace ALICE_Events
                 Variables.Record(Name + "_Name", Event.ShipName);
                 Variables.Record(Name + "_CallSign", Event.ShipIdent);
                 Variables.Record(Name + "_HullValue", Event.HullValue);
+                Variables.Record(Name + "_HullHealth", Event.HullHealth);
                 Variables.Record(Name + "_ModuleValue", Event.ModulesValue);
                 Variables.Record(Name + "_TotalValue", Event.HullValue + Event.ModulesValue);
                 Variables.Record(Name + "_Rebuy", Event.Rebuy);

@@ -346,7 +346,7 @@ namespace ALICE_Objects
 
             IObjects.SystemCurrent = Data.Systems[this.Address];
 
-            INewtownSoft.Save<Object_System>(this, this.Name + ".System", Paths.ALICE_SystemData);
+            INewtonSoft.Save<Object_System>(this, this.Name + ".System", Paths.ALICE_SystemData);
         }
 
         //Stellar Body Methods

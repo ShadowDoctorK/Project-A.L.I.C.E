@@ -138,7 +138,7 @@ namespace ALICE_Objects
             {
                 if (File.Exists(Path + FileName)) { return; }
 
-                INewtownSoft.Save<Object_CodexEntry>(this, FileName, Path);
+                INewtonSoft.Save<Object_CodexEntry>(this, FileName, Path);
             }
         }
 

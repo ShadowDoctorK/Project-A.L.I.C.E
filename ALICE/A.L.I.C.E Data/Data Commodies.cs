@@ -1,5 +1,5 @@
 ﻿using ALICE_Internal;
-using Newtonsoft.Json;
+using ALICE_Interface;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,33 +18,23 @@ namespace ALICE_Data
 
         private static List<GameCommodity> Load()
         {
+            string MethodName = "Game Commodities (Load)";
+
             List<GameCommodity> Items = null;
 
-            string Dir = Paths.ALICE_Resources;
-            DirectoryInfo directory = new DirectoryInfo(Dir);
-            foreach (FileInfo ModuleFile in directory.EnumerateFiles("Commodities.Json", SearchOption.TopDirectoryOnly))
-            {
-                JsonSerializerSettings settings = new JsonSerializerSettings
-                { MissingMemberHandling = MissingMemberHandling.Ignore };
+            string P = Paths.ALICE_Resources;
+            string F = "Commodities.Json";
 
-                FileStream FS = null;
+            foreach (FileInfo ModuleFile in new DirectoryInfo(Paths.ALICE_Resources)
+                .EnumerateFiles(F, SearchOption.TopDirectoryOnly))
+            {
                 try
                 {
-                    FS = new FileStream(ModuleFile.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    using (StreamReader SR = new StreamReader(FS))
-                    {
-                        while (!SR.EndOfStream)
-                        {
-                            string Line = SR.ReadLine();
-                            var NewCom = JsonConvert.DeserializeObject<List<GameCommodity>>(Line);
-                            Items = NewCom;
-                        }
-                    }
+                    Items = INewtonSoft.Load2<List<GameCommodity>>(F, P);
                 }
-                finally
+                catch (Exception ex)
                 {
-                    if (FS != null)
-                    { FS.Dispose(); }
+                    Logger.Exception(MethodName, "Exception: " + ex);
                 }
             }
 

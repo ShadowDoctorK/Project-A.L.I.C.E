@@ -72,7 +72,7 @@ namespace ALICE_Internal
             }
             #endregion
 
-            if (DataUpdated) { INewtownSoft.Save<Object_System>(Sys, Sys.Name + ".System", Paths.ALICE_SystemData); }
+            if (DataUpdated) { INewtonSoft.Save<Object_System>(Sys, Sys.Name + ".System", Paths.ALICE_SystemData); }
 
             return Sys;
         }

@@ -75,7 +75,7 @@ namespace ALICE_Objects
                 Add(EngineerData);
             }
 
-            INewtownSoft.Save<Object_Engineers>(IObjects.Engineer, FileName, Paths.ALICE_Settings);
+            INewtonSoft.Save<Object_Engineers>(IObjects.Engineer, FileName, Paths.ALICE_Settings);
         }
 
         public int GetObjectIndex(string EngineerName)
