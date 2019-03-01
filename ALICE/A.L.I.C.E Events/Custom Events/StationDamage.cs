@@ -89,9 +89,8 @@ namespace ALICE_Events
             try
             {
                 //Audio - Station Damaged
-                IStatus.Messages.Response.StationDamaged(
-                    I.Station,                                          //Pass Station Name
-                    ICheck.Initialized(ClassName));                     //Check Plugin Initialized
+                IStatus.Messages.Response.StationDamaged(                    
+                    ICheck.Initialized(ClassName));             //Check Plugin Initialized
             }
             catch (Exception ex)
             {

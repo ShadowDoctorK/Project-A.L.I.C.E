@@ -102,7 +102,7 @@ namespace ALICE_Monitors
                                 if (Cargo.Enabled && Cargo.File == null) { Cargo.GetFileInfo(); }
                                 if (Cargo.Enabled && Cargo.File != null && CheckFile(ref Cargo.File, ref Cargo.InitialLoad))
                                 {
-                                    UpdateCargo();
+                                    UpdateCargo(); Cargo.InitialLoad = false;
                                 }
                             }
                             catch (Exception ex)
@@ -177,7 +177,7 @@ namespace ALICE_Monitors
                                 if (Status.Enabled && Status.File == null) { Status.GetFileInfo(); }
                                 if (Status.Enabled && Status.File != null && CheckFile(ref Status.File, ref Status.InitialLoad))
                                 {
-                                    UpdateStatus();
+                                    UpdateStatus(); Status.InitialLoad = false;
                                 }
                             }
                             catch (Exception ex)
@@ -819,7 +819,7 @@ namespace ALICE_Monitors
                 {
                     //Save New FileInfo, Return True.
                     Logger.DebugLine(MethodName, F.Name + " Updated", Logger.Blue);
-                    F = Temp; InitialLoad = false; return true;
+                    F = Temp; return true;
                 }
             }
             catch (Exception ex)

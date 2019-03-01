@@ -187,23 +187,33 @@ namespace ALICE_Equipment
                 Reservoir = Level.FuelReservoir;
 
                 //Custom Events
-                if (ALICE_Internal.Check.Internal.JsonInitialized(true, MethodName, true))
+                if (ICheck.InitializedStatus(MethodName, false))
                 {
                     //Event = FuelHalfThreshold (50% - 25.1%)
                     if (Decreased == true && HalfThreshold == false && GetPercent() <= 50 && GetPercent() > 25)
-                    { IEvents.FuelHalfThreshold.Logic(); Report = true; }
+                    {
+                        IEvents.FuelHalfThreshold.Logic(); Report = true;
+                    }
 
                     //Event - FuelLow (25% - 10.1%)
                     else if (Decreased == true && Low == false && GetPercent() <= 25 && GetPercent() > 10)
-                    { IEvents.FuelLow.Logic(); Report = true; }
+                    {
+                        IEvents.FuelLow.Logic(); Report = true;
+                    }
 
                     //Event - FuelCritical (10% or less)
                     else if (Decreased == true && Critical == false && GetPercent() <= 10)
-                    { IEvents.FuelCritical.Logic(); Report = true; }
+                    {
+                        IEvents.FuelCritical.Logic(); Report = true;
+                    }
 
                     //Reset Bool
                     else if (GetPercent() > 50)
-                    { Critical = false; Low = false; HalfThreshold = false; }
+                    {
+                        Critical = false;
+                        Low = false;
+                        HalfThreshold = false;
+                    }
                 }
 
                 if (Report)

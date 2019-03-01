@@ -148,7 +148,7 @@ namespace ALICE_Events
 
                     case IEnums.CrimeType.FireInStation:
 
-                        //IEvents.FireInStation.Construct(Event);
+                        IEvents.FireInStation.Construct(I);
                         break;
 
                     case IEnums.CrimeType.DumpingDangerous:

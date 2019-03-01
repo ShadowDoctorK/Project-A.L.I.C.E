@@ -12,42 +12,7 @@ namespace ALICE_EventLogic
     /// </summary>
     public static class Process
     {
-        #region Custom Event Logic
-         
-        public static void FuelCritical(FuelCritical Event)
-        {
-            string MethodName = "Logic: Fuel Critical";
-            if (Check.Internal.JsonInitialized(true, MethodName) == false) { return; }
-            if (ICheck.Initialized(MethodName) == false) { return; }
-            if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
-
-            IEquipment.FuelTank.Critical = true;
-            IEquipment.FuelTank.FuelCritical(true);
-        }
-
-        public static void FuelLow(FuelLow Event)
-        {
-            string MethodName = "Logic: Fuel Low";
-            if (Check.Internal.JsonInitialized(true, MethodName) == false) { return; }
-            if (ICheck.Initialized(MethodName) == false) { return; }
-            if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
-
-            IEquipment.FuelTank.Low = true;
-            IEquipment.FuelTank.FuelLow(true);
-        }
-
-        public static void FuelHalfThreshold(FuelHalfThreshold Event)
-        {
-            string MethodName = "Logic: Fuel Half Threshold";
-            if (Check.Internal.JsonInitialized(true, MethodName) == false) { return; }
-            if (ICheck.Initialized(MethodName) == false) { return; }
-            if (Check.Variable.FuelScooping(false, MethodName) == false) { return; }
-
-            IEquipment.FuelTank.HalfThreshold = true;
-
-            //Notes: Commented Out Audio Due To Main Audio Playing Twice.            
-            //IEquipment.FuelTank.FuelHalf(true);
-        }
+        #region Custom Event Logic        
 
         //public static void NoFireZone(NoFireZone Event)
         //{
@@ -107,18 +72,6 @@ namespace ALICE_EventLogic
         //        }
         //    }
         //}      
-
-        public static void StationDamage(StationDamage Event)
-        {
-            string MethodName = "Logic: Station Damage";
-
-            //StationHostile Temp = (StationHostile)IEvents.GetEvent(IEnums.StationHostile);
-
-            //Audio - Station Damaged
-            IStatus.Messages.Response.StationDamaged(
-                Event.Station,                                      //Pass Station Name
-                ICheck.Initialized(MethodName));    //Check Plugin Initialized
-        }
 
         #region Under Construction
         public static void DisobeyPolice(DisobeyPolice Event)

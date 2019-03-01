@@ -319,7 +319,7 @@
     <Compile Include="A.L.I.C.E Events\Custom Events\DumpingNearStation.cs" />
     <Compile Include="A.L.I.C.E Events\Custom Events\DumpingDangerous.cs" />
     <Compile Include="A.L.I.C.E Events\Custom Events\FireInNoFireZone.cs" />
-    <Compile Include="A.L.I.C.E Events\[Convert]\Event FireInStation.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\FireInStation.cs" />
     <Compile Include="A.L.I.C.E Events\Custom Events\DisobeyPolice.cs" />
     <Compile Include="A.L.I.C.E Events\[Convert]\Event IllegalCargo.cs" />
     <Compile Include="A.L.I.C.E Events\[Convert]\Event Interdicting.cs" />
@@ -329,9 +329,9 @@
     <Compile Include="A.L.I.C.E Events\Custom Events\AliceOnline.cs" />
     <Compile Include="A.L.I.C.E Events\Custom Events\BlockAirlock.cs" />
     <Compile Include="A.L.I.C.E Events\Custom Events\StationHostile.cs" />
-    <Compile Include="A.L.I.C.E Events\[Convert]\Event FuelHalfThreshold.cs" />
-    <Compile Include="A.L.I.C.E Events\[Convert]\Event FuelCritical.cs" />
-    <Compile Include="A.L.I.C.E Events\[Convert]\Event FuelLow.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\FuelHalfThreshold.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\FuelCritical.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\FuelLow.cs" />
     <Compile Include="A.L.I.C.E Events\Custom Events\Masslock.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event CargoDepot.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event FuelScoop.cs" />

@@ -27,14 +27,14 @@ namespace ALICE_Status
         {
             string MethodName = "Messages Status";
 
-            public void StationDamaged(string Station, bool CommandAudio, bool Var1 = true, bool Var2 = true,
+            public void StationDamaged(bool CommandAudio, bool Var1 = true, bool Var2 = true,
                 bool Var3 = true, int Priority = 3, string Voice = null)
             {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Warning! Damaged " + Station, Logger.Yellow); }
+                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Warning! Damaged " + IEvents.StationDamage.I.Station, Logger.Yellow); }
 
                 Speech.Speak(""
                     .Phrase(GN_Station_Reports.Damaged)
-                    .Token("[STATON]", Station),
+                    .Token("[STATON]", IEvents.StationDamage.I.Station),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
