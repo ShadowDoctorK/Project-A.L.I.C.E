@@ -93,7 +93,7 @@ namespace ALICE_Synthesizer
                 //Validation Failed
                 case ISynthesizer.Answer.Negative:
                     Logger.DebugLine(MethodName, Segment[0] + " | " + Segment[1] + " Did Not Pass Validation", Logger.Blue);
-                    return Text; ;
+                    return Text;
                 
                 //Validation Returned Error State
                 case ISynthesizer.Answer.Error:

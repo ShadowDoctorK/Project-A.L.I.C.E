@@ -309,7 +309,6 @@
     <Compile Include="A.L.I.C.E Actions\System Targeting.cs" />
     <Compile Include="A.L.I.C.E Actions\System Assisted Power.cs" />
     <Compile Include="A.L.I.C.E Actions\Reports.cs" />
-    <Compile Include="A.L.I.C.E Actions\Orders.cs" />
     <Compile Include="A.L.I.C.E Core\IFiregroups.cs" />
     <Compile Include="A.L.I.C.E Events\IEvent Logic.cs" />
     <Compile Include="A.L.I.C.E Core\Utilities.cs" />

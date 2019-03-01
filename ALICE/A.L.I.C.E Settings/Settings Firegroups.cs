@@ -792,7 +792,7 @@ namespace ALICE_Settings
                 case Fire.Primary:
                     return "Primary";
                 case Fire.Secondary:
-                    return "Secondary";;
+                    return "Secondary";
                 default:
                     return "None";
             }

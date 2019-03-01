@@ -43,7 +43,7 @@ namespace ALICE_Events
             StarSystem = Str();
             SystemAddress = Dec();
             MarketID = Dec();
-            StationFaction = new FactionData(); ;
+            StationFaction = new FactionData();
             StationGovernment = Str();
             StationGovernment_Localised = Str();
             StationAllegiance = "Independant";

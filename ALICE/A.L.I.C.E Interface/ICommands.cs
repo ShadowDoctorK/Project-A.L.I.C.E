@@ -238,7 +238,7 @@ namespace ALICE_Interface
 
                     else if (Command.Check("Holo-Me"))
                     {
-                        Call.Panel.System.Home.HoloMe(); ;
+                        Call.Panel.System.Home.HoloMe();
                     }
 
                     else if (Command.Check("Engineers"))
