@@ -40,9 +40,6 @@ namespace ALICE_Actions
         public static IPanels Panel = new IPanels();
         public static IFiregroups Firegroup = new IFiregroups();     
         
-        //Merging Orders With User Settings
-        public static Reports Report = new Reports();
-
         #region Methods
         public static void ResetPanels() { Panel = new IPanels(); }
         #endregion
@@ -460,7 +457,7 @@ namespace ALICE_Actions
             }
 
             //If Touchdown Is Not False...
-            if (Check.Docking.Status(IEnums.DockingState.Docked, false, MethodName) == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -899,7 +896,7 @@ namespace ALICE_Actions
             }
 
             //If Docked Is Not False...
-            if (Check.Docking.Status(IEnums.DockingState.Docked, false, MethodName) == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked) == false)
             {
                 return;
             }
@@ -1211,7 +1208,7 @@ namespace ALICE_Actions
             }
 
             //If Docked is True...
-            if (Check.Docking.Status(IEnums.DockingState.Docked, true, MethodName) == true && CMD_State == false)
+            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked) == true && CMD_State == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -2030,23 +2027,23 @@ namespace ALICE_Actions
             }
 
             //Docked Check
-            if (Check.Docking.Status(IEnums.DockingState.Docked, false, MethodName) == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked) == false)
             {
                 IEquipment.FrameShiftDrive.NoDocked(CommandAudio);
                 return;
             }
 
             //Check Charging State && Prepare For Charging
-            if (IEquipment.FrameShiftDrive.ChargingState(false, MethodName) == false)
+            if (ICheck.FrameShiftDrive.Charging(MethodName, false) == false)
             {
                 //Check Hyperspace Charge
-                if (IEquipment.FrameShiftDrive.HyperspaceCharge(false, MethodName) == false)
+                if (ICheck.FrameShiftDrive.Hyperspace(MethodName, false) == false)
                 {
                     Call.Key.Press(Call.Key.Hyperspace_Jump, 100);
                     IEquipment.FrameShiftDrive.Hyperspace = false;
 
                     //Wait For Charing To End
-                    while (IEquipment.FrameShiftDrive.ChargingState(false, MethodName) == false)
+                    while (ICheck.FrameShiftDrive.Charging(MethodName, false, false) == false)
                     { Thread.Sleep(50); }
                 }
             }
@@ -2058,10 +2055,10 @@ namespace ALICE_Actions
             }
 
             //Check Preparing State
-            if (IEquipment.FrameShiftDrive.PreparingState(false, MethodName) == false)
+            if (ICheck.FrameShiftDrive.Prepairing(MethodName, false) == false)
             {
                 //Check Supercruise Preps
-                if (IEquipment.FrameShiftDrive.PreparingSupercruise(false, MethodName) == false)
+                if (ICheck.FrameShiftDrive.PrepSupercruise(MethodName, false) == false)
                 {
                     //Add Audio
                     return;
@@ -2106,7 +2103,7 @@ namespace ALICE_Actions
                     IEquipment.FrameShiftDrive.PrepSupercruise = true;
 
                     //Supercruse Charge Check
-                    if (IEquipment.FrameShiftDrive.SupercruiseCharge(false, MethodName) == false)
+                    if (ICheck.FrameShiftDrive.PrepSupercruise(MethodName, false) == false)
                     {
                         IEquipment.FrameShiftDrive.SC_CurrentlyCharging(CommandAudio);
                         return;
@@ -2161,7 +2158,7 @@ namespace ALICE_Actions
                     }
 
                     //Cooldown Check
-                    if (IEquipment.FrameShiftDrive.CooldownState(false, MethodName) == false)
+                    if (ICheck.FrameShiftDrive.Cooldown(MethodName, false) == false)
                     {
                         IEquipment.FrameShiftDrive.CoolingDown(CommandAudio);
 
@@ -2173,8 +2170,8 @@ namespace ALICE_Actions
                     }
 
                     //Prepairing Check
-                    if (IEquipment.FrameShiftDrive.PreparingState(true, MethodName) == false || 
-                        IEquipment.FrameShiftDrive.PreparingSupercruise(true, MethodName) == false)
+                    if (ICheck.FrameShiftDrive.Prepairing(MethodName, true) == false ||
+                        ICheck.FrameShiftDrive.PrepSupercruise(MethodName, true) == false)
                     {
                         //Jump Was Aborted While We Waited, Exit Method.
                         Logger.Log(MethodName, "We Stopped FSD Preparations Cause The Supercruise Was Cancelled", Logger.Yellow, true);
@@ -2328,23 +2325,23 @@ namespace ALICE_Actions
             }
 
             //Docked Check
-            if (Check.Docking.Status(IEnums.DockingState.Docked, false, MethodName) == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked) == false)
             {
                 IEquipment.FrameShiftDrive.NoDocked(CommandAudio);
                 return;
             }
 
             //Check Charging State && Prepare For Charging
-            if (IEquipment.FrameShiftDrive.ChargingState(false, MethodName) == false)
+            if (ICheck.FrameShiftDrive.Charging(MethodName, false) == false)
             {
                 //Check Supercruise Charge
-                if (IEquipment.FrameShiftDrive.SupercruiseCharge(false, MethodName) == false)
+                if (ICheck.FrameShiftDrive.Supercruise(MethodName, false) == false)
                 {
                     Call.Key.Press(Call.Key.Supercruise, 100);
                     IEquipment.FrameShiftDrive.Supercruise = false;
 
                     //Wait For Charing To End
-                    while (IEquipment.FrameShiftDrive.ChargingState(false, MethodName) == false)
+                    while (ICheck.FrameShiftDrive.Charging(MethodName, false, false) == false)
                     { Thread.Sleep(50); }
                 }
             }
@@ -2356,10 +2353,10 @@ namespace ALICE_Actions
             }
 
             //Check Preparing State
-            if (IEquipment.FrameShiftDrive.PreparingState(false, MethodName) == false)
+            if (ICheck.FrameShiftDrive.Prepairing(MethodName, false) == false)
             {
                 //Check Hyperspace Preps
-                if (IEquipment.FrameShiftDrive.PreparingHyperspace(false, MethodName) == false)
+                if (ICheck.FrameShiftDrive.PrepHyperspace(MethodName, false) == false)
                 {
                     //Add Audio
                     return;
@@ -2412,8 +2409,8 @@ namespace ALICE_Actions
                 IEquipment.FrameShiftDrive.Prepairing = true;
                 IEquipment.FrameShiftDrive.PrepHyperspace = true;
 
-                //Supercruse Charge Check
-                if (IEquipment.FrameShiftDrive.HyperspaceCharge(false, MethodName) == false)
+                //Hyperspace Charge Check
+                if (ICheck.FrameShiftDrive.Hyperspace(MethodName, false) == false)
                 {
                     IEquipment.FrameShiftDrive.HS_CurrentlyCharging(CommandAudio);
                     return;
@@ -2468,7 +2465,7 @@ namespace ALICE_Actions
                 }
 
                 //Cooldown Check
-                if (IEquipment.FrameShiftDrive.CooldownState(false, MethodName) == false)
+                if (ICheck.FrameShiftDrive.Cooldown(MethodName, false) == false)
                 {
                     IEquipment.FrameShiftDrive.CoolingDown(CommandAudio);
 
@@ -2480,8 +2477,8 @@ namespace ALICE_Actions
                 }
 
                 //Prepairing Check
-                if (IEquipment.FrameShiftDrive.PreparingState(true, MethodName) == false ||
-                    IEquipment.FrameShiftDrive.PreparingHyperspace(true, MethodName) == false)
+                if (ICheck.FrameShiftDrive.Prepairing(MethodName, true) == false ||
+                    ICheck.FrameShiftDrive.PrepHyperspace(MethodName, true) == false)                  
                 {
                     //Jump Was Aborted While We Waited, Exit Method.
                     Logger.Log(MethodName, "We Stopped FSD Preparations Cause The Hyperspace Was Cancelled", Logger.Yellow, true);
@@ -2534,7 +2531,7 @@ namespace ALICE_Actions
             }
 
             //Check Charging State
-            if (IEquipment.FrameShiftDrive.ChargingState(true, MethodName) == true)
+            if (ICheck.FrameShiftDrive.Charging(MethodName, false) == true)
             {
                 //Abort Sucessful
                 if (IEquipment.FrameShiftDrive.Abort() == true)
@@ -2671,7 +2668,7 @@ namespace ALICE_Actions
             }
 
             //If Not Undocked...
-            if (Check.Docking.Status(IEnums.DockingState.Docked, false, MethodName) == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -3217,7 +3214,7 @@ namespace ALICE_Actions
                 Speech.Speak
                     (
                     "".Phrase(GN_Docking_Preparations.Modifier, true)
-                    .Phrase(EQ_Shields.Offline, false, !IStatus.Shields, false)
+                    .Phrase(EQ_Shields.Offline, false, ICheck.Shields.Status(MethodName, false), false)
                     .Phrase(GN_Docking_Preparations.Default),
                     CommandAudio
                     );
@@ -3651,7 +3648,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Launch";
 
-            if (Check.Docking.Status(IEnums.DockingState.Docked, true, MethodName) == true)
+            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked) == true)
             {
                 //Checks & Returns to HUD / Logs & Exits on Failure.
                 if (Call.Panel.HudFocus(250) == false)
@@ -3670,7 +3667,7 @@ namespace ALICE_Actions
                 Call.Key.Press(Call.Key.UI_Panel_Select, 250);
 
                 //Wait For Launch (30 seconds)
-                decimal Count = 300; while (Check.Docking.Status(IEnums.DockingState.Undocked, true, MethodName) == false && Count > 0)
+                decimal Count = 300; while (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Undocked) == false && Count > 0)
                 {
                     Count--; if (Count == 0)
                     {

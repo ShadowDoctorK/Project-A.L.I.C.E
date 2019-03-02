@@ -157,8 +157,7 @@ namespace ALICE_Core
         public static bool InWing = false;
         public static bool Hardpoints = false;
         public static bool FlightAssist = false;
-        public static bool Supercruise = false;
-        public static bool Shields = false;
+        public static bool Supercruise = false;        
         public static bool Touchdown = false;
 
         //StartJump Event

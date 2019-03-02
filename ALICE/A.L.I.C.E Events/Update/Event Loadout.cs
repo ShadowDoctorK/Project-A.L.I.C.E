@@ -11,6 +11,7 @@ using ALICE_Settings;
 using ALICE.Properties;
 using ALICE_Equipment;
 using ALICE_Debug;
+using ALICE_Data;
 
 namespace ALICE_Events
 {
@@ -161,7 +162,7 @@ namespace ALICE_Events
                 var Event = (Loadout)O;
 
                 //Clear Current Module Data
-                Data.ShipModules.Clear();
+                IData.ShipModules.Clear();
 
                 //Load Mothership Data
                 switch (IVehicles.Vehicle)

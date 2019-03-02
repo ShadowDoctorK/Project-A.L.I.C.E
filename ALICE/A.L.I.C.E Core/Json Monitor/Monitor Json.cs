@@ -356,14 +356,10 @@ namespace ALICE_Monitors
                     IStatus.HasLatLong = true;
                     Value.Flags = Value.Flags - 2097152;
                     Process.Position(Value.Latitude, Value.Longitude, Value.Altitude, Value.Heading);
-
-                    Call.Report.GPSLocation.Status(false);
                 }
                 else
                 {
                     IStatus.HasLatLong = false;
-
-                    Call.Report.GPSLocation.Status(false);
                 }
                 #endregion
 
@@ -396,14 +392,10 @@ namespace ALICE_Monitors
                 {
                     Value.Flags = Value.Flags - 262144;
                     IEquipment.FrameShiftDrive.Cooldown = true;
-
-                    Call.Report.FSDCooldown.Status(true);
                 }
                 else
                 {
                     IEquipment.FrameShiftDrive.Cooldown = false;
-
-                    Call.Report.FSDCooldown.Status(false);
                 }
                 #endregion
 
@@ -411,16 +403,12 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 131072)
                 {
                     //FSD Charging
-                    Value.Flags = Value.Flags - 131072;
-                    IEquipment.FrameShiftDrive.Charging = true;
-                    Call.Report.FSDCharging.Status(true);
+                    Value.Flags = Value.Flags - 131072;                    
+                    IEquipment.FrameShiftDrive.U_Charging(true);                    
                 }
                 else
                 {
-                    IEquipment.FrameShiftDrive.Charging = false;
-                    IEquipment.FrameShiftDrive.Hyperspace = false;
-                    IEquipment.FrameShiftDrive.Supercruise = false;
-                    Call.Report.FSDCharging.Status(false);
+                    IEquipment.FrameShiftDrive.U_Charging(false);
                 }
                 #endregion
 
@@ -518,14 +506,10 @@ namespace ALICE_Monitors
                     //Silent Running
                     Value.Flags = Value.Flags - 1024;
                     IStatus.SilentRunning = true;
-
-                    Call.Report.SilentRunning.Status(true);
                 }
                 else
                 {
                     IStatus.SilentRunning = false;
-
-                    Call.Report.SilentRunning.Status(false);
                 }
                 #endregion
 
@@ -612,18 +596,15 @@ namespace ALICE_Monitors
                 #region Shields
                 //Shields Online...
                 if (Value.Flags >= 8)
-                {
-                    IStatus.Shields = true;
+                {                   
                     Value.Flags = Value.Flags - 8;
 
-                    Call.Report.Shield.Status(true);
+                    IEquipment.Shields.Update(true);
                 }
                 //Shields Offline...
                 else
                 {
-                    IStatus.Shields = false;
-
-                    Call.Report.Shield.Status(false);
+                    IEquipment.Shields.Update(false);
                 }
                 #endregion
 

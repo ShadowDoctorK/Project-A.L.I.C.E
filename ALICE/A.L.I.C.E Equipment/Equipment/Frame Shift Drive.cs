@@ -1,13 +1,15 @@
 ﻿using System.Threading;
 using ALICE_Actions;
 using ALICE_Core;
+using ALICE_Debug;
+using ALICE_Events;
 using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Synthesizer;
 
 namespace ALICE_Equipment
 {
-    public class Equipment_FrameShiftDrive : Equipment_General
+    public class FrameShiftDrive : Equipment_General
     {
         /* Notes:
          * Validation Checks (Expected States)
@@ -30,10 +32,10 @@ namespace ALICE_Equipment
         public bool PrepHyperspace = false;
         public bool PrepSupercruise = false;
 
-        public Equipment_FrameShiftDrive()
+        public FrameShiftDrive()
         {
             Settings.Equipment = IEquipment.E.Frame_Shift_Drive;
-            Settings.Mode = IEquipment.M.Analysis;
+            Settings.Mode = IEquipment.M.Default;
             Settings.Installed = true;
             Settings.Enabled = true;
 
@@ -43,6 +45,27 @@ namespace ALICE_Equipment
             Cooldown = false;
             Prepairing = false;
             Disengaging = false;
+        }
+
+        public void U_Charging(bool B)
+        {
+            //Only Process If Different
+            if (B == Charging) { return; }
+
+            //Update Charging
+            Charging = B;
+
+            //Reset Charging States
+            if (B == false)
+            {
+                IEquipment.FrameShiftDrive.Hyperspace = false;
+                IEquipment.FrameShiftDrive.Supercruise = false;
+            }
+
+            //Audio - Charging Started:
+            ChargingStart(
+                ICheck.FrameShiftDrive.Charging(MethodName, true),      //Check Charging State
+                ICheck.InitializedStatus(MethodName));                  //Check Status.Json Initialized
         }
 
         #region Controls
@@ -102,58 +125,7 @@ namespace ALICE_Equipment
             Prepairing = false;
             Charging = false;
         }
-        #endregion        
-
-        #region Checks
-        public bool SupercruiseCharge(bool TargetState, string MethodName, bool DisableDebug = false)
-        {
-            bool State = IEquipment.FrameShiftDrive.Supercruise;
-            string Equipment = "Charging Supercruise";
-            return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
-        }
-
-        public bool HyperspaceCharge(bool TargetState, string MethodName, bool DisableDebug = false)
-        {
-            bool State = IEquipment.FrameShiftDrive.Hyperspace;
-            string Equipment = "Charging Hyperspace";
-            return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
-        }
-
-        public bool ChargingState(bool TargetState, string MethodName, bool DisableDebug = false)
-        {
-            bool State = IEquipment.FrameShiftDrive.Charging;
-            string Equipment = "FSD Charge State";
-            return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
-        }
-
-        public bool CooldownState(bool TargetState, string MethodName, bool DisableDebug = false)
-        {
-            bool State = IEquipment.FrameShiftDrive.Cooldown;
-            string Equipment = "FSD Cooldown State";
-            return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
-        }
-
-        public bool PreparingState(bool TargetState, string MethodName, bool DisableDebug = false)
-        {
-            bool State = IEquipment.FrameShiftDrive.Prepairing;
-            string Equipment = "FSD Preparation State";
-            return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
-        }
-
-        public bool PreparingHyperspace(bool TargetState, string MethodName, bool DisableDebug = false)
-        {
-            bool State = IEquipment.FrameShiftDrive.PrepHyperspace;
-            string Equipment = "FSD Hyperspace Preps";
-            return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
-        }
-
-        public bool PreparingSupercruise(bool TargetState, string MethodName, bool DisableDebug = false)
-        {
-            bool State = IEquipment.FrameShiftDrive.PrepSupercruise;
-            string Equipment = "FSD Supercruise Preps";
-            return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
-        }
-        #endregion
+        #endregion            
 
         #region Audio
         public void AbortSuccessful(bool CommandAudio, bool Var1 = true, bool Var2 = true,

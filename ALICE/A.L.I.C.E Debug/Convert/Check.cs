@@ -12,7 +12,6 @@ namespace ALICE_Internal
     {
         public static Environments Environment = new Environments();
         public static Equipments Equipment = new Equipments();
-        public static Dockings Docking = new Dockings();
         public static Panels Panel = new Panels();
         public static Variables Variable = new Variables();
         public static GameState State = new GameState();
@@ -559,61 +558,7 @@ namespace ALICE_Internal
 
                 return Answer;
             }
-        }
-
-        public class Dockings
-        {
-            public bool Status(IEnums.DockingState TargetStatus, bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool Answer = true;
-                IEnums.DockingState Status = IStatus.Docking.State;
-                string Not = ""; if (TargetState == false) { Not = "Not "; }
-                string DebugText = "Docking Status Check Passed, Equals Expected State (" + Not + TargetStatus + ")";
-                string Color = Logger.Blue;
-
-                if (TargetState == true && Status != TargetStatus)
-                {
-                    Answer = false;
-                    DebugText = "Docking Status Check Failed, Not Equal Checked State (" + TargetStatus + ")";
-                    Color = Logger.Yellow;
-                }
-                else if (TargetState == false && Status == TargetStatus)
-                {
-                    Answer = false;
-                    DebugText = "Docking Status Check Failed, Equals Checked State (" + TargetStatus + ")";
-                    Color = Logger.Yellow;
-                }
-
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, DebugText, Color); }
-
-                return Answer;
-            }
-
-            public bool DeniedReason(IEnums.DockingDenial TargetReason, bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool Answer = true;
-                IEnums.DockingDenial Reason = IStatus.Docking.Denial;
-                string DebugText = "Reason Check Passed (" + TargetReason + ")";
-                string Color = Logger.Blue;
-
-                if (TargetState == true && Reason != TargetReason)
-                {
-                    Answer = false;
-                    DebugText = "Reason Does Not Equal " + TargetReason;
-                    Color = Logger.Yellow;
-                }
-                else if (TargetState == false && Reason == TargetReason)
-                {
-                    Answer = false;
-                    DebugText = "Reason Equals " + TargetReason;
-                    Color = Logger.Yellow;
-                }
-
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, DebugText, Color); }
-
-                return Answer;
-            }
-        }
+        }   
 
         public class GameState : Base
         {
@@ -749,13 +694,6 @@ namespace ALICE_Internal
                 return Value;
             }
             #endregion
-
-            public bool Shields(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IStatus.Shields;
-                string Variable = "Shields";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
-            }
 
             #region Silent Running
             public bool SilentRunning(bool TargetState, string MethodName, bool DisableDebug = false)

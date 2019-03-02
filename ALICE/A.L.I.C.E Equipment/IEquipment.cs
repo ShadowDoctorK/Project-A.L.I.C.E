@@ -147,8 +147,8 @@ namespace ALICE_Equipment
             set => _FighterHanger = value;
         }
 
-        private static Equipment_FrameShiftDrive _FrameShiftDrive = new Equipment_FrameShiftDrive();
-        public static Equipment_FrameShiftDrive FrameShiftDrive
+        private static FrameShiftDrive _FrameShiftDrive = new FrameShiftDrive();
+        public static FrameShiftDrive FrameShiftDrive
         {
             get => _FrameShiftDrive;
             set => _FrameShiftDrive = value;
@@ -230,11 +230,18 @@ namespace ALICE_Equipment
             get => _LimpetResearch;
             set => _LimpetResearch = value;
         }
+
         private static Equipment_PulseWaveScanner _PulseWaveScanner = new Equipment_PulseWaveScanner();
         public static Equipment_PulseWaveScanner PulseWaveScanner
         {
             get => _PulseWaveScanner;
             set => _PulseWaveScanner = value;
+        }
+
+        private static Shields _Shields = new Shields();
+        public static Shields Shields
+        {
+            get => _Shields; set => _Shields = value;
         }
 
         private static Equipment_ShieldCellBank _ShieldCellBank = new Equipment_ShieldCellBank();
@@ -318,7 +325,7 @@ namespace ALICE_Equipment
 
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.AX_Missile_Rack:
@@ -335,8 +342,8 @@ namespace ALICE_Equipment
                         default:
                             break;
                     }
-                    
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.AX_Multi_Cannon:
@@ -354,7 +361,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Beam_Laser:
@@ -372,7 +379,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Bi_Weave_Shield_Generator:
@@ -390,7 +397,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Burst_Laser:
@@ -408,7 +415,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Business_Class_Passenger_Cabin:
@@ -426,7 +433,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Cannon:
@@ -444,7 +451,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Cargo_Rack:
@@ -462,7 +469,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Cargo_Scanner:
@@ -480,7 +487,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Chaff_Launcher:
@@ -498,13 +505,13 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Collector_Limpet_Controller:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Corrosion_Resistant_Cargo_Rack:
@@ -522,20 +529,20 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Decontamination_Limpet_Controller:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 //Customized
                 case E.Detailed_Surface_Scanner:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Economy_Class_Passenger_Cabin:
@@ -553,14 +560,14 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 //Customized
                 case E.Electronic_Countermeasure:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Enhanced_Performance_Thrusters:
@@ -578,7 +585,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 //Customized
@@ -602,7 +609,7 @@ namespace ALICE_Equipment
                         Temp.Capacity = 15;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.First_Class_Passenger_Cabin:
@@ -620,7 +627,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Fragment_Cannon:
@@ -638,26 +645,26 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Frame_Shift_Drive:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 //Customized
                 case E.Frame_Shift_Drive_Interdictor:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Frame_Shift_Wake_Scanner:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Fuel_Scoop:
@@ -675,7 +682,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 //Customized
@@ -687,19 +694,19 @@ namespace ALICE_Equipment
                     Temp.Installed = true;
                     Temp.Capacity = Temp.Capacity + Convert.ToDecimal(Mod.Capacity);
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Fuel_Transfer_Limpet_Controller:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Hatch_Breaker_Limpet_Controller:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Heat_Sink_Launcher:
@@ -717,7 +724,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Hull_Reinforcement_Package:
@@ -735,7 +742,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Kill_Warrant_Scanner:
@@ -753,7 +760,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Life_Support:
@@ -771,7 +778,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Lightweight_Alloy:
@@ -789,7 +796,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Luxury_Passenger_Cabin:
@@ -807,7 +814,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Military_Grade_Composite:
@@ -825,7 +832,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Mine_Launcher:
@@ -843,7 +850,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Mining_Laser:
@@ -861,7 +868,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Mirrored_Surface_Composite:
@@ -879,7 +886,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Missile_Rack:
@@ -897,7 +904,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Module_Reinforcement_Package:
@@ -915,7 +922,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Multi_Cannon:
@@ -933,7 +940,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Planetary_Approach_Suite:
@@ -951,7 +958,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Planetary_Vehicle_Hangar:
@@ -969,7 +976,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Plasma_Accelerator:
@@ -987,7 +994,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Point_Defence:
@@ -1005,7 +1012,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Power_Distributor:
@@ -1023,7 +1030,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Power_Plant:
@@ -1041,13 +1048,13 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Prospector_Limpet_Controller:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Pulse_Laser:
@@ -1065,7 +1072,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Rail_Gun:
@@ -1083,7 +1090,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Reactive_Surface_Composite:
@@ -1101,13 +1108,13 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Recon_Limpet_Controller:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Refinery:
@@ -1125,7 +1132,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Reinforced_Alloy:
@@ -1143,7 +1150,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Remote_Release_Flak_Launcher:
@@ -1161,19 +1168,19 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Repair_Limpet_Controller:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Research_Limpet_Controller:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Sensors:
@@ -1191,7 +1198,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Shield_Booster:
@@ -1209,31 +1216,22 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
+                //Customized
                 case E.Shield_Cell_Bank:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
+                //Customized
                 case E.Shield_Generator:
 
-                    switch (IVehicles.Vehicle)
-                    {
-                        case IVehicles.V.Mothership:
-                            IObjects.Mothership.E.Shield_Generator = true;
-                            break;
-                        case IVehicles.V.Fighter:
-                            break;
-                        case IVehicles.V.SRV:
-                            break;
-                        default:
-                            break;
-                    }
-
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    Temp.Equipment = Equip;
+                    Temp.Installed = true;
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Shock_Mine_Launcher:
@@ -1251,20 +1249,21 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 //Customized
                 case E.Shutdown_Field_Neutraliser:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
+                //Customized
                 case E.Standard_Docking_Computer:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Thrusters:
@@ -1282,7 +1281,7 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 case E.Torpedo_Pylon:
@@ -1300,14 +1299,14 @@ namespace ALICE_Equipment
                             break;
                     }
 
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 //Customized
                 case E.Xeno_Scanner:
                     Temp.Equipment = Equip;
                     Temp.Installed = true;
-                    Data.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
+                    IData.ShipModules.Add("A.L.I.C.E: " + GetModuleName(Mod));
                     break;
 
                 default:

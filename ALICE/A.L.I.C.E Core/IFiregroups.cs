@@ -89,7 +89,7 @@ namespace ALICE_Core
 
             #region Valid Command Checks
             //Docked Check
-            if (Check.Docking.Status(IEnums.DockingState.Docked, true, MethodName) == true)
+            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked) == true)
             {
                 return;
             }

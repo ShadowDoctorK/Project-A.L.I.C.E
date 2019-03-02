@@ -29,6 +29,14 @@ namespace ALICE_Debug
             get => _Reports; set => _Reports = value;
         }
 
+        #region Status
+        private static Docking _Docking = new Docking();
+        public static Docking Docking
+        {
+            get => _Docking; set => _Docking = value;
+        }
+        #endregion
+
         #region Events
         private static Assault _Assault = new Assault();
         public static Assault Assault
@@ -93,10 +101,22 @@ namespace ALICE_Debug
         #endregion
 
         #region Equipment
+        private static FrameShiftDrive _FrameShiftDrive = new FrameShiftDrive();
+        public static FrameShiftDrive FrameShiftDrive
+        {
+            get => _FrameShiftDrive; set => _FrameShiftDrive = value;
+        }
+
         private static LandingGear _LandingGear = new LandingGear();
         public static LandingGear LandingGear
         {
             get => _LandingGear; set => _LandingGear = value;
+        }
+
+        private static Shields _Shields = new Shields();
+        public static Shields Shields
+        {
+            get => _Shields; set => _Shields = value;
         }
         #endregion
 

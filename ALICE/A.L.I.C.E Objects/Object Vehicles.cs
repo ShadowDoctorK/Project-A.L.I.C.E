@@ -652,7 +652,7 @@ namespace ALICE_Objects
             public bool Remote_Release_Flak_Launcher = false;
             public bool Sensors = false;
             public bool Shield_Booster = false;
-            public bool Shield_Generator = false;
+            //public bool Shield_Generator = false;
             public bool Shock_Mine_Launcher = false;
             public bool Thrusters = false;
             public bool Torpedo_Pylon = false;

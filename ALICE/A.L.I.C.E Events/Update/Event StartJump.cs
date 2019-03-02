@@ -74,13 +74,13 @@ namespace ALICE_Events
 
                 //Audio - Supercruise
                 IEquipment.FrameShiftDrive.SC_Entering(
-                    ICheck.Initialized(ClassName),                                  //Check Plugin Initialized
-                    IEquipment.FrameShiftDrive.SupercruiseCharge(true, ClassName)); //Check Supercruise Charge State
+                    ICheck.Initialized(ClassName),                          //Check Plugin Initialized
+                    ICheck.FrameShiftDrive.Supercruise(ClassName, true));   //Check Supercruise Charge State
 
                 //Audio - Hyperspace
                 IEquipment.FrameShiftDrive.HS_Entering(
-                    ICheck.Initialized(ClassName),                                  //Check Plugin Initialized
-                    IEquipment.FrameShiftDrive.HyperspaceCharge(true, ClassName));  //Chekc Hyperspace Charge State
+                    ICheck.Initialized(ClassName),                          //Check Plugin Initialized
+                    ICheck.FrameShiftDrive.Hyperspace(ClassName, true));    //Chekc Hyperspace Charge State
 
             }
             catch (Exception ex)

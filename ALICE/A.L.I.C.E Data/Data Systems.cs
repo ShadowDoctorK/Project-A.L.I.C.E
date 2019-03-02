@@ -22,11 +22,10 @@ namespace ALICE_Data
 
             Dictionary<decimal, Object_System> Temp = new Dictionary<decimal, Object_System>();
 
-            string P = Paths.ALICE_SystemData;
-            string F = "*.System";
+            string P = Paths.ALICE_SystemData;      //Systems Folder
+            string F = "*.System";                  //Systems Extension
 
-            foreach (FileInfo SystemFile in new DirectoryInfo(Paths.ALICE_SystemData)
-                .EnumerateFiles(F, SearchOption.TopDirectoryOnly))
+            foreach (FileInfo SystemFile in new DirectoryInfo(P).EnumerateFiles(F, SearchOption.TopDirectoryOnly))
             {
                 try
                 {

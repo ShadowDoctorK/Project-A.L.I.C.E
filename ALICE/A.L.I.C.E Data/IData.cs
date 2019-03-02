@@ -8,6 +8,19 @@ namespace ALICE_Data
 {
     public static class IData
     {
+        private static List<string> _ShipModules = new List<string>();
+        public static List<string> ShipModules
+        {
+            get => _ShipModules;
+            set => _ShipModules = value;
+        }
+
+        private static Data_Codex _Codex = new Data_Codex();
+        public static Data_Codex Codex
+        {
+            get => _Codex;
+        }
+
         private static Data_Commodies _Commodies = new Data_Commodies();
         public static Data_Commodies Commodie
         {

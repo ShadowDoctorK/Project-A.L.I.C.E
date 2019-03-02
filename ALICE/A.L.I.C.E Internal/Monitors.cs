@@ -17,7 +17,6 @@ namespace ALICE_Internal
         public static Jsons Json = new Jsons();
         public static Internals Internal = new Internals();
         public static Panels Panel = new Panels();
-        public static Reports Report = new Reports();
         public static Firegroups Firegroup = new Firegroups();
 
         private static DirectoryInfo DirSettings = new DirectoryInfo(Paths.ALICE_Settings);
@@ -316,9 +315,9 @@ namespace ALICE_Internal
                         Supercruise = IStatus.Supercruise;
                         Updates.Add("(" + MethodName + ") Supercruise = " + Supercruise);
                     }
-                    if (Shields != IStatus.Shields)
+                    if (Shields != IEquipment.Shields.Status)
                     {
-                        Shields = IStatus.Shields;
+                        Shields = IEquipment.Shields.Status;
                         Updates.Add("(" + MethodName + ") Shields = " + Shields);
                     }
                     if (LandingGear != IStatus.LandingGear)

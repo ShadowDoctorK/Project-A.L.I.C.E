@@ -1,4 +1,5 @@
 ﻿using ALICE_Core;
+using ALICE_Data;
 using ALICE_Debug;
 using ALICE_Events;
 using ALICE_Interface;
@@ -61,9 +62,9 @@ namespace ALICE_Objects
             EDRegion = Event.Region;
             EDSubCategory = Event.SubCategory;
 
-            if (Data.CodexEntries.ContainsKey(this.CodexID) == false)
+            if (IData.Codex.Entries.ContainsKey(this.CodexID) == false)
             {
-                Data.CodexEntries.Add(this.CodexID, this);
+                IData.Codex.Entries.Add(this.CodexID, this);
             }
 
             Check_EntryType(this.EDName);
