@@ -54,8 +54,8 @@ namespace ALICE_Events
         {
             I = new ShipyardArrived()
             {
-                EndLocation = ICheck.Docked.System(ClassName),
-                EndStation = ICheck.Docked.Station(ClassName),
+                EndLocation = ICheck.Docked.System(ClassName, true),
+                EndStation = ICheck.Docked.Station(ClassName, true),
                 StartLocation = Event.System,
                 Time = Event.TransferTime,
                 ThreeMinOut = true
@@ -100,14 +100,14 @@ namespace ALICE_Events
             {
                 //Audio - Three Min Arrival Warning
                 IStatus.Shipyard.Response.ThreeMinWarning(
-                    ICheck.Initialized(ClassName),                          //Check Plugin Initialized
-                    ICheck.ShipyardArrived.ThreeMinOut(ClassName, true),    //Check Three Min Warning
-                    ICheck.ShipyardArrived.Time(ClassName, false, 0));      //Check Time Is Not Zero                    
+                    ICheck.Initialized(ClassName),                              //Check Plugin Initialized
+                    ICheck.ShipyardArrived.ThreeMinOut(ClassName, true, true),  //Check Three Min Warning
+                    ICheck.ShipyardArrived.Time(ClassName, false, 0, true));    //Check Time Is Not Zero                    
 
                 //Audio - Arrived
                 IStatus.Shipyard.Response.Arrived(                    
-                    ICheck.Initialized(ClassName),                          //Check Plugin Initialized
-                    ICheck.ShipyardArrived.Time(ClassName, true, 0));       //Check Time Is Zero  
+                    ICheck.Initialized(ClassName),                              //Check Plugin Initialized
+                    ICheck.ShipyardArrived.Time(ClassName, true, 0, true));     //Check Time Is Zero  
             }
             catch (Exception ex)
             {

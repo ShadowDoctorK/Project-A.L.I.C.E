@@ -206,7 +206,7 @@ namespace ALICE_Internal
             BlockLandingPad,                  //Alice Event - CommitCrime / Receive Text
 
             //Custom CommitCrime Events              
-            Assault,                           //Alice Event
+            Assault,                          //Alice Event
             DisobeyPolice,                    //Alice Event
             DockingTrespass,                  //Alice Event
             DumpingDangerous,                 //Alice Event
@@ -225,7 +225,11 @@ namespace ALICE_Internal
             NoFireZone,                       //Alice Event
 
             //Custom Status.Json Events
-            Masslock                          //Alice Event
+            FuelLow,                          //Alice Event
+            FuelCritical,                     //Alice Event
+            FuelHalfThreshold,                //Alice Event
+            Masslock,                         //Alice Event
+
         }
 
         public enum CMD

@@ -189,7 +189,7 @@ namespace ALICE_Debug
         /// <param name="Er">(Error) The Error Text Provided Upon Fallback</param>
         /// <param name="L">(Log) Enable / Disable The Logging Function</param>
         /// <returns></returns>
-        public string Retreive(string M, IPlatform.IVar V, string D, string Er, bool L = true)
+        public string Retreive(string M, IPlatform.IVar V, string D, string Er, bool L)
         {
             string S = D;
             bool Error = false;
@@ -228,7 +228,7 @@ namespace ALICE_Debug
         /// <param name="Max">(Maximum) The Max Allowed Value</param>
         /// <param name="L">(Log) Enable / Disable The Logging Function</param>
         /// <returns></returns>
-        public decimal Retreive(string M, IPlatform.IVar V, decimal D, string Er, decimal Min = 0, decimal Max = 1000000000, bool L = true)
+        public decimal Retreive(string M, IPlatform.IVar V, decimal D, string Er, bool L, decimal Min = 0, decimal Max = 1000000000)
         {
             decimal S = D;
             bool Error = false;
@@ -282,7 +282,7 @@ namespace ALICE_Debug
         /// <param name="Er">(Error) The Error Text Provided Upon Fallback</param>
         /// <param name="L">(Log) Enable / Disable The Logging Function</param>
         /// <returns></returns>
-        public bool Retreive(string M, IPlatform.IVar V, string Er, bool L = true)
+        public bool Retreive(string M, IPlatform.IVar V, string Er, bool L)
         {
             bool S = false;
             bool Error = false;
@@ -328,7 +328,7 @@ namespace ALICE_Debug
         /// <param name="P">(Property) Property Being Checked</param>
         /// <param name="L">(Log) Enables / Disables Debug Logging Fucntion</param>
         /// <returns></returns>
-        public bool Evaluate(string M, string N, bool C, bool P, bool L = true)
+        public bool Evaluate(string M, string N, bool C, bool P, bool L)
         {
             //Check
             if (C != P)
@@ -353,7 +353,7 @@ namespace ALICE_Debug
         /// <param name="P">(Property) Property Being Checked</param>
         /// <param name="L">(Log) Enables / Disables Debug Logging Fucntion</param>
         /// <returns></returns>
-        public bool Evaluate(string M, string N, bool T, string C, string P, bool L = true)
+        public bool Evaluate(string M, string N, bool T, string C, string P, bool L)
         {
             //Set Prefix For Check Value
             string S = ""; if (T == false) { S = "Not "; }
@@ -389,7 +389,7 @@ namespace ALICE_Debug
         /// <param name="P">(Property) Property Being Checked</param>
         /// <param name="L">(Log) Enables / Disables Debug Logging Fucntion</param>
         /// <returns></returns>
-        public bool Evaluate(string M, string N, bool T, decimal C, decimal P, bool L = true)
+        public bool Evaluate(string M, string N, bool T, decimal C, decimal P, bool L)
         {
             //Set Prefix For Check Value
             string S = ""; if (T == false) { S = "Not "; }
@@ -422,7 +422,7 @@ namespace ALICE_Debug
         /// <param name="N">(Name) Simple Property Name</param>
         /// <param name="P">(Property) The Property Being Returned</param>
         /// <returns>The Property Value</returns>
-        public string Get(string M, string N, string P, bool L = true)
+        public string Get(string M, string N, string P, bool L)
         {
             if (L) { Logger.DebugLine(M, "[Value]: " + N + " Equals - " + P, Logger.Blue); }
             return P;
@@ -435,7 +435,7 @@ namespace ALICE_Debug
         /// <param name="N">(Name) Simple Property Name</param>
         /// <param name="P">(Property) The Property Being Returned</param>
         /// <returns>The Property Value</returns>
-        public decimal Get(string M, string N, decimal P, bool L = true)
+        public decimal Get(string M, string N, decimal P, bool L)
         {
             if (L) { Logger.DebugLine(M, "[Value]: " + N + " Equals - " + P, Logger.Blue); }
             return P;
@@ -448,7 +448,7 @@ namespace ALICE_Debug
         /// <param name="N">(Name) Simple Property Name</param>
         /// <param name="P">(Property) The Property Being Returned</param>
         /// <returns>The Property Value</returns>
-        public bool Get(string M, string N, bool P, bool L = true)
+        public bool Get(string M, string N, bool P, bool L)
         {
             if (L) { Logger.DebugLine(M, "[Value]: " + N + " Equals - " + P, Logger.Blue); }
             return P;

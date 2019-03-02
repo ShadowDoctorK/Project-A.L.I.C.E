@@ -350,14 +350,14 @@ namespace ALICE_Objects
                         //Audio - Hostile Faction Report
                         //Note: Using "Contains" Allows For WantedEnemy Targets To Trigger Both Wanted & Hostile Faction Reports.
                         HostileFaction(true, 
-                            ICheck.Report.TargetEnemy(MethodName, true), 
+                            ICheck.Report.TargetEnemy(MethodName, true, true), 
                             (Event.LegalStatus.Contains("Enemy")),
                             ICheck.Initialized(MethodName));
 
                         //Audio - Wanted Report                  
                         //Note: Using "Contains" Allows For WantedEnemy Targets To Trigger Both Wanted & Hostile Faction Reports.
                         Wanted(true, 
-                            ICheck.Report.TargetWanted(MethodName, true), 
+                            ICheck.Report.TargetWanted(MethodName, true, true), 
                             (Event.LegalStatus.Contains("Wanted")),
                             ICheck.Initialized(MethodName));
                     }
@@ -385,7 +385,7 @@ namespace ALICE_Objects
 
                         //Audio - Initial Bounty Report
                         BountyReport(true, 
-                            ICheck.Report.TargetWanted(MethodName, true), 
+                            ICheck.Report.TargetWanted(MethodName, true, true), 
                             (Event.LegalStatus.Contains("Wanted")),
                             ICheck.Initialized(MethodName));
                     }
@@ -401,7 +401,7 @@ namespace ALICE_Objects
 
                         //Audio - Updated Bounty Report
                         BountyUpdate(true, 
-                            ICheck.Report.TargetWanted(MethodName, true), 
+                            ICheck.Report.TargetWanted(MethodName, true, true), 
                             (Event.LegalStatus.Contains("Wanted")),
                             ICheck.Initialized(MethodName));
                     }

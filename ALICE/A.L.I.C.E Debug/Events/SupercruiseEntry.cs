@@ -7,10 +7,10 @@ namespace ALICE_DebugItems
     {
         private static ALICE_Events.SupercruiseEntry E { get => IEvents.SupercruiseEntry.I; }
 
-        public bool StarSystem(string M, bool T, string C, bool L = true)
+        public bool StarSystem(string M, bool T, string C, bool L)
         { return Evaluate(M, "StarSystem", T, C, E.StarSystem, L); }
 
-        public bool SystemAddress(string M, bool T, decimal C, bool L = true)
+        public bool SystemAddress(string M, bool T, decimal C, bool L)
         { return Evaluate(M, "SystemAddress", T, C, E.SystemAddress, L); }
     }
 }

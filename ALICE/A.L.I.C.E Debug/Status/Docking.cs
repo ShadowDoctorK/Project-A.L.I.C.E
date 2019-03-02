@@ -14,7 +14,7 @@ namespace ALICE_DebugItems
         /// <param name="C">(Check) The State You're Checking</param>
         /// <param name="L">(Logging) Enable / Disbale Logging</param>
         /// <returns></returns>
-        public bool Status(string M, bool T, IEnums.DockingState C, bool L = true)
+        public bool Status(string M, bool T, IEnums.DockingState C, bool L)
         {
             //Set Prefix For Check Value
             string S = ""; if (T == false) { S = "Not "; }
@@ -50,7 +50,7 @@ namespace ALICE_DebugItems
         /// <param name="C">(Check) The State You're Checking</param>
         /// <param name="L">(Logging) Enable / Disbale Logging</param>
         /// <returns></returns>
-        public bool DeniedReason(string M, bool T, IEnums.DockingDenial C, bool L = true)
+        public bool DeniedReason(string M, bool T, IEnums.DockingDenial C, bool L)
         {
             //Set Prefix For Check Value
             string S = ""; if (T == false) { S = "Not "; }

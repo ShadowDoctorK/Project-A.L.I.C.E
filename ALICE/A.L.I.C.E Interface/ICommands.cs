@@ -904,7 +904,7 @@ namespace ALICE_Interface
             #region Combat Power Management
             else if (Command.Check("Combat Power Management:"))
             {
-                if (ICheck.Order.CombatPower(MethodName, true))
+                if (ICheck.Order.CombatPower(MethodName, true, true))
                 {
                     if (PlugIn.DebugMode == true)
                     { IPlatform.WriteToInterface("A.L.I.C.E: Context Mode - Combat Power Management Enabled", "Green"); }
@@ -996,10 +996,10 @@ namespace ALICE_Interface
                     new Thread((ThreadStart)(() =>
                     {
                         Call.Power.Set(
-                            ICheck.Platform.WeaponPower(MethodName),
-                            ICheck.Platform.EnginePower(MethodName),
-                            ICheck.Platform.SystemPower(MethodName),
-                            ICheck.Platform.RecordPower(MethodName));
+                            ICheck.Platform.WeaponPower(MethodName, true),
+                            ICheck.Platform.EnginePower(MethodName, true),
+                            ICheck.Platform.SystemPower(MethodName, true),
+                            ICheck.Platform.RecordPower(MethodName, true));
                     }))
                     { IsBackground = true };
                     power.Start();

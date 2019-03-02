@@ -13,7 +13,7 @@ namespace ALICE_DebugItems
         /// <param name="T">(Target) The Expected State</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
-        public bool CommandExist(string M, string C, bool T = true, bool L = true)
+        public bool CommandExist(string M, string C, bool L, bool T = true)
         {
             return Evaluate(M, "Command Exist", T, IPlatform.CommandExists(C), L);
         }
@@ -23,10 +23,10 @@ namespace ALICE_DebugItems
         /// </summary>
         /// <param name="M">(Method) The Calling Method.</param>
         /// <returns></returns>
-        public decimal EnginePower(string M)
+        public decimal EnginePower(string M, bool L)
         {
             return Retreive(M, ALICE_Interface.IPlatform.IVar.EnginePower, 0,
-                "Was Not Set To A Valid Option. (0 - 8)", 0, 8);
+                "Was Not Set To A Valid Option. (0 - 8)", L, 0, 8);
         }
 
         /// <summary>
@@ -34,10 +34,10 @@ namespace ALICE_DebugItems
         /// </summary>
         /// <param name="M">(Method) The Calling Method.</param>
         /// <returns></returns>
-        public decimal SystemPower(string M)
+        public decimal SystemPower(string M, bool L)
         {
             return Retreive(M, ALICE_Interface.IPlatform.IVar.SystemPower, 0,
-                "Was Not Set To A Valid Option. (0 - 8)", 0, 8);
+                "Was Not Set To A Valid Option. (0 - 8)", L , 0, 8);
         }
 
         /// <summary>
@@ -45,10 +45,10 @@ namespace ALICE_DebugItems
         /// </summary>
         /// <param name="M">(Method) The Calling Method.</param>
         /// <returns></returns>
-        public decimal WeaponPower(string M)
+        public decimal WeaponPower(string M, bool L)
         {
             return Retreive(M, ALICE_Interface.IPlatform.IVar.WeaponPower, 0,
-                "Was Not Set To A Valid Option. (0 - 8)", 0, 8);
+                "Was Not Set To A Valid Option. (0 - 8)", L, 0, 8);
         }
 
         /// <summary>
@@ -56,10 +56,10 @@ namespace ALICE_DebugItems
         /// </summary>
         /// <param name="M">(Method) The Calling Method.</param>
         /// <returns></returns>
-        public bool RecordPower(string M)
+        public bool RecordPower(string M, bool L)
         {
             return Retreive(M, ALICE_Interface.IPlatform.IVar.RecordPower,
-                "Was Not Set To A Valid Option. (true or false)");
+                "Was Not Set To A Valid Option. (true or false)", L);
         }       
     }
 }

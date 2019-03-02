@@ -22,15 +22,22 @@ namespace ALICE_Equipment
 
         public void Update(bool B)
         {
+            //Only Process Chagnes
             if (B == Status) { return; }
 
             //Update Shield State
             Status = B;
 
+            //Audio - Online
+            Online(
+                ICheck.InitializedStatus(MethodName),               //Check Status.Json Initialized
+                ICheck.Shields.Status(MethodName, true, true));     //Check Shields Online
+
             //Audio - Offline
             Offline(
-                ICheck.InitializedStatus(MethodName)
-                );
+                ICheck.InitializedStatus(MethodName),               //Check Status.Json Initialized
+                ICheck.Shields.Status(MethodName, false, true));    //Check Shields Offline
+                
         }
 
         #region Audio

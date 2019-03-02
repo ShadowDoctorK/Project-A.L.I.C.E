@@ -127,7 +127,7 @@ namespace ALICE_Events
 
                     Thread.Sleep(100);
 
-                    if (ICheck.Order.WeaponSafety(ClassName, true))
+                    if (ICheck.Order.WeaponSafety(ClassName, true, true))
                     {
                         IStatus.WeaponSafety = true;
                         Call.Action.AnalysisMode(true, false);
@@ -161,7 +161,7 @@ namespace ALICE_Events
 
                     Thread.Sleep(100);
 
-                    if (ICheck.Order.WeaponSafety(ClassName, true))
+                    if (ICheck.Order.WeaponSafety(ClassName, true, true))
                     {
                         //Audio - Disabling Weapon Safeties
                         IStatus.Docking.Response.WeaponSafetiesDisabling(

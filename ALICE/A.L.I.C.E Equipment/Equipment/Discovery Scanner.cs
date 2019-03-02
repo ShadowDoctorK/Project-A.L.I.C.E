@@ -32,7 +32,7 @@ namespace ALICE_Equipment
             //Check Plugin Initialized
             if (ICheck.Initialized(MethodName) == false) { return; }
 
-            if (ICheck.Order.AssistSystemScan(MethodName, true))
+            if (ICheck.Order.AssistSystemScan(MethodName, true, true))
             {
                 Thread DisScan = new Thread((ThreadStart)(() => 
                 {

@@ -142,7 +142,7 @@ namespace ALICE_Events
             try
             {
                 //Audio - Block Airlock Warning
-                if (ICheck.BlockAirlock.Violation(ClassName, true, "Warning"))
+                if (ICheck.BlockAirlock.Violation(ClassName, true, "Warning", true))
                 {
                     Speech.Speak(""
                         .Phrase(Crime.Block_Airlock_Warning),
@@ -150,7 +150,7 @@ namespace ALICE_Events
                 }
 
                 //Audio - Block Airlock Minor
-                if (ICheck.BlockAirlock.Violation(ClassName, true, "Minor"))
+                if (ICheck.BlockAirlock.Violation(ClassName, true, "Minor", true))
                 {
                     Speech.Speak
                         (

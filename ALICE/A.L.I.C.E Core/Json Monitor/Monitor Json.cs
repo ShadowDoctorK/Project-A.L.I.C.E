@@ -661,7 +661,7 @@ namespace ALICE_Monitors
                 #region Pip Flag
                 if (Value.Pips.Count != 0)
                 {
-                    Logger.DebugLine(MethodName, "S: " + Value.Pips[0] + " | E: " + Value.Pips[1] + " | W: " + Value.Pips[2], Logger.Blue);                
+                    //Logger.DebugLine(MethodName, "S: " + Value.Pips[0] + " | E: " + Value.Pips[1] + " | W: " + Value.Pips[2], Logger.Blue);                
                     Call.Power.Game.Set(Value.Pips);
                 }
                 #endregion

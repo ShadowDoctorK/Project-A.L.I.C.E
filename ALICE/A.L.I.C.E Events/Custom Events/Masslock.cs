@@ -91,7 +91,7 @@ namespace ALICE_Events
                     Speech.Speak
                         (
                         "".Phrase(EVT_Masslock.Entered),                        
-                        ICheck.Report.Masslock(ClassName, true),                            //Check Report Enabled
+                        ICheck.Report.Masslock(ClassName, true, true),                      //Check Report Enabled
                         ICheck.Initialized(ClassName),                                      //Check Plugin Initialized
                         Check.Environment.Vehicle(IVehicles.V.Mothership, true, ClassName)  //Check Vehicle Is Mothership
                         );
@@ -103,7 +103,7 @@ namespace ALICE_Events
                     Speech.Speak
                         (
                         "".Phrase(EVT_Masslock.Exited),                        
-                        ICheck.Report.Masslock(ClassName, true),                            //Check Report Enabled
+                        ICheck.Report.Masslock(ClassName, true, true),                      //Check Report Enabled
                         ICheck.Initialized(ClassName),                                      //Check Plugin Initialized
                         Check.Environment.Vehicle(IVehicles.V.Mothership, true, ClassName)  //Check Vehicle Is Mothership
                         );

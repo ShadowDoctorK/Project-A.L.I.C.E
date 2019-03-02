@@ -72,7 +72,7 @@ namespace ALICE_Equipment
             else { Text = Decimal.Round(Percent, Decimals).ToString(); }
 
             //Debug Logger
-            Logger.DebugLine(MethodName, Text, Logger.Blue);
+            //Logger.DebugLine(MethodName, Text, Logger.Blue);
 
             return Text;
         }
@@ -119,7 +119,7 @@ namespace ALICE_Equipment
         {
             string MethodName = "Fuel Percent";
 
-            Logger.DebugLine(MethodName, "Fuel Level: " + Main + " | Fuel Capacity: " + Settings.Capacity, Logger.Blue);
+            //Logger.DebugLine(MethodName, "Fuel Level: " + Main + " | Fuel Capacity: " + Settings.Capacity, Logger.Blue);
 
             try
             {
@@ -127,25 +127,25 @@ namespace ALICE_Equipment
                 decimal Percent = 0; switch (IVehicles.Vehicle)
                 {
                     case IVehicles.V.Default:
-                        Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
+                        //Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
                         return -1;
 
                     case IVehicles.V.Mothership:
-                        Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
+                        //Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
                         if (Settings.Capacity > 0) { Percent = Main / Settings.Capacity; }
                         if (Percent > 1) { Percent = 1; }
-                        Logger.DebugLine(MethodName, "Fuel Percent: " + Percent * 100 + "%", Logger.Blue);
+                        //Logger.DebugLine(MethodName, "Fuel Percent: " + Percent * 100 + "%", Logger.Blue);
                         return Percent * 100;
 
                     case IVehicles.V.Fighter:
-                        Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
+                        //Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
                         return -1;
 
                     case IVehicles.V.SRV:
-                        Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
+                        //Logger.DebugLine(MethodName, "Vehicle: " + IVehicles.Vehicle.ToString(), Logger.Blue);
                         Percent = Main / SRVCapacity;
                         if (Percent > 1) { Percent = 1; }
-                        Logger.DebugLine(MethodName, "Fuel Percent: " + Percent * 100 + "%", Logger.Blue);
+                        //Logger.DebugLine(MethodName, "Fuel Percent: " + Percent * 100 + "%", Logger.Blue);
                         return Percent * 100;
 
                     default:
@@ -218,7 +218,7 @@ namespace ALICE_Equipment
 
                 if (Report)
                 {
-                    FuelLevel(true, ICheck.Report.FuelStatus(MethodName, true));
+                    FuelLevel(true, ICheck.Report.FuelStatus(MethodName, true, true));
                     Report = false;
                 }
             }
@@ -257,14 +257,14 @@ namespace ALICE_Equipment
             string MethodName = "Fuel Status Scooping" + " (" + TriggeredMethodName + ")";
 
             //Fuel Scoop Report Check
-            if (ICheck.Report.FuelScoop(MethodName, true) == false && ScoopingCompleted != true) { return; }
+            if (ICheck.Report.FuelScoop(MethodName, true, true) == false && ScoopingCompleted != true) { return; }
 
             //Scooping Commenced Report Not Made
             if (ScoopingCommenced == false)
             {
                 ScoopingCommenced = true; ScoopStartLv = Main;
                 ScoopingStart(true, 
-                    ICheck.Report.FuelScoop(MethodName, true),
+                    ICheck.Report.FuelScoop(MethodName, true, true),
                     ICheck.Initialized(MethodName));
             }
 
@@ -274,7 +274,7 @@ namespace ALICE_Equipment
             {
                 ScoopingCompleted = true;
                 ScoopingEnd(true, 
-                    ICheck.Report.FuelScoop(MethodName, true),
+                    ICheck.Report.FuelScoop(MethodName, true, true),
                     ICheck.Initialized(MethodName));
             }
         }

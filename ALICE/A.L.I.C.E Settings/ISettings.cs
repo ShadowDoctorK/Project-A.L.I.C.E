@@ -1522,6 +1522,8 @@ namespace ALICE_Settings
                 public bool Keypress { get; set; }
                 public bool Commands { get; set; }
                 public bool Actions { get; set; }
+                public bool StatusJson { get; set; }
+                public bool FuelStatus { get; set; }
 
                 public DebugSettings()
                 {
@@ -1529,6 +1531,8 @@ namespace ALICE_Settings
                     Keypress = false;
                     Commands = false;
                     Actions = false;
+                    StatusJson = false;
+                    FuelStatus = false;
                 }
             }
 

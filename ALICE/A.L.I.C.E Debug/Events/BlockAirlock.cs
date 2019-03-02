@@ -7,19 +7,19 @@ namespace ALICE_DebugItems
     {
         private static ALICE_Events.BlockAirlock E { get => IEvents.BlockAirlock.I; }
 
-        public bool Station(string M, bool T, string C, bool L = true)
+        public bool Station(string M, bool T, string C, bool L)
         { return Evaluate(M, "Station", T, C, E.Station, L); }
 
-        public bool Faction(string M, bool T, string C, bool L = true)
+        public bool Faction(string M, bool T, string C, bool L)
         { return Evaluate(M, "Faction", T, C, E.Faction, L); }
 
-        public bool Violation(string M, bool T, string C, bool L = true)
+        public bool Violation(string M, bool T, string C, bool L)
         { return Evaluate(M, "Violation", T, C, E.Violation, L); }
 
-        public bool Amount(string M, bool T, decimal C, bool L = true)
+        public bool Amount(string M, bool T, decimal C, bool L)
         { return Evaluate(M, "Amount", T, C, E.Amount, L); }
 
-        public bool Charge(string M, bool T, string C, bool L = true)
+        public bool Charge(string M, bool T, string C, bool L)
         { return Evaluate(M, "Charge", T, C, E.Charge, L); }
     }
 }

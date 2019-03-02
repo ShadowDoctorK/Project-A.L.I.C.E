@@ -146,7 +146,7 @@ namespace ALICE_Events
 
                 //Docked Datalink Audio
                 IStatus.Docking.Response.Datalink(
-                    ICheck.Report.StationStatus(ClassName, true),               //Check User Settings Report Enabled
+                    ICheck.Report.StationStatus(ClassName, true, true),         //Check User Settings Report Enabled
                     ICheck.Initialized(ClassName),                              //Check Plugin Initialized
                     (IStatus.Docking.State == IEnums.DockingState.Granted));    //Check Docking State Is Granted
 
@@ -155,7 +155,7 @@ namespace ALICE_Events
 
                 //Docked Datalink Audio
                 IStatus.Docking.Response.StationStatus(
-                    ICheck.Report.StationStatus(ClassName, true),               //Check User Settings Report Enabled
+                    ICheck.Report.StationStatus(ClassName, true, true),         //Check User Settings Report Enabled
                     ICheck.Initialized(ClassName),                              //Check Plugin Initialized
                     (IStatus.Docking.State == IEnums.DockingState.Granted));    //Check Docking State Is Granted
 

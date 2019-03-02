@@ -103,8 +103,8 @@ namespace ALICE_Events
 
                 //Bounty Audio
                 IStatus.Bounty.Response.Collected(                    
-                    ICheck.Initialized(ClassName),                      //Check Plugin Initialized
-                    ICheck.Report.CollectedBounty(ClassName, true));    //Check Bounty Reports Enabled
+                    ICheck.Initialized(ClassName),                          //Check Plugin Initialized
+                    ICheck.Report.CollectedBounty(ClassName, true, true));  //Check Bounty Reports Enabled
             }
             catch (Exception ex)
             {

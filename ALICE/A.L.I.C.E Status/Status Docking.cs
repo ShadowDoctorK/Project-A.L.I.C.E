@@ -214,7 +214,7 @@ namespace ALICE_Status
                 Thread thread = new Thread((ThreadStart)(() => 
                 {
                     //Check
-                    if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Starport) == false)
+                    if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Starport, true) == false)
                     {
                         //Already Inside Starport
                         return;
@@ -224,7 +224,7 @@ namespace ALICE_Status
                     while (Check.Environment.Space(IEnums.Normal_Space, true, MethodName, true) == true &&
                         IStatus.LandingGear == false)
                     {
-                        if (ICheck.Music.MusicTrack(MethodName) == IEnums.Starport && 
+                        if (ICheck.Music.MusicTrack(MethodName, true) == IEnums.Starport && 
                             (IStatus.Docking.Preparations == false || IStatus.LandingGear == false))
                         {
                             IStatus.Docking.Preparations = true; Call.Action.DockingPreparations(true); return;
@@ -248,7 +248,7 @@ namespace ALICE_Status
             if (ICheck.Initialized(MethodName) == false) { return; }
 
             //Check Order Enabled
-            if (ICheck.Order.AssistDocking(MethodName, true) == false)
+            if (ICheck.Order.AssistDocking(MethodName, true, true) == false)
             {
                 //No Logger Required. Check Already Logs.
                 return;
@@ -275,7 +275,7 @@ namespace ALICE_Status
                 {
                     //Check NoFireZone and Masslock. If both true send a Docking Request.
                     i--; if (
-                    ICheck.NoFireZone.Status(MethodName, true) == true && 
+                    ICheck.NoFireZone.Status(MethodName, true, true) == true && 
                     Check.Variable.MassLocked(true, MethodName) == true)
                     {
                         Call.Action.Docking(IEnums.CMD.True, true, false);
@@ -313,7 +313,7 @@ namespace ALICE_Status
                 Call.Key.Press(Call.Key.UI_Panel_Up_Release, 100);
 
                 //Assisted Hanger Entry
-                if (ICheck.Order.AssistHangerEntry(MethodName, true))
+                if (ICheck.Order.AssistHangerEntry(MethodName, true, true))
                 {
                     Call.Key.Press(Call.Key.UI_Panel_Down, 100);
                     Call.Key.Press(Call.Key.UI_Panel_Select, 100);

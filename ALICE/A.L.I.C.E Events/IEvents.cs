@@ -218,6 +218,7 @@ namespace ALICE_Events
                 case IEnums.Events.WingInvite: WingInvite.Logic(); break;
                 case IEnums.Events.WingJoin: WingJoin.Logic(); break;
                 case IEnums.Events.WingLeave: WingLeave.Logic(); break;
+
                 default:
                     break;
             }

@@ -7,19 +7,19 @@ namespace ALICE_DebugItems
     {
         private static ALICE_Events.Assault E { get => IEvents.Assault.I; }
 
-        public bool Violation(string M, bool T, string C, bool L = true)
+        public bool Violation(string M, bool T, string C, bool L)
         { return Evaluate(M, "Violation", T, C, E.Violation, L); }
 
-        public bool Victim(string M, bool T, string C, bool L = true)
+        public bool Victim(string M, bool T, string C, bool L)
         { return Evaluate(M, "Victim", T, C, E.Victim, L); }
 
-        public bool Faction(string M, bool T, string C, bool L = true)
+        public bool Faction(string M, bool T, string C, bool L)
         { return Evaluate(M, "Faction", T, C, E.Faction, L); }
 
-        public bool Charge(string M, bool T, string C, bool L = true)
+        public bool Charge(string M, bool T, string C, bool L)
         { return Evaluate(M, "Charge", T, C, E.Charge, L); }
 
-        public bool Amount(string M, bool T, decimal C, bool L = true)
+        public bool Amount(string M, bool T, decimal C, bool L)
         { return Evaluate(M, "Amount", T, C, E.Amount, L); }
     }
 }

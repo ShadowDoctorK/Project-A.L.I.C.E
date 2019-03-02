@@ -122,8 +122,8 @@ namespace ALICE_Events
             {
                 //Audio - FireInNoFireZone
                 IStatus.Crime.Response.FireInNoFireZone(
-                    ICheck.Initialized(ClassName),                              //Check Plugin Initialized
-                    ICheck.FireInNoFireZone.FirstReport(ClassName, true));      //Check First Time Reporting
+                    ICheck.Initialized(ClassName),                                  //Check Plugin Initialized
+                    ICheck.FireInNoFireZone.FirstReport(ClassName, true, true));    //Check First Time Reporting
 
                 //Update First Report
                 I.FirstReport = false;

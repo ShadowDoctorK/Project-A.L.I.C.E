@@ -116,10 +116,10 @@ namespace ALICE_Interface
 
             //Check If We Are Exploring A Planet or Ring
             string Mod = ""; if (
-                ICheck.SupercruiseExit.BodyType(MethodName, true, IEnums.Planet) ||
-                ICheck.SupercruiseExit.BodyType(MethodName, true, IEnums.PlanetaryRing))
+                ICheck.SupercruiseExit.BodyType(MethodName, true, IEnums.Planet, true) ||
+                ICheck.SupercruiseExit.BodyType(MethodName, true, IEnums.PlanetaryRing, true))
             {
-                Mod = "-" + ICheck.SupercruiseExit.Body(MethodName);
+                Mod = "-" + ICheck.SupercruiseExit.Body(MethodName, true);
             }
 
             string Time = DateTime.UtcNow.ToString("s").Replace(":", ".").Replace("-", ".");

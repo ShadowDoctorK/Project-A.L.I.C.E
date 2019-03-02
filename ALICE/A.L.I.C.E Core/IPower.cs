@@ -76,7 +76,7 @@ namespace ALICE_Core
                     Logger.Exception(MethodName, "Exception: " + ex);
                 }
 
-                Logger.DebugLine(MethodName, "Processor Power: S" + System + " | E" + Engine + " | W" + Weapon, Logger.Yellow);
+                //Logger.DebugLine(MethodName, "Processor Power: S" + System + " | E" + Engine + " | W" + Weapon, Logger.Yellow);
             }
         }
         public class RecordedPower : Base { }

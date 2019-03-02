@@ -7,10 +7,10 @@ namespace ALICE_DebugItems
     {
         private static ALICE_Events.Music E { get => IEvents.Music.I; }
 
-        public bool MusicTrack(string M, bool T, string C, bool L = true)
+        public bool MusicTrack(string M, bool T, string C, bool L)
         { return Evaluate(M, "Music (Track)", T, C, E.MusicTrack, L); }
 
-        public string MusicTrack(string M, bool L = true)
+        public string MusicTrack(string M, bool L)
         { return Get(M, "Music (Track)", E.MusicTrack, L); }
     }
 }

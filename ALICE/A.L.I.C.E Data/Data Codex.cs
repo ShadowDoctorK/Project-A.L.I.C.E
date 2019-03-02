@@ -19,22 +19,22 @@ namespace ALICE_Data
 
         private static Dictionary<decimal, Object_CodexEntry> Load()
         {
-            string MethodName = "Game Commodities (Load)";
+            string MethodName = "Codex (Load)";
 
             Dictionary<decimal, Object_CodexEntry> Temp = new Dictionary<decimal, Object_CodexEntry>();
 
             string P = Paths.ALICE_CodexDiscoveries;    //Codex Entry Folder
             string F = "*.Codex";                       //Codex Extension
 
-            foreach (FileInfo SystemFile in new DirectoryInfo(P).EnumerateFiles(F, SearchOption.TopDirectoryOnly))
+            foreach (FileInfo CodexFile in new DirectoryInfo(P).EnumerateFiles(F, SearchOption.TopDirectoryOnly))
             {
                 try
                 {
                     //Deserialize System Object
-                    Object_CodexEntry System = INewtonSoft.Load2<Object_CodexEntry>(SystemFile.Name, P);
+                    Object_CodexEntry Entry = INewtonSoft.Load2<Object_CodexEntry>(CodexFile.Name, P);
 
                     //Add Data To Temp Dictionary
-                    Temp.Add(System.Address, System);
+                    Temp.Add(Entry.CodexID, Entry);
                 }
                 catch (Exception ex)
                 {

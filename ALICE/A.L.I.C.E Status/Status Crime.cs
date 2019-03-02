@@ -32,7 +32,7 @@ namespace ALICE_Status
                 Speech.Speak(""
                     .Phrase(Crime.Fire_In_No_Fire_Zone)
                     .Phrase(Crime.Fine)
-                    .Token("[AMOUNT]", ICheck.FireInNoFireZone.Amount(MethodName)),
+                    .Token("[AMOUNT]", ICheck.FireInNoFireZone.Amount(MethodName, true)),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 

@@ -147,13 +147,13 @@ namespace ALICE_Panels
         {
             Start:
             bool Recheck = false;
-            if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Squadrons) == false)
+            if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Squadrons, true) == false)
             { Recheck = true; }
 
-            if (ICheck.Music.MusicTrack(MethodName, false, IEnums.GalacticPowers) == false)
+            if (ICheck.Music.MusicTrack(MethodName, false, IEnums.GalacticPowers, true) == false)
             { Recheck = true; }
 
-            if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Codex) == false)
+            if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Codex, true) == false)
             { Recheck = true; }
 
             if (Recheck) { Call.Key.Press(Call.Key.UI_Back, 600); goto Start; }
@@ -225,7 +225,7 @@ namespace ALICE_Panels
                 if (State == true)
                 {
                     //Watch For Galaxy Map To Open / Soft Exit Timer.
-                    int Count = 50; while (ICheck.Music.MusicTrack(MethodName, true, IEnums.GalaxyMap) == false)                        
+                    int Count = 50; while (ICheck.Music.MusicTrack(MethodName, true, IEnums.GalaxyMap, true) == false)                        
                     {
                         Logger.DebugLine(MethodName, "Galaxy Map: Wait Timer = " + Count, Logger.Blue);
                         Thread.Sleep(100); if (Count <= 0)
@@ -238,7 +238,7 @@ namespace ALICE_Panels
                 else if (State == false)
                 {
                     //Watch For Galaxy Map To Close / Soft Exit Timer.
-                    int Count = 50; while (ICheck.Music.MusicTrack(MethodName, false, IEnums.GalaxyMap) == false)
+                    int Count = 50; while (ICheck.Music.MusicTrack(MethodName, false, IEnums.GalaxyMap, true) == false)
                     {
                         Logger.DebugLine(MethodName, "Galaxy Map: Wait Timer = " + Count, Logger.Blue);
                         Thread.Sleep(100); if (Count <= 0)

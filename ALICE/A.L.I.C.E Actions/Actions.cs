@@ -394,7 +394,7 @@ namespace ALICE_Actions
             #region Action: Set Power
             if (ModifyPower && 
                 (Check.Variable.Hardpoints(false, MethodName) == true && 
-                ICheck.Order.CombatPower(MethodName, true) == false))
+                ICheck.Order.CombatPower(MethodName, true, true) == false))
             {
                 Call.Power.Set(0, 4, 8, true);
             }
@@ -406,7 +406,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Action: Set Saved Power
-            if (ModifyPower && (Check.Variable.Hardpoints(false, MethodName) == true && ICheck.Order.CombatPower(MethodName, true)) == false)
+            if (ModifyPower && (Check.Variable.Hardpoints(false, MethodName) == true && ICheck.Order.CombatPower(MethodName, true, true)) == false)
             { Call.Power.SetRecorded(); }
             #endregion
         }
@@ -457,7 +457,7 @@ namespace ALICE_Actions
             }
 
             //If Touchdown Is Not False...
-            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked) == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked, true) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -896,7 +896,7 @@ namespace ALICE_Actions
             }
 
             //If Docked Is Not False...
-            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked) == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked, true) == false)
             {
                 return;
             }
@@ -1057,7 +1057,7 @@ namespace ALICE_Actions
                             (
                             "".Phrase(GN_Positive.Default, true)
                             .Phrase(EQ_Hardpoints.Deploying)
-                            .Phrase(GN_Combat_Power.Online, false, ICheck.Order.CombatPower(MethodName, true)),
+                            .Phrase(GN_Combat_Power.Online, false, ICheck.Order.CombatPower(MethodName, true, true)),
                             CommandAudio
                             );
                     }
@@ -1076,7 +1076,7 @@ namespace ALICE_Actions
                             (
                             "".Phrase(GN_Positive.Default, true)
                             .Phrase(EQ_Hardpoints.Retracting)
-                            .Phrase(GN_Combat_Power.Offline, false, ICheck.Order.CombatPower(MethodName, true)),
+                            .Phrase(GN_Combat_Power.Offline, false, ICheck.Order.CombatPower(MethodName, true, true)),
                             CommandAudio
                             );
                     }
@@ -1208,7 +1208,7 @@ namespace ALICE_Actions
             }
 
             //If Docked is True...
-            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked) == true && CMD_State == false)
+            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked, true) == true && CMD_State == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -1249,7 +1249,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status == Command
-            if (ICheck.LandingGear.Status(MethodName) == CMD_State)
+            if (ICheck.LandingGear.Status(MethodName, true) == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -1291,7 +1291,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (ICheck.LandingGear.Status(MethodName) != CMD_State)
+            else if (ICheck.LandingGear.Status(MethodName, true) != CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -2027,7 +2027,7 @@ namespace ALICE_Actions
             }
 
             //Docked Check
-            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked) == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked, true) == false)
             {
                 IEquipment.FrameShiftDrive.NoDocked(CommandAudio);
                 return;
@@ -2325,7 +2325,7 @@ namespace ALICE_Actions
             }
 
             //Docked Check
-            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked) == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked, true) == false)
             {
                 IEquipment.FrameShiftDrive.NoDocked(CommandAudio);
                 return;
@@ -2668,7 +2668,7 @@ namespace ALICE_Actions
             }
 
             //If Not Undocked...
-            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked) == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked, true) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -2708,7 +2708,7 @@ namespace ALICE_Actions
             }
 
             //If Not Outside No Fire Zone...
-            if (ICheck.NoFireZone.Status(MethodName, false) == false)
+            if (ICheck.NoFireZone.Status(MethodName, false, true) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -3127,7 +3127,7 @@ namespace ALICE_Actions
                     #endregion
 
                     #region Assisted Docking
-                    if (ICheck.Order.AssistDocking(MethodName, true))
+                    if (ICheck.Order.AssistDocking(MethodName, true, true))
                     {
                         switch (Check.Equipment.DockingComputer(true, MethodName))
                         {
@@ -3648,7 +3648,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Launch";
 
-            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked) == true)
+            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked, true) == true)
             {
                 //Checks & Returns to HUD / Logs & Exits on Failure.
                 if (Call.Panel.HudFocus(250) == false)
@@ -3667,7 +3667,7 @@ namespace ALICE_Actions
                 Call.Key.Press(Call.Key.UI_Panel_Select, 250);
 
                 //Wait For Launch (30 seconds)
-                decimal Count = 300; while (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Undocked) == false && Count > 0)
+                decimal Count = 300; while (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Undocked, true) == false && Count > 0)
                 {
                     Count--; if (Count == 0)
                     {

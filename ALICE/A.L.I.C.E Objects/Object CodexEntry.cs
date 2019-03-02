@@ -85,7 +85,7 @@ namespace ALICE_Objects
         {
             string MethodName = "Codex Entry";
 
-            return ICheck.SupercruiseExit.Body(MethodName);
+            return ICheck.SupercruiseExit.Body(MethodName, true);
         }
 
         public void Check_EntryType(string EDName)

@@ -59,9 +59,9 @@ namespace ALICE_Events
                 var Event = (MaterialCollected)O;
 
                 IStatus.Materials.Response.Collected(
-                        Event.Name,                                         //Material
-                        ICheck.Initialized(ClassName),                      //Check Plugin Initialized
-                        ICheck.Report.MaterialCollected(ClassName, true));  //Check Material Reports Enabled 
+                        Event.Name,                                                 //Material
+                        ICheck.Initialized(ClassName),                              //Check Plugin Initialized
+                        ICheck.Report.MaterialCollected(ClassName, true, true));    //Check Material Reports Enabled 
             }
             catch (Exception ex)
             {

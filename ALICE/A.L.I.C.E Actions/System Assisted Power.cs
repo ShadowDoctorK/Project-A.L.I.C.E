@@ -249,7 +249,7 @@ namespace ALICE_Actions
                     "".Phrase(GN_Positive.Default, true)
                     .Phrase(GN_Combat_Power.Maintain_Engines, true),
                     CommandAudio,
-                    ICheck.Order.CombatPower(MethodName, true),
+                    ICheck.Order.CombatPower(MethodName, true, true),
                     Check.Variable.Hardpoints(true, MethodName)
                     );
             }
@@ -272,7 +272,7 @@ namespace ALICE_Actions
                     "".Phrase(GN_Positive.Default, true)
                     .Phrase(GN_Combat_Power.Maintain_Systems, true),
                     CommandAudio,
-                    ICheck.Order.CombatPower(MethodName, true),
+                    ICheck.Order.CombatPower(MethodName, true, true),
                     Check.Variable.Hardpoints(true, MethodName)
                     );
             }
@@ -295,7 +295,7 @@ namespace ALICE_Actions
                     "".Phrase(GN_Positive.Default, true)
                     .Phrase(GN_Combat_Power.Defense_Engines, true),
                     CommandAudio,
-                    ICheck.Order.CombatPower(MethodName, true),
+                    ICheck.Order.CombatPower(MethodName, true, true),
                     Check.Variable.Hardpoints(true, MethodName)
                     );
             }
@@ -318,7 +318,7 @@ namespace ALICE_Actions
                     "".Phrase(GN_Positive.Default, true)
                     .Phrase(GN_Combat_Power.Defense_Systems, true),
                     CommandAudio,
-                    ICheck.Order.CombatPower(MethodName, true),
+                    ICheck.Order.CombatPower(MethodName, true, true),
                     Check.Variable.Hardpoints(true, MethodName)
                     );
             }
@@ -341,7 +341,7 @@ namespace ALICE_Actions
                     "".Phrase(GN_Positive.Default, true)
                     .Phrase(GN_Combat_Power.Weapons_Light, true),
                     CommandAudio,
-                    ICheck.Order.CombatPower(MethodName, true),
+                    ICheck.Order.CombatPower(MethodName, true, true),
                     Check.Variable.Hardpoints(true, MethodName)
                     );
             }
@@ -364,7 +364,7 @@ namespace ALICE_Actions
                     "".Phrase(GN_Positive.Default, true)
                     .Phrase(GN_Combat_Power.Weapons_Balance, true),
                     CommandAudio,
-                    ICheck.Order.CombatPower(MethodName, true),
+                    ICheck.Order.CombatPower(MethodName, true, true),
                     Check.Variable.Hardpoints(true, MethodName)
                     );
             }
@@ -387,7 +387,7 @@ namespace ALICE_Actions
                     "".Phrase(GN_Positive.Default, true)
                     .Phrase(GN_Combat_Power.Weapons_Heavy, true),
                     CommandAudio,
-                    ICheck.Order.CombatPower(MethodName, true),
+                    ICheck.Order.CombatPower(MethodName, true, true),
                     Check.Variable.Hardpoints(true, MethodName)
                     );
             }

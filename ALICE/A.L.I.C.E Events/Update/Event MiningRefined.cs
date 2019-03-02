@@ -54,9 +54,9 @@ namespace ALICE_Events
 
                 //Refined Audio
                 IStatus.Cargo.Response.Refined(
-                    Event.Type_Localised,                               //Material
-                    ICheck.Initialized(ClassName),                      //Check Plugin Initialized
-                    ICheck.Report.MaterialRefined(ClassName, true));    //Check Material Refined Report Enabled
+                    Event.Type_Localised,                                   //Material
+                    ICheck.Initialized(ClassName),                          //Check Plugin Initialized
+                    ICheck.Report.MaterialRefined(ClassName, true, true));  //Check Material Refined Report Enabled
             }
             catch (Exception ex)
             {
