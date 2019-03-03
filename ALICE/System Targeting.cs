@@ -5,6 +5,7 @@ using ALICE_Synthesizer;
 using System.Media;
 using System.IO;
 using ALICE_Internal;
+using ALICE_Debug;
 
 namespace ALICE_Actions
 {
@@ -300,7 +301,7 @@ namespace ALICE_Actions
             string MethodName = "Series Scan";
 
             #region Validation Checks
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -363,7 +364,7 @@ namespace ALICE_Actions
                     #endregion
 
                     //While Not In Hyperspace & Vehicle Is Not SRV...
-                    while (Check.Environment.Space(IEnums.Hyperspace, false, MethodName, true) == true && Check.Environment.Vehicle(IVehicles.V.SRV, false, MethodName, true) == true)
+                    while (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace, true) == true && Check.Environment.Vehicle(IVehicles.V.SRV, false, MethodName, true) == true)
                     {
                         NewTarget:
 
@@ -550,7 +551,7 @@ namespace ALICE_Actions
 
         public bool Scan_CheckValadation(string MethodName, bool Answer = true)
         {
-            bool Environment = Check.Environment.Space(IEnums.Hyperspace, false, MethodName, true);
+            bool Environment = ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace, true);
             bool Vehicle = Check.Environment.Vehicle(IVehicles.V.SRV, false, MethodName, true);
 
             if (Environment == false) { Answer = false; Logger.DebugLine(MethodName, "Environment Check Failed. (In Hyperspace)", Logger.Yellow); }

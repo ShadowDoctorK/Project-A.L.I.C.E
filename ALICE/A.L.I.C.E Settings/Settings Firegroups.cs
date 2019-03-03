@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ALICE_Actions;
+using ALICE_Debug;
 
 namespace ALICE_Settings
 {
@@ -564,7 +565,7 @@ namespace ALICE_Settings
                 decimal Num = ConvertGroupFromEnum(Temp.FireGroup);
 
                 //Check Environment Condition
-                if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false) { return S.InHyperspace; }
+                if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false) { return S.InHyperspace; }
 
                 //Check HUD Mode
                 if (Check.Variable.AnalysisMode(Mode, MethodName) == false) { Call.Action.AnalysisMode(false, false); }

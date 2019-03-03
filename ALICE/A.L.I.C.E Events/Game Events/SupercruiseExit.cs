@@ -4,6 +4,7 @@
 
 using ALICE_Actions;
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Equipment;
 using System;
 
@@ -69,7 +70,7 @@ namespace ALICE_Events
                 //Update Event Instance
                 I = (SupercruiseExit)O;
 
-                IEquipment.FrameShiftDrive.Reset();
+                IEquipment.FrameShiftDrive.Reset(ClassName, true, true, true);
                 IEquipment.FrameShiftDrive.Disengaging = false;
                 IEvents.FireInNoFireZone.I.FirstReport = true;
                 Call.Panel.MainFourIsFalse();
@@ -114,7 +115,7 @@ namespace ALICE_Events
                 IStatus.Hardpoints = false;
                 IStatus.Touchdown = false;
                 IStatus.CargoScoop = false;
-                IStatus.LandingGear = false;
+                ISet.LandingGear.Status(ClassName, false);
                 IStatus.WeaponSafety = false;
             }
             catch (Exception ex)

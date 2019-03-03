@@ -36,6 +36,14 @@ namespace ALICE_Events
     /// </summary>
     public class Event_StartJump : Event
     {
+        //Event Instance
+        private StartJump i = new StartJump();
+        public StartJump I
+        {
+            get => i;
+            set => i = value;
+        }
+
         //Variable Generation
         public override void Generate(object O)
         {
@@ -54,33 +62,50 @@ namespace ALICE_Events
             }
         }
 
+        //Plugin Logic Preparations
+        public override void Prepare(object O)
+        {
+            try
+            {
+                //Property Updates
+                ISet.FrameShiftDrive.PrepHyperspace(ClassName, false);
+                ISet.FrameShiftDrive.PrepSupercruise(ClassName, false);
+                IStatus.Hyperspace = false;
+
+               //Update Event Instance
+               I = (StartJump)O;
+            }
+            catch (Exception ex)
+            {
+                ExceptionPrepare(Name, ex);
+            }
+        }
+
         //Plugin Logic Process
         public override void Process(object O)
         {
             try
             {
-                var Event = (StartJump)O;
-
-                if (Event.JumpType == IEnums.Hyperspace)
+                if (I.JumpType == IEnums.Hyperspace)
                 {
-                    IStatus.Hyperspace = true;
-                    IStatus.Supercruise = false;
+                    ISet.FrameShiftDrive.Hyperspace(ClassName, true);
+                    ISet.FrameShiftDrive.Supercruise(ClassName, false);
                 }
                 else
                 {
-                    IStatus.Hyperspace = false;
-                    IStatus.Supercruise = true;
+                    ISet.FrameShiftDrive.Hyperspace(ClassName, false);
+                    ISet.FrameShiftDrive.Supercruise(ClassName, true);                    
                 }
 
                 //Audio - Supercruise
                 IEquipment.FrameShiftDrive.SC_Entering(
-                    ICheck.Initialized(ClassName),                          //Check Plugin Initialized
-                    ICheck.FrameShiftDrive.Supercruise(ClassName, true));   //Check Supercruise Charge State
+                    ICheck.Initialized(ClassName),                            //Check Plugin Initialized
+                    ICheck.FrameShiftDrive.Supercruise(ClassName, true));     //Check Supercruise Charge State
 
                 //Audio - Hyperspace
                 IEquipment.FrameShiftDrive.HS_Entering(
-                    ICheck.Initialized(ClassName),                          //Check Plugin Initialized
-                    ICheck.FrameShiftDrive.Hyperspace(ClassName, true));    //Chekc Hyperspace Charge State
+                    ICheck.Initialized(ClassName),                            //Check Plugin Initialized
+                    ICheck.FrameShiftDrive.Hyperspace(ClassName, true));      //Chekc Hyperspace Charge State
 
             }
             catch (Exception ex)
@@ -94,13 +119,11 @@ namespace ALICE_Events
         {
             try
             {
-                Call.Panel.MainFourIsFalse();
-                IEquipment.FrameShiftDrive.Reset();
+                Call.Panel.MainFourIsFalse();                
                 IStatus.Hardpoints = false;
                 IStatus.Touchdown = false;
                 IStatus.CargoScoop = false;
-                IStatus.LandingGear = false;
-                IStatus.Hyperspace = false;
+                ISet.LandingGear.Status(ClassName, false);
                 IStatus.Fighter.Deployed = false;
                 IStatus.Docking.Docked = false;
                 IStatus.WeaponSafety = false;

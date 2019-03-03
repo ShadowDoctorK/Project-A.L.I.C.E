@@ -119,7 +119,7 @@ namespace ALICE_Interface
                 ICheck.SupercruiseExit.BodyType(MethodName, true, IEnums.Planet, true) ||
                 ICheck.SupercruiseExit.BodyType(MethodName, true, IEnums.PlanetaryRing, true))
             {
-                Mod = "-" + ICheck.SupercruiseExit.Body(MethodName, true);
+                Mod = "-" + IGet.SupercruiseExit.Body(MethodName);
             }
 
             string Time = DateTime.UtcNow.ToString("s").Replace(":", ".").Replace("-", ".");

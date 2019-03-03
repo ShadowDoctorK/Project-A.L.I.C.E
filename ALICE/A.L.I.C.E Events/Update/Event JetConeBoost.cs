@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-12-20T20:56:52Z", "event":"JetConeBoost", "BoostValue":1.500000 }
 
 using ALICE_Core;
+using ALICE_Debug;
 using System;
 
 namespace ALICE_Events
@@ -51,7 +52,7 @@ namespace ALICE_Events
                 IStatus.Planet.DecentReport = false;
                 IStatus.Touchdown = false;
                 IStatus.Docking.Docked = false;
-                IStatus.LandingGear = false;
+                ISet.LandingGear.Status(ClassName, false);
                 IStatus.CargoScoop = false;
                 IStatus.Fighter.Deployed = false;
                 IStatus.Hardpoints = false;

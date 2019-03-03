@@ -255,9 +255,9 @@ namespace ALICE_Internal
                         FSDCharging = IEquipment.FrameShiftDrive.Charging;
                         Updates.Add("(" + MethodName + ") FSDCharging = " + FSDCharging);
                     }
-                    if (Masslocked != IStatus.Masslocked)
+                    if (Masslocked != IGet.Masslock.Status(MethodName, false))
                     {
-                        Masslocked = IStatus.Masslocked;
+                        Masslocked = IGet.Masslock.Status(MethodName);
                         Updates.Add("(" + MethodName + ") Masslocked = " + Masslocked);
                     }
                     if (SRVDriveAssist != IStatus.SRV_DriveAssist)
@@ -320,9 +320,9 @@ namespace ALICE_Internal
                         Shields = IEquipment.Shields.Status;
                         Updates.Add("(" + MethodName + ") Shields = " + Shields);
                     }
-                    if (LandingGear != IStatus.LandingGear)
+                    if (LandingGear != IGet.LandingGear.Status(MethodName, false))
                     {
-                        LandingGear = IStatus.LandingGear;
+                        LandingGear = IGet.LandingGear.Status(MethodName);
                         Updates.Add("(" + MethodName + ") LandingGear = " + LandingGear);
                     }
                     if (Touchdown != IStatus.Touchdown)

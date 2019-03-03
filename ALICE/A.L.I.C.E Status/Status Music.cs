@@ -22,7 +22,7 @@ namespace ALICE_Status
 
             try
             {
-                M = IEnums.ToEnum<IEnums.MusicState>(Event.MusicTrack);
+                M = IEnums.ToEnum<IEnums.MusicState>(Event.MusicTrack, false);
             }
             catch (Exception ex)
             {
@@ -52,7 +52,7 @@ namespace ALICE_Status
                     Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
                     break;
 
-                case IEnums.MusicState.CombatLargeDogFight:
+                case IEnums.MusicState.Combat_LargeDogFight:
                     Logger.Log(MethodName, M.ToString(), Logger.Yellow, true);
                     break;
 

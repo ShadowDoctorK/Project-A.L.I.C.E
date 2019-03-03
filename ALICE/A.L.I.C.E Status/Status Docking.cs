@@ -40,10 +40,10 @@ namespace ALICE_Status
 
         public void Update(Docked Event)
         {
-            State = IEnums.DockingState.Docked;
+            ISet.Docking.Status(MethodName, IEnums.DockingState.Docked);
+            Denial = IEnums.DockingDenial.NoReason;
             StationName = Event.StationName;
             StationType = Event.StationType;
-            Denial = IEnums.DockingDenial.NoReason;
             LandingPad = -1;
             Pending = false;
             Sending = false;
@@ -52,7 +52,7 @@ namespace ALICE_Status
 
         public void Update(DockingCancelled Event)
         {
-            State = IEnums.DockingState.Cancelled;
+            ISet.Docking.Status(MethodName, IEnums.DockingState.Cancelled);
             StationName = Event.StationName;
             StationType = Event.StationType;
             Denial = IEnums.DockingDenial.NoReason;
@@ -65,6 +65,7 @@ namespace ALICE_Status
         public void Update(DockingTimeout Event)
         {
             //Marking A Cancelled To Keep Things Simple
+            ISet.Docking.Status(MethodName, IEnums.DockingState.Cancelled);
             State = IEnums.DockingState.Cancelled;
             Denial = IEnums.DockingDenial.NoReason;
             LandingPad = -1;
@@ -75,7 +76,7 @@ namespace ALICE_Status
 
         public void Update(DockingGranted Event)
         {
-            State = IEnums.DockingState.Granted;
+            ISet.Docking.Status(MethodName, IEnums.DockingState.Granted);            
             StationName = Event.StationName;
             StationType = Event.StationType;
             Denial = IEnums.DockingDenial.NoReason;
@@ -87,7 +88,7 @@ namespace ALICE_Status
 
         public void Update(DockingRequested Event)
         {
-            State = IEnums.DockingState.Requested;
+            ISet.Docking.Status(MethodName, IEnums.DockingState.Requested);
             StationName = Event.StationName;
             StationType = Event.StationType;
             Denial = IEnums.DockingDenial.NoReason;
@@ -99,7 +100,7 @@ namespace ALICE_Status
 
         public void Update(DockingDenied Event)
         {
-            State = IEnums.DockingState.Denied;
+            ISet.Docking.Status(MethodName, IEnums.DockingState.Denied);
             StationName = Event.StationName;
             StationType = Event.StationType;
 
@@ -120,7 +121,7 @@ namespace ALICE_Status
 
         public void Update(Undocked Event)
         {
-            State = IEnums.DockingState.Undocked;
+            ISet.Docking.Status(MethodName, IEnums.DockingState.Undocked);
             StationName = Event.StationName;
             StationType = Event.StationType;
             Denial = IEnums.DockingDenial.NoReason;
@@ -136,9 +137,10 @@ namespace ALICE_Status
             switch (Event.Docked)
             {
                 case true:
-                    State = IEnums.DockingState.Docked; Docked = true; break;                    
+                    ISet.Docking.Status(MethodName, IEnums.DockingState.Docked); break;          
+                    
                 default:
-                    State = IEnums.DockingState.Undocked; Docked = false; break;
+                    ISet.Docking.Status(MethodName, IEnums.DockingState.Undocked); break;
             }
 
             Docked = Event.Docked;
@@ -152,7 +154,7 @@ namespace ALICE_Status
 
         public void Update(SupercruiseEntry Event)
         {
-            State = IEnums.DockingState.Undocked;
+            ISet.Docking.Status(MethodName, IEnums.DockingState.Undocked);
             Denial = IEnums.DockingDenial.NoReason;
             StationName = "Unknown";
             StationType = "Unknown";
@@ -165,7 +167,7 @@ namespace ALICE_Status
 
         public void Update(SupercruiseExit Event)
         {
-            State = IEnums.DockingState.Undocked;
+            ISet.Docking.Status(MethodName, IEnums.DockingState.Undocked);
             Denial = IEnums.DockingDenial.NoReason;
             StationName = Event.Body;
             StationType = "Unknown";
@@ -197,7 +199,7 @@ namespace ALICE_Status
 
             //Watch For Facility Response
             Logger.DebugLine(MethodName, "Waiting For Response To Pending Request. (10 Seconds)", Logger.Blue);
-            int Counter = 0; while  (Pending == true && ALICE_Internal.Check.Environment.Space(IEnums.Normal_Space, true, MethodName, true))
+            int Counter = 0; while  (Pending == true && ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space, false))
             {                
                 Thread.Sleep(100); if (Counter > 100) { Pending = false; return false; } Counter++;                
             }
@@ -221,11 +223,11 @@ namespace ALICE_Status
                     }
 
                     //Watch Entering Starport While Docking State Is False
-                    while (Check.Environment.Space(IEnums.Normal_Space, true, MethodName, true) == true &&
-                        IStatus.LandingGear == false)
+                    while (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space, false) == true &&
+                        ICheck.LandingGear.Status(MethodName, false) == true)
                     {
-                        if (ICheck.Music.MusicTrack(MethodName, true) == IEnums.Starport && 
-                            (IStatus.Docking.Preparations == false || IStatus.LandingGear == false))
+                        if (IGet.Music.MusicTrack(MethodName) == IEnums.Starport && 
+                            (IStatus.Docking.Preparations == false || ICheck.LandingGear.Status(MethodName, false)))
                         {
                             IStatus.Docking.Preparations = true; Call.Action.DockingPreparations(true); return;
                         }
@@ -275,8 +277,8 @@ namespace ALICE_Status
                 {
                     //Check NoFireZone and Masslock. If both true send a Docking Request.
                     i--; if (
-                    ICheck.NoFireZone.Status(MethodName, true, true) == true && 
-                    Check.Variable.MassLocked(true, MethodName) == true)
+                    ICheck.NoFireZone.Status(MethodName, true) == true && 
+                    ICheck.Masslock.Status(MethodName, true) == true)
                     {
                         Call.Action.Docking(IEnums.CMD.True, true, false);
                         return;
@@ -296,12 +298,11 @@ namespace ALICE_Status
             //Validate Plugin Is Initialized
             if (ICheck.Initialized(MethodName) == false) { return; }
 
-            if(State != IEnums.DockingState.Granted)
+            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked))
             {
-                Logger.DebugLine(MethodName, "Docking State Does Not Equal Granted", Logger.Yellow);
                 return;
             }
-
+            
             //Station Services & Assisted Hanger Entry
             Thread Action =
             new Thread((ThreadStart)(() =>

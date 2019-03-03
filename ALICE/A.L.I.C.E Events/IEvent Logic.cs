@@ -293,7 +293,7 @@ namespace ALICE_EventLogic
             string MethodName = "Position Update";
 
             //Check & Record Altitude To Planets Status If In Supercruise.            
-            if (Check.Environment.Space(IEnums.Supercruise, true, MethodName, true)) { IStatus.Planet.Decending(Alt); }
+            if (ICheck.Environment.Space(MethodName, true, IEnums.Supercruise, false)) { IStatus.Planet.Decending(Alt); }
 
             //Approaching Planetary Decent Altitude.
             //1. Orbital Mode Engaged

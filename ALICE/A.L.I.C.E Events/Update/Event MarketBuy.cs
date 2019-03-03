@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-10-22T00:02:38Z", "event":"MarketBuy", "MarketID":3221644800, "Type":"performanceenhancers", "Type_Localised":"Performance Enhancers", "Count":584, "BuyPrice":6004, "TotalCost":3506336 }
 
 using ALICE_Core;
+using ALICE_Debug;
 using System;
 
 namespace ALICE_Events
@@ -61,7 +62,7 @@ namespace ALICE_Events
             try
             {
                 IStatus.Docking.Docked = true;
-                IStatus.LandingGear = true;
+                ISet.LandingGear.Status(ClassName, true);
                 IStatus.Planet.OrbitalMode = false;
                 IStatus.Planet.DecentReport = false;
                 IStatus.Supercruise = false;

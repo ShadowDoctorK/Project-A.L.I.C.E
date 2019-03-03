@@ -140,9 +140,9 @@ namespace ALICE_Status
 
                 Speech.Speak(""
                     .Phrase(EVT_Shipyard_Arrived.Three_Min_Warning)
-                    .Token("[DESTINATION]", ICheck.ShipyardArrived.EndLocation(MethodName, true))
-                    .Token("[SHIP]", ICheck.ShipyardArrived.Ship(MethodName, true))
-                    .Token("[STATION]", ICheck.ShipyardArrived.EndStation(MethodName, true)),
+                    .Token("[DESTINATION]", IGet.ShipyardArrived.EndLocation(MethodName))
+                    .Token("[SHIP]", IGet.ShipyardArrived.Ship(MethodName))
+                    .Token("[STATION]", IGet.ShipyardArrived.EndStation(MethodName)),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
@@ -153,9 +153,9 @@ namespace ALICE_Status
 
                 Speech.Speak(""
                     .Phrase(EVT_Shipyard_Arrived.Arrived)
-                    .Token("[DESTINATION]", ICheck.ShipyardArrived.EndStation(MethodName, true))
-                    .Token("[SHIP]", ICheck.ShipyardArrived.Ship(MethodName, true))
-                    .Token("[STATION]", ICheck.ShipyardArrived.EndStation(MethodName, true)),
+                    .Token("[DESTINATION]", IGet.ShipyardArrived.EndStation(MethodName))
+                    .Token("[SHIP]", IGet.ShipyardArrived.Ship(MethodName))
+                    .Token("[STATION]", IGet.ShipyardArrived.EndStation(MethodName)),
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
         }

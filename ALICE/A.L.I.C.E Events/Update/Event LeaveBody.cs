@@ -78,7 +78,7 @@ namespace ALICE_Events
             try
             {
                 IStatus.Touchdown = false;
-                IStatus.LandingGear = false;
+                ISet.LandingGear.Status(ClassName, false);
                 IStatus.Hyperspace = false;
                 IStatus.Docking.Docked = false;
             }

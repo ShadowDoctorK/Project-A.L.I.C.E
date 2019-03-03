@@ -5,6 +5,7 @@ using ALICE_Core;
 using ALICE_Settings;
 using ALICE_Events;
 using ALICE_Equipment;
+using ALICE_Debug;
 
 namespace ALICE_Internal
 {
@@ -453,36 +454,36 @@ namespace ALICE_Internal
 
         public class Environments : Base
         {
-            public bool Space(string TargetEnvironment, bool DesiredEnvironment, string MethodName, bool DisableDebug = false, bool Answer = true)
-            {
-                string Environment = IEnums.Normal_Space;
-                string Not = ""; if (DesiredEnvironment == false) { Not = "Not "; }
-                string DebugText = "Environment Check Passed (" + Not + TargetEnvironment + ")";
-                string Color = Logger.Blue;
+            //public bool Space(string TargetEnvironment, bool DesiredEnvironment, string MethodName, bool DisableDebug = false, bool Answer = true)
+            //{
+            //    string Environment = IEnums.Normal_Space;
+            //    string Not = ""; if (DesiredEnvironment == false) { Not = "Not "; }
+            //    string DebugText = "Environment Check Passed (" + Not + TargetEnvironment + ")";
+            //    string Color = Logger.Blue;
 
-                if (IStatus.Hyperspace == true)
-                { Environment = IEnums.Hyperspace; }
+            //    if (IStatus.Hyperspace == true)
+            //    { Environment = IEnums.Hyperspace; }
 
-                else if (IStatus.Supercruise == true)
-                { Environment = IEnums.Supercruise; }
+            //    else if (IStatus.Supercruise == true)
+            //    { Environment = IEnums.Supercruise; }
 
-                if (DesiredEnvironment == true && Environment != TargetEnvironment)
-                {
-                    Answer = false;
-                    DebugText = "Environment Does Not Equal " + TargetEnvironment;
-                    Color = Logger.Yellow;
-                }
-                else if (DesiredEnvironment == false && Environment == TargetEnvironment)
-                {
-                    Answer = false;
-                    DebugText = "Environment Equals " + TargetEnvironment;
-                    Color = Logger.Yellow;
-                }
+            //    if (DesiredEnvironment == true && Environment != TargetEnvironment)
+            //    {
+            //        Answer = false;
+            //        DebugText = "Environment Does Not Equal " + TargetEnvironment;
+            //        Color = Logger.Yellow;
+            //    }
+            //    else if (DesiredEnvironment == false && Environment == TargetEnvironment)
+            //    {
+            //        Answer = false;
+            //        DebugText = "Environment Equals " + TargetEnvironment;
+            //        Color = Logger.Yellow;
+            //    }
 
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, DebugText, Color); }
+            //    if (DisableDebug == false) { Logger.DebugLine(MethodName, DebugText, Color); }
 
-                return Answer;
-            }
+            //    return Answer;
+            //}
 
             public bool Vehicle(IVehicles.V TargetVehcile, bool TargetState, string MethodName, bool DisableDebug = false, bool Answer = true)
             {
@@ -669,13 +670,6 @@ namespace ALICE_Internal
                 return Value;
             }
             #endregion
-
-            public bool MassLocked(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IStatus.Masslocked;
-                string Variable = "Mass Locked";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
-            }
 
             #region Over Heating
             public bool Overheating(bool TargetState, string MethodName, bool DisableDebug = false)

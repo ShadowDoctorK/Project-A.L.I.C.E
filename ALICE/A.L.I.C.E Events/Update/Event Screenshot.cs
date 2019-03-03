@@ -17,6 +17,8 @@ namespace ALICE_Events
         public decimal Height { get; set; }
         public string System { get; set; }
         public string Body { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
 
         //Default Constructor
         public Screenshot()
@@ -26,6 +28,8 @@ namespace ALICE_Events
             Height = Dec();
             System = Str();
             Body = Str();
+            Latitude = Dec();
+            Longitude = Dec();
         }
     }
 

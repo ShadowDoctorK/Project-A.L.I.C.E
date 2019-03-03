@@ -56,7 +56,7 @@ namespace ALICE_Events
         {
             try
             {
-                IStatus.LandingGear = true;
+                ISet.LandingGear.Status(ClassName, true);
             }
             catch (Exception ex)
             {

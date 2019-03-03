@@ -120,18 +120,7 @@ namespace ALICE_Core
             get => _System;
             set => _System = value;
         }
-
-        public static bool Masslocked
-        {
-            get => IEvents.Masslock.I.Status;
-            set => IEvents.Masslock.I.Status = value;
-        }
-        public static bool LandingGear
-        {
-            get => IEquipment.LandingGear.Status;
-            set => IEquipment.LandingGear.Status = value;
-        }
-
+        
         public static decimal GUI_Focus = 0;
         public static decimal Latitude = -1;
         public static decimal Longitude = -1;
@@ -172,21 +161,5 @@ namespace ALICE_Core
         //Miscellaneous
         public static bool NPC_Crew = Convert.ToBoolean(Miscellanous.Default["NPC_Crew"]);
         public static bool LandingPreps = false;
-
-        public static string Space()
-        {
-            string Answer = IEnums.Normal_Space;
-
-            if (Hyperspace == true)
-            {
-                Answer = IEnums.Hyperspace;
-            }
-            else if (Supercruise == true)
-            {
-                Answer = IEnums.Supercruise;
-            }
-
-            return Answer;
-        }
     }
 }

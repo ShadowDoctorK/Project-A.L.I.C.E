@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-10-02T04:16:49Z", "event":"LaunchFighter", "Loadout":"three", "PlayerControlled":false }
 
 using ALICE_Core;
+using ALICE_Debug;
 using System;
 
 namespace ALICE_Events
@@ -68,8 +69,8 @@ namespace ALICE_Events
                 IStatus.Supercruise = false;
                 IStatus.Hyperspace = false;
                 IStatus.Touchdown = false;
-                IStatus.Docking.Docked = false;
-                IStatus.LandingGear = false;
+                IStatus.Docking.Docked = false;                
+                ISet.LandingGear.Status(ClassName, false);
             }
             catch (Exception ex)
             {

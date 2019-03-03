@@ -31,7 +31,7 @@ namespace ALICE_Core
             string MethodName = "Firegroup Select";
 
             #region Validation
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 //Audio - Cant Do That
                 return;

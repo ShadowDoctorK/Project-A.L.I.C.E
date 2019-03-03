@@ -140,7 +140,7 @@ namespace ALICE_Panels
 
         public bool CheckEnvironment(string MethodName)
         {
-            return Check.Environment.Space(IEnums.Hyperspace, false, MethodName);
+            return ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace);
         }
 
         public bool CheckOverlays(string MethodName, bool Answer = true)

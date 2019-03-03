@@ -160,8 +160,8 @@ namespace ALICE_Events
                     (IStatus.Docking.State == IEnums.DockingState.Granted));    //Check Docking State Is Granted
 
                 //Enter Station Services & Conduct Post Docking Actions
-                IStatus.Docking.PostDockingActions();
                 IStatus.Docking.Update(I);
+                IStatus.Docking.PostDockingActions();
 
                 //Extended Logging
                 IStatus.Docking.Log.Status();
@@ -180,7 +180,7 @@ namespace ALICE_Events
                 IVehicles.Vehicle = IVehicles.V.Mothership;
                 IStatus.Hardpoints = false;
                 IStatus.Touchdown = false;
-                IStatus.LandingGear = true;
+                ISet.LandingGear.Status(ClassName, true);
                 IStatus.Fighter.Deployed = false;
             }
             catch (Exception ex)

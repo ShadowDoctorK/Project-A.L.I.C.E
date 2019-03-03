@@ -68,8 +68,7 @@ namespace ALICE_Events
                 IStatus.Hyperspace = false;
                 IStatus.Touchdown = false;
                 IStatus.Docking.Docked = true;
-                IStatus.Hardpoints = false;
-                IStatus.LandingGear = true;
+                IStatus.Hardpoints = false;                
                 IStatus.Fighter.Deployed = false;
             }
             catch (Exception ex)

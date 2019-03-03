@@ -4,6 +4,7 @@
 
 using ALICE_Actions;
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Equipment;
 using System;
 
@@ -89,16 +90,17 @@ namespace ALICE_Events
                 //Report While Leaving The Planet.
                 IStatus.Planet.ExitingPlanet = true;
 
-                Call.Panel.MainFourIsFalse();
+                IEquipment.FrameShiftDrive.Reset(ClassName, true, true, false);
                 IEvents.FireInNoFireZone.I.FirstReport = true;
-                IEquipment.FrameShiftDrive.Reset();
+                Call.Panel.MainFourIsFalse();
+
                 IStatus.Fighter.Deployed = false;
                 IStatus.Supercruise = true;
                 IStatus.Hyperspace = false;
                 IStatus.Hardpoints = false;
                 IStatus.Touchdown = false;
                 IStatus.CargoScoop = false;
-                IStatus.LandingGear = false;
+                ISet.LandingGear.Status(ClassName, false);
                 IStatus.WeaponSafety = false;
             }
             catch (Exception ex)

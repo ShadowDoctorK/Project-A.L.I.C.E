@@ -54,8 +54,8 @@ namespace ALICE_Events
         {
             I = new ShipyardArrived()
             {
-                EndLocation = ICheck.Docked.System(ClassName, true),
-                EndStation = ICheck.Docked.Station(ClassName, true),
+                EndLocation = IGet.Docked.System(ClassName),
+                EndStation = IGet.Docked.Station(ClassName),
                 StartLocation = Event.System,
                 Time = Event.TransferTime,
                 ThreeMinOut = true

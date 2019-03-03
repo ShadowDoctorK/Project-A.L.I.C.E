@@ -10,6 +10,7 @@ using ALICE_Events;
 using ALICE_Core;
 using ALICE_EventLogic;
 using ALICE_Equipment;
+using ALICE_Debug;
 
 namespace ALICE_Monitors
 {
@@ -391,11 +392,11 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 262144)
                 {
                     Value.Flags = Value.Flags - 262144;
-                    IEquipment.FrameShiftDrive.Cooldown = true;
+                    ISet.FrameShiftDrive.Cooldown(MethodName, true);
                 }
                 else
                 {
-                    IEquipment.FrameShiftDrive.Cooldown = false;
+                    ISet.FrameShiftDrive.Cooldown(MethodName, false);
                 }
                 #endregion
 
@@ -416,14 +417,10 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 65536)
                 {
                     Value.Flags = Value.Flags - 65536;
-                    IStatus.Masslocked = true;
-
-                    IEvents.Masslock.Construct(true);
+                    IEvents.Masslock.Construct(true);                    
                 }
                 else
                 {
-                    IStatus.Masslocked = false;
-
                     IEvents.Masslock.Construct(false);
                 }
                 #endregion
@@ -612,12 +609,12 @@ namespace ALICE_Monitors
                 if (Value.Flags >= 4)
                 {
                     //Landing Gear Down
-                    IStatus.LandingGear = true;
+                    ISet.LandingGear.Status(MethodName, true);
                     Value.Flags = Value.Flags - 4;
                 }
                 else
                 {
-                    IStatus.LandingGear = false;
+                    ISet.LandingGear.Status(MethodName, false);
                 }
                 #endregion
 

@@ -18,6 +18,14 @@ namespace ALICE_Internal
         public static readonly string SupercruiseExit = "SupercruiseExit";
         #endregion
 
+        public enum Space
+        {
+            Unknown,
+            Normal,
+            Supercruise,
+            Hyperspace
+        }
+
         /// <summary>
         /// (Answer) Generic Enum to allow more feedback when doing checks and queries.
         /// </summary>
@@ -289,7 +297,7 @@ namespace ALICE_Internal
             Combat_Dogfight,
             Combat_SRV,
             Combat_Unknown,
-            CombatLargeDogFight,
+            Combat_LargeDogFight,
             CQC,
             CQCMenu,
             DestinationFromHyperspace,

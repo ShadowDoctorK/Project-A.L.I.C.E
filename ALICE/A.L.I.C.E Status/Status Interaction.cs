@@ -47,29 +47,29 @@ namespace ALICE_Status
         /// <summary>
         /// Watches For The Users Mark. Checks For The Command Every 100 ms.
         /// </summary>
-        /// <param name="Duration">How Long In Milliseconds You Want To Watch.</param>
-        /// <param name="Method">Method Name Calling This Function.</param>
-        /// <param name="Tracker">Tracking reference to allow calling method to exit this watcher early if needed.</param>
-        /// <returns>Yes, No or NoResponse</returns>
-        public Marks WaitForMark(decimal Duration, ref bool Tracker, string Method)
+        /// <param name="M">(Method) The Simple Name Of The Method</param>
+        /// <param name="D">(Duration) How Long In Milliseconds You Want To Watch</param>
+        /// <param name="T">(Tracker) Tracking Reference To Allow Fucntion To Exit If No Longer Required</param>
+        /// <returns></returns>
+        public Marks WaitForMark(string M, decimal D, ref bool T, ref Marks MK)
         {
-            string MethodName = "Interaction Status (" + Method + ")";
+            string MethodName = "Interaction Status (" + M + ")";
 
             try
             {
                 //Reset Answer
-                Marker = Marks.NoResponse;
+                MK = Marks.NoResponse;
 
                 //Log
-                Logger.Log(MethodName, "Waiting " + Duration + " ms For Your Mark...", Logger.Yellow);
+                Logger.Log(MethodName, "Waiting " + D + " ms For Your Mark...", Logger.Yellow);
 
                 //Watch Response For "Duration" Of Time.
-                decimal ResponseCounter = Duration / 100;
-                while (Marker == Marks.NoResponse && ResponseCounter > 0)
+                decimal ResponseCounter = D / 100;
+                while (MK == Marks.NoResponse && ResponseCounter > 0)
                 {
                     ResponseCounter++; Thread.Sleep(100);
 
-                    if (Tracker == false)
+                    if (T == false)
                     {
                         //Debug Logger
                         Logger.DebugLine(MethodName, "Stopped Watching Early", Logger.Yellow);
@@ -79,7 +79,7 @@ namespace ALICE_Status
                 }
 
                 //No Response Check
-                if (Marker == Marks.NoResponse)
+                if (MK == Marks.NoResponse)
                 {
                     //Log
                     Logger.Log(MethodName, "No Mark Given, Stopped Waiting...", Logger.Yellow);
@@ -104,7 +104,7 @@ namespace ALICE_Status
             }
 
             //Return Result
-            return Marker;
+            return MK;
         }
 
         public void Yes()
@@ -151,6 +151,7 @@ namespace ALICE_Status
 
             //Set Answer To No
             Marker = Marks.Mark;
+            Logger.DebugLine(MethodName, "Marker = Mark", Logger.Yellow);
 
             //New Thread To Reset Answer
             Thread thread =

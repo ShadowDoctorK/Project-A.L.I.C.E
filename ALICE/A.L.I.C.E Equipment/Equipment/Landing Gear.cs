@@ -4,15 +4,14 @@ namespace ALICE_Equipment
 {
     public class LandingGear : Equipment_General
     {
-        public bool Status { get; set; }    //Status.Json Property
+        public bool Status = false;    //Status.Json Property
 
         public LandingGear()
         {
             Settings.Equipment = IEquipment.E.Default;
             Settings.Mode = IEquipment.M.Default;            
             Settings.Installed = true;
-            Settings.Enabled = true;
-            Status = false;
+            Settings.Enabled = true;            
         }
 
         #region Audio

@@ -2,7 +2,7 @@
 using ALICE_Debug;
 using ALICE_Internal;
 
-namespace ALICE_DebugItems
+namespace ALICE_DebugCheck
 {
     public class Docking : Debug
     {
@@ -14,7 +14,7 @@ namespace ALICE_DebugItems
         /// <param name="C">(Check) The State You're Checking</param>
         /// <param name="L">(Logging) Enable / Disbale Logging</param>
         /// <returns></returns>
-        public bool Status(string M, bool T, IEnums.DockingState C, bool L)
+        public bool Status(string M, bool T, IEnums.DockingState C, bool L = true)
         {
             //Set Prefix For Check Value
             string S = ""; if (T == false) { S = "Not "; }
@@ -50,7 +50,7 @@ namespace ALICE_DebugItems
         /// <param name="C">(Check) The State You're Checking</param>
         /// <param name="L">(Logging) Enable / Disbale Logging</param>
         /// <returns></returns>
-        public bool DeniedReason(string M, bool T, IEnums.DockingDenial C, bool L)
+        public bool Denied(string M, bool T, IEnums.DockingDenial C, bool L = true)
         {
             //Set Prefix For Check Value
             string S = ""; if (T == false) { S = "Not "; }
@@ -76,6 +76,49 @@ namespace ALICE_DebugItems
             //Passed
             if (L) { Logger.DebugLine(M, "[Pass]: " + N + " Equals Expected State (" + S + C + ")", Logger.Blue); }
             return true;
+        }
+    }
+}
+
+namespace ALICE_DebugGet
+{
+    public class Docking : Debug
+    {
+        /// <summary>
+        /// Gets the property value while wrapping in Debug Logging.
+        /// </summary>
+        /// <param name="M">(Method) The Simple Name For The Calling Method</param>
+        /// <returns></returns>
+        public IEnums.DockingState Status(string M)
+        {
+            //Debug Logger
+            Logger.DebugLine(M, "[Get]: Docking (Status) = " + IStatus.Docking.State, Logger.Yellow);
+
+            //Return Property
+            return IStatus.Docking.State;
+        }
+    }
+}
+
+namespace ALICE_DebugSet
+{
+    public class Docking : Debug
+    {
+        /// <summary>
+        /// Sets the property value while wrapping in Debug Logging.
+        /// </summary>
+        /// <param name="M">(Method) The Simple Name For The Calling Method</param>
+        /// <param name="V">(Value) The New Value</param>
+        public void Status(string M, IEnums.DockingState V)
+        {
+            //Only Process Changes
+            if (IStatus.Docking.State == V) { return; }
+
+            //Update Property
+            IStatus.Docking.State = V;
+
+            //Debug Logger
+            Logger.DebugLine(M, "[Set]: Docking (Status) = " + V, Logger.Yellow);
         }
     }
 }

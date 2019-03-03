@@ -48,7 +48,7 @@ namespace ALICE_Events
                 IStatus.Fighter.Deployed = false;
                 IStatus.Supercruise = false;
                 IStatus.Hyperspace = false;
-                IStatus.LandingGear = false;
+                ISet.LandingGear.Status(ClassName, false);
                 IStatus.Touchdown = false;
                 IStatus.Docking.Docked = false;
                 IStatus.Docking.State = IEnums.DockingState.Undocked;

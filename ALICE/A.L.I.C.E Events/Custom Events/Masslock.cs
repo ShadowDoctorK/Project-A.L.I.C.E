@@ -29,31 +29,21 @@ namespace ALICE_Events
     /// </summary>
     public class Event_Masslock : Event
     {
-        //Event Instance
-        private Masslock i = new Masslock();
-        public Masslock I
-        {
-            get => i;
-            set => i = value;
-        }
+        public Masslock I { get; set; } = new Masslock();
 
         //Construct Event
         public void Construct(bool State)
         {
             try
             {
-                //Get Event & Check If Null
-                var Event = (Masslock)Get(IEnums.Events.Masslock);
-                if (Event == null) { Event = new Masslock(); }
-
                 //Check Staus Changed
-                if (Event.Status == State) { return; }
+                if (I.Status == State) { return; }
 
                 //Update Event & Plugin Property
-                Event.Status = State;                
+                I.Status = State;                
 
                 //Record & Execute
-                Record(Name, Event);
+                Record(Name, I);
                 Logic();
             }
             catch (Exception ex)

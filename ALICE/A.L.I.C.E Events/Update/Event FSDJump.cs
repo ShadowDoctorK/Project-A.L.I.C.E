@@ -212,7 +212,7 @@ namespace ALICE_Events
                 IStatus.Hyperspace = false;
                 IStatus.Touchdown = false;
                 IStatus.Docking.Docked = false;
-                IStatus.LandingGear = false;
+                ISet.LandingGear.Status(ClassName, false);
                 IStatus.CargoScoop = false;
                 IStatus.Fighter.Deployed = false;
                 IStatus.Hardpoints = false;

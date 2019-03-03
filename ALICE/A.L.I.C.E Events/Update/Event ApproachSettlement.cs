@@ -14,6 +14,8 @@ namespace ALICE_Events
         public string Name { get; set; }
         public string Name_Localised { get; set; }
         public decimal MarketID { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
 
         //Default Constructor
         public ApproachSettlement()
@@ -21,6 +23,8 @@ namespace ALICE_Events
             Name = Str();
             Name_Localised = Str();
             MarketID = Dec();
+            Longitude = Dec();
+            Latitude = Dec();
         }
     }
 

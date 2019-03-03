@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using ALICE_Objects;
 using ALICE_Actions;
 using System.Threading;
 using ALICE_Internal;
@@ -996,10 +993,10 @@ namespace ALICE_Interface
                     new Thread((ThreadStart)(() =>
                     {
                         Call.Power.Set(
-                            ICheck.Platform.WeaponPower(MethodName, true),
-                            ICheck.Platform.EnginePower(MethodName, true),
-                            ICheck.Platform.SystemPower(MethodName, true),
-                            ICheck.Platform.RecordPower(MethodName, true));
+                            IGet.Platform.WeaponPower(MethodName),
+                            IGet.Platform.EnginePower(MethodName),
+                            IGet.Platform.SystemPower(MethodName),
+                            IGet.Platform.RecordPower(MethodName));
                     }))
                     { IsBackground = true };
                     power.Start();
@@ -1070,31 +1067,31 @@ namespace ALICE_Interface
                 {
                     if (Command.Check("Attack Target"))
                     {
-                        Call.Action.Fighter_AttackMyTarget(PlugIn.CommandAudio);
+                        IActions.Fighter.AttackMyTarget(PlugIn.CommandAudio);
                     }
                     else if (Command.Check("Defend"))
                     {
-                        Call.Action.Fighter_Defending(PlugIn.CommandAudio);
+                        IActions.Fighter.Defending(PlugIn.CommandAudio);
                     }
                     else if (Command.Check("Engage At Will"))
                     {
-                        Call.Action.Fighter_EngageAtWill(PlugIn.CommandAudio);
+                        IActions.Fighter.EngageAtWill(PlugIn.CommandAudio);
                     }
                     else if (Command.Check("Follow"))
                     {
-                        Call.Action.Fighter_Follow(PlugIn.CommandAudio);
+                        IActions.Fighter.Follow(PlugIn.CommandAudio);
                     }
                     else if (Command.Check("Hold"))
                     {
-                        Call.Action.Fighter_HoldPosition(PlugIn.CommandAudio);
+                        IActions.Fighter.HoldPosition(PlugIn.CommandAudio);
                     }
                     else if (Command.Check("Maintain"))
                     {
-                        Call.Action.Fighter_MaintainFormation(PlugIn.CommandAudio);
+                        IActions.Fighter.Recall(PlugIn.CommandAudio);
                     }
                     else if (Command.Check("Recall"))
                     {
-                        Call.Action.Fighter_Recall(PlugIn.CommandAudio);
+                        IActions.Fighter.Recall(PlugIn.CommandAudio);                        
                     }
                 }
                 else if (Command.Check("Shield Cell"))
@@ -1149,25 +1146,28 @@ namespace ALICE_Interface
             {
                 if (Command.Check("Abort Jump"))
                 {
-                    Call.Action.AbortJump(PlugIn.CommandAudio);
+                    IActions.FrameShiftDrive.AbortJump(PlugIn.CommandAudio);
                 }
                 else if (Command.Check("Hyperspace"))
                 {
                     bool OnMyMark = false;
                     if (Command.Check("On My Mark")) { OnMyMark = true; }
-                    Call.Action.Hyperspace(true, PlugIn.CommandAudio, OnMyMark);
+
+                    IActions.FrameShiftDrive.Hyperspace(PlugIn.CommandAudio, true, OnMyMark);
                 }
                 else if (Command.Check("Supercruise"))
                 {
                     bool OnMyMark = false;
                     if (Command.Check("On My Mark")) { OnMyMark = true; }
-                    Call.Action.Supercruise(true, PlugIn.CommandAudio, OnMyMark);
+
+                    IActions.FrameShiftDrive.Supercruise(PlugIn.CommandAudio, true, OnMyMark);
                 }
                 else if (Command.Check("Disengage"))
                 {
                     bool OnMyMark = false;
                     if (Command.Check("On My Mark")) { OnMyMark = true; }
-                    Call.Action.Supercruise(false, PlugIn.CommandAudio, OnMyMark);
+
+                    IActions.FrameShiftDrive.Supercruise(PlugIn.CommandAudio, false, OnMyMark);
                 }
             }
             //End: Navigation
@@ -1646,7 +1646,7 @@ namespace ALICE_Interface
 
                     if (Num == 1 || Num == 2)
                     {
-                        Call.Action.DeployFighter(Num, true, PlugIn.CommandAudio);
+                        IActions.Fighter.Deploy(Num, true, PlugIn.CommandAudio);
                     }
                     else
                     {
@@ -1670,7 +1670,7 @@ namespace ALICE_Interface
 
                     if (Num == 1 || Num == 2)
                     {
-                        Call.Action.DeployFighter(Num, false, PlugIn.CommandAudio);
+                        IActions.Fighter.Deploy(Num, false, PlugIn.CommandAudio);
                     }
                     else
                     {

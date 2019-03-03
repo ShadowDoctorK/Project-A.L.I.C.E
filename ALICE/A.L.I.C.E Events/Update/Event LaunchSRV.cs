@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-10-03T03:36:09Z", "event":"LaunchSRV", "Loadout":"starter", "PlayerControlled":true }
 
 using ALICE_Core;
+using ALICE_Debug;
 using System;
 
 namespace ALICE_Events
@@ -50,7 +51,7 @@ namespace ALICE_Events
             try
             {
                 IStatus.Touchdown = true;
-                IStatus.LandingGear = true;
+                ISet.LandingGear.Status(ClassName, true);
                 IStatus.Supercruise = false;
                 IStatus.Hyperspace = false;
                 IStatus.Docking.Docked = false;

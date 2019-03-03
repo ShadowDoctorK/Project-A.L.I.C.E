@@ -4,6 +4,7 @@ using System.Threading;
 using ALICE_Internal;
 using ALICE_Actions;
 using System.Collections.Generic;
+using ALICE_Debug;
 
 namespace ALICE_Core
 {
@@ -139,7 +140,7 @@ namespace ALICE_Core
         {
             string MethodName = ClassName + " Control";
 
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -429,9 +430,9 @@ namespace ALICE_Core
         {
             string DebugText = "";
 
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName, true) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
-                while (Check.Environment.Space(IEnums.Hyperspace, false, MethodName, true) == false)
+                while (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace, false) == false)
                 {
                     Thread.Sleep(100);
                 }

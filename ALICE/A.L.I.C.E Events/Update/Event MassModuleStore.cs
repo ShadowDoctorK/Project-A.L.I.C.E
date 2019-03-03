@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-10-12T03:10:15Z", "event":"MassModuleStore", "MarketID":3221503744, "Ship":"federation_corvette", "ShipID":11, "Items":[ { "Slot":"Slot01_Size7", "Name":"$int_shieldgenerator_size7_class3_fast_name;", "Name_Localised":"Bi-Weave Shield", "Hot":false, "EngineerModifications":"ShieldGenerator_Thermic", "Level":3, "Quality":1.000000 }, { "Slot":"Slot02_Size7", "Name":"$int_fighterbay_size7_class1_name;", "Name_Localised":"Fighter Hangar", "Hot":false }, { "Slot":"Slot03_Size7", "Name":"$int_shieldcellbank_size7_class4_name;", "Name_Localised":"Shield Cell Bank", "Hot":false }, { "Slot":"Slot04_Size6", "Name":"$int_hullreinforcement_size5_class2_name;", "Name_Localised":"Hull Reinforcement", "Hot":false, "EngineerModifications":"HullReinforcement_HeavyDuty", "Level":3, "Quality":0.000000 }, { "Slot":"Slot05_Size6", "Name":"$int_hullreinforcement_size5_class2_name;", "Name_Localised":"Hull Reinforcement", "Hot":false, "EngineerModifications":"HullReinforcement_HeavyDuty", "Level":1, "Quality":0.000000 }, { "Slot":"Slot06_Size5", "Name":"$int_hullreinforcement_size5_class2_name;", "Name_Localised":"Hull Reinforcement", "Hot":false, "EngineerModifications":"HullReinforcement_HeavyDuty", "Level":3, "Quality":0.000000 }, { "Slot":"Slot07_Size5", "Name":"$int_hullreinforcement_size5_class2_name;", "Name_Localised":"Hull Reinforcement", "Hot":false, "EngineerModifications":"HullReinforcement_HeavyDuty", "Level":1, "Quality":0.000000 }, { "Slot":"Slot08_Size4", "Name":"$int_hullreinforcement_size4_class2_name;", "Name_Localised":"Hull Reinforcement", "Hot":false, "EngineerModifications":"HullReinforcement_HeavyDuty", "Level":3, "Quality":0.000000 }, { "Slot":"Slot09_Size4", "Name":"$int_hullreinforcement_size4_class2_name;", "Name_Localised":"Hull Reinforcement", "Hot":false, "EngineerModifications":"HullReinforcement_HeavyDuty", "Level":3, "Quality":0.000000 }, { "Slot":"Slot10_Size3", "Name":"$int_modulereinforcement_size3_class2_name;", "Name_Localised":"Module Reinforcement", "Hot":false } ] }
 
 using ALICE_Core;
+using ALICE_Debug;
 using System;
 using System.Collections.Generic;
 
@@ -72,7 +73,7 @@ namespace ALICE_Events
             try
             {
                 IStatus.Docking.Docked = true;
-                IStatus.LandingGear = true;
+                ISet.LandingGear.Status(ClassName, true);
                 IStatus.Planet.OrbitalMode = false;
                 IStatus.Planet.DecentReport = false;
                 IStatus.Supercruise = false;

@@ -1,10 +1,7 @@
 ﻿using System.Threading;
 using ALICE_Actions;
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Events;
 using ALICE_Internal;
-using ALICE_Objects;
 using ALICE_Synthesizer;
 
 namespace ALICE_Equipment
@@ -22,15 +19,16 @@ namespace ALICE_Equipment
          * 7. (Supercruise) Supercruise = false
          * 8. Hyperspace = false         
          */
-        
-        public bool Supercruise { get; set; }
-        public bool Hyperspace { get; set; }
-        public bool Charging { get; set; }
-        public bool Cooldown { get; set; }
-        public bool Prepairing { get; set; }
-        public bool Disengaging { get; set; }
+
+        public bool Supercruise = false;
+        public bool Hyperspace = false;
+        public bool Charging = false;
+        public bool Cooldown = false;
+        //public bool Prepairing = false;
+        public bool Disengaging = false;
         public bool PrepHyperspace = false;
         public bool PrepSupercruise = false;
+        public bool Marking = false;
 
         public FrameShiftDrive()
         {
@@ -38,13 +36,6 @@ namespace ALICE_Equipment
             Settings.Mode = IEquipment.M.Default;
             Settings.Installed = true;
             Settings.Enabled = true;
-
-            Supercruise = false;
-            Hyperspace = false;
-            Charging = false;
-            Cooldown = false;
-            Prepairing = false;
-            Disengaging = false;
         }
 
         public void U_Charging(bool B)
@@ -53,19 +44,19 @@ namespace ALICE_Equipment
             if (B == Charging) { return; }
 
             //Update Charging
-            Charging = B;
+            ISet.FrameShiftDrive.Charging(MethodName, B);
 
             //Reset Charging States
             if (B == false)
             {
-                IEquipment.FrameShiftDrive.Hyperspace = false;
-                IEquipment.FrameShiftDrive.Supercruise = false;
+                ISet.FrameShiftDrive.Hyperspace(MethodName, false);
+                ISet.FrameShiftDrive.Supercruise(MethodName, false);
             }
 
             //Audio - Charging Started:
             ChargingStart(
-                ICheck.FrameShiftDrive.Charging(MethodName, true),      //Check Charging State
-                ICheck.InitializedStatus(MethodName));                  //Check Status.Json Initialized
+                ICheck.FrameShiftDrive.Charging(MethodName, true),    //Check Charging State
+                ICheck.InitializedStatus(MethodName));                //Check Status.Json Initialized
         }
 
         #region Controls
@@ -77,29 +68,76 @@ namespace ALICE_Equipment
         public bool Start(bool HyperspaceCharge)
         {
             //Keypress
-            if (HyperspaceCharge) { Call.Key.Press(Call.Key.Hyperspace_Jump, 0); }
-            else { Call.Key.Press(Call.Key.Supercruise, 0); }
+            if (HyperspaceCharge)
+            {
+                Call.Key.Press(Call.Key.Hyperspace_Jump, 0);
+            }
+            else
+            {
+                Call.Key.Press(Call.Key.Supercruise, 0);
+            }
 
             //Watch FSD Starting (3.25 Seconds)
-            Thread.Sleep(250); decimal Count = 0;
-            while (Charging == false)
-            { Count++; Thread.Sleep(100); if (Count >= 30) { return false; } }
+            Thread.Sleep(250); decimal Count = 0; while (Charging == false)
+            {
+                Count++; Thread.Sleep(100); if (Count >= 30)
+                {
+                    return false;
+                }
+            }
 
             //Started
-            if (HyperspaceCharge) { Supercruise = false; Hyperspace = true; }
-            else { Supercruise = true; Hyperspace = false; }
+            if (HyperspaceCharge)
+            {
+                //Charge Mode
+                ISet.FrameShiftDrive.Hyperspace(MethodName, true);
+                ISet.FrameShiftDrive.Supercruise(MethodName, false);
+
+                //Preparations
+                ISet.FrameShiftDrive.PrepHyperspace(MethodName, false);
+                ISet.FrameShiftDrive.PrepSupercruise(MethodName, false);
+            }
+            else
+            {
+                //Charge Mode
+                ISet.FrameShiftDrive.Supercruise(MethodName, true);
+                ISet.FrameShiftDrive.Hyperspace(MethodName, false);
+
+                //Preparations
+                ISet.FrameShiftDrive.PrepHyperspace(MethodName, false);
+                ISet.FrameShiftDrive.PrepSupercruise(MethodName, false);
+            }
+
             return true;
         }
 
         public bool Stop(bool EmergencyDrop = false)
         {
+            ISet.FrameShiftDrive.Disengaging(MethodName, true);
+
             //Keypress
-            if (EmergencyDrop == false) { Call.Key.Press(Call.Key.Supercruise, 0); }
-            else { Call.Key.Press(Call.Key.Supercruise, 200); Call.Key.Press(Call.Key.Supercruise, 0); }
-            
+            if (EmergencyDrop == false)
+            {
+                Call.Key.Press(Call.Key.Supercruise, 0);
+            }
+            else
+            {
+                Call.Key.Press(Call.Key.Supercruise, 200);
+                Call.Key.Press(Call.Key.Supercruise, 0);
+            }
+
             //Watch FSD Disengaging
-            Disengaging = true; int Count = 0; while (Disengaging == true)
-            { if (Count > 50) { return false; } Thread.Sleep(100); Count++; }
+            ISet.FrameShiftDrive.Disengaging(MethodName, true);
+            int Count = 0; while (Disengaging == true)
+            {
+                if (Count > 50)
+                {
+                    return false;
+                }
+                Thread.Sleep(100); Count++;
+            }
+
+            ISet.FrameShiftDrive.Disengaging(MethodName, true);
 
             //Disengaged
             return true;
@@ -108,22 +146,97 @@ namespace ALICE_Equipment
         public bool Abort()
         {
             //Keypress
-            if (Charging) { Call.Key.Press(Call.Key.Toggle_Frame_Shift_Drive, 0); }
+            if (Charging)
+            {
+                Call.Key.Press(Call.Key.Toggle_Frame_Shift_Drive, 0);
+            }
 
             //Watch FSD Abort
             int Count = 0; while (Charging == true)
-            { if (Count > 30) { return false; } Thread.Sleep(100); Count++; }
+            {
+                if (Count > 30)
+                {
+                    return false;
+                }
+                Thread.Sleep(100); Count++;
+            }
+
+            //Preparations
+            ISet.FrameShiftDrive.PrepHyperspace(MethodName, false);
+            ISet.FrameShiftDrive.PrepSupercruise(MethodName, false);
 
             //Aborted
             return true;
         }
 
-        public void Reset()
+        /// <summary>
+        /// Configure Frame Shift Drive Preparations
+        /// </summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="S">(State) Setting Or Resetting Preps</param>
+        /// <param name="H">(Hyperspace) Set Hyperspace Preps. Defaults To Supercruise</param>
+        public void Prepair(string M, bool S, bool H = false)
         {
-            PrepHyperspace = false;
-            PrepSupercruise = false;
-            Prepairing = false;
-            Charging = false;
+            //Set Preprations
+            if (S)
+            {
+                //Hyperspace
+                if (H)
+                {
+                    ISet.FrameShiftDrive.PrepHyperspace(MethodName, true);
+                    ISet.FrameShiftDrive.PrepSupercruise(MethodName, false);
+
+                    //Audio - Prepair For Hyperspace
+                }
+                //Supercruise
+                else
+                {
+                    ISet.FrameShiftDrive.PrepSupercruise(MethodName, true);
+                    ISet.FrameShiftDrive.PrepHyperspace(MethodName, false);
+
+                    //Audio - Prepair For Supercruise
+                }
+            }
+            //Reset Preprations
+            else
+            {
+                ISet.FrameShiftDrive.PrepSupercruise(MethodName, false);
+                ISet.FrameShiftDrive.PrepHyperspace(MethodName, false);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="M"></param>
+        /// <param name="Prep"></param>
+        /// <param name="Mark"></param>
+        /// <param name="Mode"></param>
+        public void Reset(string M, bool Prep, bool Mark, bool Mode)
+        {
+            if (Prep)
+            {
+                ISet.FrameShiftDrive.PrepHyperspace(M, false);
+                ISet.FrameShiftDrive.PrepSupercruise(M, false);
+            }                       
+            if (Mark)
+            {
+                ISet.FrameShiftDrive.Marking(M, false);
+            }            
+            if (Mode)
+            {
+                ISet.FrameShiftDrive.Supercruise(MethodName, false);
+                ISet.FrameShiftDrive.Hyperspace(MethodName, false);
+            }
+        }
+
+        /// <summary>
+        /// Reference Method To Allow Posting Debug Line For Returning.
+        /// </summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        public void Returned(string M)
+        {
+            Logger.DebugLine(M, "Returned From Logic", Logger.Yellow);
         }
         #endregion            
 

@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-10-20T12:28:45Z", "event":"MaterialTrade", "MarketID":3229126144, "TraderType":"manufactured", "Paid":{ "Material":"protoheatradiators", "Material_Localised":"Proto Heat Radiators", "Category":"$MICRORESOURCE_CATEGORY_Manufactured;", "Category_Localised":"Manufactured", "Quantity":6 }, "Received":{ "Material":"heatvanes", "Material_Localised":"Heat Vanes", "Category":"$MICRORESOURCE_CATEGORY_Manufactured;", "Category_Localised":"Manufactured", "Quantity":18 } }
 
 using ALICE_Core;
+using ALICE_Debug;
 using System;
 
 namespace ALICE_Events
@@ -80,7 +81,7 @@ namespace ALICE_Events
             try
             {
                 IStatus.Docking.Docked = true;
-                IStatus.LandingGear = true;
+                ISet.LandingGear.Status(ClassName, true);
                 IStatus.Planet.OrbitalMode = false;
                 IStatus.Planet.DecentReport = false;
                 IStatus.Supercruise = false;

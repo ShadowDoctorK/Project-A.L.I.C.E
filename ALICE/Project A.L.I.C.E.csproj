@@ -60,6 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="A.L.I.C.E Actions\Items\Fighter.cs" />
+    <Compile Include="A.L.I.C.E Actions\Items\Frame Shift Drive.cs" />
+    <Compile Include="A.L.I.C.E Actions\IActions.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection Events.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection EventTypes.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection Variables.cs" />
@@ -71,8 +74,13 @@
     <Compile Include="A.L.I.C.E Data\Data CrimeTypes.cs" />
     <Compile Include="A.L.I.C.E Data\Data Messages.cs" />
     <Compile Include="A.L.I.C.E Data\IData.cs" />
+    <Compile Include="A.L.I.C.E Debug\Environment.cs" />
     <Compile Include="A.L.I.C.E Debug\Equipment\Frame Shift Drive.cs" />
     <Compile Include="A.L.I.C.E Debug\Equipment\Shields.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\Masslock.cs" />
+    <Compile Include="A.L.I.C.E Debug\IDebug.cs" />
+    <Compile Include="A.L.I.C.E Debug\IGet.cs" />
+    <Compile Include="A.L.I.C.E Debug\ISet.cs" />
     <Compile Include="A.L.I.C.E Debug\Reports.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\FireInNoFireZone.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\ShipyardArrived.cs" />
@@ -231,7 +239,7 @@
     <Compile Include="A.L.I.C.E Events\Update\Event Shutdown.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event SquadronStartup.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event SRVDestroyed.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event StartJump.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\Event StartJump.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Statistics.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event StoredModules.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event StoredShips.cs" />
@@ -310,8 +318,8 @@
     <Compile Include="A.L.I.C.E Equipment\Equipment\Discovery Scanner.cs" />
     <Compile Include="A.L.I.C.E Core\IPower.cs" />
     <Compile Include="A.L.I.C.E Settings\Settings Firegroups.cs" />
-    <Compile Include="A.L.I.C.E Actions\System Targeting.cs" />
-    <Compile Include="A.L.I.C.E Actions\System Assisted Power.cs" />
+    <Compile Include="System Targeting.cs" />
+    <Compile Include="System Assisted Power.cs" />
     <Compile Include="A.L.I.C.E Core\IFiregroups.cs" />
     <Compile Include="A.L.I.C.E Events\IEvent Logic.cs" />
     <Compile Include="A.L.I.C.E Core\Utilities.cs" />
