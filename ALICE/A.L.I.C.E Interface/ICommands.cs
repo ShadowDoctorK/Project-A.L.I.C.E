@@ -1901,7 +1901,7 @@ namespace ALICE_Interface
             }
             else if (Command.Check("Screenshot"))
             {
-                IScreenshot.Save();
+                //IScreenshot.Save();
             }
 
         }

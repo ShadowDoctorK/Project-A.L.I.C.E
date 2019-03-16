@@ -1,6 +1,7 @@
 ﻿using ALICE_Actions;
 using ALICE_Events;
 using ALICE_Internal;
+using ALICE_Interface;
 using ALICE_Monitors;
 using System;
 using System.Collections.Generic;
@@ -23,9 +24,8 @@ namespace ALICE_Debug_Console
 
         public static void Debug()
         {
+            IPlatform.Interface = IPlatform.Interfaces.VoiceAttack;
             PlugIn.Initialize(true, true);
-
-            IActions.FrameShiftDrive.Hyperspace(PlugIn.CommandAudio, true, false);
 
             Thread.Sleep(500000);
             Thread.Sleep(500000);

@@ -15,14 +15,14 @@ namespace ALICE_Keybinds
 {
 	public class AliceKeys
 	{
-        private XmlDocument _AliceBinds;
-        public XmlDocument AliceBinds
-        {
-            get => _AliceBinds;
-            set => _AliceBinds = value;
-        }
+		private XmlDocument _AliceBinds;
+		public XmlDocument AliceBinds
+		{
+			get => _AliceBinds;
+			set => _AliceBinds = value;
+		}
 
-        public Dictionary<string, Bind> Keybinds;
+		public Dictionary<string, Bind> Keybinds;
 
 		//Dictionary containing the Virtual Keys as Int's.
 		//Key = Games Key Definition
@@ -491,11 +491,11 @@ namespace ALICE_Keybinds
 				{ "Cycle_Next_Page", GetBind("CycleNextPage") },
 				{ "Cycle_Previous_Page", GetBind("CyclePreviousPage") },
 				{ "Enter_FSS_Mode", GetBind("ExplorationFSSEnter") },
-				{ "Leave_FSS_Mode", GetBind("ExplorationFSSQuit") },
+				{ "Leave_FSS_Mode", GetBind("ExplorationFSSQuit") }
 				#endregion
 
 				#region Custom / Miscellaneous
-				{ "ActiveScreenCap", IScreenshot.ActiveScreenCap() }
+				//{ "ActiveScreenCap", IScreenshot.ActiveScreenCap() }
 				#endregion
 			};
 		}
@@ -552,29 +552,29 @@ namespace ALICE_Keybinds
 			#endregion
 		}
 
-        public void Load_Keybinds()
-        {
-            //Load Target Binds File
-            AliceBinds = GetBindsFile(ISettings.User.BindsFile);
+		public void Load_Keybinds()
+		{
+			//Load Target Binds File
+			AliceBinds = GetBindsFile(ISettings.User.BindsFile);
 
-            //Update Binds
-            GetGameBinds();
+			//Update Binds
+			GetGameBinds();
 
-            //Load Keybinds
-            switch (IPlatform.Interface)
-            {
-                case IPlatform.Interfaces.Internal:
-                    break;
-                case IPlatform.Interfaces.VoiceAttack:
-                    Load_VoiceAttackVariables();
-                    break;
-                case IPlatform.Interfaces.VoiceMacro:
-                    Load_VoiceMacroVariables();
-                    break;
-                default:
-                    break;
-            }
-        }
+			//Load Keybinds
+			switch (IPlatform.Interface)
+			{
+				case IPlatform.Interfaces.Internal:
+					break;
+				case IPlatform.Interfaces.VoiceAttack:
+					Load_VoiceAttackVariables();
+					break;
+				case IPlatform.Interfaces.VoiceMacro:
+					Load_VoiceMacroVariables();
+					break;
+				default:
+					break;
+			}
+		}
 
 		private void Load_VoiceAttackVariables()
 		{
@@ -585,38 +585,79 @@ namespace ALICE_Keybinds
 			//Loops though the Binds Collection Building Virtual Keybinds.
 			foreach (KeyValuePair<string, Bind> bind in Keybinds)
 			{
-				//Checks First Key Isn't Default or Null.
-				if (bind.Value.Key1 != "" && bind.Value.Key1 != null)
+				try
 				{
-                    if (bind.Value.Primary == true)
+					//Checks First Key Isn't Default or Null.
+					if (bind.Value.Key1 != "" && bind.Value.Key1 != null)
+					{
+						if (bind.Value.Primary == true)
+						{
+							Logger.Log(MethodName, bind.Key + "Is Using The Primary Column's (Users) Keybind Because No Useable Keybind Was Set Up In The Secondary (Alice) Column", Logger.Yellow);
+						}
+
+						//Virtual Keybinds For Voice Attack Are Formatted With "[" & "]" To Encapsulate The Key.
+						//Example "Key_LeftControl" + "Key_K" In The Below Function Would Be Set As A Text 
+						//Variable Equal To "[162][75]". Note There Is No Space Between Them. A Space Will
+						//Is Another Way To Indicate "Key_Space". The Keys Are Pressed From Left To Right
+						//And Released Right To Left. So "L Ctrl" (down), "K" (down), (pause for duration),
+						//"K" (release), "L Ctrl" (release).
+
+						string Variable = "[" + VirtualKeysNum[bind.Value.Key1] + "]";
+						if (bind.Value.Key2 != null && bind.Value.Key2 != "") { Variable = Variable + "[" + VirtualKeysNum[bind.Value.Key2] + "]"; }
+						if (bind.Value.Key3 != null && bind.Value.Key3 != "") { Variable = Variable + "[" + VirtualKeysNum[bind.Value.Key3] + "]"; }
+						if (bind.Value.Key4 != null && bind.Value.Key4 != "") { Variable = Variable + "[" + VirtualKeysNum[bind.Value.Key4] + "]"; }
+
+						//Debug Logger
+						if (PlugIn.DebugMode == true)
+						{ IPlatform.WriteToInterface("A.L.I.C.E: " + bind.Key.ToString() + " Virtual Keys = " + Variable, "Green"); }
+
+						//Pass Key To Voice Attack Via The Platform Interface.
+						//IPlatform.SetText(bind.Key.ToString(), Variable);
+					}
+					else
+					{
+						IPlatform.WriteToInterface("A.L.I.C.E: No Keybind Detected For \"" + bind.Key.ToString(), "Red");
+						AlertAudio = true;
+					}
+				}
+                catch (KeyNotFoundException)
+                {
+                    Logger.Exception(MethodName, "Propblem Occured Loading " + bind.Key);
+
+                    if (bind.Value.Key1 != null && bind.Value.Key1 != "")
                     {
-                        Logger.Log(MethodName, bind.Key + "Is Using The Primary Column's (Users) Keybind Because No Useable Keybind Was Set Up In The Secondary (Alice) Column", Logger.Yellow);
+                        if (VirtualKeysNum.ContainsKey(bind.Value.Key1) == false)
+                        {
+                            Logger.Exception(MethodName, bind.Value.Key1.Replace("Key_", "") + " Was Not Converted. Try Using A Different Key Please.");
+                        }
                     }
-
-                    //Virtual Keybinds For Voice Attack Are Formatted With "[" & "]" To Encapsulate The Key.
-                    //Example "Key_LeftControl" + "Key_K" In The Below Function Would Be Set As A Text 
-                    //Variable Equal To "[162][75]". Note There Is No Space Between Them. A Space Will
-                    //Is Another Way To Indicate "Key_Space". The Keys Are Pressed From Left To Right
-                    //And Released Right To Left. So "L Ctrl" (down), "K" (down), (pause for duration),
-                    //"K" (release), "L Ctrl" (release).
-
-                    string Variable = "[" + VirtualKeysNum[bind.Value.Key1] + "]";
-					if (bind.Value.Key2 != null && bind.Value.Key2 != "") { Variable = Variable + "[" + VirtualKeysNum[bind.Value.Key2] + "]"; }
-					if (bind.Value.Key3 != null && bind.Value.Key3 != "") { Variable = Variable + "[" + VirtualKeysNum[bind.Value.Key3] + "]"; }
-					if (bind.Value.Key4 != null && bind.Value.Key4 != "") { Variable = Variable + "[" + VirtualKeysNum[bind.Value.Key4] + "]"; }
-
-					//Debug Logger
-					if (PlugIn.DebugMode == true)
-					{ IPlatform.WriteToInterface("A.L.I.C.E: " + bind.Key.ToString() + " Virtual Keys = " + Variable, "Green"); }
-
-					//Pass Key To Voice Attack Via The Platform Interface.
-					IPlatform.SetText(bind.Key.ToString(), Variable);
-				}
-				else
+                    if (bind.Value.Key2 != null && bind.Value.Key2 != "")
+                    {
+                        if (VirtualKeysNum.ContainsKey(bind.Value.Key2) == false)
+                        {
+                            Logger.Exception(MethodName, bind.Value.Key2.Replace("Key_", "") + " Was Not Converted. Try Using A Different Key Please.");
+                        }
+                    }
+                    if (bind.Value.Key3 != null && bind.Value.Key3 != "")
+                    {
+                        if (VirtualKeysNum.ContainsKey(bind.Value.Key3) == false)
+                        {
+                            Logger.Exception(MethodName, bind.Value.Key3.Replace("Key_", "") + " Was Not Converted. Try Using A Different Key Please.");
+                        }
+                    }
+                    if (bind.Value.Key4 != null && bind.Value.Key4 != "")
+                    {
+                        if (VirtualKeysNum.ContainsKey(bind.Value.Key4) == false)
+                        {
+                            Logger.Exception(MethodName, bind.Value.Key4.Replace("Key_", "") + " Was Not Converted. Try Using A Different Key Please.");
+                        }
+                    }                    
+                }
+				catch (Exception ex)
 				{
-					IPlatform.WriteToInterface("A.L.I.C.E: No Keybind Detected For \"" + bind.Key.ToString(), "Red");
-					AlertAudio = true;
-				}
+					Logger.Exception(MethodName, "Exception: " + ex);
+					Logger.Exception(MethodName, "Propblem Occured Loading " + bind.Key);
+				}			
 			}
 
 			#region Audio: Missing Keybinds
@@ -650,12 +691,12 @@ namespace ALICE_Keybinds
 				//Checks First Key Isn't Default or Null.
 				if (bind.Value.Key1 != "" && bind.Value.Key1 != null)
 				{
-                    if (bind.Value.Primary == true)
-                    {
-                        Logger.Log(MethodName, bind.Key + " Is Using The Primary Column's (Users) Keybind Because No Useable Keybind Was Set Up In The Secondary (Alice) Column", Logger.Yellow);
-                    }
+					if (bind.Value.Primary == true)
+					{
+						Logger.Log(MethodName, bind.Key + " Is Using The Primary Column's (Users) Keybind Because No Useable Keybind Was Set Up In The Secondary (Alice) Column", Logger.Yellow);
+					}
 
-                    string P = VirtualKeysStr[bind.Value.Key1] + "_D;";
+					string P = VirtualKeysStr[bind.Value.Key1] + "_D;";
 					string R = VirtualKeysStr[bind.Value.Key1] + "_U;";
 
 					if (bind.Value.Key2 != null && bind.Value.Key2 != "")
@@ -709,19 +750,19 @@ namespace ALICE_Keybinds
 
 		private XmlDocument GetBindsFile(string FileName)
 		{
-            string MethodName = "Keybinds (Load)";
+			string MethodName = "Keybinds (Load)";
 
-            string Path = Paths.Binds_Location + FileName;
+			string Path = Paths.Binds_Location + FileName;
 
-            //Check File Exists
+			//Check File Exists
 			if (File.Exists(Path) == false)
 			{
-                //Doesn't Exist, Load Default Alice Binds File
+				//Doesn't Exist, Load Default Alice Binds File
 				Logger.Error(MethodName, FileName + "Does Not Exist, Loading A.L.I.C.E Profile.3.0.binds", Logger.Red);
-                Path = Paths.ALICE_BindsPath;
-            }
+				Path = Paths.ALICE_BindsPath;
+			}
 
-            //Load Target Keybinds File
+			//Load Target Keybinds File
 			XmlDocument file; using (XmlReader Reader = XmlReader.Create(Path))
 			{
 				file = new XmlDocument();
@@ -733,80 +774,91 @@ namespace ALICE_Keybinds
 
 		private Bind GetBind(string XMLElementName)
 		{
+			string MethodName = "Get Bind";
+
 			Bind bind = new Bind();
 
-			foreach (XmlNode node in AliceBinds.DocumentElement)
+			try
 			{
-                if (node.Name == XMLElementName)
+				foreach (XmlNode node in AliceBinds.DocumentElement)
 				{
-					if ( //Check Secondary Bind
-                        node.HasChildNodes == true &&                                   //Has Child Node Means Its a Keybind
-                        node.ChildNodes[1].Name == "Secondary" &&                       //Target Secondary Bind
-						node.ChildNodes[1].Attributes["Device"].Value == "Keyboard" &&  //Only Use If Its A Keyboard Bind
-                        node.ChildNodes[1].Attributes["Key"].Value != "")               //Check Secondary Keybind Is Set
+					if (node.Name == XMLElementName)
 					{
-
-                        //Record Bind Name
-                        bind.Name = XMLElementName;
-						List<string> Keys = new List<string>(new string[5])
+						if ( //Check Secondary Bind
+							node.HasChildNodes == true &&                                   //Has Child Node Means Its a Keybind
+							node.ChildNodes[1].Name == "Secondary" &&                       //Target Secondary Bind
+							node.ChildNodes[1].Attributes["Device"].Value == "Keyboard" &&  //Only Use If Its A Keyboard Bind
+							node.ChildNodes[1].Attributes["Key"].Value != "")               //Check Secondary Keybind Is Set
 						{
-							[0] = node.ChildNodes[1].Attributes[1].Value
-						};
 
-						foreach (XmlNode modifier in node.ChildNodes[1])
-						{
-							if (Keys[2] == null) { Keys[1] = modifier.Attributes[1].Value; }
-							else if (Keys[3] == null) { Keys[2] = modifier.Attributes[1].Value; }
-							else if (Keys[4] == null) { Keys[3] = modifier.Attributes[1].Value; }
-							else { IPlatform.WriteToInterface("A.L.I.C.E: (" + node.Name + ") More Than 4 Keys To Assign... Please Use Less Keys", "Red"); }
+							//Record Bind Name
+							bind.Name = XMLElementName;
+							List<string> Keys = new List<string>(new string[5])
+							{
+								[0] = node.ChildNodes[1].Attributes[1].Value
+							};
+
+							foreach (XmlNode modifier in node.ChildNodes[1])
+							{
+								if (Keys[2] == null) { Keys[1] = modifier.Attributes[1].Value; }
+								else if (Keys[3] == null) { Keys[2] = modifier.Attributes[1].Value; }
+								else if (Keys[4] == null) { Keys[3] = modifier.Attributes[1].Value; }
+								else { IPlatform.WriteToInterface("A.L.I.C.E: (" + node.Name + ") More Than 4 Keys To Assign... Please Use Less Keys", "Red"); }
+							}
+
+							for (int i = Keys.Count - 1; i >= 0; i--)
+							{
+								if (bind.Key1 == null) { bind.Key1 = Keys[i]; }
+								else if (bind.Key2 == null) { bind.Key2 = Keys[i]; }
+								else if (bind.Key3 == null) { bind.Key3 = Keys[i]; }
+								else if (bind.Key4 == null) { bind.Key4 = Keys[i]; }
+							}
 						}
-
-						for (int i = Keys.Count - 1; i >= 0; i--)
+						else if ( //Secondary Bind Was Not Set, Check Primary
+							node.HasChildNodes == true &&                                   //Has Child Node Means Its a Keybind
+							node.ChildNodes[0].Name == "Primary" &&                         //Target Primary Bind
+							node.ChildNodes[0].Attributes["Device"].Value == "Keyboard" &&  //Only Use If Its A Keyboard Bind
+							node.ChildNodes[0].Attributes["Key"].Value != "")               //Check Primary Keybind Is Set
 						{
-							if (bind.Key1 == null) { bind.Key1 = Keys[i]; }
-							else if (bind.Key2 == null) { bind.Key2 = Keys[i]; }
-							else if (bind.Key3 == null) { bind.Key3 = Keys[i]; }
-							else if (bind.Key4 == null) { bind.Key4 = Keys[i]; }
+							//Mark Bind As A Primary Bind
+							bind.Primary = true;
+
+							//Record Bind Name
+							bind.Name = XMLElementName;
+							List<string> Keys = new List<string>(new string[5])
+							{
+								[0] = node.ChildNodes[0].Attributes[1].Value
+							};
+
+							foreach (XmlNode modifier in node.ChildNodes[0])
+							{
+								if (Keys[2] == null) { Keys[1] = modifier.Attributes[1].Value; }
+								else if (Keys[3] == null) { Keys[2] = modifier.Attributes[1].Value; }
+								else if (Keys[4] == null) { Keys[3] = modifier.Attributes[1].Value; }
+								else { IPlatform.WriteToInterface("A.L.I.C.E: (" + node.Name + ") More Than 4 Keys To Assign... Please Use Less Keys", "Red"); }
+							}
+
+							for (int i = Keys.Count - 1; i >= 0; i--)
+							{
+								if (bind.Key1 == null) { bind.Key1 = Keys[i]; }
+								else if (bind.Key2 == null) { bind.Key2 = Keys[i]; }
+								else if (bind.Key3 == null) { bind.Key3 = Keys[i]; }
+								else if (bind.Key4 == null) { bind.Key4 = Keys[i]; }
+							}
 						}
-					}                    
-                    else if ( //Secondary Bind Was Not Set, Check Primary
-                        node.HasChildNodes == true &&                                   //Has Child Node Means Its a Keybind
-                        node.ChildNodes[0].Name == "Primary" &&                         //Target Primary Bind
-                        node.ChildNodes[0].Attributes["Device"].Value == "Keyboard" &&  //Only Use If Its A Keyboard Bind
-                        node.ChildNodes[0].Attributes["Key"].Value != "")               //Check Primary Keybind Is Set
-                    {
-                        //Mark Bind As A Primary Bind
-                        bind.Primary = true;
-
-                        //Record Bind Name
-                        bind.Name = XMLElementName;
-                        List<string> Keys = new List<string>(new string[5])
-                        {
-                            [0] = node.ChildNodes[0].Attributes[1].Value
-                        };
-
-                        foreach (XmlNode modifier in node.ChildNodes[0])
-                        {
-                            if (Keys[2] == null) { Keys[1] = modifier.Attributes[1].Value; }
-                            else if (Keys[3] == null) { Keys[2] = modifier.Attributes[1].Value; }
-                            else if (Keys[4] == null) { Keys[3] = modifier.Attributes[1].Value; }
-                            else { IPlatform.WriteToInterface("A.L.I.C.E: (" + node.Name + ") More Than 4 Keys To Assign... Please Use Less Keys", "Red"); }
-                        }
-
-                        for (int i = Keys.Count - 1; i >= 0; i--)
-                        {
-                            if (bind.Key1 == null) { bind.Key1 = Keys[i]; }
-                            else if (bind.Key2 == null) { bind.Key2 = Keys[i]; }
-                            else if (bind.Key3 == null) { bind.Key3 = Keys[i]; }
-                            else if (bind.Key4 == null) { bind.Key4 = Keys[i]; }
-                        }
-                    }
-                    else
-					{
-						//IPlatform.WriteToInterface("A.L.I.C.E: (" + node.Name + ") Does Not Have A Secondary Keyboard Bind.", "Red");
+						else
+						{
+							//IPlatform.WriteToInterface("A.L.I.C.E: (" + node.Name + ") Does Not Have A Secondary Keyboard Bind.", "Red");
+						}
 					}
 				}
 			}
+			catch (Exception ex)
+			{
+				Logger.Exception(MethodName, "Exception: " + ex);
+				Logger.Exception(MethodName, "Problem Occured While Loading " + XMLElementName);
+			}
+
 			return bind;
 		}
 
@@ -1211,7 +1263,7 @@ namespace ALICE_Keybinds
 
 		public class Bind
 		{
-            public bool Primary = false;
+			public bool Primary = false;
 			public string Name { get; set; }
 			public string Key1 { get; set; }
 			public string Key2 { get; set; }
@@ -1219,172 +1271,172 @@ namespace ALICE_Keybinds
 			public string Key4 { get; set; }
 		}
 
-        #region Key Wrappers
+		#region Key Wrappers
 
-        #region Delays
-        public readonly string DelayPanel = "Panel";
-        public readonly string DelayFireGroup = "Firegroup";
-        public readonly string DelayPower = "Power";
-        public readonly string DelayThrottle = "Throttle";
-        #endregion
+		#region Delays
+		public readonly string DelayPanel = "Panel";
+		public readonly string DelayFireGroup = "Firegroup";
+		public readonly string DelayPower = "Power";
+		public readonly string DelayThrottle = "Throttle";
+		#endregion
 
-        #region 02 - Flight Rotation
-        public readonly string Yaw_Left = "Yaw_Left";
-        public readonly string Yaw_Right = "Yaw_Right";
-        public readonly string Roll_Left = "Roll_Left";
-        public readonly string Roll_Right = "Roll_Right";
-        public readonly string Pitch_Up = "Pitch_Up";
-        public readonly string Pitch_Down = "Pitch_Down";
-        #endregion
+		#region 02 - Flight Rotation
+		public readonly string Yaw_Left = "Yaw_Left";
+		public readonly string Yaw_Right = "Yaw_Right";
+		public readonly string Roll_Left = "Roll_Left";
+		public readonly string Roll_Right = "Roll_Right";
+		public readonly string Pitch_Up = "Pitch_Up";
+		public readonly string Pitch_Down = "Pitch_Down";
+		#endregion
 
-        #region 03 - Flight Thrust
-        public readonly string Thrust_Left = "Thrust_Left";
-        public readonly string Thrust_Right = "Thrust_Right";
-        public readonly string Thrust_Up = "Thrust_Up";
-        public readonly string Thrust_Up_Press = "Thrust_Up_Press";
-        public readonly string Thrust_Up_Release = "Thrust_Up_Release";
-        public readonly string Thrust_Down = "Thrust_Down";
-        public readonly string Thrust_Forward = "Thrust_Forward";
-        public readonly string Thrust_Backward = "Thrust_Backward";
-        #endregion
+		#region 03 - Flight Thrust
+		public readonly string Thrust_Left = "Thrust_Left";
+		public readonly string Thrust_Right = "Thrust_Right";
+		public readonly string Thrust_Up = "Thrust_Up";
+		public readonly string Thrust_Up_Press = "Thrust_Up_Press";
+		public readonly string Thrust_Up_Release = "Thrust_Up_Release";
+		public readonly string Thrust_Down = "Thrust_Down";
+		public readonly string Thrust_Forward = "Thrust_Forward";
+		public readonly string Thrust_Backward = "Thrust_Backward";
+		#endregion
 
-        #region 05 -  Flight Throttle
-        public readonly string Decrease_Throttle = "Decrease_Throttle";
-        public readonly string Increase_Throttle = "Increase_Throttle";
-        public readonly string Set_Speed_To_Minus_100 = "Set_Speed_To_-100";
-        public readonly string Set_Speed_To_Minus_75 = "Set_Speed_To_-75";
-        public readonly string Set_Speed_To_Minus_50 = "Set_Speed_To_-50";
-        public readonly string Set_Speed_To_Minus_25 = "Set_Speed_To_-25";
-        public readonly string Set_Speed_To_0 = "Set_Speed_To_0";
-        public readonly string Set_Speed_To_25 = "Set_Speed_To_25";
-        public readonly string Set_Speed_To_50 = "Set_Speed_To_50";
-        public readonly string Set_Speed_To_75 = "Set_Speed_To_75";
-        public readonly string Set_Speed_To_100 = "Set_Speed_To_100";
-        #endregion
+		#region 05 -  Flight Throttle
+		public readonly string Decrease_Throttle = "Decrease_Throttle";
+		public readonly string Increase_Throttle = "Increase_Throttle";
+		public readonly string Set_Speed_To_Minus_100 = "Set_Speed_To_-100";
+		public readonly string Set_Speed_To_Minus_75 = "Set_Speed_To_-75";
+		public readonly string Set_Speed_To_Minus_50 = "Set_Speed_To_-50";
+		public readonly string Set_Speed_To_Minus_25 = "Set_Speed_To_-25";
+		public readonly string Set_Speed_To_0 = "Set_Speed_To_0";
+		public readonly string Set_Speed_To_25 = "Set_Speed_To_25";
+		public readonly string Set_Speed_To_50 = "Set_Speed_To_50";
+		public readonly string Set_Speed_To_75 = "Set_Speed_To_75";
+		public readonly string Set_Speed_To_100 = "Set_Speed_To_100";
+		#endregion
 
-        #region 07 - Fligth Miscellaneous
-        public readonly string Toggle_Flight_Assist = "Toggle_Flight_Assist";
-        public readonly string Engine_Boost = "Engine_Boost";
-        public readonly string Toggle_Frame_Shift_Drive = "Toggle_Frame_Shift_Drive";
-        public readonly string Supercruise = "Supercruise";
-        public readonly string Hyperspace_Jump = "Hyperspace_Jump";
-        public readonly string Toggle_Orbit_Lines = "Toggle_Orbit_Lines";
-        #endregion
+		#region 07 - Fligth Miscellaneous
+		public readonly string Toggle_Flight_Assist = "Toggle_Flight_Assist";
+		public readonly string Engine_Boost = "Engine_Boost";
+		public readonly string Toggle_Frame_Shift_Drive = "Toggle_Frame_Shift_Drive";
+		public readonly string Supercruise = "Supercruise";
+		public readonly string Hyperspace_Jump = "Hyperspace_Jump";
+		public readonly string Toggle_Orbit_Lines = "Toggle_Orbit_Lines";
+		#endregion
 
-        #region 08 - Targeting
-        public readonly string Select_Target_Ahead = "Select_Target_Ahead";
-        public readonly string Cycle_Next_Target = "Cycle_Next_Target";
-        public readonly string Cycle_Previous_Ship = "Cycle_Previous_Ship";
-        public readonly string Select_Hightest_Threat = "Select_Hightest_Threat";
-        public readonly string Cycle_Next_Hostile_Target = "Cycle_Next_Hostile_Target";
-        public readonly string Cycle_Previous_Hostile_Ship = "Cycle_Previous_Hostile_Ship";
-        public readonly string Select_Wingman_1 = "Select_Wingman_1";
-        public readonly string Select_Wingman_2 = "Select_Wingman_2";
-        public readonly string Select_Wingman_3 = "Select_Wingman_3";
-        public readonly string Select_Wingmans_Target = "Select_Wingmans_Target";
-        public readonly string Wingman_NavLock = "Wingman_Nav-Lock";
-        public readonly string Cycle_Next_Subsystem = "Cycle_Next_Subsystem";
-        public readonly string Cycle_Previous_Subsystem = "Cycle_Previous_Subsystem";
-        public readonly string Target_Next_System_In_Route = "Target_Next_System_In_Route";
-        #endregion
+		#region 08 - Targeting
+		public readonly string Select_Target_Ahead = "Select_Target_Ahead";
+		public readonly string Cycle_Next_Target = "Cycle_Next_Target";
+		public readonly string Cycle_Previous_Ship = "Cycle_Previous_Ship";
+		public readonly string Select_Hightest_Threat = "Select_Hightest_Threat";
+		public readonly string Cycle_Next_Hostile_Target = "Cycle_Next_Hostile_Target";
+		public readonly string Cycle_Previous_Hostile_Ship = "Cycle_Previous_Hostile_Ship";
+		public readonly string Select_Wingman_1 = "Select_Wingman_1";
+		public readonly string Select_Wingman_2 = "Select_Wingman_2";
+		public readonly string Select_Wingman_3 = "Select_Wingman_3";
+		public readonly string Select_Wingmans_Target = "Select_Wingmans_Target";
+		public readonly string Wingman_NavLock = "Wingman_Nav-Lock";
+		public readonly string Cycle_Next_Subsystem = "Cycle_Next_Subsystem";
+		public readonly string Cycle_Previous_Subsystem = "Cycle_Previous_Subsystem";
+		public readonly string Target_Next_System_In_Route = "Target_Next_System_In_Route";
+		#endregion
 
-        #region 09 - Weapons
-        public readonly string Primary_Fire = "Primary_Fire";
-        public readonly string Secondary_Fire = "Secondary_Fire";
-        public readonly string Primary_Fire_Press = "Primary_Fire_Press";
-        public readonly string Secondary_Fire_Press = "Secondary_Fire_Press";
-        public readonly string Primary_Fire_Release = "Primary_Fire_Release";
-        public readonly string Secondary_Fire_Release = "Secondary_Fire_Release";
-        public readonly string Cycle_Next_Fire_Group = "Cycle_Next_Fire_Group";
-        public readonly string Cycle_Previous_Fire_Group = "Cycle_Previous_Fire_Group";
-        public readonly string Deploy_Hardpoints = "Deploy_Hardpoints";
-        #endregion
+		#region 09 - Weapons
+		public readonly string Primary_Fire = "Primary_Fire";
+		public readonly string Secondary_Fire = "Secondary_Fire";
+		public readonly string Primary_Fire_Press = "Primary_Fire_Press";
+		public readonly string Secondary_Fire_Press = "Secondary_Fire_Press";
+		public readonly string Primary_Fire_Release = "Primary_Fire_Release";
+		public readonly string Secondary_Fire_Release = "Secondary_Fire_Release";
+		public readonly string Cycle_Next_Fire_Group = "Cycle_Next_Fire_Group";
+		public readonly string Cycle_Previous_Fire_Group = "Cycle_Previous_Fire_Group";
+		public readonly string Deploy_Hardpoints = "Deploy_Hardpoints";
+		#endregion
 
-        #region 10 - Cooling
-        public readonly string Deploy_Heat_Sink = "Deploy_Heat_Sink";
-        public readonly string Silent_Running = "Silent_Running";
-        #endregion
+		#region 10 - Cooling
+		public readonly string Deploy_Heat_Sink = "Deploy_Heat_Sink";
+		public readonly string Silent_Running = "Silent_Running";
+		#endregion
 
-        #region 11 - Miscellaneous
-        public readonly string Ship_Lights = "Ship_Lights";
-        public readonly string Increase_Sensor_Zoom = "Increase_Sensor_Zoom";
-        public readonly string Decrease_Sensor_Zoom = "Decrease_Sensor_Zoom";
-        public readonly string Divert_Power_To_Engines = "Divert_Power_To_Engines";
-        public readonly string Divert_Power_To_Weapons = "Divert_Power_To_Weapons";
-        public readonly string Divert_Power_To_Systems = "Divert_Power_To_Systems";
-        public readonly string Balance_Power_Distribution = "Balance_Power_Distribution";
-        public readonly string Reset_HMD_Orientation = "Reset_HMD_Orientation";
-        public readonly string Cargo_Scoop = "Cargo_Scoop";
-        public readonly string Landing_Gear = "Landing_Gear";
-        public readonly string Use_Shield_Cell = "Use_Shield_Cell";
-        public readonly string Use_Chaff_Launcher = "Use_Chaff_Launcher";
-        public readonly string Charge_ECM = "Charge_ECM";
-        #endregion
+		#region 11 - Miscellaneous
+		public readonly string Ship_Lights = "Ship_Lights";
+		public readonly string Increase_Sensor_Zoom = "Increase_Sensor_Zoom";
+		public readonly string Decrease_Sensor_Zoom = "Decrease_Sensor_Zoom";
+		public readonly string Divert_Power_To_Engines = "Divert_Power_To_Engines";
+		public readonly string Divert_Power_To_Weapons = "Divert_Power_To_Weapons";
+		public readonly string Divert_Power_To_Systems = "Divert_Power_To_Systems";
+		public readonly string Balance_Power_Distribution = "Balance_Power_Distribution";
+		public readonly string Reset_HMD_Orientation = "Reset_HMD_Orientation";
+		public readonly string Cargo_Scoop = "Cargo_Scoop";
+		public readonly string Landing_Gear = "Landing_Gear";
+		public readonly string Use_Shield_Cell = "Use_Shield_Cell";
+		public readonly string Use_Chaff_Launcher = "Use_Chaff_Launcher";
+		public readonly string Charge_ECM = "Charge_ECM";
+		#endregion
 
-        #region 13 - Mode Switches
-        public readonly string Target_Panel = "Target_Panel";
-        public readonly string Comms_Panel = "Comms_Panel";
-        public readonly string Quick_Comms = "Quick_Comms";
-        public readonly string Role_Panel = "Role_Panel";
-        public readonly string System_Panel = "System_Panel";
-        public readonly string Open_Galaxy_Map = "Open_Galaxy_Map";
-        public readonly string Open_System_Map = "Open_System_Map";
-        public readonly string Game_Menu = "Game_Menu";
-        public readonly string Friends_Menu = "Friends_Menu";
-        #endregion
+		#region 13 - Mode Switches
+		public readonly string Target_Panel = "Target_Panel";
+		public readonly string Comms_Panel = "Comms_Panel";
+		public readonly string Quick_Comms = "Quick_Comms";
+		public readonly string Role_Panel = "Role_Panel";
+		public readonly string System_Panel = "System_Panel";
+		public readonly string Open_Galaxy_Map = "Open_Galaxy_Map";
+		public readonly string Open_System_Map = "Open_System_Map";
+		public readonly string Game_Menu = "Game_Menu";
+		public readonly string Friends_Menu = "Friends_Menu";
+		#endregion
 
-        #region 14 - Interface Mode
-        public readonly string UI_Panel_Up = "UI_Panel_Up";
-        public readonly string UI_Panel_Down = "UI_Panel_Down";
-        public readonly string UI_Panel_Left = "UI_Panel_Left";
-        public readonly string UI_Panel_Right = "UI_Panel_Right";
-        public readonly string UI_Panel_Select = "UI_Panel_Select";
-        public readonly string UI_Back = "UI_Back";
-        public readonly string Next_Panel_Tab = "Next_Panel_Tab";
-        public readonly string Previous_Panel_Tab = "Previous_Panel_Tab";
-        public readonly string UI_Panel_Up_Press = "UI_Panel_Up_Press";
-        public readonly string UI_Panel_Up_Release = "UI_Panel_Up_Release";
-        public readonly string UI_Panel_Down_Press = "UI_Panel_Down_Press";
-        public readonly string UI_Panel_Down_Release = "UI_Panel_Down_Release";
-        #endregion
+		#region 14 - Interface Mode
+		public readonly string UI_Panel_Up = "UI_Panel_Up";
+		public readonly string UI_Panel_Down = "UI_Panel_Down";
+		public readonly string UI_Panel_Left = "UI_Panel_Left";
+		public readonly string UI_Panel_Right = "UI_Panel_Right";
+		public readonly string UI_Panel_Select = "UI_Panel_Select";
+		public readonly string UI_Back = "UI_Back";
+		public readonly string Next_Panel_Tab = "Next_Panel_Tab";
+		public readonly string Previous_Panel_Tab = "Previous_Panel_Tab";
+		public readonly string UI_Panel_Up_Press = "UI_Panel_Up_Press";
+		public readonly string UI_Panel_Up_Release = "UI_Panel_Up_Release";
+		public readonly string UI_Panel_Down_Press = "UI_Panel_Down_Press";
+		public readonly string UI_Panel_Down_Release = "UI_Panel_Down_Release";
+		#endregion
 
-        #region 23 - Fighter
-        public readonly string Attack_Target = "Attack_Target";
-        public readonly string Defend = "Defend";
-        public readonly string Engage_At_Will = "Engage_At_Will";
-        public readonly string Follow_Me = "Follow_Me";
-        public readonly string Hold_Position = "Hold_Position";
-        public readonly string Maintain_Formation = "Maintain_Formation";
-        public readonly string Recall_Fighter = "Recall_Fighter";
-        #endregion
+		#region 23 - Fighter
+		public readonly string Attack_Target = "Attack_Target";
+		public readonly string Defend = "Defend";
+		public readonly string Engage_At_Will = "Engage_At_Will";
+		public readonly string Follow_Me = "Follow_Me";
+		public readonly string Hold_Position = "Hold_Position";
+		public readonly string Maintain_Formation = "Maintain_Formation";
+		public readonly string Recall_Fighter = "Recall_Fighter";
+		#endregion
 
-        #region 27 - Galnet Audio
-        public readonly string Galnet_Play = "Galnet_Play";
-        public readonly string Galnet_Skip_Forward = "Galnet_Skip_Forward";
-        public readonly string Galnet_Skip_Backward = "Galnet_Skip_Backward";
-        public readonly string Galnet_Clear_Queue = "Galnet_Clear_Queue";
-        #endregion
+		#region 27 - Galnet Audio
+		public readonly string Galnet_Play = "Galnet_Play";
+		public readonly string Galnet_Skip_Forward = "Galnet_Skip_Forward";
+		public readonly string Galnet_Skip_Backward = "Galnet_Skip_Backward";
+		public readonly string Galnet_Clear_Queue = "Galnet_Clear_Queue";
+		#endregion
 
-        #region 3.4 Added Items
-        public readonly string Night_Vision_Toggle = "Night_Vision_Toggle";
-        public readonly string Open_Codex = "Open_Discovery";
-        public readonly string Toggle_HUD_Mode = "Swtich_HUD_Mode";
-        public readonly string Cycle_Next_Page = "Cycle_Next_Page";
-        public readonly string Cycle_Previous_Page = "Cycle_Previous_Page";
-        public readonly string FSS_Enter = "Enter_FSS_Mode";
-        public readonly string FSS_Exit = "Leave_FSS_Mode";
-        #endregion
+		#region 3.4 Added Items
+		public readonly string Night_Vision_Toggle = "Night_Vision_Toggle";
+		public readonly string Open_Codex = "Open_Discovery";
+		public readonly string Toggle_HUD_Mode = "Swtich_HUD_Mode";
+		public readonly string Cycle_Next_Page = "Cycle_Next_Page";
+		public readonly string Cycle_Previous_Page = "Cycle_Previous_Page";
+		public readonly string FSS_Enter = "Enter_FSS_Mode";
+		public readonly string FSS_Exit = "Leave_FSS_Mode";
+		#endregion
 
-        #region Custom
-        public readonly string ActiveScreenshot = "ActiveScreenCap";
-        #endregion
+		#region Custom
+		//public readonly string ActiveScreenshot = "ActiveScreenCap";
+		#endregion
 
-        //End Regon: Key Wrappers
-        #endregion
-    }
+		//End Regon: Key Wrappers
+		#endregion
+	}
 
-    #region Serialize / Deserialize
-    public class XmlControl
+	#region Serialize / Deserialize
+	public class XmlControl
 	{
 		/// <summary>
 		/// Deserializes an xml document back into an object
