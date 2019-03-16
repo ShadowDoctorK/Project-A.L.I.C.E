@@ -35,12 +35,7 @@ namespace ALICE_Events
     public class Event_DisobeyPolice : Event
     {
         //Event Instance
-        private DisobeyPolice i = new DisobeyPolice();
-        public DisobeyPolice I
-        {
-            get => i;
-            set => i = value;
-        }
+        public DisobeyPolice I { get; set; } = new DisobeyPolice();
 
         //Construct Event
         public void Construct(CommitCrime Event)

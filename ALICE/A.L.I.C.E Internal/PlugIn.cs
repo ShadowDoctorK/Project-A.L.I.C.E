@@ -28,7 +28,7 @@ namespace ALICE_Internal
         public static bool MasterAudio = true;
         public static bool CommandAudio = false;
         public static string Audio = "TTS";                 //TTS, File, External
-        public static bool DebugMode = false;
+        public static bool DebugMode = true;
         public static bool ExtendedLogging = false;
 
         /// <summary>

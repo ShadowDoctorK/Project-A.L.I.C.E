@@ -37,12 +37,7 @@ namespace ALICE_Events
     public class Event_StartJump : Event
     {
         //Event Instance
-        private StartJump i = new StartJump();
-        public StartJump I
-        {
-            get => i;
-            set => i = value;
-        }
+        public StartJump I { get; set; } = new StartJump();
 
         //Variable Generation
         public override void Generate(object O)

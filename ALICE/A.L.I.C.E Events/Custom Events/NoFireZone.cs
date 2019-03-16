@@ -37,12 +37,7 @@ namespace ALICE_Events
     public class Event_NoFireZone : Event
     {
         //Event Instance
-        private NoFireZone i = new NoFireZone();
-        public NoFireZone I
-        {
-            get => i;
-            set => i = value;
-        }
+        public NoFireZone I { get; set; } = new NoFireZone();
 
         //Construct Custom Event
         public void Construct(ReceiveText Event)

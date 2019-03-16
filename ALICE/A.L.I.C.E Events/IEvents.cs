@@ -29,7 +29,7 @@ namespace ALICE_Events
         /// <summary>
         /// Enables / Disables the Variable Write feature for all Events.
         /// </summary>
-        public static bool WriteVariables = false;
+        public static bool WriteVariables = true;
 
         /// <summary>
         /// Enables / Disables the Event Triggering feature for all Events.
@@ -653,7 +653,7 @@ namespace ALICE_Events
         /// <summary>
         /// Enables / Disables writing variables on the event level.
         /// </summary>
-        public bool WriteVariables = false;
+        public bool WriteVariables = true;
 
         /// <summary>
         /// Validates Triggers Are Enabled & Triggers Events

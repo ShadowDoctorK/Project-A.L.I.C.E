@@ -32,12 +32,7 @@ namespace ALICE_Events
     public class Event_SupercruiseEntry : Event
     {
         //Event Instance
-        private SupercruiseEntry i = new SupercruiseEntry();
-        public SupercruiseEntry I
-        {
-            get => i;
-            set => i = value;
-        }
+        public SupercruiseEntry I { get; set; } = new SupercruiseEntry();
 
         //Variable Generation
         public override void Generate(object O)

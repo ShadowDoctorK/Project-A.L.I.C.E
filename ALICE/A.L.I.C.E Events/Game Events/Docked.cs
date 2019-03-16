@@ -90,12 +90,7 @@ namespace ALICE_Events
     public class Event_Docked : Event
     {
         //Event Instance
-        private Docked i = new Docked();
-        public Docked I
-        {
-            get => i;
-            set=> i = value;
-        }
+        public Docked I { get; set; } = new Docked();
 
         //Variable Generation
         public override void Generate(object O)

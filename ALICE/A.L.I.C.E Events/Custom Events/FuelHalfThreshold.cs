@@ -23,12 +23,7 @@ namespace ALICE_Events
     public class Event_FuelHalfThreshold : Event
     {
         //Event Instance
-        private FuelHalfThreshold i = new FuelHalfThreshold();
-        public FuelHalfThreshold I
-        {
-            get => i;
-            set => i = value;
-        }
+        public FuelHalfThreshold I { get; set; } = new FuelHalfThreshold();
 
         //Plugin Logic Process
         public override void Process(object O)

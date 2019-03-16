@@ -38,12 +38,7 @@ namespace ALICE_Events
     public class Event_SupercruiseExit : Event
     {
         //Event Instance
-        private SupercruiseExit i = new SupercruiseExit();
-        public SupercruiseExit I
-        {
-            get => i;
-            set => i = value;
-        }
+        public SupercruiseExit I { get; set; } = new SupercruiseExit();
 
         //Variable Generation
         public override void Generate(object O)

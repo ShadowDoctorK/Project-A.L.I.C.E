@@ -41,12 +41,7 @@ namespace ALICE_Events
     public class Event_BlockLandingPad : Event
     {
         //Event Instance
-        private BlockLandingPad i = new BlockLandingPad();
-        public BlockLandingPad I
-        {
-            get => i;
-            set => i = value;
-        }
+        public BlockLandingPad I { get; set; } = new BlockLandingPad();
 
         //Construct Event
         public void Construct(ReceiveText Event)

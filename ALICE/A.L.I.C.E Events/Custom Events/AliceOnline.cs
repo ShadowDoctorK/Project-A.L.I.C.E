@@ -5,8 +5,6 @@
 using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Interface;
-using ALICE_Internal;
-using ALICE_Synthesizer;
 using System;
 
 namespace ALICE_Events
@@ -35,12 +33,7 @@ namespace ALICE_Events
     public class Event_AliceOnline : Event
     {
         //Event Instance
-        private AliceOnline i = new AliceOnline();
-        public AliceOnline I
-        {
-            get => i;
-            set => i = value;
-        }
+        public AliceOnline I { get; set; } = new AliceOnline();
 
         //Variable Generation
         public override void Generate(object O)

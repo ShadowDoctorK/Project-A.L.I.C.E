@@ -35,12 +35,7 @@ namespace ALICE_Events
     public class Event_DumpingNearStation : Event
     {
         //Event Instance
-        private DumpingNearStation i = new DumpingNearStation();
-        public DumpingNearStation I
-        {
-            get => i;
-            set => i = value;
-        }
+        public DumpingNearStation I { get; set; } = new DumpingNearStation();
 
         //Construct Event
         public void Construct(CommitCrime Event)

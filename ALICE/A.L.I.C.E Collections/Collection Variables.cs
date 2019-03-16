@@ -59,8 +59,11 @@ namespace ALICE_Collections
                         //Write Variables
                         foreach (var Variable in Storage)
                         {
-                            //Pass Variable to Interface.
-                            IPlatform.SetText(Variable.Key, Variable.Value);
+                            //Debug Logger
+                            Logger.DebugLine(MethodName, Variable.Key + " = " + Variable.Value, "Orange");
+
+                            //Pass Variable to Interface. Disable Prefix.
+                            IPlatform.SetText(Variable.Key, Variable.Value, false);
                         }
 
                         break;

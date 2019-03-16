@@ -66,7 +66,7 @@
     <Compile Include="A.L.I.C.E Collections\Collection Events.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection EventTypes.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection Variables.cs" />
-    <Compile Include="A.L.I.C.E Core\Json Monitor\Event Status.cs" />
+    <Compile Include="A.L.I.C.E Events\[Convert]\Event Status.cs" />
     <Compile Include="A.L.I.C.E Data\Data Codex.cs" />
     <Compile Include="A.L.I.C.E Data\Data Systems.cs" />
     <Compile Include="A.L.I.C.E Data\Data Modules.cs" />
@@ -266,6 +266,7 @@
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
+    <Compile Include="A.L.I.C.E Settings\Settings Shipyard.cs" />
     <Compile Include="A.L.I.C.E Status\Status Bounty.cs" />
     <Compile Include="A.L.I.C.E Status\Status Crew.cs" />
     <Compile Include="A.L.I.C.E Status\Status Crime.cs" />
@@ -368,8 +369,8 @@
     <Compile Include="A.L.I.C.E Actions\Actions.cs" />
     <Compile Include="A.L.I.C.E Events\IEvents.cs" />
     <Compile Include="A.L.I.C.E Interface\IPlatform.cs" />
-    <Compile Include="A.L.I.C.E Core\Journal Monitor\New Journal Logs.cs" />
-    <Compile Include="A.L.I.C.E Core\Json Monitor\Monitor Json.cs" />
+    <Compile Include="A.L.I.C.E Core\Monitor Journal.cs" />
+    <Compile Include="A.L.I.C.E Core\Monitor Json.cs" />
     <Compile Include="A.L.I.C.E Core\Manager Keybinds.cs" />
     <Compile Include="A.L.I.C.E Objects\IObjects.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Speech.cs" />

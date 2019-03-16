@@ -34,12 +34,7 @@ namespace ALICE_Events
     public class Event_StationDamage : Event
     {
         //Event Instance
-        private StationDamage i = new StationDamage();
-        public StationDamage I
-        {
-            get => i;
-            set => i = value;
-        }
+        public StationDamage I { get; set; } = new StationDamage();
 
         //Construct Custom Event
         public void Construct(ReceiveText Event)

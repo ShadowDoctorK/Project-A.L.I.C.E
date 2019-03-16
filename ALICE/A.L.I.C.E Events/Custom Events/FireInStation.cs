@@ -33,12 +33,7 @@ namespace ALICE_Events
     public class Event_FireInStation : Event
     {
         //Event Instance
-        private FireInStation i = new FireInStation();
-        public FireInStation I
-        {
-            get => i;
-            set => i = value;
-        }
+        public FireInStation I { get; set; } = new FireInStation();
 
         //Construct Event
         public void Construct(CommitCrime Event)

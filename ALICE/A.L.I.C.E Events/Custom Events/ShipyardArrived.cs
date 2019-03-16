@@ -42,12 +42,7 @@ namespace ALICE_Events
     public class Event_ShipyardArrived : Event
     {
         //Event Instance
-        private ShipyardArrived i = new ShipyardArrived();
-        public ShipyardArrived I
-        {
-            get => i;
-            set => i = value;
-        }
+        public ShipyardArrived I { get; set; } = new ShipyardArrived();
 
         //Construct Event
         public void Construct(ShipyardTransfer Event)

@@ -23,12 +23,7 @@ namespace ALICE_Events
     public class Event_FuelCritical : Event
     {
         //Event Instance
-        private FuelCritical i = new FuelCritical();
-        public FuelCritical I
-        {
-            get => i;
-            set => i = value;
-        }
+        public FuelCritical I { get; set; } = new FuelCritical();
 
         //Plugin Logic Process
         public override void Process(object O)
