@@ -23,7 +23,7 @@ namespace ALICE_Internal
         public static readonly string DLL_Location = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         public static readonly string ALICE_Audio_Files = DLL_Location + @"\A.L.I.C.E Audio Files\";
         public static readonly string ALICE_Resources = DLL_Location + @"\A.L.I.C.E Resources\";
-        public static readonly string ALICE_Response = DLL_Location + @"\A.L.I.C.E Response\";
+        public static readonly string ALICE_Response = DLL_Location + @"\A.L.I.C.E Response\Files\";
         public static readonly string ALICE_ResponseUser = KnownFolders.GetPath(KnownFolder.Documents) + @"\A.L.I.C.E User Data\Responses\";
         public static readonly string ALICE_Log_Files = KnownFolders.GetPath(KnownFolder.Documents) + @"\A.L.I.C.E User Data\Log Files\";
         public static readonly string ALICE_Settings = KnownFolders.GetPath(KnownFolder.Documents) + @"\A.L.I.C.E User Data\Settings\";

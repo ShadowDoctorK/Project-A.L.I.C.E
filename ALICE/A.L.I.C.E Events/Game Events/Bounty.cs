@@ -5,6 +5,7 @@
 using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Internal;
+using ALICE_Response;
 using System;
 using System.Collections.Generic;
 
@@ -42,7 +43,6 @@ namespace ALICE_Events
             Reward = Dec();
         }
 
-
         public class BountyReward : Catch
         {
             public string Faction { get; set; }
@@ -61,28 +61,29 @@ namespace ALICE_Events
     /// </summary>
     public class Event_Bounty : Event
     {
+        //Event Instance
+        public Bounty I { get; set; } = new Bounty();
+
         //Variable Generation
         public override void Generate(object O)
         {
             try
             {
-                var Event = (Bounty)O;
-
-                Variables.Record(Name + "_Victim", Event.Target);
-                Variables.Record(Name + "_VictimFaction", Event.VictimFaction_Localised);
-                Variables.Record(Name + "_Shared", Event.SharedWithOthers);
+                Variables.Record(Name + "_Victim", I.Target);
+                Variables.Record(Name + "_VictimFaction", I.VictimFaction_Localised);
+                Variables.Record(Name + "_Shared", I.SharedWithOthers);
 
                 //Skimmer
-                if (Event.Reward != -1)
+                if (I.Reward != -1)
                 {
                     Variables.Record(Name + "_Vehicle", "Skimmer");
-                    Variables.Record(Name + "_Reward", Event.Reward);
+                    Variables.Record(Name + "_Reward", I.Reward);
                 }
                 //Ship
                 else
                 {
                     Variables.Record(Name + "_Vehicle", "Ship");
-                    Variables.Record(Name + "_Reward", Event.TotalReward);
+                    Variables.Record(Name + "_Reward", I.TotalReward);
                 }
             }
             catch (Exception ex)
@@ -91,18 +92,30 @@ namespace ALICE_Events
             }
         }
 
+        //Plugin Logic Preparations
+        public override void Prepare(object O)
+        {
+            try
+            {
+                //Update Event Instance
+                I = (Bounty)O;
+            }
+            catch (Exception ex)
+            {
+                ExceptionPrepare(Name, ex);
+            }
+        }
+
         //Plugin Logic Process
         public override void Process(object O)
         {
             try
             {
-                var Event = (Bounty)O;
-
                 //Update Bounty Status Object
-                IStatus.Bounty.Update(Event);
+                IStatus.Bounty.Update(I);
 
                 //Bounty Audio
-                IStatus.Bounty.Response.Collected(                    
+                IResponse.Bounty.Collected(                    
                     ICheck.Initialized(ClassName),                          //Check Plugin Initialized
                     ICheck.Report.CollectedBounty(ClassName, true, true));  //Check Bounty Reports Enabled
             }

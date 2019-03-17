@@ -1080,7 +1080,7 @@ namespace ALICE_Community_Toolkit
         public static readonly string Binds_Location = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings\");
         public static readonly string ALICE_Audio_Files = ToolKitLocation + @"\A.L.I.C.E Audio Files\";
         public static readonly string ALICE_Resources = ToolKitLocation + @"\A.L.I.C.E Resources\";
-        public static readonly string ALICE_Response = ToolKitLocation + @"\A.L.I.C.E Response\";
+        public static readonly string ALICE_Response = ToolKitLocation + @"\A.L.I.C.E Response\Files\";
         public static readonly string ALICE_ResponseUser = KnownFolders.GetPath(KnownFolder.Documents) + @"\A.L.I.C.E User Data\Responses\";
         public static readonly string ALICE_Log_Files = KnownFolders.GetPath(KnownFolder.Documents) + @"\A.L.I.C.E User Data\Log Files\";
         public static readonly string ALICE_Settings = KnownFolders.GetPath(KnownFolder.Documents) + @"\A.L.I.C.E User Data\Settings\";

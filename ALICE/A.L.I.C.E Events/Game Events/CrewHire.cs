@@ -4,7 +4,7 @@
 
 using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Internal;
+using ALICE_Response;
 using System;
 
 namespace ALICE_Events
@@ -36,22 +36,37 @@ namespace ALICE_Events
     /// </summary>
     public class Event_CrewHire : Event
     {
+        //Event Instance
+        public CrewHire I { get; set; } = new CrewHire();
+
         //Variable Generation
         public override void Generate(object O)
         {
             try
             {
-                var Event = (CrewHire)O;
-
-                Variables.Record(Name + "_Name", Event.Name);
-                Variables.Record(Name + "_ID", Event.CrewID);
-                Variables.Record(Name + "_Faction", Event.Faction);
-                Variables.Record(Name + "_Cost", Event.Cost);
-                Variables.Record(Name + "_Rank", Event.CombatRank);
+                Variables.Record(Name + "_Name", I.Name);
+                Variables.Record(Name + "_ID", I.CrewID);
+                Variables.Record(Name + "_Faction", I.Faction);
+                Variables.Record(Name + "_Cost", I.Cost);
+                Variables.Record(Name + "_Rank", I.CombatRank);
             }
             catch (Exception ex)
             {
                 ExceptionGenerate(Name, ex);
+            }
+        }
+
+        //Plugin Logic Preparations
+        public override void Prepare(object O)
+        {
+            try
+            {
+                //Update Event Instance
+                I = (CrewHire)O;
+            }
+            catch (Exception ex)
+            {
+                ExceptionPrepare(Name, ex);
             }
         }
 
@@ -60,13 +75,11 @@ namespace ALICE_Events
         {
             try
             {
-                var Event = (CrewHire)O;
-
                 //Update Status Object
-                IStatus.Crew.Update(Event);
+                IStatus.Crew.Update(I);
 
                 //Active Duty Audio
-                IStatus.Crew.Response.Hire(
+                IResponse.Crew.Hire(
                     ICheck.Initialized(ClassName));     //Check Log Has Initialized
             }
             catch (Exception ex)

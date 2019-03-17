@@ -76,6 +76,21 @@ namespace ALICE_Events
     /// </summary>
     public class Event_CommunityGoal : Event
     {
-        //No Processing
+        //Event Instance
+        public CommunityGoal I { get; set; } = new CommunityGoal();
+
+        //Plugin Logic Preparations
+        public override void Prepare(object O)
+        {
+            try
+            {
+                //Update Event Instance
+                I = (CommunityGoal)O;
+            }
+            catch (Exception ex)
+            {
+                ExceptionPrepare(Name, ex);
+            }
+        }
     }
 }

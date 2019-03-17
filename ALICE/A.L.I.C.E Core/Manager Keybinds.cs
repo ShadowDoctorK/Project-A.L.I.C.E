@@ -624,6 +624,8 @@ namespace ALICE_Keybinds
                 {
                     Logger.Exception(MethodName, "Propblem Occured Loading " + bind.Key);
 
+                    AlertAudio = true;
+
                     if (bind.Value.Key1 != null && bind.Value.Key1 != "")
                     {
                         if (VirtualKeysNum.ContainsKey(bind.Value.Key1) == false)
@@ -688,47 +690,90 @@ namespace ALICE_Keybinds
 			//Loops though the Binds Collection Building Virtual Keybinds.
 			foreach (KeyValuePair<string, Bind> bind in Keybinds)
 			{
-				//Checks First Key Isn't Default or Null.
-				if (bind.Value.Key1 != "" && bind.Value.Key1 != null)
-				{
-					if (bind.Value.Primary == true)
-					{
-						Logger.Log(MethodName, bind.Key + " Is Using The Primary Column's (Users) Keybind Because No Useable Keybind Was Set Up In The Secondary (Alice) Column", Logger.Yellow);
-					}
+                try
+                {
+                    //Checks First Key Isn't Default or Null.
+                    if (bind.Value.Key1 != "" && bind.Value.Key1 != null)
+                    {
+                        if (bind.Value.Primary == true)
+                        {
+                            Logger.Log(MethodName, bind.Key + " Is Using The Primary Column's (Users) Keybind Because No Useable Keybind Was Set Up In The Secondary (Alice) Column", Logger.Yellow);
+                        }
 
-					string P = VirtualKeysStr[bind.Value.Key1] + "_D;";
-					string R = VirtualKeysStr[bind.Value.Key1] + "_U;";
+                        string P = VirtualKeysStr[bind.Value.Key1] + "_D;";
+                        string R = VirtualKeysStr[bind.Value.Key1] + "_U;";
 
-					if (bind.Value.Key2 != null && bind.Value.Key2 != "")
-					{
-						P = P + VirtualKeysStr[bind.Value.Key2] + "_D;";
-						R = VirtualKeysStr[bind.Value.Key2] + "_U;" + R;
-					}
+                        if (bind.Value.Key2 != null && bind.Value.Key2 != "")
+                        {
+                            P = P + VirtualKeysStr[bind.Value.Key2] + "_D;";
+                            R = VirtualKeysStr[bind.Value.Key2] + "_U;" + R;
+                        }
 
-					if (bind.Value.Key3 != null && bind.Value.Key3 != "")
-					{
-						P = P + VirtualKeysStr[bind.Value.Key3] + "_D;";
-						R = VirtualKeysStr[bind.Value.Key3] + "_U;" + R;
-					}
+                        if (bind.Value.Key3 != null && bind.Value.Key3 != "")
+                        {
+                            P = P + VirtualKeysStr[bind.Value.Key3] + "_D;";
+                            R = VirtualKeysStr[bind.Value.Key3] + "_U;" + R;
+                        }
 
-					if (bind.Value.Key4 != null && bind.Value.Key4 != "")
-					{
-						P = P + VirtualKeysStr[bind.Value.Key4] + "_D;";
-						R = VirtualKeysStr[bind.Value.Key4] + "_U;" + R;
-					}                   
+                        if (bind.Value.Key4 != null && bind.Value.Key4 != "")
+                        {
+                            P = P + VirtualKeysStr[bind.Value.Key4] + "_D;";
+                            R = VirtualKeysStr[bind.Value.Key4] + "_U;" + R;
+                        }
 
-					Logger.DebugLine(MethodName, bind.Key.ToString() + " Release : " + R, Logger.Blue);
-					Logger.DebugLine(MethodName, bind.Key.ToString() + " Press   : " + P, Logger.Blue);                    
+                        Logger.DebugLine(MethodName, bind.Key.ToString() + " Release : " + R, Logger.Blue);
+                        Logger.DebugLine(MethodName, bind.Key.ToString() + " Press   : " + P, Logger.Blue);
 
-					//Pass Key To Voice Macro Via The Platform Interface.
-					IPlatform.SetText(bind.Key.ToString() + "_Press", P);
-					IPlatform.SetText(bind.Key.ToString() + "_Release", R);
-				}
-				else
-				{
-					IPlatform.WriteToInterface("A.L.I.C.E: No Keybind Detected For \"" + bind.Key.ToString(), "Red");
-					AlertAudio = true;
-				}
+                        //Pass Key To Voice Macro Via The Platform Interface.
+                        IPlatform.SetText(bind.Key.ToString() + "_Press", P);
+                        IPlatform.SetText(bind.Key.ToString() + "_Release", R);
+                    }
+                    else
+                    {
+                        IPlatform.WriteToInterface("A.L.I.C.E: No Keybind Detected For \"" + bind.Key.ToString(), "Red");
+                        AlertAudio = true;
+                    }
+                }
+                catch (KeyNotFoundException)
+                {
+                    Logger.Exception(MethodName, "Propblem Occured Loading " + bind.Key);
+
+                    AlertAudio = true;
+
+                    if (bind.Value.Key1 != null && bind.Value.Key1 != "")
+                    {
+                        if (VirtualKeysNum.ContainsKey(bind.Value.Key1) == false)
+                        {
+                            Logger.Exception(MethodName, bind.Value.Key1.Replace("Key_", "") + " Was Not Converted. Try Using A Different Key Please.");
+                        }
+                    }
+                    if (bind.Value.Key2 != null && bind.Value.Key2 != "")
+                    {
+                        if (VirtualKeysNum.ContainsKey(bind.Value.Key2) == false)
+                        {
+                            Logger.Exception(MethodName, bind.Value.Key2.Replace("Key_", "") + " Was Not Converted. Try Using A Different Key Please.");
+                        }
+                    }
+                    if (bind.Value.Key3 != null && bind.Value.Key3 != "")
+                    {
+                        if (VirtualKeysNum.ContainsKey(bind.Value.Key3) == false)
+                        {
+                            Logger.Exception(MethodName, bind.Value.Key3.Replace("Key_", "") + " Was Not Converted. Try Using A Different Key Please.");
+                        }
+                    }
+                    if (bind.Value.Key4 != null && bind.Value.Key4 != "")
+                    {
+                        if (VirtualKeysNum.ContainsKey(bind.Value.Key4) == false)
+                        {
+                            Logger.Exception(MethodName, bind.Value.Key4.Replace("Key_", "") + " Was Not Converted. Try Using A Different Key Please.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Exception(MethodName, "Exception: " + ex);
+                    Logger.Exception(MethodName, "Propblem Occured Loading " + bind.Key);
+                }              
 			}
 
 			#region Audio: Missing Keybinds

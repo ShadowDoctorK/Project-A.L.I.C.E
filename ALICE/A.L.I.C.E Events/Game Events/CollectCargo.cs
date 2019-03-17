@@ -29,19 +29,34 @@ namespace ALICE_Events
     /// </summary>
     public class Event_CollectCargo : Event
     {
+        //Event Instance
+        public CollectCargo I { get; set; } = new CollectCargo();
+
         //Variable Generation
         public override void Generate(object O)
         {
             try
             {
-                var Event = (CollectCargo)O;
-
-                Variables.Record(Name + "_Name", Event.Type_Localised);
-                Variables.Record(Name + "_Stolen", Event.Stolen);
+                Variables.Record(Name + "_Name", I.Type_Localised);
+                Variables.Record(Name + "_Stolen", I.Stolen);
             }
             catch (Exception ex)
             {
                 ExceptionGenerate(Name, ex);
+            }
+        }
+
+        //Plugin Logic Preparations
+        public override void Prepare(object O)
+        {
+            try
+            {
+                //Update Event Instance
+                I = (CollectCargo)O;
+            }
+            catch (Exception ex)
+            {
+                ExceptionPrepare(Name, ex);
             }
         }
     }

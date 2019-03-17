@@ -25,8 +25,6 @@ namespace ALICE_Status
         public string Victim = "Unknown";               //Bounty Event
         public string VictimFaction = "Unknown";        //Bounty Event
 
-        public Responses Response = new Responses();
-
         public void Update(Bounty Event)
         {
             string MethodName = "Bounty Status (Update)";
@@ -75,24 +73,6 @@ namespace ALICE_Status
             }
 
             return Vehicle;
-        }
-
-        public class Responses
-        {
-            string MethodName = "Bounty Status";
-
-            public void Collected(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Collected: " + IStatus.Bounty.Reward, Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(EVT_Bounty.Collected)
-                    .Token("[NUM]", IStatus.Bounty.Reward)
-                    .Token("[SHIPTYPE]", IStatus.Bounty.Victim)
-                    .Token("[PILOTNAME]", IStatus.Bounty.Pilot),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
         }
     }
 }

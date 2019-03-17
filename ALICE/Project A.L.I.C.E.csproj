@@ -105,7 +105,7 @@
     <Compile Include="A.L.I.C.E Events\Update\Event AfmuRepairs.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event ApproachBody.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event ApproachSettlement.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event Bounty.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\Bounty.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event BuyAmmo.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event BuyDrones.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event BuyExplorationData.cs" />
@@ -115,13 +115,13 @@
     <Compile Include="A.L.I.C.E Events\Update\Event ClearSaveGame.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event CockpitBreached.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event CodexEntry.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event CollectCargo.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event Commander.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\CollectCargo.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\Commander.cs" />
     <Compile Include="A.L.I.C.E Events\Game Events\CommitCrime.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event CommunityGoal.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event CrewAssign.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event CrewFire.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event CrewHire.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\CommunityGoal.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\CrewAssign.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\CrewFire.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\CrewHire.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event DatalinkScan.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event DatalinkVoucher.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event DataScanned.cs" />
@@ -239,7 +239,7 @@
     <Compile Include="A.L.I.C.E Events\Update\Event Shutdown.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event SquadronStartup.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event SRVDestroyed.cs" />
-    <Compile Include="A.L.I.C.E Events\Game Events\Event StartJump.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\StartJump.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Statistics.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event StoredModules.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event StoredShips.cs" />
@@ -266,6 +266,9 @@
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Bounty.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Crew.cs" />
+    <Compile Include="A.L.I.C.E Response\IResponse.cs" />
     <Compile Include="A.L.I.C.E Settings\Settings Shipyard.cs" />
     <Compile Include="A.L.I.C.E Status\Status Bounty.cs" />
     <Compile Include="A.L.I.C.E Status\Status Crew.cs" />
@@ -419,148 +422,148 @@
     <None Include="A.L.I.C.E Resources\Modules.Json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Crime.Response">
+    <None Include="A.L.I.C.E Response\Files\Crime.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Cargo Scoop.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Cargo Scoop.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Chaff Launcher.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Chaff Launcher.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Discovery Scanner.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Discovery Scanner.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ External Lights.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ External Lights.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Fighter.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Fighter.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Flight Assist.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Flight Assist.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Frame Shift Drive.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Frame Shift Drive.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Full Spectrum Scanner.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Full Spectrum Scanner.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Generic Module.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Generic Module.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Hardpoints.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Hardpoints.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Heatsink Launcher.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Heatsink Launcher.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Landing Gear.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Landing Gear.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Shield Cell.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Shield Cell.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Shields.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Shields.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Silent Running.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Silent Running.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT Bounty.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT Bounty.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT FSSAllBodiesFound.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT FSSAllBodiesFound.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT HeatDamage.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT HeatDamage.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT HeatWarning.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT HeatWarning.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT HullDamage.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT HullDamage.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT Masslock.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT Masslock.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT NoFireZone.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT NoFireZone.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT Scan.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT Scan.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT Shipyard Arrived.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT Shipyard Arrived.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Alice.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Alice.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Apology.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Apology.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Combat Power.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Combat Power.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Docking Preparations.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Docking Preparations.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Docking Request.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Docking Request.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Facility Report.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Facility Report.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Fuel Report.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Fuel Report.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Galaxy Map.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Galaxy Map.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN I Love You.Response">
+    <None Include="A.L.I.C.E Response\Files\GN I Love You.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Landing Preparations.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Landing Preparations.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Negative.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Negative.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Order Updated.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Order Updated.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Planetary Interaction.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Planetary Interaction.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Positive.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Positive.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Report Updated.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Report Updated.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Station Reports.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Station Reports.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN System Map.Response">
+    <None Include="A.L.I.C.E Response\Files\GN System Map.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN System Report.Response">
+    <None Include="A.L.I.C.E Response\Files\GN System Report.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Target Ship.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Target Ship.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Targeting System.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Targeting System.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Thank You.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Thank You.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\NPC Crew.Response">
+    <None Include="A.L.I.C.E Response\Files\NPC Crew.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Weapons Safety.Response">
+    <None Include="A.L.I.C.E Response\Files\Weapons Safety.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="app.config">

@@ -28,19 +28,34 @@ namespace ALICE_Events
     /// </summary>
     public class Event_Commander : Event
     {
+        //Event Instance
+        public Commander I { get; set; } = new Commander();
+
         //Variable Generation
         public override void Generate(object O)
         {
             try
             {
-                var Event = (Commander)O;
-
-                Variables.Record(Name + "_Name", Event.Name);
-                Variables.Record(Name + "_ID", Event.FID);
+                Variables.Record(Name + "_Name", I.Name);
+                Variables.Record(Name + "_ID", I.FID);
             }
             catch (Exception ex)
             {
                 ExceptionGenerate(Name, ex);
+            }
+        }
+
+        //Plugin Logic Preparations
+        public override void Prepare(object O)
+        {
+            try
+            {
+                //Update Event Instance
+                I = (Commander)O;
+            }
+            catch (Exception ex)
+            {
+                ExceptionPrepare(Name, ex);
             }
         }
 
@@ -49,10 +64,8 @@ namespace ALICE_Events
         {
             try
             {
-                var Event = (Commander)O;
-
                 //Load Commander Settings
-                ISettings.U_Commander(ClassName, Event.Name);
+                ISettings.U_Commander(ClassName, I.Name);
             }
             catch (Exception ex)
             {
