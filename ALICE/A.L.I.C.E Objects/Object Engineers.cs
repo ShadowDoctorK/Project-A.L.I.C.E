@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ALICE_Events;
+using ALICE_Interface;
+using ALICE_Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ALICE_Objects
 {
@@ -33,9 +34,26 @@ namespace ALICE_Objects
             }
         }
 
+        public void Update(EngineerProgress Event)
+        {
+            foreach (var Eng in Event.Engineers)
+            {
+                var Target = Get(Eng.Engineer);
+
+                Target.Name = Eng.Engineer;
+                Target.Rank = Eng.Rank;
+                Target.RankProgress = Eng.RankProgress;
+                Target.Progress = Eng.Progress;
+
+                Update(Target);
+            }
+        }
+
         #region Collection Management
         public void Add(EngData EngineerData)
-        { Status.Add(EngineerData); }
+        {
+            Status.Add(EngineerData);
+        }
 
         public EngData Get(string EngineerName)
         {
@@ -47,12 +65,17 @@ namespace ALICE_Objects
         public void Update(EngData EngineerData)
         {
             int Index = GetObjectIndex(EngineerData.Name);
-            if (Index != -1)
-            { Status[Index] = EngineerData; }
-            else
-            { Add(EngineerData); }
 
-            SaveValues<Object_Engineers>(IObjects.Engineer, FileName);
+            if (Index != -1)
+            {
+                Status[Index] = EngineerData;
+            }
+            else
+            {
+                Add(EngineerData);
+            }
+
+            INewtonSoft.Save<Object_Engineers>(IObjects.Engineer, FileName, Paths.ALICE_Settings);
         }
 
         public int GetObjectIndex(string EngineerName)

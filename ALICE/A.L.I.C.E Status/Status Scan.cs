@@ -1,4 +1,5 @@
-﻿using ALICE_Internal;
+﻿using ALICE_Debug;
+using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Settings;
 using ALICE_Synthesizer;
@@ -12,7 +13,7 @@ namespace ALICE_Status
 {
     public class Status_Scan
     {
-        string MethodName = "Scan Report";
+        private readonly string MethodName = "Scan Report";
 
         //Get Scanned Body Data
         Object_StellarBody Body;
@@ -28,11 +29,18 @@ namespace ALICE_Status
             //Track Terraforming
             bool Terraforamable = false;
 
-            //Check ScanType Is Not AutoScan
+            //Check ScanTypes:
             //Not Processing AutoScan To Prevent Overloading User With Reports.
             if (Body.ScanType == "AutoScan")
             {
                 Logger.DebugLine(MethodName, "Scan Type Is AutoScan.", Logger.Yellow);
+                return;
+            }
+            
+            //Check If Body Was Surface Scanned.
+            if (Body.SurfaceScanned == true)
+            {
+                Logger.DebugLine(MethodName, "Body Surface Scanned.", Logger.Yellow);
                 return;
             }
 
@@ -65,7 +73,7 @@ namespace ALICE_Status
             }
 
             //Report Scan If Event Triggers Are Enabled.
-            Report(Terraforamable, OutOfRange, Check.Internal.TriggerEvents(true, MethodName));
+            Report(Terraforamable, OutOfRange, ICheck.Initialized(MethodName));
 
             //Clear Body Data
             Body = new Object_StellarBody();

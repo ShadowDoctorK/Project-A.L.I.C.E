@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using ALICE_Actions;
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Objects;
 
@@ -39,14 +40,22 @@ namespace ALICE_Panels
         /// <returns>returns true when HUD is detected. False when out of attempts</returns>
         public bool HudFocus(int Sleep = 100)
         {
-            bool Temp = false; int Count = 15; while (IObjects.Status.GUI_Focus != 0 && Count > 0)
+            bool Temp = false; int Count = 15; while (IStatus.GUI_Focus != 0 && Count > 0)
             { Call.Key.Press(Call.Key.UI_Back, 500); Count--; }
 
-            if (IObjects.Status.GUI_Focus == 0) { Temp = true; }
+            if (IStatus.GUI_Focus == 0) { Temp = true; }
 
             Thread.Sleep(Sleep);
 
             return Temp;
+        }
+
+        public void MainFourIsFalse()
+        {
+            Call.Panel.System.Open = false;
+            Call.Panel.Comms.Open = false;
+            Call.Panel.Target.Open = false;
+            Call.Panel.Role.Open = false;
         }
     }
 
@@ -131,20 +140,20 @@ namespace ALICE_Panels
 
         public bool CheckEnvironment(string MethodName)
         {
-            return Check.Environment.Space(IEnums.Hyperspace, false, MethodName);
+            return ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace);
         }
 
         public bool CheckOverlays(string MethodName, bool Answer = true)
         {
             Start:
             bool Recheck = false;
-            if (Check.Event.Music.MusicTrack(IEnums.Squadrons, false, MethodName) == false)
+            if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Squadrons, true) == false)
             { Recheck = true; }
 
-            if (Check.Event.Music.MusicTrack(IEnums.GalacticPowers, false, MethodName) == false)
+            if (ICheck.Music.MusicTrack(MethodName, false, IEnums.GalacticPowers, true) == false)
             { Recheck = true; }
 
-            if (Check.Event.Music.MusicTrack(IEnums.Codex, false, MethodName) == false)
+            if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Codex, true) == false)
             { Recheck = true; }
 
             if (Recheck) { Call.Key.Press(Call.Key.UI_Back, 600); goto Start; }
@@ -216,7 +225,7 @@ namespace ALICE_Panels
                 if (State == true)
                 {
                     //Watch For Galaxy Map To Open / Soft Exit Timer.
-                    int Count = 50; while (Check.Event.Music.MusicTrack(IEnums.MusicState.GalaxyMap.ToString(), true, MethodName) == false)
+                    int Count = 50; while (ICheck.Music.MusicTrack(MethodName, true, IEnums.GalaxyMap, true) == false)                        
                     {
                         Logger.DebugLine(MethodName, "Galaxy Map: Wait Timer = " + Count, Logger.Blue);
                         Thread.Sleep(100); if (Count <= 0)
@@ -229,7 +238,7 @@ namespace ALICE_Panels
                 else if (State == false)
                 {
                     //Watch For Galaxy Map To Close / Soft Exit Timer.
-                    int Count = 50; while (Check.Event.Music.MusicTrack(IEnums.MusicState.GalaxyMap.ToString(), false, MethodName) == false)
+                    int Count = 50; while (ICheck.Music.MusicTrack(MethodName, false, IEnums.GalaxyMap, true) == false)
                     {
                         Logger.DebugLine(MethodName, "Galaxy Map: Wait Timer = " + Count, Logger.Blue);
                         Thread.Sleep(100); if (Count <= 0)

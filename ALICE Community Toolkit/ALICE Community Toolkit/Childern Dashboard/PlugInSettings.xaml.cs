@@ -158,99 +158,122 @@ namespace ALICE_Community_Toolkit
                     //Chaff 1
                     CB_CF1Fire.SelectedIndex = (int)Data.Firegroup.LauncherChaffOne.FireMode;
                     CB_CF1Group.SelectedIndex = (int)Data.Firegroup.LauncherChaffOne.FireGroup;
+                    Label_CH1.Foreground = Data.GetFGLabelColor(CB_CF1Fire.SelectedIndex, CB_CF1Group.SelectedIndex);
 
                     //Chaff 2
                     CB_CF2Fire.SelectedIndex = (int)Data.Firegroup.LauncherChaffTwo.FireMode;
                     CB_CF2Group.SelectedIndex = (int)Data.Firegroup.LauncherChaffTwo.FireGroup;
+                    Label_CH2.Foreground = Data.GetFGLabelColor(CB_CF2Fire.SelectedIndex, CB_CF2Group.SelectedIndex);
 
                     //ECM
                     CB_ECMFire.SelectedIndex = (int)Data.Firegroup.ECM.FireMode; 
                     CB_ECMGroup.SelectedIndex = (int)Data.Firegroup.ECM.FireGroup;
+                    Label_ECM.Foreground = Data.GetFGLabelColor(CB_ECMFire.SelectedIndex, CB_ECMGroup.SelectedIndex);
 
                     //FSD Interdictor
                     CB_FSDIFire.SelectedIndex = (int)Data.Firegroup.FSDInterdictor.FireMode;
                     CB_FSDIGroup.SelectedIndex = (int)Data.Firegroup.FSDInterdictor.FireGroup;
+                    Label_FSDI.Foreground = Data.GetFGLabelColor(CB_FSDIFire.SelectedIndex, CB_FSDIGroup.SelectedIndex);
 
-
+                    //Heatsink 1
                     CB_HS1Fire.SelectedIndex = (int)Data.Firegroup.LauncherHeatSinkOne.FireMode;
                     CB_HS1Group.SelectedIndex = (int)Data.Firegroup.LauncherHeatSinkOne.FireGroup;
+                    Label_HS1.Foreground = Data.GetFGLabelColor(CB_HS1Fire.SelectedIndex, CB_HS1Group.SelectedIndex);
 
-
+                    //Heatsink 2
                     CB_HS2Fire.SelectedIndex = (int)Data.Firegroup.LauncherHeatSinkTwo.FireMode;
                     CB_HS2Group.SelectedIndex = (int)Data.Firegroup.LauncherHeatSinkTwo.FireGroup;
+                    Label_HS2.Foreground = Data.GetFGLabelColor(CB_HS2Fire.SelectedIndex, CB_HS2Group.SelectedIndex);
 
-
+                    //Collector Limpet
                     CB_LIMCOLFire.SelectedIndex = (int)Data.Firegroup.LimpetCollector.FireMode;
                     CB_LIMCOLGroup.SelectedIndex = (int)Data.Firegroup.LimpetCollector.FireGroup;
+                    Label_LIMCOL.Foreground = Data.GetFGLabelColor(CB_LIMCOLFire.SelectedIndex, CB_HS2Group.SelectedIndex);
 
-
+                    //Decon Limpet
                     CB_LIMDECFire.SelectedIndex = (int)Data.Firegroup.LimpetDecontamination.FireMode;
                     CB_LIMDECGroup.SelectedIndex = (int)Data.Firegroup.LimpetDecontamination.FireGroup;
+                    Label_LIMDEC.Foreground = Data.GetFGLabelColor(CB_LIMDECFire.SelectedIndex, CB_LIMDECGroup.SelectedIndex);
 
-
+                    //Fuel Limpet
                     CB_LIMFFire.SelectedIndex = (int)Data.Firegroup.LimpetFuel.FireMode;
                     CB_LIMFGroup.SelectedIndex = (int)Data.Firegroup.LimpetFuel.FireGroup;
+                    Label_LIMF.Foreground = Data.GetFGLabelColor(CB_LIMFFire.SelectedIndex, CB_LIMFGroup.SelectedIndex);
 
-
+                    //Hatch Breaker Limpet
                     CB_LIMHBFire.SelectedIndex = (int)Data.Firegroup.LimpetHatchBreaker.FireMode;
                     CB_LIMHBGroup.SelectedIndex = (int)Data.Firegroup.LimpetHatchBreaker.FireGroup;
+                    Label_LIMHB.Foreground = Data.GetFGLabelColor(CB_LIMHBFire.SelectedIndex, CB_LIMHBGroup.SelectedIndex);
 
-
+                    //Prospector Limpet
                     CB_LIMPROFire.SelectedIndex = (int)Data.Firegroup.LimpetProspector.FireMode;
                     CB_LIMPROGroup.SelectedIndex = (int)Data.Firegroup.LimpetProspector.FireGroup;
+                    Label_LIMPRO.Foreground = Data.GetFGLabelColor(CB_LIMPROFire.SelectedIndex, CB_LIMPROGroup.SelectedIndex);
 
-
+                    //Recon Limpet
                     CB_LIMRECFire.SelectedIndex = (int)Data.Firegroup.LimpetRecon.FireMode;
                     CB_LIMRECGroup.SelectedIndex = (int)Data.Firegroup.LimpetRecon.FireGroup;
+                    Label_LIMREC.Foreground = Data.GetFGLabelColor(CB_LIMRECFire.SelectedIndex, CB_LIMRECGroup.SelectedIndex);
 
-
+                    //Repair Limpet
                     CB_LIMREPFire.SelectedIndex = (int)Data.Firegroup.LimpetRepair.FireMode;
                     CB_LIMREPGroup.SelectedIndex = (int)Data.Firegroup.LimpetRepair.FireGroup;
+                    Label_LIMREP.Foreground = Data.GetFGLabelColor(CB_LIMREPFire.SelectedIndex, CB_LIMREPGroup.SelectedIndex);
 
-
+                    //Research Limpet
                     CB_LIMRESFire.SelectedIndex = (int)Data.Firegroup.LimpetResearch.FireMode;
                     CB_LIMRESGroup.SelectedIndex = (int)Data.Firegroup.LimpetResearch.FireGroup;
+                    Label_LIMRES.Foreground = Data.GetFGLabelColor(CB_LIMRESFire.SelectedIndex, CB_LIMRESGroup.SelectedIndex);
 
-
+                    //Shield Cell 1
                     CB_SC1Fire.SelectedIndex = (int)Data.Firegroup.ShieldCellOne.FireMode;
                     CB_SC1Group.SelectedIndex = (int)Data.Firegroup.ShieldCellOne.FireGroup;
+                    Label_SC1.Foreground = Data.GetFGLabelColor(CB_SC1Fire.SelectedIndex, CB_SC1Group.SelectedIndex);
 
-
+                    //Shield Cell 2
                     CB_SC2Fire.SelectedIndex = (int)Data.Firegroup.ShieldCellTwo.FireMode;
                     CB_SC2Group.SelectedIndex = (int)Data.Firegroup.ShieldCellTwo.FireGroup;
+                    Label_SC2.Foreground = Data.GetFGLabelColor(CB_SC2Fire.SelectedIndex, CB_SC2Group.SelectedIndex);
 
-
+                    //Shutdown Field Neutralizer
                     CB_SFNFire.SelectedIndex = (int)Data.Firegroup.FieldNeutraliser.FireMode;
                     CB_SFNGroup.SelectedIndex = (int)Data.Firegroup.FieldNeutraliser.FireGroup;
+                    Label_SFN.Foreground = Data.GetFGLabelColor(CB_SFNFire.SelectedIndex, CB_SFNGroup.SelectedIndex);
 
-
+                    //Cargo Scanner
                     CB_SNCARGFire.SelectedIndex = (int)Data.Firegroup.ScannerCagro.FireMode;
                     CB_SNCARGGroup.SelectedIndex = (int)Data.Firegroup.ScannerCagro.FireGroup;
+                    Label_SNCARG.Foreground = Data.GetFGLabelColor(CB_SNCARGFire.SelectedIndex, CB_SNCARGGroup.SelectedIndex);
 
-
+                    //Composite Scanner
                     CB_SNCOMPFire.SelectedIndex = (int)Data.Firegroup.ScannerComposite.FireMode;
                     CB_SNCOMPGroup.SelectedIndex = (int)Data.Firegroup.ScannerComposite.FireGroup;
+                    Label_SNCOMP.Foreground = Data.GetFGLabelColor(CB_SNCOMPFire.SelectedIndex, CB_SNCOMPGroup.SelectedIndex);
 
-
+                    //Discovery Scanner
                     CB_SNDISCFire.SelectedIndex = (int)Data.Firegroup.ScannerDiscovery.FireMode;
                     CB_SNDISCGroup.SelectedIndex = (int)Data.Firegroup.ScannerDiscovery.FireGroup;
-
-
+                    Label_SNDISC.Foreground = Data.GetFGLabelColor(CB_SNDISCFire.SelectedIndex, CB_SNDISCGroup.SelectedIndex);
+                    
+                    //Kill Warrent Scanner
                     CB_SNKILLFire.SelectedIndex = (int)Data.Firegroup.ScannerKillwarrent.FireMode;
                     CB_SNKILLGroup.SelectedIndex = (int)Data.Firegroup.ScannerKillwarrent.FireGroup;
+                    Label_SNKILL.Foreground = Data.GetFGLabelColor(CB_SNKILLFire.SelectedIndex, CB_SNKILLGroup.SelectedIndex);
 
-
+                    //Detailed Surface Scanner
                     CB_SNSURFFire.SelectedIndex = (int)Data.Firegroup.ScannerSurface.FireMode;
                     CB_SNSURFGroup.SelectedIndex = (int)Data.Firegroup.ScannerSurface.FireGroup;
+                    Label_SNSURF.Foreground = Data.GetFGLabelColor(CB_SNSURFFire.SelectedIndex, CB_SNSURFGroup.SelectedIndex);
 
-
+                    //Wake Scanner
                     CB_SNWAKEFire.SelectedIndex = (int)Data.Firegroup.ScannerWake.FireMode;
                     CB_SNWAKEGroup.SelectedIndex = (int)Data.Firegroup.ScannerWake.FireGroup;
+                    Label_SNWAKE.Foreground = Data.GetFGLabelColor(CB_SNWAKEFire.SelectedIndex, CB_SNWAKEGroup.SelectedIndex);
 
-
+                    //Xeno Scanner
                     CB_SNXENOFire.SelectedIndex = (int)Data.Firegroup.ScannerXeno.FireMode;
                     CB_SNXENOGroup.SelectedIndex = (int)Data.Firegroup.ScannerXeno.FireGroup;
-
+                    Label_SNXENO.Foreground = Data.GetFGLabelColor(CB_SNXENOFire.SelectedIndex, CB_SNXENOGroup.SelectedIndex);
                 }
                 catch (Exception ex)
                 {

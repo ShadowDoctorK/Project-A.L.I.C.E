@@ -2,11 +2,12 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Threading;
-using Newtonsoft.Json;
 using ALICE_Actions;
 using ALICE_Objects;
 using ALICE_Core;
 using ALICE_Settings;
+using ALICE_Equipment;
+using ALICE_Debug;
 
 namespace ALICE_Internal
 {
@@ -16,7 +17,6 @@ namespace ALICE_Internal
         public static Jsons Json = new Jsons();
         public static Internals Internal = new Internals();
         public static Panels Panel = new Panels();
-        public static Reports Report = new Reports();
         public static Firegroups Firegroup = new Firegroups();
 
         private static DirectoryInfo DirSettings = new DirectoryInfo(Paths.ALICE_Settings);
@@ -210,39 +210,39 @@ namespace ALICE_Internal
                     #endregion
 
                     #region Booleans
-                    if (NightVision != IObjects.Status.NightVision)
+                    if (NightVision != IStatus.NightVision)
                     {
-                        NightVision = IObjects.Status.NightVision;
+                        NightVision = IStatus.NightVision;
                         Updates.Add("(" + MethodName + ") NightVision = " + NightVision);
                     }
-                    if (AnalysisMode != IObjects.Status.AnalysisMode)
+                    if (AnalysisMode != IStatus.AnalysisMode)
                     {
-                        AnalysisMode = IObjects.Status.AnalysisMode;
+                        AnalysisMode = IStatus.AnalysisMode;
                         Updates.Add("(" + MethodName + ") AnalysisMode = " + AnalysisMode);
                     }
-                    if (Interdiction != IObjects.Status.Interdiction)
+                    if (Interdiction != IStatus.Interdiction)
                     {
-                        Interdiction = IObjects.Status.Interdiction;
+                        Interdiction = IStatus.Interdiction;
                         Updates.Add("(" + MethodName + ") Interdiction = " + Interdiction);
                     }
-                    if (InDanger != IObjects.Status.InDanger)
+                    if (InDanger != IStatus.InDanger)
                     {
-                        InDanger = IObjects.Status.InDanger;
+                        InDanger = IStatus.InDanger;
                         Updates.Add("(" + MethodName + ") InDanger = " + InDanger);
                     }
-                    if (HasLatLong != IObjects.Status.HasLatLong)
+                    if (HasLatLong != IStatus.HasLatLong)
                     {
-                        HasLatLong = IObjects.Status.HasLatLong;
+                        HasLatLong = IStatus.HasLatLong;
                         Updates.Add("(" + MethodName + ") HasLatLong = " + HasLatLong);
                     }
-                    if (Overheating != IObjects.Status.Overheating)
+                    if (Overheating != IStatus.Overheating)
                     {
-                        Overheating = IObjects.Status.Overheating;
+                        Overheating = IStatus.Overheating;
                         Updates.Add("(" + MethodName + ") Overheating = " + Overheating);
                     }
-                    if (LowFuel != IObjects.Status.LowFuel)
+                    if (LowFuel != IStatus.LowFuel)
                     {
-                        LowFuel = IObjects.Status.LowFuel;
+                        LowFuel = IStatus.LowFuel;
                         Updates.Add("(" + MethodName + ") LowFuel = " + LowFuel);
                     }
                     if (FSDCooldown != IEquipment.FrameShiftDrive.Cooldown)
@@ -255,84 +255,84 @@ namespace ALICE_Internal
                         FSDCharging = IEquipment.FrameShiftDrive.Charging;
                         Updates.Add("(" + MethodName + ") FSDCharging = " + FSDCharging);
                     }
-                    if (Masslocked != IObjects.Status.Masslocked)
+                    if (Masslocked != IGet.Masslock.Status(MethodName, false))
                     {
-                        Masslocked = IObjects.Status.Masslocked;
+                        Masslocked = IGet.Masslock.Status(MethodName);
                         Updates.Add("(" + MethodName + ") Masslocked = " + Masslocked);
                     }
-                    if (SRVDriveAssist != IObjects.Status.SRV_DriveAssist)
+                    if (SRVDriveAssist != IStatus.SRV_DriveAssist)
                     {
-                        SRVDriveAssist = IObjects.Status.SRV_DriveAssist;
+                        SRVDriveAssist = IStatus.SRV_DriveAssist;
                         Updates.Add("(" + MethodName + ") SRVDriveAssist = " + SRVDriveAssist);
                     }
-                    if (SRVNearMothership != IObjects.Status.SRV_NearMothership)
+                    if (SRVNearMothership != IStatus.SRV_NearMothership)
                     {
-                        SRVNearMothership = IObjects.Status.SRV_NearMothership;
+                        SRVNearMothership = IStatus.SRV_NearMothership;
                         Updates.Add("(" + MethodName + ") SRVUnderShip = " + SRVNearMothership);
                     }
-                    if (SRVTurret != IObjects.Status.SRV_Turret)
+                    if (SRVTurret != IStatus.SRV_Turret)
                     {
-                        SRVTurret = IObjects.Status.SRV_Turret;
+                        SRVTurret = IStatus.SRV_Turret;
                         Updates.Add("(" + MethodName + ") SRVTurret = " + SRVTurret);
                     }
-                    if (SRVHandbreak != IObjects.Status.SRV_Handbreak)
+                    if (SRVHandbreak != IStatus.SRV_Handbreak)
                     {
-                        SRVHandbreak = IObjects.Status.SRV_Handbreak;
+                        SRVHandbreak = IStatus.SRV_Handbreak;
                         Updates.Add("(" + MethodName + ") SRVHandbreak = " + SRVHandbreak);
                     }
-                    if (FuelScooping != IObjects.Status.FuelScooping)
+                    if (FuelScooping != IStatus.FuelScooping)
                     {
-                        FuelScooping = IObjects.Status.FuelScooping;
+                        FuelScooping = IStatus.FuelScooping;
                         Updates.Add("(" + MethodName + ") FuelScooping = " + FuelScooping);
                     }
-                    if (CargoScoop != IObjects.Status.CargoScoop)
+                    if (CargoScoop != IStatus.CargoScoop)
                     {
-                        CargoScoop = IObjects.Status.CargoScoop;
+                        CargoScoop = IStatus.CargoScoop;
                         Updates.Add("(" + MethodName + ") CargoScoop = " + CargoScoop);
                     }
-                    if (Lights != IObjects.Status.Lights)
+                    if (Lights != IStatus.Lights)
                     {
-                        Lights = IObjects.Status.Lights;
+                        Lights = IStatus.Lights;
                         Updates.Add("(" + MethodName + ") Lights = " + Lights);
                     }
-                    if (InWing != IObjects.Status.InWing)
+                    if (InWing != IStatus.InWing)
                     {
-                        InWing = IObjects.Status.InWing;
+                        InWing = IStatus.InWing;
                         Updates.Add("(" + MethodName + ") InWing = " + InWing);
                     }
-                    if (Hardpoints != IObjects.Status.Hardpoints)
+                    if (Hardpoints != IStatus.Hardpoints)
                     {
-                        Hardpoints = IObjects.Status.Hardpoints;
+                        Hardpoints = IStatus.Hardpoints;
                         Updates.Add("(" + MethodName + ") Hardpoints = " + Hardpoints);
                     }
-                    if (FlightAssist != IObjects.Status.FlightAssist)
+                    if (FlightAssist != IStatus.FlightAssist)
                     {
-                        FlightAssist = IObjects.Status.FlightAssist;
+                        FlightAssist = IStatus.FlightAssist;
                         Updates.Add("(" + MethodName + ") FlightAssist = " + FlightAssist);
                     }
-                    if (Supercruise != IObjects.Status.Supercruise)
+                    if (Supercruise != IStatus.Supercruise)
                     {
-                        Supercruise = IObjects.Status.Supercruise;
+                        Supercruise = IStatus.Supercruise;
                         Updates.Add("(" + MethodName + ") Supercruise = " + Supercruise);
                     }
-                    if (Shields != IObjects.Status.Shields)
+                    if (Shields != IEquipment.Shields.Status)
                     {
-                        Shields = IObjects.Status.Shields;
+                        Shields = IEquipment.Shields.Status;
                         Updates.Add("(" + MethodName + ") Shields = " + Shields);
                     }
-                    if (LandingGear != IObjects.Status.LandingGear)
+                    if (LandingGear != IGet.LandingGear.Status(MethodName, false))
                     {
-                        LandingGear = IObjects.Status.LandingGear;
+                        LandingGear = IGet.LandingGear.Status(MethodName);
                         Updates.Add("(" + MethodName + ") LandingGear = " + LandingGear);
                     }
-                    if (Touchdown != IObjects.Status.Touchdown)
+                    if (Touchdown != IStatus.Touchdown)
                     {
-                        Touchdown = IObjects.Status.Touchdown;
+                        Touchdown = IStatus.Touchdown;
                         Updates.Add("(" + MethodName + ") Touchdown = " + Touchdown);
                     }
-                    if (Docked != IObjects.Status.Docked)
+                    if (Docked != IStatus.Docking.Docked)
                     {
-                        Docked = IObjects.Status.Docked;
+                        Docked = IStatus.Docking.Docked;
                         Updates.Add("(" + MethodName + ") Docked = " + Docked);
                     }
                     #endregion
@@ -353,29 +353,29 @@ namespace ALICE_Internal
                         Weapon = Call.Power.Game.Weapon;
                         Updates.Add("(" + MethodName + ") Weapon = " + Weapon);
                     }
-                    if (UpdatePosition && Altitude != IObjects.Status.Altitude)
+                    if (UpdatePosition && Altitude != IStatus.Altitude)
                     {
-                        Altitude = IObjects.Status.Altitude;
+                        Altitude = IStatus.Altitude;
                         Updates.Add("(" + MethodName + ") Altitude = " + Altitude);
                     }
-                    if (UpdatePosition && Latitude != IObjects.Status.Latitude)
+                    if (UpdatePosition && Latitude != IStatus.Latitude)
                     {
-                        Latitude = IObjects.Status.Latitude;
+                        Latitude = IStatus.Latitude;
                         Updates.Add("(" + MethodName + ") Latitude = " + Latitude);
                     }
-                    if (UpdatePosition && Longitude != IObjects.Status.Longitude)
+                    if (UpdatePosition && Longitude != IStatus.Longitude)
                     {
-                        Longitude = IObjects.Status.Longitude;
+                        Longitude = IStatus.Longitude;
                         Updates.Add("(" + MethodName + ") Longitude = " + Longitude);
                     }
-                    if (UpdatePosition && Heading != IObjects.Status.Heading)
+                    if (UpdatePosition && Heading != IStatus.Heading)
                     {
-                        Heading = IObjects.Status.Heading;
+                        Heading = IStatus.Heading;
                         Updates.Add("(" + MethodName + ") Heading = " + Heading);
                     }
-                    if (GUIFocus != IObjects.Status.GUI_Focus)
+                    if (GUIFocus != IStatus.GUI_Focus)
                     {
-                        GUIFocus = IObjects.Status.GUI_Focus;
+                        GUIFocus = IStatus.GUI_Focus;
                         Updates.Add("(" + MethodName + ") GUIFocus = " + GUIFocus);
                     }
                     if (FireGroup != Call.Firegroup.Current)
@@ -388,9 +388,9 @@ namespace ALICE_Internal
                         Fuel = IEquipment.FuelTank.Main;
                         Updates.Add("(" + MethodName + ") Fuel = " + Fuel);
                     }
-                    if (CargoMass != IObjects.Status.CargoMass)
+                    if (CargoMass != IStatus.CargoMass)
                     {
-                        CargoMass = IObjects.Status.CargoMass;
+                        CargoMass = IStatus.CargoMass;
                         Updates.Add("(" + MethodName + ") Cargo (In Tons) = " + CargoMass);
                     }
                     #endregion
@@ -398,7 +398,7 @@ namespace ALICE_Internal
                     #region Write Updates
                     if (Updates.Count > 0)
                     {
-                        if (Log && Check.Internal.TriggerEvents(true, MethodName))
+                        if (Log && ICheck.Initialized(MethodName))
                         {
                             foreach (string Line in Updates)
                             {

@@ -4,19 +4,19 @@ using System.Threading;
 using ALICE_Events;
 using ALICE_Actions;
 using ALICE_Interface;
-using ALICE_JournalReader;
 using ALICE_Synthesizer;
 using ALICE_Monitors;
-using ALICE.Properties;
 using SysDiag = System.Diagnostics;
 using System.Linq;
 using ALICE_Settings;
+using ALICE_Debug;
 
 namespace ALICE_Internal
 {
     public static class PlugIn
     {
         public static Monitor_Json M_Json = new Monitor_Json(true, false, true, false, false, false, false, false, true);
+        public static Monitor_Journal M_Journal = new Monitor_Journal();
 
         public static readonly string VersionShort = "3.4.0.2";
         public static readonly string VersionLong = "3.4.0.2 (Open Beta 1.2.3)";
@@ -30,6 +30,7 @@ namespace ALICE_Internal
         public static string Audio = "TTS";                 //TTS, File, External
         public static bool DebugMode = false;
         public static bool ExtendedLogging = false;
+        public static bool VariableLogging = false;
 
         /// <summary>
         /// Initializes the core features.
@@ -44,7 +45,7 @@ namespace ALICE_Internal
             try
             {
                 //Initilize If We Have Started Up Yet.
-                if (Check.Internal.TriggerEvents(true, MethodName) == false)
+                if (ICheck.Initialized(MethodName) == false)
                 {
                     //Profile Monitor (Voice Macro Only)
                     switch (IPlatform.Interface)
@@ -75,10 +76,12 @@ namespace ALICE_Internal
                         default:
                             break;
                     }
-
-
+                 
                     //Simple Logger
                     Logger.Simple("Project A.L.I.C.E " + IPlatform.Version + " Initializing...", Logger.Purple);
+
+                    //Load User Settings
+                    ISettings.UserSettingsLoad(true);
 
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Verifying Alice Binds File...", Logger.Blue);
@@ -86,30 +89,12 @@ namespace ALICE_Internal
                     //Check Alice Binds File
                     Paths.Load_UpdateBindsFile();
 
-                    //Debug Logger
-                    Logger.DebugLine(MethodName, "Loading Game Binds...", Logger.Blue);
-
-                    //Load Game Binds
-                    Call.Key.GetGameBinds();
-
-                    //Debug Logger
+                    //Debug Logger                    
                     Logger.DebugLine(MethodName, "Loading Keybinds...", Logger.Blue);
 
-                    //Load Keybinds
-                    switch (IPlatform.Interface)
-                    {
-                        case IPlatform.Interfaces.Internal:
-                            break;
-                        case IPlatform.Interfaces.VoiceAttack:
-                            Call.Key.Load_VoiceAttackVariables();
-                            break;
-                        case IPlatform.Interfaces.VoiceMacro:
-                            Call.Key.Load_VoiceMacroVariables();
-                            break;
-                        default:
-                            break;
-                    }
-
+                    //Load Game Binds
+                    Call.Key.Load_Keybinds();
+                    
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Loading Response Files...", Logger.Blue);
 
@@ -118,9 +103,6 @@ namespace ALICE_Internal
 
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Loading Module Data...", Logger.Blue);
-
-                    //Load Module Data
-                    Data.Load_Modules();
 
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Starting Power Management...", Logger.Blue);
@@ -141,7 +123,7 @@ namespace ALICE_Internal
                         Logger.DebugLine(MethodName, "Initializing Journal Monitor...", Logger.Blue);
 
                         //Start Journal Monitor On New Thread
-                        Thread journal = new Thread((ThreadStart)(() => { JournalReader.EventProcessor(); }))
+                        Thread journal = new Thread((ThreadStart)(() => { M_Journal.Start(); }))
                         { IsBackground = true }; journal.Start();
                     }
 

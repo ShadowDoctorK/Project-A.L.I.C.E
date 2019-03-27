@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ALICE_Actions;
+using ALICE_Debug;
 
 namespace ALICE_Settings
 {
@@ -564,7 +565,7 @@ namespace ALICE_Settings
                 decimal Num = ConvertGroupFromEnum(Temp.FireGroup);
 
                 //Check Environment Condition
-                if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false) { return S.InHyperspace; }
+                if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false) { return S.InHyperspace; }
 
                 //Check HUD Mode
                 if (Check.Variable.AnalysisMode(Mode, MethodName) == false) { Call.Action.AnalysisMode(false, false); }
@@ -625,7 +626,7 @@ namespace ALICE_Settings
                 #region Duration Logic
                 if (Duration <= 75) { Thread.Sleep(Duration); } else
                 {
-                    bool Hold = true; decimal Count = Duration / 50; while (IObjects.Status.Hyperspace == false && Hold == true)
+                    bool Hold = true; decimal Count = Duration / 50; while (IStatus.Hyperspace == false && Hold == true)
                     { Thread.Sleep(50); if (Count <= 0) { Hold = false; } Count--; }
 
                     if (Count > 0)
@@ -792,7 +793,7 @@ namespace ALICE_Settings
                 case Fire.Primary:
                     return "Primary";
                 case Fire.Secondary:
-                    return "Secondary";;
+                    return "Secondary";
                 default:
                     return "None";
             }

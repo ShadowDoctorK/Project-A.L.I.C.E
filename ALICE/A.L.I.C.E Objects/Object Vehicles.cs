@@ -1,5 +1,6 @@
 ﻿using ALICE_Actions;
 using ALICE_Core;
+using ALICE_Data;
 using ALICE_Equipment;
 using ALICE_Events;
 using ALICE_Internal;
@@ -119,7 +120,7 @@ namespace ALICE_Objects
                     Module Temp = new Module(Mod);
 
                     //Add Game Module Data
-                    Data.GameModule GM = Data.GetGameModule(Temp.Item);
+                    GameModule GM = IData.Module.GetData(Temp.Item);
                     Temp.Name = GM.Name;
                     Temp.Rating = GM.Rating;
                     Temp.Class = GM.Class;
@@ -172,6 +173,8 @@ namespace ALICE_Objects
                 //Event Properties
                 I.U_ShipID(Event.Event, Event.ShipID);
                 I.U_Type(Event.Event, Event.ShipID, Event.Ship);
+                I.U_Name(Event.Event, Event.ShipID, Event.UserShipName);
+                I.U_Identifier(Event.Event, Event.ShipID, Event.UserShipId);
             }
             catch (Exception ex)
             {
@@ -187,6 +190,9 @@ namespace ALICE_Objects
                 //Update Properties
                 EventTimeStamp = Event.Timestamp;
                 ModfyingEvent = Event.Event;
+
+                //Save Mothership Data
+                Save(IObjects.Mothership, MethodName);
             }
         }
 
@@ -646,7 +652,7 @@ namespace ALICE_Objects
             public bool Remote_Release_Flak_Launcher = false;
             public bool Sensors = false;
             public bool Shield_Booster = false;
-            public bool Shield_Generator = false;
+            //public bool Shield_Generator = false;
             public bool Shock_Mine_Launcher = false;
             public bool Thrusters = false;
             public bool Torpedo_Pylon = false;

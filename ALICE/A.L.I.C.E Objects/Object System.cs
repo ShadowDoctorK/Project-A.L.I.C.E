@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using ALICE_Internal;
 using ALICE_Events;
 using ALICE_Settings;
+using ALICE_Debug;
+using ALICE_Interface;
+using ALICE_Data;
 
 namespace ALICE_Objects
 {
@@ -15,6 +18,7 @@ namespace ALICE_Objects
         public string Name { get; set; }
         public decimal Address { get; set; }
         public Coordinates Coordinate { get; set; }
+        public bool FirstVisit { get; set; }
         public decimal StellarBodies { get; set; }
         public decimal SignalBodies { get; set; }
         public bool AllBodiesFound { get; set; }
@@ -43,6 +47,7 @@ namespace ALICE_Objects
             Name = IObjects.String;
             Address = IObjects.Decimal;
             Coordinate = new Coordinates();
+            FirstVisit = true;
             StellarBodies = IObjects.Decimal;
             SignalBodies = IObjects.Decimal;
             Allegiance = IObjects.String;
@@ -61,7 +66,7 @@ namespace ALICE_Objects
             CodexEntries = new List<string>();
             DataVersion = Default.Decimal;
         }
-      
+
         #region Event Updates
         public Object_System Update_SystemData(FSDJump Event)
         {
@@ -156,11 +161,28 @@ namespace ALICE_Objects
             Temp.Update_SystemList();
             return Temp;
         }
+        public Object_System Load(decimal SystemAddress)
+        {
+            return Get_SystemData(SystemAddress);
+        }
         public void Update_StellarBody(SAAScanComplete Event)
         {
             if (Bodies.ContainsKey(Event.BodyID))
             {
                 Bodies[Event.BodyID].SurfaceScanned = true;
+                Update_SystemList();
+            }
+            else
+            {
+                Object_StellarBody Temp = new Object_StellarBody();                  
+                Temp.Update_ModfyingEvent(Event.Event);
+                Temp.Update_EventTimeStamp(Event.Timestamp);
+                Temp.Update_ID(Event.BodyID);
+                Temp.Update_Name(Event.BodyName);
+                Temp.SurfaceScanned = true;
+                Temp.BodyType = "Unknown";
+
+                Bodies.Add(Temp.ID, Temp);
                 Update_SystemList();
             }
         }
@@ -244,6 +266,16 @@ namespace ALICE_Objects
             
             IObjects.SystemCurrent.Update_Facility(IObjects.FacilityCurrent);
         }
+        public void Update_FirstVisit(decimal SystemAddress)
+        {
+            Object_System Temp = Get_SystemData(SystemAddress);
+
+            if (Temp.FirstVisit == true)
+            {
+                Temp.FirstVisit = false;
+                Temp.Update_SystemList();
+            }
+        }
         #endregion
 
         #region Update Methods
@@ -251,10 +283,11 @@ namespace ALICE_Objects
         public Object_System Get_SystemData(decimal SystemAddress)
         {
             Object_System Temp = new Object_System();
-            if (Data.Systems.ContainsKey(SystemAddress))
-            { Temp = Data.Systems[SystemAddress]; }
+            if (IData.Systems.Data.ContainsKey(SystemAddress))
+            { Temp = IData.Systems.Data[SystemAddress]; }
             return Temp;
         }
+
         public void Update_ModifyingEvent(string EventName) { this.ModfyingEvent = IObjects.StringCheck(EventName); }
         public void Update_TimeStamp(DateTime TimeStamp) { this.EventTimeStamp = TimeStamp; }
         public void Update_Name(string Value) { this.Name = IObjects.StringCheck(Value); }
@@ -298,18 +331,23 @@ namespace ALICE_Objects
             }
         }
         public void Update_DataVersion() { this.DataVersion = PlugIn.DataVersion; }
+
         public void Update_SystemList()
         {
             DataVersion = PlugIn.DataVersion;
 
-            if (Data.Systems.ContainsKey(this.Address))
-            { Data.Systems[this.Address] = this; }
+            if (IData.Systems.Data.ContainsKey(this.Address))
+            {
+                IData.Systems.Data[this.Address] = this;
+            }
             else
-            { Data.Systems.Add(this.Address, this); }
+            {
+                IData.Systems.Data.Add(this.Address, this);
+            }
 
-            IObjects.SystemCurrent = Data.Systems[this.Address];
+            IObjects.SystemCurrent = IData.Systems.Data[this.Address];
 
-            SaveValues<Object_System>(this, this.Name + ".System", Paths.ALICE_SystemData);
+            INewtonSoft.Save<Object_System>(this, this.Name + ".System", Paths.ALICE_SystemData);
         }
 
         //Stellar Body Methods
@@ -328,7 +366,7 @@ namespace ALICE_Objects
 
             Update_SystemList();
 
-            if (PlugIn.ExtendedLogging && Check.Internal.TriggerEvents(true, MethodName, true)) { Log_SystemBodies(); }
+            if (PlugIn.ExtendedLogging && ICheck.Initialized(MethodName, false)) { Log_SystemBodies(); }
         }
         
         //Facility Methods
@@ -356,6 +394,9 @@ namespace ALICE_Objects
         #region Utility Methods
         public void Log_SystemBodies()
         {
+            if (PlugIn.ExtendedLogging == false) { return; }
+            if (ICheck.Initialized("System Object") == false) { return; }
+
             int BodyCount = 0;
             if (this.StellarBodies == -1) { return; }
 

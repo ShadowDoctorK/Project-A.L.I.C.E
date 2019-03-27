@@ -18,7 +18,9 @@ namespace ALICE_Collections
         /// </summary>
         public enum A { Default, Pass, Fail, Error }
 
-        //Collection Of Event Types Accesed Via Enums
+        /// <summary>
+        /// Collection Of Game Event Types Accesed Via Enums Used By The Log Reader To Process Events.
+        /// </summary>
         public static readonly Dictionary<IEnums.Events, Type> Type = new Dictionary<IEnums.Events, Type>()
             {
                 //Json Events:
@@ -62,6 +64,7 @@ namespace ALICE_Collections
                 { IEnums.Events.DockingCancelled, typeof(DockingCancelled) },
                 { IEnums.Events.DockingGranted, typeof(DockingGranted) },
                 { IEnums.Events.DockingRequested, typeof(DockingRequested) },
+                { IEnums.Events.DockingTimeout, typeof(DockingTimeout) },
                 { IEnums.Events.DockSRV, typeof(DockSRV) },
                 { IEnums.Events.EjectCargo, typeof(EjectCargo) },
                 { IEnums.Events.EngineerContribution, typeof(EngineerContribution) },
@@ -175,8 +178,7 @@ namespace ALICE_Collections
                 { IEnums.Events.SystemsShutdown, typeof(SystemsShutdown) },
                 { IEnums.Events.SquadronStartup, typeof(SquadronStartup) },
                 { IEnums.Events.TechnologyBroker, typeof(TechnologyBroker) },
-                { IEnums.Events.Touchdown, typeof(Touchdown) },
-                { IEnums.Events.Undefined, typeof(Undefined) },
+                { IEnums.Events.Touchdown, typeof(Touchdown) },                
                 { IEnums.Events.UnderAttack, typeof(UnderAttack) },
                 { IEnums.Events.Undocked, typeof(Undocked) },
                 { IEnums.Events.USSDrop, typeof(USSDrop) },

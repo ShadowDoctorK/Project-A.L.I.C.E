@@ -1,4 +1,5 @@
-﻿using ALICE_Events;
+﻿using ALICE_Debug;
+using ALICE_Events;
 using ALICE_Internal;
 using ALICE_Synthesizer;
 using System;
@@ -95,6 +96,8 @@ namespace ALICE_Objects
         public void Process(ShipTargeted Event)
         {
             string MethodName = "Target (Process)";
+
+            if (ICheck.Initialized(MethodName) == false) { return; }
 
             #region Target vs Event Debug Lines
             Logger.DebugLine(MethodName, "Target Locked: " + Targeted + " | Event: " + Event.TargetLocked, Logger.Yellow);
@@ -346,11 +349,17 @@ namespace ALICE_Objects
 
                         //Audio - Hostile Faction Report
                         //Note: Using "Contains" Allows For WantedEnemy Targets To Trigger Both Wanted & Hostile Faction Reports.
-                        HostileFaction(true, Check.Report.TargetEnemy(true, MethodName), (Event.LegalStatus.Contains("Enemy")), Check.Internal.TriggerEvents(true, MethodName));
+                        HostileFaction(true, 
+                            ICheck.Report.TargetEnemy(MethodName, true, true), 
+                            (Event.LegalStatus.Contains("Enemy")),
+                            ICheck.Initialized(MethodName));
 
                         //Audio - Wanted Report                  
                         //Note: Using "Contains" Allows For WantedEnemy Targets To Trigger Both Wanted & Hostile Faction Reports.
-                        Wanted(true, Check.Report.TargetWanted(true, MethodName), (Event.LegalStatus.Contains("Wanted")), Check.Internal.TriggerEvents(true, MethodName));
+                        Wanted(true, 
+                            ICheck.Report.TargetWanted(MethodName, true, true), 
+                            (Event.LegalStatus.Contains("Wanted")),
+                            ICheck.Initialized(MethodName));
                     }
                     else
                     {
@@ -375,7 +384,10 @@ namespace ALICE_Objects
                         Bounty = Event.Bounty;
 
                         //Audio - Initial Bounty Report
-                        BountyReport(true, Check.Report.TargetWanted(true, MethodName), (Event.LegalStatus.Contains("Wanted")), Check.Internal.TriggerEvents(true, MethodName));
+                        BountyReport(true, 
+                            ICheck.Report.TargetWanted(MethodName, true, true), 
+                            (Event.LegalStatus.Contains("Wanted")),
+                            ICheck.Initialized(MethodName));
                     }
 
                     //Bounty Updated
@@ -388,7 +400,10 @@ namespace ALICE_Objects
                         Bounty = Event.Bounty;
 
                         //Audio - Updated Bounty Report
-                        BountyUpdate(true, Check.Report.TargetWanted(true, MethodName), (Event.LegalStatus.Contains("Wanted")), Check.Internal.TriggerEvents(true, MethodName));
+                        BountyUpdate(true, 
+                            ICheck.Report.TargetWanted(MethodName, true, true), 
+                            (Event.LegalStatus.Contains("Wanted")),
+                            ICheck.Initialized(MethodName));
                     }
                 }
 

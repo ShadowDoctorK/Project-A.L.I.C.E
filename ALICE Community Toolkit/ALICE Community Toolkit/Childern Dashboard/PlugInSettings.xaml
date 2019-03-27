@@ -78,30 +78,30 @@
         <StackPanel x:Name="StackBox_1_Copy" Orientation="Horizontal" Margin="654,88,10,10">
 
             <StackPanel x:Name="StackBox_Module" HorizontalAlignment="Left" Width="162" Margin="0,0,0,21">
-                <Label x:Name="Label_ECM" Content="Electronic Countermesures" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_SFN" Content="Shutdown Field Neutralizer" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_FSDI" Content="FSD Interdictor" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_LIMCOL" Content="Collector Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_LIMDEC" Content="Decontamination Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_LIMF" Content="Fuel Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_LIMHB" Content="Hatch Breaker Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_LIMREC" Content="Recon Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_LIMREP" Content="Repair Limpet" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_LIMRES" Content="Research Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_LIMPRO" Content="Prospector Limpets" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_HS1" Content="Heatsink #1" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_HS2" Content="Heatsink #2" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_SC1" Content="Shield Cell #1" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_SC2" Content="Shield Cell #2" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_CH1" Content="Chaff #1" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_CH2" Content="Chaff #2" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_SNCARG" Content="Cargo Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_SNCOMP" Content="Composite Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_SNDISC" Content="Discovery Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_SNKILL" Content="Kill Warrant Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_SNSURF" Content="Surface Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_SNXENO" Content="Xeno Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
-                <Label x:Name="Label_SNWAKE" Content="Wake Scanner" Foreground="#FFCE5A05" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_ECM" Content="Electronic Countermesures" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SFN" Content="Shutdown Field Neutralizer" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_FSDI" Content="FSD Interdictor" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMCOL" Content="Collector Limpets" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMDEC" Content="Decontamination Limpets" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMF" Content="Fuel Limpets" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMHB" Content="Hatch Breaker Limpets" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMREC" Content="Recon Limpets" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMREP" Content="Repair Limpet" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMRES" Content="Research Limpets" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_LIMPRO" Content="Prospector Limpets" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_HS1" Content="Heatsink #1" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_HS2" Content="Heatsink #2" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SC1" Content="Shield Cell #1" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SC2" Content="Shield Cell #2" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_CH1" Content="Chaff #1" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_CH2" Content="Chaff #2" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNCARG" Content="Cargo Scanner" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNCOMP" Content="Composite Scanner" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNDISC" Content="Discovery Scanner" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNKILL" Content="Kill Warrant Scanner" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNSURF" Content="Surface Scanner" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNXENO" Content="Xeno Scanner" Foreground="Red" HorizontalContentAlignment="Right"/>
+                <Label x:Name="Label_SNWAKE" Content="Wake Scanner" Foreground="Red" HorizontalContentAlignment="Right"/>
             </StackPanel>
 
             <StackPanel x:Name="StackBox_Group" HorizontalAlignment="Left" Width="90" Margin="0,0,0,21">

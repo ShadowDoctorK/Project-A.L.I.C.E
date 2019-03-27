@@ -9,7 +9,7 @@ namespace ALICE_Internal
     public static class Paths
     {
         #region File Names
-        public static readonly string ALICE_BindsFile = "A.L.I.C.E Profile.3.0.binds";
+        public static readonly string FILE_BindsFile = "A.L.I.C.E Profile.3.0.binds";
         public static readonly string FILE_AliceManual = "Project A.L.I.C.E.pdf";
         #endregion
 
@@ -23,7 +23,7 @@ namespace ALICE_Internal
         public static readonly string DLL_Location = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         public static readonly string ALICE_Audio_Files = DLL_Location + @"\A.L.I.C.E Audio Files\";
         public static readonly string ALICE_Resources = DLL_Location + @"\A.L.I.C.E Resources\";
-        public static readonly string ALICE_Response = DLL_Location + @"\A.L.I.C.E Response\";
+        public static readonly string ALICE_Response = DLL_Location + @"\A.L.I.C.E Response\Files\";
         public static readonly string ALICE_ResponseUser = KnownFolders.GetPath(KnownFolder.Documents) + @"\A.L.I.C.E User Data\Responses\";
         public static readonly string ALICE_Log_Files = KnownFolders.GetPath(KnownFolder.Documents) + @"\A.L.I.C.E User Data\Log Files\";
         public static readonly string ALICE_Settings = KnownFolders.GetPath(KnownFolder.Documents) + @"\A.L.I.C.E User Data\Settings\";
@@ -35,7 +35,7 @@ namespace ALICE_Internal
         #endregion
 
         #region File Paths  
-        public static readonly string ALICE_BindsPath = Binds_Location + ALICE_BindsFile;
+        public static readonly string ALICE_BindsPath = Binds_Location + FILE_BindsFile;
         public static readonly string ALICE_ManualPath = ALICE_RootFolder + FILE_AliceManual;
         #endregion
 
@@ -51,14 +51,13 @@ namespace ALICE_Internal
 
             if (File.Exists(ALICE_BindsPath) == false)
             {
-                IPlatform.WriteToInterface("A.L.I.C.E: Binds File Is Not Installed...", Logger.Purple);
+                IPlatform.WriteToInterface("A.L.I.C.E: Installing Alice Binds File...", Logger.Purple);
 
                 try
                 {
-                    FileInfo fileInfo = new FileInfo(ALICE_Resources + ALICE_BindsFile);
-                    fileInfo.CopyTo(ALICE_BindsPath);
-                    IPlatform.WriteToInterface("A.L.I.C.E: " + Binds_Location, Logger.Purple);
-                    IPlatform.WriteToInterface("A.L.I.C.E: A.L.I.C.E Profile.3.0.binds Coppied To:", Logger.Purple);
+                    FileInfo fileInfo = new FileInfo(ALICE_Resources + FILE_BindsFile);
+                    fileInfo.CopyTo(ALICE_BindsPath);                    
+                    IPlatform.WriteToInterface("A.L.I.C.E: A.L.I.C.E Profile.3.0.binds Installed", Logger.Purple);
                 }
                 catch (Exception ex)
                 {
@@ -68,7 +67,7 @@ namespace ALICE_Internal
             }
             else
             {
-                Logger.DebugLine(MethodName, "Project A.L.I.C.E Binds File Located.", Logger.Blue);
+                //Logger.DebugLine(MethodName, "Project A.L.I.C.E Binds File Located.", Logger.Blue);
             }
         }
 

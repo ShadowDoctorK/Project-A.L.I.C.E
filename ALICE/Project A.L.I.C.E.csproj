@@ -60,51 +60,246 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="A.L.I.C.E Actions\Items\Fighter.cs" />
+    <Compile Include="A.L.I.C.E Actions\Items\Frame Shift Drive.cs" />
+    <Compile Include="A.L.I.C.E Actions\IActions.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection Events.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection EventTypes.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection Variables.cs" />
-    <Compile Include="A.L.I.C.E Core\Json Monitor\Event Status.cs" />
-    <Compile Include="A.L.I.C.E Core\Journal Monitor\Current Journal Logs.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment FuelTank.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment FighterHanger.cs" />
-    <Compile Include="A.L.I.C.E Events\New Framework\Event AsteroidCracked.cs" />
-    <Compile Include="A.L.I.C.E Events\Journal Events\Event AsteroidCracked.cs" />
-    <Compile Include="A.L.I.C.E Events\New Framework\Event AfmuRepairs.cs" />
-    <Compile Include="A.L.I.C.E Events\New Framework\Event ApproachBody.cs" />
-    <Compile Include="A.L.I.C.E Events\New Framework\Event ApproachSettlement.cs" />
-    <Compile Include="A.L.I.C.E Events\New Framework\Event Bounty.cs" />
-    <Compile Include="A.L.I.C.E Events\New Framework\Event BuyAmmo.cs" />
-    <Compile Include="A.L.I.C.E Events\New Framework\Event BuyDrones.cs" />
-    <Compile Include="A.L.I.C.E Events\New Framework\Event BuyExplorationData.cs" />
-    <Compile Include="A.L.I.C.E Events\New Framework\Event BuyTradeData.cs" />
-    <Compile Include="A.L.I.C.E Events\New Framework\Event Cargo.cs" />
+    <Compile Include="A.L.I.C.E Events\[Convert]\Event Status.cs" />
+    <Compile Include="A.L.I.C.E Data\Data Codex.cs" />
+    <Compile Include="A.L.I.C.E Data\Data Systems.cs" />
+    <Compile Include="A.L.I.C.E Data\Data Modules.cs" />
+    <Compile Include="A.L.I.C.E Data\Data Commodies.cs" />
+    <Compile Include="A.L.I.C.E Data\Data CrimeTypes.cs" />
+    <Compile Include="A.L.I.C.E Data\Data Messages.cs" />
+    <Compile Include="A.L.I.C.E Data\IData.cs" />
+    <Compile Include="A.L.I.C.E Debug\Settings\Environment.cs" />
+    <Compile Include="A.L.I.C.E Debug\Equipment\Frame Shift Drive.cs" />
+    <Compile Include="A.L.I.C.E Debug\Equipment\Shields.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\Masslock.cs" />
+    <Compile Include="A.L.I.C.E Debug\IDebug.cs" />
+    <Compile Include="A.L.I.C.E Debug\IGet.cs" />
+    <Compile Include="A.L.I.C.E Debug\ISet.cs" />
+    <Compile Include="A.L.I.C.E Debug\Settings\Reports.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\FireInNoFireZone.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\ShipyardArrived.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\Docked.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\SupercruiseEntry.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\SupercruiseExit.cs" />
+    <Compile Include="A.L.I.C.E Debug\Equipment\Landing Gear.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\Assult.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\BlockAirlock.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\BlockLandingPad.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\Music.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\NoFireZone.cs" />
+    <Compile Include="A.L.I.C.E Debug\ICheck.cs" />
+    <Compile Include="A.L.I.C.E Debug\Settings\Orders.cs" />
+    <Compile Include="A.L.I.C.E Debug\Settings\Platform.cs" />
+    <Compile Include="A.L.I.C.E Debug\Status\Docking.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Fuel Tank.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Fighter Hanger.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Landing Gear.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Shields.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event AsteroidCracked.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event AfmuRepairs.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ApproachBody.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ApproachSettlement.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\Bounty.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event BuyAmmo.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event BuyDrones.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event BuyExplorationData.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event BuyTradeData.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Cargo.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ChangeCrewRole.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ClearSaveGame.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event CockpitBreached.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event CodexEntry.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\CollectCargo.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\Commander.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\CommitCrime.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\CommunityGoal.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\CrewAssign.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\CrewFire.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\CrewHire.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event DatalinkScan.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event DatalinkVoucher.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event DataScanned.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Died.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\Docked.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event DockFighter.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event DockingCancelled.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event DockingDenied.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event DockingGranted.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event DockingRequested.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event DockSRV.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event EjectCargo.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event EngineerContribution.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event EngineerCraft.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event EngineerProgress.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event EscapeInterdiction.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event FactionKillBond.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event FetchRemoteModule.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event FighterDestroyed.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event FighterRebuilt.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Fileheader.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Friends.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event FSDJump.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event FSDTarget.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event FSSAllBodiesFound.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event FSSDiscoveryScan.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event FSSSignalDiscovered.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event HeatDamage.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event HeatWarning.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event HullDamage.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Interdicted.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event JetConeBoost.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event LaunchDrone.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event LaunchFighter.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event LaunchSRV.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event LeaveBody.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Liftoff.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event LoadGame.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Loadout.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Location.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Market.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event MarketBuy.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event MarketSell.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event MassModuleStore.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event MaterialCollected.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event MaterialDiscovered.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Materials.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event MaterialTrade.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event MiningRefined.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event MissionAbandoned.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event MissionAccepted.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event MissionCompleted.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event MissionFailed.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event MissionRedirected.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Missions.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ModuleBuy.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ModuleInfo.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ModuleRetrieve.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ModuleSell.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ModuleSellRemote.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ModuleStore.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ModuleSwap.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event MultiSellExplorationData.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Music.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event NavBeaconScan.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event NpcCrewPaidWage.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event NpcCrewRank.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Outfitting.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event PayBounties.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event PayFines.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Powerplay.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event PowerplayCollect.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event PowerplayDefect.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event PowerplayDeliver.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event PowerplayFastTrack.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event PowerplayJoin.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event PowerplayLeave.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event PowerplaySalary.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event PowerplayVote.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Progress.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Promotion.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ProspectedAsteroid.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event QuitACrew.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Rank.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event RebootRepair.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\ReceiveText.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event RedeemVoucher.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event RefuelAll.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Repair.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event RepairAll.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event RepairDrone.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Reputation.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ReservoirReplenished.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event RestockVehicle.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Resurrect.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event SAAScanComplete.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Scan.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Scanned.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ScientificResearch.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Screenshot.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event SearchAndRescue.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event SelfDestruct.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event SellDrones.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event SellExplorationData.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event SendText.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event SetUserShipName.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ShieldState.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ShipTargeted.cs" />
+    <Compile Include="A.L.I.C.E Events\Templet.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Shipyard.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ShipyardBuy.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ShipyardNew.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ShipyardSwap.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event ShipyardTransfer.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Shutdown.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event SquadronStartup.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event SRVDestroyed.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\StartJump.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Statistics.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event StoredModules.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event StoredShips.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\SupercruiseEntry.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\SupercruiseExit.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Synthesis.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event SystemsShutdown.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event TechnologyBroker.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Touchdown.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event UnderAttack.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event Undocked.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event USSDrop.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event VehicleSwitch.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event WingAdd.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event WingInvite.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event WingJoin.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event WingLeave.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\Assault.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\NoFireZone.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\StationDamage.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\BlockLandingPad.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\DockingTimeout.cs" />
+    <Compile Include="A.L.I.C.E Interface\INewtonSoft.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Bounty.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Crew.cs" />
+    <Compile Include="A.L.I.C.E Response\IResponse.cs" />
+    <Compile Include="A.L.I.C.E Settings\Settings Shipyard.cs" />
     <Compile Include="A.L.I.C.E Status\Status Bounty.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Crew.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Crime.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Fighter.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Heat.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Materials.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Messages.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Music.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Scanned.cs" />
     <Compile Include="A.L.I.C.E Status\Status Scan.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Interaction.cs" />
+    <Compile Include="A.L.I.C.E Status\Status Shipyard.cs" />
+    <Compile Include="A.L.I.C.E Status\Status System.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\ISynthesizer.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Wrappers.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Response.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment LimpetProspector.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment LimpetResearch.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment LimpetRepair.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment LimpetRecon.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment LimpetHatchBreaker.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment LimpetFuel.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment LimpetDecontamination.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment LimpetCollector.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment WakeScanner.cs" />
-    <Compile Include="A.L.I.C.E Events\[Retired Events]\Event DiscoveryScan.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ProspectedAsteroid.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ReservoirReplenished.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Limpet Prospector.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Limpet Research.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Limpet Repair.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Limpet Recon.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Limpet Hatch Breaker.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Limpet Fuel.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Limpet Decontamination.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Limpet Collector.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Wake Scanner.cs" />
     <Compile Include="A.L.I.C.E Interface\ICommands.cs" />
     <Compile Include="A.L.I.C.E Interface\IScreenshot.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceAttack.cs" />
     <Compile Include="A.L.I.C.E Equipment\IEquipment.cs" />
-    <Compile Include="A.L.I.C.E Internal\Check.cs" />
-    <Compile Include="A.L.I.C.E Internal\Data.cs" />
-    <Compile Include="A.L.I.C.E Internal\Get.cs" />
+    <Compile Include="A.L.I.C.E Debug\Convert\Check.cs" />
     <Compile Include="A.L.I.C.E Internal\IEnums.cs" />
     <Compile Include="A.L.I.C.E Internal\Logger.cs" />
     <Compile Include="A.L.I.C.E Internal\Monitors.cs" />
@@ -113,213 +308,48 @@
     <Compile Include="A.L.I.C.E Settings\ISettings.cs" />
     <Compile Include="A.L.I.C.E Settings\Settings User.cs" />
     <Compile Include="A.L.I.C.E Status\IStatus.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment DockingComputer.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment FrameShiftDrive.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment ExternalLights.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment CompositeScanner.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment PulseWaveScanner.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment ElectronicCountermeasure.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment FSDInterdictor.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment ShieldCellBank.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment XenoScanner.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment ShutdownFieldNeutrailser.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment SurfaceScanner.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment DiscoveryScanner.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Docking Computer.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Frame Shift Drive.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\External Lights.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Composite Scanner.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Pulse Wave Scanner.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Electronic Countermeasure.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Frame Shift Drive Interdictor.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Shield Cell Bank.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Xeno Scanner.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Shutdown Field Neutrailser.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Surface Scanner.cs" />
+    <Compile Include="A.L.I.C.E Equipment\Equipment\Discovery Scanner.cs" />
     <Compile Include="A.L.I.C.E Core\IPower.cs" />
     <Compile Include="A.L.I.C.E Settings\Settings Firegroups.cs" />
-    <Compile Include="A.L.I.C.E Actions\System Targeting.cs" />
-    <Compile Include="A.L.I.C.E Actions\System Assisted Power.cs" />
-    <Compile Include="A.L.I.C.E Actions\Reports.cs" />
-    <Compile Include="A.L.I.C.E Actions\Orders.cs" />
+    <Compile Include="System Targeting.cs" />
+    <Compile Include="System Assisted Power.cs" />
     <Compile Include="A.L.I.C.E Core\IFiregroups.cs" />
     <Compile Include="A.L.I.C.E Events\IEvent Logic.cs" />
     <Compile Include="A.L.I.C.E Core\Utilities.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\ReceiveText\Event BlockLandingPadWarning.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\ReceiveText\Event BlockAirlockWarning.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event TrespassMajor.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event TrespassMinor.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event WrecklessFlying.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event WrecklessFlyingDamage.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event BlockLandingPadMajor.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event BlockLandingPadMinor.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event BlockAirlockMajor.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event BlockAirlockMinor.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event DumpingNearStation.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event DumpingDangerous.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event FireInNoFireZone.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event FireInStation.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event DisobeyPolice.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event IllegalCargo.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event Interdicting.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event Piracy.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event Murder.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\CommitCrime\Event Assult.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\ReceiveText\Event NoFireZone.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\ShipyardTransfer\Event ShipyardArrived.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\Event AliceOnline.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\ReceiveText\Event BlockAirlockHostile.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\ReceiveText\Event BlockLandingPadHostile.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\ReceiveText\Event StationDamage.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\ReceiveText\Event StationHostile.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\Event FuelHalfThreshold.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\Event FuelCritical.cs" />
-    <Compile Include="A.L.I.C.E Events\Custom Events\Event FuelLow.cs" />
-    <Compile Include="A.L.I.C.E Events\Json Events\Event Masslock.cs" />
-    <Compile Include="A.L.I.C.E Events\Journal Events\Event AfmuRepairs.cs" />
-    <Compile Include="A.L.I.C.E Events\Journal Events\Event ApproachBody.cs" />
-    <Compile Include="A.L.I.C.E Events\Journal Events\Event ApproachSettlement.cs" />
-    <Compile Include="A.L.I.C.E Events\Journal Events\Event Bounty.cs" />
-    <Compile Include="A.L.I.C.E Events\Journal Events\Event BuyAmmo.cs" />
-    <Compile Include="A.L.I.C.E Events\Journal Events\Event BuyDrones.cs" />
-    <Compile Include="A.L.I.C.E Events\Journal Events\Event BuyExplorationData.cs" />
-    <Compile Include="A.L.I.C.E Events\Journal Events\Event BuyTradeData.cs" />
-    <Compile Include="A.L.I.C.E Events\Journal Events\Event Cargo.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event CargoDepot.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ChangeCrewRole.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ClearSaveGame.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event CockpitBreached.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event CodexEntry.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event CollectCargo.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Commander.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event CommitCrime.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event CommunityGoal.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event CrewAssign.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event CrewFire.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event CrewHire.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event DatalinkScan.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event DatalinkVoucher.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event DataScanned.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Died.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event SquadronStartup.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Docked.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event DockFighter.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event DockingCancelled.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event DockingDenied.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event DockingGranted.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event DockingRequested.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event DockSRV.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event EjectCargo.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event EngineerContribution.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event EngineerCraft.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event EngineerProgress.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event EscapeInterdiction.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FactionKillBond.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FetchRemoteModule.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FighterDestroyed.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FighterRebuilt.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Fileheader.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Friends.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FSDJump.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FSDTarget.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FSSDiscoveryScan.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FSSSignalDiscovered.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FuelScoop.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event HeatDamage.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event HeatWarning.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event HullDamage.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Interdicted.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event LaunchDrone.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event LaunchFighter.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event LaunchSRV.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event LeaveBody.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Liftoff.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event LoadGame.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Loadout.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Location.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Market.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event MarketBuy.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event MarketSell.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event MassModuleStore.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event MaterialCollected.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event MaterialDiscovered.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Materials.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event MaterialTrade.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event MiningRefined.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event MissionAbandoned.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event MissionAccepted.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event JetConeBoost.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event FSSAllBodiesFound.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event MultiSellExplorationData.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event MissionCompleted.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event MissionFailed.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event MissionRedirected.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Missions.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ModuleBuy.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ModuleInfo.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ModuleRetrieve.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ModuleSell.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ModuleSellRemote.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ModuleStore.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ModuleSwap.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Music.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event NavBeaconScan.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event NpcCrewPaidWage.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event NpcCrewRank.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Outfitting.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event PayBounties.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event PayFines.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Powerplay.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event PowerplayCollect.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event PowerplayDefect.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event PowerplayDeliver.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event PowerplayFastTrack.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event PowerplayJoin.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event PowerplayLeave.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event PowerplaySalary.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event PowerplayVote.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Progress.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Promotion.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event QuitACrew.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Rank.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event RebootRepair.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ReceiveText.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event RedeemVoucher.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event RefuelAll.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Repair.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event RepairAll.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event RepairDrone.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Reputation.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event RestockVehicle.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Resurrect.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event SAAScanComplete.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Scan.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Scanned.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ScientificResearch.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Screenshot.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event SearchAndRescue.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event SelfDestruct.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event SellDrones.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event SellExplorationData.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event SendText.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event SetUserShipName.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ShieldState.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ShipTargeted.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Shipyard.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ShipyardBuy.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ShipyardNew.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ShipyardSwap.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event ShipyardTransfer.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Shutdown.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event SRVDestroyed.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event StartJump.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Statistics.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event StoredModules.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event StoredShips.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event SupercruiseEntry.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event SupercruiseExit.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Synthesis.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event SystemsShutdown.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event TechnologyBroker.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Touchdown.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Undefined.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event UnderAttack.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event Undocked.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event USSDrop.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event VehicleSwitch.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event WingAdd.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event WingInvite.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event WingJoin.cs" />
-    <Compile Include="A.L.I.C.E Events\Updating\Event WingLeave.cs" />
+    <Compile Include="A.L.I.C.E Events\[Convert]\Event TrespassMajor.cs" />
+    <Compile Include="A.L.I.C.E Events\[Convert]\Event TrespassMinor.cs" />
+    <Compile Include="A.L.I.C.E Events\[Convert]\Event WrecklessFlying.cs" />
+    <Compile Include="A.L.I.C.E Events\[Convert]\Event WrecklessFlyingDamage.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\DumpingNearStation.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\DumpingDangerous.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\FireInNoFireZone.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\FireInStation.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\DisobeyPolice.cs" />
+    <Compile Include="A.L.I.C.E Events\[Convert]\Event IllegalCargo.cs" />
+    <Compile Include="A.L.I.C.E Events\[Convert]\Event Interdicting.cs" />
+    <Compile Include="A.L.I.C.E Events\[Convert]\Event Piracy.cs" />
+    <Compile Include="A.L.I.C.E Events\[Convert]\Event Murder.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\ShipyardArrived.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\AliceOnline.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\BlockAirlock.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\StationHostile.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\FuelHalfThreshold.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\FuelCritical.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\FuelLow.cs" />
+    <Compile Include="A.L.I.C.E Events\Custom Events\Masslock.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event CargoDepot.cs" />
+    <Compile Include="A.L.I.C.E Events\Update\Event FuelScoop.cs" />
     <Compile Include="A.L.I.C.E Objects\Object CodexEntry.cs" />
     <Compile Include="A.L.I.C.E Status\Status Cargo.cs" />
     <Compile Include="A.L.I.C.E Status\Status Planet.cs" />
@@ -342,8 +372,8 @@
     <Compile Include="A.L.I.C.E Actions\Actions.cs" />
     <Compile Include="A.L.I.C.E Events\IEvents.cs" />
     <Compile Include="A.L.I.C.E Interface\IPlatform.cs" />
-    <Compile Include="A.L.I.C.E Core\Journal Monitor\New Journal Logs.cs" />
-    <Compile Include="A.L.I.C.E Core\Json Monitor\Monitor Json.cs" />
+    <Compile Include="A.L.I.C.E Core\Monitor Journal.cs" />
+    <Compile Include="A.L.I.C.E Core\Monitor Json.cs" />
     <Compile Include="A.L.I.C.E Core\Manager Keybinds.cs" />
     <Compile Include="A.L.I.C.E Objects\IObjects.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Speech.cs" />
@@ -392,145 +422,148 @@
     <None Include="A.L.I.C.E Resources\Modules.Json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Crime.Response">
+    <None Include="A.L.I.C.E Response\Files\Crime.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Cargo Scoop.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Cargo Scoop.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Chaff Launcher.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Chaff Launcher.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Discovery Scanner.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Discovery Scanner.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ External Lights.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ External Lights.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Fighter.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Fighter.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Frame Shift Drive.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Flight Assist.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Full Spectrum Scanner.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Frame Shift Drive.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Generic Module.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Full Spectrum Scanner.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Hardpoints.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Generic Module.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Heatsink Launcher.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Hardpoints.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Landing Gear.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Heatsink Launcher.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Shield Cell.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Landing Gear.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Shields.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Shield Cell.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EQ Silent Running.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Shields.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT Bounty.Response">
+    <None Include="A.L.I.C.E Response\Files\EQ Silent Running.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT FSSAllBodiesFound.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT Bounty.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT HeatDamage.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT FSSAllBodiesFound.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT HeatWarning.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT HeatDamage.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT HullDamage.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT HeatWarning.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT Masslock.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT HullDamage.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT NoFireZone.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT Masslock.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT Scan.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT NoFireZone.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\EVT Shipyard Arrived.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT Scan.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Alice.Response">
+    <None Include="A.L.I.C.E Response\Files\EVT Shipyard Arrived.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Apology.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Alice.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Combat Power.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Apology.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Docking Preparations.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Combat Power.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Docking Request.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Docking Preparations.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Facility Report.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Docking Request.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Fuel Report.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Facility Report.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Galaxy Map.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Fuel Report.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN I Love You.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Galaxy Map.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Landing Preparations.Response">
+    <None Include="A.L.I.C.E Response\Files\GN I Love You.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Negative.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Landing Preparations.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Order Updated.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Negative.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Planetary Interaction.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Order Updated.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Positive.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Planetary Interaction.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Report Updated.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Positive.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Station Reports.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Report Updated.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN System Map.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Station Reports.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN System Report.Response">
+    <None Include="A.L.I.C.E Response\Files\GN System Map.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Target Ship.Response">
+    <None Include="A.L.I.C.E Response\Files\GN System Report.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Targeting System.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Target Ship.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\GN Thank You.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Targeting System.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\NPC Crew.Response">
+    <None Include="A.L.I.C.E Response\Files\GN Thank You.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="A.L.I.C.E Response\Weapons Safety.Response">
+    <None Include="A.L.I.C.E Response\Files\NPC Crew.Response">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="A.L.I.C.E Response\Files\Weapons Safety.Response">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="app.config">
@@ -566,6 +599,9 @@
     <Content Include="A.L.I.C.E Audio Files\Scan_AdditionData.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="A.L.I.C.E Audio Files\Mark_StoppedWaiting.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="A.L.I.C.E Audio Files\Scan_Paused.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -575,8 +611,7 @@
     <Content Include="vmAPI.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="A.L.I.C.E Equipment\[Sandbox]\" />
-    <Folder Include="A.L.I.C.E Events\[Sandbox]\" />
+    <Folder Include="A.L.I.C.E Events\[Retire]\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

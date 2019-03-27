@@ -2,7 +2,7 @@
 
 namespace ALICE_Synthesizer
 {
-    #region Response Wrappers | Auto Generated: 02/15/2019 10:16 PM
+    #region Response Wrappers | Auto Generated: 02/19/2019 8:39 PM
 
     public static class Crime
     {
@@ -100,6 +100,15 @@ namespace ALICE_Synthesizer
         public static List<string> Launch_Error = new List<string> { "EQ Fighter", "Launch Error" };
         public static List<string> Docked = new List<string> { "EQ Fighter", "Docked" };
         public static List<string> Destroyed = new List<string> { "EQ Fighter", "Destroyed" };
+    }
+
+    public static class EQ_Flight_Assist
+    {
+        public static List<string> Enabled = new List<string> { "EQ Flight Assist", "Enabled" };
+        public static List<string> Disabled = new List<string> { "EQ Flight Assist", "Disabled" };
+        public static List<string> Currently_Enabled = new List<string> { "EQ Flight Assist", "Currently Enabled" };
+        public static List<string> Currently_Disabled = new List<string> { "EQ Flight Assist", "Currently Disabled" };
+        public static List<string> No_Hyperspace = new List<string> { "EQ Flight Assist", "No Hyperspace" };
     }
 
     public static class EQ_Frame_Shift_Drive
@@ -266,6 +275,7 @@ namespace ALICE_Synthesizer
     {
         public static List<string> Online = new List<string> { "GN Alice", "Online" };
         public static List<string> Default = new List<string> { "GN Alice", "Default" };
+        public static List<string> On_Your_Mark = new List<string> { "GN Alice", "On Your Mark" };
     }
 
     public static class GN_Apology
@@ -488,5 +498,4 @@ namespace ALICE_Synthesizer
     }
 
     #endregion
-
 }

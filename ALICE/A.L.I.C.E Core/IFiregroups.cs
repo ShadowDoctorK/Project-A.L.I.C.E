@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ALICE.Properties;
 using ALICE_Actions;
+using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Objects;
 
@@ -30,7 +31,7 @@ namespace ALICE_Core
             string MethodName = "Firegroup Select";
 
             #region Validation
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 //Audio - Cant Do That
                 return;
@@ -80,12 +81,15 @@ namespace ALICE_Core
         {
             string MethodName = "Update Fire Groups";
 
+            //Check Plugin Initialized
+            if (ICheck.Initialized(MethodName) == false) { return; }
+
             decimal Saved = Current;
             decimal Tracked = 1;
 
             #region Valid Command Checks
             //Docked Check
-            if (Check.Docking.Status(IEnums.DockingState.Docked, true, MethodName) == true)
+            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked, true) == true)
             {
                 return;
             }

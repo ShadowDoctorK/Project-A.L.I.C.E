@@ -1,4 +1,5 @@
-﻿using ALICE_Internal;
+﻿using ALICE_Debug;
+using ALICE_Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,9 +55,9 @@ namespace ALICE_Synthesizer
         /// </summary>
         /// <param name="Text">Target Text for the Extension</param>
         /// <param name="Segment">List<string> which contains the Target Response Key, and the Target Segment in that response.</string></param>
-        /// <param name="R">Allows the method to randomly decide if the Segments will be appended.</param>
-        /// <param name="E">Allows you to link the phrase to a function to decide if the Segment is enabled or disabled.</param>
-        /// <param name="W">Allows disabling Weight feature to use all choices.</param>
+        /// <param name="R">(Random) Allows the method to randomly decide if the Segments will be appended.</param>
+        /// <param name="E">(Enabled) Allows you to link the phrase to a function to decide if the Segment is enabled or disabled.</param>
+        /// <param name="W">(Weighed) Allows disabling Weight feature to use all choices.</param>
         /// <param name="FalseIsGood">Allows you to link the phrase to a function to decide if the Segment is enabled or disabled.</param>
         /// <param name="Percent">Percent chance the Unique/Alternate strings will be used in the response.</param>
         /// <param name="Override">Allows you to Force the use of Alterante or Standard Lines</param>
@@ -92,7 +93,7 @@ namespace ALICE_Synthesizer
                 //Validation Failed
                 case ISynthesizer.Answer.Negative:
                     Logger.DebugLine(MethodName, Segment[0] + " | " + Segment[1] + " Did Not Pass Validation", Logger.Blue);
-                    return Text; ;
+                    return Text;
                 
                 //Validation Returned Error State
                 case ISynthesizer.Answer.Error:
@@ -195,11 +196,12 @@ namespace ALICE_Synthesizer
         /// <param name="TokenName">The Token string to be replaced</param>
         /// <param name="TargetText">The Text to replace the Token with.</param>
         /// <returns>Returns the updated working string.</returns>
-        public static string Token(this string Text, string TokenName, string TargetText)
+        public static string Token(this string Text, string TokenName, string TargetText, bool Enabled = true)
         {
             string MethodName = "Token Replacement";
 
-            if (TargetText == null && Check.Internal.TriggerEvents(true, MethodName, true))
+            if (Enabled == false) { return Text; }
+            if (TargetText == null && ICheck.Initialized(MethodName, true))
             { Logger.Log(MethodName, "Token: " + TokenName + " - The Target Text For The Token Was Null.", Logger.Red); return Text; }
             if (Text.Contains(TokenName)) { Text = Text.Replace(TokenName, TargetText); }
             return Text;
@@ -212,8 +214,9 @@ namespace ALICE_Synthesizer
         /// <param name="TokenName">The Token string to be replaced</param>
         /// <param name="TargetText">The Text to replace the Token with.</param>
         /// <returns>Returns the updated working string.</returns>
-        public static string Token(this string Text, string TokenName, decimal TargetText)
+        public static string Token(this string Text, string TokenName, decimal TargetText, bool Enabled = true)
         {
+            if (Enabled == false) { return Text; }
             if (Text.Contains(TokenName)) { Text = Text.Replace(TokenName, TargetText.ToString()); }
             return Text;
         }

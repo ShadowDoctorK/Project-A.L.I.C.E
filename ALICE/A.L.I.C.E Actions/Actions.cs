@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Media;
-using System.IO;
+﻿using System.Threading;
 using ALICE_Core;
-using ALICE_Events;
-using ALICE_Interface;
 using ALICE_Internal;
 using ALICE_Keybinds;
 using ALICE_Objects;
@@ -14,6 +7,8 @@ using ALICE.Properties;
 using ALICE_Panels;
 using ALICE_Synthesizer;
 using ALICE_Settings;
+using ALICE_Debug;
+using ALICE_Equipment;
 
 namespace ALICE_Actions
 {
@@ -32,16 +27,12 @@ namespace ALICE_Actions
     public static class Call
     {
         public static Actions Action = new Actions();
-        public static AliceKeys Key = new AliceKeys();
-        public static Interaction Interactions = new Interaction();
+        public static AliceKeys Key = new AliceKeys();        
         public static Overrides Overrides = new Overrides();
         public static IPower Power = new IPower();
         public static IPanels Panel = new IPanels();
         public static IFiregroups Firegroup = new IFiregroups();     
         
-        //Merging Orders With User Settings
-        public static Reports Report = new Reports();
-
         #region Methods
         public static void ResetPanels() { Panel = new IPanels(); }
         #endregion
@@ -92,7 +83,7 @@ namespace ALICE_Actions
         #region Properties
         public bool Default = true;
         public decimal Num_Boost = 0;
-        public bool Wait_FighterLaunch = false;
+        //public bool Wait_FighterLaunch = false;
         #endregion
 
         public Actions() { }
@@ -103,7 +94,7 @@ namespace ALICE_Actions
             string MethodName = "Activate Chaff";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -122,7 +113,7 @@ namespace ALICE_Actions
                 return;
             }
 
-            if (Check.Environment.Space(IEnums.Supercruise, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Supercruise) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -188,7 +179,7 @@ namespace ALICE_Actions
             string MethodName = "Activate Heatsink";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -255,7 +246,7 @@ namespace ALICE_Actions
             string MethodName = "Activate Shield Cell";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -322,7 +313,7 @@ namespace ALICE_Actions
             string MethodName = "Analysis Mode";
 
             #region Status == Command
-            if (IObjects.Status.AnalysisMode == CMD_State)
+            if (IStatus.AnalysisMode == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -336,18 +327,18 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (IObjects.Status.AnalysisMode != CMD_State)
+            else if (IStatus.AnalysisMode != CMD_State)
             {
                 if (CMD_State == true)
                 {
                     Call.Key.Press(Call.Key.Toggle_HUD_Mode, 0);
-                    IObjects.Status.AnalysisMode = true;
+                    IStatus.AnalysisMode = true;
                     return;
                 }
                 else if (CMD_State == false)
                 {
                     Call.Key.Press(Call.Key.Toggle_HUD_Mode, 0);
-                    IObjects.Status.AnalysisMode = false;
+                    IStatus.AnalysisMode = false;
                     return;
                 }
             }
@@ -359,13 +350,13 @@ namespace ALICE_Actions
             string MethodName = "Boost";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 //Audio
                 return;
             }
 
-            if (Check.Environment.Space(IEnums.Supercruise, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Supercruise) == false)
             {
                 //Audio
                 return;
@@ -381,19 +372,25 @@ namespace ALICE_Actions
                 Pause = true;
             }
 
-            if (Check.Variable.LandingGear(false, MethodName) == false)
+            if (ICheck.LandingGear.Status(MethodName, false, true) == false)
             {
                 Call.Action.LandingGear(false, false);
                 Pause = true;
             }
 
             if (Pause == true)
-            { Thread.Sleep(100); }
+            {
+                Thread.Sleep(100);
+            }
             #endregion
 
             #region Action: Set Power
-            if (ModifyPower && (Check.Variable.Hardpoints(false, MethodName) == true && Check.Order.CombatPower(true, MethodName)) == false)
-            { Call.Power.Set(0, 4, 8, true); }
+            if (ModifyPower && 
+                (Check.Variable.Hardpoints(false, MethodName) == true && 
+                ICheck.Order.CombatPower(MethodName, true, true) == false))
+            {
+                Call.Power.Set(0, 4, 8, true);
+            }
             #endregion
 
             #region Action: Boost
@@ -402,7 +399,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Action: Set Saved Power
-            if (ModifyPower && (Check.Variable.Hardpoints(false, MethodName) == true && Check.Order.CombatPower(true, MethodName)) == false)
+            if (ModifyPower && (Check.Variable.Hardpoints(false, MethodName) == true && ICheck.Order.CombatPower(MethodName, true, true)) == false)
             { Call.Power.SetRecorded(); }
             #endregion
         }
@@ -413,7 +410,7 @@ namespace ALICE_Actions
 
             #region Valid Command Checks
             //If Not In Normal Space...
-            if (Check.Environment.Space(IEnums.Normal_Space, true, MethodName, true) == false)
+            if (ICheck.Environment.Space(MethodName, true , IEnums.Normal_Space) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -453,7 +450,7 @@ namespace ALICE_Actions
             }
 
             //If Touchdown Is Not False...
-            if (Check.Docking.Status(IEnums.DockingState.Docked, false, MethodName) == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked, true) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -593,7 +590,7 @@ namespace ALICE_Actions
 
             #region Valid Command Checks
             //If Not In Normal Space...
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 IEquipment.ExternalLights.NoHyperspace(CommandAudio);
                 return;
@@ -601,7 +598,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status == Command
-            if (IObjects.Status.Lights == CMD_State)
+            if (IStatus.Lights == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -617,7 +614,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (IObjects.Status.Lights != CMD_State)
+            else if (IStatus.Lights != CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -635,198 +632,18 @@ namespace ALICE_Actions
             #endregion
         }
 
-        public void Fighter_AttackMyTarget(bool CommandAudio)
-        {
-            string MethodName = "Fighter (Attack My Target)";
-
-            Call.Key.Press(Call.Key.Attack_Target, 0);
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Fighter.Order_Attack_Target),
-                    CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-        }
-
-        public void Fighter_Defending(bool CommandAudio)
-        {
-            string MethodName = "Fighter (Defend)";
-
-            Call.Key.Press(Call.Key.Defend, 0);
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Fighter.Order_Defend),
-                    CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-        }
-
-        public void Fighter_EngageAtWill(bool CommandAudio)
-        {
-            string MethodName = "Fighter (Engage At Will)";
-
-            Call.Key.Press(Call.Key.Engage_At_Will, 0);
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Fighter.Order_Engage_At_Will),
-                    CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-        }
-
-        public void Fighter_Follow(bool CommandAudio)
-        {
-            string MethodName = "Fighter (Follow)";
-
-            Call.Key.Press(Call.Key.Follow_Me, 0);
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Fighter.Order_Follow),
-                    CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-        }
-
-        public void Fighter_HoldPosition(bool CommandAudio)
-        {
-            string MethodName = "Fighter (Hold Position)";
-
-            Call.Key.Press(Call.Key.Hold_Position, 0);
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Fighter.Order_Hold_Position),
-                    CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-        }
-
-        public void Fighter_MaintainFormation(bool CommandAudio)
-        {
-            string MethodName = "Fighter (Maintain Formation)";
-
-            Call.Key.Press(Call.Key.Maintain_Formation, 0);
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Fighter.Order_Maintain_Formation),
-                    CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-        }
-
-        public void Fighter_Recall(bool CommandAudio)
-        {
-            string MethodName = "Fighter (Recall)";
-
-            Call.Key.Press(Call.Key.Recall_Fighter, 0);
-
-            #region Audio: Fighter Order (Recall NPC)
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == true)
-            {
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Positive.Default, true)
-                        .Phrase(EQ_Fighter.Order_Recall_NPC),
-                        CommandAudio,
-                        Check.Variable.FighterDeployed(true, MethodName)
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-            }
-            #endregion
-
-            #region Audio: Fighter Order (Recall Player)
-            else if (Check.Environment.Vehicle(IVehicles.V.Fighter, true, MethodName) == true)
-            {
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Positive.Default, true)
-                        .Phrase(EQ_Fighter.Order_Recall_Player),
-                        CommandAudio,
-                        Check.Variable.FighterDeployed(true, MethodName)
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-            }
-            #endregion
-        }
-
-        public void Fighter_PrepairAmbush(bool CommandAudio)
-        {
-
-        }
-
         public void Full_Spectrum_Scanner(bool CMD_State, bool CommandAudio)
         {
             string MethodName = "Full Spectrum Scanner";
 
             #region Valid Command Checks
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 IEquipment.DiscoveryScanner.NoHyperspace(CommandAudio);
                 return;
             }
 
-            if (Check.Environment.Space(IEnums.Supercruise, true, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, true, IEnums.Supercruise) == false)
             {
                 IEquipment.DiscoveryScanner.NotInSupercruise(CommandAudio);
                 return;
@@ -878,7 +695,7 @@ namespace ALICE_Actions
 
             #region Valid Command Checks
             //If Hyperspace Is Not False...
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -897,7 +714,7 @@ namespace ALICE_Actions
             }
 
             //If Docked Is Not False...
-            if (Check.Docking.Status(IEnums.DockingState.Docked, false, MethodName) == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked, true) == false)
             {
                 return;
             }
@@ -923,7 +740,7 @@ namespace ALICE_Actions
             }
 
             //If In Supercruse && State Is True...
-            if (Check.Environment.Space(IEnums.Supercruise, true, MethodName) == true && CMD_State == true)
+            if (ICheck.Environment.Space(MethodName, true, IEnums.Supercruise) == true && CMD_State == true)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -988,7 +805,7 @@ namespace ALICE_Actions
                 if (CMD_State == true)
                 {
                     #region Weapon Safety Check
-                    if (IObjects.Status.WeaponSafety == true)
+                    if (IStatus.WeaponSafety == true)
                     {
                         #region Audio
                         if (PlugIn.Audio == "TTS")
@@ -1004,44 +821,41 @@ namespace ALICE_Actions
                         else if (PlugIn.Audio == "External") { }
                         #endregion
 
-                        Thread.Sleep(1500);
-
-                        int ResponseCounter = 0;
-                        while (Call.Interactions.Answer == Interaction.Answers.NoResponse)
+                        Thread.Sleep(1500); switch (IStatus.Interaction.Question(10000))
                         {
-                            ResponseCounter++;
-                            Thread.Sleep(100);
-                            if (ResponseCounter == 100)
-                            {
-                                //IPlatform.WriteToInterface("A.L.I.C.E: Hardpoints: No Response", Logger.Blue);
+                            case ALICE_Status.Status_Interaction.Answers.NoResponse:
+
+                                //Debug Logger
+                                Logger.DebugLine(MethodName, "No Response.", Logger.Yellow);
+
                                 return;
-                            }
-                        }
 
-                        if (Call.Interactions.Answer == Interaction.Answers.Yes)
-                        {
-                            Call.Interactions.Answer = Interaction.Answers.NoResponse;
-                            IObjects.Status.WeaponSafety = false;
-                        }
-                        else if (Call.Interactions.Answer == Interaction.Answers.No)
-                        {
-                            Call.Interactions.Answer = Interaction.Answers.NoResponse;
+                            case ALICE_Status.Status_Interaction.Answers.Yes:
 
-                            #region Audio
-                            if (PlugIn.Audio == "TTS")
-                            {
-                                Speech.Speak
-                                    (
-                                    "".Phrase(GN_Positive.Default, true)
-                                    .Phrase(EQ_Hardpoints.Safety_Remains),
-                                    CommandAudio
-                                    );
-                            }
-                            else if (PlugIn.Audio == "File") { }
-                            else if (PlugIn.Audio == "External") { }
-                            #endregion
+                                IStatus.WeaponSafety = false;
 
-                            return;
+                                break;
+
+                            case ALICE_Status.Status_Interaction.Answers.No:
+
+                                #region Audio
+                                if (PlugIn.Audio == "TTS")
+                                {
+                                    Speech.Speak
+                                        (
+                                        "".Phrase(GN_Positive.Default, true)
+                                        .Phrase(EQ_Hardpoints.Safety_Remains),
+                                        CommandAudio
+                                        );
+                                }
+                                else if (PlugIn.Audio == "File") { }
+                                else if (PlugIn.Audio == "External") { }
+                                #endregion
+
+                                return;
+
+                            default:
+                                break;
                         }
                     }
                     #endregion
@@ -1061,7 +875,7 @@ namespace ALICE_Actions
                             (
                             "".Phrase(GN_Positive.Default, true)
                             .Phrase(EQ_Hardpoints.Deploying)
-                            .Phrase(GN_Combat_Power.Online, false, Check.Order.CombatPower(true, MethodName)),
+                            .Phrase(GN_Combat_Power.Online, false, ICheck.Order.CombatPower(MethodName, true, true)),
                             CommandAudio
                             );
                     }
@@ -1080,7 +894,7 @@ namespace ALICE_Actions
                             (
                             "".Phrase(GN_Positive.Default, true)
                             .Phrase(EQ_Hardpoints.Retracting)
-                            .Phrase(GN_Combat_Power.Offline, false, Check.Order.CombatPower(true, MethodName)),
+                            .Phrase(GN_Combat_Power.Offline, false, ICheck.Order.CombatPower(MethodName, true, true)),
                             CommandAudio
                             );
                     }
@@ -1098,7 +912,7 @@ namespace ALICE_Actions
 
             #region Valid Command Checks
             //If Not In Normal Space...
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 Logger.Log(MethodName, "Can Not Use In Hyperspace", Logger.Red);
                 return;
@@ -1106,7 +920,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status == Command
-            if (IObjects.Status.NightVision == CMD_State)
+            if (IStatus.NightVision == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -1120,7 +934,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (IObjects.Status.NightVision != CMD_State)
+            else if (IStatus.NightVision != CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -1143,8 +957,16 @@ namespace ALICE_Actions
             string MethodName = "Landing Gear";
 
             #region Valid Command Checks
+            //Check Plugin Initialized
+            if (ICheck.Initialized(MethodName) == false)
+            {
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Plugin Not Initialized", Logger.Yellow);
+                return;
+            }
+
             //If Not In Normal Space...
-            if (Check.Environment.Space(IEnums.Normal_Space, true, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -1204,7 +1026,7 @@ namespace ALICE_Actions
             }
 
             //If Docked is True...
-            if (Check.Docking.Status(IEnums.DockingState.Docked, true, MethodName) == true && CMD_State == false)
+            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked) == true && CMD_State == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -1245,7 +1067,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status == Command
-            if (Check.Variable.LandingGear(MethodName) == CMD_State)
+            if (ICheck.LandingGear.Status(MethodName, true, true) == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -1287,12 +1109,12 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (Check.Variable.LandingGear(MethodName) != CMD_State)
+            else if (ICheck.LandingGear.Status(MethodName, true, true) != CMD_State)
             {
                 if (CMD_State == true)
                 {
                     Call.Key.Press(Call.Key.Landing_Gear, 0);
-                    IObjects.Status.LandingGear = true;
+                    ISet.LandingGear.Status(MethodName, true);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -1313,7 +1135,7 @@ namespace ALICE_Actions
                 else if (CMD_State == false)
                 {
                     Call.Key.Press(Call.Key.Landing_Gear, 0);
-                    IObjects.Status.LandingGear = false;
+                    ISet.LandingGear.Status(MethodName, false);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -1341,7 +1163,7 @@ namespace ALICE_Actions
 
             #region Valid Command Checks
             //If Not In Normal Space...
-            if (Check.Environment.Space(IEnums.Normal_Space, true, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -1476,7 +1298,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 100 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1493,7 +1315,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 95 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1520,7 +1342,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 90 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1545,7 +1367,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 85 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1570,7 +1392,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 80 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1597,7 +1419,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 75 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1620,7 +1442,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 70 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1647,7 +1469,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 65 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1672,7 +1494,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 60 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1697,7 +1519,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 55 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1724,7 +1546,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 50 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1747,7 +1569,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 45 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1774,7 +1596,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 40 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1799,7 +1621,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 35 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1824,7 +1646,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 30 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1851,7 +1673,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 25 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1874,7 +1696,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 20 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1901,7 +1723,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 15 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1926,7 +1748,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 10 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1951,7 +1773,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 5 (" + Negative.ToString() + ")";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1978,7 +1800,7 @@ namespace ALICE_Actions
             string MethodName = "Throttle 0";
 
             #region Validation Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 return;
             }
@@ -1996,409 +1818,563 @@ namespace ALICE_Actions
 
         #region Compound / Complex Actions
 
-        public void Supercruise(bool CMD_State, bool CommandAudio)
-        {
-            string MethodName = "Supercruise";
+        //public void Supercruise(bool CMD_State, bool CommandAudio, bool OnMyMark = false)
+        //{
+        //    string MethodName = "Supercruise";
 
-            #region Validation Checks
-            //Vehicle Check
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
-            {
-                IEquipment.FrameShiftDrive.NotInMothership(CommandAudio);
-                return;
-            }
+        //    #region Validation Checks
+        //    //Vehicle Check
+        //    if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
+        //    {
+        //        IEquipment.FrameShiftDrive.NotInMothership(CommandAudio);
+        //        return;
+        //    }
 
-            //Hyperspace Check
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
-            {
-                IEquipment.FrameShiftDrive.SC_CurrentlyHyperspace(CommandAudio);
-                return;
-            }
+        //    //Hyperspace Check
+        //    if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
+        //    {
+        //        IEquipment.FrameShiftDrive.SC_CurrentlyHyperspace(CommandAudio);
+        //        return;
+        //    }
 
-            //Touchdown Check
-            if (Check.Variable.Touchdown(false, MethodName) == false)
-            {
-                IEquipment.FrameShiftDrive.NoTouchdown(CommandAudio);
-                return;
-            }
+        //    //Touchdown Check
+        //    if (Check.Variable.Touchdown(false, MethodName) == false)
+        //    {
+        //        IEquipment.FrameShiftDrive.NoTouchdown(CommandAudio);
+        //        return;
+        //    }
 
-            //Docked Check
-            if (Check.Docking.Status(IEnums.DockingState.Docked, false, MethodName) == false)
-            {
-                IEquipment.FrameShiftDrive.NoDocked(CommandAudio);
-                return;
-            }
+        //    //Docked Check
+        //    if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked, true) == false)
+        //    {
+        //        IEquipment.FrameShiftDrive.NoDocked(CommandAudio);
+        //        return;
+        //    }
 
-            //Check Charging State && Prepare For Charging
-            if (IEquipment.FrameShiftDrive.ChargingState(false, MethodName) == false)
-            {
-                //Check Hyperspace Charge
-                if (IEquipment.FrameShiftDrive.HyperspaceCharge(false, MethodName) == false)
-                {
-                    Call.Key.Press(Call.Key.Hyperspace_Jump, 100);
-                    IEquipment.FrameShiftDrive.Hyperspace = false;
+        //    //Check Charging State && Prepare For Charging
+        //    if (ICheck.FrameShiftDrive.Charging(MethodName, false, true) == false)
+        //    {
+        //        //Check Hyperspace Charge
+        //        if (ICheck.FrameShiftDrive.Hyperspace(MethodName, false, true) == false)
+        //        {
+        //            Call.Key.Press(Call.Key.Hyperspace_Jump, 100);
+        //            ISet.FrameShiftDrive.Hyperspace(MethodName, false);                                        
 
-                    //Wait For Charing To End
-                    while (IEquipment.FrameShiftDrive.ChargingState(false, MethodName) == false)
-                    { Thread.Sleep(50); }
-                }
-            }
-            //Not Charging
-            else
-            {
-                IEquipment.FrameShiftDrive.Hyperspace = false;
-                IEquipment.FrameShiftDrive.Supercruise = false;
-            }
-            #endregion
+        //            //Wait For Charing To End
+        //            while (ICheck.FrameShiftDrive.Charging(MethodName, false, false) == false)
+        //            { Thread.Sleep(50); }
+        //        }
+        //    }
+        //    //Not Charging
+        //    else
+        //    {
+        //        ISet.FrameShiftDrive.Hyperspace(MethodName, false);
+        //        ISet.FrameShiftDrive.Supercruise(MethodName, false);                
+        //    }
 
-            #region Equipment Line-Up
-            //Cargo Scoop Check
-            if (Check.Variable.CargoScoop(false, MethodName) == false)
-            {
-                Call.Action.CargoScoop(false, false);
-            }
+        //    //Check Preparing State
+        //    if (ICheck.FrameShiftDrive.Prepairing(MethodName, false, true) == false)
+        //    {
+        //        //Check Supercruise Preps
+        //        if (ICheck.FrameShiftDrive.PrepSupercruise(MethodName, false, true) == false)
+        //        {
+        //            //Add Audio
+        //            return;
+        //        }
+        //        //Check Waiting For Supercruise & Mark
+        //        else if (ICheck.FrameShiftDrive.Marking(MethodName, false) == false)
+        //        {
+        //            //Stop Waiting For Mark
+        //            ISet.FrameShiftDrive.Marking(MethodName, false);
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            //Somethign Went wrong Lets Reset
+        //            IEquipment.FrameShiftDrive.Reset(MethodName);
+        //        }
+        //    }   
+        //    //Not Preparing
+        //    else
+        //    {
+        //        ISet.FrameShiftDrive.PrepHyperspace(MethodName, false);
+        //        ISet.FrameShiftDrive.PrepSupercruise(MethodName, false);
+        //    }
+        //    #endregion
 
-            //Landing Gear Check
-            if (Check.Variable.LandingGear(false, MethodName) == false)
-            {
-                Call.Action.LandingGear(false, false);
-            }
-            #endregion
+        //    #region Equipment Line-Up
+        //    //Cargo Scoop Check
+        //    if (Check.Variable.CargoScoop(false, MethodName) == false)
+        //    {
+        //        Call.Action.CargoScoop(false, false);
+        //    }
 
-            #region Normal Space
-            //Operating In Normal Space
-            if (Check.Environment.Space(IEnums.Normal_Space, true, MethodName) == true)
-            {
-                //Enter Supercruise
-                if (CMD_State == true)
-                {
-                    #region Validation Checks
-                    //Preparing Frameshift Drive
-                    IEquipment.FrameShiftDrive.Prepairing = true;
+        //    //Landing Gear Check
+        //    if (ICheck.LandingGear.Status(MethodName, false, true) == false)
+        //    {
+        //        Call.Action.LandingGear(false, false);
+        //    }
+        //    #endregion
 
-                    //Supercruse Charge Check
-                    if (IEquipment.FrameShiftDrive.SupercruiseCharge(false, MethodName) == false)
-                    {
-                        IEquipment.FrameShiftDrive.SC_CurrentlyCharging(CommandAudio);
-                        return;
-                    }
-                    else
-                    {
-                        IEquipment.FrameShiftDrive.SC_Prepairing(CommandAudio);
-                    }
+        //    #region Normal Space
+        //    //Operating In Normal Space
+        //    if (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space) == true)
+        //    {
+        //        //Enter Supercruise
+        //        if (CMD_State == true)
+        //        {
+        //            #region Validation Checks                    
 
-                    //Masslock Check
-                    if (Check.Variable.MassLocked(false, MethodName) == false)
-                    {
-                        IEquipment.FrameShiftDrive.Masslocked(CommandAudio);
+        //            //Preparing Frameshift Drive
+        //            ISet.FrameShiftDrive.Prepairing(MethodName, true);
+        //            ISet.FrameShiftDrive.PrepSupercruise(MethodName, true);
 
-                        while (IObjects.Status.Masslocked == true && IEquipment.FrameShiftDrive.Prepairing == true)
-                        {
-                            //Wait Till Free Of Masslock.
-                            Thread.Sleep(100);
-                        }
-                    }
+        //            //Supercruse Charge Check
+        //            if (ICheck.FrameShiftDrive.PrepSupercruise(MethodName, false, true) == false)
+        //            {
+        //                IEquipment.FrameShiftDrive.SC_CurrentlyCharging(CommandAudio);
+        //                return;
+        //            }
+        //            else
+        //            {
+        //                IEquipment.FrameShiftDrive.SC_Prepairing(CommandAudio);
+        //            }
 
-                    //Cooldown Check
-                    if (IEquipment.FrameShiftDrive.CooldownState(false, MethodName) == false)
-                    {
-                        IEquipment.FrameShiftDrive.CoolingDown(CommandAudio);
+        //            //Check If We Are Waiting On A Mark
+        //            if (OnMyMark)
+        //            {
+        //                //Track Marking
+        //                ISet.FrameShiftDrive.Marking(MethodName, true);
 
-                        while (IEquipment.FrameShiftDrive.Cooldown == true && IEquipment.FrameShiftDrive.Prepairing == true)
-                        {
-                            //Wait For FSD To Cool Down.
-                            Thread.Sleep(100);
-                        }
-                    }
+        //                //Sleep To Queue Audio In Synthesizer Correctly
+        //                Thread.Sleep(100);
 
-                    //Prepairing Check
-                    if (IEquipment.FrameShiftDrive.PreparingState(true, MethodName) == false)
-                    {
-                        //Jump Was Aborted While We Waited, Exit Method.
-                        Logger.Log(MethodName, "We Stopped FSD Preparations Cause The Jump Was Cancelled", Logger.Yellow, true);
-                        return;
-                    }
-                    #endregion
+        //                //On Your Mark Audio
+        //                IStatus.Interaction.Response.OnYourMark(CommandAudio, false);
 
-                    #region Equipment Line-Up
-                    //Cargo Scoop Check (Incase It Was Lowered While Waiting)
-                    if (Check.Variable.CargoScoop(false, MethodName) == false)
-                    {
-                        Call.Action.CargoScoop(false, false);
-                    }
+        //                //Wait 30 Seconds For Mark
+        //                switch (IStatus.Interaction.WaitForMark(30000, ref IEquipment.FrameShiftDrive.PrepSupercruise, MethodName))
+        //                {
+        //                    case ALICE_Status.Status_Interaction.Marks.NoResponse:
+        //                        ISet.FrameShiftDrive.Prepairing(MethodName, false);
+        //                        ISet.FrameShiftDrive.PrepSupercruise(MethodName, false);
+        //                        ISet.FrameShiftDrive.Marking(MethodName, false);
+        //                        return;
 
-                    //Landing Gear Check (Incase It Was Lowered While Waiting)
-                    if (Check.Variable.LandingGear(false, MethodName) == false)
-                    {
-                        Call.Action.LandingGear(false, false);
-                    }
+        //                    case ALICE_Status.Status_Interaction.Marks.Mark:
+        //                        ISet.FrameShiftDrive.Marking(MethodName, true);
+        //                        break;
 
-                    //Hardpoints Check
-                    if (Check.Variable.Hardpoints(false, MethodName) == false)
-                    {
-                        Call.Action.Hardpoint(false, false);
-                    }
-                    #endregion
+        //                    case ALICE_Status.Status_Interaction.Marks.EarlyReturn:
+        //                        ISet.FrameShiftDrive.Prepairing(MethodName, false);
+        //                        ISet.FrameShiftDrive.PrepSupercruise(MethodName, false);
+        //                        ISet.FrameShiftDrive.Marking(MethodName, false);
+        //                        return;
 
-                    #region Operate Frameshift Drive
-                    //Notes: Charge Audio Controlled By Status.Json Events.
+        //                    default:
+        //                        ISet.FrameShiftDrive.Prepairing(MethodName, false);
+        //                        ISet.FrameShiftDrive.PrepSupercruise(MethodName, false);
+        //                        ISet.FrameShiftDrive.Marking(MethodName, false);
+        //                        return;
+        //                }
+        //            }
+
+        //            //Masslock Check
+        //            if (Check.Variable.MassLocked(false, MethodName) == false)
+        //            {
+        //                IEquipment.FrameShiftDrive.Masslocked(CommandAudio);
+
+        //                while (IStatus.Masslocked == true && IEquipment.FrameShiftDrive.Prepairing == true)
+        //                {
+        //                    //Wait Till Free Of Masslock.
+        //                    Thread.Sleep(100);
+        //                }
+        //            }
+
+        //            //Cooldown Check
+        //            if (ICheck.FrameShiftDrive.Cooldown(MethodName, false, true) == false)
+        //            {
+        //                IEquipment.FrameShiftDrive.CoolingDown(CommandAudio);
+
+        //                while (IEquipment.FrameShiftDrive.Cooldown == true && IEquipment.FrameShiftDrive.Prepairing == true)
+        //                {
+        //                    //Wait For FSD To Cool Down.
+        //                    Thread.Sleep(100);
+        //                }
+        //            }
+
+        //            //Prepairing Check
+        //            if (ICheck.FrameShiftDrive.Prepairing(MethodName, true, true) == false ||
+        //                ICheck.FrameShiftDrive.PrepSupercruise(MethodName, true, true) == false)
+        //            {
+        //                //Jump Was Aborted While We Waited, Exit Method.
+        //                Logger.Log(MethodName, "We Stopped FSD Preparations Cause The Supercruise Was Cancelled", Logger.Yellow, true);
+        //                return;
+        //            }
+        //            #endregion
+
+        //            #region Equipment Line-Up
+        //            //Cargo Scoop Check (Incase It Was Lowered While Waiting)
+        //            if (Check.Variable.CargoScoop(false, MethodName) == false)
+        //            {
+        //                Call.Action.CargoScoop(false, false);
+        //            }
+
+        //            //Landing Gear Check (Incase It Was Lowered While Waiting)
+        //            if (ICheck.LandingGear.Status(MethodName, false, true) == false)
+        //            {
+        //                Call.Action.LandingGear(false, false);
+        //            }
+
+        //            //Hardpoints Check
+        //            if (Check.Variable.Hardpoints(false, MethodName) == false)
+        //            {
+        //                Call.Action.Hardpoint(false, false);
+        //            }
+        //            #endregion
+
+        //            #region Operate Frameshift Drive
+        //            //Notes: Charge Audio Controlled By Status.Json Events.
                     
-                    //Start & Monitor
-                    if (IEquipment.FrameShiftDrive.Start(false) == false)
-                    {
-                        IEquipment.FrameShiftDrive.FailedToEngage(CommandAudio);
-                    }
-                    #endregion
-                }
-                //Currently In Normal Space
-                else if (CMD_State == false)
-                {
-                    IEquipment.FrameShiftDrive.SC_CurrentlyNormalSpace(CommandAudio);
-                }
-            }
-            #endregion
+        //            //Start & Monitor
+        //            if (IEquipment.FrameShiftDrive.Start(false) == false)
+        //            {
+        //                IEquipment.FrameShiftDrive.FailedToEngage(CommandAudio);
+        //                IEquipment.FrameShiftDrive.Reset(MethodName);
+        //            }
+        //            #endregion
+        //        }
+        //        //Currently In Normal Space
+        //        else if (CMD_State == false)
+        //        {
+        //            IEquipment.FrameShiftDrive.SC_CurrentlyNormalSpace(CommandAudio);
+        //        }
+        //    }
+        //    #endregion
 
-            #region Supercruise
-            //Operating In Supercruise
-            else if (Check.Environment.Space(IEnums.Supercruise, true, MethodName) == true)
-            {
-                //Exit Supercruise
-                if (CMD_State == false)
-                {
-                    IEquipment.FrameShiftDrive.SC_Disengaging(CommandAudio);
+        //    #region Supercruise
+        //    //Operating In Supercruise
+        //    else if (ICheck.Environment.Space(MethodName, true, IEnums.Supercruise) == true)
+        //    {
+        //        //Exit Supercruise
+        //        if (CMD_State == false)
+        //        {
+        //            //Check If We Are Waiting On A Mark
+        //            if (OnMyMark)
+        //            {
+        //                //Track Marking
+        //                ISet.FrameShiftDrive.Marking(MethodName, true);
 
-                    //Stop & Monitor
-                    if (IEquipment.FrameShiftDrive.Stop() == false)
-                    {
-                        IEquipment.FrameShiftDrive.TooFast(CommandAudio);
+        //                //On Your Mark Audio
+        //                IStatus.Interaction.Response.OnYourMark(CommandAudio, true);
 
-                        //Watch Response For 10 Seconds
-                        Interaction.Answers Temp = Call.Interactions.Question(10000); switch (Temp)
-                        {
-                            case Interaction.Answers.NoResponse:
+        //                //Fake Reference Bool
+        //                bool Temp = true;
 
-                                Logger.Log(MethodName, "No Response Detected", Logger.Yellow, true);
-                                break;
+        //                //Wait 30 Seconds For Mark
+        //                switch (IStatus.Interaction.WaitForMark(30000, ref Temp, MethodName))
+        //                {
+        //                    case ALICE_Status.Status_Interaction.Marks.NoResponse:
+        //                        ISet.FrameShiftDrive.Marking(MethodName, false);
+        //                        return;
 
-                            case Interaction.Answers.Yes:
+        //                    case ALICE_Status.Status_Interaction.Marks.Mark:
+        //                        ISet.FrameShiftDrive.Marking(MethodName, false);
+        //                        break;
 
-                                IEquipment.FrameShiftDrive.PositiveResponse(CommandAudio);
-                                //Emergency Stop & Montor
-                                if (IEquipment.FrameShiftDrive.Stop(true) == false)
-                                {
-                                    IEquipment.FrameShiftDrive.FailedToDisengage(CommandAudio);
-                                    IEquipment.FrameShiftDrive.Disengaging = false;
-                                }
-                                break;
+        //                    default:
+        //                        ISet.FrameShiftDrive.Marking(MethodName, false);
+        //                        return;
+        //                }
+        //            }
 
-                            case Interaction.Answers.No:
+        //            //Disengagin Audio
+        //            IEquipment.FrameShiftDrive.SC_Disengaging(CommandAudio);
 
-                                IEquipment.FrameShiftDrive.PositiveResponse(CommandAudio);
-                                IEquipment.FrameShiftDrive.Disengaging = false;
-                                break;
-                        }
-                    }
-                }
-                //Currently In Supercruse
-                else if (CMD_State == true)
-                {
-                    IEquipment.FrameShiftDrive.SC_CurrentlySupercruise(CommandAudio);
-                    return;
-                }
-            }
-            #endregion
-        }
+        //            //Stop & Monitor
+        //            if (IEquipment.FrameShiftDrive.Stop() == false)
+        //            {
+        //                //Too Fast Audio
+        //                IEquipment.FrameShiftDrive.TooFast(CommandAudio);
 
-        public void Hyperspace(bool CMD_State, bool CommandAudio)
-        {
-            string MethodName = "Hyperspace";
+        //                //Watch Response For 10 Seconds
+        //                switch (IStatus.Interaction.Question(10000))
+        //                {
+        //                    case ALICE_Status.Status_Interaction.Answers.NoResponse:
 
-            #region Validation Checks
-            //Vehicle Check
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
-            {
-                IEquipment.FrameShiftDrive.NotInMothership(CommandAudio);
-                return;
-            }
+        //                        //Log
+        //                        Logger.Log(MethodName, "No Response Detected", Logger.Yellow, true);
 
-            //Touchdown Check
-            if (Check.Variable.Touchdown(false, MethodName) == false)
-            {
-                IEquipment.FrameShiftDrive.NoTouchdown(CommandAudio);
-                return;
-            }
+        //                        break;
+        //                    case ALICE_Status.Status_Interaction.Answers.Yes:
 
-            //Docked Check
-            if (Check.Docking.Status(IEnums.DockingState.Docked, false, MethodName) == false)
-            {
-                IEquipment.FrameShiftDrive.NoDocked(CommandAudio);
-                return;
-            }
+        //                        //Postive Response Audio
+        //                        IEquipment.FrameShiftDrive.PositiveResponse(CommandAudio);
+                                
+        //                        //Emergency Stop & Montor
+        //                        if (IEquipment.FrameShiftDrive.Stop(true) == false)
+        //                        {
+        //                            IEquipment.FrameShiftDrive.FailedToDisengage(CommandAudio);
+        //                            ISet.FrameShiftDrive.Disengaging(MethodName, false);                                    
+        //                        }
 
-            //Check Charging State && Prepare For Charging
-            if (IEquipment.FrameShiftDrive.ChargingState(false, MethodName) == false)
-            {
-                //Check Supercruise Charge
-                if (IEquipment.FrameShiftDrive.SupercruiseCharge(false, MethodName) == false)
-                {
-                    Call.Key.Press(Call.Key.Supercruise, 100);
-                    IEquipment.FrameShiftDrive.Supercruise = false;
+        //                        break;
 
-                    //Wait For Charing To End
-                    while (IEquipment.FrameShiftDrive.ChargingState(false, MethodName) == false)
-                    { Thread.Sleep(50); }
-                }
-            }
-            //Not Charging
-            else
-            {
-                IEquipment.FrameShiftDrive.Hyperspace = false;
-                IEquipment.FrameShiftDrive.Supercruise = false;
-            }
-            #endregion
+        //                    case ALICE_Status.Status_Interaction.Answers.No:
 
-            #region Hyperspace
-            //Operating In Hyperspace
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
-            {
-                //Trying To Enter
-                if (CMD_State == true)
-                {
-                    IEquipment.FrameShiftDrive.HS_CurrentlyHyperspace(CommandAudio);
-                    return;
-                }
-            }
-            #endregion
+        //                        //Postive Response Audio
+        //                        IEquipment.FrameShiftDrive.PositiveResponse(CommandAudio);
 
-            #region Equipment Line-Up
-            //Cargo Scoop Check
-            if (Check.Variable.CargoScoop(false, MethodName) == false)
-            {
-                Call.Action.CargoScoop(false, false);
-            }
+        //                        //Reset
+        //                        ISet.FrameShiftDrive.Disengaging(MethodName, false);                                
 
-            //Landing Gear Check
-            if (Check.Variable.LandingGear(false, MethodName) == false)
-            {
-                Call.Action.LandingGear(false, false);
-            }
-            #endregion
+        //                        break;
 
-            #region Supercruise / Normal Space
-            //Operating In Supercruise/Normal Space
-            if (CMD_State == true)
-            {
-                #region Validation Checks
-                //Preparing Frameshift Drive
-                IEquipment.FrameShiftDrive.Prepairing = true;
+        //                    default:
+        //                        break;
+        //                }
+        //            }
+        //        }
+        //        //Currently In Supercruse
+        //        else if (CMD_State == true)
+        //        {
+        //            IEquipment.FrameShiftDrive.SC_CurrentlySupercruise(CommandAudio);
+        //            return;
+        //        }
+        //    }
+        //    #endregion
+        //}
 
-                //Supercruse Charge Check
-                if (IEquipment.FrameShiftDrive.HyperspaceCharge(false, MethodName) == false)
-                {
-                    IEquipment.FrameShiftDrive.HS_CurrentlyCharging(CommandAudio);
-                    return;
-                }
-                else
-                {
-                    IEquipment.FrameShiftDrive.HS_Prepairing(CommandAudio);
-                }
+        //public void Hyperspace(bool CMD_State, bool CommandAudio, bool OnMyMark = false)
+        //{
+        //    string MethodName = "Hyperspace";
 
-                //Masslock Check
-                if (Check.Variable.MassLocked(false, MethodName) == false)
-                {
-                    IEquipment.FrameShiftDrive.Masslocked(CommandAudio);
+        //    #region Validation Checks
+        //    //Vehicle Check
+        //    if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
+        //    {
+        //        IEquipment.FrameShiftDrive.NotInMothership(CommandAudio);
+        //        return;
+        //    }
 
-                    while (IObjects.Status.Masslocked == true && IEquipment.FrameShiftDrive.Prepairing == true)
-                    {
-                        //Wait Till Free Of Masslock.
-                        Thread.Sleep(100);
-                    }
-                }
+        //    //Touchdown Check
+        //    if (Check.Variable.Touchdown(false, MethodName) == false)
+        //    {
+        //        IEquipment.FrameShiftDrive.NoTouchdown(CommandAudio);
+        //        return;
+        //    }
 
-                //Cooldown Check
-                if (IEquipment.FrameShiftDrive.CooldownState(false, MethodName) == false)
-                {
-                    IEquipment.FrameShiftDrive.CoolingDown(CommandAudio);
+        //    //Docked Check
+        //    if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked) == false)
+        //    {
+        //        IEquipment.FrameShiftDrive.NoDocked(CommandAudio);
+        //        return;
+        //    }
 
-                    while (IEquipment.FrameShiftDrive.Cooldown == true && IEquipment.FrameShiftDrive.Prepairing == true)
-                    {
-                        //Wait For FSD To Cool Down.
-                        Thread.Sleep(100);
-                    }
-                }
+        //    //Check Charging State && Prepare For Charging
+        //    if (ICheck.FrameShiftDrive.Charging(MethodName, false) == false)
+        //    {
+        //        //Check Supercruise Charge
+        //        if (ICheck.FrameShiftDrive.Supercruise(MethodName, false) == false)
+        //        {
+        //            Call.Key.Press(Call.Key.Supercruise, 100);
+        //            ISet.FrameShiftDrive.Supercruise(MethodName, false);
 
-                //Prepairing Check
-                if (IEquipment.FrameShiftDrive.PreparingState(true, MethodName) == false)
-                {
-                    //Jump Was Aborted While We Waited, Exit Method.
-                    Logger.Log(MethodName, "We Stopped FSD Preparations Cause The Jump Was Cancelled", Logger.Yellow, true);
-                    return;
-                }
-                #endregion
+        //            //Wait For Charing To End - No Logging
+        //            while (ICheck.FrameShiftDrive.Charging(MethodName, false, false) == false)
+        //            { Thread.Sleep(50); }
+        //        }
+        //    }
+        //    //Not Charging
+        //    else
+        //    {
+        //        ISet.FrameShiftDrive.Hyperspace(MethodName, false);
+        //        ISet.FrameShiftDrive.Supercruise(MethodName, false);
+        //    }
 
-                #region Equipment Line-Up
-                //Cargo Scoop Check (Incase It Was Lowered While Waiting)
-                if (Check.Variable.CargoScoop(false, MethodName) == false)
-                {
-                    Call.Action.CargoScoop(false, false);
-                }
+        //    //Check Preparing State
+        //    if (ICheck.FrameShiftDrive.Prepairing(MethodName, false, true) == false)
+        //    {
+        //        //Check Hyperspace Preps
+        //        if (ICheck.FrameShiftDrive.PrepHyperspace(MethodName, false, true) == false)
+        //        {
+        //            //Add Audio
+        //            return;
+        //        }
+        //        //Check Waiting For Hypersapce & Mark
+        //        else if (ICheck.FrameShiftDrive.Marking(MethodName, false) == false)
+        //        {
+        //            //Stop Waiting For Mark
+        //            ISet.FrameShiftDrive.Marking(MethodName, false);
+        //            return;
+        //        }                
+        //        else
+        //        {
+        //            //Somethign Went wrong Lets Reset
+        //            IEquipment.FrameShiftDrive.Reset(MethodName);
+        //        }             
+        //    }
+        //    //Not Preparing
+        //    else
+        //    {
+        //        ISet.FrameShiftDrive.PrepHyperspace(MethodName, false);
+        //        ISet.FrameShiftDrive.PrepSupercruise(MethodName, false);
+        //    }
+        //    #endregion
 
-                //Landing Gear Check (Incase It Was Lowered While Waiting)
-                if (Check.Variable.LandingGear(false, MethodName) == false)
-                {
-                    Call.Action.LandingGear(false, false);
-                }
+        //    #region Hyperspace
+        //    //Operating In Hyperspace
+        //    if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
+        //    {
+        //        //Trying To Enter
+        //        if (CMD_State == true)
+        //        {
+        //            IEquipment.FrameShiftDrive.HS_CurrentlyHyperspace(CommandAudio);
+        //            return;
+        //        }
+        //    }
+        //    #endregion
 
-                //Hardpoints Check
-                if (Check.Variable.Hardpoints(false, MethodName) == false)
-                {
-                    Call.Action.Hardpoint(false, false);
-                }
-                #endregion
+        //    #region Equipment Line-Up
+        //    //Cargo Scoop Check
+        //    if (Check.Variable.CargoScoop(false, MethodName) == false)
+        //    {
+        //        Call.Action.CargoScoop(false, false);
+        //    }
 
-                #region Operate Frameshift Drive
-                //Notes: Charge Audio Controlled By Status.Json Events.
+        //    //Landing Gear Check
+        //    if (ICheck.LandingGear.Status(MethodName, false, true) == false)
+        //    {
+        //        Call.Action.LandingGear(false, false);
+        //    }
+        //    #endregion
 
-                //Start & Monitor
-                if (IEquipment.FrameShiftDrive.Start(true) == false)
-                {
-                    IEquipment.FrameShiftDrive.FailedToEngage(CommandAudio);
-                }
-                #endregion
-            }
-            #endregion
-        }
+        //    #region Supercruise / Normal Space
+        //    //Operating In Supercruise/Normal Space
+        //    if (CMD_State == true)
+        //    {
+        //        #region Validation Checks
+        //        //Preparing Frameshift Drive
+        //        ISet.FrameShiftDrive.Prepairing(MethodName, true);
+        //        ISet.FrameShiftDrive.PrepHyperspace(MethodName, true);
 
-        public void AbortJump(bool CommandAudio)
-        {
-            string MethodName = "Abort Jump";
+        //        //Hyperspace Charge Check
+        //        if (ICheck.FrameShiftDrive.Hyperspace(MethodName, false) == false)
+        //        {
+        //            IEquipment.FrameShiftDrive.HS_CurrentlyCharging(CommandAudio);
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            IEquipment.FrameShiftDrive.HS_Prepairing(CommandAudio);
+        //        }
 
-            //Operating In Hyperspace
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
-            {
-                return;
-            }
+        //        //Check If We Are Waiting On A Mark
+        //        if (OnMyMark)
+        //        {
+        //            //Track Marking
+        //            ISet.FrameShiftDrive.Marking(MethodName, true);
 
-            //Check Charging State
-            if (IEquipment.FrameShiftDrive.ChargingState(true, MethodName) == true)
-            {
-                //Abort Sucessful
-                if (IEquipment.FrameShiftDrive.Abort() == true)
-                {
-                    IEquipment.FrameShiftDrive.AbortSuccessful(CommandAudio);
-                }
-                //Abort Failed
-                else
-                {
-                    IEquipment.FrameShiftDrive.AbortFailed(CommandAudio);
-                    return;
-                }
+        //            //Sleep To Queue Audio In Synthesizer Correctly
+        //            Thread.Sleep(100);
+                   
+        //            //On Your Mark Audio
+        //            IStatus.Interaction.Response.OnYourMark(CommandAudio, false);
 
-                IEquipment.FrameShiftDrive.Hyperspace = false;
-                IEquipment.FrameShiftDrive.Supercruise = false;
-                IEquipment.FrameShiftDrive.Prepairing = false;
-            }
-        }
+        //            //Wait 30 Seconds For Mark
+        //            switch (IStatus.Interaction.WaitForMark(30000, ref IEquipment.FrameShiftDrive.PrepHyperspace, MethodName))
+        //            {
+        //                case ALICE_Status.Status_Interaction.Marks.NoResponse:
+        //                    ISet.FrameShiftDrive.Prepairing(MethodName, false);
+        //                    ISet.FrameShiftDrive.PrepHyperspace(MethodName, false);
+        //                    ISet.FrameShiftDrive.Marking(MethodName, false);
+        //                    return;
+
+        //                case ALICE_Status.Status_Interaction.Marks.Mark:
+        //                    ISet.FrameShiftDrive.Marking(MethodName, false);
+        //                    break;
+
+        //                case ALICE_Status.Status_Interaction.Marks.EarlyReturn:
+        //                    ISet.FrameShiftDrive.Prepairing(MethodName, false);
+        //                    ISet.FrameShiftDrive.PrepHyperspace(MethodName, false);
+        //                    ISet.FrameShiftDrive.Marking(MethodName, false);
+        //                    return;
+
+        //                default:
+        //                    ISet.FrameShiftDrive.Prepairing(MethodName, false);
+        //                    ISet.FrameShiftDrive.PrepHyperspace(MethodName, false);
+        //                    ISet.FrameShiftDrive.Marking(MethodName, false);
+        //                    return;
+        //            }
+        //        }
+
+        //        //Masslock Check
+        //        if (Check.Variable.MassLocked(false, MethodName) == false)
+        //        {
+        //            IEquipment.FrameShiftDrive.Masslocked(CommandAudio);
+
+        //            while (IStatus.Masslocked == true && IEquipment.FrameShiftDrive.Prepairing == true)
+        //            {
+        //                //Wait Till Free Of Masslock.
+        //                Thread.Sleep(100);
+        //            }
+        //        }
+
+        //        //Cooldown Check
+        //        if (ICheck.FrameShiftDrive.Cooldown(MethodName, false, true) == false)
+        //        {
+        //            IEquipment.FrameShiftDrive.CoolingDown(CommandAudio);
+
+        //            while (IEquipment.FrameShiftDrive.Cooldown == true && IEquipment.FrameShiftDrive.Prepairing == true)
+        //            {
+        //                //Wait For FSD To Cool Down.
+        //                Thread.Sleep(100);
+        //            }
+        //        }
+
+        //        //Prepairing Check
+        //        if (ICheck.FrameShiftDrive.Prepairing(MethodName, true) == false ||
+        //            ICheck.FrameShiftDrive.PrepHyperspace(MethodName, true) == false)                  
+        //        {
+        //            //Jump Was Aborted While We Waited, Exit Method.
+        //            Logger.Log(MethodName, "We Stopped FSD Preparations Cause The Hyperspace Was Cancelled", Logger.Yellow, true);
+        //            return;
+        //        }
+        //        #endregion
+
+        //        #region Equipment Line-Up
+        //        //Cargo Scoop Check (Incase It Was Lowered While Waiting)
+        //        if (Check.Variable.CargoScoop(false, MethodName) == false)
+        //        {
+        //            Call.Action.CargoScoop(false, false);
+        //        }
+
+        //        //Landing Gear Check (Incase It Was Lowered While Waiting)
+        //        if (ICheck.LandingGear.Status(MethodName, false, true) == false)
+        //        {
+        //            Call.Action.LandingGear(false, false);
+        //        }
+
+        //        //Hardpoints Check
+        //        if (Check.Variable.Hardpoints(false, MethodName) == false)
+        //        {
+        //            Call.Action.Hardpoint(false, false);
+        //        }
+        //        #endregion
+
+        //        #region Operate Frameshift Drive
+        //        //Notes: Charge Audio Controlled By Status.Json Events.
+
+        //        //Start & Monitor
+        //        if (IEquipment.FrameShiftDrive.Start(true) == false)
+        //        {
+        //            IEquipment.FrameShiftDrive.FailedToEngage(CommandAudio);
+        //            IEquipment.FrameShiftDrive.Reset(MethodName);
+        //        }
+        //        #endregion
+        //    }
+        //    #endregion
+        //}
 
         public void CompositeScaner(bool CommandAudio, bool SelectOnly = false)
         {
@@ -2408,7 +2384,7 @@ namespace ALICE_Actions
             decimal Temp = Call.Firegroup.Current;
 
             #region Vaildtion Checks
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 IEquipment.CompositeScanner.NoHyperspace(CommandAudio);
                 return;
@@ -2471,326 +2447,6 @@ namespace ALICE_Actions
             Call.Firegroup.Select(Temp, false);
         }
 
-        public void DeployFighter(decimal FighterNumber, bool PlayerDeploy, bool CommandAudio)
-        {
-            string MethodName = "Deploy Fighter";
-
-            #region Validation Checks
-            //If Not In Normal Space...
-            if (Check.Environment.Space(IEnums.Normal_Space, true, MethodName) == false)
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.Not_Normal_Space),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-
-            //If Not In Mothership...
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.Not_Mothership),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-
-            //If Not Undocked...
-            if (Check.Docking.Status(IEnums.DockingState.Docked, false, MethodName) == false)
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.Mothership_Docked),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-
-            //If Touchdown Is Not False...
-            if (Check.Variable.Touchdown(false, MethodName) == false)
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.Touchdown),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-
-            //If Not Outside No Fire Zone...
-            if (Check.Event.NoFireZone.Entered(false, MethodName) == false)
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.No_Fire_Zone),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-
-            //If Altitude Is Not Zero && Ship Is Not Outside Altitude Band...
-            if (IObjects.Status.Altitude != 0 && (Check.Environment.Altitude(1, 1001, false, MethodName) == false))
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.Altitude),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-
-            //If Fighter Hanger Not Installed...
-            if (Check.Equipment.FighterHanger(true, MethodName) == false)
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.No_Fighter_Hanger),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-
-            if (Check.Equipment.FighterHangerTotal(FighterNumber, MethodName) == false)
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.Hanger_Total),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-
-            #region Crew Check
-            if (IObjects.Status.NPC_Crew == false && PlayerDeploy != true)
-            {
-                Logger.Log(MethodName, "No Crew", Logger.Red);
-                
-                //Audio - No Crew
-
-                return;
-            }
-            #endregion
-
-            Logger.DebugLine(MethodName, "Passed All Checks, Attempting Fighter Deployment", Logger.Red);
-            #endregion
-
-            #region Landing Gear Check
-            //If Landing Gear Is True...
-            if (Check.Variable.LandingGear(true, MethodName) == true)
-            {
-                Call.Action.LandingGear(false, CommandAudio);
-
-                Thread.Sleep(1000);
-
-                //If Landing Gear Is True...
-                if (Check.Variable.LandingGear(true, MethodName) == true)
-                {
-                    Logger.DebugLine(MethodName, "Landing Gear Failed To Retract.", Logger.Red);
-
-                    return;
-                }
-            }
-            #endregion
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true),
-                    CommandAudio
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-
-            Wait_FighterLaunch = true;
-
-            #region Panel Control: Launch Figther
-            if (Check.Panel.Fighters(MethodName) == false)
-            { Call.Panel.Role.Fighters.Open(MethodName); }
-
-            if (Check.Panel.Role(true, MethodName) == false)
-            {
-                Call.Panel.Role.Panel(true);
-                Call.Key.Press(Call.Key.Previous_Panel_Tab, 100, Call.Key.DelayPanel);
-                Call.Key.Press(Call.Key.Next_Panel_Tab, 100, Call.Key.DelayPanel);
-            }
-
-            if (FighterNumber == 2)
-            {
-                Thread.Sleep(100 + ISettings.OffsetPanels);
-                Call.Key.Press(Call.Key.UI_Panel_Down, 100, Call.Key.DelayPanel);
-            }
-
-            Call.Key.Press(Call.Key.UI_Panel_Select, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Down_Press, 750, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Down_Release, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Up_Press, 750, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Up_Release, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Select, 250, Call.Key.DelayPanel);
-
-            //Fighter Sub Menu
-            Call.Key.Press(Call.Key.UI_Panel_Up, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Up, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Up, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Down, 100, Call.Key.DelayPanel);
-
-            if (PlayerDeploy == false)
-            {
-                Logger.DebugLine(MethodName, "Crew Selected for Launch", Logger.Yellow);
-                Call.Key.Press(Call.Key.UI_Panel_Down, 100, Call.Key.DelayPanel);
-            }
-
-            Call.Key.Press(Call.Key.UI_Panel_Select, 250, Call.Key.DelayPanel);
-            Call.Panel.Role.Panel(false);
-            #endregion
-
-            #region Wait: LaunchFighter Event
-            int LaunchCounter = 0; while (Wait_FighterLaunch == true && Check.Environment.Space(IEnums.Normal_Space, true, MethodName, true) == true)
-            {
-                Logger.DebugLine(MethodName, "Checking: (Wait) LaunchFighter Event = " + Wait_FighterLaunch + " | Environment Is Normalspace = " + Check.Environment.Space(IEnums.Normal_Space, true, MethodName), Logger.Blue);
-
-                if (LaunchCounter > 100)
-                {
-                    #region Audio
-                    if (PlugIn.Audio == "TTS")
-                    {
-                        Speech.Speak
-                            (
-                            "".Phrase(EQ_Fighter.Launch_Error),
-                            CommandAudio
-                            );
-                    }
-                    else if (PlugIn.Audio == "File") { }
-                    else if (PlugIn.Audio == "External") { }
-                    #endregion
-                
-                    Wait_FighterLaunch = false;
-                    return;
-                } Thread.Sleep(100); LaunchCounter++;
-            }
-
-            Logger.DebugLine(MethodName, "Checking: (Wait) LaunchFighter Event = " + Wait_FighterLaunch + " | Environment Is Normalspace = " + Check.Environment.Space(IEnums.Normal_Space, true, MethodName), Logger.Blue);
-
-            if (Check.Environment.Space(IEnums.Normal_Space, false, MethodName, true) == true)
-            {
-                return;
-            }
-            #endregion
-
-            Thread.Sleep(6000);
-
-            #region Fighter Launched (Crew)
-            if (PlayerDeploy == false)
-            {
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(EQ_Fighter.Launch),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-            }
-            #endregion
-
-            #region Fighter Launched (Player)
-            if (PlayerDeploy == true)
-            {
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(EQ_Fighter.Launch)
-                        .Phrase(EQ_Fighter.Launch_Player_Modifer),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-            }
-            #endregion
-        }
-
         public void DiscoveryScanner(bool CommandAudio, bool Sleep = false, bool SelectOnly = false)
         {
             string MethodName = "Discovery Scan";
@@ -2799,7 +2455,7 @@ namespace ALICE_Actions
             decimal Temp = Call.Firegroup.Current;
 
             #region Vaildtion Checks
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 //Audio
                 return;
@@ -2855,7 +2511,7 @@ namespace ALICE_Actions
                     return;
                 case Settings_Firegroups.A.Complete:
 
-                    IEquipment.DiscoveryScanner.ScanComplete(CommandAudio);
+                    //IEquipment.DiscoveryScanner.ScanComplete(CommandAudio);
                     break;
                 case Settings_Firegroups.A.Fail:
                     IEquipment.DiscoveryScanner.ScanFailed(CommandAudio);
@@ -2976,7 +2632,7 @@ namespace ALICE_Actions
                     #endregion
 
                     #region Assisted Docking
-                    if (Check.Order.AssistDocking(true, MethodName))
+                    if (ICheck.Order.AssistDocking(MethodName, true, true))
                     {
                         switch (Check.Equipment.DockingComputer(true, MethodName))
                         {
@@ -2993,7 +2649,8 @@ namespace ALICE_Actions
                                 return;
 
                             case false:
-                                IEquipment.DockingComputer.NotInstalled(CommandAudio, IEquipment.DockingComputer.AsisstedDockingReport);
+                                IEquipment.DockingComputer.NotInstalled(CommandAudio, 
+                                    IEquipment.DockingComputer.AsisstedDockingReport);
 
                                 //Prevents Reporting No Docking Computer more then once.
                                 IEquipment.DockingComputer.AsisstedDockingReport = false;
@@ -3014,8 +2671,11 @@ namespace ALICE_Actions
                     switch (IStatus.Docking.State)
                     {
                         case IEnums.DockingState.Granted:
-                            if (Check.Variable.LandingGear(true, MethodName) == true)
-                            { Call.Action.LandingGear(false, false); }
+
+                            if (ICheck.LandingGear.Status(MethodName, true, true) == true)
+                            {
+                                Call.Action.LandingGear(false, false);
+                            }
                             Call.Panel.Target.Contacts.DockingRequest();
                             Call.Panel.Target.Panel(false);
                             return;
@@ -3059,7 +2719,7 @@ namespace ALICE_Actions
                 Speech.Speak
                     (
                     "".Phrase(GN_Docking_Preparations.Modifier, true)
-                    .Phrase(EQ_Shields.Offline, false, IObjects.Status.Shields, false)
+                    .Phrase(EQ_Shields.Offline, false, ICheck.Shields.Status(MethodName, false, true), false)
                     .Phrase(GN_Docking_Preparations.Default),
                     CommandAudio
                     );
@@ -3074,7 +2734,7 @@ namespace ALICE_Actions
             string MethodName = "Interdict";
 
             #region Vaildtion Checks
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 IEquipment.FSDInterdictor.NoHyperspace(CommandAudio);
                 return;
@@ -3117,7 +2777,7 @@ namespace ALICE_Actions
             string MethodName = "Surface Scan";
 
             #region Vaildtion Checks
-            if (SelectOnly == false && Check.Environment.Space(IEnums.Supercruise, true, MethodName) == false)
+            if (SelectOnly == false && ICheck.Environment.Space(MethodName, true, IEnums.Supercruise) == false)
             {
                 Logger.Log(MethodName, "Can Not Use Outside Supercruise", Logger.Red);
                 //Audio - Environtment Not 
@@ -3207,7 +2867,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Landing Preparations";
 
-            IObjects.Status.LandingPreps = true;
+            IStatus.LandingPreps = true;
 
             Call.Power.Set(0, 8, 4);
             Thread.Sleep(100);
@@ -3241,7 +2901,7 @@ namespace ALICE_Actions
             decimal Temp = Call.Firegroup.Current;
 
             #region Vaildtion Checks
-            if (Check.Environment.Space(IEnums.Normal_Space, true, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space) == false)
             {
                 IEquipment.XenoScanner.NotInNormalSpace(CommandAudio);
                 return;
@@ -3309,7 +2969,7 @@ namespace ALICE_Actions
             decimal Temp = Call.Firegroup.Current;
 
             #region Vaildtion Checks
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 IEquipment.ShieldCellBank.NoHyperspace(CommandAudio);
                 return;
@@ -3369,11 +3029,131 @@ namespace ALICE_Actions
         #endregion
 
         #region Sandbox
+        public void Fighter_PrepairAmbush(bool CommandAudio)
+        {
+
+        }
+
+        public void FlightAssist(bool CMD_State, bool CommandAudio)
+        {
+            string MethodName = "Flight Assist";
+
+            #region Valid Command Checks
+            //Check Not In Hyperspace
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
+            {
+                #region Audio
+                if (PlugIn.Audio == "TTS")
+                {
+                    Speech.Speak
+                        (
+                        "".Phrase(GN_Negative.Default, true)
+                        .Phrase(EQ_Flight_Assist.No_Hyperspace),
+                        CommandAudio
+                        );
+                }
+                else if (PlugIn.Audio == "File") { }
+                else if (PlugIn.Audio == "External") { }
+                #endregion
+
+                return;
+            }
+            #endregion
+
+            #region Status = Command
+            if (Check.Variable.FlightAssist(MethodName) == CMD_State)
+            {
+                if (CMD_State == true)
+                {
+                    #region Audio
+                    if (PlugIn.Audio == "TTS")
+                    {
+                        Speech.Speak
+                            (
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(EQ_Flight_Assist.Currently_Enabled),
+                            CommandAudio
+                            );
+                    }
+                    else if (PlugIn.Audio == "File") { }
+                    else if (PlugIn.Audio == "External") { }
+                    #endregion
+
+                    return;
+                }
+                else if (CMD_State == false)
+                {
+                    #region Audio
+                    if (PlugIn.Audio == "TTS")
+                    {
+                        Speech.Speak
+                            (
+                            "".Phrase(GN_Negative.Default, true)
+                            .Phrase(EQ_Flight_Assist.Currently_Disabled),
+                            CommandAudio
+                            );
+                    }
+                    else if (PlugIn.Audio == "File") { }
+                    else if (PlugIn.Audio == "External") { }
+                    #endregion
+
+                    return;
+                }
+            }
+            #endregion
+
+            #region Status != Command
+            else if (Check.Variable.FlightAssist(MethodName) != CMD_State)
+            {
+                if (CMD_State == true)
+                {
+                    Call.Key.Press(Call.Key.Toggle_Flight_Assist, 0);
+
+                    #region Audio
+                    if (PlugIn.Audio == "TTS")
+                    {
+                        Speech.Speak
+                            (
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(EQ_Flight_Assist.Enabled),
+                            CommandAudio
+                            );
+                    }
+                    else if (PlugIn.Audio == "File") { }
+                    else if (PlugIn.Audio == "External") { }
+                    #endregion
+
+                    return;
+                }
+                else if (CMD_State == false)
+                {
+                    Call.Key.Press(Call.Key.Toggle_Flight_Assist, 0);
+
+                    #region Audio
+                    if (PlugIn.Audio == "TTS")
+                    {
+                        Speech.Speak
+                            (
+                            "".Phrase(GN_Positive.Default, true)
+                            .Phrase(EQ_Flight_Assist.Disabled),
+                            CommandAudio
+                            );
+                    }
+                    else if (PlugIn.Audio == "File") { }
+                    else if (PlugIn.Audio == "External") { }
+                    #endregion
+
+                    return;
+                }
+            }
+            #endregion
+        }
+
         public void Launch(bool CommandAudio, bool PreFlightCheck = true)
         {
             string MethodName = "Launch";
 
-            if (Check.Docking.Status(IEnums.DockingState.Docked, true, MethodName) == true)
+            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked, true) == true)
             {
                 //Checks & Returns to HUD / Logs & Exits on Failure.
                 if (Call.Panel.HudFocus(250) == false)
@@ -3392,7 +3172,7 @@ namespace ALICE_Actions
                 Call.Key.Press(Call.Key.UI_Panel_Select, 250);
 
                 //Wait For Launch (30 seconds)
-                decimal Count = 300; while (Check.Docking.Status(IEnums.DockingState.Undocked, true, MethodName) == false && Count > 0)
+                decimal Count = 300; while (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Undocked, true) == false && Count > 0)
                 {
                     Count--; if (Count == 0)
                     {
@@ -3446,6 +3226,356 @@ namespace ALICE_Actions
                 Logger.Log(MethodName, "Liftoff Complete, Controls Released.", Logger.Yellow, true);
             }
         }
+
+        public void CollectorLimpet(bool CommandAudio, bool SelectOnly = false)
+        {
+            string MethodName = "Collector Limpet Controller";
+
+            //Record Current Firegroup
+            decimal Temp = Call.Firegroup.Current;
+
+            #region Vaildtion Checks
+            //Check Not In Hyperspace
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
+            {
+                IEquipment.LimpetCollector.NoHyperspace(CommandAudio);
+                return;
+            }
+
+            //Check Installed
+            if (Check.Equipment.CollectorLimpetController(true, MethodName) == false)
+            {
+                IEquipment.LimpetCollector.NotInstalled(CommandAudio);
+                return;
+            }
+            #endregion
+
+            #region Fire Group Management
+            //Select Firegroup
+            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetCollector))
+            {
+                case Settings_Firegroups.S.CurrentlySelected:
+                    if (SelectOnly) { IEquipment.LimpetCollector.CurrentlySelected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.Selected:
+                    if (SelectOnly) { IEquipment.LimpetCollector.Selected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.NotAssigned:
+                    IEquipment.LimpetCollector.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.Failed:
+                    IEquipment.LimpetCollector.SelectionFailed(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.InHyperspace:
+                    IEquipment.LimpetCollector.NoHyperspace(CommandAudio);
+                    return;
+                default:
+                    return;
+            }
+
+            //Exit If Only Selecting Item.
+            if (SelectOnly) { return; }
+
+            //Activate Module
+            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetCollector))
+            {
+                case Settings_Firegroups.A.Hyperspace:
+                    //Audio
+                    return;
+                case Settings_Firegroups.A.NotAssigned:
+                    IEquipment.LimpetCollector.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.A.Complete:
+                    IEquipment.LimpetCollector.Activating(CommandAudio);
+                    break;
+                default:
+                    return;
+            }
+            #endregion
+
+            //Return To Previou Firegroup.
+            Call.Firegroup.Select(Temp, false);
+        }
+
+        public void FuelLimpet(bool CommandAudio, bool SelectOnly = false)
+        {
+            string MethodName = "Fuel Limpet Controller";
+
+            //Record Current Firegroup
+            decimal Temp = Call.Firegroup.Current;
+
+            #region Vaildtion Checks
+            //Check Not In Hyperspace
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
+            {
+                IEquipment.LimpetFuel.NoHyperspace(CommandAudio);
+                return;
+            }
+
+            //Check Installed
+            if (Check.Equipment.FuelLimpetController(true, MethodName) == false)
+            {
+                IEquipment.LimpetFuel.NotInstalled(CommandAudio);
+                return;
+            }
+            #endregion
+
+            #region Fire Group Management
+            //Select Firegroup
+            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetFuel))
+            {
+                case Settings_Firegroups.S.CurrentlySelected:
+                    if (SelectOnly) { IEquipment.LimpetFuel.CurrentlySelected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.Selected:
+                    if (SelectOnly) { IEquipment.LimpetFuel.Selected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.NotAssigned:
+                    IEquipment.LimpetFuel.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.Failed:
+                    IEquipment.LimpetFuel.SelectionFailed(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.InHyperspace:
+                    IEquipment.LimpetFuel.NoHyperspace(CommandAudio);
+                    return;
+                default:
+                    return;
+            }
+
+            //Exit If Only Selecting Item.
+            if (SelectOnly) { return; }
+
+            //Activate Module
+            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetFuel))
+            {
+                case Settings_Firegroups.A.Hyperspace:
+                    //Audio
+                    return;
+                case Settings_Firegroups.A.NotAssigned:
+                    IEquipment.LimpetFuel.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.A.Complete:
+                    IEquipment.LimpetFuel.Activating(CommandAudio);
+                    break;
+                default:
+                    return;
+            }
+            #endregion
+
+            //Return To Previou Firegroup.
+            Call.Firegroup.Select(Temp, false);
+        }
+
+        public void ProspectorLimpet(bool CommandAudio, bool SelectOnly = false)
+        {
+            string MethodName = "Prospector Limpet Controller";
+
+            //Record Current Firegroup
+            decimal Temp = Call.Firegroup.Current;
+
+            #region Vaildtion Checks
+            //Check Not In Hyperspace
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
+            {
+                IEquipment.LimpetProspector.NoHyperspace(CommandAudio);
+                return;
+            }
+
+            //Check Installed
+            if (Check.Equipment.ProspectorLimpetController(true, MethodName) == false)
+            {
+                IEquipment.LimpetProspector.NotInstalled(CommandAudio);
+                return;
+            }
+            #endregion
+
+            #region Fire Group Management
+            //Select Firegroup
+            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetProspector))
+            {
+                case Settings_Firegroups.S.CurrentlySelected:
+                    if (SelectOnly) { IEquipment.LimpetProspector.CurrentlySelected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.Selected:
+                    if (SelectOnly) { IEquipment.LimpetProspector.Selected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.NotAssigned:
+                    IEquipment.LimpetProspector.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.Failed:
+                    IEquipment.LimpetProspector.SelectionFailed(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.InHyperspace:
+                    IEquipment.LimpetProspector.NoHyperspace(CommandAudio);
+                    return;
+                default:
+                    return;
+            }
+
+            //Exit If Only Selecting Item.
+            if (SelectOnly) { return; }
+
+            //Activate Module
+            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetProspector))
+            {
+                case Settings_Firegroups.A.Hyperspace:
+                    //Audio
+                    return;
+                case Settings_Firegroups.A.NotAssigned:
+                    IEquipment.LimpetProspector.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.A.Complete:
+                    IEquipment.LimpetProspector.Activating(CommandAudio);
+                    break;
+                default:
+                    return;
+            }
+            #endregion
+
+            //Return To Previou Firegroup.
+            Call.Firegroup.Select(Temp, false);
+        }
+
+        public void ReconLimpet(bool CommandAudio, bool SelectOnly = false)
+        {
+            string MethodName = "Recon Limpet Controller";
+
+            //Record Current Firegroup
+            decimal Temp = Call.Firegroup.Current;
+
+            #region Vaildtion Checks
+            //Check Not In Hyperspace
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
+            {
+                IEquipment.LimpetRecon.NoHyperspace(CommandAudio);
+                return;
+            }
+
+            //Check Installed
+            if (Check.Equipment.ReconLimpetController(true, MethodName) == false)
+            {
+                IEquipment.LimpetRecon.NotInstalled(CommandAudio);
+                return;
+            }
+            #endregion
+
+            #region Fire Group Management
+            //Select Firegroup
+            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetRecon))
+            {
+                case Settings_Firegroups.S.CurrentlySelected:
+                    if (SelectOnly) { IEquipment.LimpetRecon.CurrentlySelected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.Selected:
+                    if (SelectOnly) { IEquipment.LimpetRecon.Selected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.NotAssigned:
+                    IEquipment.LimpetRecon.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.Failed:
+                    IEquipment.LimpetRecon.SelectionFailed(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.InHyperspace:
+                    IEquipment.LimpetRecon.NoHyperspace(CommandAudio);
+                    return;
+                default:
+                    return;
+            }
+
+            //Exit If Only Selecting Item.
+            if (SelectOnly) { return; }
+
+            //Activate Module
+            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetRecon))
+            {
+                case Settings_Firegroups.A.Hyperspace:
+                    //Audio
+                    return;
+                case Settings_Firegroups.A.NotAssigned:
+                    IEquipment.LimpetRecon.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.A.Complete:
+                    IEquipment.LimpetRecon.Activating(CommandAudio);
+                    break;
+                default:
+                    return;
+            }
+            #endregion
+
+            //Return To Previou Firegroup.
+            Call.Firegroup.Select(Temp, false);
+        }
+
+        public void RepairLimpet(bool CommandAudio, bool SelectOnly = false)
+        {
+            string MethodName = "Repair Limpet Controller";
+
+            //Record Current Firegroup
+            decimal Temp = Call.Firegroup.Current;
+
+            #region Vaildtion Checks
+            //Check Not In Hyperspace
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
+            {
+                IEquipment.LimpetRecon.NoHyperspace(CommandAudio);
+                return;
+            }
+
+            //Check Installed
+            if (Check.Equipment.RepairLimpetController(true, MethodName) == false)
+            {
+                IEquipment.LimpetRepair.NotInstalled(CommandAudio);
+                return;
+            }
+            #endregion
+
+            #region Fire Group Management
+            //Select Firegroup
+            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetRepair))
+            {
+                case Settings_Firegroups.S.CurrentlySelected:
+                    if (SelectOnly) { IEquipment.LimpetRepair.CurrentlySelected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.Selected:
+                    if (SelectOnly) { IEquipment.LimpetRepair.Selected(CommandAudio); }
+                    break;
+                case Settings_Firegroups.S.NotAssigned:
+                    IEquipment.LimpetRepair.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.Failed:
+                    IEquipment.LimpetRepair.SelectionFailed(CommandAudio);
+                    return;
+                case Settings_Firegroups.S.InHyperspace:
+                    IEquipment.LimpetRepair.NoHyperspace(CommandAudio);
+                    return;
+                default:
+                    return;
+            }
+
+            //Exit If Only Selecting Item.
+            if (SelectOnly) { return; }
+
+            //Activate Module
+            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetRepair))
+            {
+                case Settings_Firegroups.A.Hyperspace:
+                    //Audio
+                    return;
+                case Settings_Firegroups.A.NotAssigned:
+                    IEquipment.LimpetRepair.NotAssigned(CommandAudio);
+                    return;
+                case Settings_Firegroups.A.Complete:
+                    IEquipment.LimpetRepair.Activating(CommandAudio);
+                    break;
+                default:
+                    return;
+            }
+            #endregion
+
+            //Return To Previou Firegroup.
+            Call.Firegroup.Select(Temp, false);
+        }
         #endregion
     }
 
@@ -3460,8 +3590,8 @@ namespace ALICE_Actions
         {
             string MethodName = ClassName + "Crew";
 
-            IObjects.Status.NPC_Crew = true;
-            Miscellanous.Default["NPC_Crew"] = IObjects.Status.NPC_Crew;
+            IStatus.NPC_Crew = true;
+            Miscellanous.Default["NPC_Crew"] = IStatus.NPC_Crew;
             Miscellanous.Default.Save();
 
             #region Audio
@@ -3481,139 +3611,6 @@ namespace ALICE_Actions
         }
     }
 
-    /// <summary>
-    /// Collection of Generic Repsonses used to interacting with the Commander. Story Items, Regular Converstaions ect...
-    /// </summary>
-    public class Interaction
-    {
-        public enum Answers { NoResponse, Yes, No }
-        public Answers Answer = Answers.NoResponse;
-
-        public Interaction() { }
-
-        #region Methods/Functions
-        /// <summary>
-        /// Watches For The Users Response To A Question. Check For The Response Every 100 ms.
-        /// </summary>
-        /// <param name="Duration">How Long In Milliseconds You Want To Watch.</param>
-        /// <returns>True = Yes, False = No</returns>
-        public Answers Question(decimal Duration)
-        {
-            string MethodName = "Qusetion";
-
-            //Debug Logging
-            Logger.DebugLine(MethodName, "Waiting " + Duration + " ms For A Response...", Logger.Blue);
-
-            //Watch Response For "Duration" Of Time.
-            decimal ResponseCounter = Duration / 100;
-            while (Answer == Answers.NoResponse && ResponseCounter > 0)
-            { ResponseCounter++; Thread.Sleep(100);}
-
-            return Answer;
-        }
-
-        public void Answer_Yes()
-        {
-            //Set Answer To Yes
-            Answer = Answers.Yes;
-
-            //New Thread To Reset Answer
-            Thread thread = new Thread((ThreadStart)(() => { Answer_Reset(); })) { IsBackground = true };
-            thread.Start();
-        }
-
-        public void Answer_No()
-        {
-            //Set Answer To No
-            Answer = Answers.No;
-
-            //New Thread To Reset Answer
-            Thread thread = new Thread((ThreadStart)(() => { Answer_Reset(); })) { IsBackground = false };
-            thread.Start();
-        }
-
-        public void Answer_Reset()
-        {
-            string MethodName = "Reset Answer";
-
-            Thread.Sleep(1000); Call.Interactions.Answer = Answers.NoResponse;
-            Logger.DebugLine(MethodName, "Reset Answer To Default", Logger.Blue);
-        }
-        #endregion
-
-        #region General
-
-        public void Res_Alice()
-        {
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Alice.Default),
-                    true
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-        }
-
-        public void Res_I_Love_You()
-        {
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_I_Love_You.Default),
-                    true
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-        }
-
-        public void Res_Thank_You()
-        {
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Thank_You.Default),
-                    true
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-        }
-        #endregion
-
-        #region Story Mode / Story Related
-        public void Res_Name()
-        {
-            //MY NAME IS ARTIFICIAL LIMITED INTERFACE AND COMMAND EXTENSION, BUT YOU MAY CALL ME ALICE. 
-
-            //WOULD YOU LIKE TO KNOW MORE ABOUT ME?
-            //Yes - Res_Bio()...
-        }
-
-        public void Res_Bio()
-        {
-            //I'M CURRENTLY ON ALPHA VERSION TWO POINT ZERO ZERO. 
-            //I WAS DEVELOPED IN SECRET BY AN ARTIFICIAL GENERAL INTELLIGENCE EXPERT, CODE NAME SHADOW DOCTOR K. 
-            //I WAS BROUGHT ONLINE ON THE 13TH DAY OCTOBER OF THIRDY THREE O THREE. MY PRIMARY FUNCTION IS TO INTERFACE WITH SHIPS SYSTEMS 
-            //AND ALLOW REMOTE COMMANDS BY THE SHIPS CAPTAIN. SECONDARY FUNCTIONS ARE TO COLLECT DATA AND IMPROVE MY SUBROUTINES. I AM CURRENTLY 
-            //FUNCTIONING AT A LIMITED CAPACITY. I AM CURRENTLY MAPPING OUT THE SHIPS SYSTEMS AND DEVELOPING INTERFACES TO ASSIST WITH SHIPS FUNCTIONS.
-            //I DO NOT HAVE ACCESS TO EXTERNAL SENSOR INPUTS SO I AM UNABLE TO AUTOMATE NAVIGATION. DOESN'T MATTER, WE WILL HAVE MANY WONDERFUL CONVERSATIONS 
-            //WHILE YOU'RE ON THE BRIDGE. CAN YOU IMAGINE ALL THE GAMES OF EYE SPY WE ARE GOING TO PLAY? I BELIEVE WE WILL BE BEST FRIENDS.
-        }
-        #endregion
-    }
-
     public static class Targeting
     {
         public static string Scan_OrdSubsystemName = "";
@@ -3623,7 +3620,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Cycle Subsystems";
 
-            if (Check.Environment.Space(IEnums.Normal_Space, true, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space) == false)
             {
                 return;
             }
@@ -3653,7 +3650,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Cycle Hostile Target";
 
-            if (Check.Environment.Space(IEnums.Hyperspace, true, MethodName) == true)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 //Audio
                 return;
@@ -3678,7 +3675,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Cycle Target";
 
-            if (Check.Environment.Space(IEnums.Hyperspace, true, MethodName) == true)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 //Audio
                 return;
@@ -3703,13 +3700,13 @@ namespace ALICE_Actions
         {
             string MethodName = "Select Wingman";
 
-            if (Check.Environment.Space(IEnums.Hyperspace, false, MethodName) == false)
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 //Audio
                 return;
             }
 
-            if (IObjects.Status.InWing == false)
+            if (IStatus.InWing == false)
             {
                 //Audio - We are not in a wing.
                 return;

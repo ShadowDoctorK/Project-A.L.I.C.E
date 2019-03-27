@@ -54,7 +54,7 @@ namespace ALICE_Interface
             {
                 PlugIn.Respond = PlugIn.Output.TTS;
                 Paths.CreateDir();
-                Paths.Load_UpdateBindsFile();
+                Paths.Load_UpdateBindsFile();                
                 IPlatform.Interface = IPlatform.Interfaces.VoiceAttack;
                 IPlatform.ProxyObject = vaProxy;
             }

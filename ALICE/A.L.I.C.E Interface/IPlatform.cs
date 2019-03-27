@@ -127,9 +127,10 @@ namespace ALICE_Interface
             return Answer;
         }
 
-        public static void SetText(IVar Variable, string Value)
+        public static void SetText(IVar Variable, string Value, bool P = true)
         {
             string MethodName = "Set Variable (Enums)";
+            string Prefix = ""; if (P) { Prefix = "ALICE_"; }
 
             switch (Interface)
             {
@@ -138,13 +139,13 @@ namespace ALICE_Interface
                     break;
 
                 case Interfaces.VoiceAttack:
-                    Logger.DebugLine(MethodName, "ALICE_" + Variable.ToString() + " = " + Value, Logger.Yellow);
-                    ProxyObject.SetText("ALICE_" + Variable.ToString(), Value);
+                    Logger.DebugLine(MethodName, Prefix + Variable.ToString() + " = " + Value, Logger.Yellow);
+                    ProxyObject.SetText(Prefix + Variable.ToString(), Value);
                     break;
 
                 case Interfaces.VoiceMacro:
-                    Logger.DebugLine(MethodName, "ALICE_" + Variable.ToString() + " = " + Value, Logger.Yellow);
-                    IVoiceMacro.SetText("ALICE_" + Variable.ToString(), Value);
+                    Logger.DebugLine(MethodName, Prefix + Variable.ToString() + " = " + Value, Logger.Yellow);
+                    IVoiceMacro.SetText(Prefix + Variable.ToString(), Value);
                     break;
 
                 default:
@@ -152,24 +153,26 @@ namespace ALICE_Interface
             }
         }
 
-        public static void SetText(string Variable, string Value)
+        public static void SetText(string Variable, string Value, bool P = true)
         {
             string MethodName = "Set Variable (Manual)";
+            string Prefix = ""; if (P) { Prefix = "ALICE_"; }
 
             switch (Interface)
             {
                 case Interfaces.Internal:
-                    Logger.Log(MethodName, "(" + Interface + ") Text Variable: " + Variable + " = " + Value, Logger.Yellow);
+                    Logger.Log(MethodName, "(" + Interface + ") Text Variable: " + Prefix + Variable + " = " + Value, Logger.Yellow);
                     break;
 
                 case Interfaces.VoiceAttack:
-                    Logger.DebugLine(MethodName, "ALICE_" + Variable + " = " + Value, Logger.Yellow);
-                    ProxyObject.SetText("ALICE_" + Variable.ToString(), Value);
+                    
+                    Logger.DebugLine(MethodName, Prefix + Variable + " = " + Value, Logger.Yellow);
+                    ProxyObject.SetText(Prefix + Variable.ToString(), Value);
                     break;
 
                 case Interfaces.VoiceMacro:
-                    Logger.DebugLine(MethodName, "ALICE_" + Variable.ToString() + " = " + Value, Logger.Yellow);
-                    IVoiceMacro.SetText("ALICE_" + Variable.ToString(), Value);
+                    Logger.DebugLine(MethodName, Prefix + Variable.ToString() + " = " + Value, Logger.Yellow);
+                    IVoiceMacro.SetText(Prefix + Variable.ToString(), Value);
                     break;
 
                 default:
@@ -177,7 +180,7 @@ namespace ALICE_Interface
             }
         }
 
-        public static void WriteToInterface(string LogText, string Color, string Sign = "", string StatusText = "")
+        public static void WriteToInterface(string LogText, string Color, string Sign = "ℙ", string StatusText = "")
         {
             //Sign Validation
             if (Sign.Length > 1) { Sign = ""; }

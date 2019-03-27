@@ -39,7 +39,7 @@ namespace ALICE_Interface
         /// <param name="C">(Color) The color you want the text to be. Default is Orange.</param>
         /// <param name="S">(Sign) Single Character Sign. Default "".</param>
         /// <param name="ST">(Status Text) shows in the Voice Macro Status Bar. Default "".</param>
-        public static void WriteToLog(string Text, string C = null, string S = "", string ST = "")
+        public static void WriteToLog(string Text, string C = null, string S = "ℙ", string ST = "")
         {
             vmCommand.AddLogEntry(Text, GetColor(C), API.ID, S, ST);
         }

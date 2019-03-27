@@ -1,5 +1,8 @@
 ﻿using ALICE_Core;
+using ALICE_Data;
+using ALICE_Debug;
 using ALICE_Events;
+using ALICE_Interface;
 using ALICE_Internal;
 using System;
 using System.Collections.Generic;
@@ -35,7 +38,7 @@ namespace ALICE_Objects
             Region = Default.String;
             SubCategory = Default.String;
             Body = Get_Body();
-            Enviornment = Get_Enviornment();
+            Enviornment = IGet.Environment.Space("Codex Entry");
             CodexID = Default.Decimal;
             Address = Get_Address();
             System = Get_System();
@@ -59,9 +62,9 @@ namespace ALICE_Objects
             EDRegion = Event.Region;
             EDSubCategory = Event.SubCategory;
 
-            if (Data.CodexEntries.ContainsKey(this.CodexID) == false)
+            if (IData.Codex.Entries.ContainsKey(this.CodexID) == false)
             {
-                Data.CodexEntries.Add(this.CodexID, this);
+                IData.Codex.Entries.Add(this.CodexID, this);
             }
 
             Check_EntryType(this.EDName);
@@ -80,14 +83,9 @@ namespace ALICE_Objects
 
         public string Get_Body()
         {
-            string Temp = Get.Event.SupercruiseExit.Body();            
-            if (Temp == null) { Temp = Default.String; }
-            return Temp;
-        }
+            string MethodName = "Codex Entry";
 
-        public string Get_Enviornment()
-        {            
-            return Get.Environment.Space();
+            return IGet.SupercruiseExit.Body(MethodName);
         }
 
         public void Check_EntryType(string EDName)
@@ -136,10 +134,12 @@ namespace ALICE_Objects
         {
             string FileName = CodexID + " - " + Name + ".Codex";
             string Path = Paths.ALICE_CodexDiscoveries;
+
             if (Utilities.CheckDirectory(Path))
             {
                 if (File.Exists(Path + FileName)) { return; }
-                SaveValues<Object_CodexEntry>(this, FileName, Path);
+
+                INewtonSoft.Save<Object_CodexEntry>(this, FileName, Path);
             }
         }
 

@@ -17,7 +17,13 @@ namespace ALICE_Community_Toolkit
     public static class Data
     {
         #region User Settings
-        private static Settings_User_TK User = Load(User, ISettings.SettingsUser, "Initialize");
+        private static Settings_User_TK _User = Load(_User, ISettings.SettingsUser, "Initialize");
+
+        public static Settings_User_TK User
+        {
+            get => _User;
+            set => _User = value;
+        }
 
         public static bool UserSettingsSave = false;
         public static bool UserSettingsUpdating = false;
@@ -774,6 +780,26 @@ namespace ALICE_Community_Toolkit
             return Brush;
         }
 
+        public static SolidColorBrush GetFGLabelColor(int A, int B)
+        {
+            //Default Color Red
+            SolidColorBrush Brush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+
+            //Return Yellow
+            if ((A == 0 && B != 0) || (A != 0 && B == 0))
+            {
+                Brush = new SolidColorBrush(Color.FromRgb(212, 230, 30));
+            }            
+            //Return Green
+            else if (A != 0 && B != 0)
+            {
+                Brush = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+            }
+            
+            //Return Color
+            return Brush;
+        }
+
         public static void SaveValues<T>(object Settings, string FileName, string FilePath = null)
         {
             string MethodName = "(Toolkit) Save Values";
@@ -1041,7 +1067,7 @@ namespace ALICE_Community_Toolkit
     public static class Paths
     {
         #region File Names
-        public static readonly string ALICE_BindsFile = "A.L.I.C.E Profile.3.0.binds";
+        public static readonly string FILE_BindsFile = "A.L.I.C.E Profile.3.0.binds";
         public static readonly string FILE_AliceManual = "Project A.L.I.C.E.pdf";
         #endregion
 
@@ -1054,7 +1080,7 @@ namespace ALICE_Community_Toolkit
         public static readonly string Binds_Location = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings\");
         public static readonly string ALICE_Audio_Files = ToolKitLocation + @"\A.L.I.C.E Audio Files\";
         public static readonly string ALICE_Resources = ToolKitLocation + @"\A.L.I.C.E Resources\";
-        public static readonly string ALICE_Response = ToolKitLocation + @"\A.L.I.C.E Response\";
+        public static readonly string ALICE_Response = ToolKitLocation + @"\A.L.I.C.E Response\Files\";
         public static readonly string ALICE_ResponseUser = KnownFolders.GetPath(KnownFolder.Documents) + @"\A.L.I.C.E User Data\Responses\";
         public static readonly string ALICE_Log_Files = KnownFolders.GetPath(KnownFolder.Documents) + @"\A.L.I.C.E User Data\Log Files\";
         public static readonly string ALICE_Settings = KnownFolders.GetPath(KnownFolder.Documents) + @"\A.L.I.C.E User Data\Settings\";
@@ -1063,7 +1089,7 @@ namespace ALICE_Community_Toolkit
         #endregion
 
         #region File Paths  
-        public static readonly string ALICE_BindsPath = Binds_Location + ALICE_BindsFile;
+        public static readonly string ALICE_BindsPath = Binds_Location + FILE_BindsFile;
         public static readonly string ALICE_ManualPath = ALICE_RootFolder + FILE_AliceManual;
         #endregion
 
@@ -1219,10 +1245,15 @@ namespace ALICE_Community_Toolkit
         public string Commander = "Default";
 
         #region Plugin
+        //Speed Offsets
         public int OffsetPanels { get; set; }
         public int OffsetPips { get; set; }
         public int OffsetFireGroups { get; set; }
         public int OffsetThrottle { get; set; }
+
+        //Keybinds
+        public bool UsersBindFile { get; set; }
+        public string BindsFile { get; set; }
         #endregion
 
         #region Orders
@@ -1276,8 +1307,17 @@ namespace ALICE_Community_Toolkit
             OffsetPips = 0;
             OffsetThrottle = 0;
 
+            UsersBindFile = false;
+            BindsFile = "A.L.I.C.E Profile.3.0.binds";
+
             WeaponSafety = true;
             CombatPower = true;
+            AssistSystemScan = false;
+            AssistDocking = false;
+            AssistRefuel = false;
+            AssistRearm = false;
+            AssistRepair = false;
+            AssistHangerEntry = false;
             PostHyperspaceSafety = true;
 
             FuelScoop = true;
@@ -1304,6 +1344,8 @@ namespace ALICE_Community_Toolkit
             BodyRockyTerra = true;
             BodyWater = true;
             BodyWaterTerra = true;
+            BodyGasGiantII = false;
+            BodyHMC = false;
         }
     }
 }

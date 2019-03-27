@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using ALICE_Objects;
 using ALICE_Actions;
 using System.Threading;
 using ALICE_Internal;
 using ALICE_Core;
 using ALICE_Settings;
+using ALICE_Equipment;
+using ALICE_Debug;
 
 namespace ALICE_Interface
 {
@@ -236,7 +235,7 @@ namespace ALICE_Interface
 
                     else if (Command.Check("Holo-Me"))
                     {
-                        Call.Panel.System.Home.HoloMe(); ;
+                        Call.Panel.System.Home.HoloMe();
                     }
 
                     else if (Command.Check("Engineers"))
@@ -902,7 +901,7 @@ namespace ALICE_Interface
             #region Combat Power Management
             else if (Command.Check("Combat Power Management:"))
             {
-                if (ALICE_Internal.Check.Order.CombatPower(true, MethodName))
+                if (ICheck.Order.CombatPower(MethodName, true, true))
                 {
                     if (PlugIn.DebugMode == true)
                     { IPlatform.WriteToInterface("A.L.I.C.E: Context Mode - Combat Power Management Enabled", "Green"); }
@@ -951,7 +950,7 @@ namespace ALICE_Interface
                     Assisted.Power.Weapons_Light(PlugIn.CommandAudio);
                 }
 
-                if (IObjects.Status.Hardpoints == true)
+                if (IStatus.Hardpoints == true)
                 {
                     Assisted.Power.CombatPowerManagement();
                 }
@@ -992,7 +991,13 @@ namespace ALICE_Interface
                 {
                     Thread power =
                     new Thread((ThreadStart)(() =>
-                    { Call.Power.Set(Get.Variable.ALICE_WeaponPower(), Get.Variable.ALICE_SystemPower(), Get.Variable.ALICE_EnginePower(), Get.Variable.ALICE_RecordPower()); }))
+                    {
+                        Call.Power.Set(
+                            IGet.Platform.WeaponPower(MethodName),
+                            IGet.Platform.EnginePower(MethodName),
+                            IGet.Platform.SystemPower(MethodName),
+                            IGet.Platform.RecordPower(MethodName));
+                    }))
                     { IsBackground = true };
                     power.Start();
                 }
@@ -1062,31 +1067,31 @@ namespace ALICE_Interface
                 {
                     if (Command.Check("Attack Target"))
                     {
-                        Call.Action.Fighter_AttackMyTarget(PlugIn.CommandAudio);
+                        IActions.Fighter.AttackMyTarget(PlugIn.CommandAudio);
                     }
                     else if (Command.Check("Defend"))
                     {
-                        Call.Action.Fighter_Defending(PlugIn.CommandAudio);
+                        IActions.Fighter.Defending(PlugIn.CommandAudio);
                     }
                     else if (Command.Check("Engage At Will"))
                     {
-                        Call.Action.Fighter_EngageAtWill(PlugIn.CommandAudio);
+                        IActions.Fighter.EngageAtWill(PlugIn.CommandAudio);
                     }
                     else if (Command.Check("Follow"))
                     {
-                        Call.Action.Fighter_Follow(PlugIn.CommandAudio);
+                        IActions.Fighter.Follow(PlugIn.CommandAudio);
                     }
                     else if (Command.Check("Hold"))
                     {
-                        Call.Action.Fighter_HoldPosition(PlugIn.CommandAudio);
+                        IActions.Fighter.HoldPosition(PlugIn.CommandAudio);
                     }
                     else if (Command.Check("Maintain"))
                     {
-                        Call.Action.Fighter_MaintainFormation(PlugIn.CommandAudio);
+                        IActions.Fighter.Recall(PlugIn.CommandAudio);
                     }
                     else if (Command.Check("Recall"))
                     {
-                        Call.Action.Fighter_Recall(PlugIn.CommandAudio);
+                        IActions.Fighter.Recall(PlugIn.CommandAudio);                        
                     }
                 }
                 else if (Command.Check("Shield Cell"))
@@ -1122,13 +1127,17 @@ namespace ALICE_Interface
                 {
                     if (Command.Check("Yes") == true)
                     {
-                        Call.Interactions.Answer_Yes();
+                        IStatus.Interaction.Yes();
                     }
                     else if (Command.Check("No") == true)
                     {
-                        Call.Interactions.Answer_No();
+                        IStatus.Interaction.No();
                     }
-                }
+                    else if (Command.Check("Mark") == true)
+                    {
+                        IStatus.Interaction.Mark();
+                    }
+                }                
             }
             #endregion
 
@@ -1137,19 +1146,28 @@ namespace ALICE_Interface
             {
                 if (Command.Check("Abort Jump"))
                 {
-                    Call.Action.AbortJump(PlugIn.CommandAudio);
+                    IActions.FrameShiftDrive.AbortJump(PlugIn.CommandAudio);
                 }
                 else if (Command.Check("Hyperspace"))
                 {
-                    Call.Action.Hyperspace(true, PlugIn.CommandAudio);
+                    bool OnMyMark = false;
+                    if (Command.Check("On My Mark")) { OnMyMark = true; }
+
+                    IActions.FrameShiftDrive.Hyperspace(PlugIn.CommandAudio, true, OnMyMark);
                 }
                 else if (Command.Check("Supercruise"))
                 {
-                    Call.Action.Supercruise(true, PlugIn.CommandAudio);
+                    bool OnMyMark = false;
+                    if (Command.Check("On My Mark")) { OnMyMark = true; }
+
+                    IActions.FrameShiftDrive.Supercruise(PlugIn.CommandAudio, true, OnMyMark);
                 }
                 else if (Command.Check("Disengage"))
                 {
-                    Call.Action.Supercruise(false, PlugIn.CommandAudio);
+                    bool OnMyMark = false;
+                    if (Command.Check("On My Mark")) { OnMyMark = true; }
+
+                    IActions.FrameShiftDrive.Supercruise(PlugIn.CommandAudio, false, OnMyMark);
                 }
             }
             //End: Navigation
@@ -1557,26 +1575,26 @@ namespace ALICE_Interface
                 {
                     if (Command.Check("A.L.I.C.E"))
                     {
-                        Call.Interactions.Res_Alice();
+                        IStatus.Interaction.Response.Alice(true);                        
                     }
                     else if (Command.Check("I Love You"))
                     {
-                        Call.Interactions.Res_I_Love_You();
+                        IStatus.Interaction.Response.ILoveYou(true);
                     }
                     else if (Command.Check("Thank You"))
                     {
-                        Call.Interactions.Res_Thank_You();
-                    }
+                        IStatus.Interaction.Response.ThankYou(true);
+                    }                    
                 }
                 else if (Command.Check("Story"))
                 {
                     if (Command.Check("Bio"))
-                    {
-                        Call.Interactions.Res_Bio();
+                    {   
+                        
                     }
                     else if (Command.Check("Name"))
                     {
-                        Call.Interactions.Res_Name();
+                        
                     }
 
                 }
@@ -1598,7 +1616,7 @@ namespace ALICE_Interface
                 }
                 else if (Command.Check("Toggle"))
                 {
-                    Call.Action.AnalysisMode(!IObjects.Status.AnalysisMode, PlugIn.CommandAudio);
+                    Call.Action.AnalysisMode(!IStatus.AnalysisMode, PlugIn.CommandAudio);
                 }
             }
             else if (Command.Check("Cancel Docking"))
@@ -1628,7 +1646,7 @@ namespace ALICE_Interface
 
                     if (Num == 1 || Num == 2)
                     {
-                        Call.Action.DeployFighter(Num, true, PlugIn.CommandAudio);
+                        IActions.Fighter.Deploy(Num, true, PlugIn.CommandAudio);
                     }
                     else
                     {
@@ -1652,7 +1670,7 @@ namespace ALICE_Interface
 
                     if (Num == 1 || Num == 2)
                     {
-                        Call.Action.DeployFighter(Num, false, PlugIn.CommandAudio);
+                        IActions.Fighter.Deploy(Num, false, PlugIn.CommandAudio);
                     }
                     else
                     {
@@ -1711,7 +1729,22 @@ namespace ALICE_Interface
                 }
                 else if (Command.Check("Toggle"))
                 {
-                    Call.Action.NightVision(!IObjects.Status.NightVision, PlugIn.CommandAudio);
+                    Call.Action.NightVision(!IStatus.NightVision, PlugIn.CommandAudio);
+                }
+            }
+            else if (Command.Check("Flight Assist"))
+            {
+                if (Command.Check("Enable"))
+                {
+                    Call.Action.FlightAssist(true, PlugIn.CommandAudio);
+                }
+                else if (Command.Check("Disable"))
+                {
+                    Call.Action.FlightAssist(false, PlugIn.CommandAudio);
+                }
+                else if (Command.Check("Toggle"))
+                {
+                    Call.Action.FlightAssist(!IStatus.NightVision, PlugIn.CommandAudio);
                 }
             }
             else if (Command.Check("Full Spectrum Scanner"))
@@ -1826,6 +1859,19 @@ namespace ALICE_Interface
                     Logger.Log(MethodName, "Debug Mode Disabled", Logger.Yellow);
                 }
             }
+            else if (Command.Check("Variable Mode"))
+            {
+                if (Command.Check("Enable"))
+                {
+                    PlugIn.VariableLogging = true;
+                    Logger.Log(MethodName, "Event Variable Logging Enabled", Logger.Yellow);
+                }
+                else if (Command.Check("Disable"))
+                {
+                    PlugIn.VariableLogging = false;
+                    Logger.Log(MethodName, "Event Variable Logging Disabled", Logger.Yellow);
+                }
+            }
             else if (Command.Check("Monitor Status"))
             {
                 if (Command.Check("Enable"))
@@ -1868,7 +1914,7 @@ namespace ALICE_Interface
             }
             else if (Command.Check("Screenshot"))
             {
-                IScreenshot.Save();
+                //IScreenshot.Save();
             }
 
         }
@@ -2292,7 +2338,9 @@ namespace ALICE_Interface
                 }
                 else if (Command.Check("Collector Limpet"))
                 {
-                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetCollector);
+                    bool Select = true;
+                    if (Command.Check("Activate")) { Select = false; }
+                    Call.Action.CollectorLimpet(PlugIn.CommandAudio, Select);                    
                 }
                 else if (Command.Check("Decontamination Limpet"))
                 {
@@ -2300,7 +2348,9 @@ namespace ALICE_Interface
                 }
                 else if (Command.Check("Fuel Limpet"))
                 {
-                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetFuel);
+                    bool Select = true;
+                    if (Command.Check("Activate")) { Select = false; }
+                    Call.Action.FuelLimpet(PlugIn.CommandAudio, Select);                    
                 }
                 else if (Command.Check("Hatch Breaker Limpet"))
                 {
@@ -2308,15 +2358,21 @@ namespace ALICE_Interface
                 }
                 else if (Command.Check("Prospector Limpet"))
                 {
-                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetProspector);
+                    bool Select = true;
+                    if (Command.Check("Activate")) { Select = false; }
+                    Call.Action.ProspectorLimpet(PlugIn.CommandAudio, Select);                   
                 }
                 else if (Command.Check("Recon Limpet"))
                 {
-                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetRecon);
+                    bool Select = true;
+                    if (Command.Check("Activate")) { Select = false; }
+                    Call.Action.ReconLimpet(PlugIn.CommandAudio, Select);
                 }
                 else if (Command.Check("Repair Limpet"))
                 {
-                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetRepair);
+                    bool Select = true;
+                    if (Command.Check("Activate")) { Select = false; }
+                    Call.Action.RepairLimpet(PlugIn.CommandAudio, Select);                    
                 }
                 else if (Command.Check("Reserch Limpet"))
                 {
