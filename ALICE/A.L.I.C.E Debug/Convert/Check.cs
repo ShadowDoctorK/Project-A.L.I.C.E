@@ -454,37 +454,6 @@ namespace ALICE_Internal
 
         public class Environments : Base
         {
-            //public bool Space(string TargetEnvironment, bool DesiredEnvironment, string MethodName, bool DisableDebug = false, bool Answer = true)
-            //{
-            //    string Environment = IEnums.Normal_Space;
-            //    string Not = ""; if (DesiredEnvironment == false) { Not = "Not "; }
-            //    string DebugText = "Environment Check Passed (" + Not + TargetEnvironment + ")";
-            //    string Color = Logger.Blue;
-
-            //    if (IStatus.Hyperspace == true)
-            //    { Environment = IEnums.Hyperspace; }
-
-            //    else if (IStatus.Supercruise == true)
-            //    { Environment = IEnums.Supercruise; }
-
-            //    if (DesiredEnvironment == true && Environment != TargetEnvironment)
-            //    {
-            //        Answer = false;
-            //        DebugText = "Environment Does Not Equal " + TargetEnvironment;
-            //        Color = Logger.Yellow;
-            //    }
-            //    else if (DesiredEnvironment == false && Environment == TargetEnvironment)
-            //    {
-            //        Answer = false;
-            //        DebugText = "Environment Equals " + TargetEnvironment;
-            //        Color = Logger.Yellow;
-            //    }
-
-            //    if (DisableDebug == false) { Logger.DebugLine(MethodName, DebugText, Color); }
-
-            //    return Answer;
-            //}
-
             public bool Vehicle(IVehicles.V TargetVehcile, bool TargetState, string MethodName, bool DisableDebug = false, bool Answer = true)
             {
                 IVehicles.V Vehic = IVehicles.Vehicle;

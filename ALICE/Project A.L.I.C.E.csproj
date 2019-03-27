@@ -74,14 +74,14 @@
     <Compile Include="A.L.I.C.E Data\Data CrimeTypes.cs" />
     <Compile Include="A.L.I.C.E Data\Data Messages.cs" />
     <Compile Include="A.L.I.C.E Data\IData.cs" />
-    <Compile Include="A.L.I.C.E Debug\Environment.cs" />
+    <Compile Include="A.L.I.C.E Debug\Settings\Environment.cs" />
     <Compile Include="A.L.I.C.E Debug\Equipment\Frame Shift Drive.cs" />
     <Compile Include="A.L.I.C.E Debug\Equipment\Shields.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\Masslock.cs" />
     <Compile Include="A.L.I.C.E Debug\IDebug.cs" />
     <Compile Include="A.L.I.C.E Debug\IGet.cs" />
     <Compile Include="A.L.I.C.E Debug\ISet.cs" />
-    <Compile Include="A.L.I.C.E Debug\Reports.cs" />
+    <Compile Include="A.L.I.C.E Debug\Settings\Reports.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\FireInNoFireZone.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\ShipyardArrived.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\Docked.cs" />
@@ -94,8 +94,8 @@
     <Compile Include="A.L.I.C.E Debug\Events\Music.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\NoFireZone.cs" />
     <Compile Include="A.L.I.C.E Debug\ICheck.cs" />
-    <Compile Include="A.L.I.C.E Debug\Orders.cs" />
-    <Compile Include="A.L.I.C.E Debug\Platform.cs" />
+    <Compile Include="A.L.I.C.E Debug\Settings\Orders.cs" />
+    <Compile Include="A.L.I.C.E Debug\Settings\Platform.cs" />
     <Compile Include="A.L.I.C.E Debug\Status\Docking.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment\Fuel Tank.cs" />
     <Compile Include="A.L.I.C.E Equipment\Equipment\Fighter Hanger.cs" />

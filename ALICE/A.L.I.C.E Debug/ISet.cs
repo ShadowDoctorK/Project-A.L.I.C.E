@@ -7,23 +7,11 @@ namespace ALICE_Debug
     /// </summary>
     public static class ISet
     {
-        private static Docking _Docking = new Docking();
-        public static Docking Docking
-        {
-            get => _Docking; set => _Docking = value;
-        }
+        //Status
+        public static Docking Docking { get; set; } = new Docking();
 
-        private static FrameShiftDrive _FrameShiftDrive = new FrameShiftDrive();
-        public static FrameShiftDrive FrameShiftDrive
-        {
-            get => _FrameShiftDrive; set => _FrameShiftDrive = value;
-        }
-
-
-        private static LandingGear _LandingGear = new LandingGear();
-        public static LandingGear LandingGear
-        {
-            get => _LandingGear; set => _LandingGear = value;
-        }
+        //Equipment
+        public static FrameShiftDrive FrameShiftDrive { get; set; } = new FrameShiftDrive();
+        public static LandingGear LandingGear { get; set; } = new LandingGear();
     }
 }

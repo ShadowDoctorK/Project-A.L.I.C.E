@@ -183,7 +183,7 @@ namespace ALICE_Events
                     case IVehicles.V.Mothership:
 
                         //Validate Ship ID
-                        if (IObjects.Mothership.I.ID != -1                  //Default Value For Blank Object (Fresh Ship)
+                        if (IObjects.Mothership.I.ID != -1              //Default Value For Blank Object (Fresh Ship)
                          && IObjects.Mothership.I.ID != I.ShipID)       //Ship ID Should Match, Otherwise Its A Different Ship.
                         {
                             //Event Logger
