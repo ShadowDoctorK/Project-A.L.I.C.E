@@ -554,8 +554,11 @@ namespace ALICE_Keybinds
 
 		public void Load_Keybinds()
 		{
-			//Load Target Binds File
-			AliceBinds = GetBindsFile(ISettings.User.BindsFile);
+            //Logger
+            IPlatform.WriteToInterface("A.L.I.C.E: Targeting Keybinds File: " + ISettings.User.BindsFile, "Purple");
+
+            //Load Target Binds File
+            AliceBinds = GetBindsFile(ISettings.User.BindsFile);
 
 			//Update Binds
 			GetGameBinds();
@@ -612,7 +615,7 @@ namespace ALICE_Keybinds
 						{ IPlatform.WriteToInterface("A.L.I.C.E: " + bind.Key.ToString() + " Virtual Keys = " + Variable, "Green"); }
 
 						//Pass Key To Voice Attack Via The Platform Interface.
-						//IPlatform.SetText(bind.Key.ToString(), Variable);
+						IPlatform.SetText(bind.Key.ToString(), Variable);
 					}
 					else
 					{

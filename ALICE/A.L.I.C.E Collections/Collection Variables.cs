@@ -1,4 +1,5 @@
-﻿using ALICE_Interface;
+﻿using ALICE_Debug;
+using ALICE_Interface;
 using ALICE_Internal;
 using System;
 using System.Collections.Generic;
@@ -64,10 +65,18 @@ namespace ALICE_Collections
 
                             //Pass Variable to Interface. Disable Prefix.
                             IPlatform.SetText(Variable.Key, Variable.Value, false);
+
+                            if (PlugIn.VariableLogging 
+                            && (Variable.Value != "" || Variable.Value != null) 
+                            && ICheck.Initialized(ClassName)
+                            )                               
+                            {
+                                Logger.Simple(Variable.Key + " = " + Variable.Value, "Orange");
+                            }
                         }
 
                         break;
-                }
+                }                
             }
             catch (Exception ex)
             {

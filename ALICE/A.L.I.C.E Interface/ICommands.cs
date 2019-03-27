@@ -1859,6 +1859,19 @@ namespace ALICE_Interface
                     Logger.Log(MethodName, "Debug Mode Disabled", Logger.Yellow);
                 }
             }
+            else if (Command.Check("Variable Mode"))
+            {
+                if (Command.Check("Enable"))
+                {
+                    PlugIn.VariableLogging = true;
+                    Logger.Log(MethodName, "Event Variable Logging Enabled", Logger.Yellow);
+                }
+                else if (Command.Check("Disable"))
+                {
+                    PlugIn.VariableLogging = false;
+                    Logger.Log(MethodName, "Event Variable Logging Disabled", Logger.Yellow);
+                }
+            }
             else if (Command.Check("Monitor Status"))
             {
                 if (Command.Check("Enable"))

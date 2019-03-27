@@ -30,6 +30,7 @@ namespace ALICE_Internal
         public static string Audio = "TTS";                 //TTS, File, External
         public static bool DebugMode = false;
         public static bool ExtendedLogging = false;
+        public static bool VariableLogging = false;
 
         /// <summary>
         /// Initializes the core features.

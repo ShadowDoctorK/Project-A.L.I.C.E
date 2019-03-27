@@ -121,26 +121,27 @@ namespace ALICE_Events
     /// </summary>
     public class Event_Loadout : Event
     {
+        //Event Instance
+        public Loadout I { get; set; } = new Loadout();
+
         //Variable Generation
         public override void Generate(object O)
         {
             try
             {
-                var Event = (Loadout)O;
-                
-                Variables.Record(Name + "_Name", Event.ShipName);
-                Variables.Record(Name + "_CallSign", Event.ShipIdent);
-                Variables.Record(Name + "_HullValue", Event.HullValue);
-                Variables.Record(Name + "_HullHealth", Event.HullHealth);
-                Variables.Record(Name + "_ModuleValue", Event.ModulesValue);
-                Variables.Record(Name + "_TotalValue", Event.HullValue + Event.ModulesValue);
-                Variables.Record(Name + "_Rebuy", Event.Rebuy);
-                Variables.Record(Name + "_Type", Event.Ship);
-                Variables.Record(Name + "_ID", Event.ShipID);
+                Variables.Record(Name + "_Name", I.ShipName);
+                Variables.Record(Name + "_CallSign", I.ShipIdent);
+                Variables.Record(Name + "_HullValue", I.HullValue);
+                Variables.Record(Name + "_HullHealth", I.HullHealth);
+                Variables.Record(Name + "_ModuleValue", I.ModulesValue);
+                Variables.Record(Name + "_TotalValue", I.HullValue + I.ModulesValue);
+                Variables.Record(Name + "_Rebuy", I.Rebuy);
+                Variables.Record(Name + "_Type", I.Ship);
+                Variables.Record(Name + "_ID", I.ShipID);
 
-                foreach (var M in Event.Modules)
+                foreach (var M in I.Modules)
                 {
-                    string Slot = GetSlot(M.Slot);
+                    string Slot = GetSlot(M.Slot, false);
                     Variables.Record(Slot + "_Item", M.Item);
                     Variables.Record(Slot + "_On", M.On);
                     Variables.Record(Slot + "_Priority", M.Priority);
@@ -154,13 +155,25 @@ namespace ALICE_Events
             }
         }
 
+        //Plugin Logic Preparations
+        public override void Prepare(object O)
+        {
+            try
+            {
+                //Update Event Instance
+                I = (Loadout)O;
+            }
+            catch (Exception ex)
+            {
+                ExceptionPrepare(Name, ex);
+            }
+        }
+
         //Plugin Logic Process
         public override void Process(object O)
         {
             try
             {
-                var Event = (Loadout)O;
-
                 //Clear Current Module Data
                 IData.ShipModules.Clear();
 
@@ -171,7 +184,7 @@ namespace ALICE_Events
 
                         //Validate Ship ID
                         if (IObjects.Mothership.I.ID != -1                  //Default Value For Blank Object (Fresh Ship)
-                         && IObjects.Mothership.I.ID != Event.ShipID)       //Ship ID Should Match, Otherwise Its A Different Ship.
+                         && IObjects.Mothership.I.ID != I.ShipID)       //Ship ID Should Match, Otherwise Its A Different Ship.
                         {
                             //Event Logger
                             if (ICheck.Initialized(ClassName))
@@ -180,10 +193,10 @@ namespace ALICE_Events
                             }
 
                             //Different Ship, Reset Object
-                            IObjects.Mothership.New(Event.Event);
+                            IObjects.Mothership.New(I.Event);
 
                             //FingerPrint Generation
-                            string FP = Event.ShipID + " " + Event.Ship + " (" + ISettings.Commander + ")";
+                            string FP = I.ShipID + " " + I.Ship + " (" + ISettings.Commander + ")";
 
                             //Load Ship Data, If It Exist
                             IObjects.Mothership = new Object_Mothership().Load(ClassName, FP);
@@ -216,7 +229,7 @@ namespace ALICE_Events
                     case IVehicles.V.Mothership:
 
                         //Update Object Data
-                        IObjects.Mothership.Update(Event);
+                        IObjects.Mothership.Update(I);
 
                         //Save Mothership Data.
                         new Object_Mothership().Save(IObjects.Mothership, ClassName);
