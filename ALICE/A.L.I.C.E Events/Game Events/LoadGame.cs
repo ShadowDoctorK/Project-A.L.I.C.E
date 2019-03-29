@@ -32,6 +32,7 @@ namespace ALICE_Events
         public string Group { get; set; }
         public decimal Credits { get; set; }
         public decimal Loan { get; set; }
+        public bool StartLanded { get; set; }
 
         //Default Constructor
         public LoadGame()
@@ -50,6 +51,7 @@ namespace ALICE_Events
             Group = Str();
             Credits = Dec();
             Loan = Dec();
+            StartLanded = Bool();
         }
     }
 
@@ -58,30 +60,46 @@ namespace ALICE_Events
     /// </summary>
     public class Event_LoadGame : Event
     {
+        //Event Instance
+        public LoadGame I { get; set; } = new LoadGame();
+
         //Variable Generation
         public override void Generate(object O)
         {
             try
             {
-                var Event = (LoadGame)O;
-                
-                Variables.Record(Name + "_Commander", Event.Commander);
-                Variables.Record(Name + "_PlayerID", Event.FID);
-                Variables.Record(Name + "_Horizons", Event.Horizons);
-                Variables.Switch(Name + "_Ship", Event.Ship_Localised, Event.Ship);
-                Variables.Record(Name + "_ShipID", Event.ShipID);
-                Variables.Record(Name + "_ShipName", Event.ShipName);
-                Variables.Record(Name + "_ShipCallSign", Event.ShipIdent);
-                Variables.Record(Name + "_FuelLevel", Event.FuelLevel);
-                Variables.Record(Name + "_FuelCapacity", Event.FuelCapacity);
-                Variables.Record(Name + "_GameMode", Event.GameMode);
-                Variables.Record(Name + "_Group", Event.Group);
-                Variables.Record(Name + "_Credits", Event.Credits);
-                Variables.Record(Name + "_Load", Event.Loan);
+                Variables.Record(Name + "_Commander", I.Commander);
+                Variables.Record(Name + "_PlayerID", I.FID);
+                Variables.Record(Name + "_Horizons", I.Horizons);
+                Variables.Switch(Name + "_Ship", I.Ship_Localised, I.Ship);
+                Variables.Record(Name + "_ShipID", I.ShipID);
+                Variables.Record(Name + "_ShipName", I.ShipName);
+                Variables.Record(Name + "_ShipCallSign", I.ShipIdent);
+                Variables.Record(Name + "_FuelLevel", I.FuelLevel);
+                Variables.Record(Name + "_FuelCapacity", I.FuelCapacity);
+                Variables.Record(Name + "_GameMode", I.GameMode);
+                Variables.Record(Name + "_Group", I.Group);
+                Variables.Record(Name + "_Credits", I.Credits);
+                Variables.Record(Name + "_Load", I.Loan);
+                Variables.Record(Name + "_Landed", I.StartLanded);
             }
             catch (Exception ex)
             {
                 ExceptionGenerate(Name, ex);
+            }
+        }
+
+        //Plugin Logic Preparations
+        public override void Prepare(object O)
+        {
+            try
+            {
+                //Update Event Instance
+                I = (LoadGame)O;
+            }
+            catch (Exception ex)
+            {
+                ExceptionPrepare(Name, ex);
             }
         }
 
@@ -90,18 +108,16 @@ namespace ALICE_Events
         {
             try
             {
-                var Event = (LoadGame)O;
-
                 //Update Commander Name
-                ISettings.U_Commander(ClassName, Event.Commander);
+                ISettings.U_Commander(ClassName, I.Commander);
 
                 //Vechile = SRV
-                if (Event.Ship.ToLower().Contains("testbuggy"))
+                if (I.Ship.ToLower().Contains("testbuggy"))
                 {
                     IVehicles.Vehicle = IVehicles.V.SRV;
                 }
                 //Vechile = Fighter
-                else if (Event.Ship.ToLower().Contains("fighter"))
+                else if (I.Ship.ToLower().Contains("fighter"))
                 {
                     IVehicles.Vehicle = IVehicles.V.Fighter;
                 }
@@ -117,8 +133,8 @@ namespace ALICE_Events
                     case IVehicles.V.Mothership:
 
                         //Validate Ship ID
-                        if (IObjects.Mothership.I.ID != -1 ||               //Default Value For Blank Object (Fresh Ship)
-                            IObjects.Mothership.I.ID != Event.ShipID)       //Ship ID Should Match, Otherwise Its A Different Ship.
+                        if (IObjects.Mothership.I.ID != -1 ||           //Default Value For Blank Object (Fresh Ship)
+                            IObjects.Mothership.I.ID != I.ShipID)       //Ship ID Should Match, Otherwise Its A Different Ship.
                         {
                             //Event Logger
                             if (ICheck.Initialized(ClassName))
@@ -127,10 +143,10 @@ namespace ALICE_Events
                             }
 
                             //Different Ship, Reset Object
-                            IObjects.Mothership.New(Event.Event);
+                            IObjects.Mothership.New(I.Event);
 
                             //FingerPrint Generation
-                            string FP = Event.ShipID + " " + Event.Ship + " (" + ISettings.Commander + ")";
+                            string FP = I.ShipID + " " + I.Ship + " (" + ISettings.Commander + ")";
 
                             //Load Ship Data, If It Exist
                             IObjects.Mothership = new Object_Mothership().Load(ClassName, FP);
@@ -161,10 +177,10 @@ namespace ALICE_Events
                     case IVehicles.V.Mothership:
 
                         //Update Object Data
-                        IObjects.Mothership.Update(Event);
+                        IObjects.Mothership.Update(I);
 
                         //Save Data Only If Event Data Is Newer The Object Data
-                        if (IObjects.Mothership.EventTimeStamp == Event.Timestamp)
+                        if (IObjects.Mothership.EventTimeStamp == I.Timestamp)
                         {
                             //Save Mothership Data.
                             new Object_Mothership().Save(IObjects.Mothership, ClassName);
@@ -191,7 +207,7 @@ namespace ALICE_Events
                 ISettings.Firegroup.Load();
 
                 //Update Fuel Status
-                IEquipment.FuelTank.Update(Event);
+                IEquipment.FuelTank.Update(I);
             }
             catch (Exception ex)
             {

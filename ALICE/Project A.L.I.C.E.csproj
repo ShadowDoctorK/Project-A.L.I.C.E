@@ -159,7 +159,7 @@
     <Compile Include="A.L.I.C.E Events\Update\Event LaunchSRV.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event LeaveBody.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Liftoff.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event LoadGame.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\LoadGame.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Loadout.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Location.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Market.cs" />
