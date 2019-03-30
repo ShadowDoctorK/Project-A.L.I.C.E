@@ -13,6 +13,11 @@ using System.Threading.Tasks;
 
 namespace ALICE_Actions
 {
+    public static partial class IActions
+    {
+        public static Fighter Fighter { get; set; } = new Fighter();    
+    }
+
     public class Fighter
     {
         public void Deploy(decimal FighterNumber, bool PlayerDeploy, bool CommandAudio)
@@ -334,6 +339,11 @@ namespace ALICE_Actions
                 else if (PlugIn.Audio == "External") { }
             }
             #endregion
+        }
+
+        public void Fighter_PrepairAmbush(bool CommandAudio)
+        {
+
         }
 
         public void AttackMyTarget(bool CommandAudio)

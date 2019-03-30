@@ -4,6 +4,11 @@ using ALICE_Synthesizer;
 
 namespace ALICE_Response
 {
+    public static partial class IResponse
+    {     
+        public static Crew Crew = new Crew();
+    }
+
     public class Crew
     {
         string ClassName = "Response Crew";

@@ -1688,7 +1688,7 @@ namespace ALICE_Interface
             }
             else if (Command.Check("Discovery Scan"))
             {
-                Call.Action.DiscoveryScanner(PlugIn.CommandAudio);
+                IActions.DiscoveryScanner(PlugIn.CommandAudio);
             }
             else if (Command.Check("Xeno Scan"))
             {
@@ -1696,7 +1696,7 @@ namespace ALICE_Interface
             }
             else if (Command.Check("Composite Scan"))
             {
-                Call.Action.CompositeScaner(PlugIn.CommandAudio);
+                IActions.CompositeScaner(PlugIn.CommandAudio);
             }
             else if (Command.Check("Shield Cell"))
             {
@@ -2258,11 +2258,11 @@ namespace ALICE_Interface
                 }
                 else if (Command.Check("Composite Scanner"))
                 {
-                    Call.Action.CompositeScaner(PlugIn.CommandAudio, true);
+                    IActions.CompositeScaner(PlugIn.CommandAudio, true);
                 }
                 else if (Command.Check("Discovery Scanner"))
                 {
-                    Call.Action.DiscoveryScanner(true, false, true);
+                    IActions.DiscoveryScanner(true, false, true);
                 }
                 else if (Command.Check("Wake Scanner"))
                 {
