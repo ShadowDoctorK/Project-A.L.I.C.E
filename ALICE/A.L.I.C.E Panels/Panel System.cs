@@ -35,7 +35,7 @@ namespace ALICE_Panels
 
         public override void TabPrep(decimal Select)
         {
-            if (Check.Panel.Home(MethodName) == false) { Call.Panel.System.Home.Main = 3; }
+            if (Check.Panel.Home(MethodName, true) == false) { Call.Panel.System.Home.Main = 3; }
         }
 
         public class HomeTab : BaseTab

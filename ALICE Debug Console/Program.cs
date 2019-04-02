@@ -23,13 +23,12 @@ namespace ALICE_Debug_Console
         }
 
         public static void Debug()
-        {
-            IPlatform.Interface = IPlatform.Interfaces.VoiceAttack;
+        {            
             PlugIn.Initialize(true, true);
 
-            Thread.Sleep(500000);
-            Thread.Sleep(500000);
-            Thread.Sleep(500000);
+            Thread.Sleep(5000);
+
+            Call.Panel.System.Inventory.ShipsCargo();
         }
     }
 }

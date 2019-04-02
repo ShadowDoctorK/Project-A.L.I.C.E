@@ -46,7 +46,7 @@ namespace ALICE_Actions
     {
         public Sandbox()
         {
-
+            //Empty
         }
 
         public void Check_PreLaunch(bool HaltLaunch = false)

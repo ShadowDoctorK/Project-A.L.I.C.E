@@ -317,6 +317,8 @@ namespace ALICE_Panels
 
         public void Select(int Pause = 0) { Call.Key.Press(Call.Key.UI_Panel_Select, Pause); }
 
+        public void Back(int Pause = 0) { Call.Key.Press(Call.Key.UI_Back, Pause); }
+
         public void MainFourIsFalse()
         {
             Call.Panel.System.Open = false;
