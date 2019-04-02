@@ -1,3 +1,4 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6728e5bbc80747369c545dd0cc671e9e)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ShadowDoctorK/Project-A.L.I.C.E&amp;utm_campaign=Badge_Grade)
 
 # Project-A.L.I.C.E: Artificial Limited Interface & Command Extension
