@@ -7,7 +7,6 @@
 //Reference Journal Line (Lethal): { "timestamp":"2018-11-22T16:26:09Z", "event":"ReceiveText", "From":"Hennen Station", "Message":"$DockingPadBlockHostileComms;", "Message_Localised":"Docking pad violation, lethal response authorised", "Channel":"npc" }
 
 using ALICE_Debug;
-using ALICE_Internal;
 using ALICE_Synthesizer;
 using System;
 

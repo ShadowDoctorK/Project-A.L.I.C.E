@@ -574,9 +574,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="Project A.L.I.C.E.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\Miscellanous.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Miscellanous.Designer.cs</LastGenOutput>
