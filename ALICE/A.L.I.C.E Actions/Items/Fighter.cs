@@ -2,6 +2,7 @@
 using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Objects;
+using ALICE_Response;
 using ALICE_Settings;
 using ALICE_Synthesizer;
 using System;
@@ -25,166 +26,55 @@ namespace ALICE_Actions
             string MethodName = "Deploy Fighter";
 
             #region Validation Checks
-            //If Not In Normal Space...
+            //Check Normal Space
             if (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space) == false)
             {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.Not_Normal_Space),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
+                IResponse.Fighter.NotNormalSpace(CommandAudio); return;
             }
 
-            //If Not In Mothership...
+            //Check Mothership
             if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
             {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.Not_Mothership),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
+                IResponse.Fighter.NotInMothership(CommandAudio); return;
             }
 
-            //If Not Undocked...
+            //Check Undocked
             if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked, true) == false)
             {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.Mothership_Docked),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
+                IResponse.Fighter.MothershipDocked(CommandAudio); return;
             }
 
-            //If Touchdown Is Not False...
+            //Check Touchdown
             if (Check.Variable.Touchdown(false, MethodName) == false)
             {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.Touchdown),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
+                IResponse.Fighter.MothershipTouchdown(CommandAudio); return;
             }
 
-            //If Not Outside No Fire Zone...
+            //Check No Fire Zone
             if (ICheck.NoFireZone.Status(MethodName, false, true) == false)
             {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.No_Fire_Zone),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
+                IResponse.Fighter.InNoFireZone(CommandAudio); return;
             }
 
-            //If Altitude Is Not Zero && Ship Is Not Outside Altitude Band...
+            //Check Altitude
             if (IStatus.Altitude != 0 && (Check.Environment.Altitude(1, 1001, false, MethodName) == false))
             {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.Altitude),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
+                IResponse.Fighter.LowAltitude(CommandAudio); return;
             }
 
-            //If Fighter Hanger Not Installed...
+            //Check Fighter Installed
             if (Check.Equipment.FighterHanger(true, MethodName) == false)
             {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.No_Fighter_Hanger),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
+                IResponse.Fighter.NoFighter(CommandAudio); return;
             }
 
+            //Check Fighter Hanger
             if (Check.Equipment.FighterHangerTotal(FighterNumber, MethodName) == false)
             {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Fighter.Hanger_Total),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
+                IResponse.Fighter.NoHanger(CommandAudio); return;
             }
 
-            #region Crew Check
+            //Check Crew
             if (IStatus.NPC_Crew == false && PlayerDeploy != true)
             {
                 Logger.Log(MethodName, "No Crew", Logger.Red);
@@ -193,8 +83,7 @@ namespace ALICE_Actions
 
                 return;
             }
-            #endregion
-
+            
             Logger.DebugLine(MethodName, "Passed All Checks, Attempting Fighter Deployment", Logger.Red);
             #endregion
 
@@ -216,18 +105,9 @@ namespace ALICE_Actions
             }
             #endregion
 
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true),
-                    CommandAudio
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
+            //Audio - Postive Response
+            IResponse.General.Positve(
+                CommandAudio);                  //Check Command Audio
 
             IStatus.Fighter.WaitLaunch = true;
 
@@ -278,18 +158,9 @@ namespace ALICE_Actions
 
                 if (LaunchCounter > 100)
                 {
-                    #region Audio
-                    if (PlugIn.Audio == "TTS")
-                    {
-                        Speech.Speak
-                            (
-                            "".Phrase(EQ_Fighter.Launch_Error),
-                            CommandAudio
-                            );
-                    }
-                    else if (PlugIn.Audio == "File") { }
-                    else if (PlugIn.Audio == "External") { }
-                    #endregion
+                    //Audio - Fighter Launch Error
+                    IResponse.Fighter.LaunchedCrew(
+                        CommandAudio);                  //Check Command Audio                        
 
                     IStatus.Fighter.WaitLaunch = false;
                     return;
@@ -307,38 +178,15 @@ namespace ALICE_Actions
 
             Thread.Sleep(6000);
 
-            #region Fighter Launched (Crew)
-            if (PlayerDeploy == false)
-            {
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(EQ_Fighter.Launch),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-            }
-            #endregion
+            //Audio - Fighter Launched (Crew)
+            IResponse.Fighter.LaunchedCrew(
+                CommandAudio,                   //Check Command Audio
+                (PlayerDeploy == false));       //Check Player Deploy Status
 
-            #region Fighter Launched (Player)
-            if (PlayerDeploy == true)
-            {
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(EQ_Fighter.Launch)
-                        .Phrase(EQ_Fighter.Launch_Player_Modifer),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-            }
-            #endregion
+            //Audio - Fighter Launched (Player)
+            IResponse.Fighter.LaunchedPlayer(
+                CommandAudio,                   //Check Command Audio
+                (PlayerDeploy == true));        //Check Player Deploy Status   
         }
 
         public void Fighter_PrepairAmbush(bool CommandAudio)

@@ -60,6 +60,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="A.L.I.C.E Actions\Items\Throttle.cs" />
+    <Compile Include="A.L.I.C.E Actions\Items\Docking.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Discovery Scanner.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Composite Scanner.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Fighter.cs" />
@@ -267,12 +269,15 @@
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\General.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Docking.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Bounty.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Discovery Scanner.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Crew.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Frame Shift Drive.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Generic Equipment.cs" />
-    <Compile Include="A.L.I.C.E Response\Composite Scanner.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Composite Scanner.cs" />
+    <Compile Include="A.L.I.C.E Response\Fighter.cs" />
     <Compile Include="A.L.I.C.E Settings\Settings Shipyard.cs" />
     <Compile Include="A.L.I.C.E Status\Status Bounty.cs" />
     <Compile Include="A.L.I.C.E Status\Status Crew.cs" />
