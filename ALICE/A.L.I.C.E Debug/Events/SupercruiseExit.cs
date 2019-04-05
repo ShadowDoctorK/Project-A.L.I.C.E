@@ -1,8 +1,19 @@
-﻿using ALICE_Debug;
-using ALICE_Events;
+﻿#region ICheck
+namespace ALICE_Debug
+{
+    using ALICE_DebugCheck;
+
+    public static partial class ICheck
+    {
+        public static SupercruiseExit SupercruiseExit { get; set; } = new SupercruiseExit();
+    }
+}
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Debug;
+    using ALICE_Events;
+
     public class SupercruiseExit : Debug
     {
         private static ALICE_Events.SupercruiseExit E { get => IEvents.SupercruiseExit.I; }
@@ -23,9 +34,24 @@ namespace ALICE_DebugCheck
         { return Evaluate(M, "BodyID", T, C, E.BodyID, L); }
     }
 }
+#endregion
+
+#region IGet
+namespace ALICE_Debug
+{
+    using ALICE_DebugGet;
+
+    public static partial class IGet
+    {
+        public static SupercruiseExit SupercruiseExit { get; set; } = new SupercruiseExit();
+    }
+}
 
 namespace ALICE_DebugGet
 {
+    using ALICE_Debug;
+    using ALICE_Events;
+
     public class SupercruiseExit : Debug
     {
         private static ALICE_Events.SupercruiseExit E { get => IEvents.SupercruiseExit.I; }
@@ -34,3 +60,4 @@ namespace ALICE_DebugGet
         { return Get(M, "Body", E.Body, L); }
     }
 }
+#endregion

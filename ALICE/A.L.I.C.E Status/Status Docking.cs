@@ -36,7 +36,6 @@ namespace ALICE_Status
         public bool Pending = false;                                            //Custom Property
 
         public Logging Log = new Logging();
-        public Responces Response = new Responces();
 
         public void Update(Docked Event)
         {
@@ -229,7 +228,7 @@ namespace ALICE_Status
                         if (IGet.Music.MusicTrack(MethodName) == IEnums.Starport && 
                             (IStatus.Docking.Preparations == false || ICheck.LandingGear.Status(MethodName, false)))
                         {
-                            IStatus.Docking.Preparations = true; Call.Action.DockingPreparations(true); return;
+                            IStatus.Docking.Preparations = true; IActions.Docking.Preparations(true); return;
                         }
                         Thread.Sleep(100);
                     }
@@ -280,7 +279,7 @@ namespace ALICE_Status
                     ICheck.NoFireZone.Status(MethodName, true) == true && 
                     ICheck.Masslock.Status(MethodName, true) == true)
                     {
-                        Call.Action.Docking(IEnums.CMD.True, true, false);
+                        IActions.Docking.Request(IEnums.CMD.True, true, false);
                         return;
                     }
                     Thread.Sleep(100);
@@ -326,241 +325,6 @@ namespace ALICE_Status
             }))
             { IsBackground = true };
             Action.Start();
-        }
-
-        public class Responces
-        {
-            string MethodName = "Docking Status";
-
-            public void Positve(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Aye Aye Commander." + IStatus.Docking.LandingPad, Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Positive.Default),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void StationHandover(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Station Handover Complete.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Docking_Request.Docking_Computer_Handover)
-                    .Token("[STATION]", IStatus.Docking.StationName),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void Granted(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Permission Granted. Landing Pad: " + IStatus.Docking.LandingPad, Logger.Yellow); }
-
-                Speech.Speak
-                    (""
-                    .Phrase(GN_Docking_Request.Granted)
-                    .Phrase(GN_Docking_Request.Landing_Pad)
-                    .Token("[DOCKSTATION]", IStatus.Docking.StationName)
-                    .Token("[LANDINGPAD]", IStatus.Docking.LandingPad),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void AlreadyGranted(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Permission Already Granted. Landing Pad: " + IStatus.Docking.LandingPad, Logger.Yellow); }
-
-                Speech.Speak (""
-                    .Phrase(GN_Docking_Request.Already_Granted)
-                    .Phrase(GN_Docking_Request.Landing_Pad)
-                    .Token("[DOCKSTATION]", IStatus.Docking.StationName)
-                    .Token("[LANDINGPAD]", IStatus.Docking.LandingPad),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice );
-            }
-
-            public void Docked(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Negative, Ship Is Docked.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Negative.Default, true)
-                    .Phrase(GN_Docking_Request.Docked),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void ActiveFighter(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Acitve Fighter.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Docking_Request.Reason_Active_Fighter),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void Distance(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Out Of Range.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Docking_Request.Reason_Distance),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void Offences(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Acitve Offences.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Docking_Request.Reason_Offences),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void Hostile(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Station Is Hostile.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Docking_Request.Reason_Hostile),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void TooLarge(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Ship Is Too Large.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Docking_Request.Reason_Too_Large),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void NoSpace(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Station Is Full, No Landing Pads Open.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Docking_Request.Reason_No_Space),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void NoReason(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: No Reason Given.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Docking_Request.Reason_None_Given),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void Unknown(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Denial Reason: Unknown.", Logger.Yellow); }
-
-                Speech.Speak("It Is Unclear Why We Were Denied Docking Access Commander.",
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void Datalink(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Successfully Docked.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Facility_Report.Docked)
-                    .Phrase(GN_Facility_Report.Datalink)
-                    .Token("[STATION]", IObjects.FacilityCurrent.Name),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void StationStatus(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Station Status Report Muted.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Facility_Report.Government)
-                    .Phrase(GN_Facility_Report.Economy)
-                    .Phrase(GN_Facility_Report.State, false, true, (Check.State.FacilityCurrent_State("None", false, MethodName)))
-                    .Token("[ECONOMY]", IObjects.FacilityCurrent.Economy)
-                    .Token("[GOVERNMENT]", IObjects.FacilityCurrent.Government)
-                    .Token("[ALLEGIANCE]", IObjects.FacilityCurrent.Allegiance)
-                    .Token("[STATION]", IObjects.FacilityCurrent.Name)
-                    .Token("[STATE]", IObjects.FacilityCurrent.ControlFactionState),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void Undocked(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Ship Is Undocked.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(GN_Facility_Report.Undocked)
-                    .Phrase(GN_Facility_Report.Undocked_Modifier),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void NoFireZoneEntered(string Station, bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Entered No Fire Zone.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(EVT_NoFireZone.Entered)
-                    .Token("[STATION]", Station),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void NoFireZoneExited(string Station, bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Exited No Fire Zone.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(EVT_NoFireZone.Exited)
-                    .Token("[STATION]", Station),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void WeaponSafetiesEnabling(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Enabled Weapon Safeties.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(EQ_Hardpoints.Safety_Engaging),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void WeaponSafetiesDisabling(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Disabled Weapon Safeties.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(EQ_Hardpoints.Safety_Disengaging),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
-
-            public void WeaponSafetiesEnablingDeployed(bool CommandAudio, bool Var1 = true, bool Var2 = true,
-                bool Var3 = true, int Priority = 3, string Voice = null)
-            {
-                if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Retracting Hardpoints, Enabling Weapon Safeties.", Logger.Yellow); }
-
-                Speech.Speak(""
-                    .Phrase(EQ_Hardpoints.Safety_Disengaging),
-                    CommandAudio, Var1, Var2, Var3, Priority, Voice);
-            }
         }
 
         public class Logging

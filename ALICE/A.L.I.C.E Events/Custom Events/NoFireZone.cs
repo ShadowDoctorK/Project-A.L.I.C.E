@@ -8,6 +8,7 @@ using ALICE_Actions;
 using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Internal;
+using ALICE_Response;
 using System;
 using System.Threading;
 
@@ -116,7 +117,7 @@ namespace ALICE_Events
                     IEvents.FireInNoFireZone.I.FirstReport = true;
 
                     //Audio - Entered No Fire Zone
-                    IStatus.Docking.Response.NoFireZoneEntered(
+                    IResponse.Docking.NoFireZoneEntered(
                         I.Station,                                                  //Pass Station Name
                         ICheck.Initialized(ClassName));                             //Check Plugin Initialized
 
@@ -132,14 +133,14 @@ namespace ALICE_Events
                             Call.Action.Hardpoint(false, false);
 
                             //Audio - Enabling Weapon Safeties (Deployed)
-                            IStatus.Docking.Response.WeaponSafetiesEnablingDeployed(
+                            IResponse.Docking.WeaponSafetiesEnablingDeployed(
                                 ICheck.Initialized(ClassName));                     //Check Plugin Initialized
 
                             return;
                         }
 
                         //Audio - Enabling Weapon Safeties
-                        IStatus.Docking.Response.WeaponSafetiesEnablingDeployed(
+                        IResponse.Docking.WeaponSafetiesEnablingDeployed(
                             ICheck.Initialized(ClassName));                         //Check Plugin Initialized
                     }
                 }
@@ -150,7 +151,7 @@ namespace ALICE_Events
                     IStatus.WeaponSafety = false;
 
                     //Audio - Exited No Fire Zone
-                    IStatus.Docking.Response.NoFireZoneExited(
+                    IResponse.Docking.NoFireZoneExited(
                         I.Station,                                                  //Pass Station Name
                         ICheck.Initialized(ClassName));                             //Check Plugin Initialized
 
@@ -159,7 +160,7 @@ namespace ALICE_Events
                     if (ICheck.Order.WeaponSafety(ClassName, true, true))
                     {
                         //Audio - Disabling Weapon Safeties
-                        IStatus.Docking.Response.WeaponSafetiesDisabling(
+                        IResponse.Docking.WeaponSafetiesDisabling(
                             ICheck.Initialized(ClassName));                         //Check Plugin Initialized
                     }
                 }

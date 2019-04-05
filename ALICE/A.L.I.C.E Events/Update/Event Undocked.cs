@@ -6,6 +6,7 @@ using ALICE_Actions;
 using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Internal;
+using ALICE_Response;
 using System;
 using System.Threading;
 
@@ -72,7 +73,7 @@ namespace ALICE_Events
                 var Event = (Undocked)O;
 
                 //Audio - Undocked
-                IStatus.Docking.Response.Undocked(
+                IResponse.Docking.Undocked(
                     ICheck.Initialized(ClassName));    //Check Plugin Initialized
 
                 //Update Status Object

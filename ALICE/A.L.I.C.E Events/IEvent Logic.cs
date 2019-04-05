@@ -14,65 +14,6 @@ namespace ALICE_EventLogic
     {
         #region Custom Event Logic        
 
-        //public static void NoFireZone(NoFireZone Event)
-        //{
-        //    string MethodName = "Logic: No Fire Zone";
-
-        //    //Entering No Fire Zone
-        //    if (ICheck.NoFireZone.Status(MethodName, true) == true)
-        //    {
-        //        IEvents.FireInNoFireZone.FirstReport = true;
-
-        //        //Audio - Entered No Fire Zone
-        //        IStatus.Docking.Response.NoFireZoneEntered(
-        //            Event.Station,                                      //Pass Station Name
-        //            ICheck.Initialized(MethodName));    //Check Plugin Initialized
-
-        //        Thread.Sleep(100);
-
-        //        if (Check.Order.WeaponSafety(true, MethodName))
-        //        {
-        //            IStatus.WeaponSafety = true;
-        //            Call.Action.AnalysisMode(true, false);
-
-        //            if (Check.Variable.Hardpoints(true, MethodName) == true)
-        //            {
-        //                Call.Action.Hardpoint(false, false);
-
-        //                //Audio - Enabling Weapon Safeties (Deployed)
-        //                IStatus.Docking.Response.WeaponSafetiesEnablingDeployed(                            
-        //                    ICheck.Initialized(MethodName));    //Check Plugin Initialized
-
-        //                return;
-        //            }
-
-        //            //Audio - Enabling Weapon Safeties
-        //            IStatus.Docking.Response.WeaponSafetiesEnablingDeployed(                        
-        //                ICheck.Initialized(MethodName));    //Check Plugin Initialized
-        //        }
-        //    }
-
-        //    //Exiting No Fire Zone
-        //    else if (ICheck.NoFireZone.Status(MethodName, true) == false)
-        //    {
-        //        IStatus.WeaponSafety = false;
-
-        //        //Audio - Exited No Fire Zone
-        //        IStatus.Docking.Response.NoFireZoneExited(
-        //            Event.Station,                                      //Pass Station Name
-        //            ICheck.Initialized(MethodName));    //Check Plugin Initialized
-
-        //        Thread.Sleep(100);
-
-        //        if (Check.Order.WeaponSafety(true, MethodName))
-        //        {
-        //            //Audio - Disabling Weapon Safeties
-        //            IStatus.Docking.Response.WeaponSafetiesDisabling(
-        //                ICheck.Initialized(MethodName));    //Check Plugin Initialized
-        //        }
-        //    }
-        //}      
-
         #region Under Construction
         public static void DisobeyPolice(DisobeyPolice Event)
         {

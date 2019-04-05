@@ -1,8 +1,19 @@
-﻿using ALICE_Debug;
-using ALICE_Interface;
+﻿#region ICheck
+namespace ALICE_Debug
+{
+    using ALICE_DebugCheck;
+
+    public static partial class ICheck
+    {
+        public static Platform Platform { get; set; } = new Platform();
+    }
+}
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Debug;
+    using ALICE_Interface;
+
     public class Platform : Debug
     {
         /// <summary>
@@ -16,12 +27,26 @@ namespace ALICE_DebugCheck
         public bool CommandExist(string M, string C, bool L, bool T = true)
         {
             return Evaluate(M, "Command Exist", T, IPlatform.CommandExists(C), L);
-        }   
+        }
+    }
+}
+#endregion
+
+#region IGet
+namespace ALICE_Debug
+{
+    using ALICE_DebugGet;
+
+    public static partial class IGet
+    {
+        public static Platform Platform { get; set; } = new Platform();
     }
 }
 
 namespace ALICE_DebugGet
 {
+    using ALICE_Debug;
+
     public class Platform : Debug
     {
         /// <summary>
@@ -69,3 +94,4 @@ namespace ALICE_DebugGet
         }
     }
 }
+#endregion

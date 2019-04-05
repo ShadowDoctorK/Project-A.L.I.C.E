@@ -1,8 +1,19 @@
-﻿using ALICE_Debug;
-using ALICE_Equipment;
+﻿#region ICheck
+namespace ALICE_Debug
+{
+    using ALICE_DebugCheck;
+
+    public static partial class ICheck
+    {
+        public static LandingGear LandingGear { get; set; } = new LandingGear();
+    }
+}
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Debug;
+    using ALICE_Equipment;
+
     public class LandingGear : Debug
     {
         private static ALICE_Equipment.LandingGear E { get => IEquipment.LandingGear; }
@@ -14,9 +25,24 @@ namespace ALICE_DebugCheck
         { return Evaluate(M, "Landing Gear (Enabled)", T, E.Settings.Enabled, L); }
     }
 }
+#endregion
+
+#region IGet
+namespace ALICE_Debug
+{
+    using ALICE_DebugGet;
+
+    public static partial class IGet
+    {
+        public static LandingGear LandingGear { get; set; } = new LandingGear();
+    }
+}
 
 namespace ALICE_DebugGet
 {
+    using ALICE_Debug;
+    using ALICE_Equipment;
+
     public class LandingGear : Debug
     {
         private static ALICE_Equipment.LandingGear E { get => IEquipment.LandingGear; }
@@ -28,9 +54,24 @@ namespace ALICE_DebugGet
         { return Get(M, "Landing Gear (Enabled)", E.Settings.Enabled, L); }
     }
 }
+#endregion
+
+#region ISet
+namespace ALICE_Debug
+{
+    using ALICE_DebugSet;
+
+    public static partial class ISet
+    {
+        public static LandingGear LandingGear { get; set; } = new LandingGear();
+    }
+}
 
 namespace ALICE_DebugSet
 {
+    using ALICE_Debug;
+    using ALICE_Equipment;
+
     public class LandingGear : Debug
     {
         private static ALICE_Equipment.LandingGear E
@@ -43,3 +84,4 @@ namespace ALICE_DebugSet
         { Set(M, "Landing Gear (Status)", ref E.Status, V, L); }
     }
 }
+#endregion

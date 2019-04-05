@@ -5,8 +5,8 @@
 using ALICE_Actions;
 using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Equipment;
 using ALICE_Internal;
+using ALICE_Response;
 using System;
 
 namespace ALICE_Events
@@ -93,12 +93,12 @@ namespace ALICE_Events
                 }
 
                 //Audio - Supercruise
-                IEquipment.FrameShiftDrive.SC_Entering(
+                IResponse.FrameShiftDrive.SC_Entering(
                     ICheck.Initialized(ClassName),                            //Check Plugin Initialized
                     ICheck.FrameShiftDrive.Supercruise(ClassName, true));     //Check Supercruise Charge State
 
                 //Audio - Hyperspace
-                IEquipment.FrameShiftDrive.HS_Entering(
+                IResponse.FrameShiftDrive.HS_Entering(
                     ICheck.Initialized(ClassName),                            //Check Plugin Initialized
                     ICheck.FrameShiftDrive.Hyperspace(ClassName, true));      //Chekc Hyperspace Charge State
 

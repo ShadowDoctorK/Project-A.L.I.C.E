@@ -6,6 +6,7 @@ using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Objects;
+using ALICE_Response;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -140,7 +141,7 @@ namespace ALICE_Events
                 IObjects.SystemCurrent.Update_Facility(I);
 
                 //Docked Datalink Audio
-                IStatus.Docking.Response.Datalink(
+                IResponse.Docking.Datalink(
                     ICheck.Report.StationStatus(ClassName, true, true),         //Check User Settings Report Enabled
                     ICheck.Initialized(ClassName),                              //Check Plugin Initialized
                     (IStatus.Docking.State == IEnums.DockingState.Granted));    //Check Docking State Is Granted
@@ -149,7 +150,7 @@ namespace ALICE_Events
                 Thread.Sleep(100);
 
                 //Docked Datalink Audio
-                IStatus.Docking.Response.StationStatus(
+                IResponse.Docking.StationStatus(
                     ICheck.Report.StationStatus(ClassName, true, true),         //Check User Settings Report Enabled
                     ICheck.Initialized(ClassName),                              //Check Plugin Initialized
                     (IStatus.Docking.State == IEnums.DockingState.Granted));    //Check Docking State Is Granted

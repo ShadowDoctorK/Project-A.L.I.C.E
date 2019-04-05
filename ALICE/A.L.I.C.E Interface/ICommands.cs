@@ -1325,234 +1325,234 @@ namespace ALICE_Interface
 
                     IPlatform.SetText(IPlatform.IVar.BoostNum, null);
 
-                    Call.Action.Boost(BoostNum, true, PlugIn.CommandAudio);
+                    IActions.Throttle.Boost(BoostNum, true, PlugIn.CommandAudio);
                 }
                 else if (Command.Check("Boost Stop"))
                 {
-                    Call.Action.Num_Boost = 0;
+                    IActions.Throttle.Num_Boost = 0;
                 }
                 else if (Command.Check("15"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_15();
+                        IActions.Throttle.S15();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_15(true);
+                        IActions.Throttle.S15(true);
                     }
                 }
                 else if (Command.Check("20"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_20();
+                        IActions.Throttle.S20();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_20(true);
+                        IActions.Throttle.S20(true);
                     }
                 }
                 else if (Command.Check("25"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_25();
+                        IActions.Throttle.S25();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_25(true);
+                        IActions.Throttle.S25(true);
                     }
                 }
                 else if (Command.Check("30"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_30();
+                        IActions.Throttle.S30();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_30(true);
+                        IActions.Throttle.S30(true);
                     }
                 }
                 else if (Command.Check("35"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_35();
+                        IActions.Throttle.S35();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_35(true);
+                        IActions.Throttle.S35(true);
                     }
                 }
                 else if (Command.Check("40"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_40();
+                        IActions.Throttle.S40();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_40(true);
+                        IActions.Throttle.S40(true);
                     }
                 }
                 else if (Command.Check("45"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_45();
+                        IActions.Throttle.S45();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_45(true);
+                        IActions.Throttle.S45(true);
                     }
                 }
                 else if (Command.Check("50"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_50();
+                        IActions.Throttle.S50();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_50(true);
+                        IActions.Throttle.S50(true);
                     }
                 }
                 else if (Command.Check("55"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_55();
+                        IActions.Throttle.S55();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_55(true);
+                        IActions.Throttle.S55(true);
                     }
                 }
                 else if (Command.Check("60"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_60();
+                        IActions.Throttle.S60();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_60(true);
+                        IActions.Throttle.S60(true);
                     }
                 }
                 else if (Command.Check("65"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_65();
+                        IActions.Throttle.S65();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_65(true);
+                        IActions.Throttle.S65(true);
                     }
                 }
                 else if (Command.Check("70"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_70();
+                        IActions.Throttle.S70();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_70(true);
+                        IActions.Throttle.S70(true);
                     }
                 }
                 else if (Command.Check("75"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_75();
+                        IActions.Throttle.S75();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_75(true);
+                        IActions.Throttle.S75(true);
                     }
                 }
                 else if (Command.Check("80"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_80();
+                        IActions.Throttle.S80();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_80(true);
+                        IActions.Throttle.S80(true);
                     }
                 }
                 else if (Command.Check("85"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_85();
+                        IActions.Throttle.S85();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_85(true);
+                        IActions.Throttle.S85(true);
                     }
                 }
                 else if (Command.Check("90"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_90();
+                        IActions.Throttle.S90();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_90(true);
+                        IActions.Throttle.S90(true);
                     }
                 }
                 else if (Command.Check("95"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_95();
+                        IActions.Throttle.S95();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_95(true);
+                        IActions.Throttle.S95(true);
                     }
                 }
                 else if (Command.Check("100"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_100();
+                        IActions.Throttle.S100();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_100(true);
+                        IActions.Throttle.S100(true);
                     }
                 }
                 else if (Command.Check("10"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_10();
+                        IActions.Throttle.S10();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_10(true);
+                        IActions.Throttle.S10(true);
                     }
                 }
                 else if (Command.Check("0"))
                 {
-                    Call.Action.Throttle_0();
+                    IActions.Throttle.S0();
                 }
                 else if (Command.Check("5"))
                 {
                     if (Command.Check("Positive"))
                     {
-                        Call.Action.Throttle_5();
+                        IActions.Throttle.S5();
                     }
                     else if (Command.Check("Negative"))
                     {
-                        Call.Action.Throttle_5(true);
+                        IActions.Throttle.S5(true);
                     }
                 }
             }
@@ -1621,11 +1621,11 @@ namespace ALICE_Interface
             }
             else if (Command.Check("Cancel Docking"))
             {
-                Call.Action.Docking(IEnums.CMD.False, PlugIn.CommandAudio);
+                IActions.Docking.Request(IEnums.CMD.False, PlugIn.CommandAudio);
             }
             else if (Command.Check("Request Docking"))
             {
-                Call.Action.Docking(IEnums.CMD.True, PlugIn.CommandAudio, true);
+                IActions.Docking.Request(IEnums.CMD.True, PlugIn.CommandAudio, true);
             }
             else if (Command.Check("Deploy Fighter"))
             {
@@ -1680,7 +1680,7 @@ namespace ALICE_Interface
             }
             else if (Command.Check("Prepare To Dock"))
             {
-                Call.Action.DockingPreparations(PlugIn.CommandAudio);
+                IActions.Docking.Preparations(PlugIn.CommandAudio);
             }
             else if (Command.Check("Prepare To Land"))
             {
@@ -1688,7 +1688,7 @@ namespace ALICE_Interface
             }
             else if (Command.Check("Discovery Scan"))
             {
-                Call.Action.DiscoveryScanner(PlugIn.CommandAudio);
+                IActions.DiscoveryScanner(PlugIn.CommandAudio);
             }
             else if (Command.Check("Xeno Scan"))
             {
@@ -1696,7 +1696,7 @@ namespace ALICE_Interface
             }
             else if (Command.Check("Composite Scan"))
             {
-                Call.Action.CompositeScaner(PlugIn.CommandAudio);
+                IActions.CompositeScaner(PlugIn.CommandAudio);
             }
             else if (Command.Check("Shield Cell"))
             {
@@ -2258,11 +2258,11 @@ namespace ALICE_Interface
                 }
                 else if (Command.Check("Composite Scanner"))
                 {
-                    Call.Action.CompositeScaner(PlugIn.CommandAudio, true);
+                    IActions.CompositeScaner(PlugIn.CommandAudio, true);
                 }
                 else if (Command.Check("Discovery Scanner"))
                 {
-                    Call.Action.DiscoveryScanner(true, false, true);
+                    IActions.DiscoveryScanner(true, false, true);
                 }
                 else if (Command.Check("Wake Scanner"))
                 {

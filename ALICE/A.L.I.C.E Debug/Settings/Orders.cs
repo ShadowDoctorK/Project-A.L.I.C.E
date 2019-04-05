@@ -1,8 +1,19 @@
-﻿using ALICE_Debug;
-using ALICE_Settings;
+﻿#region ICheck
+namespace ALICE_Debug
+{
+    using ALICE_DebugCheck;
+
+    public static partial class ICheck
+    {
+        public static Orders Order { get; set; } = new Orders();
+    }
+}
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Debug;
+    using ALICE_Settings;
+
     public class Orders : Debug
     {
         public bool AssistDocking(string M, bool T, bool L = true)
@@ -33,3 +44,4 @@ namespace ALICE_DebugCheck
         { return Evaluate(M, "Weapon Safety Interlocks", T, ISettings.WeaponSafety, L); }
     }
 }
+#endregion

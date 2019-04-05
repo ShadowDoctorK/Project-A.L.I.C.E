@@ -1,8 +1,19 @@
-﻿using ALICE_Debug;
-using ALICE_Events;
+﻿#region ICheck
+namespace ALICE_Debug
+{
+    using ALICE_DebugCheck;
+
+    public static partial class ICheck
+    {
+        public static SupercruiseEntry SupercruiseEntry { get; set; } = new SupercruiseEntry();
+    }
+}
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Debug;
+    using ALICE_Events;
+
     public class SupercruiseEntry : Debug
     {
         private static ALICE_Events.SupercruiseEntry E { get => IEvents.SupercruiseEntry.I; }
@@ -14,3 +25,4 @@ namespace ALICE_DebugCheck
         { return Evaluate(M, "SystemAddress", T, C, E.SystemAddress, L); }
     }
 }
+#endregion

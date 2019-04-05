@@ -3,10 +3,16 @@ using ALICE_Debug;
 using ALICE_Equipment;
 using ALICE_Internal;
 using ALICE_Objects;
+using ALICE_Response;
 using System.Threading;
 
 namespace ALICE_Actions
 {
+    public static partial class IActions
+    {     
+        public static FrameShiftDrive FrameShiftDrive { get; set; } = new FrameShiftDrive();
+    }
+
     public class FrameShiftDrive
     {       
         public enum Validate { Pass, Vehicle, Touchdown, Docked, Hyperspace, Supercruise, NormalSpace }        
@@ -38,12 +44,12 @@ namespace ALICE_Actions
                     //Abort Sucessful
                     if (IEquipment.FrameShiftDrive.Abort() == true)
                     {
-                        IEquipment.FrameShiftDrive.AbortSuccessful(A);
+                        IResponse.FrameShiftDrive.AbortSuccessful(A);
                     }
                     //Abort Failed
                     else
                     {
-                        IEquipment.FrameShiftDrive.AbortFailed(A);
+                        IResponse.FrameShiftDrive.AbortFailed(A);
                         return;
                     }
 
@@ -81,7 +87,7 @@ namespace ALICE_Actions
 
                 case Validate.Hyperspace:
                     //Currently In Hyperspace
-                    IEquipment.FrameShiftDrive.HS_CurrentlyHyperspace(A);
+                    IResponse.FrameShiftDrive.HS_CurrentlyHyperspace(A);
                     IEquipment.FrameShiftDrive.Returned(MethodName);
                     return;
 
@@ -100,7 +106,7 @@ namespace ALICE_Actions
 
                 case Charge.Hyperspace:
                     //Already Charging For Hyperspace
-                    IEquipment.FrameShiftDrive.HS_CurrentlyCharging(A);
+                    IResponse.FrameShiftDrive.HS_CurrentlyCharging(A);
                     IEquipment.FrameShiftDrive.Returned(MethodName);
                     return;
 
@@ -160,7 +166,7 @@ namespace ALICE_Actions
             {
                 //Prepare For Hyperspace
                 IEquipment.FrameShiftDrive.Prepair(MethodName, true, true);
-                IEquipment.FrameShiftDrive.HS_Prepairing(A);
+                IResponse.FrameShiftDrive.HS_Prepairing(A);
 
                 //Check If We Are Waiting For A Mark
                 if (M)
@@ -238,7 +244,7 @@ namespace ALICE_Actions
                 //Start & Monitor
                 if (IEquipment.FrameShiftDrive.Start(true) == false)
                 {
-                    IEquipment.FrameShiftDrive.FailedToEngage(A);
+                    IResponse.FrameShiftDrive.FailedToEngage(A);
                     IEquipment.FrameShiftDrive.Reset(MethodName, true, true, false);
                 }
             }
@@ -272,13 +278,13 @@ namespace ALICE_Actions
 
                 case Validate.Supercruise:
                     //Currently In Supercruise
-                    IEquipment.FrameShiftDrive.SC_CurrentlySupercruise(A);
+                    IResponse.FrameShiftDrive.SC_CurrentlySupercruise(A);
                     IEquipment.FrameShiftDrive.Returned(MethodName);
                     return;
 
                 case Validate.NormalSpace:
                     //Currently In Hyperspace
-                    IEquipment.FrameShiftDrive.SC_CurrentlyNormalSpace(A);
+                    IResponse.FrameShiftDrive.SC_CurrentlyNormalSpace(A);
                     IEquipment.FrameShiftDrive.Returned(MethodName);
                     return;
 
@@ -301,7 +307,7 @@ namespace ALICE_Actions
 
                 case Charge.Supercruise:
                     //Already Charging For Supercruise
-                    IEquipment.FrameShiftDrive.SC_CurrentlyCharging(A);
+                    IResponse.FrameShiftDrive.SC_CurrentlyCharging(A);
                     IEquipment.FrameShiftDrive.Returned(MethodName);
                     return;
 
@@ -360,7 +366,7 @@ namespace ALICE_Actions
                 {
                     //Prepare For Supercruise
                     IEquipment.FrameShiftDrive.Prepair(MethodName, true);
-                    IEquipment.FrameShiftDrive.SC_Prepairing(A);
+                    IResponse.FrameShiftDrive.SC_Prepairing(A);
 
                     //Check If We Are Waiting For A Mark
                     if (M)
@@ -438,7 +444,7 @@ namespace ALICE_Actions
                     //Start & Monitor
                     if (IEquipment.FrameShiftDrive.Start(false) == false)
                     {
-                        IEquipment.FrameShiftDrive.FailedToEngage(A);
+                        IResponse.FrameShiftDrive.FailedToEngage(A);
                         IEquipment.FrameShiftDrive.Reset(MethodName, true, true, false);
                     }
                 }
@@ -493,13 +499,13 @@ namespace ALICE_Actions
                     }
 
                     //Disengagin Audio
-                    IEquipment.FrameShiftDrive.SC_Disengaging(A);
+                    IResponse.FrameShiftDrive.SC_Disengaging(A);
 
                     //Stop & Monitor
                     if (IEquipment.FrameShiftDrive.Stop() == false)
                     {
                         //Too Fast Audio
-                        IEquipment.FrameShiftDrive.TooFast(A);
+                        IResponse.FrameShiftDrive.TooFast(A);
 
                         //Watch Response For 10 Seconds
                         switch (IStatus.Interaction.Question(10000))
@@ -519,7 +525,7 @@ namespace ALICE_Actions
                                 //Emergency Stop & Montor
                                 if (IEquipment.FrameShiftDrive.Stop(true) == false)
                                 {
-                                    IEquipment.FrameShiftDrive.FailedToDisengage(A);
+                                    IResponse.FrameShiftDrive.FailedToDisengage(A);
                                     ISet.FrameShiftDrive.Disengaging(MethodName, false);
                                 }
 
@@ -626,7 +632,7 @@ namespace ALICE_Actions
             {
                 if (ICheck.Masslock.Status(M, false) == false)
                 {
-                    IEquipment.FrameShiftDrive.Masslocked(A);
+                    IResponse.FrameShiftDrive.Masslocked(A);
 
                     while (ICheck.Masslock.Status(M, false, false) == false && Prep == true)
                     {
@@ -641,7 +647,7 @@ namespace ALICE_Actions
             {
                 if (ICheck.FrameShiftDrive.Cooldown(M, false) == false)
                 {
-                    IEquipment.FrameShiftDrive.CoolingDown(A);
+                    IResponse.FrameShiftDrive.CoolingDown(A);
 
                     while (ICheck.FrameShiftDrive.Cooldown(M, false, false) == false && Prep == true)
                     {

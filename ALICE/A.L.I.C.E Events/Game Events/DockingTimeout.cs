@@ -12,7 +12,17 @@ namespace ALICE_Events
     /// </summary>
     public class DockingTimeout : Base
     {
-        //No Properties
+        public string StationName { get; set; }
+        public string StationType { get; set; }
+        public decimal MarketID { get; set; }
+
+        //Default Constructor
+        public DockingTimeout()
+        {
+            StationName = Str();
+            StationType = Str();        
+            MarketID = Dec();
+        }
     }
 
     /// <summary>
@@ -22,6 +32,21 @@ namespace ALICE_Events
     {
         //Event Instance
         public DockingTimeout I { get; set; } = new DockingTimeout();
+
+        //Variable Generation
+        public override void Generate(object O)
+        {
+            try
+            {
+                Variables.Record(Name + "_Station", I.StationName);
+                Variables.Record(Name + "_Type", I.StationType);
+                Variables.Record(Name + "_Market", I.MarketID);
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
+            }
+        }
 
         //Plugin Logic Preparations
         public override void Prepare(object O)

@@ -2,12 +2,11 @@
 //Class File Generated: 11/20/2018 9:56 PM
 //Source Journal Line: { "timestamp":"2018-11-21T02:14:32Z", "event":"FSSDiscoveryScan", "Progress":0.000000, "BodyCount":66, "NonBodyCount":0 }
 
-
-using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Equipment;
 using ALICE_Internal;
 using ALICE_Objects;
+using ALICE_Response;
 using System;
 
 namespace ALICE_Events
@@ -60,13 +59,13 @@ namespace ALICE_Events
                 var Event = (FSSDiscoveryScan)O;
 
                 //New Returns Audio
-                IEquipment.DiscoveryScanner.NewReturns(
+                IResponse.DiscoveryScanner.NewReturns(
                     Event.BodyCount,                                                //Number Of Bodies
                     ICheck.Initialized(ClassName),                                  //Check Plugin Initialized
                     (IObjects.SystemCurrent.StellarBodies != Event.BodyCount));     //Check For New Returns
 
                 //No New Returns Audio
-                IEquipment.DiscoveryScanner.NoReturns(
+                IResponse.DiscoveryScanner.NoReturns(
                     ICheck.Initialized(ClassName),                                  //Check Plugin Initialized
                     (IObjects.SystemCurrent.StellarBodies == Event.BodyCount));     //Check For No New Returns
 

@@ -1,13 +1,19 @@
-﻿using ALICE_Core;
-using ALICE_Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region ICheck
+namespace ALICE_Debug
+{
+    using ALICE_DebugCheck;
+
+    public static partial class ICheck
+    {
+        public static Environment Environment { get; set; } = new Environment();
+    }
+}
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Core;
+    using ALICE_Internal;
+
     public class Environment
     {
         public bool Space(string M, bool T, string C, bool L = true)
@@ -48,9 +54,24 @@ namespace ALICE_DebugCheck
         }
     }
 }
+#endregion
+
+#region IGet
+namespace ALICE_Debug
+{
+    using ALICE_DebugGet;
+
+    public static partial class IGet
+    {
+        public static Environment Environment { get; set; } = new Environment();
+    }
+}
 
 namespace ALICE_DebugGet
 {
+    using ALICE_Core;
+    using ALICE_Internal;
+
     public class Environment
     {
         public string Space(string M)
@@ -73,11 +94,27 @@ namespace ALICE_DebugGet
         }
     }
 }
+#endregion
+
+#region ISet
+namespace ALICE_Debug
+{
+    using ALICE_DebugSet;
+
+    public static partial class ISet
+    {
+        public static Environment Environment { get; set; } = new Environment();
+    }
+}
 
 namespace ALICE_DebugSet
 {
+    using ALICE_Core;
+    using ALICE_Internal;
+
     public class Environment
     {
-
+        //Empty
     }
 }
+#endregion

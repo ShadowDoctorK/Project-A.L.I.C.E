@@ -28,7 +28,16 @@ namespace ALICE_Interface
             WeaponPower,
             SystemPower,
             RecordPower,
-            BookmarkNum
+            BookmarkNum,
+            NavStars,           //Location Filter - Stars
+            NavAsteroids,       //Location Filter - Asteroid Clusters
+            NavPlanets,         //Location Filter - Planets And Moons
+            NavLandfalls,       //Location Filter - Landfall Planets And Moons
+            NavSettlements,     //Location Filter - Settlements
+            NavStations,        //Location Filter - Stations
+            NavPoints,          //Location Filter - Points Of Interest
+            NavSignals,         //Location Filter - Signal Sources
+            NavSystems          //Location Filter - Systems
         }
 
         public static dynamic ProxyObject; //This is the object thats allows interfacing with Voice Attack.

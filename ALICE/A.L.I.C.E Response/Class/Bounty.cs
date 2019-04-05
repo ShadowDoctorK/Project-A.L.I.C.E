@@ -4,6 +4,11 @@ using ALICE_Synthesizer;
 
 namespace ALICE_Response
 {
+    public static partial class IResponse
+    {
+        public static Bounty Bounty = new Bounty();        
+    }
+
     public class Bounty
     {
         string ClassName = "Response Bounty";

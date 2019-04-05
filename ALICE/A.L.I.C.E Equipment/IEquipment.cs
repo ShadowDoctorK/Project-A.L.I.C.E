@@ -98,187 +98,34 @@ namespace ALICE_Equipment
             Xeno_Scanner
         }
 
-        #region Equipment Properties
-        /// <summary>
-        /// Generic Equipment Reference used for Default responses.
-        /// </summary>
-        private static Equipment_General _General = new Equipment_General();
-        public static Equipment_General General { get => _General; set => _General = value; }
+        public static Equipment_General General { get; set; } = new Equipment_General();
+        public static Equipment_CompositeScanner CompositeScanner { get; set; } = new Equipment_CompositeScanner();
+        public static Equipment_DiscoveryScanner DiscoveryScanner { get; set; } = new Equipment_DiscoveryScanner();
+        public static Equipment_DockingComputer DockingComputer { get; set; } = new Equipment_DockingComputer();
+        public static Equipment_ExternalLights ExternalLights { get; set; } = new Equipment_ExternalLights();
+        public static Equipment_ElectronicCountermeasure ElectronicCountermeasure { get; set; } = new Equipment_ElectronicCountermeasure();
+        public static Equipment_FighterHanger FighterHanger { get; set; } = new Equipment_FighterHanger();
+        public static FrameShiftDrive FrameShiftDrive { get; set; } = new FrameShiftDrive();
+        public static Equipment_FSDInterdictor FSDInterdictor { get; set; } = new Equipment_FSDInterdictor();
+        public static Equipment_FuelTank FuelTank { get; set; } = new Equipment_FuelTank();
+        public static LandingGear LandingGear { get; set; } = new LandingGear();
+        public static Equipment_LimpetCollector LimpetCollector { get; set; } = new Equipment_LimpetCollector();
+        public static Equipment_LimpetDecontamination LimpetDecontamination { get; set; } = new Equipment_LimpetDecontamination();
+        public static Equipment_LimpetHatchBreaker LimpetHatchBreaker { get; set; } = new Equipment_LimpetHatchBreaker();
+        public static Equipment_LimpetFuel LimpetFuel { get; set; } = new Equipment_LimpetFuel();
+        public static Equipment_LimpetProspector LimpetProspector { get; set; } = new Equipment_LimpetProspector();
+        public static Equipment_LimpetRecon LimpetRecon { get; set; } = new Equipment_LimpetRecon();
+        public static Equipment_LimpetRepair LimpetRepair { get; set; } = new Equipment_LimpetRepair();
+        public static Equipment_LimpetResearch LimpetResearch { get; set; } = new Equipment_LimpetResearch();
+        public static Equipment_PulseWaveScanner PulseWaveScanner { get; set; } = new Equipment_PulseWaveScanner();
+        public static Shields Shields { get; set; } = new Shields();
+        public static Equipment_ShieldCellBank ShieldCellBank { get; set; } = new Equipment_ShieldCellBank();
+        public static Equipment_ShutdownFieldNeutrailser ShutdownFieldNeutraliser { get; set; } = new Equipment_ShutdownFieldNeutrailser();
+        public static Equipment_SurfaceScanner SurfaceScanner { get; set; } = new Equipment_SurfaceScanner();
+        public static Equipment_WakeScanner WakeScanner { get; set; } = new Equipment_WakeScanner();
+        public static Equipment_XenoScanner XenoScanner { get; set; } = new Equipment_XenoScanner();
+        public static Equipment_ExternalLights ExternalLights1 { get; set; } = new Equipment_ExternalLights();
 
-        private static Equipment_CompositeScanner _CompositeScanner = new Equipment_CompositeScanner();
-        public static Equipment_CompositeScanner CompositeScanner
-        {
-            get => _CompositeScanner;
-            set => _CompositeScanner = value;
-        }
-
-        private static Equipment_DiscoveryScanner _DiscoveryScanner = new Equipment_DiscoveryScanner();
-        public static Equipment_DiscoveryScanner DiscoveryScanner
-        {
-            get => _DiscoveryScanner;
-            set => _DiscoveryScanner = value;
-        }
-
-        private static Equipment_DockingComputer _DockingComputer = new Equipment_DockingComputer();
-        public static Equipment_DockingComputer DockingComputer
-        {
-            get => _DockingComputer;
-            set => _DockingComputer = value;
-        }
-
-        private static Equipment_ExternalLights _ExternalLights = new Equipment_ExternalLights();
-        public static Equipment_ExternalLights ExternalLights
-        {
-            get => _ExternalLights;
-            set => _ExternalLights = value;
-        }
-
-        private static Equipment_ElectronicCountermeasure _ElectronicCountermeasure = new Equipment_ElectronicCountermeasure();
-        public static Equipment_ElectronicCountermeasure ElectronicCountermeasure
-        {
-            get => _ElectronicCountermeasure;
-            set => _ElectronicCountermeasure = value;
-        }
-
-        private static Equipment_FighterHanger _FighterHanger = new Equipment_FighterHanger();
-        public static Equipment_FighterHanger FighterHanger
-        {
-            get => _FighterHanger;
-            set => _FighterHanger = value;
-        }
-
-        private static FrameShiftDrive _FrameShiftDrive = new FrameShiftDrive();
-        public static FrameShiftDrive FrameShiftDrive
-        {
-            get => _FrameShiftDrive;
-            set => _FrameShiftDrive = value;
-        }
-
-        private static Equipment_FSDInterdictor _FSDInterdictor = new Equipment_FSDInterdictor();
-        public static Equipment_FSDInterdictor FSDInterdictor
-        {
-            get => _FSDInterdictor;
-            set => _FSDInterdictor = value;
-        }
-
-        private static Equipment_FuelTank _FuelTank = new Equipment_FuelTank();
-        public static Equipment_FuelTank FuelTank
-        {
-            get => _FuelTank;
-            set => _FuelTank = value;
-        }
-
-        private static LandingGear _LandingGear = new LandingGear();
-        public static LandingGear LandingGear
-        {
-            get => _LandingGear;
-            set => _LandingGear = value;
-        }
-
-        private static Equipment_LimpetCollector _LimpetCollector = new Equipment_LimpetCollector();
-        public static Equipment_LimpetCollector LimpetCollector
-        {
-            get => _LimpetCollector;
-            set => _LimpetCollector = value;
-        }
-
-        private static Equipment_LimpetDecontamination _LimpetDecontamination = new Equipment_LimpetDecontamination();
-        public static Equipment_LimpetDecontamination LimpetDecontamination
-        {
-            get => _LimpetDecontamination;
-            set => _LimpetDecontamination = value;
-        }
-
-        private static Equipment_LimpetHatchBreaker _LimpetHatchBreaker = new Equipment_LimpetHatchBreaker();
-        public static Equipment_LimpetHatchBreaker LimpetHatchBreaker
-        {
-            get => _LimpetHatchBreaker;
-            set => _LimpetHatchBreaker = value;
-        }
-
-        private static Equipment_LimpetFuel _LimpetFuel = new Equipment_LimpetFuel();
-        public static Equipment_LimpetFuel LimpetFuel
-        {
-            get => _LimpetFuel;
-            set => _LimpetFuel = value;
-        }
-
-        private static Equipment_LimpetProspector _LimpetProspector = new Equipment_LimpetProspector();
-        public static Equipment_LimpetProspector LimpetProspector
-        {
-            get => _LimpetProspector;
-            set => _LimpetProspector = value;
-        }
-
-        private static Equipment_LimpetRecon _LimpetRecon = new Equipment_LimpetRecon();
-        public static Equipment_LimpetRecon LimpetRecon
-        {
-            get => _LimpetRecon;
-            set => _LimpetRecon = value;
-        }
-
-        private static Equipment_LimpetRepair _LimpetRepair = new Equipment_LimpetRepair();
-        public static Equipment_LimpetRepair LimpetRepair
-        {
-            get => _LimpetRepair;
-            set => _LimpetRepair = value;
-        }
-
-        private static Equipment_LimpetResearch _LimpetResearch = new Equipment_LimpetResearch();
-        public static Equipment_LimpetResearch LimpetResearch
-        {
-            get => _LimpetResearch;
-            set => _LimpetResearch = value;
-        }
-
-        private static Equipment_PulseWaveScanner _PulseWaveScanner = new Equipment_PulseWaveScanner();
-        public static Equipment_PulseWaveScanner PulseWaveScanner
-        {
-            get => _PulseWaveScanner;
-            set => _PulseWaveScanner = value;
-        }
-
-        private static Shields _Shields = new Shields();
-        public static Shields Shields
-        {
-            get => _Shields; set => _Shields = value;
-        }
-
-        private static Equipment_ShieldCellBank _ShieldCellBank = new Equipment_ShieldCellBank();
-        public static Equipment_ShieldCellBank ShieldCellBank
-        {
-            get => _ShieldCellBank;
-            set => _ShieldCellBank = value;
-        }
-
-        private static Equipment_ShutdownFieldNeutrailser _ShutdownFieldNeutraliser = new Equipment_ShutdownFieldNeutrailser();
-        public static Equipment_ShutdownFieldNeutrailser ShutdownFieldNeutraliser
-        {
-            get => _ShutdownFieldNeutraliser;
-            set => _ShutdownFieldNeutraliser = value;
-        }
-
-        private static Equipment_SurfaceScanner _SurfaceScanner = new Equipment_SurfaceScanner();
-        public static Equipment_SurfaceScanner SurfaceScanner
-        {
-            get => _SurfaceScanner;
-            set => _SurfaceScanner = value;
-        }
-
-        private static Equipment_WakeScanner _WakeScanner = new Equipment_WakeScanner();
-        public static Equipment_WakeScanner WakeScanner
-        {
-            get => _WakeScanner;
-            set => _WakeScanner = value;
-        }
-
-        private static Equipment_XenoScanner _XenoScanner = new Equipment_XenoScanner();
-        public static Equipment_XenoScanner XenoScanner
-        {
-            get => _XenoScanner;
-            set => _XenoScanner = value;
-        }
-        #endregion
 
         public static string GetModuleName(Object_VehicleBase.Module Mod)
         {

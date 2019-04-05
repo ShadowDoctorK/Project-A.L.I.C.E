@@ -1,9 +1,20 @@
-﻿using ALICE_Core;
-using ALICE_Debug;
-using ALICE_Internal;
+﻿#region ICheck
+namespace ALICE_Debug
+{
+    using ALICE_DebugCheck;
+
+    public static partial class ICheck
+    {
+        public static Docking Docking { get; set; } = new Docking();
+    }
+}
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Core;
+    using ALICE_Debug;
+    using ALICE_Internal;
+
     public class Docking : Debug
     {
         /// <summary>
@@ -79,9 +90,25 @@ namespace ALICE_DebugCheck
         }
     }
 }
+#endregion
+
+#region IGet
+namespace ALICE_Debug
+{
+    using ALICE_DebugGet;
+
+    public static partial class IGet
+    {
+        public static Docking Docking { get; set; } = new Docking();
+    }
+}
 
 namespace ALICE_DebugGet
 {
+    using ALICE_Core;
+    using ALICE_Debug;
+    using ALICE_Internal;
+
     public class Docking : Debug
     {
         /// <summary>
@@ -99,9 +126,25 @@ namespace ALICE_DebugGet
         }
     }
 }
+#endregion
+
+#region ISet
+namespace ALICE_Debug
+{
+    using ALICE_DebugSet;
+
+    public static partial class ISet
+    {
+        public static Docking Docking { get; set; } = new Docking();
+    }
+}
 
 namespace ALICE_DebugSet
 {
+    using ALICE_Core;
+    using ALICE_Debug;
+    using ALICE_Internal;
+
     public class Docking : Debug
     {
         /// <summary>
@@ -122,3 +165,4 @@ namespace ALICE_DebugSet
         }
     }
 }
+#endregion

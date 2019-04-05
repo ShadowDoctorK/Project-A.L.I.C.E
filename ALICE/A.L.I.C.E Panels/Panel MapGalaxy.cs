@@ -7,6 +7,7 @@ using ALICE_Objects;
 using ALICE_Actions;
 using ALICE_Internal;
 using System.Threading;
+using ALICE_Debug;
 
 namespace ALICE_Panels
 {
@@ -39,8 +40,10 @@ namespace ALICE_Panels
 
             public override void Open(string MethodName)
             {
-                if (Check.Panel.GalaxyMap(false, MethodName) == true)
-                { Call.Panel.GalaxyMap.Pos = 1; }
+                if (ICheck.Panel.GalaxyMap.Open(MethodName, false) == true)
+                {
+                    Call.Panel.GalaxyMap.Pos = 1;
+                }
 
                 if (CheckEnvironment(MethodName) == false) { return; }
                 if (CheckMap(MethodName, true, false, true) == false)
@@ -51,12 +54,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Info(MethodName);
+                return ICheck.Panel.GalaxyMap.Info(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.GalaxyMap(true, MethodName);
+                return ICheck.Panel.GalaxyMap.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -76,8 +79,10 @@ namespace ALICE_Panels
 
             public override void Open(string MethodName)
             {
-                if (Check.Panel.GalaxyMap(false, MethodName) == true)
-                { Call.Panel.GalaxyMap.Pos = 1; }
+                if (ICheck.Panel.GalaxyMap.Open(MethodName, false) == true)
+                {
+                    Call.Panel.GalaxyMap.Pos = 1;
+                }
 
                 if (CheckEnvironment(MethodName) == false) { return; }
                 if (CheckMap(MethodName, true, false, true) == false)
@@ -88,12 +93,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Search(MethodName);
+                return ICheck.Panel.GalaxyMap.Search(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.GalaxyMap(true, MethodName);
+                return ICheck.Panel.GalaxyMap.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -114,7 +119,7 @@ namespace ALICE_Panels
 
             public override void Open(string MethodName)
             {
-                if (Check.Panel.GalaxyMap(false, MethodName) == true)
+                if (ICheck.Panel.GalaxyMap.Open(MethodName, false) == true)
                 { Call.Panel.GalaxyMap.Pos = 1; }
 
                 if (CheckEnvironment(MethodName) == false) { return; }
@@ -126,12 +131,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Bookmarks(MethodName);
+                return ICheck.Panel.GalaxyMap.Bookmarks(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.GalaxyMap(true, MethodName);
+                return ICheck.Panel.GalaxyMap.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -186,7 +191,7 @@ namespace ALICE_Panels
 
             public override void Open(string MethodName)
             {
-                if (Check.Panel.GalaxyMap(false, MethodName) == true)
+                if (ICheck.Panel.GalaxyMap.Open(MethodName, false) == true)
                 { Call.Panel.GalaxyMap.Pos = 1; }
 
                 if (CheckEnvironment(MethodName) == false) { return; }
@@ -198,12 +203,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Config(MethodName);
+                return ICheck.Panel.GalaxyMap.Config(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.GalaxyMap(true, MethodName);
+                return ICheck.Panel.GalaxyMap.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -223,7 +228,7 @@ namespace ALICE_Panels
 
             public override void Open(string MethodName)
             {
-                if (Check.Panel.GalaxyMap(false, MethodName) == true)
+                if (ICheck.Panel.GalaxyMap.Open(MethodName, false) == true)
                 { Call.Panel.GalaxyMap.Pos = 1; }
 
                 if (CheckEnvironment(MethodName) == false) { return; }
@@ -235,12 +240,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Options(MethodName);
+                return ICheck.Panel.GalaxyMap.Options(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.GalaxyMap(true, MethodName);
+                return ICheck.Panel.GalaxyMap.Open(MethodName, true);
             }
 
             public override void Panel_Target()

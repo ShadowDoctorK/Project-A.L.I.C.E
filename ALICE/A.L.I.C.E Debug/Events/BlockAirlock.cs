@@ -1,8 +1,19 @@
-﻿using ALICE_Debug;
-using ALICE_Events;
+﻿#region ICheck
+namespace ALICE_Debug
+{
+    using ALICE_DebugCheck;
+
+    public static partial class ICheck
+    {
+        public static BlockAirlock BlockAirlock { get; set; } = new BlockAirlock();
+    }
+}
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Debug;
+    using ALICE_Events;
+
     public class BlockAirlock : Debug
     {
         private static ALICE_Events.BlockAirlock E { get => IEvents.BlockAirlock.I; }
@@ -23,3 +34,4 @@ namespace ALICE_DebugCheck
         { return Evaluate(M, "Charge", T, C, E.Charge, L); }
     }
 }
+#endregion

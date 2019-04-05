@@ -1,3 +1,4 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6728e5bbc80747369c545dd0cc671e9e)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ShadowDoctorK/Project-A.L.I.C.E&amp;utm_campaign=Badge_Grade)
 
 # Project-A.L.I.C.E: Artificial Limited Interface & Command Extension
@@ -17,4 +18,4 @@ Additionally there are plenty of helpful video guides on the Project A.L.I.C.E D
 
 ## Uninstalling Project A.L.I.C.E
 
-If you would like to remove the project completely simply remove the project files from the Voice Attack or Voice Macro, delete the **Alice User Data** folder located in your My Documents Folder, and delete the **A.L.I.C.E Profile.3.0.binds** located in your Elite Dangerous binds folder.
+If you would like to remove the project completely simply remove the project files from Voice Attack or Voice Macro, delete the **Alice User Data** folder located in your My Documents Folder, and delete the **A.L.I.C.E Profile.3.0.binds** located in your Elite Dangerous binds folder.

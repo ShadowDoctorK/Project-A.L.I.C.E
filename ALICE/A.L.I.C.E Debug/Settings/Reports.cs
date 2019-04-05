@@ -1,8 +1,19 @@
-﻿using ALICE_Debug;
-using ALICE_Settings;
+﻿#region ICheck
+namespace ALICE_Debug
+{
+    using ALICE_DebugCheck;
+
+    public static partial class ICheck
+    {
+        public static Reports Report { get; set; } = new Reports();
+    }
+}
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Debug;
+    using ALICE_Settings;
+
     public class Reports : Debug
     {
         public bool FuelStatus(string M, bool T, bool L = true)
@@ -36,3 +47,4 @@ namespace ALICE_DebugCheck
         { return Evaluate(M, "Hostile Faction Report", T, ISettings.TargetEnemy, L); }
     }
 }
+#endregion
