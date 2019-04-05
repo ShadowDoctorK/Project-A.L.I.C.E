@@ -1,8 +1,19 @@
-﻿using ALICE_Debug;
-using ALICE_Events;
+﻿#region ICheck
+namespace ALICE_Debug
+{
+    using ALICE_DebugCheck;
+
+    public static partial class ICheck
+    {
+        public static BlockLandingPad BlockLandingPad { get; set; } = new BlockLandingPad();
+    }
+}
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Debug;
+    using ALICE_Events;
+
     public class BlockLandingPad : Debug
     {
         private static ALICE_Events.BlockLandingPad E { get => IEvents.BlockLandingPad.I; }
@@ -23,3 +34,4 @@ namespace ALICE_DebugCheck
         { return Evaluate(M, "Charge", T, C, E.Charge, L); }
     }
 }
+#endregion

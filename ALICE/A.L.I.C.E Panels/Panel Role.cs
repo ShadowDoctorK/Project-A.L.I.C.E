@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ALICE_Objects;
 using ALICE_Actions;
 using ALICE_Internal;
+using ALICE_Debug;
 
 namespace ALICE_Panels
 {
@@ -40,12 +41,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.All(MethodName);
+                return ICheck.Panel.Role.All(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Role(true, MethodName);
+                return ICheck.Panel.Role.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -64,12 +65,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Helm(MethodName);
+                return ICheck.Panel.Role.Helm(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Role(true, MethodName);
+                return ICheck.Panel.Role.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -89,12 +90,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Fighters(MethodName);
+                return ICheck.Panel.Role.Fighters(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Role(true, MethodName);
+                return ICheck.Panel.Role.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -114,12 +115,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.SRV(MethodName);
+                return ICheck.Panel.Role.SRV(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Role(true, MethodName);
+                return ICheck.Panel.Role.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -138,12 +139,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Crew(MethodName);
+                return ICheck.Panel.Role.Crew(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Role(true, MethodName);
+                return ICheck.Panel.Role.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -162,12 +163,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Help(MethodName);
+                return ICheck.Panel.Role.Help(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Role(true, MethodName);
+                return ICheck.Panel.Role.Open(MethodName, true);
             }
 
             public override void Panel_Target()

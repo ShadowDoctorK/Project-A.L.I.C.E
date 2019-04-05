@@ -1,8 +1,19 @@
-﻿using ALICE_Debug;
-using ALICE_Events;
+﻿#region ICheck
+namespace ALICE_Debug
+{
+    using ALICE_DebugCheck;
+
+    public static partial class ICheck
+    {
+        public static Docked Docked { get; set; } = new Docked();
+    }
+}
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Debug;
+    using ALICE_Events;
+
     public class Docked : Debug
     {
         private static ALICE_Events.Docked E { get => IEvents.Docked.I; }
@@ -38,9 +49,24 @@ namespace ALICE_DebugCheck
         { return Evaluate(M, "FactionState", T, C, E.StationFaction.FactionState, L); }
     }
 }
+#endregion
+
+#region IGet
+namespace ALICE_Debug
+{
+    using ALICE_DebugGet;
+
+    public static partial class IGet
+    {
+        public static Docked Docked { get; set; } = new Docked();
+    }
+}
 
 namespace ALICE_DebugGet
 {
+    using ALICE_Debug;
+    using ALICE_Events;
+
     public class Docked : Debug
     {
         private static ALICE_Events.Docked E { get => IEvents.Docked.I; }
@@ -70,3 +96,4 @@ namespace ALICE_DebugGet
         { return Get(M, "FactionState", E.StationFaction.FactionState, L); }
     }
 }
+#endregion

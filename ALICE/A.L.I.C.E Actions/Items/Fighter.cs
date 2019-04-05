@@ -5,12 +5,7 @@ using ALICE_Objects;
 using ALICE_Response;
 using ALICE_Settings;
 using ALICE_Synthesizer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ALICE_Actions
 {
@@ -112,10 +107,12 @@ namespace ALICE_Actions
             IStatus.Fighter.WaitLaunch = true;
 
             #region Panel Control: Launch Figther
-            if (Check.Panel.Fighters(MethodName) == false)
-            { Call.Panel.Role.Fighters.Open(MethodName); }
+            if (ICheck.Panel.Role.Fighters(MethodName, true) == false)
+            {
+                Call.Panel.Role.Fighters.Open(MethodName);
+            }
 
-            if (Check.Panel.Role(true, MethodName) == false)
+            if (ICheck.Panel.Role.Open(MethodName, true) == false)
             {
                 Call.Panel.Role.Panel(true);
                 Call.Key.Press(Call.Key.Previous_Panel_Tab, 100, Call.Key.DelayPanel);

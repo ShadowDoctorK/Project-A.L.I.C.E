@@ -8,6 +8,7 @@ using ALICE_Actions;
 using ALICE_Internal;
 using System.Threading;
 using ALICE_Settings;
+using ALICE_Debug;
 
 namespace ALICE_Panels
 {
@@ -55,12 +56,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Navigation(MethodName);
+                return ICheck.Panel.Target.Navigation(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Target(true, MethodName);
+                return ICheck.Panel.Target.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -203,12 +204,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Transactions(MethodName);
+                return ICheck.Panel.Target.Transactions(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Target(true, MethodName);
+                return ICheck.Panel.Target.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -288,12 +289,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Contacts(MethodName);
+                return ICheck.Panel.Target.Contacts(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Target(true, MethodName);
+                return ICheck.Panel.Target.Open(MethodName, true);
             }
 
             public override void Panel_Target()

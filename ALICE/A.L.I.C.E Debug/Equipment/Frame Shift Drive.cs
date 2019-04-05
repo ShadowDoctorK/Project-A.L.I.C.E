@@ -1,8 +1,19 @@
-﻿using ALICE_Debug;
-using ALICE_Equipment;
+﻿#region ICheck
+namespace ALICE_Debug
+{
+    using ALICE_DebugCheck;
+
+    public static partial class ICheck
+    {
+        public static FrameShiftDrive FrameShiftDrive { get; set; } = new FrameShiftDrive();
+    }
+}
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Debug;
+    using ALICE_Equipment;
+
     public class FrameShiftDrive : Debug
     {
         private static ALICE_Equipment.FrameShiftDrive E
@@ -41,9 +52,24 @@ namespace ALICE_DebugCheck
         { return Evaluate(M, "Frame Shift Drive (Marking)", T, E.Marking, L); }
     }
 }
+#endregion
+
+#region IGet
+namespace ALICE_Debug
+{
+    using ALICE_DebugGet;
+
+    public static partial class IGet
+    {
+        public static FrameShiftDrive FrameShiftDrive { get; set; } = new FrameShiftDrive();
+    }
+}
 
 namespace ALICE_DebugGet
 {
+    using ALICE_Debug;
+    using ALICE_Equipment;
+
     public class FrameShiftDrive : Debug
     {
         private static ALICE_Equipment.FrameShiftDrive E
@@ -79,9 +105,24 @@ namespace ALICE_DebugGet
         { return Get(M, "Frame Shift Drive (Enabled)", E.Settings.Enabled, L); }
     }
 }
+#endregion
+
+#region ISet
+namespace ALICE_Debug
+{
+    using ALICE_DebugSet;
+
+    public static partial class ISet
+    {
+        public static FrameShiftDrive FrameShiftDrive { get; set; } = new FrameShiftDrive();
+    }
+}
 
 namespace ALICE_DebugSet
 {
+    using ALICE_Debug;
+    using ALICE_Equipment;
+
     public class FrameShiftDrive : Debug
     {
         private static ALICE_Equipment.FrameShiftDrive E
@@ -118,3 +159,4 @@ namespace ALICE_DebugSet
         { Set(M, "Frame Shift Drive (Marking)", ref E.Marking, V, L); }
     }
 }
+#endregion

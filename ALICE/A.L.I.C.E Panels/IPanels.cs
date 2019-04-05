@@ -75,18 +75,41 @@ namespace ALICE_Panels
             if (Name != IEnums.Comms) { Call.Panel.Comms.Open = false; }
             if (Name != IEnums.System) { Call.Panel.System.Open = false; }
 
-            if (Name == IEnums.Role && Check.Panel.Role(!State, MethodName))
-            { Call.Key.Press(Call.Key.Role_Panel, 400, Call.Key.DelayPanel); }
-            if (Name == IEnums.Target && Check.Panel.Target(!State, MethodName))
-            { Call.Key.Press(Call.Key.Target_Panel, 400, Call.Key.DelayPanel); }
-            if (Name == IEnums.Comms && Check.Panel.Comms(!State, MethodName))
-            { Call.Key.Press(Call.Key.Comms_Panel, 400, Call.Key.DelayPanel); }
-            if (Name == IEnums.System && Check.Panel.System(!State, MethodName))
-            { Call.Key.Press(Call.Key.System_Panel, 400, Call.Key.DelayPanel); }
-            if (Name == IEnums.GalaxyMap && Check.Panel.GalaxyMap(!State, MethodName))
-            { Call.Key.Press(Call.Key.Open_Galaxy_Map, 400, Call.Key.DelayPanel); }
-            if (Name == IEnums.SystemMap && Check.Panel.SystemMap(!State, MethodName))
-            { Call.Key.Press(Call.Key.Open_System_Map, 400, Call.Key.DelayPanel); }
+            //Check Role Panel
+            if (Name == IEnums.Role && ICheck.Panel.Role.Open(MethodName, !State))
+            {
+                Call.Key.Press(Call.Key.Role_Panel, 400, Call.Key.DelayPanel);
+            }
+
+            //Check Target Panel
+            if (Name == IEnums.Target && ICheck.Panel.Target.Open(MethodName, !State))
+            {
+                Call.Key.Press(Call.Key.Target_Panel, 400, Call.Key.DelayPanel);
+            }
+
+            //Check Comms Panel
+            if (Name == IEnums.Comms && ICheck.Panel.Comms.Open(MethodName, !State))
+            {
+                Call.Key.Press(Call.Key.Comms_Panel, 400, Call.Key.DelayPanel);
+            }
+
+            //Check System Panel
+            if (Name == IEnums.System && ICheck.Panel.System.Open(MethodName, !State))
+            {
+                Call.Key.Press(Call.Key.System_Panel, 400, Call.Key.DelayPanel);
+            }
+
+            //Check Galaxy Map
+            if (Name == IEnums.GalaxyMap && ICheck.Panel.GalaxyMap.Open(MethodName, !State))
+            {
+                Call.Key.Press(Call.Key.Open_Galaxy_Map, 400, Call.Key.DelayPanel);
+            }
+
+            //Check System Map
+            if (Name == IEnums.SystemMap && ICheck.Panel.SystemMap.Open(MethodName, !State))
+            {
+                Call.Key.Press(Call.Key.Open_System_Map, 400, Call.Key.DelayPanel);
+            }
 
             Open = State; PanelPrep(State);
         }
@@ -176,7 +199,7 @@ namespace ALICE_Panels
 
             Start:
             //Galaxy Map Is Open && Galaxy Map Expected State is False
-            if (Check.Panel.GalaxyMap(false, MethodName) == false && GalaxyMap == false)
+            if (ICheck.Panel.GalaxyMap.Open(MethodName, false) == false && GalaxyMap == false)
             {
                 Call.Panel.GalaxyMap.Panel(false);
                 Answer = WaitMap(MethodName, IEnums.MapGalaxy, false);
@@ -184,7 +207,7 @@ namespace ALICE_Panels
             }
 
             //System Map Is Open && System Map Expected State is False
-            if (Check.Panel.SystemMap(false, MethodName) == false && SystemMap == false)
+            if (ICheck.Panel.SystemMap.Open(MethodName, false) == false && SystemMap == false)
             {
                 Call.Panel.SystemMap.Panel(false);
                 Answer = WaitMap(MethodName, IEnums.MapSystem, false);
@@ -208,12 +231,16 @@ namespace ALICE_Panels
             if (Name == IEnums.MapSystem && SystemMap == false) { return Answer; }
 
             //Galaxy Map Is Open && Galaxy Map Expected State is False
-            if (Check.Panel.GalaxyMap(false, MethodName) == false && GalaxyMap == false)
-            { Answer = false; }
+            if (ICheck.Panel.GalaxyMap.Open(MethodName, false) == false && GalaxyMap == false)
+            {
+                Answer = false;
+            }
 
             //System Map Is Open && System Map Expected State is False
-            if (Check.Panel.SystemMap(false, MethodName) == false && SystemMap == false)
-            { Answer = false; }
+            if (ICheck.Panel.SystemMap.Open(MethodName, false) == false && SystemMap == false)
+            {
+                Answer = false;
+            }
 
             return Answer;
         }

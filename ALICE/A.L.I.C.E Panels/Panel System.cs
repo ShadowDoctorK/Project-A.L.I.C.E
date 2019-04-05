@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ALICE_Objects;
 using ALICE_Actions;
 using ALICE_Internal;
+using ALICE_Debug;
 
 namespace ALICE_Panels
 {
@@ -35,7 +36,10 @@ namespace ALICE_Panels
 
         public override void TabPrep(decimal Select)
         {
-            if (Check.Panel.Home(MethodName, true) == false) { Call.Panel.System.Home.Main = 3; }
+            if (ICheck.Panel.System.Home(MethodName, true) == false)
+            {
+                Call.Panel.System.Home.Main = 3;
+            }
         }
 
         public class HomeTab : BaseTab
@@ -51,12 +55,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Home(MethodName);
+                return ICheck.Panel.System.Home(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.System(true, MethodName);
+                return ICheck.Panel.System.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -135,12 +139,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Modules(MethodName);
+                return ICheck.Panel.System.Modules(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.System(true, MethodName);
+                return ICheck.Panel.System.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -159,12 +163,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.FireGroups(MethodName);
+                return ICheck.Panel.System.FireGroups(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.System(true, MethodName);
+                return ICheck.Panel.System.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -189,12 +193,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Ship(MethodName);
+                return ICheck.Panel.System.Ship(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.System(true, MethodName);
+                return ICheck.Panel.System.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -247,12 +251,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Inventory(MethodName);
+                return ICheck.Panel.System.Inventory(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.System(true, MethodName);
+                return ICheck.Panel.System.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -339,12 +343,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Status(MethodName);
+                return ICheck.Panel.System.Status(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.System(true, MethodName);
+                return ICheck.Panel.System.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -413,12 +417,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Media(MethodName);
+                return ICheck.Panel.System.Media(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.System(true, MethodName);
+                return ICheck.Panel.System.Open(MethodName, true);
             }
 
             public override void Panel_Target()

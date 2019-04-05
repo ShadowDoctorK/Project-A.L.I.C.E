@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using ALICE_Objects;
 using ALICE_Actions;
 using ALICE_Internal;
+using ALICE_Debug;
 
 namespace ALICE_Panels
 {
@@ -50,12 +51,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Chat(MethodName);
+                return ICheck.Panel.Comms.Chat(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Comms(true, MethodName);
+                return ICheck.Panel.Comms.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -80,12 +81,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Inbox(MethodName);
+                return ICheck.Panel.Comms.Inbox(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Comms(true, MethodName);
+                return ICheck.Panel.Comms.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -104,12 +105,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Social(MethodName);
+                return ICheck.Panel.Comms.Social(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Comms(true, MethodName);
+                return ICheck.Panel.Comms.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -128,12 +129,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.History(MethodName);
+                return ICheck.Panel.Comms.History(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Comms(true, MethodName);
+                return ICheck.Panel.Comms.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -152,12 +153,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Squadron(MethodName);
+                return ICheck.Panel.Comms.Squadron(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Comms(true, MethodName);
+                return ICheck.Panel.Comms.Open(MethodName, true);
             }
 
             public override void Panel_Target()
@@ -176,12 +177,12 @@ namespace ALICE_Panels
 
             public bool CheckTab(string MethodName)
             {
-                return Check.Panel.Settings(MethodName);
+                return ICheck.Panel.Comms.Settings(MethodName, true);
             }
 
             public bool CheckPanel(string MethodName)
             {
-                return Check.Panel.Comms(true, MethodName);
+                return ICheck.Panel.Comms.Open(MethodName, true);
             }
 
             public override void Panel_Target()

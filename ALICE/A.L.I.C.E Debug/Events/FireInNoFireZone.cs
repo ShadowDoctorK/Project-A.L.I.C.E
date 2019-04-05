@@ -1,8 +1,19 @@
-﻿using ALICE_Debug;
-using ALICE_Events;
+﻿#region ICheck
+namespace ALICE_Debug
+{
+    using ALICE_DebugCheck;
+
+    public static partial class ICheck
+    {
+        public static FireInNoFireZone FireInNoFireZone { get; set; } = new FireInNoFireZone();
+    }
+}
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Debug;
+    using ALICE_Events;
+
     public class FireInNoFireZone : Debug
     {
         private static ALICE_Events.FireInNoFireZone E { get => IEvents.FireInNoFireZone.I; }
@@ -26,9 +37,24 @@ namespace ALICE_DebugCheck
         { return Evaluate(M, "FirstReport", C, E.FirstReport, L); }
     }
 }
+#endregion
+
+#region IGet
+namespace ALICE_Debug
+{
+    using ALICE_DebugGet;
+
+    public static partial class IGet
+    {
+        public static FireInNoFireZone FireInNoFireZone { get; set; } = new FireInNoFireZone();
+    }
+}
 
 namespace ALICE_DebugGet
 {
+    using ALICE_Debug;
+    using ALICE_Events;
+
     public class FireInNoFireZone : Debug
     {
         private static ALICE_Events.FireInNoFireZone E { get => IEvents.FireInNoFireZone.I; }
@@ -40,3 +66,4 @@ namespace ALICE_DebugGet
         { return Get(M, "Amount", E.Amount, L); }
     }
 }
+#endregion
