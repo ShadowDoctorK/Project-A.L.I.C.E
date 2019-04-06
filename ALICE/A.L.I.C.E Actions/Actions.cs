@@ -59,7 +59,7 @@ namespace ALICE_Actions
 
             if (Check.Equipment.FighterHanger(true, MethodName) == true)
             {
-                if (Check.Variable.NPC_Crew(true, MethodName) == false)
+                if (ICheck.Status.Crew(MethodName, true) == false)
                 {
                     HaltLaunch = true;
                     Report_NoCrew = true;
@@ -411,7 +411,7 @@ namespace ALICE_Actions
             }
 
             //If Touchdown Is Not False...
-            if (Check.Variable.Touchdown(false, MethodName) == false)
+            if (ICheck.Status.Touchdown(MethodName, false) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -432,7 +432,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status = Command
-            if (Check.Variable.CargoScoop(MethodName) == CMD_State)
+            if (IGet.Status.CargoScoop(MethodName) == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -474,7 +474,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (Check.Variable.CargoScoop(MethodName) != CMD_State)
+            else if (IGet.Status.CargoScoop(MethodName) != CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -661,7 +661,7 @@ namespace ALICE_Actions
             }
 
             //If Touchdown Is Not False...
-            if (Check.Variable.Touchdown(false, MethodName) == false)
+            if (ICheck.Status.Touchdown(MethodName, false) == false)
             {
                 #region Audio
                 //if (PlugIn.Audio == "TTS")
@@ -701,7 +701,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status == Command
-            if (Check.Variable.Hardpoints(MethodName) == CMD_State)
+            if (IGet.Status.Hardpoints(MethodName) == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -741,7 +741,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (Check.Variable.Hardpoints(MethodName) != CMD_State)
+            else if (IGet.Status.Hardpoints(MethodName) != CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -801,7 +801,7 @@ namespace ALICE_Actions
                     }
                     #endregion
 
-                    if (Check.Variable.Hardpoints(false, MethodName) == true)
+                    if (ICheck.Status.Hardpoints(MethodName, false) == true)
                     {
                         Call.Firegroup.Select(Call.Firegroup.Default, false);                        
                         Thread.Sleep(100);
@@ -947,7 +947,7 @@ namespace ALICE_Actions
             }
 
             //If Fighter is Deployed...
-            if (Check.Variable.FighterDeployed(false, MethodName) == false)
+            if (ICheck.Status.FighterDeployed(MethodName, false) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -987,7 +987,7 @@ namespace ALICE_Actions
             }
 
             //If Touchdown Is Not False...
-            if (Check.Variable.Touchdown(false, MethodName) == false)
+            if (ICheck.Status.Touchdown(MethodName, false) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -1145,7 +1145,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status = Command
-            if (Check.Variable.SilentRunning(MethodName) == CMD_State)
+            if (IGet.Status.SilentRunning(MethodName) == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -1187,7 +1187,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (Check.Variable.SilentRunning(MethodName) != CMD_State)
+            else if (IGet.Status.SilentRunning(MethodName) != CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -1565,7 +1565,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status = Command
-            if (Check.Variable.FlightAssist(MethodName) == CMD_State)
+            if (IGet.Status.FlightAssist(MethodName) == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -1607,7 +1607,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (Check.Variable.FlightAssist(MethodName) != CMD_State)
+            else if (IGet.Status.FlightAssist(MethodName) != CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -1694,7 +1694,7 @@ namespace ALICE_Actions
                 Logger.Log(MethodName, "Undocking Complete, Controls Released.", Logger.Yellow, true);
             }
 
-            else if (Check.Variable.Touchdown(true, MethodName) == true)
+            else if (ICheck.Status.Touchdown(MethodName, true) == true)
             {
                 //Checks & Returns to HUD / Logs & Exits on Failure.
                 if (Call.Panel.HudFocus(250) == false)
@@ -1710,7 +1710,7 @@ namespace ALICE_Actions
                 //Begin Takeoff
                 Call.Key.Press(Call.Key.Thrust_Up_Press);
                 //Wait For Engines To Engage / Takeoff
-                decimal Count = 50; while(Check.Variable.Touchdown(false, MethodName) == false && Count > 0)
+                decimal Count = 50; while(ICheck.Status.Touchdown(MethodName, false) == false && Count > 0)
                 {
                     Count--; if (Count == 0)
                     {

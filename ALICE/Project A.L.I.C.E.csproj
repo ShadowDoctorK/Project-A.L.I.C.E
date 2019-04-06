@@ -69,6 +69,7 @@
     <Compile Include="A.L.I.C.E Collections\Collection Events.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection EventTypes.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection Variables.cs" />
+    <Compile Include="A.L.I.C.E Debug\Status\Variables.cs" />
     <Compile Include="A.L.I.C.E Debug\Panels\Panels.cs" />
     <Compile Include="A.L.I.C.E Events\[Convert]\Event Status.cs" />
     <Compile Include="A.L.I.C.E Data\Data Codex.cs" />

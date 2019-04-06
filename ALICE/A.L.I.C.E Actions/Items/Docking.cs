@@ -202,7 +202,7 @@ namespace ALICE_Actions
 
             IStatus.Docking.Preparations = true;
 
-            if (Check.Variable.SilentRunning(true, ClassName) == true)
+            if (ICheck.Status.SilentRunning(ClassName, true) == true)
             {
                 Call.Action.SilentRunning(false, CommandAudio);
                 Call.Power.Set(0, 4, 8);

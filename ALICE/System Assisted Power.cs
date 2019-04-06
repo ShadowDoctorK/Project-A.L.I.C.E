@@ -250,7 +250,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Maintain_Engines, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -273,7 +273,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Maintain_Systems, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, false)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -296,7 +296,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Defense_Engines, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -319,7 +319,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Defense_Systems, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -342,7 +342,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Weapons_Light, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -365,7 +365,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Weapons_Balance, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -388,7 +388,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Weapons_Heavy, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }

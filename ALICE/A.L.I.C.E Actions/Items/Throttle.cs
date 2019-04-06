@@ -34,7 +34,7 @@ namespace ALICE_Actions
             #region Module Checks
             bool Pause = false;
 
-            if (Check.Variable.CargoScoop(false, MethodName) == false)
+            if (ICheck.Status.CargoScoop(MethodName, false) == false)
             {
                 Call.Action.CargoScoop(false, false);
                 Pause = true;
@@ -54,7 +54,7 @@ namespace ALICE_Actions
 
             #region Action: Set Power
             if (ModifyPower &&
-                (Check.Variable.Hardpoints(false, MethodName) == true &&
+                (ICheck.Status.Hardpoints(MethodName, false) == true &&
                 ICheck.Order.CombatPower(MethodName, true, true) == false))
             {
                 Call.Power.Set(0, 4, 8, true);
@@ -67,7 +67,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Action: Set Saved Power
-            if (ModifyPower && (Check.Variable.Hardpoints(false, MethodName) == true && ICheck.Order.CombatPower(MethodName, true, true)) == false)
+            if (ModifyPower && (ICheck.Status.Hardpoints(MethodName, false) == true && ICheck.Order.CombatPower(MethodName, true, true)) == false)
             { Call.Power.SetRecorded(); }
             #endregion
         }

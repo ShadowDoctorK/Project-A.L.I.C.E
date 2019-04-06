@@ -41,13 +41,17 @@ namespace ALICE_Core
             #region HUD Mode
             if (HudSwitch && AnalysisMode == true)
             {
-                if (Check.Variable.AnalysisMode(true, MethodName) == false)
-                { Call.Action.AnalysisMode(true, false); Thread.Sleep(500); }                
+                if (ICheck.Status.AnalysisMode(MethodName, true) == false)
+                {
+                    Call.Action.AnalysisMode(true, false); Thread.Sleep(500);
+                }                
             }
             else if (HudSwitch && AnalysisMode == false)
             {
-                if (Check.Variable.AnalysisMode(false, MethodName) == false)
-                { Call.Action.AnalysisMode(false, false); Thread.Sleep(500); }
+                if (ICheck.Status.AnalysisMode(MethodName, false) == false)
+                {
+                    Call.Action.AnalysisMode(false, false); Thread.Sleep(500);
+                }
             }
             #endregion
 
@@ -95,7 +99,7 @@ namespace ALICE_Core
             }
 
             //Touchdown Check
-            if (Check.Variable.Touchdown(false, MethodName) == false)
+            if (ICheck.Status.Touchdown(MethodName, false) == false)
             {
                 return;
             }

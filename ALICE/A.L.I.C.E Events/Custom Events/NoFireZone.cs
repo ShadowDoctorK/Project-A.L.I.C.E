@@ -128,7 +128,7 @@ namespace ALICE_Events
                         IStatus.WeaponSafety = true;
                         Call.Action.AnalysisMode(true, false);
 
-                        if (Check.Variable.Hardpoints(true, ClassName) == true)
+                        if (ICheck.Status.Hardpoints(ClassName, true) == true)
                         {
                             Call.Action.Hardpoint(false, false);
 

@@ -34,7 +34,7 @@ namespace ALICE_Events
                 IEquipment.FuelTank.FuelLow(
                     ICheck.Initialized(ClassName),                      //Check Plugin Initialized
                     ICheck.InitializedStatus(ClassName),                //Check Status.Json Initialized
-                    Check.Variable.FuelScooping(false, ClassName));     //Check Not Fuel Scooping     
+                    ICheck.Status.FuelScooping(ClassName, false));      //Check Not Fuel Scooping     
 
                 //Update Status Object
                 IEquipment.FuelTank.Low = true;

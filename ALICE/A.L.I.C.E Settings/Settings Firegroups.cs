@@ -568,7 +568,7 @@ namespace ALICE_Settings
                 if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false) { return S.InHyperspace; }
 
                 //Check HUD Mode
-                if (Check.Variable.AnalysisMode(Mode, MethodName) == false) { Call.Action.AnalysisMode(false, false); }
+                if (ICheck.Status.AnalysisMode(MethodName, Mode) == false) { Call.Action.AnalysisMode(false, false); }
 
                 //Check Current Selection
                 if (Check.Environment.Firegroup(Num, true, MethodName) == true) { return S.CurrentlySelected; }

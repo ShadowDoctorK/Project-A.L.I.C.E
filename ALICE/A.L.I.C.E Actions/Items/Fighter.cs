@@ -40,7 +40,7 @@ namespace ALICE_Actions
             }
 
             //Check Touchdown
-            if (Check.Variable.Touchdown(false, MethodName) == false)
+            if (ICheck.Status.Touchdown(MethodName, false) == false)
             {
                 IResponse.Fighter.MothershipTouchdown(CommandAudio); return;
             }
@@ -205,7 +205,7 @@ namespace ALICE_Actions
                     "".Phrase(GN_Positive.Default, true)
                     .Phrase(EQ_Fighter.Order_Attack_Target),
                     CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
+                    ICheck.Status.FighterDeployed(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -227,7 +227,7 @@ namespace ALICE_Actions
                     "".Phrase(GN_Positive.Default, true)
                     .Phrase(EQ_Fighter.Order_Defend),
                     CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
+                    ICheck.Status.FighterDeployed(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -249,7 +249,7 @@ namespace ALICE_Actions
                     "".Phrase(GN_Positive.Default, true)
                     .Phrase(EQ_Fighter.Order_Engage_At_Will),
                     CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
+                    ICheck.Status.FighterDeployed(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -271,7 +271,7 @@ namespace ALICE_Actions
                     "".Phrase(GN_Positive.Default, true)
                     .Phrase(EQ_Fighter.Order_Follow),
                     CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
+                    ICheck.Status.FighterDeployed(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -293,7 +293,7 @@ namespace ALICE_Actions
                     "".Phrase(GN_Positive.Default, true)
                     .Phrase(EQ_Fighter.Order_Hold_Position),
                     CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
+                    ICheck.Status.FighterDeployed(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -315,7 +315,7 @@ namespace ALICE_Actions
                     "".Phrase(GN_Positive.Default, true)
                     .Phrase(EQ_Fighter.Order_Maintain_Formation),
                     CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
+                    ICheck.Status.FighterDeployed(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -339,7 +339,7 @@ namespace ALICE_Actions
                         "".Phrase(GN_Positive.Default, true)
                         .Phrase(EQ_Fighter.Order_Recall_NPC),
                         CommandAudio,
-                        Check.Variable.FighterDeployed(true, MethodName)
+                        ICheck.Status.FighterDeployed(MethodName, true)
                         );
                 }
                 else if (PlugIn.Audio == "File") { }
@@ -357,7 +357,7 @@ namespace ALICE_Actions
                         "".Phrase(GN_Positive.Default, true)
                         .Phrase(EQ_Fighter.Order_Recall_Player),
                         CommandAudio,
-                        Check.Variable.FighterDeployed(true, MethodName)
+                        ICheck.Status.FighterDeployed(MethodName, true)
                         );
                 }
                 else if (PlugIn.Audio == "File") { }
