@@ -600,7 +600,7 @@ namespace ALICE_Actions
             //Vehicle Check
             if (V)
             {
-                if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, M) == false)
+                if (ICheck.Status.Vehicle(M, IVehicles.V.Mothership, true) == false)
                 {
                     IEquipment.FrameShiftDrive.NotInMothership(A);
                     return Validate.Vehicle;

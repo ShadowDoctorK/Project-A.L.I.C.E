@@ -7,7 +7,6 @@ namespace ALICE_Internal
 {
     public static class Check
     {
-        public static Environments Environment = new Environments();
         public static Equipments Equipment = new Equipments();
         public static GameState State = new GameState();    
 
@@ -170,84 +169,6 @@ namespace ALICE_Internal
                 bool State = IEquipment.WakeScanner.Settings.Installed;
                 string Equipment = "Surface Scanner";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
-            }
-        }
-
-        public class Environments : Base
-        {
-            public bool Vehicle(IVehicles.V TargetVehcile, bool TargetState, string MethodName, bool DisableDebug = false, bool Answer = true)
-            {
-                IVehicles.V Vehic = IVehicles.Vehicle;
-                string Not = ""; if (TargetState == false) { Not = "Not "; }
-                string DebugText = "Vehcile Check Passed (" + Not + TargetVehcile + ")";
-                string Color = Logger.Blue;
-
-                if (TargetState == true && Vehic != TargetVehcile)
-                {
-                    Answer = false;
-                    DebugText = "Vehcile Does Not Equal " + TargetVehcile;
-                    Color = Logger.Yellow;
-                }
-                else if (TargetState == false && Vehic == TargetVehcile)
-                {
-                    Answer = false;
-                    DebugText = "Vehcile Equals " + TargetVehcile;
-                    Color = Logger.Yellow;
-                }
-
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, DebugText, Color); }
-
-                return Answer;
-            }
-
-            public bool Altitude(decimal LowAltitude, decimal HighAltitude, bool InsideBand, string MethodName, bool DisableDebug = false, bool Answer = true)
-            {
-                decimal Altitude = IStatus.Altitude;
-                string DebugText = "Altitude Check Passed (Low: " + LowAltitude + " | High: " + HighAltitude + ")";
-                string Color = Logger.Blue;
-
-                if (InsideBand == false && (Altitude >= LowAltitude && Altitude <= HighAltitude))
-                {
-                    Answer = false;
-                    DebugText = "Altitude Check Failed - Inside Band (Low: " + LowAltitude + " | High: " + HighAltitude + ")";
-                    Color = Logger.Yellow;
-                }
-                //Checking Inside Band - We Are Outside of Altitude Band, Return False.
-                else if (InsideBand == true && (Altitude < LowAltitude || Altitude > HighAltitude))
-                {
-                    Answer = false;
-                    DebugText = "Altitude Check Failed - Outside Band (Low: " + LowAltitude + " | High: " + HighAltitude + ")";
-                    Color = Logger.Yellow;
-                }
-
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, DebugText, Color); }
-
-                return Answer;
-            }
-
-            public bool Firegroup(decimal Target, bool IsTarget, string MethodName, bool DisableDebug = false, bool Answer = true)
-            {
-                decimal Firegroup = Call.Firegroup.Current;
-                string Not = ""; if (IsTarget == false) { Not = "Not "; }
-                string DebugText = "Firegroup Check Passed (" + Not + Target + ")";
-                string Color = Logger.Blue;
-
-                if (IsTarget == true && Firegroup != Target)
-                {
-                    Answer = false;
-                    DebugText = "Firegroup Does Not Equal " + Target;
-                    Color = Logger.Yellow;
-                }
-                else if (IsTarget == false && Firegroup == Target)
-                {
-                    Answer = false;
-                    DebugText = "Firegroup Equals " + Target;
-                    Color = Logger.Yellow;
-                }
-
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, DebugText, Color); }
-
-                return Answer;
             }
         }   
 

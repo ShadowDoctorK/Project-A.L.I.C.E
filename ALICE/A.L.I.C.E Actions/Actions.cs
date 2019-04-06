@@ -371,7 +371,7 @@ namespace ALICE_Actions
             }
 
             //If Not Outside The Fighter...
-            if (Check.Environment.Vehicle(IVehicles.V.Fighter, false, MethodName) == false)
+            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Fighter, false) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -927,7 +927,7 @@ namespace ALICE_Actions
             }
 
             //If Not In Mothership...
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
+            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -1124,7 +1124,7 @@ namespace ALICE_Actions
             }
 
             //If Not In Mothership...
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
+            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -1416,7 +1416,7 @@ namespace ALICE_Actions
                 return;
             }
 
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
+            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true) == false)
             {
                 Logger.Log(MethodName, "Only Available In The Mothership", Logger.Red);
                 return;

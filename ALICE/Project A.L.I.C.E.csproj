@@ -619,6 +619,7 @@
     <Content Include="vmAPI.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="A.L.I.C.E Debug\Objects\" />
     <Folder Include="A.L.I.C.E Events\[Retire]\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

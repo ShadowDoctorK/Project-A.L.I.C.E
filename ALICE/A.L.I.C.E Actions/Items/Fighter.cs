@@ -28,7 +28,7 @@ namespace ALICE_Actions
             }
 
             //Check Mothership
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
+            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true) == false)
             {
                 IResponse.Fighter.NotInMothership(CommandAudio); return;
             }
@@ -52,7 +52,7 @@ namespace ALICE_Actions
             }
 
             //Check Altitude
-            if (IStatus.Altitude != 0 && (Check.Environment.Altitude(1, 1001, false, MethodName) == false))
+            if (IStatus.Altitude != 0 && (ICheck.Status.Altitude(MethodName, 1, 1001, false) == false))
             {
                 IResponse.Fighter.LowAltitude(CommandAudio); return;
             }
@@ -330,7 +330,7 @@ namespace ALICE_Actions
             Call.Key.Press(Call.Key.Recall_Fighter, 0);
 
             #region Audio: Fighter Order (Recall NPC)
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == true)
+            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true) == true)
             {
                 if (PlugIn.Audio == "TTS")
                 {
@@ -348,7 +348,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Audio: Fighter Order (Recall Player)
-            else if (Check.Environment.Vehicle(IVehicles.V.Fighter, true, MethodName) == true)
+            else if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Fighter, true) == true)
             {
                 if (PlugIn.Audio == "TTS")
                 {

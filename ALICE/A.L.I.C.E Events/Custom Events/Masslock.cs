@@ -84,7 +84,7 @@ namespace ALICE_Events
                         "".Phrase(EVT_Masslock.Entered),                        
                         ICheck.Report.Masslock(ClassName, true, true),                      //Check Report Enabled
                         ICheck.Initialized(ClassName),                                      //Check Plugin Initialized
-                        Check.Environment.Vehicle(IVehicles.V.Mothership, true, ClassName)  //Check Vehicle Is Mothership
+                        ICheck.Status.Vehicle(ClassName, IVehicles.V.Mothership, true)      //Check Vehicle Is Mothership
                         );
                 }
                 //False
@@ -96,7 +96,7 @@ namespace ALICE_Events
                         "".Phrase(EVT_Masslock.Exited),                        
                         ICheck.Report.Masslock(ClassName, true, true),                      //Check Report Enabled
                         ICheck.Initialized(ClassName),                                      //Check Plugin Initialized
-                        Check.Environment.Vehicle(IVehicles.V.Mothership, true, ClassName)  //Check Vehicle Is Mothership
+                        ICheck.Status.Vehicle(ClassName, IVehicles.V.Mothership, true)      //Check Vehicle Is Mothership
                         );
                 }               
             }

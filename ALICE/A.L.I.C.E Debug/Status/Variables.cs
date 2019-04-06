@@ -11,11 +11,51 @@ namespace ALICE_Debug
 
 namespace ALICE_DebugCheck
 {
+    using ALICE_Actions;
     using ALICE_Core;
     using ALICE_Debug;
+    using ALICE_Internal;
+    using ALICE_Objects;
 
     public class Variables : Debug
     {
+        /// <summary>
+        /// Checks and evalutes altitude based on entered limits.
+        /// </summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method.</param>
+        /// <param name="LA">(Low Altitude) The Low Altitude Limit.</param>
+        /// <param name="HA">(High Altitude) The High Altitude Limit.</param>
+        /// <param name="I">(Inside) True Checks You're Inside The Altitude Limits. False Checks You're Outside The Altitude Limits.</param>
+        /// <param name="L">(Logger) Enables / Disables Logging.</param>
+        /// <returns></returns>
+        public bool Altitude(string M, decimal LA, decimal HA, bool I, bool L = true)
+        {
+            //Set Prefix For Check Value
+            string S = "Inside "; if (I == false) { S = "Outside "; }
+            string N = "Altitude";
+            decimal Altitude = IStatus.Altitude;
+
+            //Check Inside Band
+            if (I == true && (LA <= Altitude && Altitude <= HA))
+            {
+                //Failed
+                if (L) { Logger.DebugLine(M, "[Fail]: " + N + " Does Not Equal Expected State (" + S + LA + " - " + HA + ")", Logger.Yellow); }
+                return false;
+            }
+
+            //Check Outside Band
+            if (I == false && (LA > Altitude && Altitude > HA))
+            {
+                //Failed
+                if (L) { Logger.DebugLine(M, "[Fail]: " + N + " Does Not Equal Expected State (" + S + LA + " - " + HA + ")", Logger.Yellow); }
+                return false;
+            }
+
+            //Passed
+            if (L) { Logger.DebugLine(M, "[Pass]: " + N + " Equals Expected State (" + S + LA + " - " + HA + ")", Logger.Blue); }
+            return true;
+        }
+
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="T">(Target) The Expected State</param>
@@ -47,6 +87,14 @@ namespace ALICE_DebugCheck
         /// <returns></returns>
         public bool FlightAssist(string M, bool T, bool L = true)
         { return Evaluate(M, "Flight Assist", T, IStatus.FlightAssist, L); }
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="T">(Target) The Expected State</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
+        public bool FireGroup(string M, decimal C, bool T, bool L = true)
+        { return Evaluate(M, "Fire Group", true, C, Call.Firegroup.Current, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -95,6 +143,40 @@ namespace ALICE_DebugCheck
         /// <returns></returns>
         public bool Touchdown(string M, bool T, bool L = true)
         { return Evaluate(M, "Touchdown", T, IStatus.Touchdown, L); }
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="C">(Check) The State You're Checking</param>
+        /// <param name="T">(Target) The Expected State</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
+        public bool Vehicle(string M, IVehicles.V C, bool T, bool L = true)
+        {
+            //Set Prefix For Check Value
+            string S = ""; if (T == false) { S = "Not "; }
+            string N = "Vehicle";
+            IVehicles.V P = IVehicles.Vehicle;
+
+            //Check
+            if (T == true && C != P)
+            {
+                //Failed
+                if (L) { Logger.DebugLine(M, "[Fail]: " + N + " Does Not Equal Expected State (" + S + C + ")", Logger.Yellow); }
+                return false;
+            }
+
+            //Check
+            if (T == false && C == P)
+            {
+                //Failed
+                if (L) { Logger.DebugLine(M, "[Fail]: " + N + " Does Not Equal Expected State (" + S + C + ")", Logger.Yellow); }
+                return false;
+            }
+
+            //Passed
+            if (L) { Logger.DebugLine(M, "[Pass]: " + N + " Equals Expected State (" + S + C + ")", Logger.Blue); }
+            return true;
+        }
     }
 }
 #endregion

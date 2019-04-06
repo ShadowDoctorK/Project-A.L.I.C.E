@@ -571,17 +571,17 @@ namespace ALICE_Settings
                 if (ICheck.Status.AnalysisMode(MethodName, Mode) == false) { Call.Action.AnalysisMode(false, false); }
 
                 //Check Current Selection
-                if (Check.Environment.Firegroup(Num, true, MethodName) == true) { return S.CurrentlySelected; }
+                if (ICheck.Status.FireGroup(MethodName, Num, true) == true) { return S.CurrentlySelected; }
 
                 //Select The Correct Group. Two Attempts.
                 decimal Count = 2; bool Selected = false; while (Count != 0 && Selected == false)
                 {
                     Call.Firegroup.Select(Num, false, true, Mode); Thread.Sleep(1500); Count--;
-                    Selected = Check.Environment.Firegroup(Num, true, MethodName);
+                    Selected = ICheck.Status.FireGroup(MethodName, Num, true);
                 }
 
                 //Report Selection
-                if (Check.Environment.Firegroup(Num, true, MethodName)) { return S.Selected; }
+                if (ICheck.Status.FireGroup(MethodName, Num, true)) { return S.Selected; }
                 Logger.Log(MethodName, "Failed To Select The Correct Fire Group. Try Again", Logger.Red);
                 return S.Failed;
             }
