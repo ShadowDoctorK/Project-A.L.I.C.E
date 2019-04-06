@@ -1,6 +1,4 @@
-﻿using ALICE_Actions;
-using ALICE_Objects;
-using ALICE_Core;
+﻿using ALICE_Objects;
 using ALICE_Equipment;
 
 namespace ALICE_Internal
@@ -167,7 +165,7 @@ namespace ALICE_Internal
             public bool WakeScanner(bool TargetState, string MethodName, bool DisableDebug = false)
             {
                 bool State = IEquipment.WakeScanner.Settings.Installed;
-                string Equipment = "Surface Scanner";
+                string Equipment = "Wake Scanner";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
             }
         }   

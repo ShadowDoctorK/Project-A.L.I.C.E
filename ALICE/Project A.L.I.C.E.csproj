@@ -279,7 +279,7 @@
     <Compile Include="A.L.I.C.E Response\Class\Frame Shift Drive.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Generic Equipment.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Composite Scanner.cs" />
-    <Compile Include="A.L.I.C.E Response\Fighter.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Fighter.cs" />
     <Compile Include="A.L.I.C.E Settings\Settings Shipyard.cs" />
     <Compile Include="A.L.I.C.E Status\Status Bounty.cs" />
     <Compile Include="A.L.I.C.E Status\Status Crew.cs" />
