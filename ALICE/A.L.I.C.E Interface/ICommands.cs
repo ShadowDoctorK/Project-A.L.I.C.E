@@ -6,6 +6,7 @@ using ALICE_Core;
 using ALICE_Settings;
 using ALICE_Equipment;
 using ALICE_Debug;
+using ALICE_Keybinds;
 
 namespace ALICE_Interface
 {
@@ -64,7 +65,7 @@ namespace ALICE_Interface
 
             #region 3.4 Panel Controls
             if (Command.Check("Close Panels"))
-            { Call.Key.Press(Call.Key.UI_Back); }
+            { IKeyboard.Press(IKey.UI_Back); }
 
             #region Target Panel
             else if (Command.Check("Target Panel:"))

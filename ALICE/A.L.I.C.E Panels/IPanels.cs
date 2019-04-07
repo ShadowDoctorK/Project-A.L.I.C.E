@@ -7,6 +7,7 @@ using ALICE_Actions;
 using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Internal;
+using ALICE_Keybinds;
 using ALICE_Objects;
 
 namespace ALICE_Panels
@@ -41,7 +42,7 @@ namespace ALICE_Panels
         public bool HudFocus(int Sleep = 100)
         {
             bool Temp = false; int Count = 15; while (IStatus.GUI_Focus != 0 && Count > 0)
-            { Call.Key.Press(Call.Key.UI_Back, 500); Count--; }
+            { IKeyboard.Press(IKey.UI_Back, 500); Count--; }
 
             if (IStatus.GUI_Focus == 0) { Temp = true; }
 
@@ -78,37 +79,37 @@ namespace ALICE_Panels
             //Check Role Panel
             if (Name == IEnums.Role && ICheck.Panel.Role.Open(MethodName, !State))
             {
-                Call.Key.Press(Call.Key.Role_Panel, 400, Call.Key.DelayPanel);
+                IKeyboard.Press(IKey.Role_Panel, 400, IKey.DelayPanel);
             }
 
             //Check Target Panel
             if (Name == IEnums.Target && ICheck.Panel.Target.Open(MethodName, !State))
             {
-                Call.Key.Press(Call.Key.Target_Panel, 400, Call.Key.DelayPanel);
+                IKeyboard.Press(IKey.Target_Panel, 400, IKey.DelayPanel);
             }
 
             //Check Comms Panel
             if (Name == IEnums.Comms && ICheck.Panel.Comms.Open(MethodName, !State))
             {
-                Call.Key.Press(Call.Key.Comms_Panel, 400, Call.Key.DelayPanel);
+                IKeyboard.Press(IKey.Comms_Panel, 400, IKey.DelayPanel);
             }
 
             //Check System Panel
             if (Name == IEnums.System && ICheck.Panel.System.Open(MethodName, !State))
             {
-                Call.Key.Press(Call.Key.System_Panel, 400, Call.Key.DelayPanel);
+                IKeyboard.Press(IKey.System_Panel, 400, IKey.DelayPanel);
             }
 
             //Check Galaxy Map
             if (Name == IEnums.GalaxyMap && ICheck.Panel.GalaxyMap.Open(MethodName, !State))
             {
-                Call.Key.Press(Call.Key.Open_Galaxy_Map, 400, Call.Key.DelayPanel);
+                IKeyboard.Press(IKey.Open_Galaxy_Map, 400, IKey.DelayPanel);
             }
 
             //Check System Map
             if (Name == IEnums.SystemMap && ICheck.Panel.SystemMap.Open(MethodName, !State))
             {
-                Call.Key.Press(Call.Key.Open_System_Map, 400, Call.Key.DelayPanel);
+                IKeyboard.Press(IKey.Open_System_Map, 400, IKey.DelayPanel);
             }
 
             Open = State; PanelPrep(State);
@@ -126,13 +127,13 @@ namespace ALICE_Panels
             if (Select < Pos)
             {
                 decimal Cycle = Pos - Select; while (Cycle != 0 && Cycle > 0)
-                { Call.Key.Press(Call.Key.Previous_Panel_Tab, 100 + AddDelay, Call.Key.DelayPanel); Cycle--; }
+                { IKeyboard.Press(IKey.Previous_Panel_Tab, 100 + AddDelay, IKey.DelayPanel); Cycle--; }
             }
             //Next Tab
             else if (Select > Pos)
             {
                 decimal Cycle = Select - Pos; while (Cycle != 0 && Cycle > 0)
-                { Call.Key.Press(Call.Key.Next_Panel_Tab, 100 + AddDelay, Call.Key.DelayPanel); Cycle--; }
+                { IKeyboard.Press(IKey.Next_Panel_Tab, 100 + AddDelay, IKey.DelayPanel); Cycle--; }
             }
 
             Pos = Select;
@@ -179,7 +180,7 @@ namespace ALICE_Panels
             if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Codex, true) == false)
             { Recheck = true; }
 
-            if (Recheck) { Call.Key.Press(Call.Key.UI_Back, 600); goto Start; }
+            if (Recheck) { IKeyboard.Press(IKey.UI_Back, 600); goto Start; }
 
             return Answer;
         }
@@ -323,8 +324,8 @@ namespace ALICE_Panels
             {
                 decimal Cycle = Cur - Sel; while (Cycle != 0 && Cycle > 0)
                 {
-                    if (Vert == true) { Call.Key.Press(Call.Key.UI_Panel_Up, 100 + Pause, Call.Key.DelayPanel); }
-                    else if (Vert == false) { Call.Key.Press(Call.Key.UI_Panel_Left, 100 + Pause, Call.Key.DelayPanel); }
+                    if (Vert == true) { IKeyboard.Press(IKey.UI_Panel_Up, 100 + Pause, IKey.DelayPanel); }
+                    else if (Vert == false) { IKeyboard.Press(IKey.UI_Panel_Left, 100 + Pause, IKey.DelayPanel); }
                     Cycle--;
                 }
             }
@@ -333,8 +334,8 @@ namespace ALICE_Panels
             {
                 decimal Cycle = Sel - Cur; while (Cycle != 0 && Cycle > 0)
                 {
-                    if (Vert == true) { Call.Key.Press(Call.Key.UI_Panel_Down, 100 + Pause, Call.Key.DelayPanel); }
-                    else if (Vert == false) { Call.Key.Press(Call.Key.UI_Panel_Right, 100 + Pause, Call.Key.DelayPanel); }
+                    if (Vert == true) { IKeyboard.Press(IKey.UI_Panel_Down, 100 + Pause, IKey.DelayPanel); }
+                    else if (Vert == false) { IKeyboard.Press(IKey.UI_Panel_Right, 100 + Pause, IKey.DelayPanel); }
                     Cycle--;
                 }
             }
@@ -342,9 +343,9 @@ namespace ALICE_Panels
             return Sel;
         }
 
-        public void Select(int Pause = 0) { Call.Key.Press(Call.Key.UI_Panel_Select, Pause); }
+        public void Select(int Pause = 0) { IKeyboard.Press(IKey.UI_Panel_Select, Pause); }
 
-        public void Back(int Pause = 0) { Call.Key.Press(Call.Key.UI_Back, Pause); }
+        public void Back(int Pause = 0) { IKeyboard.Press(IKey.UI_Back, Pause); }
 
         public void MainFourIsFalse()
         {

@@ -1,6 +1,7 @@
 ﻿using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Internal;
+using ALICE_Keybinds;
 using ALICE_Objects;
 using ALICE_Response;
 using ALICE_Settings;
@@ -114,36 +115,36 @@ namespace ALICE_Actions
             if (ICheck.Panel.Role.Open(MethodName, true) == false)
             {
                 Call.Panel.Role.Panel(true);
-                Call.Key.Press(Call.Key.Previous_Panel_Tab, 100, Call.Key.DelayPanel);
-                Call.Key.Press(Call.Key.Next_Panel_Tab, 100, Call.Key.DelayPanel);
+                IKeyboard.Press(IKey.Previous_Panel_Tab, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.Next_Panel_Tab, 100, IKey.DelayPanel);
             }
 
             if (FighterNumber == 2)
             {
                 Thread.Sleep(100 + ISettings.OffsetPanels);
-                Call.Key.Press(Call.Key.UI_Panel_Down, 100, Call.Key.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
             }
 
-            Call.Key.Press(Call.Key.UI_Panel_Select, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Down_Press, 750, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Down_Release, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Up_Press, 750, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Up_Release, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Select, 250, Call.Key.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Select, 100, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Down_Press, 750, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Down_Release, 100, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Up_Press, 750, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Up_Release, 100, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Select, 250, IKey.DelayPanel);
 
             //Fighter Sub Menu
-            Call.Key.Press(Call.Key.UI_Panel_Up, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Up, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Up, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Down, 100, Call.Key.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
             if (PlayerDeploy == false)
             {
                 Logger.DebugLine(MethodName, "Crew Selected for Launch", Logger.Yellow);
-                Call.Key.Press(Call.Key.UI_Panel_Down, 100, Call.Key.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
             }
 
-            Call.Key.Press(Call.Key.UI_Panel_Select, 250, Call.Key.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Select, 250, IKey.DelayPanel);
             Call.Panel.Role.Panel(false);
             #endregion
 
@@ -194,7 +195,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Fighter (Attack My Target)";
 
-            Call.Key.Press(Call.Key.Attack_Target, 0);
+            IKeyboard.Press(IKey.Attack_Target, 0);
 
             //Audio - Attack My Target
             IResponse.Fighter.AttackMyTarget(
@@ -206,7 +207,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Fighter (Defend)";
 
-            Call.Key.Press(Call.Key.Defend, 0);
+            IKeyboard.Press(IKey.Defend, 0);
 
             //Audio - Defending
             IResponse.Fighter.Defending(
@@ -218,7 +219,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Fighter (Engage At Will)";
 
-            Call.Key.Press(Call.Key.Engage_At_Will, 0);
+            IKeyboard.Press(IKey.Engage_At_Will, 0);
             
             //Audio - Engage At Will
             IResponse.Fighter.EngageAtWill(
@@ -230,7 +231,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Fighter (Follow)";
 
-            Call.Key.Press(Call.Key.Follow_Me, 0);
+            IKeyboard.Press(IKey.Follow_Me, 0);
 
             //Audio - Follow
             IResponse.Fighter.Follow(
@@ -242,7 +243,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Fighter (Hold Position)";
 
-            Call.Key.Press(Call.Key.Hold_Position, 0);
+            IKeyboard.Press(IKey.Hold_Position, 0);
 
             //Audio - Hold Position
             IResponse.Fighter.HoldPosition(
@@ -254,7 +255,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Fighter (Maintain Formation)";
 
-            Call.Key.Press(Call.Key.Maintain_Formation, 0);
+            IKeyboard.Press(IKey.Maintain_Formation, 0);
 
             //Audio - Maintain Formation
             IResponse.Fighter.MaintainFormation(
@@ -266,7 +267,7 @@ namespace ALICE_Actions
         {
             string MethodName = "Fighter (Recall)";
 
-            Call.Key.Press(Call.Key.Recall_Fighter, 0);
+            IKeyboard.Press(IKey.Recall_Fighter, 0);
 
             //Audio - Recall (NPC)
             IResponse.Fighter.RecallNPC(

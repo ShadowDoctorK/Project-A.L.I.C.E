@@ -7,6 +7,7 @@ using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Equipment;
 using ALICE_Internal;
+using ALICE_Keybinds;
 using ALICE_Objects;
 using System;
 using System.Collections.Generic;
@@ -175,7 +176,7 @@ namespace ALICE_Events
                 //Post Jump Safeties
                 if (ICheck.Order.PostJumpSafety(ClassName, true, true))
                 {
-                    Call.Key.Press(Call.Key.Set_Speed_To_0, 0);
+                    IKeyboard.Press(IKey.Set_Speed_To_0, 0);
                 }
 
                 //Fuel Status Report

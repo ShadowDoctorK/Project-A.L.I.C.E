@@ -10,6 +10,7 @@ using SysDiag = System.Diagnostics;
 using System.Linq;
 using ALICE_Settings;
 using ALICE_Debug;
+using ALICE_Keybinds;
 
 namespace ALICE_Internal
 {
@@ -93,7 +94,7 @@ namespace ALICE_Internal
                     Logger.DebugLine(MethodName, "Loading Keybinds...", Logger.Blue);
 
                     //Load Game Binds
-                    Call.Key.Load_Keybinds();
+                    IKeyboard.LoadKeybinds();
                     
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Loading Response Files...", Logger.Blue);

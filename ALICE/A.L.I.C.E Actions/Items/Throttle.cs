@@ -1,5 +1,6 @@
 ﻿using ALICE_Debug;
 using ALICE_Internal;
+using ALICE_Keybinds;
 using System.Threading;
 
 namespace ALICE_Actions
@@ -63,7 +64,7 @@ namespace ALICE_Actions
 
             #region Action: Boost
             Num_Boost = Times; while (Num_Boost >= 1)
-            { Num_Boost--; Call.Key.Press(Call.Key.Engine_Boost, 8000); }
+            { Num_Boost--; IKeyboard.Press(IKey.Engine_Boost, 8000); }
             #endregion
 
             #region Action: Set Saved Power
@@ -84,8 +85,8 @@ namespace ALICE_Actions
             #endregion
 
             #region Action: Set Throttle
-            if (Negative) { Call.Key.Press(Call.Key.Set_Speed_To_Minus_100, 0, Call.Key.DelayThrottle); }
-            else { Call.Key.Press(Call.Key.Set_Speed_To_100, 0); }
+            if (Negative) { IKeyboard.Press(IKey.Set_Speed_To_Minus_100, 0, IKey.DelayThrottle); }
+            else { IKeyboard.Press(IKey.Set_Speed_To_100, 0); }
             #endregion
         }
 
@@ -103,15 +104,15 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_75, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_75, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_75, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_75, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             #endregion
         }
@@ -130,13 +131,13 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_100, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_100, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_100, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_100, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             #endregion
         }
@@ -155,13 +156,13 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_75, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_75, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_75, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_75, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             #endregion
         }
@@ -180,15 +181,15 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_100, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_100, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_100, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_100, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             #endregion
         }
@@ -207,11 +208,11 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_75, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_75, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_75, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_75, 0);
             }
             #endregion
         }
@@ -230,15 +231,15 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_50, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_50, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_50, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_50, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             #endregion
         }
@@ -257,13 +258,13 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_75, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_75, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_75, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_75, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             #endregion
         }
@@ -282,13 +283,13 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_50, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_50, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_50, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_50, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             #endregion
         }
@@ -307,15 +308,15 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_75, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_75, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_75, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_75, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             #endregion
         }
@@ -334,11 +335,11 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_50, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_50, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_50, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_50, 0);
             }
             #endregion
         }
@@ -357,15 +358,15 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_25, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_25, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_25, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_25, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             #endregion
         }
@@ -384,13 +385,13 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_50, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_50, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_50, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_50, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             #endregion
         }
@@ -409,13 +410,13 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_25, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_25, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_25, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_25, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             #endregion
         }
@@ -434,15 +435,15 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_50, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_50, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_50, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_50, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             #endregion
         }
@@ -461,11 +462,11 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_25, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_25, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_25, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_25, 0);
             }
             #endregion
         }
@@ -484,15 +485,15 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_0, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_0, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_0, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_0, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             #endregion
         }
@@ -511,13 +512,13 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_25, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_25, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_25, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_25, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             #endregion
         }
@@ -536,13 +537,13 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_0, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_0, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_0, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_0, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             #endregion
         }
@@ -561,15 +562,15 @@ namespace ALICE_Actions
             #region Action: Set Throttle
             if (Negative)
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_Minus_25, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Increase_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_Minus_25, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Increase_Throttle, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Set_Speed_To_25, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 100, Call.Key.DelayThrottle);
-                Call.Key.Press(Call.Key.Decrease_Throttle, 0);
+                IKeyboard.Press(IKey.Set_Speed_To_25, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 100, IKey.DelayThrottle);
+                IKeyboard.Press(IKey.Decrease_Throttle, 0);
             }
             #endregion
         }
@@ -586,7 +587,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Action: Set Throttle
-            Call.Key.Press(Call.Key.Set_Speed_To_0, 0);
+            IKeyboard.Press(IKey.Set_Speed_To_0, 0);
             #endregion
         }
     }

@@ -27,8 +27,7 @@ namespace ALICE_Actions
     /// </summary>
     public static class Call
     {
-        public static Actions Action = new Actions();
-        public static AliceKeys Key = new AliceKeys();        
+        public static Actions Action = new Actions();   
         public static Overrides Overrides = new Overrides();
         public static IPower Power = new IPower();
         public static IPanels Panel = new IPanels();
@@ -155,7 +154,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Activation
-            Call.Key.Press(Call.Key.Use_Chaff_Launcher, 0);
+            IKeyboard.Press(IKey.Use_Chaff_Launcher, 0);
 
             #region Audio
             if (PlugIn.Audio == "TTS")
@@ -222,7 +221,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Activation
-            Call.Key.Press(Call.Key.Deploy_Heat_Sink, 0);
+            IKeyboard.Press(IKey.Deploy_Heat_Sink, 0);
 
             #region Audio
             if (PlugIn.Audio == "TTS")
@@ -289,7 +288,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Activation
-            Call.Key.Press(Call.Key.Use_Shield_Cell, 0);
+            IKeyboard.Press(IKey.Use_Shield_Cell, 0);
 
             #region Audio
             if (PlugIn.Audio == "TTS")
@@ -341,13 +340,13 @@ namespace ALICE_Actions
             {
                 if (CMD_State == true)
                 {
-                    Call.Key.Press(Call.Key.Toggle_HUD_Mode, 0);
+                    IKeyboard.Press(IKey.Toggle_HUD_Mode, 0);
                     IStatus.AnalysisMode = true;
                     return;
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Toggle_HUD_Mode, 0);
+                    IKeyboard.Press(IKey.Toggle_HUD_Mode, 0);
                     IStatus.AnalysisMode = false;
                     return;
                 }
@@ -488,7 +487,7 @@ namespace ALICE_Actions
             {
                 if (CMD_State == true)
                 {
-                    Call.Key.Press(Call.Key.Cargo_Scoop, 0);
+                    IKeyboard.Press(IKey.Cargo_Scoop, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -508,7 +507,7 @@ namespace ALICE_Actions
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Cargo_Scoop, 0);
+                    IKeyboard.Press(IKey.Cargo_Scoop, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -569,13 +568,13 @@ namespace ALICE_Actions
             {
                 if (CMD_State == true)
                 {
-                    Call.Key.Press(Call.Key.Ship_Lights, 0);
+                    IKeyboard.Press(IKey.Ship_Lights, 0);
                     IEquipment.ExternalLights.Energizing(CommandAudio);
                     return;
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Ship_Lights, 0);
+                    IKeyboard.Press(IKey.Ship_Lights, 0);
                     IEquipment.ExternalLights.Deenergizing(CommandAudio);
                     return;
                 }
@@ -623,7 +622,7 @@ namespace ALICE_Actions
                 if (CMD_State == true)
                 {
                     IResponse.DiscoveryScanner.FSSActivating(CommandAudio);
-                    Call.Key.Press(Call.Key.FSS_Enter, 0);
+                    IKeyboard.Press(IKey.FSS_Enter, 0);
                     IEquipment.DiscoveryScanner.Mode = CMD_State;
 
                     return;
@@ -631,7 +630,7 @@ namespace ALICE_Actions
                 else if (CMD_State == false)
                 {
                     IResponse.DiscoveryScanner.FSSDeactivating(CommandAudio);
-                    Call.Key.Press(Call.Key.FSS_Exit, 0);
+                    IKeyboard.Press(IKey.FSS_Exit, 0);
                     IEquipment.DiscoveryScanner.Mode = CMD_State;
 
                     return;
@@ -817,7 +816,7 @@ namespace ALICE_Actions
                         Thread.Sleep(100);
                     }
 
-                    Call.Key.Press(Call.Key.Deploy_Hardpoints, 0);
+                    IKeyboard.Press(IKey.Deploy_Hardpoints, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -836,7 +835,7 @@ namespace ALICE_Actions
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Deploy_Hardpoints, 0);
+                    IKeyboard.Press(IKey.Deploy_Hardpoints, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -889,13 +888,13 @@ namespace ALICE_Actions
             {
                 if (CMD_State == true)
                 {
-                    Call.Key.Press(Call.Key.Night_Vision_Toggle, 0);
+                    IKeyboard.Press(IKey.Night_Vision_Toggle, 0);
 
                     return;
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Night_Vision_Toggle, 0);
+                    IKeyboard.Press(IKey.Night_Vision_Toggle, 0);
 
                     return;
                 }
@@ -1064,7 +1063,7 @@ namespace ALICE_Actions
             {
                 if (CMD_State == true)
                 {
-                    Call.Key.Press(Call.Key.Landing_Gear, 0);
+                    IKeyboard.Press(IKey.Landing_Gear, 0);
                     ISet.LandingGear.Status(MethodName, true);
 
                     #region Audio
@@ -1085,7 +1084,7 @@ namespace ALICE_Actions
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Landing_Gear, 0);
+                    IKeyboard.Press(IKey.Landing_Gear, 0);
                     ISet.LandingGear.Status(MethodName, false);
 
                     #region Audio
@@ -1201,7 +1200,7 @@ namespace ALICE_Actions
             {
                 if (CMD_State == true)
                 {
-                    Call.Key.Press(Call.Key.Silent_Running, 0);
+                    IKeyboard.Press(IKey.Silent_Running, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -1221,7 +1220,7 @@ namespace ALICE_Actions
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Silent_Running, 0);
+                    IKeyboard.Press(IKey.Silent_Running, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -1372,7 +1371,7 @@ namespace ALICE_Actions
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.UI_Back, 0);
+                    IKeyboard.Press(IKey.UI_Back, 0);
 
                     //Add Music State Checks To Verify Closed.
                     IEquipment.SurfaceScanner.Mode = CMD_State;
@@ -1621,7 +1620,7 @@ namespace ALICE_Actions
             {
                 if (CMD_State == true)
                 {
-                    Call.Key.Press(Call.Key.Toggle_Flight_Assist, 0);
+                    IKeyboard.Press(IKey.Toggle_Flight_Assist, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -1641,7 +1640,7 @@ namespace ALICE_Actions
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Toggle_Flight_Assist, 0);
+                    IKeyboard.Press(IKey.Toggle_Flight_Assist, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -1681,9 +1680,9 @@ namespace ALICE_Actions
                 //Add Aduio - Postive / Commencing Launch
 
                 //Selects Launch Button & Press' It.
-                Call.Key.Press(Call.Key.UI_Panel_Down_Press, 2000);
-                Call.Key.Press(Call.Key.UI_Panel_Down_Release, 100);
-                Call.Key.Press(Call.Key.UI_Panel_Select, 250);
+                IKeyboard.Press(IKey.UI_Panel_Down_Press, 2000);
+                IKeyboard.Press(IKey.UI_Panel_Down_Release, 100);
+                IKeyboard.Press(IKey.UI_Panel_Select, 250);
 
                 //Wait For Launch (30 seconds)
                 decimal Count = 300; while (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Undocked, true) == false && Count > 0)
@@ -1697,8 +1696,8 @@ namespace ALICE_Actions
                 }
 
                 //Move Ship Away From Ground                
-                Call.Key.Press(Call.Key.Thrust_Up_Press, 3000);
-                Call.Key.Press(Call.Key.Thrust_Up_Release);
+                IKeyboard.Press(IKey.Thrust_Up_Press, 3000);
+                IKeyboard.Press(IKey.Thrust_Up_Release);
 
                 //Add Audio - Handover                      
                 Logger.Log(MethodName, "Undocking Complete, Controls Released.", Logger.Yellow, true);
@@ -1718,7 +1717,7 @@ namespace ALICE_Actions
                 //Add Audio - Postive / Engine Start Up
 
                 //Begin Takeoff
-                Call.Key.Press(Call.Key.Thrust_Up_Press);
+                IKeyboard.Press(IKey.Thrust_Up_Press);
                 //Wait For Engines To Engage / Takeoff
                 decimal Count = 50; while(ICheck.Status.Touchdown(MethodName, false) == false && Count > 0)
                 {
@@ -1734,7 +1733,7 @@ namespace ALICE_Actions
                     Count--; Thread.Sleep(100);
                 }
                 //Release Upward Thrust
-                Call.Key.Press(Call.Key.Thrust_Up_Release);
+                IKeyboard.Press(IKey.Thrust_Up_Release);
 
                 //Add Audio - Handover                               
                 Logger.Log(MethodName, "Liftoff Complete, Controls Released.", Logger.Yellow, true);
@@ -2143,11 +2142,11 @@ namespace ALICE_Actions
             {
                 if (Forward == true)
                 {
-                    Call.Key.Press(Call.Key.Cycle_Next_Subsystem, 150);
+                    IKeyboard.Press(IKey.Cycle_Next_Subsystem, 150);
                 }
                 else if (Forward == false)
                 {
-                    Call.Key.Press(Call.Key.Cycle_Previous_Subsystem, 150);
+                    IKeyboard.Press(IKey.Cycle_Previous_Subsystem, 150);
                 }
 
                 if (IObjects.TargetCurrent.Targeted == false)
@@ -2174,11 +2173,11 @@ namespace ALICE_Actions
             {
                 if (Forward == true)
                 {
-                    Call.Key.Press(Call.Key.Cycle_Next_Hostile_Target, 0);
+                    IKeyboard.Press(IKey.Cycle_Next_Hostile_Target, 0);
                 }
                 else if (Forward == false)
                 {
-                    Call.Key.Press(Call.Key.Cycle_Previous_Hostile_Ship, 0);
+                    IKeyboard.Press(IKey.Cycle_Previous_Hostile_Ship, 0);
                 }
                 Cycle--;
                 Thread.Sleep(100);
@@ -2199,11 +2198,11 @@ namespace ALICE_Actions
             {
                 if (Forward == true)
                 {
-                    Call.Key.Press(Call.Key.Cycle_Next_Target , 0);
+                    IKeyboard.Press(IKey.Cycle_Next_Target , 0);
                 }
                 else if (Forward == false)
                 {
-                    Call.Key.Press(Call.Key.Cycle_Previous_Ship , 0);
+                    IKeyboard.Press(IKey.Cycle_Previous_Ship , 0);
                 }
                 Cycle--;
                 Thread.Sleep(100);
@@ -2228,15 +2227,15 @@ namespace ALICE_Actions
 
             if (Wingman == 1)
             {
-                Call.Key.Press(Call.Key.Select_Wingman_1 , 0);
+                IKeyboard.Press(IKey.Select_Wingman_1 , 0);
             }
             else if (Wingman == 2)
             {
-                Call.Key.Press(Call.Key.Select_Wingman_2, 0);
+                IKeyboard.Press(IKey.Select_Wingman_2, 0);
             }
             else if (Wingman == 3)
             {
-                Call.Key.Press(Call.Key.Select_Wingman_3, 0);
+                IKeyboard.Press(IKey.Select_Wingman_3, 0);
             }
 
             Thread.Sleep(100);
@@ -2251,7 +2250,7 @@ namespace ALICE_Actions
                 Select_Wingman(Wingman, false);
             }
 
-            Call.Key.Press(Call.Key.Select_Wingmans_Target, 100);
+            IKeyboard.Press(IKey.Select_Wingmans_Target, 100);
 
             //DYNAMIC AUDIO
         }
@@ -2262,7 +2261,7 @@ namespace ALICE_Actions
             {
                 Select_Wingman(Wingman, false);
             }
-            Call.Key.Press(Call.Key.Wingman_NavLock, 100);
+            IKeyboard.Press(IKey.Wingman_NavLock, 100);
 
             //DYNAMIC AUDIO
         }

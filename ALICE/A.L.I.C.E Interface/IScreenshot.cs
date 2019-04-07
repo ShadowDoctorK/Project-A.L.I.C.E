@@ -38,7 +38,7 @@ namespace ALICE_Interface
     //        try
     //        {
     //            //Screenshot The Active Window
-    //            //Call.Key.Press(Call.Key.ActiveScreenshot, 100);
+    //            //IKeyboard.Press(IKey.ActiveScreenshot, 100);
 
     //            //Prepair The File Name & Path
     //            string FileName = GetFileName();

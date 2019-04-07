@@ -8,6 +8,7 @@ using ALICE.Properties;
 using ALICE_Actions;
 using ALICE_Debug;
 using ALICE_Internal;
+using ALICE_Keybinds;
 using ALICE_Objects;
 
 namespace ALICE_Core
@@ -62,12 +63,12 @@ namespace ALICE_Core
                 if (Target < Current)
                 {
                     decimal Cycle = Current - Target; while (Cycle != 0 && Cycle > 0)
-                    { Call.Key.Press(Call.Key.Cycle_Previous_Fire_Group, 100, Call.Key.DelayFireGroup); Cycle--; }
+                    { IKeyboard.Press(IKey.Cycle_Previous_Fire_Group, 100, IKey.DelayFireGroup); Cycle--; }
                 }
                 else if (Target > Current)
                 {
                     decimal Cycle = Target - Current; while (Cycle != 0 && Cycle > 0)
-                    { Call.Key.Press(Call.Key.Cycle_Next_Fire_Group, 100, Call.Key.DelayFireGroup); Cycle--; }
+                    { IKeyboard.Press(IKey.Cycle_Next_Fire_Group, 100, IKey.DelayFireGroup); Cycle--; }
                 }
 
                 Current = Target;
@@ -105,12 +106,12 @@ namespace ALICE_Core
             }
             #endregion
 
-            Call.Key.Press(Call.Key.Cycle_Next_Fire_Group, 1500, Call.Key.DelayFireGroup);
+            IKeyboard.Press(IKey.Cycle_Next_Fire_Group, 1500, IKey.DelayFireGroup);
 
             decimal Count = 10; while (Call.Firegroup.Current != Saved && Count != 0)
             {
                 Count--; if (Current > Tracked) { Tracked = Current; }
-                Call.Key.Press(Call.Key.Cycle_Next_Fire_Group, 1500, Call.Key.DelayFireGroup);
+                IKeyboard.Press(IKey.Cycle_Next_Fire_Group, 1500, IKey.DelayFireGroup);
                 Logger.DebugLine(MethodName, "Tracking Group: " + Tracked, Logger.Yellow);
             }
 

@@ -26,9 +26,7 @@ namespace ALICE_Debug_Console
         {            
             PlugIn.Initialize(true, true);
 
-            Thread.Sleep(5000);
-
-            Call.Panel.System.Inventory.ShipsCargo();
+            Thread.Sleep(50000);            
         }
     }
 }

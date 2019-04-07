@@ -2,6 +2,7 @@
 using ALICE_Actions;
 using ALICE_Debug;
 using ALICE_Internal;
+using ALICE_Keybinds;
 using ALICE_Response;
 
 namespace ALICE_Equipment
@@ -69,11 +70,11 @@ namespace ALICE_Equipment
             //Keypress
             if (HyperspaceCharge)
             {
-                Call.Key.Press(Call.Key.Hyperspace_Jump, 0);
+                IKeyboard.Press(IKey.Hyperspace_Jump, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Supercruise, 0);
+                IKeyboard.Press(IKey.Supercruise, 0);
             }
 
             //Watch FSD Starting (3.25 Seconds)
@@ -117,12 +118,12 @@ namespace ALICE_Equipment
             //Keypress
             if (EmergencyDrop == false)
             {
-                Call.Key.Press(Call.Key.Supercruise, 0);
+                IKeyboard.Press(IKey.Supercruise, 0);
             }
             else
             {
-                Call.Key.Press(Call.Key.Supercruise, 200);
-                Call.Key.Press(Call.Key.Supercruise, 0);
+                IKeyboard.Press(IKey.Supercruise, 200);
+                IKeyboard.Press(IKey.Supercruise, 0);
             }
 
             //Watch FSD Disengaging
@@ -147,7 +148,7 @@ namespace ALICE_Equipment
             //Keypress
             if (Charging)
             {
-                Call.Key.Press(Call.Key.Toggle_Frame_Shift_Drive, 0);
+                IKeyboard.Press(IKey.Toggle_Frame_Shift_Drive, 0);
             }
 
             //Watch FSD Abort

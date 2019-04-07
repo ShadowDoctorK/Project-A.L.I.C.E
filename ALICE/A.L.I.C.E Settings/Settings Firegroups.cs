@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ALICE_Actions;
 using ALICE_Debug;
+using ALICE_Keybinds;
 
 namespace ALICE_Settings
 {
@@ -618,9 +619,9 @@ namespace ALICE_Settings
             {
                 //Activate
                 if (Temp.FireMode == Fire.Primary)
-                { Call.Key.Press(Call.Key.Primary_Fire_Press); }
+                { IKeyboard.Press(IKey.Primary_Fire_Press); }
                 else if (Temp.FireMode == Fire.Secondary)
-                { Call.Key.Press(Call.Key.Secondary_Fire_Press); }
+                { IKeyboard.Press(IKey.Secondary_Fire_Press); }
 
                 //Key Duration
                 #region Duration Logic
@@ -639,9 +640,9 @@ namespace ALICE_Settings
 
                 //Release
                 if (Temp.FireMode == Fire.Primary)
-                { Call.Key.Press(Call.Key.Primary_Fire_Release); }
+                { IKeyboard.Press(IKey.Primary_Fire_Release); }
                 else if (Temp.FireMode == Fire.Secondary)
-                { Call.Key.Press(Call.Key.Secondary_Fire_Release); }
+                { IKeyboard.Press(IKey.Secondary_Fire_Release); }
 
                 //Track Completeion
                 #region Completion Check

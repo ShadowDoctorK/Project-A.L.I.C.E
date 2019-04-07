@@ -272,6 +272,7 @@
     <Compile Include="A.L.I.C.E Events\Game Events\DockingTimeout.cs" />
     <Compile Include="A.L.I.C.E Interface\INewtonSoft.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
+    <Compile Include="A.L.I.C.E Interface\IXmlControl.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
     <Compile Include="A.L.I.C.E Response\Class\General.cs" />
@@ -390,7 +391,7 @@
     <Compile Include="A.L.I.C.E Interface\IPlatform.cs" />
     <Compile Include="A.L.I.C.E Core\Monitor Journal.cs" />
     <Compile Include="A.L.I.C.E Core\Monitor Json.cs" />
-    <Compile Include="A.L.I.C.E Core\Manager Keybinds.cs" />
+    <Compile Include="A.L.I.C.E Interface\IKeybinds.cs" />
     <Compile Include="A.L.I.C.E Objects\IObjects.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Speech.cs" />
     <Compile Include="General Code Storage.cs" />
