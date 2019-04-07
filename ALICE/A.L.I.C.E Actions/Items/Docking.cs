@@ -149,7 +149,8 @@ namespace ALICE_Actions
                                 return;
 
                             case false:
-                                IEquipment.DockingComputer.NotInstalled(CommandAudio,
+                                IResponse.DockingComputer.NotInstalled(
+                                    CommandAudio,
                                     IEquipment.DockingComputer.AsisstedDockingReport);
 
                                 //Prevents Reporting No Docking Computer more then once.

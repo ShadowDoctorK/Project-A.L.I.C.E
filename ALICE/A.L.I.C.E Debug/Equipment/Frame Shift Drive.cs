@@ -23,14 +23,17 @@ namespace ALICE_DebugCheck
 
         private readonly string Item = "Frame Shift Drive ";
 
+        public bool Installed(string M, bool T, bool L = true)
+        { return Evaluate(M, Item + "(Installed)", T, E.Settings.Installed, L); }
+
+        public bool Enabled(string M, bool T, bool L = true)
+        { return Evaluate(M, Item + "(Enabled)", T, E.Settings.Enabled, L); }
+
         public bool Charging(string M, bool T, bool L = true)
         { return Evaluate(M, Item + "(Charging)", T, E.Charging, L); }
 
         public bool Cooldown(string M, bool T, bool L = true)
         { return Evaluate(M, Item + "(Cooldown)", T, E.Cooldown, L); }
-
-        //public bool Prepairing(string M, bool T, bool L = true)
-        //{ return Evaluate(M, Item + "(Prepairing)", T, E.Prepairing, L); }
 
         public bool PrepHyperspace(string M, bool T, bool L = true)
         { return Evaluate(M, Item + "(Prep Hyperspace)", T, E.PrepHyperspace, L); }
@@ -46,9 +49,6 @@ namespace ALICE_DebugCheck
 
         public bool Supercruise(string M, bool T, bool L = true)
         { return Evaluate(M, Item + "(Supercruise)", T, E.Supercruise, L); }
-
-        public bool Enabled(string M, bool T, bool L = true)
-        { return Evaluate(M, Item + "(Enabled)", T, E.Settings.Enabled, L); }
 
         public bool Marking(string M, bool T, bool L = true)
         { return Evaluate(M, Item + "(Marking)", T, E.Marking, L); }
@@ -81,14 +81,17 @@ namespace ALICE_DebugGet
 
         private readonly string Item = "Frame Shift Drive ";
 
+        public bool Installed(string M, bool L = true)
+        { return Get(M, Item + "(Installed)", E.Settings.Installed, L); }
+
+        public bool Enabled(string M, bool L = true)
+        { return Get(M, Item + "(Enabled)", E.Settings.Enabled, L); }
+
         public bool Charging(string M, bool L = true)
         { return Get(M, Item + "(Charging)", E.Charging, L); }
 
         public bool Cooldown(string M, bool L = true)
         { return Get(M, Item + "(Cooldown)", E.Cooldown, L); }
-
-        //public bool Prepairing(string M, bool L = true)
-        //{ return Get(M, Item + "(Prepairing)", E.Prepairing, L); }
 
         public bool PrepHyperspace(string M, bool L = true)
         { return Get(M, Item + "(Prep Hyperspace)", E.PrepHyperspace, L); }
@@ -104,9 +107,6 @@ namespace ALICE_DebugGet
 
         public bool Supercruise(string M, bool L = true)
         { return Get(M, Item + "(Supercruise)", E.Supercruise, L); }
-
-        public bool Enabled(string M, bool L = true)
-        { return Get(M, Item + "(Enabled)", E.Settings.Enabled, L); }
     }
 }
 #endregion
@@ -137,14 +137,17 @@ namespace ALICE_DebugSet
 
         private readonly string Item = "Frame Shift Drive ";
 
+        public void Installed(string M, bool V, bool L = true)
+        { Set(M, Item + "(Installed)", ref E.Settings.Installed, V, L); }
+
+        public void Enabled(string M, bool V, bool L = true)
+        { Set(M, Item + "(Enabled)", ref E.Settings.Enabled, V, L); }
+
         public void Charging(string M, bool V, bool L = true)
         { Set(M, Item + "(Charging)", ref E.Charging, V, L); }
 
         public void Cooldown(string M, bool V, bool L = true)
         { Set(M, Item + "(Cooldown)", ref E.Cooldown, V, L); }
-
-        //public void Prepairing(string M, bool V, bool L = true)
-        //{ Set(M, Item + "(Prepairing)", ref E.Prepairing, V, L); }
 
         public void PrepHyperspace(string M, bool V, bool L = true)
         { Set(M, Item + "(Prep Hyperspace)", ref E.PrepHyperspace, V, L); }

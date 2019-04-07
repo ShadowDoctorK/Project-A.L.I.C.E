@@ -174,7 +174,7 @@ namespace ALICE_Actions
             #endregion
         }
 
-        public void Activate_Heatsink(bool CommandAudio)
+        public void Activate_Heatsink(bool CommandAudio, bool Cold = false)
         {
             string MethodName = "Activate Heatsink";
 
@@ -210,7 +210,7 @@ namespace ALICE_Actions
                         "".Phrase(GN_Negative.Default, true)
                         .Phrase(EQ_Generic_Module.Not_Installed)
                         .Replace("[MODULE]", "Heatsink Launchers"),
-                        CommandAudio
+                        (CommandAudio || Cold)                          //Enable Audio For Cold Activation
                         );
                 }
                 else if (PlugIn.Audio == "File") { }
@@ -241,7 +241,7 @@ namespace ALICE_Actions
             #endregion
         }
 
-        public void Activate_ShieldCell(bool CommandAudio)
+        public void Activate_ShieldCell(bool CommandAudio, bool Cold = false)
         {
             string MethodName = "Activate Shield Cell";
 
@@ -304,6 +304,16 @@ namespace ALICE_Actions
             else if (PlugIn.Audio == "File") { }
             else if (PlugIn.Audio == "External") { }
             #endregion
+
+            //Activate When Cold Modifier Is Used
+            if (Cold)
+            {
+                //Delay Activation
+                Thread.Sleep(1500);
+
+                //Activate Heatsink
+                Activate_Heatsink(false, true);
+            }
 
             #endregion
         }

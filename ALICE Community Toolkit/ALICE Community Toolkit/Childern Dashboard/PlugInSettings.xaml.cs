@@ -188,7 +188,7 @@ namespace ALICE_Community_Toolkit
                     //Collector Limpet
                     CB_LIMCOLFire.SelectedIndex = (int)Data.Firegroup.LimpetCollector.FireMode;
                     CB_LIMCOLGroup.SelectedIndex = (int)Data.Firegroup.LimpetCollector.FireGroup;
-                    Label_LIMCOL.Foreground = Data.GetFGLabelColor(CB_LIMCOLFire.SelectedIndex, CB_HS2Group.SelectedIndex);
+                    Label_LIMCOL.Foreground = Data.GetFGLabelColor(CB_LIMCOLFire.SelectedIndex, CB_LIMCOLGroup.SelectedIndex);
 
                     //Decon Limpet
                     CB_LIMDECFire.SelectedIndex = (int)Data.Firegroup.LimpetDecontamination.FireMode;

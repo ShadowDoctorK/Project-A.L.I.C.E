@@ -47,7 +47,9 @@ namespace ALICE_Interface
                 IPlatform.SetText(IPlatform.IVar.ColdMod, "false");
             }
             catch (Exception)
-            { Logger.Exception(MethodName, "ALICE_ColdMod Was Not Set To A Valid Option, Using Default Value \"false\"."); }
+            {
+                Logger.Exception(MethodName, "ALICE_ColdMod Was Not Set To A Valid Option, Using Default Value \"false\".");
+            }
 
             return Answer;
         }
@@ -1098,7 +1100,7 @@ namespace ALICE_Interface
                 {
                     if (Command.Check("Activate"))
                     {
-                        Call.Action.Activate_ShieldCell(PlugIn.CommandAudio);
+                        Call.Action.Activate_ShieldCell(PlugIn.CommandAudio, GetColdMod());
                     }
                 }
                 else if (Command.Check("Heatsink Launcher"))

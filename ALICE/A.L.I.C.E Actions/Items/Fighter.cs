@@ -4,7 +4,6 @@ using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Response;
 using ALICE_Settings;
-using ALICE_Synthesizer;
 using System.Threading;
 
 namespace ALICE_Actions
@@ -271,9 +270,9 @@ namespace ALICE_Actions
 
             //Audio - Recall (NPC)
             IResponse.Fighter.RecallNPC(
-                CommandAudio,                                                   //Check Command Audio
-                ICheck.Status.FighterDeployed(MethodName, true),                //Check Fighter Deployed
-                ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true));  //Check Vehicle
+                CommandAudio,                                                       //Check Command Audio
+                ICheck.Status.FighterDeployed(MethodName, true),                    //Check Fighter Deployed
+                ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true));   //Check Vehicle
 
             //Audio - Recall (Player)
             IResponse.Fighter.RecallPlayer(
