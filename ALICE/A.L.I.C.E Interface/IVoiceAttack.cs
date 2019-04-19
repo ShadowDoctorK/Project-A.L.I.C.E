@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using ALICE_Internal;
 
@@ -14,12 +12,12 @@ namespace ALICE_Interface
 
         public static string VA_DisplayName()
         {
-            return "Project A.L.I.C.E Interface - " + IPlatform.Version;
+            return "Project A.L.I.C.E: Command Interface - " + IPlatform.Version;
         }
 
         public static string VA_DisplayInfo()
         {
-            return "Project A.L.I.C.E Interface - " + IPlatform.Version;
+            return "Project A.L.I.C.E: Command Interface - " + IPlatform.Version;
         }
 
         public static Guid VA_Id()

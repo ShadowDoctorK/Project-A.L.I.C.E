@@ -1,16 +1,8 @@
 ﻿using ALICE_Core;
 using ALICE_Equipment;
 using ALICE_Internal;
-using ALICE_Objects;
-using ALICE_Synthesizer;
-using ALICE_Settings;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using ALICE_Actions;
 using ALICE_Debug;
 using ALICE_Keybinds;
@@ -141,7 +133,7 @@ namespace ALICE_Settings
         /// <param name="FireMode">The target Fire Mode</param>
         public void Assign(Item Item, Group FireGroup, Fire FireMode)
         {
-            string MethodName = "Firegroup System Set Assignment";
+            string MethodName = "Assisted Firegroup (Assign)";
 
             switch (Item)
             {
@@ -566,13 +558,22 @@ namespace ALICE_Settings
                 decimal Num = ConvertGroupFromEnum(Temp.FireGroup);
 
                 //Check Environment Condition
-                if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false) { return S.InHyperspace; }
+                if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
+                {
+                    return S.InHyperspace;
+                }
 
                 //Check HUD Mode
-                if (ICheck.Status.AnalysisMode(MethodName, Mode) == false) { Call.Action.AnalysisMode(false, false); }
+                if (ICheck.Status.AnalysisMode(MethodName, Mode) == false)
+                {
+                    IActions.Hardpoints.Mode(Mode, false);
+                }
 
                 //Check Current Selection
-                if (ICheck.Status.FireGroup(MethodName, Num, true) == true) { return S.CurrentlySelected; }
+                if (ICheck.Status.FireGroup(MethodName, Num, true) == true)
+                {
+                    return S.CurrentlySelected;
+                }
 
                 //Select The Correct Group. Two Attempts.
                 decimal Count = 2; bool Selected = false; while (Count != 0 && Selected == false)
@@ -609,12 +610,14 @@ namespace ALICE_Settings
         /// <returns></returns>
         public A Activate(Item I, int Duration = 75, bool Tracking = false, Equipment_General.WaitHandler Watcher = null)
         {
-            string MethodName = "Assisted Firegroup Acivate";
+            string MethodName = "Assisted Firegroup (Acivate)";
 
             Assignemnt Temp = GetAssignemnt(I);
             bool Mode = CheckMode(I);
 
-            Call.Action.AnalysisMode(Mode, false); Thread.Sleep(50);
+            //Firegroup Mode Selection
+            IActions.Hardpoints.Mode(Mode, false); Thread.Sleep(50);
+
             if (Temp.FireGroup != Group.None && Temp.FireMode != Fire.None)
             {
                 //Activate
@@ -728,7 +731,7 @@ namespace ALICE_Settings
                 case "H":
                     return Group.H;
                 default:
-                    Logger.Log(MethodName, "FireGroup Was Not a Valid Setting (" + Letter + ")", Logger.Yellow);
+                    Logger.Log(MethodName, "FireGroup Was Not a Valid Setting (" + Letter + "). Please Use A - H.", Logger.Yellow);
                     return Group.None;
             }
         }
@@ -743,7 +746,7 @@ namespace ALICE_Settings
                 case "Secondary":
                     return Fire.Secondary;
                 default:
-                    Logger.Log(MethodName, "FireMode Was Not a Valid Setting (" + Value + ")", Logger.Yellow);
+                    Logger.Log(MethodName, "FireMode Was Not a Valid Setting (" + Value + "). Please Use Primary Or Secondary.", Logger.Yellow);
                     return Fire.None;
             }
         }
@@ -887,7 +890,7 @@ namespace ALICE_Settings
 
         public Assignemnt GetAssignemnt(Item I)
         {
-            string MethodName = "Assisted Firegroup Get Assignement";
+            string MethodName = "Assisted Firegroup (Get Assignement)";
 
             switch (I)
             {

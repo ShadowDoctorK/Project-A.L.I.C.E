@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ALICE_Objects;
 using ALICE_Actions;
 using ALICE_Internal;
 using System.Threading;
@@ -110,7 +104,7 @@ namespace ALICE_Panels
             /// <param name="Poin">(Points Of Instrest)  Pass "True" To Enable Filter</param>
             /// <param name="Sign">(Signals)  Pass "True" To Enable Filter</param>
             /// <param name="Syst">(Systems)  Pass "True" To Enable Filter</param>
-            public void FilterLocations(bool Set, bool Star, bool Aste, bool Plan, bool Land, bool Sett, bool Stat, bool Poin, bool Sign, bool Syst)
+            public void FilterLocations(bool Set, bool Star = false, bool Aste = false, bool Plan = false, bool Land = false, bool Sett = false, bool Stat = false, bool Poin = false, bool Sign = false, bool Syst = false)
             {
                 //Track The Menu Position
                 decimal Position = 1;
@@ -125,62 +119,70 @@ namespace ALICE_Panels
                 if (Set && (Star != Stars || Aste != Asteroids || Plan != Planets || Land != Landfalls || Sett != Settlements ||
                     Stat != Stations || Poin != PointsOfInst ||  Sign != Signals || Syst != Systems))
                 {
-                    SetFilters();
+                    //Move Cursor From Submenu To Set Filters And Select It.
+                    SetFilters(); Select(150);
 
+                    //Process Filters
                     if (Star)
                     {
-                        Select();
+                        Select(50);
                     }
 
                     if (Aste)
                     {
-                        Position = UpdateCursor(2, Position, true); Select();
+                        Position = UpdateCursor(2, Position, true, 50); Select(50);
                     }
 
                     if (Plan)
                     {
-                        Position = UpdateCursor(3, Position, true); Select();
+                        Position = UpdateCursor(3, Position, true, 50); Select(50);
                     }
 
                     if (Land)
                     {
-                        Position = UpdateCursor(4, Position, true); Select();
+                        Position = UpdateCursor(4, Position, true, 50); Select(50);
                     }
 
                     if (Sett)
                     {
-                        Position = UpdateCursor(5, Position, true); Select();
+                        Position = UpdateCursor(5, Position, true, 50); Select(50);
                     }
 
                     if (Stat)
                     {
-                        Position = UpdateCursor(6, Position, true); Select();
+                        Position = UpdateCursor(6, Position, true, 50); Select(50);
                     }
 
                     if (Poin)
                     {
-                        Position = UpdateCursor(7, Position, true); Select();
+                        Position = UpdateCursor(7, Position, true, 50); Select(50);
                     }
 
                     if (Sign)
                     {
-                        Position = UpdateCursor(8, Position, true); Select();
+                        Position = UpdateCursor(8, Position, true, 50); Select(50);
                     }
 
                     if (Syst)
                     {
-                        Position = UpdateCursor(9, Position, true); Select();
+                        Position = UpdateCursor(9, Position, true, 50); Select(50);
                     }
 
-                    Back();
-                }     
+                    //Allow Time For UI To Update & Exit Submenu
+                    Thread.Sleep(250); Back();
+
+                    //Move Cursor To Locations Submenu
+                    Thread.Sleep(50); UpdateCursor(3, 1, false);
+                }
 
                 //Reset Location Filters
                 else if (Set == false && FiltersSet)
                 {
+                    //Move To Set Filters
                     SetFilters();
-                    UpdateCursor(2, 1, false);
-                    Select();
+
+                    //Move To Reset Option "X" And Reset
+                    UpdateCursor(2, 1, false, 150); Select();
                 }  
             }
         }

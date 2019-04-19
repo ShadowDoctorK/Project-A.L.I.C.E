@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using ALICE.Properties;
 using ALICE_Actions;
 using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Keybinds;
-using ALICE_Objects;
 
 namespace ALICE_Core
 {
@@ -27,32 +22,33 @@ namespace ALICE_Core
             Default = GetDefault();
         }
 
-        public void Select(decimal Target, bool CommandAudio, bool HudSwitch = false, bool AnalysisMode = false)
+        public void Select(decimal Target, bool CommandAudio, bool HudSwitch = false, bool HudMode = false)
         {
             string MethodName = "Firegroup Select";
 
             #region Validation
+            //Check Space
             if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
                 //Audio - Cant Do That
                 return;
             }
+
+            //Check Valid Group
+            if (Target < 1 || Target > 8)
+            {
+                Logger.Log(MethodName, Target + " Is Not A Valid Fire Group. Must Be A Number Between 1 & 8.", Logger.Red);
+                return;
+            }
             #endregion
 
             #region HUD Mode
-            if (HudSwitch && AnalysisMode == true)
+            if (HudSwitch)
             {
-                if (ICheck.Status.AnalysisMode(MethodName, true) == false)
+                if (ICheck.Status.AnalysisMode(MethodName, HudMode) == false)
                 {
-                    Call.Action.AnalysisMode(true, false); Thread.Sleep(500);
+                    IActions.Hardpoints.Mode(HudMode, CommandAudio); Thread.Sleep(500);
                 }                
-            }
-            else if (HudSwitch && AnalysisMode == false)
-            {
-                if (ICheck.Status.AnalysisMode(MethodName, false) == false)
-                {
-                    Call.Action.AnalysisMode(false, false); Thread.Sleep(500);
-                }
             }
             #endregion
 

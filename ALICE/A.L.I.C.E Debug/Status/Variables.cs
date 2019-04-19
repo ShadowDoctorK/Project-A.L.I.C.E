@@ -19,6 +19,8 @@ namespace ALICE_DebugCheck
 
     public class Variables : Debug
     {
+        private string ClassName = "(Status) ";
+
         /// <summary>
         /// Checks and evalutes altitude based on entered limits.
         /// </summary>
@@ -32,7 +34,7 @@ namespace ALICE_DebugCheck
         {
             //Set Prefix For Check Value
             string S = "Inside "; if (I == false) { S = "Outside "; }
-            string N = "Altitude";
+            string N = ClassName + "Altitude";
             decimal Altitude = IStatus.Altitude;
 
             //Check Inside Band
@@ -62,7 +64,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool AnalysisMode(string M, bool T, bool L = true)
-        { return Evaluate(M, "Analysis Mode", T, IStatus.AnalysisMode, L); }
+        { return Evaluate(M, ClassName + "Analysis Mode", T, IStatus.AnalysisMode, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -70,7 +72,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool CargoScoop(string M, bool T, bool L = true)
-        { return Evaluate(M, "Cargo Scoop", T, IStatus.CargoScoop, L); }
+        { return Evaluate(M, ClassName + "Cargo Scoop", T, IStatus.CargoScoop, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -78,7 +80,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool Crew(string M, bool T, bool L = true)
-        { return Evaluate(M, "NPC Crew", T, IStatus.NPC_Crew, L); }
+        { return Evaluate(M, ClassName + "NPC Crew", T, IStatus.NPC_Crew, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -86,7 +88,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool FlightAssist(string M, bool T, bool L = true)
-        { return Evaluate(M, "Flight Assist", T, IStatus.FlightAssist, L); }
+        { return Evaluate(M, ClassName + "Flight Assist", T, IStatus.FlightAssist, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -94,7 +96,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool FireGroup(string M, decimal C, bool T, bool L = true)
-        { return Evaluate(M, "Fire Group", true, C, Call.Firegroup.Current, L); }
+        { return Evaluate(M, ClassName + "Fire Group", true, C, Call.Firegroup.Current, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -102,7 +104,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool FighterDeployed(string M, bool T, bool L = true)
-        { return Evaluate(M, "Fighter Deployed", T, IStatus.Fighter.Deployed, L); }
+        { return Evaluate(M, ClassName + "Fighter Deployed", T, IStatus.Fighter.Deployed, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -110,7 +112,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool FuelScooping(string M, bool T, bool L = true)
-        { return Evaluate(M, "Fuel Scooping", T, IStatus.FuelScooping, L); }
+        { return Evaluate(M, ClassName + "Fuel Scooping", T, IStatus.FuelScooping, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -118,7 +120,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool Hardpoints(string M, bool T, bool L = true)
-        { return Evaluate(M, "Hardpoints", T, IStatus.Hardpoints, L); }
+        { return Evaluate(M, ClassName + "Hardpoints", T, IStatus.Hardpoints, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -126,7 +128,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool Overheating(string M, bool T, bool L = true)
-        { return Evaluate(M, "Overheating", T, IStatus.Overheating, L); }
+        { return Evaluate(M, ClassName + "Overheating", T, IStatus.Overheating, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -134,7 +136,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool SilentRunning(string M, bool T, bool L = true)
-        { return Evaluate(M, "Silent Running", T, IStatus.SilentRunning, L); }
+        { return Evaluate(M, ClassName + "Silent Running", T, IStatus.SilentRunning, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -142,7 +144,15 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool Touchdown(string M, bool T, bool L = true)
-        { return Evaluate(M, "Touchdown", T, IStatus.Touchdown, L); }
+        { return Evaluate(M, ClassName + "Touchdown", T, IStatus.Touchdown, L); }
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="T">(Target) The Expected State</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
+        public bool WeaponSafety(string M, bool T, bool L = true)
+        { return Evaluate(M, ClassName + "Weapon Safety", T, IStatus.WeaponSafety, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -154,7 +164,7 @@ namespace ALICE_DebugCheck
         {
             //Set Prefix For Check Value
             string S = ""; if (T == false) { S = "Not "; }
-            string N = "Vehicle";
+            string N = ClassName + "Vehicle";
             IVehicles.V P = IVehicles.Vehicle;
 
             //Check
@@ -199,40 +209,56 @@ namespace ALICE_DebugGet
 
     public class Variables : Debug
     {
+        private string ClassName = "(Status) ";
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
+        public bool AnalysisMode(string M, bool L = true)
+        { return Get(M, ClassName + "Analysis Mode", IStatus.AnalysisMode, L); }
+
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool CargoScoop(string M, bool L = true)
-        { return Get(M, "Cargo Scoop", IStatus.CargoScoop, L); }
+        { return Get(M, ClassName + "Cargo Scoop", IStatus.CargoScoop, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool FlightAssist(string M, bool L = true)
-        { return Get(M, "Flight Assist", IStatus.FlightAssist, L); }
+        { return Get(M, ClassName + "Flight Assist", IStatus.FlightAssist, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool Hardpoints(string M, bool L = true)
-        { return Get(M, "Hardpoints", IStatus.Hardpoints, L); }
+        { return Get(M, ClassName + "Hardpoints", IStatus.Hardpoints, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool Overheating(string M, bool L = true)
-        { return Get(M, "Overheating", IStatus.Overheating, L); }
+        { return Get(M, ClassName + "Overheating", IStatus.Overheating, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool SilentRunning(string M, bool L = true)
-        { return Get(M, "Silent Running", IStatus.SilentRunning, L); }
+        { return Get(M, ClassName + "Silent Running", IStatus.SilentRunning, L); }
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
+        public bool WeaponSafety(string M, bool L = true)
+        { return Get(M, ClassName + "Weapon Safety", IStatus.WeaponSafety, L); }
     }
 }
 #endregion
@@ -250,11 +276,20 @@ namespace ALICE_Debug
 
 namespace ALICE_DebugSet
 {
+    using ALICE_Core;
     using ALICE_Debug;
 
     public class Variables : Debug
     {
-        //Empty
+        private string ClassName = "(Status) ";
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="V">(Value) New Property Value</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
+        public void WeaponSafety(string M, bool V, bool L = true)
+        { Set(M, ClassName + "Weapon Safety", ref IStatus.WeaponSafety, V, L); }
     }
 }
 #endregion

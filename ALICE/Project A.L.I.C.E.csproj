@@ -60,12 +60,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="A.L.I.C.E Actions\Items\Hardpoints.cs" />
+    <Compile Include="A.L.I.C.E Actions\Items\Shield Cell Bank.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Throttle.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Docking.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Discovery Scanner.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Composite Scanner.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Fighter.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Frame Shift Drive.cs" />
+    <Compile Include="A.L.I.C.E Actions\Items\Heatsink.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection Events.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection EventTypes.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection Variables.cs" />
@@ -74,6 +77,7 @@
     <Compile Include="A.L.I.C.E Debug\Equipment\Composite Scanner.cs" />
     <Compile Include="A.L.I.C.E Debug\Status\Variables.cs" />
     <Compile Include="A.L.I.C.E Debug\Panels\Panels.cs" />
+    <Compile Include="A.L.I.C.E Debug\Plugin\External.cs" />
     <Compile Include="A.L.I.C.E Events\[Convert]\Event Status.cs" />
     <Compile Include="A.L.I.C.E Data\Data Codex.cs" />
     <Compile Include="A.L.I.C.E Data\Data Systems.cs" />
@@ -270,9 +274,18 @@
     <Compile Include="A.L.I.C.E Events\Custom Events\StationDamage.cs" />
     <Compile Include="A.L.I.C.E Events\Custom Events\BlockLandingPad.cs" />
     <Compile Include="A.L.I.C.E Events\Game Events\DockingTimeout.cs" />
+    <Compile Include="A.L.I.C.E Interface\ICommands.cs" />
+    <Compile Include="A.L.I.C.E Interface\ICommands\Interactions.cs" />
+    <Compile Include="A.L.I.C.E Interface\ICommands\Reports.cs" />
+    <Compile Include="A.L.I.C.E Interface\ICommands\Power.cs" />
+    <Compile Include="A.L.I.C.E Interface\ICommands\Orders.cs" />
+    <Compile Include="A.L.I.C.E Interface\ICommands\Target.cs" />
+    <Compile Include="A.L.I.C.E Interface\ICommands\Panels.cs" />
+    <Compile Include="A.L.I.C.E Interface\ICommands\Plugin.cs" />
     <Compile Include="A.L.I.C.E Interface\INewtonSoft.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Interface\IXmlControl.cs" />
+    <Compile Include="A.L.I.C.E Interface\ICommands\Actions.cs" />
     <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
     <Compile Include="A.L.I.C.E Response\Class\General.cs" />
@@ -286,6 +299,9 @@
     <Compile Include="A.L.I.C.E Response\Class\Fighter.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Equipment\Docking Computer.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Equipment\Shields.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Heatsink.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Shield Cell Bank.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Hardpoints.cs" />
     <Compile Include="A.L.I.C.E Settings\Settings Shipyard.cs" />
     <Compile Include="A.L.I.C.E Status\Status Bounty.cs" />
     <Compile Include="A.L.I.C.E Status\Status Crew.cs" />
@@ -312,7 +328,7 @@
     <Compile Include="A.L.I.C.E Equipment\Update\Limpet Decontamination.cs" />
     <Compile Include="A.L.I.C.E Equipment\Update\Limpet Collector.cs" />
     <Compile Include="A.L.I.C.E Equipment\Update\Wake Scanner.cs" />
-    <Compile Include="A.L.I.C.E Interface\ICommands.cs" />
+    <Compile Include="A.L.I.C.E Interface\ICommands Old.cs" />
     <Compile Include="A.L.I.C.E Interface\IScreenshot.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceAttack.cs" />
     <Compile Include="A.L.I.C.E Equipment\IEquipment.cs" />
@@ -626,7 +642,6 @@
     <Content Include="vmAPI.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="A.L.I.C.E Debug\Objects\" />
     <Folder Include="A.L.I.C.E Events\[Retire]\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

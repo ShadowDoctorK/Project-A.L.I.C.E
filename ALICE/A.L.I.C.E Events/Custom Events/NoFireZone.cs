@@ -49,14 +49,14 @@ namespace ALICE_Events
                 {
                     Event = "NoFireZone",
                     Timestamp = Event.Timestamp,
-                    Station = "Unknown",
+                    Station = Event.From,
                     Status = false,
                     Message = Event.Message
                 };
 
                 if (Event.Message.Contains("entered"))
                 {
-                    I.Status = true;
+                    I.Status = true;                    
                 }                
 
                 Record(Name, I);
@@ -84,6 +84,33 @@ namespace ALICE_Events
 
                 Record(Name, I);
                 Logic();
+            }
+            catch (Exception ex)
+            {
+                ExceptionConstruct(Name, ex);
+            }
+        }
+
+        //Construct Custom Event
+        public void Construct(SupercruiseExit Event)
+        {
+            try
+            {
+                I = new NoFireZone()
+                {
+                    Event = "NoFireZone",
+                    Timestamp = Event.Timestamp,
+                    Station = "Unknown",
+                    Status = false,
+                    Message = "SupercruiseExit"
+                };
+
+                if (Event.BodyType == "Station")
+                {
+                    I.Station = Event.Body;
+                }
+
+                Record(Name, I);
             }
             catch (Exception ex)
             {
@@ -123,14 +150,20 @@ namespace ALICE_Events
 
                     Thread.Sleep(100);
 
+                    //Check Weapons Safeties
                     if (ICheck.Order.WeaponSafety(ClassName, true, true))
                     {
+                        //Enable Safeies
                         IStatus.WeaponSafety = true;
-                        Call.Action.AnalysisMode(true, false);
 
+                        //Swtich To Analysis Mode
+                        IActions.Hardpoints.Mode(true, true);                        
+
+                        //Check Hardpoints
                         if (ICheck.Status.Hardpoints(ClassName, true) == true)
                         {
-                            Call.Action.Hardpoint(false, false);
+                            //Store Hardpoints
+                            IActions.Hardpoints.Operate(false, false);
 
                             //Audio - Enabling Weapon Safeties (Deployed)
                             IResponse.Docking.WeaponSafetiesEnablingDeployed(
@@ -140,7 +173,7 @@ namespace ALICE_Events
                         }
 
                         //Audio - Enabling Weapon Safeties
-                        IResponse.Docking.WeaponSafetiesEnablingDeployed(
+                        IResponse.Docking.WeaponSafetiesEnabling(
                             ICheck.Initialized(ClassName));                         //Check Plugin Initialized
                     }
                 }

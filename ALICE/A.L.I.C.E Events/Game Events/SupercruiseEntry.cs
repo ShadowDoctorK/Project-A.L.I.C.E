@@ -69,6 +69,9 @@ namespace ALICE_Events
             {
                 //Update Status Object
                 IStatus.Docking.Update(I);
+
+                //Update NoFireZone Event
+                IEvents.NoFireZone.Construct(I);
             }
             catch (Exception ex)
             {

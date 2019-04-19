@@ -41,6 +41,14 @@ namespace ALICE_Actions
 
         public void CombatPowerManagement()
         {
+            string MethodName = "Combat Power Manager";
+
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
+
             SetNewState:
             if (Setting.Send_Power_To == Setting.Power_Diverted_To)
             {
@@ -237,6 +245,12 @@ namespace ALICE_Actions
         {
             string MethodName = "Maintain Engines";
 
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
+
             Assisted.Power.Setting.Maintain_State = Assisted.Power.Str.Engines;
 
             #region Audio
@@ -262,6 +276,12 @@ namespace ALICE_Actions
         {
             string MethodName = "Maintain Systems";
 
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
+
             Assisted.Power.Setting.Maintain_State = Assisted.Power.Str.Systems;
 
             #region Audio
@@ -284,6 +304,12 @@ namespace ALICE_Actions
         public void Defense_Engines(bool CommandAudio)
         {
             string MethodName = "Defense Engines";
+
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
 
             Assisted.Power.Setting.Default_State = Assisted.Power.Str.Engines;
 
@@ -308,6 +334,12 @@ namespace ALICE_Actions
         {
             string MethodName = "Defense Systems";
 
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
+
             Assisted.Power.Setting.Default_State = Assisted.Power.Str.Systems;
 
             #region Audio
@@ -330,6 +362,12 @@ namespace ALICE_Actions
         public void Weapons_Light(bool CommandAudio)
         {
             string MethodName = "Weapons Light";
+
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
 
             Assisted.Power.Setting.Power_Split = Assisted.Power.Str.Light;
 
@@ -354,6 +392,12 @@ namespace ALICE_Actions
         {
             string MethodName = "Weapons Balance";
 
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
+
             Assisted.Power.Setting.Power_Split = Assisted.Power.Str.Balance;
 
             #region Audio
@@ -376,6 +420,12 @@ namespace ALICE_Actions
         public void Weapons_Heavy(bool CommandAudio)
         {
             string MethodName = "Weapons Heavy";
+
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
 
             Assisted.Power.Setting.Power_Split = Assisted.Power.Str.Heavy;
 

@@ -162,6 +162,10 @@ namespace ALICE_Panels
             public void PlotBookmark(decimal Number)
             {
                 string MethodName = "Plot Bookmark";
+
+                //Validate Number
+                if (Number == -1) { return; }
+
                 Open(MethodName);
 
                 UpdateCursor(1, 2, false, 100);

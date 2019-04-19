@@ -350,7 +350,7 @@ namespace ALICE_Interface
         /// </summary>
         public string DisplayName
         {
-            get => "Project A.L.I.C.E Interface - " + IPlatform.Version;
+            get => "Project A.L.I.C.E: Command Interface - " + IPlatform.Version;
         }
 
         /// <summary>
@@ -358,7 +358,7 @@ namespace ALICE_Interface
         /// </summary>
         public string Description
         {
-            get => "Project A.L.I.C.E Interface - " + IPlatform.Version;
+            get => "Project A.L.I.C.E: Command Interface - " + IPlatform.Version;
         }
 
         /// <summary>
@@ -380,6 +380,13 @@ namespace ALICE_Interface
 
                 //Populate IVoiceMacro.Profiles Property
                 IVoiceMacro.Profiles = vmCommand.GetProfiles();
+
+                if (IVoiceMacro.Profiles == null)
+                {
+                    Logger.Error(MethodName, "No Profiles Detected!", Logger.Red);
+                    Logger.Error(MethodName, "Load An A.L.I.C.E Compatible Profile A Restart", Logger.Red);
+                    return;
+                }
 
                 //Custom Initialization Items
                 PlugIn.Respond = PlugIn.Output.TTS;

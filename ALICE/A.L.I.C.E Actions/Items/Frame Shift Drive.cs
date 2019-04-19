@@ -754,7 +754,7 @@ namespace ALICE_Actions
             {
                 if (ICheck.Status.Hardpoints(M, false) == false)
                 {
-                    Call.Action.Hardpoint(false, false);
+                    IActions.Hardpoints.Operate(false, false);                    
                 }
             }
         }

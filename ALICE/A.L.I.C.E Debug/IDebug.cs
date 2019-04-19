@@ -149,6 +149,38 @@ namespace ALICE_Debug
         }
 
         /// <summary>
+        /// Pass the Target Variable a value from value from the plugin to the Interface that started Project A.L.I.C.E (Ie Voice Macro or Voice Attack)
+        /// </summary>        
+        /// <param name="M">(Method) The Call Method.</param>
+        /// <param name="V">(Variable) The Target Variable.</param>
+        /// <param name="Val">(Value) The Value Being Set.</param>
+        /// <param name="L">(Log) Enable / Disable The Logging Function.</param>        
+        public void Pass(string M, IPlatform.IVar V, string Val, bool L = true)
+        {
+            bool Error = false;
+
+            try
+            {
+                IPlatform.SetText(V, Val);
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(M, "Execption: " + ex);
+                Error = true;
+            }
+
+            if (Error && L)
+            {
+                Logger.Error(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": " + "Unable To Update Variale.", Logger.Red);
+            }
+
+            if (L)
+            {
+                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Passed " + Val, Logger.Blue);
+            }
+        }
+
+        /// <summary>
         /// Checks a boolean property wrapping the Debug Logger into the check.
         /// </summary>
         /// <param name="M">(Method) Calling Method Name</param>

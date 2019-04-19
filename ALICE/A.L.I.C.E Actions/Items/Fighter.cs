@@ -21,6 +21,9 @@ namespace ALICE_Actions
             string MethodName = "Deploy Fighter";
 
             #region Validation Checks
+            //Data Validation
+            if (FighterNumber == -1) { return; }
+            
             //Check Normal Space
             if (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space) == false)
             {
