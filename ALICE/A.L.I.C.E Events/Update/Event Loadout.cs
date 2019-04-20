@@ -260,7 +260,7 @@ namespace ALICE_Events
                 IVehicles.PullEquipmentSettings();
 
                 //Log Mothership Load
-                Logger.Log(ClassName, "Loaded " + IObjects.Mothership.I.FingerPrint, Logger.Purple);
+                //Logger.Log(ClassName, "Loaded " + IObjects.Mothership.I.FingerPrint, Logger.Purple);
 
                 //Load Firegroup Settings
                 ISettings.Firegroup.Load();

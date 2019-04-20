@@ -81,7 +81,7 @@ namespace ALICE_Internal
                     Logger.Simple("Project A.L.I.C.E " + IPlatform.Version + " Initializing...", Logger.Purple);
 
                     //Execute External Command
-                    IPlatform.ExecuteCommand("((Configuration))");
+                    IPlatform.ExecuteCommand("Startup Configuration");
                     
                     //Sleep To Allow Platform Time To Process
                     Thread.Sleep(1000);

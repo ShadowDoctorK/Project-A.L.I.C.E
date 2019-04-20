@@ -27,7 +27,7 @@ namespace ALICE_Internal
             if (StartJson) { Json.Enabled = true; Json.StartMonitor(); }
             if (StartInternal) { Internal.StartMonitor(); }
             if (StartPanel) { Panel.StartMonitor(); }
-            if (StartFiregroup) { Firegroup.Enabled = true; Firegroup.Log = true; Firegroup.StartMonitor(); }
+            if (StartFiregroup) { Firegroup.Enabled = true; Firegroup.StartMonitor(); }
         }
 
         public class Base
@@ -463,7 +463,7 @@ namespace ALICE_Internal
                 Enabled = false;
                 LockFlag = new object();
                 MethodName = "Firegroup Monitor";
-                Log = true;
+                Log = false;
                 UpdateNumber = 0;
                 TimeStamp = "None";
             }
@@ -487,7 +487,7 @@ namespace ALICE_Internal
                                     //Load Toolkit Settings
                                     ISettings.Firegroup = (Settings_Firegroups)ISettings.LoadValues<Settings_Firegroups>(ISettings.SettingsFiregroup + ".FGConfig");
                                     ISettings.Firegroup.Save(MethodName); CheckSettings(ISettings.SettingsFiregroup + ".FGConfig");
-                                    Logger.Log(MethodName, "Firegroup Settings Updated", Logger.Green);
+                                    Logger.DebugLine(MethodName, "Firegroup Settings Updated", Logger.Blue);
                                 }
                             }
 

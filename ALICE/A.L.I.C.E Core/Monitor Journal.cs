@@ -105,7 +105,7 @@ namespace ALICE_Monitors
                     if (FileCurrent != File.Name)
                     {
                         FileCurrent = File.Name;
-                        Logger.Event("Elite Dangerous Log: " + File.Name);
+                        Logger.Event("Targeting Journal Log: " + File.Name);
                     }
                 }
                 catch (Exception ex)

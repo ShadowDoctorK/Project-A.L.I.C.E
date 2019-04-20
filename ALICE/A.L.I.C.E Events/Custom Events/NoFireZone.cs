@@ -151,7 +151,7 @@ namespace ALICE_Events
                     Thread.Sleep(100);
 
                     //Check Weapons Safeties
-                    if (ICheck.Order.WeaponSafety(ClassName, true, true))
+                    if (ICheck.Order.WeaponSafety(ClassName, true, true) && ICheck.Initialized(ClassName))
                     {
                         //Enable Safeies
                         IStatus.WeaponSafety = true;
