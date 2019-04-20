@@ -139,6 +139,35 @@ namespace ALICE_Interface
             Logger.Log(M, S[I] + " Is Not A Valid Option.", Logger.Yellow);
         }
 
+        /// <summary>
+        /// Standard function to log invalid activators.
+        /// </summary>
+        /// <param name="M">(Method) The simple name of the calling method.</param>
+        /// <param name="S">(Strings) List of strings.</param>
+        /// <param name="I">(Index) Index for the invalid activator.</param>
+        public static void LogNotImplemented(string M, List<string> S, int I)
+        {
+            //Don't Log "(Blank)"
+            if (S[I] == "(Blank)") { return; }
+
+            //Construct Command
+            string Temp = ""; foreach (var Item in S)
+            {
+                if (Item != "(Blank)")
+                {
+                    //Add ":"
+                    if (Temp != "") { Temp = Temp + ": "; }
+
+                    //Add Item
+                    Temp = Temp + Item;
+                }
+            }
+
+            //Log Items
+            Logger.Log(M, Temp, Logger.Yellow);
+            Logger.Log(M, S[I] + " Has Not Been Implemented Yet. Tell The Developer To Stop Being Lazy", Logger.Red);
+        }
+
         public static void Search(List<string> Command, string CMD)
         {
             //Convert To Enum And Process           
@@ -496,7 +525,7 @@ namespace ALICE_Interface
             Two,
             Three,
             Four,
-            Postitive,
+            Positive,
             Negative,
             Series,
             Stop,

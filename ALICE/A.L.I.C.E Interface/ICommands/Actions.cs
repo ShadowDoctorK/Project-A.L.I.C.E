@@ -470,7 +470,8 @@ namespace ALICE_Interface
 
                     switch (Command[2].Lookup<L2>())
                     {
-                        case L2.Activate:                         
+                        case L2.Activate:
+                            ICommands.LogNotImplemented(ICommands.M, Command, 2);
                             return;
 
                         case L2.Select:
@@ -494,6 +495,7 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
+                            ICommands.LogNotImplemented(ICommands.M, Command, 2);
                             return;
 
                         case L2.Select:
@@ -517,6 +519,7 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
+                            ICommands.LogNotImplemented(ICommands.M, Command, 2);
                             return;
 
                         case L2.Select:
@@ -540,6 +543,7 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
+                            ICommands.LogNotImplemented(ICommands.M, Command, 2);
                             return;
 
                         case L2.Select:
@@ -563,6 +567,7 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
+                            ICommands.LogNotImplemented(ICommands.M, Command, 2);
                             return;
 
                         case L2.Select:
@@ -586,6 +591,7 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
+                            ICommands.LogNotImplemented(ICommands.M, Command, 2);
                             return;
 
                         case L2.Select:
@@ -609,6 +615,7 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
+                            ICommands.LogNotImplemented(ICommands.M, Command, 2);
                             return;
 
                         case L2.Select:
@@ -921,6 +928,7 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
+                            ICommands.LogNotImplemented(ICommands.M, Command, 2);
                             return;
 
                         case L2.Select:
@@ -968,6 +976,7 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
+                            ICommands.LogNotImplemented(ICommands.M, Command, 2);
                             return;
 
                         case L2.Select:
@@ -1063,6 +1072,7 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
+                            ICommands.LogNotImplemented(ICommands.M, Command, 2);
                             return;
 
                         case L2.Select:
@@ -1127,7 +1137,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S5();
                                     return;
 
@@ -1144,7 +1154,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S10();
                                     return;
 
@@ -1161,7 +1171,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S15();
                                     return;
 
@@ -1178,7 +1188,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S20();
                                     return;
 
@@ -1195,7 +1205,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S25();
                                     return;
 
@@ -1212,7 +1222,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S30();
                                     return;
 
@@ -1229,7 +1239,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S35();
                                     return;
 
@@ -1246,7 +1256,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S40();
                                     return;
 
@@ -1263,7 +1273,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S45();
                                     return;
 
@@ -1280,7 +1290,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S50();
                                     return;
 
@@ -1297,7 +1307,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S55();
                                     return;
 
@@ -1314,7 +1324,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S60();
                                     return;
 
@@ -1331,7 +1341,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S65();
                                     return;
 
@@ -1348,7 +1358,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S70();
                                     return;
 
@@ -1365,7 +1375,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S75();
                                     return;
 
@@ -1382,7 +1392,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S80();
                                     return;
 
@@ -1399,7 +1409,7 @@ namespace ALICE_Interface
                             
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S85();
                                     return;
 
@@ -1416,7 +1426,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S90();
                                     return;
 
@@ -1433,7 +1443,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S95();
                                     return;
 
@@ -1450,7 +1460,7 @@ namespace ALICE_Interface
 
                             switch (Command[3].Lookup<L3>())
                             {
-                                case L3.Postitive:
+                                case L3.Positive:
                                     IActions.Throttle.S100();
                                     return;
 

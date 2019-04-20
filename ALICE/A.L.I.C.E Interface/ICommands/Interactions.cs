@@ -40,7 +40,7 @@ namespace ALICE_Interface
 
                 case L1.General:
 
-                    switch (Command[1].Lookup<R1>())
+                    switch (Command[2].Lookup<R1>())
                     {
                         case R1.ALICE:
                             IStatus.Interaction.Response.Alice(true);
