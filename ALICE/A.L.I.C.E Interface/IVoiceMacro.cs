@@ -3,9 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using vmAPI;
 
@@ -358,7 +356,9 @@ namespace ALICE_Interface
         /// </summary>
         public string Description
         {
-            get => "Project A.L.I.C.E: Command Interface - " + IPlatform.Version;
+            get => "Allows Sending Requests To The Plugin To Perform Actions Based On The Game State. " +
+                   "More Information Can Be Found On The Wiki Page Located Here: " +
+                   "https://github.com/ShadowDoctorK/Project-A.L.I.C.E/wiki";
         }
 
         /// <summary>
@@ -376,7 +376,8 @@ namespace ALICE_Interface
         {
             try
             {
-                //PlugIn.DebugMode = true;
+                //Set Platform
+                IPlatform.Interface = IPlatform.Interfaces.VoiceMacro;
 
                 //Populate IVoiceMacro.Profiles Property
                 IVoiceMacro.Profiles = vmCommand.GetProfiles();
@@ -392,7 +393,6 @@ namespace ALICE_Interface
                 PlugIn.Respond = PlugIn.Output.TTS;
                 Paths.CreateDir();
                 Paths.Load_UpdateBindsFile();
-                IPlatform.Interface = IPlatform.Interfaces.VoiceMacro;
 
                 //Initialize Plugin
                 Thread Plugin =

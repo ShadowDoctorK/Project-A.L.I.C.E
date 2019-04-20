@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
+using ALICE_Debug;
 using ALICE_Internal;
 
 namespace ALICE_Interface
@@ -9,6 +11,7 @@ namespace ALICE_Interface
     {
         static readonly string M = "Platform Interface";
         public static readonly string Version = "v3.4.0.3";
+        public static string VersionLong { get => IPlatform.Version + " (Open Beta 1.3.4)"; }
 
         public enum Interfaces { Internal, VoiceAttack, VoiceMacro }
         public static Interfaces Interface = Interfaces.Internal;
@@ -26,6 +29,7 @@ namespace ALICE_Interface
             ExtendedLogging,    //Bool:
             StatusLogging,      //Bool:
             VariableLogging,    //Bool:
+            KeybindLogging,     //Bool:
 
             //Miscellaneous Variables:
             CommandAudio,       //Bool: Command Audio (All Commands)
@@ -90,10 +94,10 @@ namespace ALICE_Interface
         };
 
         /// <summary>
-        /// 
+        /// Function To Execute A Command In The Target Profile.
         /// </summary>
-        /// <param name="C"></param>
-        /// <param name="E"></param>
+        /// <param name="C">(Command) The Command You Want To Activate.</param>
+        /// <param name="E">(Exist) Check If The Command Exists Before Execution.</param>
         public static void ExecuteCommand(string C, bool E = true)
         {
             string M = IPlatform.M + " (Execute Command)";
@@ -170,14 +174,15 @@ namespace ALICE_Interface
         }
 
         /// <summary>
-        /// 
+        /// (Enum) Function Used To Get Variable Values From The Starting Platform.
         /// </summary>
-        /// <param name="Var"></param>
-        /// <param name="Answer"></param>
+        /// <param name="Var">(Variable) The Target Variable By Enum.</param>
+        /// <param name="A">(Answer) The Fallback Value You Want Returned If Value Was Not
+        /// Able To Be Retrieved. Null By Default.</param>
         /// <returns></returns>
-        public static string GetText(IVar Var, string Answer = null)
+        public static string GetText(IVar Var, string A = null)
         {
-            string M = "Set Variable (Enums)";
+            string M = "Get Variable (Enums)";
 
             switch (Interface)
             {
@@ -186,23 +191,23 @@ namespace ALICE_Interface
                     break;
 
                 case Interfaces.VoiceAttack:
-                    Answer = ProxyObject.GetText("ALICE_" + Var.ToString());
+                    A = ProxyObject.GetText("ALICE_" + Var.ToString());
                     break;
 
                 case Interfaces.VoiceMacro:
-                    Answer = IVoiceMacro.GetText("ALICE_" + Var.ToString());
+                    A = IVoiceMacro.GetText("ALICE_" + Var.ToString());
                     break;
 
                 default:
                     break;
             }
             
-            if (Answer == null)
+            if (A == null)
             {
                 Logger.DebugLine(M, Var.ToString() + " Was Not Set Or Was Null", Logger.Red);
             }
 
-            return Answer;
+            return A;
         }
 
         /// <summary>
@@ -243,7 +248,8 @@ namespace ALICE_Interface
         /// <param name="Var">(Variable) The Target Variable By String.</param>
         /// <param name="Val">(Value) The Value Being Set.</param>
         /// <param name="P">(Prefix) "ALICE_", True = Add Prefix, False = No Prefix.</param>
-        public static void SetText(string Var, string Val, bool P = true)
+        /// <param name="L">(Log) Enable Or Disable Logging In This Function.</param>
+        public static void SetText(string Var, string Val, bool P = true, bool L = true)
         {
             string MethodName = "Set Variable (String)";
             string Prefix = ""; if (P) { Prefix = "ALICE_"; }
@@ -256,12 +262,12 @@ namespace ALICE_Interface
 
                 case Interfaces.VoiceAttack:
                     
-                    Logger.DebugLine(MethodName, Prefix + Var + " = " + Val, Logger.Yellow);
+                    if (L) { Logger.DebugLine(MethodName, Prefix + Var + " = " + Val, Logger.Yellow); }
                     ProxyObject.SetText(Prefix + Var.ToString(), Val);
                     break;
 
                 case Interfaces.VoiceMacro:
-                    Logger.DebugLine(MethodName, Prefix + Var.ToString() + " = " + Val, Logger.Yellow);
+                    if (L) { Logger.DebugLine(MethodName, Prefix + Var.ToString() + " = " + Val, Logger.Yellow); }
                     IVoiceMacro.SetText(Prefix + Var.ToString(), Val);
                     break;
 
@@ -330,6 +336,35 @@ namespace ALICE_Interface
                     //No Action
                     return;
             }
+        }
+
+        /// <summary>
+        /// Function Used To Pull Config Variable From The Starting Platform.
+        /// </summary>
+        public static void Configure()
+        {
+            string M = IPlatform.M + " (Configure)";
+
+            //Retrieve Config Variables From Platform
+            PlugIn.DebugMode = IGet.External.DebugMode(M);
+            PlugIn.ExtendedLogging = IGet.External.ExtendedLogging(M);
+            PlugIn.VariableLogging = IGet.External.VariableLogging(M);
+
+            //Log Settings
+            if (PlugIn.DebugMode)
+            {
+                Logger.Log(M, "Debug Mode Enabled", Logger.Yellow);
+            }
+
+            if (PlugIn.ExtendedLogging)
+            {
+                Logger.Log(M, "Extended Logging Enabled", Logger.Yellow);
+            }
+
+            if (PlugIn.VariableLogging)
+            {
+                Logger.Log(M, "Event Variable Logging Enabled", Logger.Yellow);
+            }            
         }
     }
 }

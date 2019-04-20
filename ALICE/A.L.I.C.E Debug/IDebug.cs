@@ -25,7 +25,20 @@ namespace ALICE_Debug
 
             try
             {
-                S = IPlatform.GetText(V);
+                string Temp = IPlatform.GetText(V);
+
+                //Check Null Or Whitespace
+                if (string.IsNullOrWhiteSpace(Temp) == false)
+                {
+                    S = Temp;
+                }
+
+                //Passed Check, Use Value
+                else
+                {
+                    Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Returned Null Or Whitespace", Logger.Yellow);
+                    Error = true;
+                }
             }
             catch (Exception ex)
             {
@@ -40,7 +53,7 @@ namespace ALICE_Debug
 
             if (L)
             {
-                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Returned " + S, Logger.Blue);
+                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Resolved Value: " + S, Logger.Blue);
             }
 
             return S;
@@ -79,6 +92,8 @@ namespace ALICE_Debug
                         Error = true;
                     }
                 }
+
+                //Failed Check
                 else
                 {
                     Error = true;
@@ -97,7 +112,7 @@ namespace ALICE_Debug
 
             if (L)
             {
-                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Returned " + S, Logger.Blue);
+                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Resolved Value: " + S, Logger.Blue);
             }
 
             return S;
@@ -120,10 +135,13 @@ namespace ALICE_Debug
             {
                 string T = IPlatform.GetText(V);
 
+                //Check For True And False Values
                 if (T.ToLower() == "true" || T.ToLower() == "false")
                 {
                     S = Convert.ToBoolean(T);
                 }
+
+                //Failed Check
                 else
                 {
                     Error = true;
@@ -142,7 +160,7 @@ namespace ALICE_Debug
 
             if (L)
             {
-                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Returned " + S, Logger.Blue);
+                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Resolved Value: " + S, Logger.Blue);
             }
 
             return S;

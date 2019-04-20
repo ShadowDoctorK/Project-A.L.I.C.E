@@ -139,9 +139,11 @@ namespace ALICE_Keybinds
 						if (bind.Value.Key3 != null && bind.Value.Key3 != "") { Variable = Variable + "[" + IKey.VirtualNumber[bind.Value.Key3] + "]"; }
 						if (bind.Value.Key4 != null && bind.Value.Key4 != "") { Variable = Variable + "[" + IKey.VirtualNumber[bind.Value.Key4] + "]"; }
 
-						//Debug Logger
-						if (PlugIn.DebugMode == true)
-						{ IPlatform.WriteToInterface("A.L.I.C.E: " + bind.Key.ToString() + " Virtual Keys = " + Variable, "Green"); }
+						//Logger
+						if (PlugIn.KeybindLogging == true)
+						{
+							Logger.Log(MethodName, bind.Key.ToString() + " Virtual Keys = " + Variable, Logger.Green);                            
+						}
 
 						//Pass Key To Voice Attack Via The Platform Interface.
 						IPlatform.SetText(bind.Key.ToString(), Variable);
@@ -257,9 +259,12 @@ namespace ALICE_Keybinds
 							R = IKey.VirtualString[bind.Value.Key4] + "_U;" + R;
 						}
 
-						Logger.DebugLine(MethodName, bind.Key.ToString() + " Release : " + R, Logger.Blue);
-						Logger.DebugLine(MethodName, bind.Key.ToString() + " Press   : " + P, Logger.Blue);
-
+						if (PlugIn.KeybindLogging)
+						{
+							Logger.Log(MethodName, bind.Key.ToString() + " Release : " + R, Logger.Blue);
+							Logger.Log(MethodName, bind.Key.ToString() + " Press   : " + P, Logger.Blue);
+						}
+						
 						//Pass Key To Voice Macro Via The Platform Interface.
 						IPlatform.SetText(bind.Key.ToString() + "_Press", P);
 						IPlatform.SetText(bind.Key.ToString() + "_Release", R);

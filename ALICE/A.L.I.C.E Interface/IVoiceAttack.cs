@@ -34,8 +34,13 @@ namespace ALICE_Interface
         {
             try
             {
+                //Update Proxy Object
                 IPlatform.ProxyObject = vaProxy;
+
+                //Debug Logger
                 Logger.DebugLine(MethodName, "(" + IPlatform.Interface.ToString() + ") Sent Command: " + vaProxy.Context, Logger.Blue);
+
+                //Pass To Command Logic
                 ICommands.Invoke(vaProxy.Context);
             }
             catch (Exception ex) { Logger.Exception(MethodName, "(" + IPlatform.Interface.ToString() + ") Invoke Exception: " + ex); }
@@ -43,6 +48,7 @@ namespace ALICE_Interface
 
         public static void VA_Exit1(dynamic vaProxy)
         {
+            //Log Shutdown
             Logger.Simple("Interface Shutting Down...", Logger.Purple);
         }
 
@@ -50,10 +56,13 @@ namespace ALICE_Interface
         {
             try
             {
+                //Set Platform
+                IPlatform.Interface = IPlatform.Interfaces.VoiceAttack;
+
+                //Initialize Plugin Settings
                 PlugIn.Respond = PlugIn.Output.TTS;
                 Paths.CreateDir();
                 Paths.Load_UpdateBindsFile();                
-                IPlatform.Interface = IPlatform.Interfaces.VoiceAttack;
                 IPlatform.ProxyObject = vaProxy;
             }
             catch (Exception ex)

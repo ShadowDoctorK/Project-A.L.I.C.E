@@ -116,6 +116,31 @@ namespace ALICE_DebugGet
         }
 
         /// <summary>
+        /// Will get the value for ALICE_KeybindLogging from the Starting Platform.
+        /// </summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
+        public bool KeybindLogging(string M, bool L = true)
+        {
+            try
+            {
+                var Temp = Convert.ToBoolean(                                   //Convert String
+                    Retreive(M, IPlatform.IVar.KeybindLogging, "false",         //Target Variable
+                    "Not Set To A Valid Option (true - false) Or Could Not Be Converted. Using Fallback Value"));
+
+                return Temp;
+            }
+
+            //Quiet Excpetion Handling
+            catch (Exception ex)
+            {
+                Logger.DebugLine(M, "Exception: " + ex, Logger.Blue);           //Standard Debug Excption
+                return false;                                                   //Default Exception Value
+            }
+        }
+
+        /// <summary>
         /// Will get the value for ALICE_VariableLogging from the Starting Platform.
         /// </summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
