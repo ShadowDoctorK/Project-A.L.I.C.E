@@ -174,7 +174,8 @@ namespace ALICE_Events
                 IStatus.System.Status(Event);
 
                 //Post Jump Safeties
-                if (ICheck.Order.PostJumpSafety(ClassName, true, true))
+                if (ICheck.Order.PostJumpSafety(ClassName, true, true)      //Check Order
+                    && ICheck.Initialized(ClassName))                       //Check Plugin Initialized
                 {
                     IKeyboard.Press(IKey.Set_Speed_To_0, 0);
                 }
