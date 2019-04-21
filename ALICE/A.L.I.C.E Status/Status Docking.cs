@@ -148,7 +148,7 @@ namespace ALICE_Status
             StationType = Event.StationType;
             Denial = IEnums.DockingDenial.NoReason;
             LandingPad = -1;
-            Pending = true;
+            Pending = false;
             Sending = false;
         }
 
@@ -298,7 +298,7 @@ namespace ALICE_Status
             //Validate Plugin Is Initialized
             if (ICheck.Initialized(MethodName) == false) { return; }
 
-            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked))
+            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked) == false)
             {
                 return;
             }
@@ -308,7 +308,7 @@ namespace ALICE_Status
             new Thread((ThreadStart)(() =>
             {
                 #region Hanger Entry & Open Station Services
-                Thread.Sleep(1000 + ISettings.OffsetPanels);
+                Thread.Sleep(1000);
 
                 IKeyboard.Press(IKey.UI_Panel_Up_Press, 500);
                 IKeyboard.Press(IKey.UI_Panel_Up_Release, 100);

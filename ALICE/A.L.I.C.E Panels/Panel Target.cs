@@ -3,6 +3,9 @@ using ALICE_Internal;
 using System.Threading;
 using ALICE_Settings;
 using ALICE_Debug;
+using ALICE_Core;
+using ALICE_Response;
+using ALICE_Synthesizer;
 
 namespace ALICE_Panels
 {
@@ -112,7 +115,57 @@ namespace ALICE_Panels
                 //Check If First Run, Verify Filter Status With CMDR
                 if (FilterCheck == true && Set)
                 {
+                    SetFilters();
+
                     //Ask CMDR for status of filters.
+                    IResponse.Panels.QuestionFilters(true);
+
+                    //Monitor Response
+                    Thread.Sleep(1500); switch (IStatus.Interaction.Question(6000))
+                    {
+                        case ALICE_Status.Status_Interaction.Answers.NoResponse:
+
+                            //Debug Logger
+                            Logger.DebugLine(MethodName, "Question: No Response.", Logger.Yellow);
+
+                            //Close Taret Panel
+                            Call.Panel.Target.Panel(false);
+                            return;
+
+                        case ALICE_Status.Status_Interaction.Answers.Yes:
+
+                            //Audio - Postive Response
+                            IResponse.General.Positve(true);
+
+                            //Move To Reset Option "X" And Reset
+                            UpdateCursor(2, 1, false, 150); Select(150);
+                            break;
+
+                        case ALICE_Status.Status_Interaction.Answers.No:
+
+                            //Audio - Safeties Remain
+                            IResponse.General.Positve(true);                            
+                            break;
+
+                        default:
+
+                            //Close Taret Panel
+                            Call.Panel.Target.Panel(false);
+                            return;                            
+                    }
+
+                    FiltersSet = false;
+                    FilterCheck = false;
+                }
+
+                //If Filters Are Set & We Are Setting New Filters
+                if (Set && FiltersSet)
+                {
+                    //Move To Set Filters
+                    SetFilters();
+
+                    //Move To Reset Option "X" And Reset
+                    UpdateCursor(2, 1, false, 150); Select();
                 }
 
                 //If We Are Setting Filters, Check The If Filters Changed
@@ -173,6 +226,9 @@ namespace ALICE_Panels
 
                     //Move Cursor To Locations Submenu
                     Thread.Sleep(50); UpdateCursor(3, 1, false);
+
+                    //Update Filters Set
+                    FiltersSet = true;
                 }
 
                 //Reset Location Filters
@@ -183,6 +239,9 @@ namespace ALICE_Panels
 
                     //Move To Reset Option "X" And Reset
                     UpdateCursor(2, 1, false, 150); Select();
+
+                    //Update Filters Set
+                    FiltersSet = false;
                 }  
             }
         }
