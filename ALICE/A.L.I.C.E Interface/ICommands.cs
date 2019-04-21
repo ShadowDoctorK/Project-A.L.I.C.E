@@ -355,7 +355,7 @@ namespace ALICE_Interface
             Toggle,            
             Request,
             Cancel,
-            Prepair,
+            Prepare,
             Activate,
             Next,
             Previous,

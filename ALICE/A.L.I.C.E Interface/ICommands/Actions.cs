@@ -50,7 +50,7 @@ namespace ALICE_Interface
                                 IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform 
                             return;
 
-                        case L2.Prepair:
+                        case L2.Prepare:
                             IActions.Docking.Preparations(
                                 IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform 
                             return;
@@ -279,23 +279,32 @@ namespace ALICE_Interface
                             switch (Command[3].Lookup<L3>())
                             {
                                 case L3.One:
-                                    //CONSTRUCTION
+                                    IActions.Heatsink.Target(
+                                        IGet.External.CommandAudio(ICommands.M),
+                                        Settings_Firegroups.Item.ShieldCellOne);
                                     return;
 
                                 case L3.Two:
-                                    //CONSTRUCTION
+                                    IActions.Heatsink.Target(
+                                        IGet.External.CommandAudio(ICommands.M),
+                                        Settings_Firegroups.Item.ShieldCellTwo);
                                     return;
 
                                 case L3.Three:
-                                    //CONSTRUCTION
+                                    IActions.Heatsink.Target(
+                                        IGet.External.CommandAudio(ICommands.M),
+                                        Settings_Firegroups.Item.ShieldCellThree);
                                     return;
 
                                 case L3.Four:
-                                    //CONSTRUCTION
+                                    IActions.Heatsink.Target(
+                                        IGet.External.CommandAudio(ICommands.M),
+                                        Settings_Firegroups.Item.ShieldCellFour);
                                     return;
 
                                 default:
-                                    IActions.Heatsink.Activate(IGet.External.CommandAudio(ICommands.M));
+                                    IActions.Heatsink.Activate(
+                                        IGet.External.CommandAudio(ICommands.M));
                                     return;
                             }
 
@@ -304,19 +313,23 @@ namespace ALICE_Interface
                             switch (Command[3].Lookup<L3>())
                             {
                                 case L3.One:
-                                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LauncherHeatSinkOne);
+                                    ISettings.Firegroup.Select(
+                                        Settings_Firegroups.Item.LauncherHeatSinkOne);
                                     return;
 
                                 case L3.Two:
-                                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LauncherHeatSinkTwo);
+                                    ISettings.Firegroup.Select(
+                                        Settings_Firegroups.Item.LauncherHeatSinkTwo);
                                     return;
 
                                 case L3.Three:
-                                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LauncherHeatSinkThree);
+                                    ISettings.Firegroup.Select(
+                                        Settings_Firegroups.Item.LauncherHeatSinkThree);
                                     return;
 
                                 case L3.Four:
-                                    ISettings.Firegroup.Select(Settings_Firegroups.Item.LauncherHeatSinkFour);
+                                    ISettings.Firegroup.Select(
+                                        Settings_Firegroups.Item.LauncherHeatSinkFour);
                                     return;
 
                                 default:
@@ -1191,7 +1204,7 @@ namespace ALICE_Interface
 
                     switch (Command[2].Lookup<L2>())
                     {
-                        case L2.Prepair:
+                        case L2.Prepare:
                             Call.Action.LandingPreparations(IGet.External.CommandAudio(ICommands.M));
                             return;
 
