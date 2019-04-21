@@ -169,7 +169,7 @@ namespace ALICE_DebugGet
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
-        public bool CommandAudio(string M, bool R, bool L = true)
+        public bool CommandAudio(string M, bool R = true, bool L = true)
         {
             try
             {

@@ -27,7 +27,7 @@ namespace ALICE_Actions
             if (Cold)
             {               
                 //Activate Heatsink
-                IActions.ShieldCell.Activate(false, true);
+                IActions.Heatsink.Activate(false, true);
 
                 //Delay Activation
                 Thread.Sleep(1500);
@@ -55,7 +55,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Activation
-            IKeyboard.Press(IKey.Deploy_Heat_Sink, 0);
+            IKeyboard.Press(IKey.Use_Shield_Cell, 0);
 
             //Audio - Activating
             IResponse.ShieldCell.Activating(CA);
@@ -80,7 +80,7 @@ namespace ALICE_Actions
             if (Cold && S == false)
             {
                 //Activate Heatsink
-                IActions.ShieldCell.Activate(false, true);
+                IActions.Heatsink.Activate(false, true);
 
                 //Delay Activation
                 Thread.Sleep(1500);

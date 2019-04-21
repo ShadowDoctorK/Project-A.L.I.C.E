@@ -24,7 +24,8 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Crew:
-                            Call.Overrides.Crew(PlugIn.CommandAudio);
+                            Call.Overrides.Crew(
+                                IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform 
                             return;
 
                         default:
@@ -37,15 +38,21 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Request:
-                            IActions.Docking.Request(IEnums.CMD.True, PlugIn.CommandAudio, true);
+                            IActions.Docking.Request(
+                                IEnums.CMD.True,                                                //Request Docking
+                                IGet.External.CommandAudio(ICommands.M),                        //Get Command Audio From Platform 
+                                true);                                                          //Player Initiated Command
                             return;
 
                         case L2.Cancel:
-                            IActions.Docking.Request(IEnums.CMD.False, PlugIn.CommandAudio);
+                            IActions.Docking.Request(
+                                IEnums.CMD.False,                                               //Cancel Docking
+                                IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform 
                             return;
 
                         case L2.Prepair:
-                            IActions.Docking.Preparations(PlugIn.CommandAudio);
+                            IActions.Docking.Preparations(
+                                IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform 
                             return;
                        
                         default:
@@ -62,11 +69,17 @@ namespace ALICE_Interface
                             switch (Command[3].Lookup<L3>())
                             {
                                 case L3.Player:
-                                    IActions.Fighter.Deploy(IGet.External.FighterNumber(ICommands.M, true), true, PlugIn.CommandAudio);
+                                    IActions.Fighter.Deploy(
+                                        IGet.External.FighterNumber(ICommands.M, true),         //Get Fighter Number From Platform
+                                        true,                                                   //Deploy Player
+                                        IGet.External.CommandAudio(ICommands.M));               //Get Command Audio From Platform
                                     return;
 
                                 case L3.Crew:
-                                    IActions.Fighter.Deploy(IGet.External.FighterNumber(ICommands.M, true), false, PlugIn.CommandAudio);
+                                    IActions.Fighter.Deploy(
+                                        IGet.External.FighterNumber(ICommands.M, true),         //Get Fighter Number From Platform
+                                        false,                                                  //Deploy Crew Member
+                                        IGet.External.CommandAudio(ICommands.M));               //Get Command Audio From Platform
                                     return;
 
                                 default:
@@ -75,31 +88,38 @@ namespace ALICE_Interface
                             }
 
                         case L2.Attack_My_Target:
-                            IActions.Fighter.AttackMyTarget(PlugIn.CommandAudio);
+                            IActions.Fighter.AttackMyTarget(
+                                IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform         
                             return;
 
                         case L2.Defend:
-                            IActions.Fighter.Defending(PlugIn.CommandAudio);
+                            IActions.Fighter.Defending(
+                                IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform 
                             return;
 
                         case L2.Engage_At_Will:
-                            IActions.Fighter.EngageAtWill(PlugIn.CommandAudio);
+                            IActions.Fighter.EngageAtWill(
+                                IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform 
                             return;
 
                         case L2.Follow:
-                            IActions.Fighter.Follow(PlugIn.CommandAudio);
+                            IActions.Fighter.Follow(
+                                IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform 
                             return;
 
                         case L2.Hold:
-                            IActions.Fighter.HoldPosition(PlugIn.CommandAudio);
+                            IActions.Fighter.HoldPosition(
+                                IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform 
                             return;
 
                         case L2.Maintain:
-                            IActions.Fighter.Recall(PlugIn.CommandAudio);
+                            IActions.Fighter.Recall(
+                                IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform 
                             return;
 
                         case L2.Recall:
-                            IActions.Fighter.Recall(PlugIn.CommandAudio);
+                            IActions.Fighter.Recall(
+                                IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform 
                             return;
 
                         default:
@@ -115,7 +135,8 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Cancel:
-                            IActions.FrameShiftDrive.AbortJump(PlugIn.CommandAudio);
+                            IActions.FrameShiftDrive.AbortJump(
+                                IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform 
                             return;
 
                         case L2.Supercruise:
@@ -131,7 +152,7 @@ namespace ALICE_Interface
                                     break;
                             }
 
-                            IActions.FrameShiftDrive.Supercruise(PlugIn.CommandAudio, true, OnMyMark);
+                            IActions.FrameShiftDrive.Supercruise(IGet.External.CommandAudio(ICommands.M), true, OnMyMark);
 
                             return;
 
@@ -148,7 +169,7 @@ namespace ALICE_Interface
                                     break;
                             }
 
-                            IActions.FrameShiftDrive.Hyperspace(PlugIn.CommandAudio, true, OnMyMark);
+                            IActions.FrameShiftDrive.Hyperspace(IGet.External.CommandAudio(ICommands.M), true, OnMyMark);
 
                             return;
 
@@ -165,7 +186,7 @@ namespace ALICE_Interface
                                     break;
                             }
 
-                            IActions.FrameShiftDrive.Supercruise(PlugIn.CommandAudio, false, OnMyMark);
+                            IActions.FrameShiftDrive.Supercruise(IGet.External.CommandAudio(ICommands.M), false, OnMyMark);
 
                             return;
 
@@ -179,27 +200,42 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Deploy:
-                            IActions.Hardpoints.Operate(true, PlugIn.CommandAudio, false);
+                            IActions.Hardpoints.Operate(
+                                true,                                                   //Deploy
+                                IGet.External.CommandAudio(ICommands.M),                //Get Command Audio From Platform
+                                false);                                                 //Maintain Current Group + Mode
                             return;
                        
                         case L2.Retract:
-                            IActions.Hardpoints.Operate(false, PlugIn.CommandAudio, false, Hardpoints.M.Analysis);
+                            IActions.Hardpoints.Operate(
+                                false,                                                  //Retract
+                                IGet.External.CommandAudio(ICommands.M),                //Get Command Audio From Platform
+                                false,                                                  //Maintain Current Group
+                                Hardpoints.M.Analysis);                                 //Switch Mode To Analysis
                             return;
 
                         case L2.Weapons:
-                            IActions.Hardpoints.Operate(true, PlugIn.CommandAudio, true, Hardpoints.M.Combat);
+                            IActions.Hardpoints.Operate(
+                                true,                                                   //Deploy
+                                IGet.External.CommandAudio(ICommands.M),                //Get Command Audio From Platform
+                                true,                                                   //Switch To Default Group
+                                Hardpoints.M.Combat);                                   //Switch Mode To Combat
                             return;
 
                         case L2.Select:
-                            Call.Firegroup.Select(IGet.External.FireGroupSelect(ICommands.M, true), PlugIn.CommandAudio);
+                            Call.Firegroup.Select(
+                                IGet.External.FireGroupSelect(ICommands.M, true),       //Get Variable From Platform + Reset
+                                IGet.External.CommandAudio(ICommands.M));               //Get Command Audio From Platform
                             return;
 
                         case L2.Default:
-                            Call.Firegroup.Update_Default(IGet.External.FireGroupNum(ICommands.M, true));
+                            Call.Firegroup.Update_Default(
+                                IGet.External.FireGroupNum(ICommands.M, true));         //Get Variable From Platform + Reset
                             return;
 
                         case L2.Update:
-                            Call.Firegroup.Update_Total(PlugIn.CommandAudio);
+                            Call.Firegroup.Update_Total(
+                                IGet.External.CommandAudio(ICommands.M));               //Get Command Audio From Platform
                             return;
 
                         case L2.Mode:
@@ -207,15 +243,21 @@ namespace ALICE_Interface
                             switch (Command[3].Lookup<L3>())
                             {
                                 case L3.Combat:
-                                    IActions.Hardpoints.Mode(false, PlugIn.CommandAudio);
+                                    IActions.Hardpoints.Mode(
+                                        false, 
+                                        IGet.External.CommandAudio(ICommands.M));
                                     return;
 
                                 case L3.Analysis:
-                                    IActions.Hardpoints.Mode(true, PlugIn.CommandAudio);
+                                    IActions.Hardpoints.Mode(
+                                        true, 
+                                        IGet.External.CommandAudio(ICommands.M));
                                     return;
 
                                 case L3.Toggle:
-                                    IActions.Hardpoints.Mode(!IGet.Status.AnalysisMode(ICommands.M),PlugIn.CommandAudio);
+                                    IActions.Hardpoints.Mode(
+                                        !IGet.Status.AnalysisMode(ICommands.M),
+                                        IGet.External.CommandAudio(ICommands.M));
                                     return;
 
                                 default:
@@ -253,7 +295,7 @@ namespace ALICE_Interface
                                     return;
 
                                 default:
-                                    IActions.Heatsink.Activate(PlugIn.CommandAudio);
+                                    IActions.Heatsink.Activate(IGet.External.CommandAudio(ICommands.M));
                                     return;
                             }
 
@@ -334,34 +376,36 @@ namespace ALICE_Interface
                             {
                                 case L3.One:
                                     IActions.ShieldCell.Target(
-                                        PlugIn.CommandAudio, 
+                                        IGet.External.CommandAudio(ICommands.M), 
                                         Settings_Firegroups.Item.ShieldCellOne,
                                         IGet.External.ColdMod(ICommands.M, true));
                                     return;
 
                                 case L3.Two:
                                     IActions.ShieldCell.Target(
-                                        PlugIn.CommandAudio,
+                                        IGet.External.CommandAudio(ICommands.M),
                                         Settings_Firegroups.Item.ShieldCellTwo,
                                         IGet.External.ColdMod(ICommands.M, true));
                                     return;
 
                                 case L3.Three:
                                     IActions.ShieldCell.Target(
-                                        PlugIn.CommandAudio,
+                                        IGet.External.CommandAudio(ICommands.M),
                                         Settings_Firegroups.Item.ShieldCellThree,
                                         IGet.External.ColdMod(ICommands.M, true));
                                     return;
 
                                 case L3.Four:
                                     IActions.ShieldCell.Target(
-                                        PlugIn.CommandAudio,
+                                        IGet.External.CommandAudio(ICommands.M),
                                         Settings_Firegroups.Item.ShieldCellFour,
                                         IGet.External.ColdMod(ICommands.M, true));
                                     return;
 
                                 default:
-                                    IActions.ShieldCell.Activate(PlugIn.CommandAudio, IGet.External.ColdMod(ICommands.M, true));
+                                    IActions.ShieldCell.Activate(
+                                        IGet.External.CommandAudio(ICommands.M),
+                                        IGet.External.ColdMod(ICommands.M, false));
                                     return;
                             }
                            
@@ -371,28 +415,28 @@ namespace ALICE_Interface
                             {
                                 case L3.One:
                                     IActions.ShieldCell.Target(
-                                        PlugIn.CommandAudio,
+                                        IGet.External.CommandAudio(ICommands.M),
                                         Settings_Firegroups.Item.ShieldCellOne,
                                         false, true);
                                     return;
 
                                 case L3.Two:
                                     IActions.ShieldCell.Target(
-                                        PlugIn.CommandAudio,
+                                        IGet.External.CommandAudio(ICommands.M),
                                         Settings_Firegroups.Item.ShieldCellTwo,
                                         false, true);
                                     return;
 
                                 case L3.Three:
                                     IActions.ShieldCell.Target(
-                                        PlugIn.CommandAudio,
+                                        IGet.External.CommandAudio(ICommands.M),
                                         Settings_Firegroups.Item.ShieldCellThree,
                                         false, true);
                                     return;
 
                                 case L3.Four:
                                     IActions.ShieldCell.Target(
-                                        PlugIn.CommandAudio,
+                                        IGet.External.CommandAudio(ICommands.M),
                                         Settings_Firegroups.Item.ShieldCellFour,
                                         false, true);
                                     return;
@@ -450,15 +494,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Deploy:
-                            Call.Action.LandingGear(true, PlugIn.CommandAudio);
+                            Call.Action.LandingGear(true, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Retract:
-                            Call.Action.LandingGear(false, PlugIn.CommandAudio);
+                            Call.Action.LandingGear(false, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Toggle:
-                            Call.Action.LandingGear(!IGet.LandingGear.Status(ICommands.M), PlugIn.CommandAudio);
+                            Call.Action.LandingGear(!IGet.LandingGear.Status(ICommands.M), IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -639,11 +683,11 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
-                            Call.Action.XenoScanner(PlugIn.CommandAudio, false);
+                            Call.Action.XenoScanner(IGet.External.CommandAudio(ICommands.M), false);
                             return;
 
                         case L2.Select:
-                            Call.Action.XenoScanner(PlugIn.CommandAudio, true);
+                            Call.Action.XenoScanner(IGet.External.CommandAudio(ICommands.M), true);
                             return;
 
                         case L2.Assign:
@@ -663,11 +707,11 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
-                            IActions.CompositeScaner(PlugIn.CommandAudio, false);
+                            IActions.CompositeScaner(IGet.External.CommandAudio(ICommands.M), false);
                             return;
 
                         case L2.Select:
-                            IActions.CompositeScaner(PlugIn.CommandAudio, true);
+                            IActions.CompositeScaner(IGet.External.CommandAudio(ICommands.M), true);
                             return;
 
                         case L2.Assign:
@@ -687,15 +731,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            Call.Action.NightVision(true, PlugIn.CommandAudio);
+                            Call.Action.NightVision(true, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Disable:
-                            Call.Action.NightVision(false, PlugIn.CommandAudio);
+                            Call.Action.NightVision(false, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Toggle:
-                            Call.Action.NightVision(!IStatus.NightVision, PlugIn.CommandAudio);
+                            Call.Action.NightVision(!IStatus.NightVision, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -707,15 +751,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            Call.Action.FlightAssist(true, PlugIn.CommandAudio);
+                            Call.Action.FlightAssist(true, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Disable:
-                            Call.Action.FlightAssist(false, PlugIn.CommandAudio);
+                            Call.Action.FlightAssist(false, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Toggle:
-                            Call.Action.FlightAssist(!IStatus.FlightAssist, PlugIn.CommandAudio);
+                            Call.Action.FlightAssist(!IStatus.FlightAssist, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -728,15 +772,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Deploy:
-                            Call.Action.CargoScoop(true, PlugIn.CommandAudio);
+                            Call.Action.CargoScoop(true, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Retract:
-                            Call.Action.CargoScoop(false, PlugIn.CommandAudio);
+                            Call.Action.CargoScoop(false, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Toggle:
-                            Call.Action.CargoScoop(!IStatus.CargoScoop, PlugIn.CommandAudio);
+                            Call.Action.CargoScoop(!IStatus.CargoScoop, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -749,15 +793,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            Call.Action.ExternalLights(true, PlugIn.CommandAudio);
+                            Call.Action.ExternalLights(true, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Disable:
-                            Call.Action.ExternalLights(false, PlugIn.CommandAudio);
+                            Call.Action.ExternalLights(false, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Toggle:
-                            Call.Action.ExternalLights(!IEquipment.ExternalLights.Settings.Enabled, PlugIn.CommandAudio);
+                            Call.Action.ExternalLights(!IEquipment.ExternalLights.Settings.Enabled, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -770,15 +814,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            Call.Action.SilentRunning(true, PlugIn.CommandAudio);
+                            Call.Action.SilentRunning(true, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Disable:
-                            Call.Action.SilentRunning(false, PlugIn.CommandAudio);
+                            Call.Action.SilentRunning(false, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Toggle:
-                            Call.Action.SilentRunning(!IStatus.SilentRunning, PlugIn.CommandAudio);
+                            Call.Action.SilentRunning(!IStatus.SilentRunning, IGet.External.CommandAudio(ICommands.M));
                             return;
                        
                         default:
@@ -795,27 +839,75 @@ namespace ALICE_Interface
                             switch (Command[3].Lookup<L3>())
                             {
                                 case L3.One:
+                                    ICommands.LogNotImplemented(ICommands.M, Command, 3);
                                     return;
 
                                 case L3.Two:
+                                    ICommands.LogNotImplemented(ICommands.M, Command, 3);
                                     return;
 
                                 case L3.Three:
+                                    ICommands.LogNotImplemented(ICommands.M, Command, 3);
                                     return;
 
                                 case L3.Four:
+                                    ICommands.LogNotImplemented(ICommands.M, Command, 3);
                                     return;
 
                                 default:
-                                    Call.Action.Activate_Chaff(PlugIn.CommandAudio);
+                                    Call.Action.Activate_Chaff(IGet.External.CommandAudio(ICommands.M));
                                     return;
                             }
 
                         case L2.Select:
-                            return;
+
+                            switch (Command[3].Lookup<L3>())
+                            {
+                                case L3.One:
+                                    ICommands.LogNotImplemented(ICommands.M, Command, 3);
+                                    return;
+
+                                case L3.Two:
+                                    ICommands.LogNotImplemented(ICommands.M, Command, 3);
+                                    return;
+
+                                case L3.Three:
+                                    ICommands.LogNotImplemented(ICommands.M, Command, 3);
+                                    return;
+
+                                case L3.Four:
+                                    ICommands.LogNotImplemented(ICommands.M, Command, 3);
+                                    return;
+
+                                default:
+                                    ICommands.LogInvalid(ICommands.M, Command, 3);
+                                    return;
+                            }
 
                         case L2.Assign:
-                            return;
+
+                            switch (Command[3].Lookup<L3>())
+                            {
+                                case L3.One:
+                                    ICommands.LogNotImplemented(ICommands.M, Command, 3);
+                                    return;
+
+                                case L3.Two:
+                                    ICommands.LogNotImplemented(ICommands.M, Command, 3);
+                                    return;
+
+                                case L3.Three:
+                                    ICommands.LogNotImplemented(ICommands.M, Command, 3);
+                                    return;
+
+                                case L3.Four:
+                                    ICommands.LogNotImplemented(ICommands.M, Command, 3);
+                                    return;
+
+                                default:
+                                    ICommands.LogInvalid(ICommands.M, Command, 3);
+                                    return;
+                            }
 
                         default:
                             ICommands.LogInvalid(ICommands.M, Command, 2);
@@ -827,15 +919,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            Call.Action.Full_Spectrum_Scanner(true, PlugIn.CommandAudio);
+                            Call.Action.Full_Spectrum_Scanner(true, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Disable:
-                            Call.Action.Full_Spectrum_Scanner(false, PlugIn.CommandAudio);
+                            Call.Action.Full_Spectrum_Scanner(false, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Toggle:
-                            Call.Action.Full_Spectrum_Scanner(!IStatus.Lights, PlugIn.CommandAudio);
+                            Call.Action.Full_Spectrum_Scanner(!IStatus.Lights, IGet.External.CommandAudio(ICommands.M));
                             return;
                       
                         default:
@@ -848,19 +940,19 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            Call.Action.SurfaceScaner(true, PlugIn.CommandAudio);
+                            Call.Action.SurfaceScaner(true, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Disable:
-                            Call.Action.SurfaceScaner(false, PlugIn.CommandAudio);
+                            Call.Action.SurfaceScaner(false, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Toggle:
-                            Call.Action.SurfaceScaner(!IEquipment.SurfaceScanner.Mode, PlugIn.CommandAudio);
+                            Call.Action.SurfaceScaner(!IEquipment.SurfaceScanner.Mode, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Select:
-                            Call.Action.SurfaceScaner(true, PlugIn.CommandAudio, true);
+                            Call.Action.SurfaceScaner(true, IGet.External.CommandAudio(ICommands.M), true);
                             return;
 
                         case L2.Assign:
@@ -880,7 +972,7 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
-                            IActions.DiscoveryScanner(PlugIn.CommandAudio);
+                            IActions.DiscoveryScanner(IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Select:
@@ -904,11 +996,11 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
-                            Call.Action.CollectorLimpet(PlugIn.CommandAudio, false);
+                            Call.Action.CollectorLimpet(IGet.External.CommandAudio(ICommands.M), false);
                             return;
 
                         case L2.Select:
-                            Call.Action.CollectorLimpet(PlugIn.CommandAudio, true);
+                            Call.Action.CollectorLimpet(IGet.External.CommandAudio(ICommands.M), true);
                             return;
 
                         case L2.Assign:
@@ -952,11 +1044,11 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
-                            Call.Action.FuelLimpet(PlugIn.CommandAudio, false);
+                            Call.Action.FuelLimpet(IGet.External.CommandAudio(ICommands.M), false);
                             return;
 
                         case L2.Select:
-                            Call.Action.FuelLimpet(PlugIn.CommandAudio, true);
+                            Call.Action.FuelLimpet(IGet.External.CommandAudio(ICommands.M), true);
                             return;
 
                         case L2.Assign:
@@ -1000,11 +1092,11 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
-                            Call.Action.ProspectorLimpet(PlugIn.CommandAudio, false);
+                            Call.Action.ProspectorLimpet(IGet.External.CommandAudio(ICommands.M), false);
                             return;
 
                         case L2.Select:
-                            Call.Action.ProspectorLimpet(PlugIn.CommandAudio, true);
+                            Call.Action.ProspectorLimpet(IGet.External.CommandAudio(ICommands.M), true);
                             return;
 
                         case L2.Assign:
@@ -1024,11 +1116,11 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
-                            Call.Action.ReconLimpet(PlugIn.CommandAudio, false);
+                            Call.Action.ReconLimpet(IGet.External.CommandAudio(ICommands.M), false);
                             return;
 
                         case L2.Select:
-                            Call.Action.ReconLimpet(PlugIn.CommandAudio, true);
+                            Call.Action.ReconLimpet(IGet.External.CommandAudio(ICommands.M), true);
                             return;
 
                         case L2.Assign:
@@ -1048,11 +1140,11 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
-                            Call.Action.RepairLimpet(PlugIn.CommandAudio, false);
+                            Call.Action.RepairLimpet(IGet.External.CommandAudio(ICommands.M), false);
                             return;
 
                         case L2.Select:
-                            Call.Action.RepairLimpet(PlugIn.CommandAudio, true);
+                            Call.Action.RepairLimpet(IGet.External.CommandAudio(ICommands.M), true);
                             return;
 
                         case L2.Assign:
@@ -1092,7 +1184,7 @@ namespace ALICE_Interface
                     }
 
                 case L1.Launch:
-                    Call.Action.Launch(PlugIn.CommandAudio);
+                    Call.Action.Launch(IGet.External.CommandAudio(ICommands.M));
                     return;
 
                 case L1.Landing:
@@ -1100,7 +1192,7 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Prepair:
-                            Call.Action.LandingPreparations(PlugIn.CommandAudio);
+                            Call.Action.LandingPreparations(IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -1117,7 +1209,7 @@ namespace ALICE_Interface
                             switch (Command[3].Lookup<L3>())
                             {
                                  case L3.Series:
-                                    IActions.Throttle.Boost(IGet.External.BoostNum(ICommands.M, true), true, PlugIn.CommandAudio);
+                                    IActions.Throttle.Boost(IGet.External.BoostNum(ICommands.M, true), true, IGet.External.CommandAudio(ICommands.M));
                                     return;
 
                                 case L3.Stop:
@@ -1125,7 +1217,7 @@ namespace ALICE_Interface
                                     return;
 
                                 default:
-                                    IActions.Throttle.Boost(1, true, PlugIn.CommandAudio);
+                                    IActions.Throttle.Boost(1, true, IGet.External.CommandAudio(ICommands.M));
                                     return;
                             }
 
