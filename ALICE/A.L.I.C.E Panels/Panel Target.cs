@@ -6,6 +6,7 @@ using ALICE_Debug;
 using ALICE_Core;
 using ALICE_Response;
 using ALICE_Synthesizer;
+using ALICE_Keybinds;
 
 namespace ALICE_Panels
 {
@@ -166,6 +167,7 @@ namespace ALICE_Panels
 
                     //Move To Reset Option "X" And Reset
                     UpdateCursor(2, 1, false, 150); Select();
+                    Thread.Sleep(100);
                 }
 
                 //If We Are Setting Filters, Check The If Filters Changed
@@ -175,54 +177,81 @@ namespace ALICE_Panels
                     //Move Cursor From Submenu To Set Filters And Select It.
                     SetFilters(); Select(150);
 
+                    Thread.Sleep(100);
+
                     //Process Filters
                     if (Star)
                     {
                         Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Aste)
                     {
-                        Position = UpdateCursor(2, Position, true, 50); Select(50);
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Plan)
                     {
-                        Position = UpdateCursor(3, Position, true, 50); Select(50);
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Land)
                     {
-                        Position = UpdateCursor(4, Position, true, 50); Select(50);
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Sett)
                     {
-                        Position = UpdateCursor(5, Position, true, 50); Select(50);
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Stat)
                     {
-                        Position = UpdateCursor(6, Position, true, 50); Select(50);
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Poin)
                     {
-                        Position = UpdateCursor(7, Position, true, 50); Select(50);
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Sign)
                     {
-                        Position = UpdateCursor(8, Position, true, 50); Select(50);
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Syst)
                     {
-                        Position = UpdateCursor(9, Position, true, 50); Select(50);
+                        Select(50);
+                        Thread.Sleep(50);
                     }
 
                     //Allow Time For UI To Update & Exit Submenu
-                    Thread.Sleep(250); Back();
+                    Thread.Sleep(250); Back(50);
 
                     //Move Cursor To Locations Submenu
                     Thread.Sleep(50); UpdateCursor(3, 1, false);

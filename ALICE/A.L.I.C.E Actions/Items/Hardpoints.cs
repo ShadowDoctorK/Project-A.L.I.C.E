@@ -207,7 +207,8 @@ namespace ALICE_Actions
                     IResponse.Hardpoints.Retracting(CA);    
                     
                     //Set Weapon Safeties
-                    if (ICheck.Order.WeaponSafety(MethodName, true))
+                    if (ICheck.Order.WeaponSafety(MethodName, true)                     //Check Enabled   
+                     && ICheck.SupercruiseExit.BodyType(MethodName, true, "Station"))   //Check In Station's Space
                     {
                         ISet.Status.WeaponSafety(MethodName, true);
                     }
