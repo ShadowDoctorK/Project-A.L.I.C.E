@@ -328,8 +328,6 @@
     <Compile Include="A.L.I.C.E Equipment\Update\Limpet Decontamination.cs" />
     <Compile Include="A.L.I.C.E Equipment\Update\Limpet Collector.cs" />
     <Compile Include="A.L.I.C.E Equipment\Update\Wake Scanner.cs" />
-    <Compile Include="A.L.I.C.E Interface\ICommands Old.cs" />
-    <Compile Include="A.L.I.C.E Interface\IScreenshot.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceAttack.cs" />
     <Compile Include="A.L.I.C.E Equipment\IEquipment.cs" />
     <Compile Include="A.L.I.C.E Debug\Convert\Check.cs" />
