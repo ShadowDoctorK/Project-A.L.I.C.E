@@ -113,7 +113,7 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Maintain:
-                            IActions.Fighter.Recall(
+                            IActions.Fighter.MaintainFormation(
                                 IGet.External.CommandAudio(ICommands.M));                       //Get Command Audio From Platform 
                             return;
 
