@@ -113,6 +113,9 @@ namespace ALICE_Actions
             //Check Weapon Safety Disabled
             if (ICheck.Status.WeaponSafety(MethodName, false))
             {
+                #region Weapons Called
+
+                #endregion
                 //Default Group
                 if (D)
                 {
@@ -134,6 +137,20 @@ namespace ALICE_Actions
                         //No Action
                         break;
                 }
+
+                //Check If Weapons Was Ordered
+                if (IGet.Status.Hardpoints(MethodName) == true  //Check Hardpoints Deployed
+                    && CMD == true                              //Check Order Is Deploy
+                    && MD == M.Combat)                          //Check Mode Ordered Is Combat
+                {
+                    //Select Default Group
+                    Default(MethodName, CA);
+
+                    //Postive Response
+                    IResponse.Hardpoints.PositiveResponse(CA);
+
+                    return;
+                }
             }         
 
             #region Status == Command
@@ -141,15 +158,37 @@ namespace ALICE_Actions
             {
                 if (CMD == true)
                 {
-                    //Audio - Currently Deployed
-                    IResponse.Hardpoints.Deployed(CA);
+                    //Weapons
+                    if (MD == M.Combat)
+                    {
+                        //Audio - Currently Deployed
+                        IResponse.Hardpoints.DeployedWeapons(CA);
+                    }
+
+                    //Hardpoints
+                    else
+                    {
+                        //Audio - Currently Deployed
+                        IResponse.Hardpoints.DeployedHardpoints(CA);
+                    }
 
                     return;
                 }
                 else if (CMD == false)
                 {
-                    //Audio - Currently Deployed
-                    IResponse.Hardpoints.Retracted(CA);
+                    //Weapons
+                    if (MD == M.Combat)
+                    {
+                        //Audio - Currently Retracted
+                        IResponse.Hardpoints.RetractedWeapons(CA);
+                    }
+
+                    //Hardpoints
+                    else
+                    {
+                        //Audio - Currently Retracted
+                        IResponse.Hardpoints.RetractedHardpoints(CA);
+                    }
 
                     return;
                 }
@@ -194,8 +233,19 @@ namespace ALICE_Actions
                     
                     IKeyboard.Press(IKey.Deploy_Hardpoints, 0);
 
-                    //Audio - Deploying
-                    IResponse.Hardpoints.Deploying(CA);
+                    //Weapons
+                    if (MD == M.Combat)
+                    {
+                        //Audio - Deploying
+                        IResponse.Hardpoints.DeployingHardpoints(CA);
+                    }
+
+                    //Hardpoints
+                    else
+                    {
+                        //Audio - Deploying
+                        IResponse.Hardpoints.DeployingWeapons(CA);
+                    }
                 }
 
                 //Retract
@@ -203,13 +253,29 @@ namespace ALICE_Actions
                 {
                     IKeyboard.Press(IKey.Deploy_Hardpoints, 0);
 
-                    //Audio - Deploying
-                    IResponse.Hardpoints.Retracting(CA);    
-                    
+                    //Weapons
+                    if (Call.Firegroup.Current == Call.Firegroup.Default        //Weapons Group Selected
+                        && ICheck.Status.AnalysisMode(MethodName, false))       //In Combat Mode
+                    {
+                        //Audio - Retracting
+                        IResponse.Hardpoints.RetractingWeapons(CA);
+                    }
+
+                    //Hardpoints
+                    else
+                    {
+                        //Audio - Retracting
+                        IResponse.Hardpoints.RetractingHardpoints(CA);
+                    }
+
                     //Set Weapon Safeties
                     if (ICheck.Order.WeaponSafety(MethodName, true)                     //Check Enabled   
                      && ICheck.SupercruiseExit.BodyType(MethodName, true, "Station"))   //Check In Station's Space
                     {
+                        //Audio - Enabling Weapon Safeties
+                        IResponse.Docking.WeaponSafetiesEnabling(CA);
+
+                        //Set Weapon Safeties
                         ISet.Status.WeaponSafety(MethodName, true);
                     }
                 }

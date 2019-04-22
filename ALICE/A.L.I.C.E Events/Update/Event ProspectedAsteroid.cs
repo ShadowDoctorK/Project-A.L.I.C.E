@@ -16,13 +16,16 @@ namespace ALICE_Events
         public string Content { get; set; }
         public string Content_Localised { get; set; }
         public string MotherlodeMaterial { get; set; }
+        public string MotherlodeMaterial_Localised { get; set; }
         public decimal Remaining { get; set; }
-
+        
         //Default Constructor
         public ProspectedAsteroid()
         {
             Content = Str();
             Content_Localised = Str();
+            MotherlodeMaterial = Str();
+            MotherlodeMaterial_Localised = Str();
             Remaining = Dec();
         }
 
@@ -55,7 +58,7 @@ namespace ALICE_Events
 
                 Variables.Record(Name + "_Yeild", Event.Content_Localised);
                 Variables.Record(Name + "_Remaining", Event.Remaining);
-                Variables.Record(Name + "_Core", Event.MotherlodeMaterial);
+                Variables.Switch(Name + "_Core", Event.MotherlodeMaterial_Localised, Event.MotherlodeMaterial);
 
                 int C = 1; foreach (var Mat in Event.Materials)
                 {

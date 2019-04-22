@@ -174,7 +174,7 @@ namespace ALICE_Events
                 IStatus.System.Status(Event);
 
                 //Post Jump Safeties
-                if (ICheck.Order.PostJumpSafety(ClassName, true, true)      //Check Order
+                if (ICheck.Order.PostJumpSafety(ClassName, true)            //Check Order
                     && ICheck.Initialized(ClassName))                       //Check Plugin Initialized
                 {
                     IKeyboard.Press(IKey.Set_Speed_To_0, 0);
@@ -207,6 +207,7 @@ namespace ALICE_Events
         {
             try
             {
+                IStatus.Docking.State = IEnums.DockingState.Undocked;
                 IStatus.WeaponSafety = false;
                 IStatus.Planet.OrbitalMode = false;
                 IStatus.Planet.DecentReport = false;

@@ -122,7 +122,7 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Disable:
-                            PlugIn.DebugMode = true;
+                            PlugIn.DebugMode = false;
                             Logger.Log(ICommands.M, "Debug Logging: " + PlugIn.DebugMode, Logger.Yellow);
                             return;
 

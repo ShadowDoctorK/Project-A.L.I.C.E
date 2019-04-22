@@ -23,9 +23,9 @@ namespace ALICE_Interface
                     new Thread((ThreadStart)(() =>
                     {
                         Call.Power.Set(
-                            IGet.External.WeaponPower(ICommands.M, true),
-                            IGet.External.EnginePower(ICommands.M, true),
+                            IGet.External.WeaponPower(ICommands.M, true),                            
                             IGet.External.SystemPower(ICommands.M, true),
+                            IGet.External.EnginePower(ICommands.M, true), 
                             IGet.External.RecordPower(ICommands.M, true));
                     }))
                     { IsBackground = true };

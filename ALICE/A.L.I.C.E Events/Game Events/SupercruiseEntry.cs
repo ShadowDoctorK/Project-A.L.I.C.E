@@ -6,6 +6,7 @@ using ALICE_Actions;
 using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Equipment;
+using ALICE_Internal;
 using System;
 
 namespace ALICE_Events
@@ -92,6 +93,7 @@ namespace ALICE_Events
                 IEvents.FireInNoFireZone.I.FirstReport = true;
                 Call.Panel.MainFourIsFalse();
 
+                IStatus.Docking.State = IEnums.DockingState.Undocked;
                 IStatus.Fighter.Deployed = false;
                 IStatus.Supercruise = true;
                 IStatus.Hyperspace = false;

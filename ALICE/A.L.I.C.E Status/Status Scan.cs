@@ -436,8 +436,11 @@ namespace ALICE_Status
                     //Normal
                     return ISettings.BodyHMC;
 
+                case "Ammonia world":
+                    return ISettings.BodyAmmonia;
+
                 case "Ammonia body":
-                    return ISettings.BodyHMCTerra;
+                    return ISettings.BodyAmmonia;
 
                 case "Rocky body":
 
