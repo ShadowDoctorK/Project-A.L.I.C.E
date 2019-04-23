@@ -49,18 +49,19 @@ namespace ALICE_Events
     /// </summary>
     public class Event_ProspectedAsteroid : Event
     {
+        //Event Instance
+        public ProspectedAsteroid I { get; set; } = new ProspectedAsteroid();
+
         //Variable Generation
         public override void Generate(object O)
         {
             try
             {
-                var Event = (ProspectedAsteroid)O;
+                Variables.Record(Name + "_Yeild", I.Content_Localised);
+                Variables.Record(Name + "_Remaining", I.Remaining);
+                Variables.Switch(Name + "_Core", I.MotherlodeMaterial_Localised, I.MotherlodeMaterial);
 
-                Variables.Record(Name + "_Yeild", Event.Content_Localised);
-                Variables.Record(Name + "_Remaining", Event.Remaining);
-                Variables.Switch(Name + "_Core", Event.MotherlodeMaterial_Localised, Event.MotherlodeMaterial);
-
-                int C = 1; foreach (var Mat in Event.Materials)
+                int C = 1; foreach (var Mat in I.Materials)
                 {
                     Variables.Record(Name + "_Material" + C, Mat.Name_Localised);
                     Variables.Record(Name + "_Percent" + C, Mat.Proportion);
@@ -70,6 +71,20 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionGenerate(Name, ex);
+            }
+        }
+
+        //Plugin Logic Preparations
+        public override void Prepare(object O)
+        {
+            try
+            {
+                //Update Event Instance
+                I = (ProspectedAsteroid)O;
+            }
+            catch (Exception ex)
+            {
+                ExceptionPrepare(Name, ex);
             }
         }
     }

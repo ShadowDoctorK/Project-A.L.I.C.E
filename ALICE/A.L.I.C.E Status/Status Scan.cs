@@ -225,6 +225,9 @@ namespace ALICE_Status
                 case "Ammonia body":
                     return 460000;
 
+                case "Ammonia world":
+                    return 460000;
+
                 case "Rocky body":
 
                     //Check If Terraformable

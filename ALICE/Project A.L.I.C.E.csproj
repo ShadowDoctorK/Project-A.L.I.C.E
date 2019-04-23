@@ -75,6 +75,7 @@
     <Compile Include="A.L.I.C.E Debug\Equipment\Docking Computer.cs" />
     <Compile Include="A.L.I.C.E Debug\Equipment\Discovery Scanner.cs" />
     <Compile Include="A.L.I.C.E Debug\Equipment\Composite Scanner.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\ProspectedAsteroid.cs" />
     <Compile Include="A.L.I.C.E Debug\Status\Variables.cs" />
     <Compile Include="A.L.I.C.E Debug\Panels\Panels.cs" />
     <Compile Include="A.L.I.C.E Debug\Plugin\External.cs" />
@@ -215,7 +216,7 @@
     <Compile Include="A.L.I.C.E Events\Update\Event PowerplayVote.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Progress.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Promotion.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event ProspectedAsteroid.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\ProspectedAsteroid.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event QuitACrew.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Rank.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event RebootRepair.cs" />
