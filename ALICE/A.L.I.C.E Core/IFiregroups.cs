@@ -1,25 +1,22 @@
-﻿using System;
-using System.Threading;
-using ALICE.Properties;
+﻿using System.Threading;
 using ALICE_Actions;
 using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Keybinds;
+using ALICE_Settings;
 
 namespace ALICE_Core
 {
     public class IFiregroups
     {
         public bool Update { get; set; }
-        public decimal Total { get; set; }
+        //public decimal Total { get; set; }
         public decimal Current { get; set; }
-        public decimal Default { get; set; }
+        //public decimal Default { get; set; }
 
         public IFiregroups()
         {
             Update = true;
-            Total = GetTotal();
-            Default = GetDefault();
         }
 
         public void Select(decimal Target, bool CommandAudio, bool HudSwitch = false, bool HudMode = false)
@@ -54,7 +51,7 @@ namespace ALICE_Core
 
             Logger.DebugLine(MethodName, "Target Firegroup: " + Target + " | Current Firegroup: " + Current, Logger.Yellow);
 
-            if (Target <= Total)
+            if (Target <= ISettings.Firegroup.Groups)
             {
                 if (Target < Current)
                 {
@@ -74,7 +71,7 @@ namespace ALICE_Core
             }
 
             //Audio - Not Valid
-            Logger.Log(MethodName, "Not A Valid Firegroup. Total Groups Detected: " + Call.Firegroup.Total, Logger.Red);
+            Logger.Log(MethodName, "Not A Valid Firegroup. Total Groups Detected: " + ISettings.Firegroup.Groups, Logger.Red);
             return;
         }
 
@@ -117,49 +114,16 @@ namespace ALICE_Core
                 return;
             }
 
-            if (Total != Tracked)
+            if (ISettings.Firegroup.Groups != Tracked)
             {
                 //Audio Updating Complete
                 //Audio Total Changed 
 
-                Total = Tracked;
-                Miscellanous.Default["FireGroup_Total"] = Total;
-                Miscellanous.Default.Save();
+                ISettings.Firegroup.Groups = Tracked;                
+                ISettings.Firegroup.Save(MethodName);
             }
 
             Logger.Log(MethodName, "Total Firegroups Updated To " + Tracked, Logger.Yellow, true);
-        }
-
-        public void Update_Default(decimal Number)
-        {
-            string MethodName = "Update Default Group";
-
-            Default = Number;
-            Miscellanous.Default["FireGroup_Default"] = Default;
-            Miscellanous.Default.Save();
-            Logger.Log(MethodName, "Default Firegroup Updated To " + Number, Logger.Yellow, true);
-        }
-
-        public decimal GetTotal()
-        {
-            string MethodName = "Firegroup Load Total";
-            try { return Convert.ToDecimal(Miscellanous.Default["FireGroup_Total"]); }
-            catch (Exception)
-            {
-                Logger.Exception(MethodName, "Something Went Wrong. Using Default Of 1.");
-                return 1;
-            }
-        }
-
-        public decimal GetDefault()
-        {
-            string MethodName = "Firegroup Load Default";
-            try { return Convert.ToDecimal(Miscellanous.Default["FireGroup_Default"]); }
-            catch (Exception)
-            {
-                Logger.Exception(MethodName, "Something Went Wrong. Using Default Of 1.");
-                return 1;
-            }
         }
     }
 }

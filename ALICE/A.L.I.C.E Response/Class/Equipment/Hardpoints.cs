@@ -115,27 +115,6 @@ namespace ALICE_Response
         }
 
         /// <summary>
-        /// Audio used to report retracting weapons.
-        /// </summary>
-        /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>
-        /// <param name="V1">(Variable 1) Additional variable provided to resolve complex logic to enable or disable audio.</param>
-        /// <param name="V2">(Variable 2) Additional variable provided to resolve complex logic to enable or disable audio.</param>
-        /// <param name="V3">(Variable 3) Additional variable provided to resolve complex logic to enable or disable audio.</param>
-        /// <param name="P">(Priority) Set priority level to jump the queue for lower priority items.</param>
-        /// <param name="V">(Voice) Pass a valid installed voice to override the default settings.</param>
-        public void RetractingWeapons(bool CA, bool V1 = true, bool V2 = true, bool V3 = true, int P = 3, string V = null)
-        {
-            if (PlugIn.MasterAudio == false) { Logger.Log(ClassName, "Weapons: Retracting.", Logger.Yellow); }
-
-            Speech.Speak(""
-                .Phrase(GN_Positive.Default, true)
-                .Phrase(EQ_Hardpoints.Retracting_Weapons)
-                .Phrase(GN_Combat_Power.Offline, false,
-                    ICheck.Order.CombatPower(MethodName, true, true)),
-                CA, V1, V2, V3, P, V);
-        }
-
-        /// <summary>
         /// Audio used to report hardpoints currently deployed.
         /// </summary>
         /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>
@@ -155,25 +134,6 @@ namespace ALICE_Response
         }
 
         /// <summary>
-        /// Audio used to report weapons currently deployed.
-        /// </summary>
-        /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>
-        /// <param name="V1">(Variable 1) Additional variable provided to resolve complex logic to enable or disable audio.</param>
-        /// <param name="V2">(Variable 2) Additional variable provided to resolve complex logic to enable or disable audio.</param>
-        /// <param name="V3">(Variable 3) Additional variable provided to resolve complex logic to enable or disable audio.</param>
-        /// <param name="P">(Priority) Set priority level to jump the queue for lower priority items.</param>
-        /// <param name="V">(Voice) Pass a valid installed voice to override the default settings.</param>
-        public void DeployedWeapons(bool CA, bool V1 = true, bool V2 = true, bool V3 = true, int P = 3, string V = null)
-        {
-            if (PlugIn.MasterAudio == false) { Logger.Log(ClassName, "Weapons: Currently Deployed.", Logger.Yellow); }
-
-            Speech.Speak(""
-                .Phrase(GN_Negative.Default, true)
-                .Phrase(EQ_Hardpoints.Deployed_Weapons),
-                CA, V1, V2, V3, P, V);
-        }
-
-        /// <summary>
         /// Audio used to report hardpoints currently retracted.
         /// </summary>
         /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>
@@ -189,25 +149,6 @@ namespace ALICE_Response
             Speech.Speak(""
                 .Phrase(GN_Negative.Default, true)
                 .Phrase(EQ_Hardpoints.Retracted_Hardpoints),
-                CA, V1, V2, V3, P, V);
-        }
-
-        /// <summary>
-        /// Audio used to report hardpoints currently retracted.
-        /// </summary>
-        /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>
-        /// <param name="V1">(Variable 1) Additional variable provided to resolve complex logic to enable or disable audio.</param>
-        /// <param name="V2">(Variable 2) Additional variable provided to resolve complex logic to enable or disable audio.</param>
-        /// <param name="V3">(Variable 3) Additional variable provided to resolve complex logic to enable or disable audio.</param>
-        /// <param name="P">(Priority) Set priority level to jump the queue for lower priority items.</param>
-        /// <param name="V">(Voice) Pass a valid installed voice to override the default settings.</param>
-        public void RetractedWeapons(bool CA, bool V1 = true, bool V2 = true, bool V3 = true, int P = 3, string V = null)
-        {
-            if (PlugIn.MasterAudio == false) { Logger.Log(ClassName, "Weapons: Currently Retracted.", Logger.Yellow); }
-
-            Speech.Speak(""
-                .Phrase(GN_Negative.Default, true)
-                .Phrase(EQ_Hardpoints.Retracted_Weapons),
                 CA, V1, V2, V3, P, V);
         }
 
@@ -246,6 +187,46 @@ namespace ALICE_Response
             Speech.Speak(""
                 .Phrase(GN_Positive.Default, true)
                 .Phrase(EQ_Hardpoints.Safety_Remains),
+                CA, V1, V2, V3, P, V);
+        }
+
+        /// <summary>
+        /// Audio used to report Main Weapons Assigned.
+        /// </summary>
+        /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>
+        /// <param name="V1">(Variable 1) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="V2">(Variable 2) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="V3">(Variable 3) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="P">(Priority) Set priority level to jump the queue for lower priority items.</param>
+        /// <param name="V">(Voice) Pass a valid installed voice to override the default settings.</param>
+        public void MainWeaponsAssigned(string Group, bool CA, bool V1 = true, bool V2 = true, bool V3 = true, int P = 3, string V = null)
+        {
+            if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Main Weapons Assigned To Group " + Group, Logger.Yellow); }
+
+            Speech.Speak(""
+                .Phrase(GN_Positive.Default, true)
+                .Phrase("Main Weapons Assigned To Group [GROUP]")
+                .Token("[GROUP]", Group),
+                CA, V1, V2, V3, P, V);
+        }
+
+        /// <summary>
+        /// Audio used to report Secondary Weapons Assigned.
+        /// </summary>
+        /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>
+        /// <param name="V1">(Variable 1) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="V2">(Variable 2) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="V3">(Variable 3) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="P">(Priority) Set priority level to jump the queue for lower priority items.</param>
+        /// <param name="V">(Voice) Pass a valid installed voice to override the default settings.</param>
+        public void SecondaryWeaponsAssigned(string Group, bool CA, bool V1 = true, bool V2 = true, bool V3 = true, int P = 3, string V = null)
+        {
+            if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Secondary Weapons Assigned To Group " + Group, Logger.Yellow); }
+
+            Speech.Speak(""
+                .Phrase(GN_Positive.Default, true)
+                .Phrase("Secondary Weapons Assigned To Group [GROUP]")
+                .Token("[GROUP]", Group),
                 CA, V1, V2, V3, P, V);
         }
     }

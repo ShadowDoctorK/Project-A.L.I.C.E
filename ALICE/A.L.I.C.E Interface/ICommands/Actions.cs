@@ -215,11 +215,24 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Weapons:
-                            IActions.Hardpoints.Operate(
-                                true,                                                   //Deploy
-                                IGet.External.CommandAudio(ICommands.M),                //Get Command Audio From Platform
-                                true,                                                   //Switch To Default Group
-                                Hardpoints.M.Combat);                                   //Switch Mode To Combat
+
+                            switch (Command[3].Lookup<L3>())
+                            {
+                                case L3.One:
+                                    IActions.Hardpoints.Weapons(
+                                        IGet.External.CommandAudio(ICommands.M), 1);   //Get Command Audio From Platform
+                                    break;
+                                        
+                                case L3.Two:
+                                    IActions.Hardpoints.Weapons(
+                                        IGet.External.CommandAudio(ICommands.M), 2);   //Get Command Audio From Platform
+                                    break;
+
+                                default:
+                                    ICommands.LogInvalid(ICommands.M, Command, 3);
+                                    break;
+                            }
+
                             return;
 
                         case L2.Select:
@@ -229,9 +242,23 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Default:
-                            Call.Firegroup.Update_Default(
-                                IGet.External.FireGroupNum(ICommands.M, true));         //Get Variable From Platform + Reset
-                            return;
+
+                            switch (Command[3].Lookup<L3>())
+                            {
+                                case L3.One:
+                                    IActions.Hardpoints.WeaponsGroup(1, 
+                                        IGet.External.FireGroup(ICommands.M, true));
+                                    return;
+
+                                case L3.Two:
+                                    IActions.Hardpoints.WeaponsGroup(2, 
+                                        IGet.External.FireGroup(ICommands.M, true));
+                                    return;
+
+                                default:
+                                    ICommands.LogInvalid(ICommands.M, Command, 3);
+                                    return;
+                            }
 
                         case L2.Update:
                             Call.Firegroup.Update_Total(

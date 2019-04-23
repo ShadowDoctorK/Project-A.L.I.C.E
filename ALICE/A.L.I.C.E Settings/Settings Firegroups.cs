@@ -6,6 +6,7 @@ using System.Threading;
 using ALICE_Actions;
 using ALICE_Debug;
 using ALICE_Keybinds;
+using ALICE_Response;
 
 namespace ALICE_Settings
 {
@@ -21,6 +22,8 @@ namespace ALICE_Settings
         public enum Fire { None, Primary, Secondary }       
         public enum Item
         {
+            Weapons1,
+            Weapons2,
             ECM,
             FieldNeutraliser,
             FSDInterdictor,
@@ -57,6 +60,9 @@ namespace ALICE_Settings
         public enum A { Hyperspace, NotAssigned, Complete, Fail }
 
         public string ShipAssignment { get; set; }
+        public decimal Groups { get; set; }
+        public Assignemnt Weapons1 { get; set; }
+        public Assignemnt Weapons2 { get; set; }
         public Assignemnt ECM { get; set; }
         public Assignemnt FSDInterdictor { get; set; }
         public Assignemnt FieldNeutraliser { get; set; }
@@ -92,6 +98,22 @@ namespace ALICE_Settings
 
         public Settings_Firegroups()
         {
+            Groups = 1;
+
+            //Main Weapons Group
+            Weapons2 = new Assignemnt
+            {
+                FireGroup = Group.A,
+                FireMode = Fire.Primary
+            };
+
+            //Secondary Weapons Group
+            Weapons2 = new Assignemnt
+            {
+                FireGroup = Group.A,
+                FireMode = Fire.Primary
+            };
+
             ECM = new Assignemnt();
             FieldNeutraliser = new Assignemnt();
             FSDInterdictor = new Assignemnt();
@@ -137,6 +159,20 @@ namespace ALICE_Settings
 
             switch (Item)
             {
+                case Item.Weapons1:
+                    
+                    //Default Weapons Group
+                    Weapons1 = new Assignemnt(FireGroup, Fire.Primary, Item);
+                    IResponse.Hardpoints.MainWeaponsAssigned(ToText(FireGroup), true);
+                    break;
+
+                case Item.Weapons2:
+
+                    //Default Weapons Group
+                    Weapons2 = new Assignemnt(FireGroup, Fire.Primary, Item);
+                    IResponse.Hardpoints.SecondaryWeaponsAssigned(ToText(FireGroup), true);
+                    break;
+
                 case Item.ECM:
                     #region Code
                     if (Check.Equipment.ECM(true, MethodName))
@@ -694,6 +730,31 @@ namespace ALICE_Settings
             }
         }
 
+        public Group ConvertGroupFromDecimal(decimal G)
+        {
+            switch (G)
+            {                
+                case 1:
+                    return Group.A;
+                case 2:
+                    return Group.B;
+                case 3:
+                    return Group.C;
+                case 4:
+                    return Group.D;
+                case 5:
+                    return Group.E;
+                case 6:
+                    return Group.F;
+                case 7:
+                    return Group.G;
+                case 8:
+                    return Group.H;
+                default:
+                    return Group.A;
+            }
+        }
+
         public decimal ConvertFireFromEnum(Fire F)
         {
             switch (F)
@@ -814,12 +875,16 @@ namespace ALICE_Settings
 
             switch (I)
             {
+                case Item.Weapons1:
+                    return false;                   //Combat Mode
+                case Item.Weapons2:
+                    return false;                   //Combat Mode
                 case Item.ECM:
-                    return false;
+                    return false;                   //Combat Mode
                 case Item.FieldNeutraliser:
                     return true;
                 case Item.FSDInterdictor:
-                    return false;
+                    return false;                   //Combat Mode
                 case Item.LimpetCollector:
                     return true;
                 case Item.LimpetDecontamination:
@@ -867,13 +932,13 @@ namespace ALICE_Settings
                 case Item.ScannerXeno:
                     return true;
                 case Item.ShieldCellOne:
-                    return false;
+                    return false;                   //Combat Mode
                 case Item.ShieldCellTwo:
-                    return false;
+                    return false;                   //Combat Mode
                 case Item.ShieldCellThree:
-                    return false;
+                    return false;                   //Combat Mode
                 case Item.ShieldCellFour:
-                    return false;
+                    return false;                   //Combat Mode
                 default:
                     Logger.Log(MethodName, I + " Hud Mode Not Defined, Using Default \"False\"", Logger.Red);
                     return false;
@@ -894,6 +959,10 @@ namespace ALICE_Settings
 
             switch (I)
             {
+                case Item.Weapons1:
+                    return Weapons1;
+                case Item.Weapons2:
+                    return Weapons2;
                 case Item.ECM:
                     return ECM;
                 case Item.LimpetCollector:
@@ -962,14 +1031,12 @@ namespace ALICE_Settings
             public Group FireGroup { get; set; }
             public Fire FireMode { get; set; }
             public bool Enabled { get; set; }
-            //public bool AnalysisMode { get; set; }
 
             public Assignemnt()
             {
                 FireGroup = Group.None;
                 FireMode = Fire.None;
                 Enabled = false;
-                //AnalysisMode = false;
             }
 
             public Assignemnt(Group G, Fire F, Item I)
@@ -977,7 +1044,6 @@ namespace ALICE_Settings
                 FireGroup = G;
                 FireMode = F;
                 Enabled = true;
-                //AnalysisMode = CheckMode(I);
             }
         }
     }

@@ -204,7 +204,7 @@
     <Compile Include="A.L.I.C.E Events\Update\Event NpcCrewRank.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Outfitting.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event PayBounties.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event PayFines.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\PayFines.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Powerplay.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event PowerplayCollect.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event PowerplayDefect.cs" />

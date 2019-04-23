@@ -1,8 +1,10 @@
 ﻿using ALICE_Core;
 using ALICE_Debug;
+using ALICE_Equipment;
 using ALICE_Internal;
 using ALICE_Keybinds;
 using ALICE_Response;
+using ALICE_Settings;
 using System.Threading;
 
 namespace ALICE_Actions
@@ -110,85 +112,36 @@ namespace ALICE_Actions
             }
             #endregion
 
-            //Check Weapon Safety Disabled
-            if (ICheck.Status.WeaponSafety(MethodName, false))
+            //Hardpoint Mode
+            switch (MD)
             {
-                #region Weapons Called
+                case M.Analysis:
+                    Mode(true, false);
+                    break;
 
-                #endregion
-                //Default Group
-                if (D)
-                {
-                    Default(MethodName, CA);
-                }
+                case M.Combat:
+                    Mode(false, false);
+                    break;
 
-                //Hardpoint Mode
-                switch (MD)
-                {
-                    case M.Analysis:
-                        Mode(true, false);
-                        break;
-
-                    case M.Combat:
-                        Mode(false, false);
-                        break;
-
-                    default:
-                        //No Action
-                        break;
-                }
-
-                //Check If Weapons Was Ordered
-                if (IGet.Status.Hardpoints(MethodName) == true  //Check Hardpoints Deployed
-                    && CMD == true                              //Check Order Is Deploy
-                    && MD == M.Combat)                          //Check Mode Ordered Is Combat
-                {
-                    //Select Default Group
-                    Default(MethodName, CA);
-
-                    //Postive Response
-                    IResponse.Hardpoints.PositiveResponse(CA);
-
-                    return;
-                }
-            }         
+                default:
+                    //No Action
+                    break;
+            }
 
             #region Status == Command
             if (IGet.Status.Hardpoints(MethodName) == CMD)
             {
                 if (CMD == true)
                 {
-                    //Weapons
-                    if (MD == M.Combat)
-                    {
-                        //Audio - Currently Deployed
-                        IResponse.Hardpoints.DeployedWeapons(CA);
-                    }
-
-                    //Hardpoints
-                    else
-                    {
-                        //Audio - Currently Deployed
-                        IResponse.Hardpoints.DeployedHardpoints(CA);
-                    }
+                    //Audio - Currently Deployed
+                    IResponse.Hardpoints.DeployedHardpoints(CA);
 
                     return;
                 }
                 else if (CMD == false)
                 {
-                    //Weapons
-                    if (MD == M.Combat)
-                    {
-                        //Audio - Currently Retracted
-                        IResponse.Hardpoints.RetractedWeapons(CA);
-                    }
-
-                    //Hardpoints
-                    else
-                    {
-                        //Audio - Currently Retracted
-                        IResponse.Hardpoints.RetractedHardpoints(CA);
-                    }
+                    //Audio - Currently Retracted
+                    IResponse.Hardpoints.RetractedHardpoints(CA);
 
                     return;
                 }
@@ -206,46 +159,11 @@ namespace ALICE_Actions
                     {
                         return;
                     }
-                    else
-                    {
-                        //Default Group
-                        if (D)
-                        {
-                            Default(MethodName, CA);
-                        }
-
-                        //Hardpoint Mode
-                        switch (MD)
-                        {
-                            case M.Analysis:
-                                Mode(true, false);
-                                break;
-
-                            case M.Combat:
-                                Mode(false, false);
-                                break;
-
-                            default:
-                                //No Action
-                                break;
-                        }
-                    }
                     
                     IKeyboard.Press(IKey.Deploy_Hardpoints, 0);
 
-                    //Weapons
-                    if (MD == M.Combat)
-                    {
-                        //Audio - Deploying
-                        IResponse.Hardpoints.DeployingHardpoints(CA);
-                    }
-
-                    //Hardpoints
-                    else
-                    {
-                        //Audio - Deploying
-                        IResponse.Hardpoints.DeployingWeapons(CA);
-                    }
+                    //Audio - Deploying
+                    IResponse.Hardpoints.DeployingHardpoints(CA);
                 }
 
                 //Retract
@@ -253,20 +171,8 @@ namespace ALICE_Actions
                 {
                     IKeyboard.Press(IKey.Deploy_Hardpoints, 0);
 
-                    //Weapons
-                    if (Call.Firegroup.Current == Call.Firegroup.Default        //Weapons Group Selected
-                        && ICheck.Status.AnalysisMode(MethodName, false))       //In Combat Mode
-                    {
-                        //Audio - Retracting
-                        IResponse.Hardpoints.RetractingWeapons(CA);
-                    }
-
-                    //Hardpoints
-                    else
-                    {
-                        //Audio - Retracting
-                        IResponse.Hardpoints.RetractingHardpoints(CA);
-                    }
+                    //Audio - Retracting
+                    IResponse.Hardpoints.RetractingHardpoints(CA);
 
                     //Set Weapon Safeties
                     if (ICheck.Order.WeaponSafety(MethodName, true)                     //Check Enabled   
@@ -284,15 +190,148 @@ namespace ALICE_Actions
         }
 
         /// <summary>
-        /// Function used to select the user defined default firegroup.
+        /// /// Function To Call Up Weapons
         /// </summary>
-        /// <param name="M">(Method) The simple name of the Method calling the function.</param>
-        /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>
-        public void Default(string M, bool CA)
+        /// <param name="CA">(Command Audio) Enable Or Disable Audio On The Command Level.</param>
+        /// <param name="G">(Group) Weapons Group 1 Or 2.</param>
+        public void Weapons(bool CA, int G)
         {
-            //Select Default Group
-            Call.Firegroup.Select(Call.Firegroup.Default, false);
-            Thread.Sleep(100);
+            string MethodName = "Hardpoints (Weapons)";
+
+            #region Valid Command Checks
+            //Check Hyperspace
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
+            {
+                //Audio - In Hyperspace
+                IResponse.Hardpoints.NoHyperspace(CA);
+
+                return;
+            }
+
+            //Check Docked
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked, true) == false)
+            {
+                //Audio - Docked
+                IResponse.Hardpoints.NoDocked(CA);
+
+                return;
+            }
+
+            //Check Touchdown
+            if (ICheck.Status.Touchdown(MethodName, false) == false)
+            {
+                //Audio - Docked
+                IResponse.Hardpoints.NoTouchdown(CA);
+
+                return;
+            }
+
+            //Check Supercruise (Deploy Only)
+            if (ICheck.Environment.Space(MethodName, true, IEnums.Supercruise) == true)
+            {
+                //Audio - Docked
+                IResponse.Hardpoints.NoSupercruise(CA);
+
+                return;
+            }
+            #endregion
+
+            //Hardpoints Retracted
+            if (ICheck.Status.Hardpoints(MethodName, false))
+            {
+                //Weapon Safey Check
+                if (Safeties(MethodName, CA) == false)
+                {
+                    return;
+                }
+
+                //Keypress
+                IKeyboard.Press(IKey.Deploy_Hardpoints, 0);
+
+                //Audio - Deploying Weapons
+                IResponse.Hardpoints.DeployingWeapons(CA);
+
+                //Main Weapons
+                if (G == 1)
+                {
+                    //Select Weapons And Configure Mode
+                    switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.Weapons1))
+                    {
+                        case Settings_Firegroups.S.Failed:
+                            IEquipment.General.SelectionFailed(CA);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+                //Secondary Weapons
+                else
+                {
+                    //Select Weapons And Configure Mode
+                    switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.Weapons2))
+                    {
+                        case Settings_Firegroups.S.Failed:
+                            IEquipment.General.SelectionFailed(CA);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            //Hardpoints Deployed
+            else
+            {
+                //Main Weapons
+                if (G == 1)
+                {
+                    //Select Weapons And Configure Mode
+                    switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.Weapons1))
+                    {
+                        case Settings_Firegroups.S.Selected:
+                            IEquipment.General.Selected(CA);
+                            break;
+
+                        case Settings_Firegroups.S.Failed:
+                            IEquipment.General.SelectionFailed(CA);
+                            break;
+
+                        case Settings_Firegroups.S.CurrentlySelected:
+                            IEquipment.General.CurrentlySelected(CA);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+                //Secondary Weapons
+                else
+                {
+                    //Select Weapons And Configure Mode
+                    switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.Weapons2))
+                    {
+                        case Settings_Firegroups.S.Selected:
+                            IEquipment.General.Selected(CA);
+                            break;
+
+                        case Settings_Firegroups.S.Failed:
+                            IEquipment.General.SelectionFailed(CA);
+                            break;
+
+                        case Settings_Firegroups.S.CurrentlySelected:
+                            IEquipment.General.CurrentlySelected(CA);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
+           
         }
 
         /// <summary>
@@ -345,6 +384,32 @@ namespace ALICE_Actions
                     //No Action
                     return false;
             }
+        }
+
+        /// <summary>
+        /// Sets Weapon Groups.
+        /// </summary>
+        /// <param name="S">(Weapons Set) Main = 1, Secondary = 2.</param>
+        /// <param name="G">(Group) Group Number.</param>
+        public void WeaponsGroup(decimal S, string G)
+        {
+            string MethodName = "Hardpoints (Weapons Group)";
+
+            //Main Weapons Group
+            if (S == 1)
+            {
+                ISettings.Firegroup.Assign(Settings_Firegroups.Item.Weapons1,
+                    ISettings.Firegroup.ConvertGroupToEnum(G),
+                    Settings_Firegroups.Fire.Primary);
+            }
+
+            //Secodnary Weapons Group
+            else
+            {
+                ISettings.Firegroup.Assign(Settings_Firegroups.Item.Weapons2,
+                    ISettings.Firegroup.ConvertGroupToEnum(G),
+                    Settings_Firegroups.Fire.Primary);
+            }            
         }
     }
 }

@@ -336,8 +336,15 @@ namespace ALICE_Collections
                         //Validate Variables Value
                         if (VariableValue != null)
                         {
-                            //Store Variable
-                            Storage.Add(VariableName, VariableValue);
+                            if (Storage.ContainsKey(VariableName) == false)
+                            {
+                                //Store Variable
+                                Storage.Add(VariableName, VariableValue);
+                            }
+                            else
+                            {
+                                Logger.AliceLog(VariableName + " Already Existed In The Collection.");
+                            }
                         }
 
                         break;
