@@ -7,7 +7,7 @@ using ALICE_Synthesizer;
 
 namespace ALICE_Equipment
 {
-    public static class IEquipment
+    public static partial class IEquipment
     {
         /// <summary>
         /// (Equipment Firegroup Mode) Enum to allow easy reference for Hud Mode swtiching.
@@ -99,9 +99,7 @@ namespace ALICE_Equipment
         }
 
         public static Equipment_General General { get; set; } = new Equipment_General();
-        public static Equipment_CompositeScanner CompositeScanner { get; set; } = new Equipment_CompositeScanner();
-        public static Equipment_DiscoveryScanner DiscoveryScanner { get; set; } = new Equipment_DiscoveryScanner();
-        public static Equipment_DockingComputer DockingComputer { get; set; } = new Equipment_DockingComputer();
+             
         public static Equipment_ExternalLights ExternalLights { get; set; } = new Equipment_ExternalLights();
         public static Equipment_ElectronicCountermeasure ElectronicCountermeasure { get; set; } = new Equipment_ElectronicCountermeasure();
         public static Equipment_FighterHanger FighterHanger { get; set; } = new Equipment_FighterHanger();
@@ -1555,21 +1553,16 @@ namespace ALICE_Equipment
 
     public class EquipmentConfig
     {
-        public IEquipment.E Equipment { get; set; }
-        public IEquipment.M Mode { get; set; }
-        public bool Installed { get; set; }
-        public bool Enabled { get; set; }
-        public decimal Total { get; set; }
-        public decimal Capacity { get; set; }
+        public IEquipment.E Equipment = IEquipment.E.Default;
+        public IEquipment.M Mode = IEquipment.M.Default;
+        public bool Installed = false;
+        public bool Enabled = false;
+        public decimal Total = -1;
+        public decimal Capacity = -1;
 
         public EquipmentConfig()
         {
-            Equipment = IEquipment.E.Default;
-            Mode = IEquipment.M.Default;
-            Installed = false;
-            Enabled = false;
-            Total = -1;
-            Capacity = -1;
+            //Empty Constructor
         }
     }
 

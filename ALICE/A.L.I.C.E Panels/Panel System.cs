@@ -47,9 +47,19 @@ namespace ALICE_Panels
             public decimal Column { get; set; }
 
             public HomeTab()
-            {
-                Main = 3;
-                Column = 1;
+            {                
+                //---------------------------------
+                //|    Holo-Me    |    Training   |   Main 1
+                //---------------------------------
+                //|     Codex     |    Squadrons  |   Main 2
+                //---------------------------------
+                //| Galnet |  Engineers | Powers  |   Main 3
+                //---------------------------------
+                //    <<   |    Play    |   >>    |   Main 4
+                //---------------------------------
+
+                Main = 4;
+                Column = 3;
                 Tab = 1;
             }
 
@@ -66,6 +76,10 @@ namespace ALICE_Panels
             public override void Panel_Target()
             {
                 Call.Panel.System.Panel(true);
+                if (Tab == 1 && ICheck.Panel.System.Position(MethodName, false, 1))
+                {
+                    Main = 4; Column = 3;
+                }
                 Call.Panel.System.UpdateTab(Tab);
             }
 
@@ -74,9 +88,10 @@ namespace ALICE_Panels
                 string MethodName = "Galnet News";
                 Open(MethodName);
 
-                if (Main != 1) { Main = UpdateCursor(1, Main, true); }
-                if (Column != 1) { Column = UpdateCursor(1, Column, false); }
-                Select(); //Galnet News Returns you to the System Panel.
+                if (Main == 1) { Column = 3; }
+                if (Main != 3) { Main = UpdateCursor(3, Main, true, 100); }
+                if (Column != 1) { Column = UpdateCursor(1, Column, false, 100); }
+                Select(); MainFourIsFalse();
             }
 
             public void HoloMe()
@@ -84,8 +99,20 @@ namespace ALICE_Panels
                 string MethodName = "Holo Me";
                 Open(MethodName);
 
-                if (Main != 1) { Main = UpdateCursor(1, Main, true); }
-                if (Column != 2) { Column = UpdateCursor(2, Column, false); }
+                if (Main == 1) { Column = 3; }
+                if (Main != 1) { Main = UpdateCursor(1, Main, true, 100); }
+                if (Column != 1) { Column = UpdateCursor(1, Column, false, 100); }
+                Select(); MainFourIsFalse();
+            }
+
+            public void Training()
+            {
+                string MethodName = "Training";
+                Open(MethodName);
+
+                if (Main == 1) { Column = 3; }
+                if (Main != 1) { Main = UpdateCursor(1, Main, true, 100); }
+                if (Column != 3) { Column = UpdateCursor(3, Column, false, 100); }
                 Select(); MainFourIsFalse();
             }
 
@@ -94,8 +121,9 @@ namespace ALICE_Panels
                 string MethodName = "Engineers";
                 Open(MethodName);
 
-                if (Main != 1) { Main = UpdateCursor(1, Main, true); }
-                if (Column != 3) { Column = UpdateCursor(3, Column, false); }
+                if (Main == 1) { Column = 3; }
+                if (Main != 3) { Main = UpdateCursor(3, Main, true, 100); }
+                if (Column != 2) { Column = UpdateCursor(2, Column, false, 100); }
                 Select(); MainFourIsFalse();
             }
 
@@ -104,8 +132,9 @@ namespace ALICE_Panels
                 string MethodName = "Codex";
                 Open(MethodName);
 
-                if (Main != 2) { Main = UpdateCursor(2, Main, true); }
-                if (Column != 1) { Column = UpdateCursor(1, Column, false); }
+                if (Main == 1) { Column = 3; }
+                if (Main != 2) { Main = UpdateCursor(2, Main, true, 100); }
+                if (Column != 1) { Column = UpdateCursor(1, Column, false, 100); }
                 Select(); MainFourIsFalse();
             }
 
@@ -114,8 +143,9 @@ namespace ALICE_Panels
                 string MethodName = "Squadrons";
                 Open(MethodName);
 
-                if (Main != 2) { Main = UpdateCursor(2, Main, true); }
-                if (Column != 2) { Column = UpdateCursor(2, Column, false); }
+                if (Main == 1) { Column = 3; }
+                if (Main != 2) { Main = UpdateCursor(2, Main, true, 100); }
+                if (Column != 3) { Column = UpdateCursor(3, Column, false, 100); }
                 Select(); MainFourIsFalse();
             }
 
@@ -123,11 +153,24 @@ namespace ALICE_Panels
             {
                 string MethodName = "Galatic Powers";
                 Open(MethodName);
-
-                if (Main != 2) { Main = UpdateCursor(2, Main, true); }
-                if (Column != 3) { Column = UpdateCursor(3, Column, false); }
+                
+                if (Main == 1) { Column = 3; }
+                if (Main != 3) { Main = UpdateCursor(3, Main, true, 100); }
+                if (Column != 3) { Column = UpdateCursor(3, Column, false, 100); }
                 Select(); MainFourIsFalse();
             }
+
+            public void Play()
+            {
+                string MethodName = "Play";
+                Open(MethodName);
+
+                if (Main != 1)
+                {
+                    Column = 2; // Always Resets 
+                    Main = UpdateCursor(1, Main, true);
+                }
+            }        
         }
 
         public class ModulesTab : BaseTab
@@ -215,12 +258,20 @@ namespace ALICE_Panels
                 Main = UpdateCursor(1, Main, true);
             }
 
+            public void FlightAssistance()
+            {
+                string MethodName = "Flight Assistance";
+                Open(MethodName);
+
+                Main = UpdateCursor(2, Main, true);
+            }
+
             public void Preferences()
             {
                 string MethodName = "Preferences";
                 Open(MethodName);
 
-                Main = UpdateCursor(2, Main, true);
+                Main = UpdateCursor(3, Main, true);
             }
 
             public void Statistics()
@@ -228,7 +279,7 @@ namespace ALICE_Panels
                 string MethodName = "Statistics";
                 Open(MethodName);
 
-                Main = UpdateCursor(3, Main, true);
+                Main = UpdateCursor(4, Main, true);
             }
         }
 

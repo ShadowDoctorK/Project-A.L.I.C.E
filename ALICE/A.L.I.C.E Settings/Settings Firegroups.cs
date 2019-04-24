@@ -1,18 +1,12 @@
 ﻿using ALICE_Core;
 using ALICE_Equipment;
 using ALICE_Internal;
-using ALICE_Objects;
-using ALICE_Synthesizer;
-using ALICE_Settings;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using ALICE_Actions;
 using ALICE_Debug;
+using ALICE_Keybinds;
+using ALICE_Response;
 
 namespace ALICE_Settings
 {
@@ -28,6 +22,8 @@ namespace ALICE_Settings
         public enum Fire { None, Primary, Secondary }       
         public enum Item
         {
+            Weapons1,
+            Weapons2,
             ECM,
             FieldNeutraliser,
             FSDInterdictor,
@@ -64,6 +60,9 @@ namespace ALICE_Settings
         public enum A { Hyperspace, NotAssigned, Complete, Fail }
 
         public string ShipAssignment { get; set; }
+        public decimal Groups { get; set; }
+        public Assignemnt Weapons1 { get; set; }
+        public Assignemnt Weapons2 { get; set; }
         public Assignemnt ECM { get; set; }
         public Assignemnt FSDInterdictor { get; set; }
         public Assignemnt FieldNeutraliser { get; set; }
@@ -99,6 +98,22 @@ namespace ALICE_Settings
 
         public Settings_Firegroups()
         {
+            Groups = 1;
+
+            //Main Weapons Group
+            Weapons2 = new Assignemnt
+            {
+                FireGroup = Group.A,
+                FireMode = Fire.Primary
+            };
+
+            //Secondary Weapons Group
+            Weapons2 = new Assignemnt
+            {
+                FireGroup = Group.A,
+                FireMode = Fire.Primary
+            };
+
             ECM = new Assignemnt();
             FieldNeutraliser = new Assignemnt();
             FSDInterdictor = new Assignemnt();
@@ -140,10 +155,24 @@ namespace ALICE_Settings
         /// <param name="FireMode">The target Fire Mode</param>
         public void Assign(Item Item, Group FireGroup, Fire FireMode)
         {
-            string MethodName = "Firegroup System Set Assignment";
+            string MethodName = "Assisted Firegroup (Assign)";
 
             switch (Item)
             {
+                case Item.Weapons1:
+                    
+                    //Default Weapons Group
+                    Weapons1 = new Assignemnt(FireGroup, Fire.Primary, Item);
+                    IResponse.Hardpoints.MainWeaponsAssigned(ToText(FireGroup), true);
+                    break;
+
+                case Item.Weapons2:
+
+                    //Default Weapons Group
+                    Weapons2 = new Assignemnt(FireGroup, Fire.Primary, Item);
+                    IResponse.Hardpoints.SecondaryWeaponsAssigned(ToText(FireGroup), true);
+                    break;
+
                 case Item.ECM:
                     #region Code
                     if (Check.Equipment.ECM(true, MethodName))
@@ -565,23 +594,32 @@ namespace ALICE_Settings
                 decimal Num = ConvertGroupFromEnum(Temp.FireGroup);
 
                 //Check Environment Condition
-                if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false) { return S.InHyperspace; }
+                if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
+                {
+                    return S.InHyperspace;
+                }
 
                 //Check HUD Mode
-                if (Check.Variable.AnalysisMode(Mode, MethodName) == false) { Call.Action.AnalysisMode(false, false); }
+                if (ICheck.Status.AnalysisMode(MethodName, Mode) == false)
+                {
+                    IActions.Hardpoints.Mode(Mode, false);
+                }
 
                 //Check Current Selection
-                if (Check.Environment.Firegroup(Num, true, MethodName) == true) { return S.CurrentlySelected; }
+                if (ICheck.Status.FireGroup(MethodName, Num, true) == true)
+                {
+                    return S.CurrentlySelected;
+                }
 
                 //Select The Correct Group. Two Attempts.
                 decimal Count = 2; bool Selected = false; while (Count != 0 && Selected == false)
                 {
                     Call.Firegroup.Select(Num, false, true, Mode); Thread.Sleep(1500); Count--;
-                    Selected = Check.Environment.Firegroup(Num, true, MethodName);
+                    Selected = ICheck.Status.FireGroup(MethodName, Num, true);
                 }
 
                 //Report Selection
-                if (Check.Environment.Firegroup(Num, true, MethodName)) { return S.Selected; }
+                if (ICheck.Status.FireGroup(MethodName, Num, true)) { return S.Selected; }
                 Logger.Log(MethodName, "Failed To Select The Correct Fire Group. Try Again", Logger.Red);
                 return S.Failed;
             }
@@ -608,19 +646,21 @@ namespace ALICE_Settings
         /// <returns></returns>
         public A Activate(Item I, int Duration = 75, bool Tracking = false, Equipment_General.WaitHandler Watcher = null)
         {
-            string MethodName = "Assisted Firegroup Acivate";
+            string MethodName = "Assisted Firegroup (Acivate)";
 
             Assignemnt Temp = GetAssignemnt(I);
             bool Mode = CheckMode(I);
 
-            Call.Action.AnalysisMode(Mode, false); Thread.Sleep(50);
+            //Firegroup Mode Selection
+            IActions.Hardpoints.Mode(Mode, false); Thread.Sleep(50);
+
             if (Temp.FireGroup != Group.None && Temp.FireMode != Fire.None)
             {
                 //Activate
                 if (Temp.FireMode == Fire.Primary)
-                { Call.Key.Press(Call.Key.Primary_Fire_Press); }
+                { IKeyboard.Press(IKey.Primary_Fire_Press); }
                 else if (Temp.FireMode == Fire.Secondary)
-                { Call.Key.Press(Call.Key.Secondary_Fire_Press); }
+                { IKeyboard.Press(IKey.Secondary_Fire_Press); }
 
                 //Key Duration
                 #region Duration Logic
@@ -639,9 +679,9 @@ namespace ALICE_Settings
 
                 //Release
                 if (Temp.FireMode == Fire.Primary)
-                { Call.Key.Press(Call.Key.Primary_Fire_Release); }
+                { IKeyboard.Press(IKey.Primary_Fire_Release); }
                 else if (Temp.FireMode == Fire.Secondary)
-                { Call.Key.Press(Call.Key.Secondary_Fire_Release); }
+                { IKeyboard.Press(IKey.Secondary_Fire_Release); }
 
                 //Track Completeion
                 #region Completion Check
@@ -690,6 +730,31 @@ namespace ALICE_Settings
             }
         }
 
+        public Group ConvertGroupFromDecimal(decimal G)
+        {
+            switch (G)
+            {                
+                case 1:
+                    return Group.A;
+                case 2:
+                    return Group.B;
+                case 3:
+                    return Group.C;
+                case 4:
+                    return Group.D;
+                case 5:
+                    return Group.E;
+                case 6:
+                    return Group.F;
+                case 7:
+                    return Group.G;
+                case 8:
+                    return Group.H;
+                default:
+                    return Group.A;
+            }
+        }
+
         public decimal ConvertFireFromEnum(Fire F)
         {
             switch (F)
@@ -727,7 +792,7 @@ namespace ALICE_Settings
                 case "H":
                     return Group.H;
                 default:
-                    Logger.Log(MethodName, "FireGroup Was Not a Valid Setting (" + Letter + ")", Logger.Yellow);
+                    Logger.Log(MethodName, "FireGroup Was Not a Valid Setting (" + Letter + "). Please Use A - H.", Logger.Yellow);
                     return Group.None;
             }
         }
@@ -742,7 +807,7 @@ namespace ALICE_Settings
                 case "Secondary":
                     return Fire.Secondary;
                 default:
-                    Logger.Log(MethodName, "FireMode Was Not a Valid Setting (" + Value + ")", Logger.Yellow);
+                    Logger.Log(MethodName, "FireMode Was Not a Valid Setting (" + Value + "). Please Use Primary Or Secondary.", Logger.Yellow);
                     return Fire.None;
             }
         }
@@ -810,12 +875,16 @@ namespace ALICE_Settings
 
             switch (I)
             {
+                case Item.Weapons1:
+                    return false;                   //Combat Mode
+                case Item.Weapons2:
+                    return false;                   //Combat Mode
                 case Item.ECM:
-                    return false;
+                    return false;                   //Combat Mode
                 case Item.FieldNeutraliser:
                     return true;
                 case Item.FSDInterdictor:
-                    return false;
+                    return false;                   //Combat Mode
                 case Item.LimpetCollector:
                     return true;
                 case Item.LimpetDecontamination:
@@ -863,13 +932,13 @@ namespace ALICE_Settings
                 case Item.ScannerXeno:
                     return true;
                 case Item.ShieldCellOne:
-                    return false;
+                    return false;                   //Combat Mode
                 case Item.ShieldCellTwo:
-                    return false;
+                    return false;                   //Combat Mode
                 case Item.ShieldCellThree:
-                    return false;
+                    return false;                   //Combat Mode
                 case Item.ShieldCellFour:
-                    return false;
+                    return false;                   //Combat Mode
                 default:
                     Logger.Log(MethodName, I + " Hud Mode Not Defined, Using Default \"False\"", Logger.Red);
                     return false;
@@ -886,10 +955,14 @@ namespace ALICE_Settings
 
         public Assignemnt GetAssignemnt(Item I)
         {
-            string MethodName = "Assisted Firegroup Get Assignement";
+            string MethodName = "Assisted Firegroup (Get Assignement)";
 
             switch (I)
             {
+                case Item.Weapons1:
+                    return Weapons1;
+                case Item.Weapons2:
+                    return Weapons2;
                 case Item.ECM:
                     return ECM;
                 case Item.LimpetCollector:
@@ -958,14 +1031,12 @@ namespace ALICE_Settings
             public Group FireGroup { get; set; }
             public Fire FireMode { get; set; }
             public bool Enabled { get; set; }
-            //public bool AnalysisMode { get; set; }
 
             public Assignemnt()
             {
                 FireGroup = Group.None;
                 FireMode = Fire.None;
                 Enabled = false;
-                //AnalysisMode = false;
             }
 
             public Assignemnt(Group G, Fire F, Item I)
@@ -973,7 +1044,6 @@ namespace ALICE_Settings
                 FireGroup = G;
                 FireMode = F;
                 Enabled = true;
-                //AnalysisMode = CheckMode(I);
             }
         }
     }

@@ -5,6 +5,7 @@ using ALICE_Internal;
 using ALICE_Actions;
 using System.Collections.Generic;
 using ALICE_Debug;
+using ALICE_Keybinds;
 
 namespace ALICE_Core
 {
@@ -196,7 +197,7 @@ namespace ALICE_Core
                         #region Balance Power (Check)
                         if (Order.Weapon == 4 && Order.Engine == 4 && Order.System == 4)
                         {
-                            Call.Key.Press(Call.Key.Balance_Power_Distribution, 100, Call.Key.DelayPower);
+                            IKeyboard.Press(IKey.Balance_Power_Distribution, 100, IKey.DelayPower);
                             Game.Engine = 4; Game.System = 4; Game.Weapon = 4;
                             goto StandBy;
                         }
@@ -224,7 +225,7 @@ namespace ALICE_Core
 
                             if (Setting.Balance && BalancePower())
                             {
-                                Call.Key.Press(Call.Key.Balance_Power_Distribution, 100, Call.Key.DelayPower);
+                                IKeyboard.Press(IKey.Balance_Power_Distribution, 100, IKey.DelayPower);
                                 Setting.Balance = false; Process.Engine = 4; Process.System = 4; Process.Weapon = 4;
                                 goto Start;
                             }
@@ -236,7 +237,7 @@ namespace ALICE_Core
                             #region Processor Logic
                             if (Difference.System == Difference.Max)
                             {
-                                Call.Key.Press(Call.Key.Divert_Power_To_Systems, 100, Call.Key.DelayPower);
+                                IKeyboard.Press(IKey.Divert_Power_To_Systems, 100, IKey.DelayPower);
 
                                 if (Process.System < 7)
                                 {
@@ -275,7 +276,7 @@ namespace ALICE_Core
                             }
                             else if (Difference.Engine == Difference.Max)
                             {
-                                Call.Key.Press(Call.Key.Divert_Power_To_Engines, 100, Call.Key.DelayPower);
+                                IKeyboard.Press(IKey.Divert_Power_To_Engines, 100, IKey.DelayPower);
 
                                 if (Process.Engine < 7)
                                 {
@@ -314,7 +315,7 @@ namespace ALICE_Core
                             }
                             else if (Difference.Weapon == Difference.Max)
                             {
-                                Call.Key.Press(Call.Key.Divert_Power_To_Weapons, 100, Call.Key.DelayPower);
+                                IKeyboard.Press(IKey.Divert_Power_To_Weapons, 100, IKey.DelayPower);
 
                                 if (Process.Weapon < 7)
                                 {
@@ -378,7 +379,7 @@ namespace ALICE_Core
         {
             while (Number != 0)
             {
-                Call.Key.Press(Call.Key.Divert_Power_To_Engines, 100, Call.Key.DelayPower);
+                IKeyboard.Press(IKey.Divert_Power_To_Engines, 100, IKey.DelayPower);
                 Number--;
             }
         }
@@ -387,7 +388,7 @@ namespace ALICE_Core
         {
             while (Number != 0)
             {
-                Call.Key.Press(Call.Key.Divert_Power_To_Weapons, 100, Call.Key.DelayPower);
+                IKeyboard.Press(IKey.Divert_Power_To_Weapons, 100, IKey.DelayPower);
                 Number--;
             }
         }
@@ -396,7 +397,7 @@ namespace ALICE_Core
         {
             while (Number != 0)
             {
-                Call.Key.Press(Call.Key.Divert_Power_To_Systems, 100, Call.Key.DelayPower);
+                IKeyboard.Press(IKey.Divert_Power_To_Systems, 100, IKey.DelayPower);
                 Number--;
             }
         }

@@ -3,7 +3,6 @@
 //Source Journal Line: { "timestamp":"2018-10-14T04:10:51Z", "event":"LoadGame", "Commander":"Shadow Doctor K", "Horizons":true, "Ship":"Federation_Corvette", "Ship_Localised":"Federal Corvette", "ShipID":11, "ShipName":"MORNINGSTAR", "ShipIdent":"S-117", "FuelLevel":32.000000, "FuelCapacity":32.000000, "GameMode":"Group", "Group":"Shadow Doctor K", "Credits":298658411, "Loan":0 }
 
 using ALICE_Actions;
-using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Equipment;
 using ALICE_Internal;

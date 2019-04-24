@@ -25,7 +25,20 @@ namespace ALICE_Debug
 
             try
             {
-                S = IPlatform.GetText(V);
+                string Temp = IPlatform.GetText(V);
+
+                //Check Null Or Whitespace
+                if (string.IsNullOrWhiteSpace(Temp) == false)
+                {
+                    S = Temp;
+                }
+
+                //Passed Check, Use Value
+                else
+                {
+                    Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Returned Null Or Whitespace", Logger.Yellow);
+                    Error = true;
+                }
             }
             catch (Exception ex)
             {
@@ -40,7 +53,7 @@ namespace ALICE_Debug
 
             if (L)
             {
-                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Returned " + S, Logger.Blue);
+                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Resolved Value: " + S, Logger.Blue);
             }
 
             return S;
@@ -79,6 +92,8 @@ namespace ALICE_Debug
                         Error = true;
                     }
                 }
+
+                //Failed Check
                 else
                 {
                     Error = true;
@@ -97,7 +112,7 @@ namespace ALICE_Debug
 
             if (L)
             {
-                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Returned " + S, Logger.Blue);
+                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Resolved Value: " + S, Logger.Blue);
             }
 
             return S;
@@ -120,10 +135,13 @@ namespace ALICE_Debug
             {
                 string T = IPlatform.GetText(V);
 
+                //Check For True And False Values
                 if (T.ToLower() == "true" || T.ToLower() == "false")
                 {
                     S = Convert.ToBoolean(T);
                 }
+
+                //Failed Check
                 else
                 {
                     Error = true;
@@ -142,10 +160,42 @@ namespace ALICE_Debug
 
             if (L)
             {
-                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Returned " + S, Logger.Blue);
+                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Resolved Value: " + S, Logger.Blue);
             }
 
             return S;
+        }
+
+        /// <summary>
+        /// Pass the Target Variable a value from value from the plugin to the Interface that started Project A.L.I.C.E (Ie Voice Macro or Voice Attack)
+        /// </summary>        
+        /// <param name="M">(Method) The Call Method.</param>
+        /// <param name="V">(Variable) The Target Variable.</param>
+        /// <param name="Val">(Value) The Value Being Set.</param>
+        /// <param name="L">(Log) Enable / Disable The Logging Function.</param>        
+        public void Pass(string M, IPlatform.IVar V, string Val, bool L = true)
+        {
+            bool Error = false;
+
+            try
+            {
+                IPlatform.SetText(V, Val);
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(M, "Execption: " + ex);
+                Error = true;
+            }
+
+            if (Error && L)
+            {
+                Logger.Error(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": " + "Unable To Update Variale.", Logger.Red);
+            }
+
+            if (L)
+            {
+                Logger.DebugLine(M, "[" + IPlatform.Interface + "] ALICE_" + V + ": Passed " + Val, Logger.Blue);
+            }
         }
 
         /// <summary>
@@ -245,11 +295,39 @@ namespace ALICE_Debug
         }
 
         /// <summary>
+        /// Will get the variable based on evaluating the case. Can be used to create custom properties.
+        /// </summary>
+        /// <param name="M">(Method) Calling Method Name</param>
+        /// <param name="N">(Name) Simple Property Name</param>
+        /// <param name="P1">(Property) The Primary Property Being Checked</param>
+        /// <param name="P2">(Property) The Alternate Property Returned If Check Fails</param>
+        /// <param name="C">(Case) The Case That Causes The Primary Property To Fail.</param>
+        /// <param name="L">(Log) Enables / Disables Debug Logging Fucntion</param>
+        /// <returns>The Property 1 If Pass', Property 2 If Property 1 Fails.</returns>
+        public string Resolve(string M, string N, string P1, string P2, string C = "None", bool L = true)
+        {
+            //Check Value Does Not Equal Case
+            if (P1 != C)
+            {
+                if (L) { Logger.DebugLine(M, "[Switch]: " + N + " = [1] " + P1, Logger.Blue); }
+                return P1;
+            }
+
+            //Use Fallback Value
+            else
+            {
+                if (L) { Logger.DebugLine(M, "[Switch]: " + N + " = [2] " + P2, Logger.Blue); }
+                return P2;
+            }
+        }
+
+        /// <summary>
         /// Get the value of the property wrapping the Debug Logger into the function.
         /// </summary>
         /// <param name="M">(Method) Calling Method Name</param>
         /// <param name="N">(Name) Simple Property Name</param>
         /// <param name="P">(Property) The Property Being Returned</param>
+        /// <param name="L">(Log) Enables / Disables Debug Logging Fucntion</param>
         /// <returns>The Property Value</returns>
         public string Get(string M, string N, string P, bool L = true)
         {

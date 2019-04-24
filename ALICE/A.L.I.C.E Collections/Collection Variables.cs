@@ -3,9 +3,6 @@ using ALICE_Interface;
 using ALICE_Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ALICE_Collections
 {
@@ -61,14 +58,14 @@ namespace ALICE_Collections
                         foreach (var Variable in Storage)
                         {
                             //Debug Logger
-                            Logger.DebugLine(MethodName, Variable.Key + " = " + Variable.Value, "Orange");
+                            //Logger.DebugLine(MethodName, Variable.Key + " = " + Variable.Value, "Orange");
 
                             //Pass Variable to Interface. Disable Prefix.
-                            IPlatform.SetText(Variable.Key, Variable.Value, false);
+                            IPlatform.SetText(Variable.Key, Variable.Value, false, ICheck.Initialized(MethodName, false));
 
                             if (PlugIn.VariableLogging 
                             && (Variable.Value != "" || Variable.Value != null) 
-                            && ICheck.Initialized(ClassName)
+                            && ICheck.Initialized(ClassName, false)
                             )                               
                             {
                                 Logger.Simple(Variable.Key + " = " + Variable.Value, "Orange");
@@ -109,7 +106,7 @@ namespace ALICE_Collections
                         foreach (var Variable in Storage)
                         {
                             //Pass Variable to Interface.
-                            IPlatform.SetText(Variable.Key, null);
+                            IPlatform.SetText(Variable.Key, null, ICheck.Initialized(MethodName, false));
                         }
 
                         break;
@@ -339,8 +336,15 @@ namespace ALICE_Collections
                         //Validate Variables Value
                         if (VariableValue != null)
                         {
-                            //Store Variable
-                            Storage.Add(VariableName, VariableValue);
+                            if (Storage.ContainsKey(VariableName) == false)
+                            {
+                                //Store Variable
+                                Storage.Add(VariableName, VariableValue);
+                            }
+                            else
+                            {
+                                Logger.AliceLog(VariableName + " Already Existed In The Collection.");
+                            }
                         }
 
                         break;

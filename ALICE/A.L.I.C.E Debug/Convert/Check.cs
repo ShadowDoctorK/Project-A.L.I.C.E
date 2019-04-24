@@ -1,15 +1,11 @@
-﻿using ALICE_Actions;
-using ALICE_Objects;
-using ALICE_Core;
+﻿using ALICE_Objects;
 using ALICE_Equipment;
 
 namespace ALICE_Internal
 {
     public static class Check
     {
-        public static Environments Environment = new Environments();
         public static Equipments Equipment = new Equipments();
-        public static Variables Variable = new Variables();
         public static GameState State = new GameState();    
 
         public class Equipments : Base
@@ -169,86 +165,8 @@ namespace ALICE_Internal
             public bool WakeScanner(bool TargetState, string MethodName, bool DisableDebug = false)
             {
                 bool State = IEquipment.WakeScanner.Settings.Installed;
-                string Equipment = "Surface Scanner";
+                string Equipment = "Wake Scanner";
                 return Check_Equipment(TargetState, MethodName, State, Equipment, DisableDebug);
-            }
-        }
-
-        public class Environments : Base
-        {
-            public bool Vehicle(IVehicles.V TargetVehcile, bool TargetState, string MethodName, bool DisableDebug = false, bool Answer = true)
-            {
-                IVehicles.V Vehic = IVehicles.Vehicle;
-                string Not = ""; if (TargetState == false) { Not = "Not "; }
-                string DebugText = "Vehcile Check Passed (" + Not + TargetVehcile + ")";
-                string Color = Logger.Blue;
-
-                if (TargetState == true && Vehic != TargetVehcile)
-                {
-                    Answer = false;
-                    DebugText = "Vehcile Does Not Equal " + TargetVehcile;
-                    Color = Logger.Yellow;
-                }
-                else if (TargetState == false && Vehic == TargetVehcile)
-                {
-                    Answer = false;
-                    DebugText = "Vehcile Equals " + TargetVehcile;
-                    Color = Logger.Yellow;
-                }
-
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, DebugText, Color); }
-
-                return Answer;
-            }
-
-            public bool Altitude(decimal LowAltitude, decimal HighAltitude, bool InsideBand, string MethodName, bool DisableDebug = false, bool Answer = true)
-            {
-                decimal Altitude = IStatus.Altitude;
-                string DebugText = "Altitude Check Passed (Low: " + LowAltitude + " | High: " + HighAltitude + ")";
-                string Color = Logger.Blue;
-
-                if (InsideBand == false && (Altitude >= LowAltitude && Altitude <= HighAltitude))
-                {
-                    Answer = false;
-                    DebugText = "Altitude Check Failed - Inside Band (Low: " + LowAltitude + " | High: " + HighAltitude + ")";
-                    Color = Logger.Yellow;
-                }
-                //Checking Inside Band - We Are Outside of Altitude Band, Return False.
-                else if (InsideBand == true && (Altitude < LowAltitude || Altitude > HighAltitude))
-                {
-                    Answer = false;
-                    DebugText = "Altitude Check Failed - Outside Band (Low: " + LowAltitude + " | High: " + HighAltitude + ")";
-                    Color = Logger.Yellow;
-                }
-
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, DebugText, Color); }
-
-                return Answer;
-            }
-
-            public bool Firegroup(decimal Target, bool IsTarget, string MethodName, bool DisableDebug = false, bool Answer = true)
-            {
-                decimal Firegroup = Call.Firegroup.Current;
-                string Not = ""; if (IsTarget == false) { Not = "Not "; }
-                string DebugText = "Firegroup Check Passed (" + Not + Target + ")";
-                string Color = Logger.Blue;
-
-                if (IsTarget == true && Firegroup != Target)
-                {
-                    Answer = false;
-                    DebugText = "Firegroup Does Not Equal " + Target;
-                    Color = Logger.Yellow;
-                }
-                else if (IsTarget == false && Firegroup == Target)
-                {
-                    Answer = false;
-                    DebugText = "Firegroup Equals " + Target;
-                    Color = Logger.Yellow;
-                }
-
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, DebugText, Color); }
-
-                return Answer;
             }
         }   
 
@@ -277,132 +195,6 @@ namespace ALICE_Internal
                 if (DisableDebug == false) { Logger.DebugLine(MethodName, DebugText, Color); }
 
                 return Answer;
-            }
-        }
-
-        public class Variables : Base
-        {
-            public bool AnalysisMode(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IStatus.AnalysisMode;
-                string Variable = "Analysis Mode";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
-            }
-
-            #region Cargo Scoop
-            public bool CargoScoop(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IStatus.CargoScoop;
-                string Variable = "Cargo Scoop";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
-            }
-
-            public bool CargoScoop(string MethodName, bool DisableDebug = false)
-            {
-                string Variable = "Cargo Scoop";
-                bool Value = IStatus.CargoScoop;
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, Variable + " Check Returned (" + Value + ")", Logger.Blue); }
-
-                return Value;
-            }
-            #endregion
-
-            public bool NPC_Crew(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IStatus.NPC_Crew;
-                string Variable = "NPC Crew";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
-            }
-
-            public bool FighterDeployed(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IStatus.Fighter.Deployed;
-                string Variable = "Fighter Deployed";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
-            }
-
-            public bool FlightAssist(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IStatus.FlightAssist;
-                string Variable = "Flight Assist";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
-            }
-
-            public bool FlightAssist(string MethodName, bool DisableDebug = false)
-            {
-                string Variable = "Flight Assist";
-                bool Value = IStatus.FlightAssist;
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, Variable + " Check Returned (" + Value + ")", Logger.Blue); }
-
-                return Value;
-            }
-
-            public bool FuelScooping(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IStatus.FuelScooping;
-                string Variable = "Fuel Scooping";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
-            }
-
-            #region Hardpoints
-            public bool Hardpoints(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IStatus.Hardpoints;
-                string Variable = "Hardpoints";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
-            }
-
-            public bool Hardpoints(string MethodName, bool DisableDebug = false)
-            {
-                string Variable = "Hardpoints";
-                bool Value = IStatus.Hardpoints;
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, Variable + " Check Returned (" + Value + ")", Logger.Blue); }
-
-                return Value;
-            }
-            #endregion
-
-            #region Over Heating
-            public bool Overheating(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IStatus.Overheating;
-                string Variable = "Over Heating";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
-            }
-
-            public bool Overheating(string MethodName, bool DisableDebug = false)
-            {
-                string Variable = "Over Heating";
-                bool Value = IStatus.Overheating;
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, Variable + " Check Returned (" + Value + ")", Logger.Blue); }
-
-                return Value;
-            }
-            #endregion
-
-            #region Silent Running
-            public bool SilentRunning(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IStatus.SilentRunning;
-                string Variable = "Silent Running";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
-            }
-
-            public bool SilentRunning(string MethodName, bool DisableDebug = false)
-            {
-                string Variable = "Silent Running";
-                bool Value = IStatus.SilentRunning;
-                if (DisableDebug == false) { Logger.DebugLine(MethodName, Variable + " Check Returned (" + Value + ")", Logger.Blue); }
-
-                return Value;
-            }
-            #endregion
-
-            public bool Touchdown(bool TargetState, string MethodName, bool DisableDebug = false)
-            {
-                bool State = IStatus.Touchdown;
-                string Variable = "Touchdown";
-                return Check_Variable(TargetState, MethodName, State, Variable, DisableDebug);
             }
         }
 

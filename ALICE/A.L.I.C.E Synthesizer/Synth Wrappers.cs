@@ -2,7 +2,7 @@
 
 namespace ALICE_Synthesizer
 {
-    #region Response Wrappers | Auto Generated: 02/19/2019 8:39 PM
+    #region Response Wrappers | Auto Generated: 04/22/2019 5:40 PM
 
     public static class Crime
     {
@@ -168,11 +168,15 @@ namespace ALICE_Synthesizer
         public static List<string> Supercruise = new List<string> { "EQ Hardpoints", "Supercruise" };
         public static List<string> Safety_Remains = new List<string> { "EQ Hardpoints", "Safety Remains" };
         public static List<string> Safety_Engaged = new List<string> { "EQ Hardpoints", "Safety Engaged" };
-        public static List<string> Retracting = new List<string> { "EQ Hardpoints", "Retracting" };
         public static List<string> Hyperspace = new List<string> { "EQ Hardpoints", "Hyperspace" };
-        public static List<string> Deploying = new List<string> { "EQ Hardpoints", "Deploying" };
-        public static List<string> Currently_Retracted = new List<string> { "EQ Hardpoints", "Currently Retracted" };
-        public static List<string> Currently_Deployed = new List<string> { "EQ Hardpoints", "Currently Deployed" };
+        public static List<string> Deploying_Weapons = new List<string> { "EQ Hardpoints", "Deploying Weapons" };
+        public static List<string> Deploying_Hardpoints = new List<string> { "EQ Hardpoints", "Deploying Hardpoints" };
+        public static List<string> Retracted_Weapons = new List<string> { "EQ Hardpoints", "Retracted Weapons" };
+        public static List<string> Retracted_Hardpoints = new List<string> { "EQ Hardpoints", "Retracted Hardpoints" };
+        public static List<string> Deployed_Weapons = new List<string> { "EQ Hardpoints", "Deployed Weapons" };
+        public static List<string> Deployed_Hardpoints = new List<string> { "EQ Hardpoints", "Deployed Hardpoints" };
+        public static List<string> Retracting_Weapons = new List<string> { "EQ Hardpoints", "Retracting Weapons" };
+        public static List<string> Retracting_Hardpoints = new List<string> { "EQ Hardpoints", "Retracting Hardpoints" };
     }
 
     public static class EQ_Heatsink_Launcher
@@ -498,4 +502,5 @@ namespace ALICE_Synthesizer
     }
 
     #endregion
+
 }

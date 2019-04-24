@@ -429,7 +429,7 @@ namespace ALICE_Response
             if (PlugIn.MasterAudio == false) { Logger.Log(ClassName, "Retracting Hardpoints, Enabling Weapon Safeties.", Logger.Yellow); }
 
             Speech.Speak(""
-                .Phrase(EQ_Hardpoints.Safety_Disengaging),
+                .Phrase(EQ_Hardpoints.Safety_Engaging),
                 CA, V1, V2, V3, P, V);
         }
     }

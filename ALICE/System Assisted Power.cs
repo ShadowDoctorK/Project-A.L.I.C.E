@@ -41,6 +41,14 @@ namespace ALICE_Actions
 
         public void CombatPowerManagement()
         {
+            string MethodName = "Combat Power Manager";
+
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
+
             SetNewState:
             if (Setting.Send_Power_To == Setting.Power_Diverted_To)
             {
@@ -237,6 +245,12 @@ namespace ALICE_Actions
         {
             string MethodName = "Maintain Engines";
 
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
+
             Assisted.Power.Setting.Maintain_State = Assisted.Power.Str.Engines;
 
             #region Audio
@@ -250,7 +264,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Maintain_Engines, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -261,6 +275,12 @@ namespace ALICE_Actions
         public void Maintain_Systems(bool CommandAudio)
         {
             string MethodName = "Maintain Systems";
+
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
 
             Assisted.Power.Setting.Maintain_State = Assisted.Power.Str.Systems;
 
@@ -273,7 +293,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Maintain_Systems, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, false)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -284,6 +304,12 @@ namespace ALICE_Actions
         public void Defense_Engines(bool CommandAudio)
         {
             string MethodName = "Defense Engines";
+
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
 
             Assisted.Power.Setting.Default_State = Assisted.Power.Str.Engines;
 
@@ -296,7 +322,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Defense_Engines, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -307,6 +333,12 @@ namespace ALICE_Actions
         public void Defense_Systems(bool CommandAudio)
         {
             string MethodName = "Defense Systems";
+
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
 
             Assisted.Power.Setting.Default_State = Assisted.Power.Str.Systems;
 
@@ -319,7 +351,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Defense_Systems, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -330,6 +362,12 @@ namespace ALICE_Actions
         public void Weapons_Light(bool CommandAudio)
         {
             string MethodName = "Weapons Light";
+
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
 
             Assisted.Power.Setting.Power_Split = Assisted.Power.Str.Light;
 
@@ -342,7 +380,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Weapons_Light, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -353,6 +391,12 @@ namespace ALICE_Actions
         public void Weapons_Balance(bool CommandAudio)
         {
             string MethodName = "Weapons Balance";
+
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
 
             Assisted.Power.Setting.Power_Split = Assisted.Power.Str.Balance;
 
@@ -365,7 +409,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Weapons_Balance, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }
@@ -376,6 +420,12 @@ namespace ALICE_Actions
         public void Weapons_Heavy(bool CommandAudio)
         {
             string MethodName = "Weapons Heavy";
+
+            if (ICheck.Order.CombatPower(MethodName, true) == false)
+            {
+                Logger.DebugLine(MethodName, "Combat Power Management Disabled", Logger.Yellow);
+                return;
+            }
 
             Assisted.Power.Setting.Power_Split = Assisted.Power.Str.Heavy;
 
@@ -388,7 +438,7 @@ namespace ALICE_Actions
                     .Phrase(GN_Combat_Power.Weapons_Heavy, true),
                     CommandAudio,
                     ICheck.Order.CombatPower(MethodName, true, true),
-                    Check.Variable.Hardpoints(true, MethodName)
+                    ICheck.Status.Hardpoints(MethodName, true)
                     );
             }
             else if (PlugIn.Audio == "File") { }

@@ -3,9 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using vmAPI;
 
@@ -350,7 +348,7 @@ namespace ALICE_Interface
         /// </summary>
         public string DisplayName
         {
-            get => "Project A.L.I.C.E Interface - " + IPlatform.Version;
+            get => "Project A.L.I.C.E: Command Interface - " + IPlatform.Version;
         }
 
         /// <summary>
@@ -358,7 +356,9 @@ namespace ALICE_Interface
         /// </summary>
         public string Description
         {
-            get => "Project A.L.I.C.E Interface - " + IPlatform.Version;
+            get => "Allows Sending Requests To The Plugin To Perform Actions Based On The Game State. " +
+                   "More Information Can Be Found On The Wiki Page Located Here: " +
+                   "https://github.com/ShadowDoctorK/Project-A.L.I.C.E/wiki";
         }
 
         /// <summary>
@@ -376,16 +376,23 @@ namespace ALICE_Interface
         {
             try
             {
-                //PlugIn.DebugMode = true;
+                //Set Platform
+                IPlatform.Interface = IPlatform.Interfaces.VoiceMacro;
 
                 //Populate IVoiceMacro.Profiles Property
                 IVoiceMacro.Profiles = vmCommand.GetProfiles();
+
+                if (IVoiceMacro.Profiles == null)
+                {
+                    Logger.Error(MethodName, "No Profiles Detected!", Logger.Red);
+                    Logger.Error(MethodName, "Load An A.L.I.C.E Compatible Profile A Restart", Logger.Red);
+                    return;
+                }
 
                 //Custom Initialization Items
                 PlugIn.Respond = PlugIn.Output.TTS;
                 Paths.CreateDir();
                 Paths.Load_UpdateBindsFile();
-                IPlatform.Interface = IPlatform.Interfaces.VoiceMacro;
 
                 //Initialize Plugin
                 Thread Plugin =

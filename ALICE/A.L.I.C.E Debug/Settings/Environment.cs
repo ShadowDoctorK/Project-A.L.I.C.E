@@ -23,14 +23,11 @@ namespace ALICE_DebugCheck
             string N = "Space";
             string P = IEnums.Normal_Space;
 
-            if (IStatus.Hyperspace == true)
-            {
-                P = IEnums.Hyperspace;
-            }
-            else if (IStatus.Supercruise == true)
-            {
-                P = IEnums.Supercruise;
-            }
+            //Check Hyperspace
+            if (IStatus.Hyperspace == true) { P = IEnums.Hyperspace; }
+
+            //Check Supercruise
+            else if (IStatus.Supercruise == true) { P = IEnums.Supercruise; }
 
             //Check
             if (T == true && C != P)

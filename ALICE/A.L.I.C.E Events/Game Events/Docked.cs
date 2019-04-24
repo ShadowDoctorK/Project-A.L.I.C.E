@@ -149,7 +149,7 @@ namespace ALICE_Events
                 //Sleep To Maintain Audio Order
                 Thread.Sleep(100);
 
-                //Docked Datalink Audio
+                //Docked Station Status Audio
                 IResponse.Docking.StationStatus(
                     ICheck.Report.StationStatus(ClassName, true, true),         //Check User Settings Report Enabled
                     ICheck.Initialized(ClassName),                              //Check Plugin Initialized

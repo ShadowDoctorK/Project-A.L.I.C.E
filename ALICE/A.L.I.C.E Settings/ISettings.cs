@@ -2,6 +2,7 @@
 using ALICE_Actions;
 using ALICE_Events;
 using ALICE_Internal;
+using ALICE_Keybinds;
 using ALICE_Synthesizer;
 using Newtonsoft.Json;
 using System;
@@ -1632,7 +1633,7 @@ namespace ALICE_Settings
                                 #region Keybinds
                                 if (CheckKeybinds(ISettings.User.BindsFile))
                                 {
-                                    Call.Key.Load_Keybinds();
+                                    IKeyboard.LoadKeybinds();
                                     Logger.Log(MethodName, "Loaded Updated Keybinds.", Logger.Purple);
                                 }
                                 #endregion

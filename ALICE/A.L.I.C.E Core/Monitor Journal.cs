@@ -105,7 +105,7 @@ namespace ALICE_Monitors
                     if (FileCurrent != File.Name)
                     {
                         FileCurrent = File.Name;
-                        Logger.Event("Elite Dangerous Log: " + File.Name);
+                        Logger.Event("Targeting Journal Log: " + File.Name);
                     }
                 }
                 catch (Exception ex)
@@ -251,7 +251,7 @@ namespace ALICE_Monitors
                                 if (E != IEnums.Events.None)
                                 {
                                     //Deserialize
-                                    var Event = INewtonSoft.Deserialize(Journal.Line, IEvents.Types.Get(E));
+                                    var Event = INewtonSoft.Deserialize(Journal.Line, IEvents.Types.Get(E), true, E);
 
                                     //Null Check Event
                                     if (Event != null)

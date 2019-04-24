@@ -6,6 +6,7 @@ using ALICE_Actions;
 using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Equipment;
+using ALICE_Internal;
 using System;
 
 namespace ALICE_Events
@@ -81,6 +82,9 @@ namespace ALICE_Events
         {
             try
             {
+                //Update NoFireZone Event
+                IEvents.NoFireZone.Construct(I);
+
                 //Update Status Object
                 IStatus.Docking.Update(I);
 
@@ -103,7 +107,8 @@ namespace ALICE_Events
         public override void Alignment(object O)
         {
             try
-            {                
+            {
+                IStatus.Docking.State = IEnums.DockingState.Undocked;
                 IStatus.Fighter.Deployed = false;
                 IStatus.Supercruise = false;
                 IStatus.Hyperspace = false;

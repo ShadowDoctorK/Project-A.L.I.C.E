@@ -18,11 +18,16 @@ namespace ALICE_DebugCheck
     {
         private static ALICE_Equipment.LandingGear E { get => IEquipment.LandingGear; }
 
-        public bool Status(string M, bool T, bool L = true)
-        { return Evaluate(M, "Landing Gear (Status)", T, E.Status, L); }
+        private readonly string Item = "Landing Gear ";
+
+        public bool Installed(string M, bool T, bool L = true)
+        { return Evaluate(M, Item + "(Installed)", T, E.Settings.Installed, L); }
 
         public bool Enabled(string M, bool T, bool L = true)
-        { return Evaluate(M, "Landing Gear (Enabled)", T, E.Settings.Enabled, L); }
+        { return Evaluate(M, Item + "(Enabled)", T, E.Settings.Enabled, L); }
+
+        public bool Status(string M, bool T, bool L = true)
+        { return Evaluate(M, Item + "(Status)", T, E.Status, L); }
     }
 }
 #endregion
@@ -47,11 +52,16 @@ namespace ALICE_DebugGet
     {
         private static ALICE_Equipment.LandingGear E { get => IEquipment.LandingGear; }
 
-        public bool Status(string M, bool L = true)
-        { return Get(M, "Landing Gear (Status)", E.Status, L); }
+        private readonly string Item = "Landing Gear ";
+
+        public bool Installed(string M, bool L = true)
+        { return Get(M, Item + "(Installed)", E.Settings.Installed, L); }
 
         public bool Enabled(string M, bool L = true)
-        { return Get(M, "Landing Gear (Enabled)", E.Settings.Enabled, L); }
+        { return Get(M, Item + "(Enabled)", E.Settings.Enabled, L); }
+
+        public bool Status(string M, bool L = true)
+        { return Get(M, Item + "(Status)", E.Status, L); }
     }
 }
 #endregion
@@ -80,8 +90,16 @@ namespace ALICE_DebugSet
             set => IEquipment.LandingGear = value;
         }
 
+        private readonly string Item = "Landing Gear ";
+
+        public void Installed(string M, bool V, bool L = true)
+        { Set(M, Item + "(Installed)", ref E.Settings.Installed, V, L); }
+
+        public void Enabled(string M, bool V, bool L = true)
+        { Set(M, Item + "(Enabled)", ref E.Settings.Enabled, V, L); }
+
         public void Status(string M, bool V, bool L = true)
-        { Set(M, "Landing Gear (Status)", ref E.Status, V, L); }
+        { Set(M, Item + "(Status)", ref E.Status, V, L); }
     }
 }
 #endregion

@@ -8,6 +8,7 @@ using ALICE_Actions;
 using ALICE_Internal;
 using System.Threading;
 using ALICE_Debug;
+using ALICE_Keybinds;
 
 namespace ALICE_Panels
 {
@@ -161,6 +162,10 @@ namespace ALICE_Panels
             public void PlotBookmark(decimal Number)
             {
                 string MethodName = "Plot Bookmark";
+
+                //Validate Number
+                if (Number == -1) { return; }
+
                 Open(MethodName);
 
                 UpdateCursor(1, 2, false, 100);
@@ -174,9 +179,9 @@ namespace ALICE_Panels
                 string MethodName = "Reset Bookmarks";
                 Open(MethodName);
 
-                Call.Key.Press(Call.Key.UI_Panel_Left, 100);
-                Call.Key.Press(Call.Key.UI_Panel_Up_Press, 3000);
-                Call.Key.Press(Call.Key.UI_Panel_Up_Release, 0);
+                IKeyboard.Press(IKey.UI_Panel_Left, 100);
+                IKeyboard.Press(IKey.UI_Panel_Up_Press, 3000);
+                IKeyboard.Press(IKey.UI_Panel_Up_Release, 0);
                 Main = 1;
                 Logger.Log(MethodName, "Attempted To Reset Bookmarks. If Incorrect Please Place On Bookmart #1.", Logger.Yellow);
             }

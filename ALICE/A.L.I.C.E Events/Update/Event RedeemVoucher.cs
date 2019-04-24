@@ -56,8 +56,6 @@ namespace ALICE_Events
 
                 if (Variables.Validate(Name + "_Type", Event.Type.FirstCharToUpper(), "Bounty"))
                 {
-                    Variables.Record(Name + "_Type", "Bounty");
-
                     int C = 1; foreach (var F in Event.Factions)
                     {
                         Variables.Record(Name + "_Faction" + C, F.Faction);

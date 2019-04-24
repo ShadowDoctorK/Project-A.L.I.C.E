@@ -10,6 +10,7 @@ using SysDiag = System.Diagnostics;
 using System.Linq;
 using ALICE_Settings;
 using ALICE_Debug;
+using ALICE_Keybinds;
 
 namespace ALICE_Internal
 {
@@ -18,8 +19,6 @@ namespace ALICE_Internal
         public static Monitor_Json M_Json = new Monitor_Json(true, false, true, false, false, false, false, false, true);
         public static Monitor_Journal M_Journal = new Monitor_Journal();
 
-        public static readonly string VersionShort = "3.4.0.2";
-        public static readonly string VersionLong = "3.4.0.2 (Open Beta 1.2.3)";
         public static readonly decimal DataVersion = 340.0M;
 
         public enum Output { TTS, File, External }
@@ -31,6 +30,7 @@ namespace ALICE_Internal
         public static bool DebugMode = false;
         public static bool ExtendedLogging = false;
         public static bool VariableLogging = false;
+        public static bool KeybindLogging = false;
 
         /// <summary>
         /// Initializes the core features.
@@ -80,11 +80,26 @@ namespace ALICE_Internal
                     //Simple Logger
                     Logger.Simple("Project A.L.I.C.E " + IPlatform.Version + " Initializing...", Logger.Purple);
 
+                    //Execute External Command
+                    IPlatform.ExecuteCommand("Startup Configuration");
+                    
+                    //Sleep To Allow Platform Time To Process
+                    Thread.Sleep(1000);
+                    
                     //Load User Settings
                     ISettings.UserSettingsLoad(true);
 
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Verifying Alice Binds File...", Logger.Blue);
+
+                    //Retrieve Config Variables From Platform
+                    PlugIn.KeybindLogging = IGet.External.KeybindLogging(MethodName);
+
+                    //Log Setting
+                    if (PlugIn.VariableLogging)
+                    {
+                        Logger.Log(MethodName, "Keybind Logging Enabled", Logger.Yellow);
+                    }
 
                     //Check Alice Binds File
                     Paths.Load_UpdateBindsFile();
@@ -93,7 +108,7 @@ namespace ALICE_Internal
                     Logger.DebugLine(MethodName, "Loading Keybinds...", Logger.Blue);
 
                     //Load Game Binds
-                    Call.Key.Load_Keybinds();
+                    IKeyboard.LoadKeybinds();
                     
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Loading Response Files...", Logger.Blue);
@@ -180,9 +195,15 @@ namespace ALICE_Internal
                         //Debug Logger
                         Logger.DebugLine(MethodName, "Community Toolkit Is Already Open...", Logger.Blue);
                     }
-                    
-                    //Execute Alice Online Logic
-                    IEvents.AliceOnline.Logic();
+
+                    //Wait Till Initialzied
+                    while (PlugIn.M_Journal.Settings.Initialized == false)
+                    {
+                        Thread.Sleep(100);
+                    }
+
+                    //Configure Plugin Variables
+                    IPlatform.Configure();
                 }
             }
             catch (Exception ex)

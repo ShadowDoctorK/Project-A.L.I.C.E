@@ -4,13 +4,18 @@ using ALICE_Debug;
 
 namespace ALICE_Equipment
 {
-    public class Equipment_DiscoveryScanner : Equipment_General
+    public static partial class IEquipment
+    {
+        public static DiscoveryScanner DiscoveryScanner { get; set; } = new DiscoveryScanner();
+    }
+
+    public class DiscoveryScanner : Equipment_General
     {
         public bool Active = false;           //Allows Tracking The Status Of Active Scans.
         public bool FirstScan = true;         //Allows Tracking The First Scan In System.
         public bool Mode { get; set; }
 
-        public Equipment_DiscoveryScanner()
+        public DiscoveryScanner()
         {
             Settings.Equipment = IEquipment.E.Discovery_Scanner;
             Settings.Mode = IEquipment.M.Analysis;
@@ -39,7 +44,7 @@ namespace ALICE_Equipment
         public override WaitHandler Watch() { Active = true; return new WaitHandler(Watcher); }
         public override bool Watcher()
         {
-            decimal Count = 2000 / 50; while (Active != false)
+            decimal Count = 2000 / 50; while (Active)
             {
                 Count--; if (Count <= 0)
                 {

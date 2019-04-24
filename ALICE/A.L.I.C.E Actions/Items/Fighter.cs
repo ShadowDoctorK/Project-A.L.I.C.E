@@ -1,10 +1,10 @@
 ﻿using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Internal;
+using ALICE_Keybinds;
 using ALICE_Objects;
 using ALICE_Response;
 using ALICE_Settings;
-using ALICE_Synthesizer;
 using System.Threading;
 
 namespace ALICE_Actions
@@ -21,6 +21,9 @@ namespace ALICE_Actions
             string MethodName = "Deploy Fighter";
 
             #region Validation Checks
+            //Data Validation
+            if (FighterNumber == -1) { return; }
+            
             //Check Normal Space
             if (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space) == false)
             {
@@ -28,7 +31,7 @@ namespace ALICE_Actions
             }
 
             //Check Mothership
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
+            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true) == false)
             {
                 IResponse.Fighter.NotInMothership(CommandAudio); return;
             }
@@ -40,7 +43,7 @@ namespace ALICE_Actions
             }
 
             //Check Touchdown
-            if (Check.Variable.Touchdown(false, MethodName) == false)
+            if (ICheck.Status.Touchdown(MethodName, false) == false)
             {
                 IResponse.Fighter.MothershipTouchdown(CommandAudio); return;
             }
@@ -52,7 +55,7 @@ namespace ALICE_Actions
             }
 
             //Check Altitude
-            if (IStatus.Altitude != 0 && (Check.Environment.Altitude(1, 1001, false, MethodName) == false))
+            if (IStatus.Altitude != 0 && (ICheck.Status.Altitude(MethodName, 1, 1001, false) == false))
             {
                 IResponse.Fighter.LowAltitude(CommandAudio); return;
             }
@@ -115,36 +118,36 @@ namespace ALICE_Actions
             if (ICheck.Panel.Role.Open(MethodName, true) == false)
             {
                 Call.Panel.Role.Panel(true);
-                Call.Key.Press(Call.Key.Previous_Panel_Tab, 100, Call.Key.DelayPanel);
-                Call.Key.Press(Call.Key.Next_Panel_Tab, 100, Call.Key.DelayPanel);
+                IKeyboard.Press(IKey.Previous_Panel_Tab, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.Next_Panel_Tab, 100, IKey.DelayPanel);
             }
 
             if (FighterNumber == 2)
             {
                 Thread.Sleep(100 + ISettings.OffsetPanels);
-                Call.Key.Press(Call.Key.UI_Panel_Down, 100, Call.Key.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
             }
 
-            Call.Key.Press(Call.Key.UI_Panel_Select, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Down_Press, 750, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Down_Release, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Up_Press, 750, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Up_Release, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Select, 250, Call.Key.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Select, 100, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Down_Press, 750, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Down_Release, 100, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Up_Press, 750, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Up_Release, 100, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Select, 250, IKey.DelayPanel);
 
             //Fighter Sub Menu
-            Call.Key.Press(Call.Key.UI_Panel_Up, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Up, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Up, 100, Call.Key.DelayPanel);
-            Call.Key.Press(Call.Key.UI_Panel_Down, 100, Call.Key.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
             if (PlayerDeploy == false)
             {
                 Logger.DebugLine(MethodName, "Crew Selected for Launch", Logger.Yellow);
-                Call.Key.Press(Call.Key.UI_Panel_Down, 100, Call.Key.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
             }
 
-            Call.Key.Press(Call.Key.UI_Panel_Select, 250, Call.Key.DelayPanel);
+            IKeyboard.Press(IKey.UI_Panel_Select, 250, IKey.DelayPanel);
             Call.Panel.Role.Panel(false);
             #endregion
 
@@ -195,175 +198,91 @@ namespace ALICE_Actions
         {
             string MethodName = "Fighter (Attack My Target)";
 
-            Call.Key.Press(Call.Key.Attack_Target, 0);
+            IKeyboard.Press(IKey.Attack_Target, 0);
 
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Fighter.Order_Attack_Target),
-                    CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
+            //Audio - Attack My Target
+            IResponse.Fighter.AttackMyTarget(
+                CommandAudio,                                       //Check Command Audio
+                ICheck.Status.FighterDeployed(MethodName, true));   //Check Fighter Deployed
         }
 
         public void Defending(bool CommandAudio)
         {
             string MethodName = "Fighter (Defend)";
 
-            Call.Key.Press(Call.Key.Defend, 0);
+            IKeyboard.Press(IKey.Defend, 0);
 
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Fighter.Order_Defend),
-                    CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
+            //Audio - Defending
+            IResponse.Fighter.Defending(
+                CommandAudio,                                       //Check Command Audio
+                ICheck.Status.FighterDeployed(MethodName, true));   //Check Fighter Deployed
         }
 
         public void EngageAtWill(bool CommandAudio)
         {
             string MethodName = "Fighter (Engage At Will)";
 
-            Call.Key.Press(Call.Key.Engage_At_Will, 0);
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Fighter.Order_Engage_At_Will),
-                    CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
+            IKeyboard.Press(IKey.Engage_At_Will, 0);
+            
+            //Audio - Engage At Will
+            IResponse.Fighter.EngageAtWill(
+                CommandAudio,                                       //Check Command Audio
+                ICheck.Status.FighterDeployed(MethodName, true));   //Check Fighter Deployed
         }
 
         public void Follow(bool CommandAudio)
         {
             string MethodName = "Fighter (Follow)";
 
-            Call.Key.Press(Call.Key.Follow_Me, 0);
+            IKeyboard.Press(IKey.Follow_Me, 0);
 
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Fighter.Order_Follow),
-                    CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
+            //Audio - Follow
+            IResponse.Fighter.Follow(
+                CommandAudio,                                       //Check Command Audio
+                ICheck.Status.FighterDeployed(MethodName, true));   //Check Fighter Deployed
         }
 
         public void HoldPosition(bool CommandAudio)
         {
             string MethodName = "Fighter (Hold Position)";
 
-            Call.Key.Press(Call.Key.Hold_Position, 0);
+            IKeyboard.Press(IKey.Hold_Position, 0);
 
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Fighter.Order_Hold_Position),
-                    CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
+            //Audio - Hold Position
+            IResponse.Fighter.HoldPosition(
+                CommandAudio,                                       //Check Command Audio
+                ICheck.Status.FighterDeployed(MethodName, true));   //Check Fighter Deployed
         }
 
         public void MaintainFormation(bool CommandAudio)
         {
             string MethodName = "Fighter (Maintain Formation)";
 
-            Call.Key.Press(Call.Key.Maintain_Formation, 0);
+            IKeyboard.Press(IKey.Maintain_Formation, 0);
 
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Fighter.Order_Maintain_Formation),
-                    CommandAudio,
-                    Check.Variable.FighterDeployed(true, MethodName)
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
+            //Audio - Maintain Formation
+            IResponse.Fighter.MaintainFormation(
+                CommandAudio,                                       //Check Command Audio
+                ICheck.Status.FighterDeployed(MethodName, true));   //Check Fighter Deployed
         }
 
         public void Recall(bool CommandAudio)
         {
             string MethodName = "Fighter (Recall)";
 
-            Call.Key.Press(Call.Key.Recall_Fighter, 0);
+            IKeyboard.Press(IKey.Recall_Fighter, 0);
 
-            #region Audio: Fighter Order (Recall NPC)
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == true)
-            {
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Positive.Default, true)
-                        .Phrase(EQ_Fighter.Order_Recall_NPC),
-                        CommandAudio,
-                        Check.Variable.FighterDeployed(true, MethodName)
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-            }
-            #endregion
+            //Audio - Recall (NPC)
+            IResponse.Fighter.RecallNPC(
+                CommandAudio,                                                       //Check Command Audio
+                ICheck.Status.FighterDeployed(MethodName, true),                    //Check Fighter Deployed
+                ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true));   //Check Vehicle
 
-            #region Audio: Fighter Order (Recall Player)
-            else if (Check.Environment.Vehicle(IVehicles.V.Fighter, true, MethodName) == true)
-            {
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Positive.Default, true)
-                        .Phrase(EQ_Fighter.Order_Recall_Player),
-                        CommandAudio,
-                        Check.Variable.FighterDeployed(true, MethodName)
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-            }
-            #endregion
+            //Audio - Recall (Player)
+            IResponse.Fighter.RecallPlayer(
+                CommandAudio,                                                   //Check Command Audio
+                ICheck.Status.FighterDeployed(MethodName, true),                //Check Fighter Deployed
+                ICheck.Status.Vehicle(MethodName, IVehicles.V.Fighter, true));  //Check Vehicle
         }
     }
 }

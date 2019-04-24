@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ALICE_Events
 {
@@ -18,6 +14,12 @@ namespace ALICE_Events
         public decimal Longitude { get; set; }
         public decimal Heading { get; set; }
         public decimal Altitude { get; set; }
+
+        #region 2019.04.23 Update
+        public string LegalStatus { get; set; }
+        public string BodyName { get; set; }
+        public decimal PlanetRadius { get; set; }
+        #endregion
 
         public Status()
         {
@@ -35,6 +37,12 @@ namespace ALICE_Events
             Longitude = -1;
             Heading = -1;
             Altitude = -1;
+
+            #region 2019.04.23 Update
+            LegalStatus = Str();
+            BodyName = Str();
+            PlanetRadius = Dec();
+            #endregion
         }
     }
     

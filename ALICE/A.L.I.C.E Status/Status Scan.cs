@@ -225,6 +225,9 @@ namespace ALICE_Status
                 case "Ammonia body":
                     return 460000;
 
+                case "Ammonia world":
+                    return 460000;
+
                 case "Rocky body":
 
                     //Check If Terraformable
@@ -436,8 +439,11 @@ namespace ALICE_Status
                     //Normal
                     return ISettings.BodyHMC;
 
+                case "Ammonia world":
+                    return ISettings.BodyAmmonia;
+
                 case "Ammonia body":
-                    return ISettings.BodyHMCTerra;
+                    return ISettings.BodyAmmonia;
 
                 case "Rocky body":
 

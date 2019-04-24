@@ -27,8 +27,7 @@ namespace ALICE_Actions
     /// </summary>
     public static class Call
     {
-        public static Actions Action = new Actions();
-        public static AliceKeys Key = new AliceKeys();        
+        public static Actions Action = new Actions();   
         public static Overrides Overrides = new Overrides();
         public static IPower Power = new IPower();
         public static IPanels Panel = new IPanels();
@@ -59,7 +58,7 @@ namespace ALICE_Actions
 
             if (Check.Equipment.FighterHanger(true, MethodName) == true)
             {
-                if (Check.Variable.NPC_Crew(true, MethodName) == false)
+                if (ICheck.Status.Crew(MethodName, true) == false)
                 {
                     HaltLaunch = true;
                     Report_NoCrew = true;
@@ -155,7 +154,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Activation
-            Call.Key.Press(Call.Key.Use_Chaff_Launcher, 0);
+            IKeyboard.Press(IKey.Use_Chaff_Launcher, 0);
 
             #region Audio
             if (PlugIn.Audio == "TTS")
@@ -172,178 +171,7 @@ namespace ALICE_Actions
             #endregion
 
             #endregion
-        }
-
-        public void Activate_Heatsink(bool CommandAudio)
-        {
-            string MethodName = "Activate Heatsink";
-
-            #region Validation Check
-            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Heatsink_Launcher.Hyperspace),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-            #endregion
-
-            #region Module Checks
-            if (Check.Equipment.HeatSinkLauncher(true, MethodName) == false)
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Generic_Module.Not_Installed)
-                        .Replace("[MODULE]", "Heatsink Launchers"),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-            #endregion
-
-            #region Activation
-            Call.Key.Press(Call.Key.Deploy_Heat_Sink, 0);
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Heatsink_Launcher.Activating),
-                    CommandAudio
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-
-            #endregion
-        }
-
-        public void Activate_ShieldCell(bool CommandAudio)
-        {
-            string MethodName = "Activate Shield Cell";
-
-            #region Validation Check
-            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default)
-                        .Phrase(EQ_Shield_Cell.Hyperspace),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-            #endregion
-
-            #region Module Checks
-            if (Check.Equipment.ShieldCellBank(true, MethodName) == false)
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(GN_Negative.Default, true)
-                        .Phrase(EQ_Generic_Module.Not_Installed)
-                        .Replace("[MODULE]", "Shield Cells"),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-            #endregion
-
-            #region Activation
-            Call.Key.Press(Call.Key.Use_Shield_Cell, 0);
-
-            #region Audio
-            if (PlugIn.Audio == "TTS")
-            {
-                Speech.Speak
-                    (
-                    "".Phrase(GN_Positive.Default, true)
-                    .Phrase(EQ_Shield_Cell.Activating),
-                    CommandAudio
-                    );
-            }
-            else if (PlugIn.Audio == "File") { }
-            else if (PlugIn.Audio == "External") { }
-            #endregion
-
-            #endregion
-        }
-
-        public void AnalysisMode(bool CMD_State, bool CommandAudio)
-        {
-            string MethodName = "Analysis Mode";
-
-            #region Status == Command
-            if (IStatus.AnalysisMode == CMD_State)
-            {
-                if (CMD_State == true)
-                {
-                    return;
-                }
-                else if (CMD_State == false)
-                {
-                    return;
-                }
-            }
-            #endregion
-
-            #region Status != Command
-            else if (IStatus.AnalysisMode != CMD_State)
-            {
-                if (CMD_State == true)
-                {
-                    Call.Key.Press(Call.Key.Toggle_HUD_Mode, 0);
-                    IStatus.AnalysisMode = true;
-                    return;
-                }
-                else if (CMD_State == false)
-                {
-                    Call.Key.Press(Call.Key.Toggle_HUD_Mode, 0);
-                    IStatus.AnalysisMode = false;
-                    return;
-                }
-            }
-            #endregion
-        }
+        }      
 
         public void CargoScoop(bool CMD_State, bool CommandAudio)
         {
@@ -371,7 +199,7 @@ namespace ALICE_Actions
             }
 
             //If Not Outside The Fighter...
-            if (Check.Environment.Vehicle(IVehicles.V.Fighter, false, MethodName) == false)
+            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Fighter, false) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -411,7 +239,7 @@ namespace ALICE_Actions
             }
 
             //If Touchdown Is Not False...
-            if (Check.Variable.Touchdown(false, MethodName) == false)
+            if (ICheck.Status.Touchdown(MethodName, false) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -432,7 +260,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status = Command
-            if (Check.Variable.CargoScoop(MethodName) == CMD_State)
+            if (IGet.Status.CargoScoop(MethodName) == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -474,11 +302,11 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (Check.Variable.CargoScoop(MethodName) != CMD_State)
+            else if (IGet.Status.CargoScoop(MethodName) != CMD_State)
             {
                 if (CMD_State == true)
                 {
-                    Call.Key.Press(Call.Key.Cargo_Scoop, 0);
+                    IKeyboard.Press(IKey.Cargo_Scoop, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -498,7 +326,7 @@ namespace ALICE_Actions
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Cargo_Scoop, 0);
+                    IKeyboard.Press(IKey.Cargo_Scoop, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -559,13 +387,13 @@ namespace ALICE_Actions
             {
                 if (CMD_State == true)
                 {
-                    Call.Key.Press(Call.Key.Ship_Lights, 0);
+                    IKeyboard.Press(IKey.Ship_Lights, 0);
                     IEquipment.ExternalLights.Energizing(CommandAudio);
                     return;
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Ship_Lights, 0);
+                    IKeyboard.Press(IKey.Ship_Lights, 0);
                     IEquipment.ExternalLights.Deenergizing(CommandAudio);
                     return;
                 }
@@ -613,7 +441,7 @@ namespace ALICE_Actions
                 if (CMD_State == true)
                 {
                     IResponse.DiscoveryScanner.FSSActivating(CommandAudio);
-                    Call.Key.Press(Call.Key.FSS_Enter, 0);
+                    IKeyboard.Press(IKey.FSS_Enter, 0);
                     IEquipment.DiscoveryScanner.Mode = CMD_State;
 
                     return;
@@ -621,227 +449,10 @@ namespace ALICE_Actions
                 else if (CMD_State == false)
                 {
                     IResponse.DiscoveryScanner.FSSDeactivating(CommandAudio);
-                    Call.Key.Press(Call.Key.FSS_Exit, 0);
+                    IKeyboard.Press(IKey.FSS_Exit, 0);
                     IEquipment.DiscoveryScanner.Mode = CMD_State;
 
                     return;
-                }
-            }
-            #endregion
-        }
-
-        public void Hardpoint(bool CMD_State, bool CommandAudio)
-        {
-            string MethodName = "Hardpoints";
-
-            #region Valid Command Checks
-            //If Hyperspace Is Not False...
-            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(EQ_Hardpoints.Hyperspace),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-
-            //If Docked Is Not False...
-            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked, true) == false)
-            {
-                return;
-            }
-
-            //If Touchdown Is Not False...
-            if (Check.Variable.Touchdown(false, MethodName) == false)
-            {
-                #region Audio
-                //if (PlugIn.Audio == "TTS")
-                //{
-                //    Speech.Speak
-                //        (
-                //        "".Phrase(GN_Negative.Default, true)
-                //        .Phrase(EQ_Hardpoints.Touchdown),
-                //        CommandAudio
-                //        );
-                //}
-                //else if (PlugIn.Audio == "File") { }
-                //else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-
-            //If In Supercruse && State Is True...
-            if (ICheck.Environment.Space(MethodName, true, IEnums.Supercruise) == true && CMD_State == true)
-            {
-                #region Audio
-                if (PlugIn.Audio == "TTS")
-                {
-                    Speech.Speak
-                        (
-                        "".Phrase(EQ_Hardpoints.Supercruise),
-                        CommandAudio
-                        );
-                }
-                else if (PlugIn.Audio == "File") { }
-                else if (PlugIn.Audio == "External") { }
-                #endregion
-
-                return;
-            }
-            #endregion
-
-            #region Status == Command
-            if (Check.Variable.Hardpoints(MethodName) == CMD_State)
-            {
-                if (CMD_State == true)
-                {
-                    #region Audio
-                    if (PlugIn.Audio == "TTS")
-                    {
-                        Speech.Speak
-                            (
-                            "".Phrase(EQ_Hardpoints.Currently_Deployed),
-                            CommandAudio
-                            );
-                    }
-                    else if (PlugIn.Audio == "File") { }
-                    else if (PlugIn.Audio == "External") { }
-                    #endregion
-
-                    return;
-                }
-                else if (CMD_State == false)
-                {
-                    #region Audio
-                    if (PlugIn.Audio == "TTS")
-                    {
-                        Speech.Speak
-                            (
-                            "".Phrase(EQ_Hardpoints.Currently_Retracted),
-                            CommandAudio
-                            );
-                    }
-                    else if (PlugIn.Audio == "File") { }
-                    else if (PlugIn.Audio == "External") { }
-                    #endregion
-
-                    return;
-                }
-            }
-            #endregion
-
-            #region Status != Command
-            else if (Check.Variable.Hardpoints(MethodName) != CMD_State)
-            {
-                if (CMD_State == true)
-                {
-                    #region Weapon Safety Check
-                    if (IStatus.WeaponSafety == true)
-                    {
-                        #region Audio
-                        if (PlugIn.Audio == "TTS")
-                        {
-                            Speech.Speak
-                                (
-                                "".Phrase(EQ_Hardpoints.Safety_Engaged) +
-                                "... Would You Like To Override?",
-                                CommandAudio
-                                );
-                        }
-                        else if (PlugIn.Audio == "File") { }
-                        else if (PlugIn.Audio == "External") { }
-                        #endregion
-
-                        Thread.Sleep(1500); switch (IStatus.Interaction.Question(10000))
-                        {
-                            case ALICE_Status.Status_Interaction.Answers.NoResponse:
-
-                                //Debug Logger
-                                Logger.DebugLine(MethodName, "No Response.", Logger.Yellow);
-
-                                return;
-
-                            case ALICE_Status.Status_Interaction.Answers.Yes:
-
-                                IStatus.WeaponSafety = false;
-
-                                break;
-
-                            case ALICE_Status.Status_Interaction.Answers.No:
-
-                                #region Audio
-                                if (PlugIn.Audio == "TTS")
-                                {
-                                    Speech.Speak
-                                        (
-                                        "".Phrase(GN_Positive.Default, true)
-                                        .Phrase(EQ_Hardpoints.Safety_Remains),
-                                        CommandAudio
-                                        );
-                                }
-                                else if (PlugIn.Audio == "File") { }
-                                else if (PlugIn.Audio == "External") { }
-                                #endregion
-
-                                return;
-
-                            default:
-                                break;
-                        }
-                    }
-                    #endregion
-
-                    if (Check.Variable.Hardpoints(false, MethodName) == true)
-                    {
-                        Call.Firegroup.Select(Call.Firegroup.Default, false);                        
-                        Thread.Sleep(100);
-                    }
-
-                    Call.Key.Press(Call.Key.Deploy_Hardpoints, 0);
-
-                    #region Audio
-                    if (PlugIn.Audio == "TTS")
-                    {
-                        Speech.Speak
-                            (
-                            "".Phrase(GN_Positive.Default, true)
-                            .Phrase(EQ_Hardpoints.Deploying)
-                            .Phrase(GN_Combat_Power.Online, false, ICheck.Order.CombatPower(MethodName, true, true)),
-                            CommandAudio
-                            );
-                    }
-                    else if (PlugIn.Audio == "File") { }
-                    else if (PlugIn.Audio == "External") { }
-                    #endregion
-                }
-                else if (CMD_State == false)
-                {
-                    Call.Key.Press(Call.Key.Deploy_Hardpoints, 0);
-
-                    #region Audio
-                    if (PlugIn.Audio == "TTS")
-                    {
-                        Speech.Speak
-                            (
-                            "".Phrase(GN_Positive.Default, true)
-                            .Phrase(EQ_Hardpoints.Retracting)
-                            .Phrase(GN_Combat_Power.Offline, false, ICheck.Order.CombatPower(MethodName, true, true)),
-                            CommandAudio
-                            );
-                    }
-                    else if (PlugIn.Audio == "File") { }
-                    else if (PlugIn.Audio == "External") { }
-                    #endregion                
                 }
             }
             #endregion
@@ -879,13 +490,13 @@ namespace ALICE_Actions
             {
                 if (CMD_State == true)
                 {
-                    Call.Key.Press(Call.Key.Night_Vision_Toggle, 0);
+                    IKeyboard.Press(IKey.Night_Vision_Toggle, 0);
 
                     return;
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Night_Vision_Toggle, 0);
+                    IKeyboard.Press(IKey.Night_Vision_Toggle, 0);
 
                     return;
                 }
@@ -927,7 +538,7 @@ namespace ALICE_Actions
             }
 
             //If Not In Mothership...
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
+            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -947,7 +558,7 @@ namespace ALICE_Actions
             }
 
             //If Fighter is Deployed...
-            if (Check.Variable.FighterDeployed(false, MethodName) == false)
+            if (ICheck.Status.FighterDeployed(MethodName, false) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -987,7 +598,7 @@ namespace ALICE_Actions
             }
 
             //If Touchdown Is Not False...
-            if (Check.Variable.Touchdown(false, MethodName) == false)
+            if (ICheck.Status.Touchdown(MethodName, false) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -1054,7 +665,7 @@ namespace ALICE_Actions
             {
                 if (CMD_State == true)
                 {
-                    Call.Key.Press(Call.Key.Landing_Gear, 0);
+                    IKeyboard.Press(IKey.Landing_Gear, 0);
                     ISet.LandingGear.Status(MethodName, true);
 
                     #region Audio
@@ -1075,7 +686,7 @@ namespace ALICE_Actions
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Landing_Gear, 0);
+                    IKeyboard.Press(IKey.Landing_Gear, 0);
                     ISet.LandingGear.Status(MethodName, false);
 
                     #region Audio
@@ -1124,7 +735,7 @@ namespace ALICE_Actions
             }
 
             //If Not In Mothership...
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
+            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -1145,7 +756,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status = Command
-            if (Check.Variable.SilentRunning(MethodName) == CMD_State)
+            if (IGet.Status.SilentRunning(MethodName) == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -1187,11 +798,11 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (Check.Variable.SilentRunning(MethodName) != CMD_State)
+            else if (IGet.Status.SilentRunning(MethodName) != CMD_State)
             {
                 if (CMD_State == true)
                 {
-                    Call.Key.Press(Call.Key.Silent_Running, 0);
+                    IKeyboard.Press(IKey.Silent_Running, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -1211,7 +822,7 @@ namespace ALICE_Actions
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Silent_Running, 0);
+                    IKeyboard.Press(IKey.Silent_Running, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -1362,7 +973,7 @@ namespace ALICE_Actions
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.UI_Back, 0);
+                    IKeyboard.Press(IKey.UI_Back, 0);
 
                     //Add Music State Checks To Verify Closed.
                     IEquipment.SurfaceScanner.Mode = CMD_State;
@@ -1416,7 +1027,7 @@ namespace ALICE_Actions
                 return;
             }
 
-            if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, MethodName) == false)
+            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true) == false)
             {
                 Logger.Log(MethodName, "Only Available In The Mothership", Logger.Red);
                 return;
@@ -1470,70 +1081,6 @@ namespace ALICE_Actions
             Call.Firegroup.Select(Temp, false);
         }
 
-        public void SheildCell(bool CommandAudio, Settings_Firegroups.Item BankNumber, bool Cold = false, bool SelectOnly = false)
-        {
-            string MethodName = "Sheild Cell";
-
-            //Record Current Firegroup
-            decimal Temp = Call.Firegroup.Current;
-
-            #region Vaildtion Checks
-            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
-            {
-                IEquipment.ShieldCellBank.NoHyperspace(CommandAudio);
-                return;
-            }
-            #endregion
-
-            #region Fire Group Management
-            //Select Firegroup
-            switch (ISettings.Firegroup.Select(BankNumber))
-            {
-                case Settings_Firegroups.S.CurrentlySelected:
-                    if (SelectOnly) { IEquipment.ShieldCellBank.CurrentlySelected(CommandAudio); }
-                    break;
-                case Settings_Firegroups.S.Selected:
-                    if (SelectOnly) { IEquipment.ShieldCellBank.Selected(CommandAudio); }
-                    break;
-                case Settings_Firegroups.S.NotAssigned:
-                    IEquipment.ShieldCellBank.NotAssigned(CommandAudio);
-                    return;
-                case Settings_Firegroups.S.Failed:
-                    IEquipment.ShieldCellBank.SelectionFailed(CommandAudio);
-                    return;
-                case Settings_Firegroups.S.InHyperspace:
-                    IEquipment.General.InHyperspace();
-                    return;
-                default:
-                    return;
-            }
-
-            //Exit If Only Selecting Item.
-            if (SelectOnly) { return; }
-
-            //Activate Module
-            switch (ISettings.Firegroup.Activate(BankNumber))
-            {
-                case Settings_Firegroups.A.Hyperspace:
-                    //Audio
-                    return;
-                case Settings_Firegroups.A.NotAssigned:
-                    IEquipment.ShieldCellBank.NotAssigned(CommandAudio);
-                    return;
-                case Settings_Firegroups.A.Complete:
-                    IEquipment.ShieldCellBank.Activating(CommandAudio);
-                    break;
-                default:
-                    return;
-            }
-            #endregion
-
-            //Return To Previou Firegroup.
-            Call.Firegroup.Select(Temp, false);
-
-            //If "Cold" Modifer Used, Launch Heatsink.
-            if (Cold && SelectOnly == false) { Call.Action.Activate_Heatsink(false); }
-        }
         //End Region: Compound / Complex Actions
         #endregion
 
@@ -1565,7 +1112,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status = Command
-            if (Check.Variable.FlightAssist(MethodName) == CMD_State)
+            if (IGet.Status.FlightAssist(MethodName) == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -1607,11 +1154,11 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (Check.Variable.FlightAssist(MethodName) != CMD_State)
+            else if (IGet.Status.FlightAssist(MethodName) != CMD_State)
             {
                 if (CMD_State == true)
                 {
-                    Call.Key.Press(Call.Key.Toggle_Flight_Assist, 0);
+                    IKeyboard.Press(IKey.Toggle_Flight_Assist, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -1631,7 +1178,7 @@ namespace ALICE_Actions
                 }
                 else if (CMD_State == false)
                 {
-                    Call.Key.Press(Call.Key.Toggle_Flight_Assist, 0);
+                    IKeyboard.Press(IKey.Toggle_Flight_Assist, 0);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -1671,9 +1218,9 @@ namespace ALICE_Actions
                 //Add Aduio - Postive / Commencing Launch
 
                 //Selects Launch Button & Press' It.
-                Call.Key.Press(Call.Key.UI_Panel_Down_Press, 2000);
-                Call.Key.Press(Call.Key.UI_Panel_Down_Release, 100);
-                Call.Key.Press(Call.Key.UI_Panel_Select, 250);
+                IKeyboard.Press(IKey.UI_Panel_Down_Press, 2000);
+                IKeyboard.Press(IKey.UI_Panel_Down_Release, 100);
+                IKeyboard.Press(IKey.UI_Panel_Select, 250);
 
                 //Wait For Launch (30 seconds)
                 decimal Count = 300; while (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Undocked, true) == false && Count > 0)
@@ -1687,14 +1234,14 @@ namespace ALICE_Actions
                 }
 
                 //Move Ship Away From Ground                
-                Call.Key.Press(Call.Key.Thrust_Up_Press, 3000);
-                Call.Key.Press(Call.Key.Thrust_Up_Release);
+                IKeyboard.Press(IKey.Thrust_Up_Press, 3000);
+                IKeyboard.Press(IKey.Thrust_Up_Release);
 
                 //Add Audio - Handover                      
                 Logger.Log(MethodName, "Undocking Complete, Controls Released.", Logger.Yellow, true);
             }
 
-            else if (Check.Variable.Touchdown(true, MethodName) == true)
+            else if (ICheck.Status.Touchdown(MethodName, true) == true)
             {
                 //Checks & Returns to HUD / Logs & Exits on Failure.
                 if (Call.Panel.HudFocus(250) == false)
@@ -1708,9 +1255,9 @@ namespace ALICE_Actions
                 //Add Audio - Postive / Engine Start Up
 
                 //Begin Takeoff
-                Call.Key.Press(Call.Key.Thrust_Up_Press);
+                IKeyboard.Press(IKey.Thrust_Up_Press);
                 //Wait For Engines To Engage / Takeoff
-                decimal Count = 50; while(Check.Variable.Touchdown(false, MethodName) == false && Count > 0)
+                decimal Count = 50; while(ICheck.Status.Touchdown(MethodName, false) == false && Count > 0)
                 {
                     Count--; if (Count == 0)
                     {
@@ -1724,7 +1271,7 @@ namespace ALICE_Actions
                     Count--; Thread.Sleep(100);
                 }
                 //Release Upward Thrust
-                Call.Key.Press(Call.Key.Thrust_Up_Release);
+                IKeyboard.Press(IKey.Thrust_Up_Release);
 
                 //Add Audio - Handover                               
                 Logger.Log(MethodName, "Liftoff Complete, Controls Released.", Logger.Yellow, true);
@@ -2133,11 +1680,11 @@ namespace ALICE_Actions
             {
                 if (Forward == true)
                 {
-                    Call.Key.Press(Call.Key.Cycle_Next_Subsystem, 150);
+                    IKeyboard.Press(IKey.Cycle_Next_Subsystem, 150);
                 }
                 else if (Forward == false)
                 {
-                    Call.Key.Press(Call.Key.Cycle_Previous_Subsystem, 150);
+                    IKeyboard.Press(IKey.Cycle_Previous_Subsystem, 150);
                 }
 
                 if (IObjects.TargetCurrent.Targeted == false)
@@ -2164,11 +1711,11 @@ namespace ALICE_Actions
             {
                 if (Forward == true)
                 {
-                    Call.Key.Press(Call.Key.Cycle_Next_Hostile_Target, 0);
+                    IKeyboard.Press(IKey.Cycle_Next_Hostile_Target, 0);
                 }
                 else if (Forward == false)
                 {
-                    Call.Key.Press(Call.Key.Cycle_Previous_Hostile_Ship, 0);
+                    IKeyboard.Press(IKey.Cycle_Previous_Hostile_Ship, 0);
                 }
                 Cycle--;
                 Thread.Sleep(100);
@@ -2189,11 +1736,11 @@ namespace ALICE_Actions
             {
                 if (Forward == true)
                 {
-                    Call.Key.Press(Call.Key.Cycle_Next_Target , 0);
+                    IKeyboard.Press(IKey.Cycle_Next_Target , 0);
                 }
                 else if (Forward == false)
                 {
-                    Call.Key.Press(Call.Key.Cycle_Previous_Ship , 0);
+                    IKeyboard.Press(IKey.Cycle_Previous_Ship , 0);
                 }
                 Cycle--;
                 Thread.Sleep(100);
@@ -2218,15 +1765,15 @@ namespace ALICE_Actions
 
             if (Wingman == 1)
             {
-                Call.Key.Press(Call.Key.Select_Wingman_1 , 0);
+                IKeyboard.Press(IKey.Select_Wingman_1 , 0);
             }
             else if (Wingman == 2)
             {
-                Call.Key.Press(Call.Key.Select_Wingman_2, 0);
+                IKeyboard.Press(IKey.Select_Wingman_2, 0);
             }
             else if (Wingman == 3)
             {
-                Call.Key.Press(Call.Key.Select_Wingman_3, 0);
+                IKeyboard.Press(IKey.Select_Wingman_3, 0);
             }
 
             Thread.Sleep(100);
@@ -2241,7 +1788,7 @@ namespace ALICE_Actions
                 Select_Wingman(Wingman, false);
             }
 
-            Call.Key.Press(Call.Key.Select_Wingmans_Target, 100);
+            IKeyboard.Press(IKey.Select_Wingmans_Target, 100);
 
             //DYNAMIC AUDIO
         }
@@ -2252,7 +1799,7 @@ namespace ALICE_Actions
             {
                 Select_Wingman(Wingman, false);
             }
-            Call.Key.Press(Call.Key.Wingman_NavLock, 100);
+            IKeyboard.Press(IKey.Wingman_NavLock, 100);
 
             //DYNAMIC AUDIO
         }

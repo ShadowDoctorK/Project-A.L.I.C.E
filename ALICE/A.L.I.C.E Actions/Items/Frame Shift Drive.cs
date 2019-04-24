@@ -600,7 +600,7 @@ namespace ALICE_Actions
             //Vehicle Check
             if (V)
             {
-                if (Check.Environment.Vehicle(IVehicles.V.Mothership, true, M) == false)
+                if (ICheck.Status.Vehicle(M, IVehicles.V.Mothership, true) == false)
                 {
                     IEquipment.FrameShiftDrive.NotInMothership(A);
                     return Validate.Vehicle;
@@ -610,7 +610,7 @@ namespace ALICE_Actions
             //Touchdown Check
             if (T)
             {
-                if (Check.Variable.Touchdown(false, M) == false)
+                if (ICheck.Status.Touchdown(M, false) == false)
                 {
                     IEquipment.FrameShiftDrive.NoTouchdown(A);
                     return Validate.Touchdown;
@@ -734,7 +734,7 @@ namespace ALICE_Actions
             //Cargo Scoop Check
             if (C)
             {
-                if (Check.Variable.CargoScoop(false, M) == false)
+                if (ICheck.Status.CargoScoop(M, false) == false)
                 {
                     Call.Action.CargoScoop(false, false);
                 }
@@ -752,9 +752,9 @@ namespace ALICE_Actions
             //Hardpoints Check
             if (H)
             {
-                if (Check.Variable.Hardpoints(false, M) == false)
+                if (ICheck.Status.Hardpoints(M, false) == false)
                 {
-                    Call.Action.Hardpoint(false, false);
+                    IActions.Hardpoints.Operate(false, false);                    
                 }
             }
         }

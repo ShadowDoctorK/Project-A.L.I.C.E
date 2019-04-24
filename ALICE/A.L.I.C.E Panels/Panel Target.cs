@@ -1,14 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ALICE_Objects;
 using ALICE_Actions;
 using ALICE_Internal;
 using System.Threading;
 using ALICE_Settings;
 using ALICE_Debug;
+using ALICE_Core;
+using ALICE_Response;
+using ALICE_Synthesizer;
+using ALICE_Keybinds;
 
 namespace ALICE_Panels
 {
@@ -50,7 +48,7 @@ namespace ALICE_Panels
 
             public NavigationTab()
             {
-                Main = 2;
+                Main = 1;   //Set Filters
                 Tab = 1;
             }
 
@@ -76,7 +74,12 @@ namespace ALICE_Panels
                 Open(MethodName);
 
                 UpdateCursor(1, 2, false);
-                if (Main != 1) { Main = UpdateCursor(1, Main, true); }
+
+                IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+
+                Main = 1;
             }
 
             public void GalaxyMap()
@@ -85,7 +88,13 @@ namespace ALICE_Panels
                 Open(MethodName);
 
                 UpdateCursor(1, 2, false);
-                if (Main != 2) { Main = UpdateCursor(2, Main, true); }
+
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+
+                Main = 2;                
             }
 
             public void SystemMap()
@@ -94,7 +103,13 @@ namespace ALICE_Panels
                 Open(MethodName);
 
                 UpdateCursor(1, 2, false);
-                if (Main != 3) { Main = UpdateCursor(3, Main, true); }
+
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+
+                Main = 3;
             }
 
             /// <summary>
@@ -110,77 +125,172 @@ namespace ALICE_Panels
             /// <param name="Poin">(Points Of Instrest)  Pass "True" To Enable Filter</param>
             /// <param name="Sign">(Signals)  Pass "True" To Enable Filter</param>
             /// <param name="Syst">(Systems)  Pass "True" To Enable Filter</param>
-            public void FilterLocations(bool Set, bool Star, bool Aste, bool Plan, bool Land, bool Sett, bool Stat, bool Poin, bool Sign, bool Syst)
+            public void FilterLocations(bool Set, bool Star = false, bool Aste = false, bool Plan = false, bool Land = false, bool Sett = false, bool Stat = false, bool Poin = false, bool Sign = false, bool Syst = false)
             {
-                //Track The Menu Position
-                decimal Position = 1;
-
                 //Check If First Run, Verify Filter Status With CMDR
                 if (FilterCheck == true && Set)
                 {
+                    SetFilters();
+
                     //Ask CMDR for status of filters.
+                    IResponse.Panels.QuestionFilters(true);
+
+                    //Monitor Response
+                    Thread.Sleep(1500); switch (IStatus.Interaction.Question(6000))
+                    {
+                        case ALICE_Status.Status_Interaction.Answers.NoResponse:
+
+                            //Debug Logger
+                            Logger.DebugLine(MethodName, "Question: No Response.", Logger.Yellow);
+
+                            //Close Taret Panel
+                            Call.Panel.Target.Panel(false);
+                            return;
+
+                        case ALICE_Status.Status_Interaction.Answers.Yes:
+
+                            //Audio - Postive Response
+                            IResponse.General.Positve(true);
+
+                            //Move To Reset Option "X" And Reset
+                            IKeyboard.Press(IKey.UI_Panel_Down, 150, IKey.DelayPanel);
+                            Select(150);
+                            IKeyboard.Press(IKey.UI_Panel_Up, 150, IKey.DelayPanel);
+                            break;
+
+                        case ALICE_Status.Status_Interaction.Answers.No:
+
+                            //Audio - Safeties Remain
+                            IResponse.General.Positve(true);                            
+                            break;
+
+                        default:
+
+                            //Close Taret Panel
+                            Call.Panel.Target.Panel(false);
+                            return;                            
+                    }
+
+                    FiltersSet = false;
+                    FilterCheck = false;
+                }
+
+                //If Filters Are Set & We Are Setting New Filters
+                if (Set && FiltersSet)
+                {
+                    SetFilters();
+
+                    //Move To Reset Option "X" And Reset
+                    IKeyboard.Press(IKey.UI_Panel_Down, 150, IKey.DelayPanel);
+                    Select(150);
+                    IKeyboard.Press(IKey.UI_Panel_Up, 150, IKey.DelayPanel);
+
+                    Thread.Sleep(100);
                 }
 
                 //If We Are Setting Filters, Check The If Filters Changed
                 if (Set && (Star != Stars || Aste != Asteroids || Plan != Planets || Land != Landfalls || Sett != Settlements ||
                     Stat != Stations || Poin != PointsOfInst ||  Sign != Signals || Syst != Systems))
                 {
-                    SetFilters();
+                    //Move Cursor From Submenu To Set Filters And Select It.
+                    SetFilters(); Select(150);
 
+                    Thread.Sleep(100);
+
+                    //Process Filters
                     if (Star)
                     {
-                        Select();
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Aste)
                     {
-                        Position = UpdateCursor(2, Position, true); Select();
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Plan)
                     {
-                        Position = UpdateCursor(3, Position, true); Select();
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Land)
                     {
-                        Position = UpdateCursor(4, Position, true); Select();
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Sett)
                     {
-                        Position = UpdateCursor(5, Position, true); Select();
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Stat)
                     {
-                        Position = UpdateCursor(6, Position, true); Select();
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Poin)
                     {
-                        Position = UpdateCursor(7, Position, true); Select();
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Sign)
                     {
-                        Position = UpdateCursor(8, Position, true); Select();
+                        Select(50);
+                        Thread.Sleep(50);
                     }
+
+                    IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
 
                     if (Syst)
                     {
-                        Position = UpdateCursor(9, Position, true); Select();
+                        Select(50);
+                        Thread.Sleep(50);
                     }
 
-                    Back();
-                }     
+                    //Allow Time For UI To Update & Exit Submenu
+                    Thread.Sleep(250); Back(50);
+
+                    //Move Cursor To Locations Submenu
+                    Thread.Sleep(50); UpdateCursor(3, 1, false);
+
+                    //Update Filters Set
+                    FiltersSet = true;
+                }
 
                 //Reset Location Filters
                 else if (Set == false && FiltersSet)
                 {
+                    //Move To Set Filters
                     SetFilters();
-                    UpdateCursor(2, 1, false);
-                    Select();
+
+                    //Move To Reset Option "X" And Reset
+                    IKeyboard.Press(IKey.UI_Panel_Down, 150, IKey.DelayPanel);
+                    Select(150);
+                    IKeyboard.Press(IKey.UI_Panel_Up, 150, IKey.DelayPanel);
+
+                    //Update Filters Set
+                    FiltersSet = false;
                 }  
             }
         }

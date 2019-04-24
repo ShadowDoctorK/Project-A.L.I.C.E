@@ -2,6 +2,7 @@
 using ALICE_Debug;
 using ALICE_Equipment;
 using ALICE_Internal;
+using ALICE_Keybinds;
 using ALICE_Response;
 using System.Threading;
 
@@ -137,7 +138,7 @@ namespace ALICE_Actions
                         switch (Check.Equipment.DockingComputer(true, MethodName))
                         {
                             case true:
-                                Call.Key.Press(Call.Key.Set_Speed_To_0, 0, Call.Key.DelayThrottle);
+                                IKeyboard.Press(IKey.Set_Speed_To_0, 0, IKey.DelayThrottle);
                                 IResponse.Docking.StationHandover(CommandAudio);
 
                                 //Resets the Report Bool for if the docking computer is not
@@ -149,7 +150,8 @@ namespace ALICE_Actions
                                 return;
 
                             case false:
-                                IEquipment.DockingComputer.NotInstalled(CommandAudio,
+                                IResponse.DockingComputer.NotInstalled(
+                                    CommandAudio,
                                     IEquipment.DockingComputer.AsisstedDockingReport);
 
                                 //Prevents Reporting No Docking Computer more then once.
@@ -202,7 +204,7 @@ namespace ALICE_Actions
 
             IStatus.Docking.Preparations = true;
 
-            if (Check.Variable.SilentRunning(true, ClassName) == true)
+            if (ICheck.Status.SilentRunning(ClassName, true) == true)
             {
                 Call.Action.SilentRunning(false, CommandAudio);
                 Call.Power.Set(0, 4, 8);
