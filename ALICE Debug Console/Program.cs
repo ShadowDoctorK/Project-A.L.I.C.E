@@ -24,9 +24,8 @@ namespace ALICE_Debug_Console
 
         public static void Debug()
         {
-            //PlugIn.Initialize(true, true);
-
-            ICommands.Invoke("Actions: Fighter: Deploy: Players");
+            PlugIn.Initialize(true, true);
+           
 
             Thread.Sleep(50000);            
         }

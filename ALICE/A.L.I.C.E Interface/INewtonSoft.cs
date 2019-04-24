@@ -211,7 +211,7 @@ namespace ALICE_Interface
         /// <param name="T">(Type) The Objects Type</param>
         /// <param name="L">(Logging) Enable / Disable Logging</param>
         /// <returns>Object Data or Null</returns>
-        public static object Deserialize(string Line, Type T, bool L = true)
+        public static object Deserialize(string Line, Type T, bool L = true, IEnums.Events E = IEnums.Events.None)
         {
             string MethodName = "Object Data (Deserialize)";
 
@@ -226,7 +226,18 @@ namespace ALICE_Interface
             //On Exception -> Ignore MissingMemberHandling And Try Again.
             catch (JsonSerializationException ex)
             {
-                if (L) { Logger.Exception(MethodName, "JsonSerializationException: " + ex); }
+                //Log Event Items
+                if (L && E != IEnums.Events.None)
+                {
+                    Logger.Log("Event " + E, "\"" + ex.Path + "\" Is A New Item! Looks Like The Event Was Updated.", Logger.Yellow);
+                    Logger.Log("Event " + E, "Inform The Developer And Pass A Copy Of Your Journal Log To Help With Updating The Event", Logger.Yellow);                    
+                }
+
+                //Log All Other Items
+                else if (L && E == IEnums.Events.None)
+                {
+                    Logger.Exception(MethodName, "JsonSerializationException: " + ex);
+                }
 
                 //Disable MissingMemeberHandling
                 Settings.MissingMemberHandling = MissingMemberHandling.Ignore;

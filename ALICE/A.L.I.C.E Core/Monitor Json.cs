@@ -285,6 +285,20 @@ namespace ALICE_Monitors
 
                 #region Flags
 
+                Logger.DebugLine(MethodName, "Total Flag Value: " + Value.Flags, Logger.Yellow);
+
+                #region Altitude From Average Radius
+                if (Value.Flags >= 536870912)
+                {
+                    Value.Flags = Value.Flags - 536870912;
+                    IStatus.AltFromAvgRad = true;
+                }
+                else
+                {
+                    IStatus.AltFromAvgRad = false;
+                }
+                #endregion
+
                 #region Night Vision
                 if (Value.Flags >= 268435456)
                 {
@@ -753,6 +767,10 @@ namespace ALICE_Monitors
                 #endregion
 
                 #endregion
+
+                IStatus.PlanetRadius = Value.PlanetRadius;
+                IStatus.BodyName = Value.BodyName;
+                IStatus.LegalStatus = Value.LegalStatus;
 
                 IStatus.Altitude = Value.Altitude;
                 IStatus.Latitude = Value.Latitude;

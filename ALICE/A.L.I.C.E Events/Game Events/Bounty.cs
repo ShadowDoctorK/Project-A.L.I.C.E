@@ -79,6 +79,7 @@ namespace ALICE_Events
                     Variables.Record(Name + "_Vehicle", "Skimmer");
                     Variables.Record(Name + "_Reward", I.Reward);
                 }
+
                 //Ship
                 else
                 {

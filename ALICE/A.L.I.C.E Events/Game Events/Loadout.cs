@@ -30,6 +30,14 @@ namespace ALICE_Events
         public decimal Rebuy { get; set; }
         public List<Module> Modules { get; set; }
 
+        #region 2019.04.23 Update
+
+        #endregion
+        public decimal UnladenMass { get; set; }
+        public decimal CargoCapacity { get; set; }
+        public decimal MaxJumpRange { get; set; }
+        public FuelData FuelCapacity { get; set; }
+
         //Default Constructor
         public Loadout()
         {
@@ -42,6 +50,13 @@ namespace ALICE_Events
             ModulesValue = Dec();
             Rebuy = Dec();
             Modules = new List<Module>();
+
+            #region 2019.04.23 Update
+            UnladenMass = Dec();
+            CargoCapacity = Dec();
+            MaxJumpRange = Dec();
+            FuelCapacity = new FuelData();
+            #endregion
         }
 
         public class Module : Catch
@@ -114,6 +129,20 @@ namespace ALICE_Events
                 LessIsGood = Dec();
             }
         }
+
+        #region 2019.04.23
+        public class FuelData : Catch
+        {
+            public decimal Main { get; set; }
+            public decimal Reserve { get; set; }
+
+            public FuelData()
+            {
+                Main = Dec();
+                Reserve = Dec();
+            }
+        }
+        #endregion
     }
 
     /// <summary>
@@ -138,6 +167,11 @@ namespace ALICE_Events
                 Variables.Record(Name + "_Rebuy", I.Rebuy);
                 Variables.Record(Name + "_Type", I.Ship);
                 Variables.Record(Name + "_ID", I.ShipID);
+                Variables.Record(Name + "_FuelMain", I.FuelCapacity.Main);
+                Variables.Record(Name + "_FuelReserve", I.FuelCapacity.Reserve);
+                Variables.Record(Name + "_UnladenMass", I.UnladenMass);
+                Variables.Record(Name + "_MaxJumpRange", I.MaxJumpRange);
+                Variables.Record(Name + "_CargoCapacity", I.CargoCapacity);
 
                 foreach (var M in I.Modules)
                 {
@@ -258,9 +292,6 @@ namespace ALICE_Events
 
                 //Update Equipment Settings.           
                 IVehicles.PullEquipmentSettings();
-
-                //Log Mothership Load
-                //Logger.Log(ClassName, "Loaded " + IObjects.Mothership.I.FingerPrint, Logger.Purple);
 
                 //Load Firegroup Settings
                 ISettings.Firegroup.Load();

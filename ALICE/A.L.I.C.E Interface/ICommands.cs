@@ -551,11 +551,13 @@ namespace ALICE_Interface
             Holo_Me,
             Engineers,
             Codex,
+            Training,
             Squadrons,
             Galatic_Powers,
 
             //====== Ship Tab ======
             Functions,
+            Flight_Assistance,
             Preferences,
             Statistics,
 

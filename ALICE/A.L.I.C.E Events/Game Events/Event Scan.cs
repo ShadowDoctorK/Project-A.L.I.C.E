@@ -49,6 +49,12 @@ namespace ALICE_Events
         public List<ScanRings> Rings { get; set; }
         public string ReserveLevel { get; set; }
 
+        #region 2019.04.23 Update
+        public decimal Subclass { get; set; }
+        public bool WasMapped { get; set; }
+        public bool WasDiscovered { get; set; }
+        #endregion
+
         //Default Constructor
         public Scan()
         {
@@ -86,6 +92,12 @@ namespace ALICE_Events
             AxialTilt = Dec();
             Rings = new List<ScanRings>();
             ReserveLevel = Str();
+
+            #region 2019.04.23 Update
+            WasDiscovered = Bool();
+            WasMapped = Bool();
+            Subclass = Dec();
+            #endregion
         }
 
         public class ScanComposition : Catch
@@ -165,47 +177,65 @@ namespace ALICE_Events
     /// Event Logic & Data Storage Class
     /// </summary>
     public class Event_Scan : Event
-    {
+    {        
+        //Event Instance
+        public Scan I { get; set; } = new Scan();
+
         //Variable Generation
         public override void Generate(object O)
         {
             try
             {
-                var Event = (Scan)O;
-
-                Variables.Record(Name + "_Type", Event.ScanType);
-                Variables.Record(Name + "_Name", Event.BodyName);
-                Variables.Record(Name + "_ID", Event.BodyID);
-                Variables.Record(Name + "_ArrivalDistance", Event.DistanceFromArrivalLS);
-                Variables.Record(Name + "_TidalLock", Event.TidalLock);
-                Variables.Record(Name + "_TerraformState", Event.TerraformState);
-                Variables.Record(Name + "_PlanetClass", Event.PlanetClass);
-                Variables.Record(Name + "_Atmosphere", Event.Atmosphere);
-                Variables.Record(Name + "_AtmosphereType", Event.AtmosphereType);
-                Variables.Record(Name + "_Volcanism", Event.Volcanism);
-                Variables.Record(Name + "_MassEM", Event.MassEM);
-                Variables.Record(Name + "_StarType", Event.StarType);
-                Variables.Record(Name + "_StellarMass", Event.StellarMass);
-                Variables.Record(Name + "_Radius", Event.Radius);
-                Variables.Record(Name + "_SurfaceGravity", Event.SurfaceGravity);
-                Variables.Record(Name + "_AbsoluteMagnitude", Event.AbsoluteMagnitude);
-                Variables.Record(Name + "_Age_MY", Event.Age_MY);
-                Variables.Record(Name + "_SurfaceTemperature", Event.SurfaceTemperature);
-                Variables.Record(Name + "_SurfacePressure", Event.SurfacePressure);
-                Variables.Record(Name + "_Landable", Event.Landable);
-                Variables.Record(Name + "_Luminosity", Event.Luminosity);
-                Variables.Record(Name + "_SemiMajorAxis", Event.SemiMajorAxis);
-                Variables.Record(Name + "_Eccentricity", Event.Eccentricity);
-                Variables.Record(Name + "_OrbitalInclination", Event.Landable);
-                Variables.Record(Name + "_Periapsis", Event.Periapsis);
-                Variables.Record(Name + "_OrbitalPeriod", Event.OrbitalPeriod);
-                Variables.Record(Name + "_RotationPeriod", Event.RotationPeriod);
-                Variables.Record(Name + "_AxialTilt", Event.AxialTilt);
-                Variables.Record(Name + "_ReserveLevel", Event.ReserveLevel);
+                Variables.Record(Name + "_Type", I.ScanType);
+                Variables.Record(Name + "_Name", I.BodyName);
+                Variables.Record(Name + "_ID", I.BodyID);
+                Variables.Record(Name + "_ArrivalDistance", I.DistanceFromArrivalLS);
+                Variables.Record(Name + "_TidalLock", I.TidalLock);
+                Variables.Record(Name + "_TerraformState", I.TerraformState);
+                Variables.Record(Name + "_PlanetClass", I.PlanetClass);
+                Variables.Record(Name + "_Atmosphere", I.Atmosphere);
+                Variables.Record(Name + "_AtmosphereType", I.AtmosphereType);
+                Variables.Record(Name + "_Volcanism", I.Volcanism);
+                Variables.Record(Name + "_MassEM", I.MassEM);
+                Variables.Record(Name + "_StarType", I.StarType);
+                Variables.Record(Name + "_StarSublcass", I.Subclass);
+                Variables.Record(Name + "_StellarMass", I.StellarMass);
+                Variables.Record(Name + "_Radius", I.Radius);
+                Variables.Record(Name + "_SurfaceGravity", I.SurfaceGravity);
+                Variables.Record(Name + "_AbsoluteMagnitude", I.AbsoluteMagnitude);
+                Variables.Record(Name + "_Age_MY", I.Age_MY);
+                Variables.Record(Name + "_SurfaceTemperature", I.SurfaceTemperature);
+                Variables.Record(Name + "_SurfacePressure", I.SurfacePressure);
+                Variables.Record(Name + "_Landable", I.Landable);
+                Variables.Record(Name + "_Luminosity", I.Luminosity);
+                Variables.Record(Name + "_SemiMajorAxis", I.SemiMajorAxis);
+                Variables.Record(Name + "_Eccentricity", I.Eccentricity);
+                Variables.Record(Name + "_OrbitalInclination", I.Landable);
+                Variables.Record(Name + "_Periapsis", I.Periapsis);
+                Variables.Record(Name + "_OrbitalPeriod", I.OrbitalPeriod);
+                Variables.Record(Name + "_RotationPeriod", I.RotationPeriod);
+                Variables.Record(Name + "_AxialTilt", I.AxialTilt);
+                Variables.Record(Name + "_ReserveLevel", I.ReserveLevel);
+                Variables.Record(Name + "_Discovered", I.WasDiscovered);
+                Variables.Record(Name + "_Mapped", I.WasMapped);
             }
             catch (Exception ex)
             {
                 ExceptionGenerate(Name, ex);
+            }
+        }
+
+        //Plugin Logic Preparations
+        public override void Prepare(object O)
+        {
+            try
+            {
+                //Update Event Instance
+                I = (Scan)O;
+            }
+            catch (Exception ex)
+            {
+                ExceptionPrepare(Name, ex);
             }
         }
 
@@ -214,13 +244,11 @@ namespace ALICE_Events
         {
             try
             {
-                var Event = (Scan)O;
-
                 //Update Current System Information
-                IObjects.SystemCurrent.Update_StellarBody(Event);
+                IObjects.SystemCurrent.Update_StellarBody(I);
 
                 //Evaluate Scan Data
-                IStatus.Scan.Evaluate(Event.BodyID);
+                IStatus.Scan.Evaluate(I.BodyID);
             }
             catch (Exception ex)
             {

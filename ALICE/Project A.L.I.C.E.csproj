@@ -157,7 +157,7 @@
     <Compile Include="A.L.I.C.E Events\Update\Event FighterRebuilt.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Fileheader.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Friends.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event FSDJump.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\FSDJump.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event FSDTarget.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event FSSAllBodiesFound.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event FSSDiscoveryScan.cs" />
@@ -173,8 +173,8 @@
     <Compile Include="A.L.I.C.E Events\Update\Event LeaveBody.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Liftoff.cs" />
     <Compile Include="A.L.I.C.E Events\Game Events\LoadGame.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event Loadout.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event Location.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\Loadout.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\Location.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Market.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event MarketBuy.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event MarketSell.cs" />
@@ -231,7 +231,7 @@
     <Compile Include="A.L.I.C.E Events\Update\Event RestockVehicle.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Resurrect.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event SAAScanComplete.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event Scan.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\Event Scan.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Scanned.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event ScientificResearch.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Screenshot.cs" />

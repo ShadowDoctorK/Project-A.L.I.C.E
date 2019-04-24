@@ -332,14 +332,15 @@ namespace ALICE_Interface
                                     return;
 
                                 case L3.Engineers:
-                                    Call.Panel.System.Home.Engineers();
-
-                                    //Set All Panels To False
-                                    Call.Panel.MainFourIsFalse();                                    
+                                    Call.Panel.System.Home.Engineers();                                 
                                     return;
 
                                 case L3.Codex:
                                     Call.Panel.System.Home.Codex();
+                                    return;
+
+                                case L3.Training:
+                                    Call.Panel.System.Home.Training();
                                     return;
 
                                 case L3.Squadrons:
@@ -391,6 +392,10 @@ namespace ALICE_Interface
 
                                 case L3.Functions:
                                     Call.Panel.System.Ship.Functions();
+                                    return;
+
+                                case L3.Flight_Assistance:
+                                    Call.Panel.System.Ship.FlightAssistance();
                                     return;
 
                                 case L3.Preferences:

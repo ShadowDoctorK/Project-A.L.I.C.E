@@ -48,7 +48,7 @@ namespace ALICE_Panels
 
             public NavigationTab()
             {
-                Main = 2;
+                Main = 1;   //Set Filters
                 Tab = 1;
             }
 
@@ -74,7 +74,12 @@ namespace ALICE_Panels
                 Open(MethodName);
 
                 UpdateCursor(1, 2, false);
-                if (Main != 1) { Main = UpdateCursor(1, Main, true); }
+
+                IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+
+                Main = 1;
             }
 
             public void GalaxyMap()
@@ -83,7 +88,13 @@ namespace ALICE_Panels
                 Open(MethodName);
 
                 UpdateCursor(1, 2, false);
-                if (Main != 2) { Main = UpdateCursor(2, Main, true); }
+
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+
+                Main = 2;                
             }
 
             public void SystemMap()
@@ -92,7 +103,13 @@ namespace ALICE_Panels
                 Open(MethodName);
 
                 UpdateCursor(1, 2, false);
-                if (Main != 3) { Main = UpdateCursor(3, Main, true); }
+
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
+                IKeyboard.Press(IKey.UI_Panel_Up, 100, IKey.DelayPanel);
+
+                Main = 3;
             }
 
             /// <summary>
@@ -110,9 +127,6 @@ namespace ALICE_Panels
             /// <param name="Syst">(Systems)  Pass "True" To Enable Filter</param>
             public void FilterLocations(bool Set, bool Star = false, bool Aste = false, bool Plan = false, bool Land = false, bool Sett = false, bool Stat = false, bool Poin = false, bool Sign = false, bool Syst = false)
             {
-                //Track The Menu Position
-                decimal Position = 1;
-
                 //Check If First Run, Verify Filter Status With CMDR
                 if (FilterCheck == true && Set)
                 {
@@ -139,7 +153,9 @@ namespace ALICE_Panels
                             IResponse.General.Positve(true);
 
                             //Move To Reset Option "X" And Reset
-                            UpdateCursor(2, 1, false, 150); Select(150);
+                            IKeyboard.Press(IKey.UI_Panel_Down, 150, IKey.DelayPanel);
+                            Select(150);
+                            IKeyboard.Press(IKey.UI_Panel_Up, 150, IKey.DelayPanel);
                             break;
 
                         case ALICE_Status.Status_Interaction.Answers.No:
@@ -162,11 +178,13 @@ namespace ALICE_Panels
                 //If Filters Are Set & We Are Setting New Filters
                 if (Set && FiltersSet)
                 {
-                    //Move To Set Filters
                     SetFilters();
 
                     //Move To Reset Option "X" And Reset
-                    UpdateCursor(2, 1, false, 150); Select();
+                    IKeyboard.Press(IKey.UI_Panel_Down, 150, IKey.DelayPanel);
+                    Select(150);
+                    IKeyboard.Press(IKey.UI_Panel_Up, 150, IKey.DelayPanel);
+
                     Thread.Sleep(100);
                 }
 
@@ -267,7 +285,9 @@ namespace ALICE_Panels
                     SetFilters();
 
                     //Move To Reset Option "X" And Reset
-                    UpdateCursor(2, 1, false, 150); Select();
+                    IKeyboard.Press(IKey.UI_Panel_Down, 150, IKey.DelayPanel);
+                    Select(150);
+                    IKeyboard.Press(IKey.UI_Panel_Up, 150, IKey.DelayPanel);
 
                     //Update Filters Set
                     FiltersSet = false;

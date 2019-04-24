@@ -1,6 +1,4 @@
-﻿using ALICE_Actions;
-using ALICE_Core;
-using ALICE_Data;
+﻿using ALICE_Data;
 using ALICE_Equipment;
 using ALICE_Events;
 using ALICE_Internal;
@@ -10,9 +8,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ALICE_Objects
 {

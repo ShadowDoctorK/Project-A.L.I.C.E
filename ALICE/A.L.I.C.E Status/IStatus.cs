@@ -1,8 +1,5 @@
 ﻿using System;
 using ALICE.Properties;
-using ALICE_Equipment;
-using ALICE_Events;
-using ALICE_Internal;
 using ALICE_Status;
 
 namespace ALICE_Core
@@ -120,7 +117,11 @@ namespace ALICE_Core
             get => _System;
             set => _System = value;
         }
-        
+
+        public static string BodyName = "None";
+        public static string LegalStatus = "None";
+
+        public static decimal PlanetRadius = -1;
         public static decimal GUI_Focus = 0;
         public static decimal Latitude = -1;
         public static decimal Longitude = -1;
@@ -148,6 +149,7 @@ namespace ALICE_Core
         public static bool FlightAssist = false;
         public static bool Supercruise = false;        
         public static bool Touchdown = false;
+        public static bool AltFromAvgRad = false;
 
         //StartJump Event
         public static bool Hyperspace = false;
