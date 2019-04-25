@@ -160,7 +160,7 @@
     <Compile Include="A.L.I.C.E Events\Game Events\FSDJump.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event FSDTarget.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event FSSAllBodiesFound.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event FSSDiscoveryScan.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\FSSDiscoveryScan.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event FSSSignalDiscovered.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event HeatDamage.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event HeatWarning.cs" />
@@ -231,7 +231,7 @@
     <Compile Include="A.L.I.C.E Events\Update\Event RestockVehicle.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Resurrect.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event SAAScanComplete.cs" />
-    <Compile Include="A.L.I.C.E Events\Game Events\Event Scan.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\Scan.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Scanned.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event ScientificResearch.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Screenshot.cs" />

@@ -1,6 +1,5 @@
 ﻿using ALICE_Actions;
 using ALICE_Debug;
-using ALICE_Internal;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -22,15 +21,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Select:
-                            Targeting.Select_Wingman(1, PlugIn.CommandAudio);
+                            Targeting.Select_Wingman(1, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Nav_Lock:
-                            Targeting.Select_Wingmans_NavLock(1, PlugIn.CommandAudio);
+                            Targeting.Select_Wingmans_NavLock(1, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Target:
-                            Targeting.Select_Wingmans_Target(1, PlugIn.CommandAudio);
+                            Targeting.Select_Wingmans_Target(1, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -43,15 +42,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Select:
-                            Targeting.Select_Wingman(2, PlugIn.CommandAudio);
+                            Targeting.Select_Wingman(2, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Nav_Lock:
-                            Targeting.Select_Wingmans_NavLock(2, PlugIn.CommandAudio);
+                            Targeting.Select_Wingmans_NavLock(2, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Target:
-                            Targeting.Select_Wingmans_Target(2, PlugIn.CommandAudio);
+                            Targeting.Select_Wingmans_Target(2, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -64,15 +63,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Select:
-                            Targeting.Select_Wingman(3, PlugIn.CommandAudio);
+                            Targeting.Select_Wingman(3, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Nav_Lock:
-                            Targeting.Select_Wingmans_NavLock(3, PlugIn.CommandAudio);
+                            Targeting.Select_Wingmans_NavLock(3, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Target:
-                            Targeting.Select_Wingmans_Target(3, PlugIn.CommandAudio);
+                            Targeting.Select_Wingmans_Target(3, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -85,47 +84,47 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Next:
-                            Targeting.Cycle_Subsystems(1, true, PlugIn.CommandAudio);
+                            Targeting.Cycle_Subsystems(1, true, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Previous:
-                            Targeting.Cycle_Subsystems(1, false, PlugIn.CommandAudio);
+                            Targeting.Cycle_Subsystems(1, false, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Shield_Generator:
-                            Assisted.Targeting.Subsystem_Target("Shield Generator", PlugIn.CommandAudio);
+                            Assisted.Targeting.Subsystem_Target("Shield Generator", IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Cargo_Hatch:
-                            Assisted.Targeting.Subsystem_Target("Cargo Hatch", PlugIn.CommandAudio);
+                            Assisted.Targeting.Subsystem_Target("Cargo Hatch", IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.FSD_Interdictor:
-                            Assisted.Targeting.Subsystem_Target("FSD Interdictor", PlugIn.CommandAudio);
+                            Assisted.Targeting.Subsystem_Target("FSD Interdictor", IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Power_Distributor:
-                            Assisted.Targeting.Subsystem_Target("Power Distributor", PlugIn.CommandAudio);
+                            Assisted.Targeting.Subsystem_Target("Power Distributor", IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Life_Support:
-                            Assisted.Targeting.Subsystem_Target("Life Support", PlugIn.CommandAudio);
+                            Assisted.Targeting.Subsystem_Target("Life Support", IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Hyperdrive:
-                            Assisted.Targeting.Subsystem_Target("FSD", PlugIn.CommandAudio);
+                            Assisted.Targeting.Subsystem_Target("FSD", IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Power_Plant:
-                            Assisted.Targeting.Subsystem_Target("Power Plant", PlugIn.CommandAudio);
+                            Assisted.Targeting.Subsystem_Target("Power Plant", IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Engines:
-                            Assisted.Targeting.Subsystem_Target("Drive", PlugIn.CommandAudio);
+                            Assisted.Targeting.Subsystem_Target("Drive", IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Cargo_Scanner:
-                            Assisted.Targeting.Subsystem_Target("Cargo Scanner", PlugIn.CommandAudio);
+                            Assisted.Targeting.Subsystem_Target("Cargo Scanner", IGet.External.CommandAudio(ICommands.M));
                             return;
                             
                         default:
@@ -258,12 +257,12 @@ namespace ALICE_Interface
 
                         case L2.General:
                             Assisted.Targeting.Hostile = false;
-                            Assisted.Targeting.SeriesScan(PlugIn.CommandAudio);
+                            Assisted.Targeting.SeriesScan(IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Hostile:
                             Assisted.Targeting.Hostile = true;
-                            Assisted.Targeting.SeriesScan(PlugIn.CommandAudio);
+                            Assisted.Targeting.SeriesScan(IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Pause:
@@ -290,15 +289,15 @@ namespace ALICE_Interface
                             switch (Command[3].Lookup<L3>())
                             {
                                 case L3.Add_Pilot:
-                                    Assisted.Targeting.BlackList_Pilot(PlugIn.CommandAudio);
+                                    Assisted.Targeting.BlackList_Pilot(IGet.External.CommandAudio(ICommands.M));
                                     return;
 
                                 case L3.Add_Faction:
-                                    Assisted.Targeting.BlackList_Faction(PlugIn.CommandAudio);
+                                    Assisted.Targeting.BlackList_Faction(IGet.External.CommandAudio(ICommands.M));
                                     return;
 
                                 case L3.Clear_All:
-                                    Assisted.Targeting.BlackList_Reset(PlugIn.CommandAudio);
+                                    Assisted.Targeting.BlackList_Reset(IGet.External.CommandAudio(ICommands.M));
                                     return;
 
                                 default:
@@ -311,15 +310,15 @@ namespace ALICE_Interface
                             switch (Command[3].Lookup<L3>())
                             {
                                 case L3.Add_Pilot:
-                                    Assisted.Targeting.WhiteList_Pilot(PlugIn.CommandAudio);
+                                    Assisted.Targeting.WhiteList_Pilot(IGet.External.CommandAudio(ICommands.M));
                                     return;
 
                                 case L3.Add_Faction:
-                                    Assisted.Targeting.WhiteList_Faction(PlugIn.CommandAudio);
+                                    Assisted.Targeting.WhiteList_Faction(IGet.External.CommandAudio(ICommands.M));
                                     return;
 
                                 case L3.Clear_All:
-                                    Assisted.Targeting.WhiteList_Reset(PlugIn.CommandAudio);
+                                    Assisted.Targeting.WhiteList_Reset(IGet.External.CommandAudio(ICommands.M));
                                     return;
 
                                 default:

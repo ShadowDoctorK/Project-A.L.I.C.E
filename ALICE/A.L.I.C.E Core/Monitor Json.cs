@@ -662,7 +662,7 @@ namespace ALICE_Monitors
                 if (Value.Flags != 0)
                 {
                     Logger.Error(MethodName, "Please Inform The Developer.", Logger.Red);
-                    Logger.Error(MethodName, "Warning, Accuracy Of The Game Information Can Not Be Verified. Some This Might Not Work Correctly.", Logger.Red);
+                    Logger.Error(MethodName, "Warning, Accuracy Of The Game Information Can Not Be Verified. Some Things Might Not Work Correctly.", Logger.Red);
                     Logger.Error(MethodName, "(" + Value.Flags + ") We Didn't Fully Resolve The Status Flag. Looks Like New Items Were Added.", Logger.Red);
                 }
 

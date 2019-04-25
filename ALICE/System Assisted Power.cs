@@ -256,8 +256,6 @@ namespace ALICE_Actions
             #region Audio
             if (PlugIn.Audio == "TTS")
             {
-
-
                 Speech.Speak
                     (
                     "".Phrase(GN_Positive.Default, true)

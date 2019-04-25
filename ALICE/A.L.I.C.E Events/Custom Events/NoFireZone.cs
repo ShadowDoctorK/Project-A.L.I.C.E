@@ -186,6 +186,7 @@ namespace ALICE_Events
                     //Audio - Exited No Fire Zone
                     IResponse.Docking.NoFireZoneExited(
                         I.Station,                                                  //Pass Station Name
+                        (I.Station != "Unknown"),                                   //Prevents Supercruise Exit Triggering Audio
                         ICheck.Initialized(ClassName));                             //Check Plugin Initialized
 
                     Thread.Sleep(100);
@@ -194,6 +195,7 @@ namespace ALICE_Events
                     {
                         //Audio - Disabling Weapon Safeties
                         IResponse.Docking.WeaponSafetiesDisabling(
+                            (I.Station != "Unknown"),                               //Prevents Supercruise Exit Triggering Audio
                             ICheck.Initialized(ClassName));                         //Check Plugin Initialized
                     }
                 }
