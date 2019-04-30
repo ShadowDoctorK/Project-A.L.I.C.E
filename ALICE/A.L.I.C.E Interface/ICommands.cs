@@ -235,8 +235,7 @@ namespace ALICE_Interface
             Throttle_Speed,
             Extended_Logging,
             Debug_Mode,
-            Variable_Mode,
-            Monitor_Status,
+            Variable_Mode,           
             Master_Audio,
             Logger,
             #endregion

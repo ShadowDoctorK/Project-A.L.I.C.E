@@ -3,8 +3,8 @@
 //Source Journal Line: (Custom A.L.I.C.E Event)
 
 using ALICE_Debug;
-using ALICE_Equipment;
-using ALICE_Internal;
+using ALICE_Response;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -31,13 +31,13 @@ namespace ALICE_Events
             try
             {
                 //Audio - FuelCritical
-                IEquipment.FuelTank.FuelCritical(
+                IResponse.Fuel.Critical(
                     ICheck.Initialized(ClassName),                      //Check Plugin Initialized
                     ICheck.InitializedStatus(ClassName),                //Check Status.Json Initialized
                     ICheck.Status.FuelScooping(ClassName, false));      //Check Not Fuel Scooping     
 
                 //Update Status Object
-                IEquipment.FuelTank.Critical = true;
+                IStatus.Fuel.Critical = true;
             }
             catch (Exception ex)
             {

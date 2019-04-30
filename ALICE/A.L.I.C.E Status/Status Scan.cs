@@ -3,11 +3,6 @@ using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Settings;
 using ALICE_Synthesizer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ALICE_Status
 {
@@ -88,7 +83,7 @@ namespace ALICE_Status
             Speech.Speak(""
                 .Phrase(EVT_Scan.Target_Aquired) //Tokens: Name, Type
                 .Phrase(EVT_Scan.Terraformable, false, T)
-                .Phrase(EVT_Scan.Outside_Distance, false, (D && ISettings.ScanTravelDist))
+                .Phrase(EVT_Scan.Outside_Distance, false, (D && ISettings.User.ScanTravelDist()))
                 .Phrase(EVT_Scan.Est_Detailed_Scan, true) //Tokens: Number
                 .Token("[NAME]", GetPlanetName(Body))
                 .Token("[TYPE]", Body.PlanetClass)
@@ -291,7 +286,7 @@ namespace ALICE_Status
         {
             string MethodName = "Scan Distance Limit";
 
-            switch (ISettings.ScanDistLimit)
+            switch (ISettings.User.ScanDistLimit())
             {
                 //Unlimited
                 case 0:
@@ -415,55 +410,55 @@ namespace ALICE_Status
             switch (O.PlanetClass)
             {
                 case "Earthlike body":
-                    return ISettings.BodyEarthLike;
+                    return ISettings.User.BodyEarthLike();
 
                 case "Water world":
 
                     //Check If Terraformable
                     if (O.TerraformState != "None")
                     {
-                        return ISettings.BodyWaterTerra;
+                        return ISettings.User.BodyWaterTerra();
                     }
 
                     //Normal
-                    return ISettings.BodyWater;
+                    return ISettings.User.BodyWater();
 
                 case "High metal content body":
 
                     //Check If Terraformable
                     if (O.TerraformState != "None")
                     {
-                        return ISettings.BodyHMCTerra;
+                        return ISettings.User.BodyHMCTerra();
                     }
 
                     //Normal
-                    return ISettings.BodyHMC;
+                    return ISettings.User.BodyHMC();
 
                 case "Ammonia world":
-                    return ISettings.BodyAmmonia;
+                    return ISettings.User.BodyAmmonia();
 
                 case "Ammonia body":
-                    return ISettings.BodyAmmonia;
+                    return ISettings.User.BodyAmmonia();
 
                 case "Rocky body":
 
                     //Check If Terraformable
                     if (O.TerraformState != "None")
                     {
-                        return ISettings.BodyRockyTerra;
+                        return ISettings.User.BodyRockyTerra();
                     }
 
                     //Normal
                     return false;
 
                 case "Metal rich body":
-                    return ISettings.BodyMetalRich;
+                    return ISettings.User.BodyMetalRich();
 
                 case "Sudarsky class I gas giant":
                     return false;
 
                 case "Sudarsky class II gas giant":
-                    return ISettings.BodyGasGiantII;
+                    return ISettings.User.BodyGasGiantII();
 
                 case "Sudarsky class III gas giant":
                     return false;

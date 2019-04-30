@@ -3,9 +3,8 @@
 //Source Journal Line: (Custom A.L.I.C.E Event)
 //Reference Journal Line: { "timestamp":"2018-11-22T16:57:24Z", "event":"CommitCrime", "CrimeType":"fireInNoFireZone", "Faction":"Independent Detention Foundation", "Fine":100 }
 
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Internal;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

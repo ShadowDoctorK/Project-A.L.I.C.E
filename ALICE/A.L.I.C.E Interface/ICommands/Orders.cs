@@ -1,5 +1,5 @@
-﻿using ALICE_Debug;
-using ALICE_Settings;
+﻿using ALICE_Actions;
+using ALICE_Debug;
 using System.Collections.Generic;
 
 namespace ALICE_Interface
@@ -20,15 +20,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_AutoSystemScans(true);
+                            IActions.Order.AutoSystemScans(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_AutoSystemScans(false);
+                            IActions.Order.AutoSystemScans(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_AutoSystemScans(!IGet.Order.AssistSystemScan(ICommands.M));
+                            IActions.Order.AutoSystemScans(!IGet.Order.AssistSystemScan(ICommands.M));
                             return;
                        
                         default:
@@ -41,15 +41,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_AutoDockingProcedure(true);
+                            IActions.Order.AutoDockingProcedure(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_AutoDockingProcedure(false);
+                            IActions.Order.AutoDockingProcedure(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_AutoDockingProcedure(!IGet.Order.AssistDocking(ICommands.M));
+                            IActions.Order.AutoDockingProcedure(!IGet.Order.AssistDocking(ICommands.M));
                             return;
 
                         default:
@@ -62,15 +62,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_AutoRefuel(true);
+                            //IActions.Order.AutoRefuel(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_AutoRefuel(false);
+                            //IActions.Order.AutoRefuel(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_AutoRefuel(!IGet.Order.AssistRefuel(ICommands.M));
+                            //IActions.Order.AutoRefuel(!IGet.Order.AssistRefuel(ICommands.M));
                             return;
 
                         default:
@@ -83,15 +83,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_AutoRearm(true);
+                            //IActions.Order.AutoRearm(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_AutoRearm(false);
+                            //IActions.Order.AutoRearm(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_AutoRearm(!IGet.Order.AssistRearm(ICommands.M));
+                            //IActions.Order.AutoRearm(!IGet.Order.AssistRearm(ICommands.M));
                             return;
 
                         default:
@@ -104,15 +104,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_AutoRepair(true);
+                            //IActions.Order.AutoRepair(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_AutoRepair(false);
+                            //IActions.Order.AutoRepair(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_AutoRepair(!IGet.Order.AssistRepair(ICommands.M));
+                            //IActions.Order.AutoRepair(!IGet.Order.AssistRepair(ICommands.M));
                             return;
 
                         default:
@@ -125,15 +125,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_AutoHangerEntry(true);
+                            IActions.Order.AutoHangerEntry(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_AutoHangerEntry(false);
+                            IActions.Order.AutoHangerEntry(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_AutoHangerEntry(!IGet.Order.AssistHangerEntry(ICommands.M));
+                            IActions.Order.AutoHangerEntry(!IGet.Order.AssistHangerEntry(ICommands.M));
                             return;
 
                         default:
@@ -146,15 +146,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_CombatPower(true);
+                            IActions.Order.CombatPower(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_CombatPower(false);
+                            IActions.Order.CombatPower(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_CombatPower(!IGet.Order.CombatPower(ICommands.M));
+                            IActions.Order.CombatPower(!IGet.Order.CombatPower(ICommands.M));
                             return;
 
                         default:
@@ -167,15 +167,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_PostJumpSafety(true);
+                            IActions.Order.PostJumpSafety(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_PostJumpSafety(false);
+                            IActions.Order.PostJumpSafety(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_PostJumpSafety(!IGet.Order.PostJumpSafety(ICommands.M));
+                            IActions.Order.PostJumpSafety(!IGet.Order.PostJumpSafety(ICommands.M));
                             return;
 
                         default:
@@ -188,15 +188,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_WeaponSafety(true);
+                            IActions.Order.WeaponSafety(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_WeaponSafety(false);
+                            IActions.Order.WeaponSafety(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_WeaponSafety(!IGet.Order.WeaponSafety(ICommands.M));
+                            IActions.Order.WeaponSafety(!IGet.Order.WeaponSafety(ICommands.M));
                             return;
 
                         default:

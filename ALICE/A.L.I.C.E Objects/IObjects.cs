@@ -30,24 +30,6 @@ namespace ALICE_Objects
             get => _Engineer; set => _Engineer = value;
         }
 
-        private static Object_Mothership _Mothership = new Object_Mothership();
-        public static Object_Mothership Mothership
-        {
-            get => _Mothership; set => _Mothership = value;
-        }
-
-        private static Object_SRV _SRV = new Object_SRV();
-        public static Object_SRV SRV
-        {
-            get => _SRV; set => _SRV = value;
-        }
-
-        private static Object_Fighter _Fighter = new Object_Fighter();
-        public static Object_Fighter Fighter
-        {
-            get => _Fighter; set => _Fighter = value;
-        }
-
         private static Object_System _SystemCurrent = new Object_System();
         public static Object_System SystemCurrent
         {

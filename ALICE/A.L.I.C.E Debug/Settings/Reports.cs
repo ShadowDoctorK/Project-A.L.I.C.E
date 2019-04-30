@@ -13,6 +13,7 @@ namespace ALICE_DebugCheck
 {
     using ALICE_Debug;
     using ALICE_Settings;
+    using ALICE_Status;
 
     public class Reports : Debug
     {
@@ -24,7 +25,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool FuelStatus(string M, bool T, bool L = true)
-        { return Evaluate(M, Item + "(Fuel Status Report)", T, ISettings.FuelStatus, L); }
+        { return Evaluate(M, Item + "(Fuel Status Report)", T, ISettings.User.FuelStatus(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -32,7 +33,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool FuelScoop(string M, bool T, bool L = true)
-        { return Evaluate(M, Item + "(Fuel Scoop Report)", T, ISettings.FuelScoop, L); }
+        { return Evaluate(M, Item + "(Fuel Scoop Report)", T, ISettings.User.FuelScoop(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -40,7 +41,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool ShieldState(string M, bool T, bool L = true)
-        { return Evaluate(M, Item + "(Shield State Report)", T, ISettings.ShieldState, L); }
+        { return Evaluate(M, Item + "(Shield State Report)", T, ISettings.User.ShieldState(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -48,7 +49,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool CollectedBounty(string M, bool T, bool L = true)
-        { return Evaluate(M, Item + "(Collected Bounty Report)", T, ISettings.CollectedBounty, L); }
+        { return Evaluate(M, Item + "(Collected Bounty Report)", T, ISettings.User.CollectedBounty(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -56,7 +57,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool Masslock(string M, bool T, bool L = true)
-        { return Evaluate(M, Item + "(Masslock Report)", T, ISettings.Masslock, L); }
+        { return Evaluate(M, Item + "(Masslock Report)", T, ISettings.User.Masslock(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -64,7 +65,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool StationStatus(string M, bool T, bool L = true)
-        { return Evaluate(M, Item + "(Station Status Report)", T, ISettings.StationStatus, L); }
+        { return Evaluate(M, Item + "(Station Status Report)", T, ISettings.User.StationStatus(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -72,7 +73,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool MaterialCollected(string M, bool T, bool L = true)
-        { return Evaluate(M, Item + "(Material Collected Report)", T, ISettings.MaterialCollected, L); }
+        { return Evaluate(M, Item + "(Material Collected Report)", T, ISettings.User.MaterialCollected(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -80,7 +81,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool MaterialRefined(string M, bool T, bool L = true)
-        { return Evaluate(M, Item + "(Material Refined Report)", T, ISettings.MaterialRefined, L); }
+        { return Evaluate(M, Item + "(Material Refined Report)", T, ISettings.User.MaterialRefined(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -88,7 +89,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool TargetWanted(string M, bool T, bool L = true)
-        { return Evaluate(M, Item + "(Wanted Target Report)", T, ISettings.TargetWanted, L); }
+        { return Evaluate(M, Item + "(Wanted Target Report)", T, ISettings.User.TargetWanted(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -96,7 +97,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool TargetEnemy(string M, bool T, bool L = true)
-        { return Evaluate(M, Item + "(Hostile Faction Report)", T, ISettings.TargetEnemy, L); }
+        { return Evaluate(M, Item + "(Hostile Faction Report)", T, ISettings.User.TargetEnemy(), L); }
     }
 }
 #endregion
@@ -116,6 +117,7 @@ namespace ALICE_DebugGet
 {
     using ALICE_Debug;
     using ALICE_Settings;
+    using ALICE_Status;
 
     public class Reports : Debug
     {
@@ -126,77 +128,77 @@ namespace ALICE_DebugGet
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool FuelStatus(string M, bool L = true)
-        { return Get(M, Item + "(Fuel Status Report)", ISettings.FuelStatus, L); }
+        { return Get(M, Item + "(Fuel Status Report)", ISettings.User.FuelStatus(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool FuelScoop(string M, bool L = true)
-        { return Get(M, Item + "(Fuel Scoop Report)", ISettings.FuelScoop, L); }
+        { return Get(M, Item + "(Fuel Scoop Report)", ISettings.User.FuelScoop(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool ShieldState(string M, bool L = true)
-        { return Get(M, Item + "(Shield State Report)", ISettings.ShieldState, L); }
+        { return Get(M, Item + "(Shield State Report)", ISettings.User.ShieldState(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool CollectedBounty(string M, bool L = true)
-        { return Get(M, Item + "(Collected Bounty Report)", ISettings.CollectedBounty, L); }
+        { return Get(M, Item + "(Collected Bounty Report)", ISettings.User.CollectedBounty(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool Masslock(string M, bool L = true)
-        { return Get(M, Item + "(Masslock Report)", ISettings.Masslock, L); }
+        { return Get(M, Item + "(Masslock Report)", ISettings.User.Masslock(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool NoFireZone(string M, bool L = true)
-        { return Get(M, Item + "(No Fire Zone Report)", ISettings.NoFireZone, L); }
+        { return Get(M, Item + "(No Fire Zone Report)", ISettings.User.NoFireZone(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool StationStatus(string M, bool L = true)
-        { return Get(M, Item + "(Station Status Report)", ISettings.StationStatus, L); }
+        { return Get(M, Item + "(Station Status Report)", ISettings.User.StationStatus(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool MaterialCollected(string M, bool L = true)
-        { return Get(M, Item + "(Material Collected Report)", ISettings.MaterialCollected, L); }
+        { return Get(M, Item + "(Material Collected Report)", ISettings.User.MaterialCollected(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool MaterialRefined(string M, bool L = true)
-        { return Get(M, Item + "(Material Refined Report)", ISettings.MaterialRefined, L); }
+        { return Get(M, Item + "(Material Refined Report)", ISettings.User.MaterialRefined(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool TargetWanted(string M, bool L = true)
-        { return Get(M, Item + "(Wanted Target Report)", ISettings.TargetWanted, L); }
+        { return Get(M, Item + "(Wanted Target Report)", ISettings.User.TargetWanted(), L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool TargetEnemy(string M, bool L = true)
-        { return Get(M, Item + "(Hostile Faction Report)", ISettings.TargetEnemy, L); }
+        { return Get(M, Item + "(Hostile Faction Report)", ISettings.User.TargetEnemy(), L); }
     }
 }
 #endregion

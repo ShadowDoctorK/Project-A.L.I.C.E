@@ -1,10 +1,9 @@
-﻿using ALICE_Core;
-using ALICE_Debug;
-using ALICE_Equipment;
+﻿using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Keybinds;
 using ALICE_Response;
 using ALICE_Settings;
+using ALICE_Status;
 using System.Threading;
 
 namespace ALICE_Actions
@@ -16,6 +15,9 @@ namespace ALICE_Actions
 
     public class Hardpoints
     {
+        public decimal Current { get; set; }
+        public bool Update { get; set; } = true;
+
         /// <summary>
         /// Enum used to control the Mode the hardpoints are in.
         /// </summary>
@@ -255,10 +257,10 @@ namespace ALICE_Actions
                 if (G == 1)
                 {
                     //Select Weapons And Configure Mode
-                    switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.Weapons1))
+                    switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.Weapons1))
                     {
-                        case Settings_Firegroups.S.Failed:
-                            IEquipment.General.SelectionFailed(CA);
+                        case ConfigurationHardpoints.S.Failed:
+                            IResponse.GenericEquipment.SelectionFailed(CA);
                             break;
 
                         default:
@@ -270,10 +272,10 @@ namespace ALICE_Actions
                 else
                 {
                     //Select Weapons And Configure Mode
-                    switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.Weapons2))
+                    switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.Weapons2))
                     {
-                        case Settings_Firegroups.S.Failed:
-                            IEquipment.General.SelectionFailed(CA);
+                        case ConfigurationHardpoints.S.Failed:
+                            IResponse.GenericEquipment.SelectionFailed(CA);
                             break;
 
                         default:
@@ -289,18 +291,18 @@ namespace ALICE_Actions
                 if (G == 1)
                 {
                     //Select Weapons And Configure Mode
-                    switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.Weapons1))
+                    switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.Weapons1))
                     {
-                        case Settings_Firegroups.S.Selected:
-                            IEquipment.General.Selected(CA);
+                        case ConfigurationHardpoints.S.Selected:
+                            IResponse.GenericEquipment.Selected(CA);
                             break;
 
-                        case Settings_Firegroups.S.Failed:
-                            IEquipment.General.SelectionFailed(CA);
+                        case ConfigurationHardpoints.S.Failed:
+                            IResponse.GenericEquipment.SelectionFailed(CA);
                             break;
 
-                        case Settings_Firegroups.S.CurrentlySelected:
-                            IEquipment.General.CurrentlySelected(CA);
+                        case ConfigurationHardpoints.S.CurrentlySelected:
+                            IResponse.GenericEquipment.CurrentlySelected(CA);
                             break;
 
                         default:
@@ -312,18 +314,18 @@ namespace ALICE_Actions
                 else
                 {
                     //Select Weapons And Configure Mode
-                    switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.Weapons2))
+                    switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.Weapons2))
                     {
-                        case Settings_Firegroups.S.Selected:
-                            IEquipment.General.Selected(CA);
+                        case ConfigurationHardpoints.S.Selected:
+                            IResponse.GenericEquipment.Selected(CA);
                             break;
 
-                        case Settings_Firegroups.S.Failed:
-                            IEquipment.General.SelectionFailed(CA);
+                        case ConfigurationHardpoints.S.Failed:
+                            IResponse.GenericEquipment.SelectionFailed(CA);
                             break;
 
-                        case Settings_Firegroups.S.CurrentlySelected:
-                            IEquipment.General.CurrentlySelected(CA);
+                        case ConfigurationHardpoints.S.CurrentlySelected:
+                            IResponse.GenericEquipment.CurrentlySelected(CA);
                             break;
 
                         default:
@@ -398,18 +400,125 @@ namespace ALICE_Actions
             //Main Weapons Group
             if (S == 1)
             {
-                ISettings.Firegroup.Assign(Settings_Firegroups.Item.Weapons1,
-                    ISettings.Firegroup.ConvertGroupToEnum(G),
-                    Settings_Firegroups.Fire.Primary);
+                ISettings.Firegroups.Config.Assign(ConfigurationHardpoints.Item.Weapons1,
+                    ISettings.Firegroups.Config.ConvertGroupToEnum(G),
+                    ConfigurationHardpoints.Fire.Primary);
             }
 
             //Secodnary Weapons Group
             else
             {
-                ISettings.Firegroup.Assign(Settings_Firegroups.Item.Weapons2,
-                    ISettings.Firegroup.ConvertGroupToEnum(G),
-                    Settings_Firegroups.Fire.Primary);
+                ISettings.Firegroups.Config.Assign(ConfigurationHardpoints.Item.Weapons2,
+                    ISettings.Firegroups.Config.ConvertGroupToEnum(G),
+                    ConfigurationHardpoints.Fire.Primary);
             }            
         }
-    }
+
+        public void TotalGroups(bool CommandAudio)
+        {
+            string MethodName = "Hardpoings (Total Groups)";
+
+            //Check Plugin Initialized
+            if (ICheck.Initialized(MethodName) == false) { return; }
+
+            decimal Saved = Current;
+            decimal Tracked = 1;
+
+            #region Valid Command Checks
+            //Docked Check
+            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked, true) == true)
+            {
+                return;
+            }
+
+            //Touchdown Check
+            if (ICheck.Status.Touchdown(MethodName, false) == false)
+            {
+                return;
+            }
+            #endregion
+
+            IKeyboard.Press(IKey.Cycle_Next_Fire_Group, 1500, IKey.DelayFireGroup);
+
+            decimal Count = 10; while (IActions.Hardpoints.Current != Saved && Count != 0)
+            {
+                Count--; if (Current > Tracked) { Tracked = Current; }
+                IKeyboard.Press(IKey.Cycle_Next_Fire_Group, 1500, IKey.DelayFireGroup);
+                Logger.DebugLine(MethodName, "Tracking Group: " + Tracked, Logger.Yellow);
+            }
+
+            if (Count == 0)
+            {
+                Logger.Log(MethodName, "Inaccurate Firegroup Detection, Try Again...", Logger.Red);
+                return;
+            }
+
+            if (ISettings.Firegroups.Config.Groups != Tracked)
+            {
+                //Audio Updating Complete
+                //Audio Total Changed 
+
+                ISettings.Firegroups.Config.Groups = Tracked;
+                ISettings.Firegroups.UpdateConfig(MethodName, IStatus.VehicleID, IStatus.FingerPrint);
+            }
+
+            Logger.Log(MethodName, "Total Firegroups = " + Tracked, Logger.Yellow, true);
+        }
+
+        public void Select(decimal Target, bool CommandAudio, bool HudSwitch = false, bool HudMode = false)
+        {
+            string MethodName = "Firegroup Select";
+
+            #region Validation
+            //Check Space
+            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
+            {
+                //Audio - Cant Do That
+                return;
+            }
+
+            //Check Valid Group
+            if (Target < 1 || Target > 8)
+            {
+                Logger.Log(MethodName, Target + " Is Not A Valid Fire Group. Must Be A Number Between 1 & 8.", Logger.Red);
+                return;
+            }
+            #endregion
+
+            #region HUD Mode
+            if (HudSwitch)
+            {
+                if (ICheck.Status.AnalysisMode(MethodName, HudMode) == false)
+                {
+                    IActions.Hardpoints.Mode(HudMode, CommandAudio); Thread.Sleep(500);
+                }
+            }
+            #endregion
+
+            Logger.DebugLine(MethodName, "Target Firegroup: " + Target + " | Current Firegroup: " + Current, Logger.Yellow);
+
+            if (Target <= ISettings.Firegroups.Config.Groups)
+            {
+                if (Target < Current)
+                {
+                    decimal Cycle = Current - Target; while (Cycle != 0 && Cycle > 0)
+                    { IKeyboard.Press(IKey.Cycle_Previous_Fire_Group, 100, IKey.DelayFireGroup); Cycle--; }
+                }
+                else if (Target > Current)
+                {
+                    decimal Cycle = Target - Current; while (Cycle != 0 && Cycle > 0)
+                    { IKeyboard.Press(IKey.Cycle_Next_Fire_Group, 100, IKey.DelayFireGroup); Cycle--; }
+                }
+
+                Current = Target;
+
+                //Audio - Selected
+                return;
+            }
+
+            //Audio - Not Valid
+            Logger.Log(MethodName, "Not A Valid Firegroup. Total Groups Detected: " + ISettings.Firegroups.Config.Groups, Logger.Red);
+            return;
+        }
+    }   
 }

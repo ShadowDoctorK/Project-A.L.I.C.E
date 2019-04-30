@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 4:40 PM
 //Source Journal Line: { "timestamp":"2018-09-16T11:42:22Z", "event":"EngineerContribution", "Engineer":"Elvira Martuuk", "EngineerID":300160, "Type":"Commodity", "Commodity":"soontillrelics", "Commodity_Localised":"Soontill Relics", "Quantity":3, "TotalQuantity":3 }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

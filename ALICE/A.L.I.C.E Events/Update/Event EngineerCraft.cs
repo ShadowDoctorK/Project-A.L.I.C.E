@@ -2,8 +2,8 @@
 //Class File Generated: 11/12/2018 4:40 PM
 //Source Journal Line: { "timestamp":"2018-11-08T10:45:21Z", "event":"EngineerCraft", "Slot":"PowerDistributor", "Module":"int_powerdistributor_size6_class5", "Ingredients":[ { "Name":"industrialfirmware", "Name_Localised":"Cracked Industrial Firmware", "Count":1 }, { "Name":"fedproprietarycomposites", "Name_Localised":"Proprietary Composites", "Count":1 }, { "Name":"militarysupercapacitors", "Name_Localised":"Military Supercapacitors", "Count":1 } ], "Engineer":"The Dweller", "EngineerID":300180, "BlueprintID":128673734, "BlueprintName":"PowerDistributor_HighCapacity", "Level":5, "Quality":0.176000, "Modifiers":[ { "Label":"Integrity", "Value":156.091202, "OriginalValue":124.000000, "LessIsGood":0 }, { "Label":"WeaponsCapacity", "Value":68.434998, "OriginalValue":50.000000, "LessIsGood":0 }, { "Label":"WeaponsRecharge", "Value":4.264000, "OriginalValue":5.200000, "LessIsGood":0 }, { "Label":"EnginesCapacity", "Value":47.904503, "OriginalValue":35.000000, "LessIsGood":0 }, { "Label":"EnginesRecharge", "Value":2.624000, "OriginalValue":3.200000, "LessIsGood":0 }, { "Label":"SystemsCapacity", "Value":47.904503, "OriginalValue":35.000000, "LessIsGood":0 }, { "Label":"SystemsRecharge", "Value":2.624000, "OriginalValue":3.200000, "LessIsGood":0 } ] }
 
-using ALICE_Core;
 using ALICE_Debug;
+using ALICE_Status;
 using System;
 using System.Collections.Generic;
 
@@ -118,7 +118,7 @@ namespace ALICE_Events
                 IStatus.Touchdown = false;
                 IStatus.Docking.Docked = true;
                 IStatus.Hardpoints = false;
-                ISet.LandingGear.Status(ClassName, true);
+                ISet.Status.LandingGear(ClassName, true);
                 IStatus.Fighter.Deployed = false;
             }
             catch (Exception ex)

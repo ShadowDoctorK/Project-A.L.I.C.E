@@ -3,10 +3,10 @@
 //Source Journal Line: { "timestamp":"2018-10-30T04:22:34Z", "event":"StartJump", "JumpType":"Hyperspace", "StarSystem":"Col 285 Sector AI-K a38-4", "SystemAddress":75737990056832, "StarClass":"TTS" }
 
 using ALICE_Actions;
-using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Response;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -118,7 +118,7 @@ namespace ALICE_Events
                 IStatus.Hardpoints = false;
                 IStatus.Touchdown = false;
                 IStatus.CargoScoop = false;
-                ISet.LandingGear.Status(ClassName, false);
+                ISet.Status.LandingGear(ClassName, false);
                 IStatus.Fighter.Deployed = false;
                 IStatus.Docking.Docked = false;
                 IStatus.WeaponSafety = false;

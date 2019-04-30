@@ -5,6 +5,7 @@ using ALICE_Keybinds;
 using ALICE_Objects;
 using ALICE_Response;
 using ALICE_Settings;
+using ALICE_Status;
 using System.Threading;
 
 namespace ALICE_Actions
@@ -31,7 +32,7 @@ namespace ALICE_Actions
             }
 
             //Check Mothership
-            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true) == false)
+            if (ICheck.Status.Vehicle(MethodName, IStatus.V.Mothership, true) == false)
             {
                 IResponse.Fighter.NotInMothership(CommandAudio); return;
             }
@@ -61,13 +62,13 @@ namespace ALICE_Actions
             }
 
             //Check Fighter Installed
-            if (Check.Equipment.FighterHanger(true, MethodName) == false)
+            if (ICheck.Mothership.M.FighterHangar(MethodName, true) == false)
             {
                 IResponse.Fighter.NoFighter(CommandAudio); return;
             }
 
             //Check Fighter Hanger
-            if (Check.Equipment.FighterHangerTotal(FighterNumber, MethodName) == false)
+            if (ICheck.Mothership.M.FighterHangarTotal(MethodName, true, FighterNumber) == false)
             {
                 IResponse.Fighter.NoHanger(CommandAudio); return;
             }
@@ -87,14 +88,14 @@ namespace ALICE_Actions
 
             #region Landing Gear Check
             //If Landing Gear Is True...
-            if (ICheck.LandingGear.Status(MethodName, true, true) == true)
+            if (ICheck.Status.LandingGear(MethodName, false) == false)
             {
                 Call.Action.LandingGear(false, CommandAudio);
 
                 Thread.Sleep(1000);
 
                 //If Landing Gear Is True...
-                if (ICheck.LandingGear.Status(MethodName, true, true) == true)
+                if (ICheck.Status.LandingGear(MethodName, false) == false)
                 {
                     Logger.DebugLine(MethodName, "Landing Gear Failed To Retract.", Logger.Red);
 
@@ -124,7 +125,7 @@ namespace ALICE_Actions
 
             if (FighterNumber == 2)
             {
-                Thread.Sleep(100 + ISettings.OffsetPanels);
+                Thread.Sleep(100 + ISettings.User.OffsetPanels());
                 IKeyboard.Press(IKey.UI_Panel_Down, 100, IKey.DelayPanel);
             }
 
@@ -276,13 +277,13 @@ namespace ALICE_Actions
             IResponse.Fighter.RecallNPC(
                 CommandAudio,                                                       //Check Command Audio
                 ICheck.Status.FighterDeployed(MethodName, true),                    //Check Fighter Deployed
-                ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true));   //Check Vehicle
+                ICheck.Status.Vehicle(MethodName, IStatus.V.Mothership, true));     //Check Vehicle
 
             //Audio - Recall (Player)
             IResponse.Fighter.RecallPlayer(
-                CommandAudio,                                                   //Check Command Audio
-                ICheck.Status.FighterDeployed(MethodName, true),                //Check Fighter Deployed
-                ICheck.Status.Vehicle(MethodName, IVehicles.V.Fighter, true));  //Check Vehicle
+                CommandAudio,                                                       //Check Command Audio
+                ICheck.Status.FighterDeployed(MethodName, true),                    //Check Fighter Deployed
+                ICheck.Status.Vehicle(MethodName, IStatus.V.Fighter, true));        //Check Vehicle
         }
     }
 }

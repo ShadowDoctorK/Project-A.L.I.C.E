@@ -2,9 +2,9 @@
 //Class File Generated: 11/20/2018 11:56 PM
 //Source Journal Line: { "timestamp":"2018-11-20T22:01:00Z", "event":"CrewFire", "Name":"Donald Trump" }
 
-using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Response;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

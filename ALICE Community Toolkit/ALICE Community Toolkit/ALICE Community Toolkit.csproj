@@ -68,7 +68,9 @@
     <Compile Include="Childern Dashboard\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Data.cs" />
+    <Compile Include="Core\Monitor.cs" />
+    <Compile Include="Core\Settings.cs" />
+    <Compile Include="Core\Data.cs" />
     <Compile Include="Main Interfaces\Exploration.xaml.cs">
       <DependentUpon>Exploration.xaml</DependentUpon>
     </Compile>

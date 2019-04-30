@@ -7,6 +7,7 @@ using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Response;
+using ALICE_Status;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -173,10 +174,10 @@ namespace ALICE_Events
         {
             try
             {
-                IVehicles.Vehicle = IVehicles.V.Mothership;
+                IStatus.Vehicle = IStatus.V.Mothership;
                 IStatus.Hardpoints = false;
                 IStatus.Touchdown = false;
-                ISet.LandingGear.Status(ClassName, true);
+                ISet.Status.LandingGear(ClassName, true);
                 IStatus.Fighter.Deployed = false;
             }
             catch (Exception ex)

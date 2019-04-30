@@ -2,8 +2,8 @@
 //Class File Generated: 12/20/2018 8:58 PM
 //Source Journal Line: { "timestamp":"2018-12-20T20:56:52Z", "event":"JetConeBoost", "BoostValue":1.500000 }
 
-using ALICE_Core;
 using ALICE_Debug;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -52,7 +52,7 @@ namespace ALICE_Events
                 IStatus.Planet.DecentReport = false;
                 IStatus.Touchdown = false;
                 IStatus.Docking.Docked = false;
-                ISet.LandingGear.Status(ClassName, false);
+                ISet.Status.LandingGear(ClassName, false);
                 IStatus.CargoScoop = false;
                 IStatus.Fighter.Deployed = false;
                 IStatus.Hardpoints = false;

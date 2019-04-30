@@ -2,12 +2,12 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2019-04-23T21:49:57Z", "event":"FSDJump", "StarSystem":"Diaguandri", "SystemAddress":670417429889, "StarPos":[-41.06250,-62.15625,-103.25000], "SystemAllegiance":"Independent", "SystemEconomy":"$economy_HighTech;", "SystemEconomy_Localised":"High Tech", "SystemSecondEconomy":"$economy_Refinery;", "SystemSecondEconomy_Localised":"Refinery", "SystemGovernment":"$government_Democracy;", "SystemGovernment_Localised":"Democracy", "SystemSecurity":"$SYSTEM_SECURITY_medium;", "SystemSecurity_Localised":"Medium Security", "Population":10303479, "Body":"Diaguandri A", "BodyID":2, "BodyType":"Star", "Powers":[ "Li Yong-Rui" ], "PowerplayState":"Exploited", "JumpDist":11.325, "FuelUsed":4.401582, "FuelLevel":22.185463, "Factions":[ { "Name":"Diaguandri Interstellar", "FactionState":"CivilWar", "Government":"Corporate", "Influence":0.078921, "Allegiance":"Independent", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":0.000000, "ActiveStates":[ { "State":"CivilWar" } ] }, { "Name":"People's MET 20 Liberals", "FactionState":"None", "Government":"Democracy", "Influence":0.133866, "Allegiance":"Federation", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":1.276560 }, { "Name":"Pilots' Federation Local Branch", "FactionState":"None", "Government":"Democracy", "Influence":0.000000, "Allegiance":"PilotsFederation", "Happiness":"", "MyReputation":0.089870 }, { "Name":"Natural Diaguandri Regulatory State", "FactionState":"None", "Government":"Dictatorship", "Influence":0.077922, "Allegiance":"Independent", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":0.000000 }, { "Name":"Cartel of Diaguandri", "FactionState":"None", "Government":"Anarchy", "Influence":0.036963, "Allegiance":"Independent", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":0.000000 }, { "Name":"Revolutionary Party of Diaguandri", "FactionState":"CivilWar", "Government":"Democracy", "Influence":0.078921, "Allegiance":"Federation", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":0.000000, "ActiveStates":[ { "State":"CivilWar" } ] }, { "Name":"The Brotherhood of the Dark Circle", "FactionState":"None", "Government":"Corporate", "Influence":0.088911, "Allegiance":"Independent", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":0.000000 }, { "Name":"EXO", "FactionState":"Boom", "Government":"Democracy", "Influence":0.504496, "Allegiance":"Independent", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":0.000000, "PendingStates":[ { "State":"Expansion", "Trend":0 } ], "ActiveStates":[ { "State":"Boom" } ] } ], "SystemFaction":{ "Name":"EXO", "FactionState":"Boom" }, "Conflicts":[ { "WarType":"civilwar", "Status":"active", "Faction1":{ "Name":"Diaguandri Interstellar", "Stake":"", "WonDays":0 }, "Faction2":{ "Name":"Revolutionary Party of Diaguandri", "Stake":"Diaguandri Clarity Systems", "WonDays":1 } } ] }
 
-using ALICE_Core;
+using ALICE_Actions;
 using ALICE_Debug;
-using ALICE_Equipment;
 using ALICE_Internal;
 using ALICE_Keybinds;
 using ALICE_Objects;
+using ALICE_Status;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -244,19 +244,19 @@ namespace ALICE_Events
                 }
 
                 //Fuel Status Report
-                IEquipment.FuelTank.ScoopingReset();
+                IStatus.Fuel.ScoopingReset();
                 if (ICheck.Report.FuelStatus(ClassName, true, true) == true && 
                     ICheck.Initialized(ClassName))
                 {
-                    IEquipment.FuelTank.Report = true;
+                    IStatus.Fuel.Report = true;
                 }
 
                 //Sleep
                 Thread.Sleep(100);
 
                 //Assisted System Scans
-                IEquipment.DiscoveryScanner.FirstScan = true;
-                IEquipment.DiscoveryScanner.Scan();
+                IActions.DiscoveryScanner.FirstScan = true;
+                IActions.DiscoveryScanner.Scan();
 
             }
             catch (Exception ex)
@@ -278,7 +278,7 @@ namespace ALICE_Events
                 IStatus.Hyperspace = false;
                 IStatus.Touchdown = false;
                 IStatus.Docking.Docked = false;
-                ISet.LandingGear.Status(ClassName, false);
+                ISet.Status.LandingGear(ClassName, false);
                 IStatus.CargoScoop = false;
                 IStatus.Fighter.Deployed = false;
                 IStatus.Hardpoints = false;

@@ -4,8 +4,8 @@
 //Reference Journal Line: { "timestamp":"2016-06-10T14:32:03Z", "event":"CommitCrime", "CrimeType":"assault", "Faction":"The Pilots Federation", "Victim":"Potapinski", "Bounty":210 }
 //Reference Journal Line: { "timestamp":"2018-11-22T16:58:32Z", "event":"CommitCrime", "CrimeType":"assault", "Faction":"Independent Detention Foundation", "Victim":"The Heart of Orion", "Bounty":300 }
 
-using ALICE_Core;
 using ALICE_Debug;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

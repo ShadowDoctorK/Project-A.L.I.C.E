@@ -1,22 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ALICE_Synthesizer;
+using System;
+using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Threading;
 using WinForms = System.Windows.Forms;
-using ALICE_Actions;
-using System.IO;
-using ALICE_Synthesizer;
 
 namespace ALICE_Community_Toolkit
 {
@@ -50,6 +38,7 @@ namespace ALICE_Community_Toolkit
 
         private void btn_LoadUserKeybinds_Click(object sender, RoutedEventArgs e)
         {
+            string MethodName = "Target Keybinds";
             try
             {
                 #region Audio
@@ -62,21 +51,11 @@ namespace ALICE_Community_Toolkit
 
                 string FilePath = ShowBinds();
 
-                if (FilePath != "")
+                //Validate File Path
+                if (string.IsNullOrWhiteSpace(FilePath) == false)
                 {
                     string FileName = FilePath.Replace(Paths.Binds_Location, "");
-                    Data.User.BindsFile = FileName;
-
-                    if (FileName == Paths.FILE_BindsFile)
-                    {
-                        Data.User.UsersBindFile = false;
-                    }
-                    else
-                    {
-                        Data.User.UsersBindFile = true;
-                    }
-
-                    Data.UserSettingsSave = true;
+                    Settings.User.BindsFile(MethodName, FileName, true);
                 }                
             }
             catch (Exception)

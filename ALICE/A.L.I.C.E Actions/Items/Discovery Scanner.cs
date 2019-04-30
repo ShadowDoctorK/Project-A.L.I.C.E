@@ -1,6 +1,6 @@
 ﻿using ALICE_Debug;
-using ALICE_Equipment;
 using ALICE_Internal;
+using ALICE_Response;
 using ALICE_Settings;
 using System.Threading;
 
@@ -8,12 +8,21 @@ namespace ALICE_Actions
 {
     public static partial class IActions
     {
-        public static void DiscoveryScanner(bool CommandAudio, bool Sleep = false, bool SelectOnly = false)
+        public static DiscoveryScanner DiscoveryScanner { get; set; } = new DiscoveryScanner();
+    }
+
+    public class DiscoveryScanner
+    {
+        public bool Active = false;           //Allows Tracking The Status Of Active Scans.
+        public bool FirstScan = true;         //Allows Tracking The First Scan In System.
+        public bool Mode { get; set; }
+
+        public void Operate(bool CommandAudio, bool Sleep = false, bool SelectOnly = false)
         {
             string MethodName = "Discovery Scan";
 
             //Record Current Firegroup
-            decimal Temp = Call.Firegroup.Current;
+            decimal Temp = IActions.Hardpoints.Current;
 
             #region Vaildtion Checks
             if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
@@ -27,25 +36,25 @@ namespace ALICE_Actions
             //Sleep Is Used After The FSDJump Event To Allow Game Time To Respond After Loading The New System
             if (Sleep == true) { Thread.Sleep(3000); }
 
-            Settings_Firegroups.Assignemnt Module = ISettings.Firegroup.GetAssignemnt(Settings_Firegroups.Item.ScannerDiscovery);
+            ConfigurationHardpoints.Assignemnt Module = ISettings.Firegroups.Config.GetAssignemnt(ConfigurationHardpoints.Item.ScannerDiscovery);
 
             //Select Firegroup
-            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.ScannerDiscovery))
+            switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.ScannerDiscovery))
             {
-                case Settings_Firegroups.S.CurrentlySelected:
-                    if (SelectOnly) { IEquipment.DiscoveryScanner.CurrentlySelected(CommandAudio); }
+                case ConfigurationHardpoints.S.CurrentlySelected:
+                    if (SelectOnly) { IResponse.DiscoveryScanner.CurrentlySelected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.Selected:
-                    if (SelectOnly) { IEquipment.DiscoveryScanner.Selected(CommandAudio); }
+                case ConfigurationHardpoints.S.Selected:
+                    if (SelectOnly) { IResponse.DiscoveryScanner.Selected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.NotAssigned:
-                    IEquipment.DiscoveryScanner.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.S.NotAssigned:
+                    IResponse.DiscoveryScanner.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.S.Failed:
-                    IEquipment.DiscoveryScanner.SelectionFailed(CommandAudio);
+                case ConfigurationHardpoints.S.Failed:
+                    IResponse.DiscoveryScanner.SelectionFailed(CommandAudio);
                     return;
-                case Settings_Firegroups.S.InHyperspace:
-                    IEquipment.General.InHyperspace();
+                case ConfigurationHardpoints.S.InHyperspace:
+                    IResponse.DiscoveryScanner.NoHyperspace(CommandAudio);
                     return;
                 default:
                     return;
@@ -55,27 +64,29 @@ namespace ALICE_Actions
             if (SelectOnly) { return; }
 
             //Commenced Audio
-            if (Module.FireGroup != Settings_Firegroups.Group.None &&
-                Module.FireMode != Settings_Firegroups.Fire.None)
+            if (Module.FireGroup != ConfigurationHardpoints.Group.None &&
+                Module.FireMode != ConfigurationHardpoints.Fire.None)
             {
-                IEquipment.DiscoveryScanner.ScanCommenced(CommandAudio);
+                IResponse.DiscoveryScanner.ScanCommenced(CommandAudio);
             }
 
-            //Acivate Module && Watch Return
-            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.ScannerDiscovery,
-                8000, true, IEquipment.DiscoveryScanner.Watcher))
+            //Track Completion
+            Active = true;
+
+            //Acivate Module && Watch Return           
+            switch (ISettings.Firegroups.Config.Activate(ConfigurationHardpoints.Item.ScannerDiscovery, 8000, ref Active, 2000))
             {
-                case Settings_Firegroups.A.Hyperspace:
-                    IEquipment.DiscoveryScanner.EnteredHyperspace(CommandAudio);
+                case ConfigurationHardpoints.A.Hyperspace:
+                    IResponse.DiscoveryScanner.EnteredHyperspace(CommandAudio);
                     return;
-                case Settings_Firegroups.A.NotAssigned:
-                    IEquipment.DiscoveryScanner.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.A.NotAssigned:
+                    IResponse.DiscoveryScanner.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.A.Complete:
+                case ConfigurationHardpoints.A.Complete:
                     //Audio Removed, Not Required.
                     break;
-                case Settings_Firegroups.A.Fail:
-                    IEquipment.DiscoveryScanner.ScanFailed(CommandAudio);
+                case ConfigurationHardpoints.A.Fail:
+                    IResponse.DiscoveryScanner.ScanFailed(CommandAudio);
                     break;
                 default:
                     return;
@@ -83,8 +94,25 @@ namespace ALICE_Actions
             #endregion
 
             //Return To Previou Firegroup.
-            Call.Firegroup.Select(Temp, false);
+            IActions.Hardpoints.Select(Temp, false);
         }
 
+        public void Scan()
+        {
+            string MethodName = "Discovery Scan";
+
+            //Check Plugin Initialized
+            if (ICheck.Initialized(MethodName) == false) { return; }
+
+            if (ICheck.Order.AssistSystemScan(MethodName, true, true))
+            {
+                Thread DisScan = new Thread((ThreadStart)(() =>
+                {
+                    Operate(true, true);
+                }));
+                DisScan.IsBackground = true;
+                DisScan.Start();
+            }
+        }
     }
 }

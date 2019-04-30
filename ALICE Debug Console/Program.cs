@@ -24,7 +24,7 @@ namespace ALICE_Debug_Console
 
         public static void Debug()
         {
-            PlugIn.Initialize(true, true);
+            PlugIn.Initialize(true, true, true);
            
 
             Thread.Sleep(50000);            

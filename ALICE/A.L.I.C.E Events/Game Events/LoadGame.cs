@@ -3,11 +3,8 @@
 //Source Journal Line: { "timestamp":"2018-10-14T04:10:51Z", "event":"LoadGame", "Commander":"Shadow Doctor K", "Horizons":true, "Ship":"Federation_Corvette", "Ship_Localised":"Federal Corvette", "ShipID":11, "ShipName":"MORNINGSTAR", "ShipIdent":"S-117", "FuelLevel":32.000000, "FuelCapacity":32.000000, "GameMode":"Group", "Group":"Shadow Doctor K", "Credits":298658411, "Loan":0 }
 
 using ALICE_Actions;
-using ALICE_Debug;
-using ALICE_Equipment;
-using ALICE_Internal;
-using ALICE_Objects;
 using ALICE_Settings;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -107,106 +104,41 @@ namespace ALICE_Events
         {
             try
             {
-                //Update Commander Name
-                ISettings.U_Commander(ClassName, I.Commander);
-
                 //Vechile = SRV
                 if (I.Ship.ToLower().Contains("testbuggy"))
                 {
-                    IVehicles.Vehicle = IVehicles.V.SRV;
+                    IStatus.Vehicle = IStatus.V.SRV;
                 }
                 //Vechile = Fighter
                 else if (I.Ship.ToLower().Contains("fighter"))
                 {
-                    IVehicles.Vehicle = IVehicles.V.Fighter;
+                    IStatus.Vehicle = IStatus.V.Fighter;
                 }
                 //Vechile = Mothership
                 else
                 {
-                    IVehicles.Vehicle = IVehicles.V.Mothership;
+                    IStatus.Vehicle = IStatus.V.Mothership;
                 }
 
-                //Load Mothership Data
-                switch (IVehicles.Vehicle)
+                //Update Commander Name
+                IStatus.Commander = I.Commander;
+
+                //Load Ship Data
+                if (ISettings.Shipyard.LoadShip(ClassName, IStatus.Commander, I.ShipID) == false)
                 {
-                    case IVehicles.V.Mothership:
-
-                        //Validate Ship ID
-                        if (IObjects.Mothership.I.ID != -1 ||           //Default Value For Blank Object (Fresh Ship)
-                            IObjects.Mothership.I.ID != I.ShipID)       //Ship ID Should Match, Otherwise Its A Different Ship.
-                        {
-                            //Event Logger
-                            if (ICheck.Initialized(ClassName))
-                            {
-                                Logger.Event("Updating New Mothership Data.");
-                            }
-
-                            //Different Ship, Reset Object
-                            IObjects.Mothership.New(I.Event);
-
-                            //FingerPrint Generation
-                            string FP = I.ShipID + " " + I.Ship + " (" + ISettings.Commander + ")";
-
-                            //Load Ship Data, If It Exist
-                            IObjects.Mothership = new Object_Mothership().Load(ClassName, FP);
-                        }
-
-                        break;
-
-                    default:
-
-                        //Logger
-                        if (ICheck.Initialized(ClassName))
-                        {
-                            Logger.Log(ClassName, "Mothership Loadout Is Not Available, Loading Best Guess... Hope This Works.", Logger.Yellow);
-                        }
-
-                        //Load Saved Mothership Data.                    
-                        IObjects.Mothership = new Object_Mothership().Load(ClassName, null);
-
-                        //Load Firegroup Settings
-                        ISettings.Firegroup.Load();
-
-                        break;
+                    IStatus.Mothership = new Mothership();
+                    IStatus.Mothership.Update(I);
                 }
 
-                //Update Ship Object
-                switch (IVehicles.Vehicle)
-                {
-                    case IVehicles.V.Mothership:
-
-                        //Update Object Data
-                        IObjects.Mothership.Update(I);
-
-                        //Save Data Only If Event Data Is Newer The Object Data
-                        if (IObjects.Mothership.EventTimeStamp == I.Timestamp)
-                        {
-                            //Save Mothership Data.
-                            new Object_Mothership().Save(IObjects.Mothership, ClassName);
-                        }
-
-                        break;
-
-                    case IVehicles.V.Fighter:
-                        //No Logic
-                        break;
-
-                    case IVehicles.V.SRV:
-                        //No Logic
-                        break;
-
-                    default:
-                        break;
-                }
+                //Load Firegroup Settings
+                ISettings.Firegroups.GetConfig(ClassName,
+                    IStatus.Mothership.ID, IStatus.Mothership.FingerPrint);
 
                 //Reset Panels
                 Call.ResetPanels();
 
-                //Load Firegroup Settings.
-                ISettings.Firegroup.Load();
-
                 //Update Fuel Status
-                IEquipment.FuelTank.Update(I);
+                IStatus.Fuel.Update(I);
             }
             catch (Exception ex)
             {

@@ -1,122 +1,127 @@
-﻿using System;
-using ALICE.Properties;
-using ALICE_Status;
+﻿using ALICE.Properties;
+using ALICE_Internal;
+using ALICE_Settings;
+using System;
 
-namespace ALICE_Core
+namespace ALICE_Status
 {
-    public static class IStatus
+    public static partial class IStatus
     {
-        private static Status_Cargo _Cargo = new Status_Cargo();
-        public static Status_Cargo Cargo
+        public static bool False = false;
+
+        public enum V
         {
-            get => _Cargo;
-            set => _Cargo = value;
+            Default,
+            Mothership,
+            Fighter,
+            SRV
         }
 
-        private static Status_Crew _Crew = new Status_Crew();
-        public static Status_Crew Crew
+        //Track Current Commander
+        public static string _Commander = "Default";
+        public static string Commander
         {
-            get => _Crew;
-            set => _Crew = value;
+            get => _Commander;
+            set
+            {
+                //Check Value
+                if (_Commander == value) { return; }
+
+                //Debug Logger
+                Logger.DebugLine("Commander Property", "Updated: " + value, Logger.Yellow);
+
+                //Property Value
+                _Commander = value;
+
+                //User Settings
+                ISettings.User.CMDR("Commander Property", value);
+            }
         }
 
-        private static Status_Crime _Crime = new Status_Crime();
-        public static Status_Crime Crime
+        //Track Vehicle
+        private static V _Vehicle = V.Default;
+        public static V Vehicle
         {
-            get => _Crime;
-            set => _Crime = value;
+            get => _Vehicle;
+            set
+            {
+                if (_Vehicle == value) { return; }
+
+                if (value == V.Mothership)
+                {
+                    ISettings.Firegroups.GetConfig("IStatus Vehicle", IStatus.Mothership.ID, IStatus.Mothership.FingerPrint);
+                }
+                else if (value == V.SRV)
+                {
+                    ISettings.Firegroups.GetConfig("IStatus Vehicle", 98, "SRV");
+                }
+                else if (value == V.Fighter)
+                {
+                    ISettings.Firegroups.GetConfig("IStatus Vehicle", 97, "Fighter");
+                }
+
+                _Vehicle = value;
+            }
         }
 
-        private static Status_Bounty _Bounty = new Status_Bounty();
-        public static Status_Bounty Bounty
+        /// <summary>
+        /// Returns FingerPrint Based On Current Vehicle. Used With Equipment Configurations.
+        /// </summary>
+        public static string FingerPrint
         {
-            get => _Bounty;
-            set => _Bounty = value;
+            get
+            {
+                switch (Vehicle)
+                {                    
+                    case V.Mothership:
+                        return IStatus.Mothership.FingerPrint;
+                    case V.Fighter:
+                        return "Fighter";
+                    case V.SRV:
+                        return "SRV";
+                    default:
+                        return "Default";
+                }
+            }
         }
 
-        private static Status_Docking _Docking = new Status_Docking();
-        public static Status_Docking Docking
+        /// <summary>
+        /// Returns ID Based On Current Vehicle. Used With Equipment Configurations.
+        /// </summary>
+        public static decimal VehicleID
         {
-            get => _Docking;
-            set => _Docking = value;
+            get
+            {
+                switch (Vehicle)
+                {
+                    case V.Mothership:
+                        return IStatus.Mothership.ID;
+                    case V.Fighter:
+                        return 97;
+                    case V.SRV:
+                        return 98;
+                    default:
+                        return 99;
+                }
+            }
         }
 
-        private static Status_Fighter _Fighter = new Status_Fighter();
-        public static Status_Fighter Fighter
-        {
-            get => _Fighter;
-            set => _Fighter = value;
-        }
-
-        private static Status_Heat _Heat = new Status_Heat();
-        public static Status_Heat Heat
-        {
-            get => _Heat;
-            set => _Heat = value;
-        }
-
-        private static Status_Interaction _Interaction = new Status_Interaction();
-        public static Status_Interaction Interaction
-        {
-            get => _Interaction;
-            set => _Interaction = value;
-        }
-
-        private static Status_Materials _Materials = new Status_Materials();
-        public static Status_Materials Materials
-        {
-            get => _Materials;
-            set => _Materials = value;
-        }
-
-        private static Status_Messages _Messages = new Status_Messages();
-        public static Status_Messages Messages
-        {
-            get => _Messages;
-            set => _Messages = value;
-        }
-
-        private static Status_Music _Music = new Status_Music();
-        public static Status_Music Music
-        {
-            get => _Music;
-            set => _Music = value;
-        }
-
-        private static Status_Planet _Planet = new Status_Planet();
-        public static Status_Planet Planet
-        {
-            get => _Planet;
-            set => _Planet = value;
-        }
-
-        private static Status_Scan _Scan = new Status_Scan();
-        public static Status_Scan Scan
-        {
-            get => _Scan;
-            set => _Scan = value;
-        }
-
-        private static Status_Scanned _Scanned = new Status_Scanned();
-        public static Status_Scanned Scanned
-        {
-            get => _Scanned;
-            set => _Scanned = value;
-        }
-
-        private static Status_Shipyard _Shipyard = new Status_Shipyard();
-        public static Status_Shipyard Shipyard
-        {
-            get => _Shipyard;
-            set => _Shipyard = value;
-        }
-
-        private static Status_System _System = new Status_System();
-        public static Status_System System
-        {
-            get => _System;
-            set => _System = value;
-        }
+        public static Status_Cargo Cargo { get; set; } = new Status_Cargo();
+        public static Status_Crew Crew { get; set; } = new Status_Crew();
+        public static Status_Crime Crime { get; set; } = new Status_Crime();
+        public static Status_Bounty Bounty { get; set; } = new Status_Bounty();
+        public static Status_Docking Docking { get; set; } = new Status_Docking();
+        public static Status_Fighter Fighter { get; set; } = new Status_Fighter();
+        public static Status_Heat Heat { get; set; } = new Status_Heat();
+        public static Status_Interaction Interaction { get; set; } = new Status_Interaction();
+        public static Status_Materials Materials { get; set; } = new Status_Materials();
+        public static Status_Messages Messages { get; set; } = new Status_Messages();
+        public static Status_Music Music { get; set; } = new Status_Music();
+        public static Status_Planet Planet { get; set; } = new Status_Planet();
+        public static Status_Scan Scan { get; set; } = new Status_Scan();
+        public static Status_Scanned Scanned { get; set; } = new Status_Scanned();
+        public static Status_Shipyard Shipyard { get; set; } = new Status_Shipyard();
+        public static Status_System System { get; set; } = new Status_System();
 
         public static string BodyName = "None";
         public static string LegalStatus = "None";
@@ -126,16 +131,16 @@ namespace ALICE_Core
         public static decimal Latitude = -1;
         public static decimal Longitude = -1;
         public static decimal Heading = -1;
-        public static decimal Altitude = -1;        
+        public static decimal Altitude = -1;
         public static decimal CargoMass = -1;
-        
-        public static bool NightVision = false;        
+
+        public static bool NightVision = false;
         public static bool AnalysisMode = false;
         public static bool Interdiction = false;
         public static bool InDanger = false;
         public static bool HasLatLong = false;
         public static bool Overheating = false;
-        public static bool LowFuel = false;                
+        public static bool LowFuel = false;
         public static bool SRV_DriveAssist = false;
         public static bool SRV_NearMothership = false;
         public static bool SRV_Turret = false;
@@ -147,21 +152,31 @@ namespace ALICE_Core
         public static bool InWing = false;
         public static bool Hardpoints = false;
         public static bool FlightAssist = false;
-        public static bool Supercruise = false;        
+        public static bool Supercruise = false;
         public static bool Touchdown = false;
+        public static bool LandingGear = false;
+        public static bool ExternalLights = false;
         public static bool AltFromAvgRad = false;
 
-        //StartJump Event
-        public static bool Hyperspace = false;
-
-        //Music Event
-        public static bool FSSMode = false;
-
-        //Custom
-        public static bool WeaponSafety = false;
+        //Custom Variables                                  //Variable Control Source
+        public static bool Hyperspace = false;              //StartJump Event
+        public static bool FSSMode = false;                 //Music Event        
+        public static bool ModeSurfScanner = false;         //Custom & Music Event
+        public static bool WeaponSafety = false;            //Custom
 
         //Miscellaneous
         public static bool NPC_Crew = Convert.ToBoolean(Miscellanous.Default["NPC_Crew"]);
         public static bool LandingPreps = false;
+    }
+
+    public class FuelData
+    {
+        public decimal Main = -1;                      //Multi Source
+        public decimal Reserve = -1;                   //Multi Source
+        public decimal Capacity = -1;
+        public decimal Reservior = -1;
+        public bool Critical = false;                  //Custom Property
+        public bool Low = false;                       //Status.json Property
+        public bool HalfThreshold = false;             //Custom Property
     }
 }

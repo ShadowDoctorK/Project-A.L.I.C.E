@@ -2,10 +2,10 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-14T20:05:33Z", "event":"ApproachBody", "StarSystem":"Col 173 Sector KY-Q d5-47", "SystemAddress":1625603164499, "Body":"Col 173 Sector KY-Q d5-47 8 c", "BodyID":24 }
 
-using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Objects;
 using ALICE_Settings;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -78,7 +78,7 @@ namespace ALICE_Events
                 IStatus.Planet.Response.OrbitalGravityWarning(true,
                     ICheck.Initialized(ClassName),                          //CommandAudio
                     (IObjects.StellarBodyCurrent.Gravity > 1.2M),           //High Gravity Verification
-                    ISettings.HighGravDescent);                             //High Gravity Setting Check
+                    ISettings.User.HighGravDescent());                      //High Gravity Setting Check
             }
             catch (Exception ex)
             {

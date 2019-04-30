@@ -2,8 +2,8 @@
 //Class File Generated: 11/12/2018 4:40 PM
 //Source Journal Line: { "timestamp":"2018-10-30T23:00:09Z", "event":"FetchRemoteModule", "StorageSlot":104, "StoredItem":"$int_modulereinforcement_size4_class2_name;", "StoredItem_Localised":"Module Reinforcement", "ServerId":128737277, "TransferCost":329, "TransferTime":463, "Ship":"typex", "ShipID":59 }
 
-using ALICE_Core;
 using ALICE_Debug;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -67,7 +67,7 @@ namespace ALICE_Events
         {
             try
             {
-                ISet.LandingGear.Status(ClassName, true);
+                ISet.Status.LandingGear(ClassName, true);
                 IStatus.Docking.Docked = true;
                 IStatus.Supercruise = false;
                 IStatus.Hyperspace = false;

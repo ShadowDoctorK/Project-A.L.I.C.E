@@ -1,12 +1,8 @@
 ﻿using ALICE_Actions;
-using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Events;
 using ALICE_Internal;
 using ALICE_Keybinds;
-using ALICE_Objects;
-using ALICE_Settings;
-using ALICE_Synthesizer;
 using System.Threading;
 
 namespace ALICE_Status
@@ -35,6 +31,7 @@ namespace ALICE_Status
         public bool Preparations = false;                                       //Custom Property
         public bool Sending = false;                                            //Custom Property
         public bool Pending = false;                                            //Custom Property
+        public bool AsisstedDockingReport = true;                               //Custom Property
 
         public Logging Log = new Logging();
 
@@ -65,8 +62,7 @@ namespace ALICE_Status
         public void Update(DockingTimeout Event)
         {
             //Marking A Cancelled To Keep Things Simple
-            ISet.Docking.Status(MethodName, IEnums.DockingState.Cancelled);
-            State = IEnums.DockingState.Cancelled;
+            ISet.Docking.Status(MethodName, IEnums.DockingState.Cancelled);            
             Denial = IEnums.DockingDenial.NoReason;
             LandingPad = -1;
             Pending = false;
@@ -224,10 +220,10 @@ namespace ALICE_Status
 
                     //Watch Entering Starport While Docking State Is False
                     while (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space, false) == true &&
-                        ICheck.LandingGear.Status(MethodName, false) == true)
+                        ICheck.Status.LandingGear(MethodName, false) == true)
                     {
                         if (IGet.Music.MusicTrack(MethodName) == IEnums.Starport && 
-                            (IStatus.Docking.Preparations == false || ICheck.LandingGear.Status(MethodName, false)))
+                            (IStatus.Docking.Preparations == false || ICheck.Status.LandingGear(MethodName, false)))
                         {
                             IStatus.Docking.Preparations = true; IActions.Docking.Preparations(true); return;
                         }

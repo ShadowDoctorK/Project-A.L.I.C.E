@@ -398,7 +398,7 @@ namespace ALICE_Interface
                 Thread Plugin =
                 new Thread((ThreadStart)(() =>
                 {
-                    try { PlugIn.Initialize(true, true); }
+                    try { PlugIn.Initialize(true, true, true); }
                     catch (Exception) { Logger.Error(MethodName, "Something Went Wrong While Initializing The Plugin...", Logger.Red); }
                 }))
                 { IsBackground = true }; Plugin.Start();

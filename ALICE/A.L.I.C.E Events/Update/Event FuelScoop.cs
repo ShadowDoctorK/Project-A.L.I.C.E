@@ -2,9 +2,8 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-02T03:46:56Z", "event":"FuelScoop", "Scooped":5.007301, "Total":29.415503 }
 
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Equipment;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -54,7 +53,7 @@ namespace ALICE_Events
                 var Event = (FuelScoop)O;
 
                 //Update Status Object
-                IEquipment.FuelTank.Update(Event);
+                IStatus.Fuel.Update(Event);
             }
             catch (Exception ex)
             {
@@ -74,7 +73,7 @@ namespace ALICE_Events
                 IStatus.Hyperspace = false;
                 IStatus.Touchdown = false;
                 IStatus.Docking.Docked = false;
-                ISet.LandingGear.Status(ClassName, false);
+                ISet.Status.LandingGear(ClassName, false);
                 IStatus.CargoScoop = false;
                 IStatus.Fighter.Deployed = false;
                 IStatus.Hardpoints = false;

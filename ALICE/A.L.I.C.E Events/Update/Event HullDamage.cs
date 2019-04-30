@@ -2,7 +2,6 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-02T04:19:19Z", "event":"HullDamage", "Health":0.728289, "PlayerPilot":false, "Fighter":true }
 
-using ALICE_Core;
 using System;
 
 namespace ALICE_Events

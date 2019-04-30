@@ -2,8 +2,8 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-02T04:16:49Z", "event":"LaunchFighter", "Loadout":"three", "PlayerControlled":false }
 
-using ALICE_Core;
 using ALICE_Debug;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -70,7 +70,7 @@ namespace ALICE_Events
                 IStatus.Hyperspace = false;
                 IStatus.Touchdown = false;
                 IStatus.Docking.Docked = false;                
-                ISet.LandingGear.Status(ClassName, false);
+                ISet.Status.LandingGear(ClassName, false);
             }
             catch (Exception ex)
             {

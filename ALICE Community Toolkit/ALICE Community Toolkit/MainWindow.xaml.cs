@@ -1,20 +1,9 @@
 ﻿using ALICE_Internal;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WinForms = System.Windows.Forms;
 
 namespace ALICE_Community_Toolkit
@@ -26,22 +15,36 @@ namespace ALICE_Community_Toolkit
     {
         public MainWindow()
         {
-            //Data.LoadUserSettings();
-            //Data.LoadFiregroupSettings();
-
             InitializeComponent();
+
             Paths.CreateDir();
             Interface_StackPanel.Children.Add(Interface_Dashboard);
 
-            Win = (MainWindow)Application.Current.MainWindow;
-
-            Data.StartMonitor();
-            Data.Watcher.Watch();
-            UpdateButtons();
-            Data.SettingInit = true;
+            Win = (MainWindow)Application.Current.MainWindow;         
         }
 
+        //Static Reference Of The Main Window
         public static MainWindow Win;
+
+        public static void Startup()
+        {
+            //File Verification
+            Settings.FileVerification();
+
+            //Monitor Settings Files
+            Settings.Monitor_Settings.Start();
+
+            //Wait For All Settings To Load
+            while (Settings.InitFiregroups() == false
+                || Settings.InitShipyard() == false
+                || Settings.InitUser() == false)
+            {
+                Thread.Sleep(250);
+            }
+
+            //Initial UI Update
+            UpdateButtons();
+        }
 
         public static void UpdateButtons()
         {
@@ -65,7 +68,7 @@ namespace ALICE_Community_Toolkit
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    Label_Commander.Content = "CMDR " + Data.Commander;
+                    Label_Commander.Content = "CMDR " + Settings.User.Commander;
                 });
             }
             catch (Exception ex)

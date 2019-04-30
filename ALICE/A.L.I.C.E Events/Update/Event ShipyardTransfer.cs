@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-14T04:06:20Z", "event":"ShipyardTransfer", "ShipType":"Anaconda", "ShipID":5, "System":"Nankul", "ShipMarketID":3221644800, "Distance":10.294160, "TransferPrice":105577, "TransferTime":402, "MarketID":3221503744 }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

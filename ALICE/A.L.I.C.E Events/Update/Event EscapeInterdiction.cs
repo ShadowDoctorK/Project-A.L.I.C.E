@@ -2,8 +2,8 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-28T15:54:58Z", "event":"EscapeInterdiction", "Interdictor":"Colin McCulloch", "IsPlayer":false }
 
-using ALICE_Core;
 using ALICE_Debug;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -57,7 +57,7 @@ namespace ALICE_Events
                 IStatus.Touchdown = false;
                 IStatus.Docking.Docked = false;
                 IStatus.Hardpoints = false;
-                ISet.LandingGear.Status(ClassName, false);
+                ISet.Status.LandingGear(ClassName, false);
                 IStatus.CargoScoop = false;
                 IStatus.Fighter.Deployed = false;
             }

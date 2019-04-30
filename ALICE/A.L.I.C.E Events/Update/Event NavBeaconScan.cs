@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 4:40 PM
 //Source Journal Line: { "timestamp":"2018-09-06T12:19:39Z", "event":"NavBeaconScan", "SystemAddress":16063849047465, "NumBodies":34 }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

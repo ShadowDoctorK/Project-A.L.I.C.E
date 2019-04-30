@@ -2,8 +2,8 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-14T23:20:55Z", "event":"Scan", "ScanType":"Detailed", "BodyName":"Col 173 Sector KY-Q d5-47 9 a", "BodyID":33, "Parents":[ {"Planet":31}, {"Null":30}, {"Star":0} ], "DistanceFromArrivalLS":1443.539429, "TidalLock":true, "TerraformState":"", "PlanetClass":"Rocky body", "Atmosphere":"", "AtmosphereType":"None", "Volcanism":"major silicate vapour geysers volcanism", "MassEM":0.004034, "Radius":1115522.125000, "SurfaceGravity":1.291939, "SurfaceTemperature":277.356445, "SurfacePressure":0.000000, "Landable":true, "Materials":[ { "Name":"iron", "Percent":20.781742 }, { "Name":"sulphur", "Percent":20.289942 }, { "Name":"carbon", "Percent":17.061741 }, { "Name":"nickel", "Percent":15.718439 }, { "Name":"phosphorus", "Percent":10.923221 }, { "Name":"germanium", "Percent":5.985801 }, { "Name":"selenium", "Percent":3.175548 }, { "Name":"arsenic", "Percent":2.676932 }, { "Name":"yttrium", "Percent":1.241269 }, { "Name":"tin", "Percent":1.237855 }, { "Name":"mercury", "Percent":0.907504 } ], "Composition":{ "Ice":0.000000, "Rock":0.910457, "Metal":0.089543 }, "SemiMajorAxis":467320096.000000, "Eccentricity":0.000644, "OrbitalInclination":-0.697309, "Periapsis":138.517532, "OrbitalPeriod":73245.484375, "RotationPeriod":69701.476563, "AxialTilt":-0.231764 }
 
-using ALICE_Core;
 using ALICE_Objects;
+using ALICE_Status;
 using System;
 using System.Collections.Generic;
 

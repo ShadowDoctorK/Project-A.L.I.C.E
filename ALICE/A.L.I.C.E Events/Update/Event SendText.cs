@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-28T21:01:59Z", "event":"SendText", "To":"Maddemondog", "Message":"I'll be there shortly. Just helping a beta tester with something real quick. I had to smash a Medium sized bug that only affected people with a fresh install." }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

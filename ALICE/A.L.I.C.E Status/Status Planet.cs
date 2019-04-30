@@ -1,7 +1,5 @@
 ﻿using ALICE_Actions;
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Equipment;
 using ALICE_Events;
 using ALICE_Internal;
 using ALICE_Objects;
@@ -119,7 +117,7 @@ namespace ALICE_Status
             {
                 //If BodyType = Planet And FSD Cooldown = True it means the ship has left Glide.
                 Logger.Log(MethodName, "Monitoring...", Logger.Yellow, true);
-                int i2 = 6000; while (IEquipment.FrameShiftDrive.Cooldown != true)
+                int i2 = 6000; while (IStatus.FrameShiftDrive.Cooldown != true)
                 {
                     //Glide Stabilized
                     if (i2 == 600)
@@ -200,7 +198,7 @@ namespace ALICE_Status
                 Logger.Log(MethodName, "Waiting To Exit Glide...", Logger.Yellow, true);
 
                 //If BodyType = Planet & FSD Cooldown = True it means the ship has left Glide.
-                int i2 = 6000; while (IEquipment.FrameShiftDrive.Cooldown != true)
+                int i2 = 6000; while (IStatus.FrameShiftDrive.Cooldown != true)
                 {
                     i2--; if (i2 <= 0)
                     {

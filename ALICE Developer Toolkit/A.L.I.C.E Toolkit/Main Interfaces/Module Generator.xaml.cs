@@ -53,8 +53,17 @@ namespace A.L.I.C.E_Toolkit
                 };
                 if (NewModule.Item != null)
                 {
-                    Ungrouped_Modules.Add(NewModule.Item, NewModule);
+                    if (Ungrouped_Modules.ContainsKey(NewModule.Item) == false)
+                    {
+                        Ungrouped_Modules.Add(NewModule.Item, NewModule);
+                    }
+                    else
+                    {
+                        //No Action
+                    }
+                    
                     ModuleList.Add(NewModule);
+
                     if (Pizza.Contains(NewModule.Name) == false)
                     {
                         Pizza.Add(NewModule.Name);

@@ -3,6 +3,11 @@ using ALICE_Synthesizer;
 
 namespace ALICE_Response
 {
+    public static partial class IResponse
+    {
+        public static Generic_Equipment GenericEquipment = new Generic_Equipment();
+    }
+
     public class Generic_Equipment
     {
         public string ClassName { get => this.GetType().Name.Replace("_", " "); }

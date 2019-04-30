@@ -1,6 +1,6 @@
-﻿using ALICE_Debug;
-using ALICE_Equipment;
-using ALICE_Settings;
+﻿using ALICE_Actions;
+using ALICE_Debug;
+using ALICE_Response;
 using System.Collections.Generic;
 
 namespace ALICE_Interface
@@ -21,15 +21,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_NoFireZone(true);
+                            IActions.Report.NoFireZone(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_NoFireZone(false);
+                            IActions.Report.NoFireZone(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_NoFireZone(!IGet.Report.NoFireZone(ICommands.M));
+                            IActions.Report.NoFireZone(!IGet.Report.NoFireZone(ICommands.M));
                             return;
 
                         default:
@@ -42,15 +42,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_TargetWanted(true);
+                            IActions.Report.TargetWanted(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_TargetWanted(false);
+                            IActions.Report.TargetWanted(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_TargetWanted(!IGet.Report.TargetWanted(ICommands.M));
+                            IActions.Report.TargetWanted(!IGet.Report.TargetWanted(ICommands.M));
                             return;
 
                         default:
@@ -63,15 +63,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_TargetEnemy(true);
+                            IActions.Report.TargetEnemy(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_TargetEnemy(false);
+                            IActions.Report.TargetEnemy(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_TargetEnemy(!IGet.Report.TargetEnemy(ICommands.M));
+                            IActions.Report.TargetEnemy(!IGet.Report.TargetEnemy(ICommands.M));
                             return;
 
                         default:
@@ -84,15 +84,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_CollectedBounty(true);
+                            IActions.Report.CollectedBounty(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_CollectedBounty(false);
+                            IActions.Report.CollectedBounty(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_CollectedBounty(!IGet.Report.CollectedBounty(ICommands.M));
+                            IActions.Report.CollectedBounty(!IGet.Report.CollectedBounty(ICommands.M));
                             return;
 
                         default:
@@ -105,15 +105,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_MaterialCollected(true);
+                            IActions.Report.MaterialCollected(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_MaterialCollected(false);
+                            IActions.Report.MaterialCollected(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_MaterialCollected(!IGet.Report.MaterialCollected(ICommands.M));
+                            IActions.Report.MaterialCollected(!IGet.Report.MaterialCollected(ICommands.M));
                             return;
 
                         default:
@@ -126,15 +126,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_MaterialRefined(true);
+                            IActions.Report.MaterialRefined(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_MaterialRefined(false);
+                            IActions.Report.MaterialRefined(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_MaterialRefined(!IGet.Report.MaterialRefined(ICommands.M));
+                            IActions.Report.MaterialRefined(!IGet.Report.MaterialRefined(ICommands.M));
                             return;
 
                         default:
@@ -147,15 +147,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_StationStatus(true);
+                            IActions.Report.StationStatus(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_StationStatus(false);
+                            IActions.Report.StationStatus(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_StationStatus(!IGet.Report.StationStatus(ICommands.M));
+                            IActions.Report.StationStatus(!IGet.Report.StationStatus(ICommands.M));
                             return;
 
                         default:
@@ -168,15 +168,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_ShieldState(true);
+                            IActions.Report.ShieldState(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_ShieldState(false);
+                            IActions.Report.ShieldState(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_ShieldState(!IGet.Report.ShieldState(ICommands.M));
+                            IActions.Report.ShieldState(!IGet.Report.ShieldState(ICommands.M));
                             return;
 
                         default:
@@ -189,15 +189,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_Masslock(true);
+                            IActions.Report.Masslock(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_Masslock(false);
+                            IActions.Report.Masslock(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_Masslock(!IGet.Report.Masslock(ICommands.M));
+                            IActions.Report.Masslock(!IGet.Report.Masslock(ICommands.M));
                             return;
 
                         default:
@@ -210,15 +210,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            ISettings.U_FuelScoop(true);
+                            IActions.Report.FuelScoop(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_FuelScoop(false);
+                            IActions.Report.FuelScoop(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_FuelScoop(!IGet.Report.FuelScoop(ICommands.M));
+                            IActions.Report.FuelScoop(!IGet.Report.FuelScoop(ICommands.M));
                             return;
 
                         default:
@@ -231,19 +231,19 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Status:
-                            IEquipment.FuelTank.FuelLevel(true);
+                            IResponse.Fuel.Level(true);
                             return;
 
                         case L2.Enable:
-                            ISettings.U_FuelStatus(true);
+                            IActions.Report.FuelStatus(true);
                             return;
 
                         case L2.Disable:
-                            ISettings.U_FuelStatus(false);
+                            IActions.Report.FuelStatus(false);
                             return;
 
                         case L2.Toggle:
-                            ISettings.U_FuelStatus(!IGet.Report.FuelStatus(ICommands.M));
+                            IActions.Report.FuelStatus(!IGet.Report.FuelStatus(ICommands.M));
                             return;
 
                         default:

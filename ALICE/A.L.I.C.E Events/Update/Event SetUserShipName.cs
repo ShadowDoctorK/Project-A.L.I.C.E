@@ -3,6 +3,7 @@
 //Source Journal Line: { "timestamp":"2018-10-30T23:18:10Z", "event":"SetUserShipName", "Ship":"typex", "ShipID":59, "UserShipName":"Collossus of the fall", "UserShipId":"AG-30T" }
 
 using ALICE_Objects;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -58,7 +59,7 @@ namespace ALICE_Events
                 var Event = (SetUserShipName)O;
 
                 //Update Mothership Data
-                IObjects.Mothership.Update(Event);
+                IStatus.Mothership.Update(Event);
             }
             catch (Exception ex)
             {

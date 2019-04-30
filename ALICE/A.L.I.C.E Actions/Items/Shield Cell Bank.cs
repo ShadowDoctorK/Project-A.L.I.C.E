@@ -3,6 +3,7 @@ using ALICE_Internal;
 using ALICE_Keybinds;
 using ALICE_Response;
 using ALICE_Settings;
+using ALICE_Status;
 using System.Threading;
 
 namespace ALICE_Actions
@@ -44,7 +45,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Module Checks
-            if (Check.Equipment.ShieldCellBank(true, MethodName) == false)
+            if (ICheck.Mothership.M.ShieldCell(MethodName, true) == false)
             {
                 //Audio - Not Installed.
                 IResponse.ShieldCell.NotInstalled
@@ -69,12 +70,12 @@ namespace ALICE_Actions
         /// <param name="I">(Item) The Target Item.</param>
         /// <param name="Cold">(Modifier) Enabled parts of the audio based on modified activation.</param>
         /// <param name="S">(Select Only) True will only select the module.</param>
-        public void Target(bool CA, Settings_Firegroups.Item I, bool Cold = false, bool S = false)
+        public void Target(bool CA, ConfigurationHardpoints.Item I, bool Cold = false, bool S = false)
         {
             string MethodName = "Sheild Cell (Target)";
 
             //Record Current Firegroup
-            decimal Temp = Call.Firegroup.Current;
+            decimal Temp = IActions.Hardpoints.Current;
 
             //Activate When Cold Modifier Is Used
             if (Cold && S == false)
@@ -97,9 +98,9 @@ namespace ALICE_Actions
 
             #region Fire Group Management
             //Select Firegroup
-            switch (ISettings.Firegroup.Select(I))
+            switch (ISettings.Firegroups.Config.Select(I))
             {
-                case Settings_Firegroups.S.CurrentlySelected:
+                case ConfigurationHardpoints.S.CurrentlySelected:
 
                     if (S) //Only When Selecting Module
                     {
@@ -108,7 +109,7 @@ namespace ALICE_Actions
                     }
                     break;
 
-                case Settings_Firegroups.S.Selected:
+                case ConfigurationHardpoints.S.Selected:
 
                     if (S) //Only When Selecting Module
                     {
@@ -117,19 +118,19 @@ namespace ALICE_Actions
                     }
                     break;
 
-                case Settings_Firegroups.S.NotAssigned:
+                case ConfigurationHardpoints.S.NotAssigned:
 
                     //Audio - Not Assigned
                     IResponse.ShieldCell.NotAssigned(CA);                    
                     return;
 
-                case Settings_Firegroups.S.Failed:
+                case ConfigurationHardpoints.S.Failed:
 
                     //Audio - Selection Failed
                     IResponse.ShieldCell.SelectionFailed(CA);                    
                     return;
 
-                case Settings_Firegroups.S.InHyperspace:
+                case ConfigurationHardpoints.S.InHyperspace:
 
                     //Audio - In Hyperspace
                     IResponse.ShieldCell.NoHyperspace(CA);                    
@@ -145,19 +146,19 @@ namespace ALICE_Actions
             if (S) { return; }
 
             //Activate Module
-            switch (ISettings.Firegroup.Activate(I))
+            switch (ISettings.Firegroups.Config.Activate(I, 75, ref IStatus.False))
             {
-                case Settings_Firegroups.A.Hyperspace:
+                case ConfigurationHardpoints.A.Hyperspace:
                     
                     //No Actions
                     return;
 
-                case Settings_Firegroups.A.NotAssigned:
+                case ConfigurationHardpoints.A.NotAssigned:
 
                     IResponse.ShieldCell.NotAssigned(CA);                    
                     return;
 
-                case Settings_Firegroups.A.Complete:
+                case ConfigurationHardpoints.A.Complete:
 
                     IResponse.ShieldCell.Activating(CA);                    
                     break;
@@ -170,7 +171,7 @@ namespace ALICE_Actions
             #endregion
 
             //Return To Previou Firegroup.
-            Call.Firegroup.Select(Temp, false);
+            IActions.Hardpoints.Select(Temp, false);
         }
     }
 }

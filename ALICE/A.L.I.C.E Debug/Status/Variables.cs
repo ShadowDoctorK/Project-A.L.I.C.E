@@ -12,10 +12,9 @@ namespace ALICE_Debug
 namespace ALICE_DebugCheck
 {
     using ALICE_Actions;
-    using ALICE_Core;
     using ALICE_Debug;
     using ALICE_Internal;
-    using ALICE_Objects;
+    using ALICE_Status;
 
     public class Variables : Debug
     {
@@ -87,6 +86,14 @@ namespace ALICE_DebugCheck
         /// <param name="T">(Target) The Expected State</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
+        public bool ExternalLights(string M, bool T, bool L = true)
+        { return Evaluate(M, ClassName + "External Lights", T, IStatus.ExternalLights, L); }
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="T">(Target) The Expected State</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
         public bool FlightAssist(string M, bool T, bool L = true)
         { return Evaluate(M, ClassName + "Flight Assist", T, IStatus.FlightAssist, L); }
 
@@ -96,7 +103,7 @@ namespace ALICE_DebugCheck
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
         public bool FireGroup(string M, decimal C, bool T, bool L = true)
-        { return Evaluate(M, ClassName + "Fire Group", true, C, Call.Firegroup.Current, L); }
+        { return Evaluate(M, ClassName + "Fire Group", true, C, IActions.Hardpoints.Current, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -122,6 +129,15 @@ namespace ALICE_DebugCheck
         public bool Hardpoints(string M, bool T, bool L = true)
         { return Evaluate(M, ClassName + "Hardpoints", T, IStatus.Hardpoints, L); }
 
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="T">(Target) The Expected State</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
+        public bool LandingGear(string M, bool T, bool L = true)
+        { return Evaluate(M, ClassName + "Landing Gear", T, IStatus.LandingGear, L); }
+
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="T">(Target) The Expected State</param>
@@ -129,6 +145,14 @@ namespace ALICE_DebugCheck
         /// <returns></returns>
         public bool Overheating(string M, bool T, bool L = true)
         { return Evaluate(M, ClassName + "Overheating", T, IStatus.Overheating, L); }
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="T">(Target) The Expected State</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
+        public bool Shields(string M, bool T, bool L = true)
+        { return Evaluate(M, ClassName + "Shields", T, IStatus.Shields.Status, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -160,12 +184,12 @@ namespace ALICE_DebugCheck
         /// <param name="T">(Target) The Expected State</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
-        public bool Vehicle(string M, IVehicles.V C, bool T, bool L = true)
+        public bool Vehicle(string M, IStatus.V C, bool T, bool L = true)
         {
             //Set Prefix For Check Value
             string S = ""; if (T == false) { S = "Not "; }
             string N = ClassName + "Vehicle";
-            IVehicles.V P = IVehicles.Vehicle;
+            IStatus.V P = IStatus.Vehicle;
 
             //Check
             if (T == true && C != P)
@@ -204,8 +228,8 @@ namespace ALICE_Debug
 
 namespace ALICE_DebugGet
 {
-    using ALICE_Core;
     using ALICE_Debug;
+    using ALICE_Status;
 
     public class Variables : Debug
     {
@@ -229,6 +253,13 @@ namespace ALICE_DebugGet
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
+        public bool ExternalLights(string M, bool L = true)
+        { return Get(M, ClassName + "External Lights", IStatus.ExternalLights, L); }
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
         public bool FlightAssist(string M, bool L = true)
         { return Get(M, ClassName + "Flight Assist", IStatus.FlightAssist, L); }
 
@@ -243,6 +274,20 @@ namespace ALICE_DebugGet
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
         /// <param name="L">(Logger) Enables / Disables Logging</param>
         /// <returns></returns>
+        public bool LandingGear(string M, bool L = true)
+        { return Get(M, ClassName + "Landing Gear", IStatus.LandingGear, L); }
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
+        public bool NightVision(string M, bool L = true)
+        { return Get(M, ClassName + "Night Vision", IStatus.NightVision, L); }
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
         public bool Overheating(string M, bool L = true)
         { return Get(M, ClassName + "Overheating", IStatus.Overheating, L); }
 
@@ -252,6 +297,13 @@ namespace ALICE_DebugGet
         /// <returns></returns>
         public bool SilentRunning(string M, bool L = true)
         { return Get(M, ClassName + "Silent Running", IStatus.SilentRunning, L); }
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
+        public bool Shields(string M, bool L = true)
+        { return Get(M, ClassName + "Shields", IStatus.Shields.Status, L); }
 
         /// <summary></summary>
         /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
@@ -276,8 +328,8 @@ namespace ALICE_Debug
 
 namespace ALICE_DebugSet
 {
-    using ALICE_Core;
     using ALICE_Debug;
+    using ALICE_Status;
 
     public class Variables : Debug
     {
@@ -290,6 +342,14 @@ namespace ALICE_DebugSet
         /// <returns></returns>
         public void WeaponSafety(string M, bool V, bool L = true)
         { Set(M, ClassName + "Weapon Safety", ref IStatus.WeaponSafety, V, L); }
+
+        /// <summary></summary>
+        /// <param name="M">(Method) The Simple Name Of The Calling Method</param>
+        /// <param name="V">(Value) New Property Value</param>
+        /// <param name="L">(Logger) Enables / Disables Logging</param>
+        /// <returns></returns>
+        public void LandingGear(string M, bool V, bool L = true)
+        { Set(M, ClassName + "Landing Gear", ref IStatus.LandingGear, V, L); }
     }
 }
 #endregion

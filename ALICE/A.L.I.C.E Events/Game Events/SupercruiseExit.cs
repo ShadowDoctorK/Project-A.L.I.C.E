@@ -3,10 +3,9 @@
 //Source Journal Line: { "timestamp":"2018-10-14T20:07:57Z", "event":"SupercruiseExit", "StarSystem":"Col 173 Sector KY-Q d5-47", "SystemAddress":1625603164499, "Body":"Col 173 Sector KY-Q d5-47 8 c", "BodyID":24, "BodyType":"Planet" }
 
 using ALICE_Actions;
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Equipment;
 using ALICE_Internal;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -66,8 +65,8 @@ namespace ALICE_Events
                 //Update Event Instance
                 I = (SupercruiseExit)O;
 
-                IEquipment.FrameShiftDrive.Reset(ClassName, true, true, true);
-                IEquipment.FrameShiftDrive.Disengaging = false;
+                IStatus.FrameShiftDrive.Reset(ClassName, true, true, true);
+                IStatus.FrameShiftDrive.Disengaging = false;
                 IEvents.FireInNoFireZone.I.FirstReport = true;
                 Call.Panel.MainFourIsFalse();
             }
@@ -115,7 +114,7 @@ namespace ALICE_Events
                 IStatus.Hardpoints = false;
                 IStatus.Touchdown = false;
                 IStatus.CargoScoop = false;
-                ISet.LandingGear.Status(ClassName, false);
+                ISet.Status.LandingGear(ClassName, false);
                 IStatus.WeaponSafety = false;
             }
             catch (Exception ex)

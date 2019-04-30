@@ -2,10 +2,9 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-12T00:02:53Z", "event":"Bounty", "Rewards":[ { "Faction":"BD+06 5034 Bridge Commodities", "Reward":55800 }, { "Faction":"Cavalry Command of Yuma", "Reward":65260 }, { "Faction":"Revolutionary Lalande 43492 Labour", "Reward":74160 }, { "Faction":"LHS 480 Crimson Natural Group", "Reward":69840 } ], "Target":"python", "TotalReward":265060, "VictimFaction":"Nankul General Holdings", "SharedWithOthers":1 }
 
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Internal;
 using ALICE_Response;
+using ALICE_Status;
 using System;
 using System.Collections.Generic;
 

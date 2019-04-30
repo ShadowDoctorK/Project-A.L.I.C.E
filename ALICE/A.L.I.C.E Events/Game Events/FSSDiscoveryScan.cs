@@ -2,8 +2,8 @@
 //Class File Generated: 11/20/2018 9:56 PM
 //Source Journal Line: { "timestamp":"2019-04-25T00:59:57Z", "event":"FSSDiscoveryScan", "Progress":1.000000, "BodyCount":37, "NonBodyCount":25, "SystemName":"Ross 376", "SystemAddress":2557686551234 }
 
+using ALICE_Actions;
 using ALICE_Debug;
-using ALICE_Equipment;
 using ALICE_Internal;
 using ALICE_Objects;
 using ALICE_Response;
@@ -92,8 +92,8 @@ namespace ALICE_Events
                     (IObjects.SystemCurrent.StellarBodies == I.BodyCount));     //Check For No New Returns
 
                 //Update Discovery Scanner Settings
-                IEquipment.DiscoveryScanner.FirstScan = false;
-                IEquipment.DiscoveryScanner.Active = false;
+                IActions.DiscoveryScanner.FirstScan = false;
+                IActions.DiscoveryScanner.Active = false;
 
                 //Update Current System Object
                 IObjects.SystemCurrent.Update_SystemData(I);

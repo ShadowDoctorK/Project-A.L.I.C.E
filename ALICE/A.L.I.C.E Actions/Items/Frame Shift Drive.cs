@@ -1,9 +1,7 @@
-﻿using ALICE_Core;
-using ALICE_Debug;
-using ALICE_Equipment;
+﻿using ALICE_Debug;
 using ALICE_Internal;
-using ALICE_Objects;
 using ALICE_Response;
+using ALICE_Status;
 using System.Threading;
 
 namespace ALICE_Actions
@@ -42,7 +40,7 @@ namespace ALICE_Actions
 
                 default:
                     //Abort Sucessful
-                    if (IEquipment.FrameShiftDrive.Abort() == true)
+                    if (IStatus.FrameShiftDrive.Abort() == true)
                     {
                         IResponse.FrameShiftDrive.AbortSuccessful(A);
                     }
@@ -79,7 +77,7 @@ namespace ALICE_Actions
                 false,  //Normal Space
                 false,  //Masslock
                 false,  //Cooldown
-                ref IEquipment.FrameShiftDrive.PrepHyperspace))
+                ref IStatus.FrameShiftDrive.PrepHyperspace))
             {
                 case Validate.Pass:
                     //Continue
@@ -88,12 +86,12 @@ namespace ALICE_Actions
                 case Validate.Hyperspace:
                     //Currently In Hyperspace
                     IResponse.FrameShiftDrive.HS_CurrentlyHyperspace(A);
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
 
                 default:
                     //Failed, Exit
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
             }
 
@@ -107,21 +105,21 @@ namespace ALICE_Actions
                 case Charge.Hyperspace:
                     //Already Charging For Hyperspace
                     IResponse.FrameShiftDrive.HS_CurrentlyCharging(A);
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
 
                 case Charge.Supercruise:
                     //Stop Charging For Supercruise
-                    IEquipment.FrameShiftDrive.Abort(); break;
+                    IStatus.FrameShiftDrive.Abort(); break;
 
                 case Charge.Unknown:
                     //Unknown State Stop Charging.
-                    IEquipment.FrameShiftDrive.Abort(); break;
+                    IStatus.FrameShiftDrive.Abort(); break;
 
                 default:
                     //Unknown Error Reset
-                    IEquipment.FrameShiftDrive.Reset(MethodName, true, true, true);
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Reset(MethodName, true, true, true);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
             }
 
@@ -134,27 +132,27 @@ namespace ALICE_Actions
 
                 case Prepare.Hyperspace:
                     //Already Preparing For Hyperspace
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
 
                 case Prepare.Supercruise:
                     //Reset Supercruise Call Items And Continue
-                    IEquipment.FrameShiftDrive.Prepair(MethodName, false); break;
+                    IStatus.FrameShiftDrive.Prepair(MethodName, false); break;
 
                 case Prepare.MarkHyperspace:
                     //Set Mark To False To Continue With Previous Call
-                    IEquipment.FrameShiftDrive.Reset(MethodName, false, true, false);
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Reset(MethodName, false, true, false);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
 
                 case Prepare.MarkSupercruise:
                     //Reset Supercruise Call Items And Continue
-                    IEquipment.FrameShiftDrive.Reset(MethodName, true, true, false); break;                    
+                    IStatus.FrameShiftDrive.Reset(MethodName, true, true, false); break;                    
 
                 default:
                     //Unknown Error Reset
-                    IEquipment.FrameShiftDrive.Reset(MethodName, true, true, true);
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Reset(MethodName, true, true, true);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
             }
 
@@ -165,7 +163,7 @@ namespace ALICE_Actions
             if (S == true)
             {
                 //Prepare For Hyperspace
-                IEquipment.FrameShiftDrive.Prepair(MethodName, true, true);
+                IStatus.FrameShiftDrive.Prepair(MethodName, true, true);
                 IResponse.FrameShiftDrive.HS_Prepairing(A);
 
                 //Check If We Are Waiting For A Mark
@@ -182,12 +180,12 @@ namespace ALICE_Actions
 
                     //Wait 30 Seconds For Mark
                     switch (IStatus.Interaction.WaitForMark(MethodName, 30000, 
-                        ref IEquipment.FrameShiftDrive.Marking, 
+                        ref IStatus.FrameShiftDrive.Marking, 
                         ref IStatus.Interaction.Marker))
                     {
                         case ALICE_Status.Status_Interaction.Marks.NoResponse:
-                            IEquipment.FrameShiftDrive.Reset(MethodName, true, true, false);
-                            IEquipment.FrameShiftDrive.Returned(MethodName);
+                            IStatus.FrameShiftDrive.Reset(MethodName, true, true, false);
+                            IStatus.FrameShiftDrive.Returned(MethodName);
                             return;
 
                         case ALICE_Status.Status_Interaction.Marks.Mark:
@@ -195,13 +193,13 @@ namespace ALICE_Actions
                             break;
 
                         case ALICE_Status.Status_Interaction.Marks.EarlyReturn:
-                            IEquipment.FrameShiftDrive.Reset(MethodName, false, true, false);
-                            IEquipment.FrameShiftDrive.Returned(MethodName);
+                            IStatus.FrameShiftDrive.Reset(MethodName, false, true, false);
+                            IStatus.FrameShiftDrive.Returned(MethodName);
                             return;
 
                         default:
-                            IEquipment.FrameShiftDrive.Reset(MethodName, true, true, false);
-                            IEquipment.FrameShiftDrive.Returned(MethodName);
+                            IStatus.FrameShiftDrive.Reset(MethodName, true, true, false);
+                            IStatus.FrameShiftDrive.Returned(MethodName);
                             return;
                     }
                 }
@@ -210,7 +208,7 @@ namespace ALICE_Actions
                 if (ICheck.FrameShiftDrive.PrepHyperspace(MethodName, true) == false)
                 {
                     //Jump Was Aborted While We Waited, Exit Method.
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
                 }
 
@@ -225,7 +223,7 @@ namespace ALICE_Actions
                     false,  //Normal Space
                     true,   //Masslock
                     true,   //Cooldown
-                    ref IEquipment.FrameShiftDrive.PrepHyperspace))
+                    ref IStatus.FrameShiftDrive.PrepHyperspace))
                 {
                     case Validate.Pass:
                         //Continue
@@ -233,7 +231,7 @@ namespace ALICE_Actions
 
                     default:
                         //Failed, Exit
-                        IEquipment.FrameShiftDrive.Returned(MethodName);
+                        IStatus.FrameShiftDrive.Returned(MethodName);
                         return;
                 }
                 //Final Equipment Line Up
@@ -242,10 +240,10 @@ namespace ALICE_Actions
                 //Notes: Charge Audio Controlled By Status.Json Events.
 
                 //Start & Monitor
-                if (IEquipment.FrameShiftDrive.Start(true) == false)
+                if (IStatus.FrameShiftDrive.Start(true) == false)
                 {
                     IResponse.FrameShiftDrive.FailedToEngage(A);
-                    IEquipment.FrameShiftDrive.Reset(MethodName, true, true, false);
+                    IStatus.FrameShiftDrive.Reset(MethodName, true, true, false);
                 }
             }
         }
@@ -270,27 +268,27 @@ namespace ALICE_Actions
                 !S,     //Normal Space  (True If Existing Supercruise)
                 false,  //Masslock
                 false,  //Cooldown
-                ref IEquipment.FrameShiftDrive.PrepSupercruise))
+                ref IStatus.FrameShiftDrive.PrepSupercruise))
             {
                 case Validate.Pass:
                     //Continue
                     break;
-
+                        
                 case Validate.Supercruise:
                     //Currently In Supercruise
                     IResponse.FrameShiftDrive.SC_CurrentlySupercruise(A);
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
 
                 case Validate.NormalSpace:
                     //Currently In Hyperspace
                     IResponse.FrameShiftDrive.SC_CurrentlyNormalSpace(A);
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
 
                 default:
                     //Failed, Exit
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
             }
 
@@ -303,22 +301,22 @@ namespace ALICE_Actions
 
                 case Charge.Hyperspace:
                     //Stop Charging For Hyperspace
-                    IEquipment.FrameShiftDrive.Abort(); break;
+                    IStatus.FrameShiftDrive.Abort(); break;
 
                 case Charge.Supercruise:
                     //Already Charging For Supercruise
                     IResponse.FrameShiftDrive.SC_CurrentlyCharging(A);
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
 
                 case Charge.Unknown:
                     //Unknown State Stop Charging.
-                    IEquipment.FrameShiftDrive.Abort(); break;
+                    IStatus.FrameShiftDrive.Abort(); break;
 
                 default:
                     //Unknown Error Reset
-                    IEquipment.FrameShiftDrive.Reset(MethodName, true, true, true);
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Reset(MethodName, true, true, true);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
             }
 
@@ -331,27 +329,27 @@ namespace ALICE_Actions
 
                 case Prepare.Hyperspace:
                     //Reset Hyperspace Call Items And Continue
-                    IEquipment.FrameShiftDrive.Prepair(MethodName, false); break;
+                    IStatus.FrameShiftDrive.Prepair(MethodName, false); break;
 
                 case Prepare.Supercruise:
                     //Already Preparing For Supercruise
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
 
                 case Prepare.MarkHyperspace:
                     //Reset Hyperspace Call Items And Continue
-                    IEquipment.FrameShiftDrive.Reset(MethodName, true, true, false); break;
+                    IStatus.FrameShiftDrive.Reset(MethodName, true, true, false); break;
 
                 case Prepare.MarkSupercruise:
                     //Set Mark To False To Continue With Previous Call
-                    IEquipment.FrameShiftDrive.Reset(MethodName, false, true, false);
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Reset(MethodName, false, true, false);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
 
                 default:
                     //Unknown Error Reset
-                    IEquipment.FrameShiftDrive.Reset(MethodName, true, true, true);
-                    IEquipment.FrameShiftDrive.Returned(MethodName);
+                    IStatus.FrameShiftDrive.Reset(MethodName, true, true, true);
+                    IStatus.FrameShiftDrive.Returned(MethodName);
                     return;
             }
 
@@ -365,7 +363,7 @@ namespace ALICE_Actions
                 if (S == true)
                 {
                     //Prepare For Supercruise
-                    IEquipment.FrameShiftDrive.Prepair(MethodName, true);
+                    IStatus.FrameShiftDrive.Prepair(MethodName, true);
                     IResponse.FrameShiftDrive.SC_Prepairing(A);
 
                     //Check If We Are Waiting For A Mark
@@ -382,12 +380,12 @@ namespace ALICE_Actions
 
                         //Wait 30 Seconds For Mark
                         switch (IStatus.Interaction.WaitForMark(MethodName, 30000, 
-                            ref IEquipment.FrameShiftDrive.Marking, 
+                            ref IStatus.FrameShiftDrive.Marking, 
                             ref IStatus.Interaction.Marker))
                         {
                             case ALICE_Status.Status_Interaction.Marks.NoResponse:
-                                IEquipment.FrameShiftDrive.Reset(MethodName, true, true, false);
-                                IEquipment.FrameShiftDrive.Returned(MethodName);
+                                IStatus.FrameShiftDrive.Reset(MethodName, true, true, false);
+                                IStatus.FrameShiftDrive.Returned(MethodName);
                                 return;
 
                             case ALICE_Status.Status_Interaction.Marks.Mark:
@@ -395,13 +393,13 @@ namespace ALICE_Actions
                                 break;
 
                             case ALICE_Status.Status_Interaction.Marks.EarlyReturn:
-                                IEquipment.FrameShiftDrive.Reset(MethodName, false, true, false);
-                                IEquipment.FrameShiftDrive.Returned(MethodName);
+                                IStatus.FrameShiftDrive.Reset(MethodName, false, true, false);
+                                IStatus.FrameShiftDrive.Returned(MethodName);
                                 return;
 
                             default:
-                                IEquipment.FrameShiftDrive.Reset(MethodName, true, true, false);
-                                IEquipment.FrameShiftDrive.Returned(MethodName);
+                                IStatus.FrameShiftDrive.Reset(MethodName, true, true, false);
+                                IStatus.FrameShiftDrive.Returned(MethodName);
                                 return;
                         }
                     }
@@ -410,7 +408,7 @@ namespace ALICE_Actions
                     if (ICheck.FrameShiftDrive.PrepSupercruise(MethodName, true) == false)
                     {
                         //Jump Was Aborted While We Waited, Exit Method.
-                        IEquipment.FrameShiftDrive.Returned(MethodName);
+                        IStatus.FrameShiftDrive.Returned(MethodName);
                         return;
                     }
 
@@ -425,7 +423,7 @@ namespace ALICE_Actions
                         false,  //Normal Space
                         true,   //Masslock
                         true,   //Cooldown
-                        ref IEquipment.FrameShiftDrive.PrepSupercruise))
+                        ref IStatus.FrameShiftDrive.PrepSupercruise))
                     {
                         case Validate.Pass:
                             //Continue
@@ -433,7 +431,7 @@ namespace ALICE_Actions
 
                         default:
                             //Failed, Exit
-                            IEquipment.FrameShiftDrive.Returned(MethodName);
+                            IStatus.FrameShiftDrive.Returned(MethodName);
                             return;
                     }
                     //Final Equipment Line Up
@@ -442,10 +440,10 @@ namespace ALICE_Actions
                     //Notes: Charge Audio Controlled By Status.Json Events.
 
                     //Start & Monitor
-                    if (IEquipment.FrameShiftDrive.Start(false) == false)
+                    if (IStatus.FrameShiftDrive.Start(false) == false)
                     {
                         IResponse.FrameShiftDrive.FailedToEngage(A);
-                        IEquipment.FrameShiftDrive.Reset(MethodName, true, true, false);
+                        IStatus.FrameShiftDrive.Reset(MethodName, true, true, false);
                     }
                 }
                 //Already In Normal Space
@@ -474,12 +472,12 @@ namespace ALICE_Actions
 
                         //Wait 30 Seconds For Mark
                         switch (IStatus.Interaction.WaitForMark(MethodName, 30000, 
-                            ref IEquipment.FrameShiftDrive.Marking,
+                            ref IStatus.FrameShiftDrive.Marking,
                             ref IStatus.Interaction.Marker))
                         {
                             case ALICE_Status.Status_Interaction.Marks.NoResponse:
-                                IEquipment.FrameShiftDrive.Reset(MethodName, true, true, false);
-                                IEquipment.FrameShiftDrive.Returned(MethodName);
+                                IStatus.FrameShiftDrive.Reset(MethodName, true, true, false);
+                                IStatus.FrameShiftDrive.Returned(MethodName);
                                 return;
 
                             case ALICE_Status.Status_Interaction.Marks.Mark:
@@ -487,13 +485,13 @@ namespace ALICE_Actions
                                 break;
 
                             case ALICE_Status.Status_Interaction.Marks.EarlyReturn:
-                                IEquipment.FrameShiftDrive.Reset(MethodName, false, true, false);
-                                IEquipment.FrameShiftDrive.Returned(MethodName);
+                                IStatus.FrameShiftDrive.Reset(MethodName, false, true, false);
+                                IStatus.FrameShiftDrive.Returned(MethodName);
                                 return;
 
                             default:
-                                IEquipment.FrameShiftDrive.Reset(MethodName, true, true, false);
-                                IEquipment.FrameShiftDrive.Returned(MethodName);
+                                IStatus.FrameShiftDrive.Reset(MethodName, true, true, false);
+                                IStatus.FrameShiftDrive.Returned(MethodName);
                                 return;
                         }
                     }
@@ -502,7 +500,7 @@ namespace ALICE_Actions
                     IResponse.FrameShiftDrive.SC_Disengaging(A);
 
                     //Stop & Monitor
-                    if (IEquipment.FrameShiftDrive.Stop() == false)
+                    if (IStatus.FrameShiftDrive.Stop() == false)
                     {
                         //Too Fast Audio
                         IResponse.FrameShiftDrive.TooFast(A);
@@ -520,10 +518,10 @@ namespace ALICE_Actions
                             case ALICE_Status.Status_Interaction.Answers.Yes:
 
                                 //Postive Response Audio
-                                IEquipment.FrameShiftDrive.PositiveResponse(A);
+                                IResponse.FrameShiftDrive.PositiveResponse(A);
 
                                 //Emergency Stop & Montor
-                                if (IEquipment.FrameShiftDrive.Stop(true) == false)
+                                if (IStatus.FrameShiftDrive.Stop(true) == false)
                                 {
                                     IResponse.FrameShiftDrive.FailedToDisengage(A);
                                     ISet.FrameShiftDrive.Disengaging(MethodName, false);
@@ -534,7 +532,7 @@ namespace ALICE_Actions
                             case ALICE_Status.Status_Interaction.Answers.No:
 
                                 //Postive Response Audio
-                                IEquipment.FrameShiftDrive.PositiveResponse(A);
+                                IResponse.FrameShiftDrive.PositiveResponse(A);
 
                                 //Reset
                                 ISet.FrameShiftDrive.Disengaging(MethodName, false);
@@ -600,9 +598,9 @@ namespace ALICE_Actions
             //Vehicle Check
             if (V)
             {
-                if (ICheck.Status.Vehicle(M, IVehicles.V.Mothership, true) == false)
+                if (ICheck.Status.Vehicle(M, IStatus.V.Mothership, true) == false)
                 {
-                    IEquipment.FrameShiftDrive.NotInMothership(A);
+                    IResponse.FrameShiftDrive.NotInMothership(A);
                     return Validate.Vehicle;
                 }
             }
@@ -612,7 +610,7 @@ namespace ALICE_Actions
             {
                 if (ICheck.Status.Touchdown(M, false) == false)
                 {
-                    IEquipment.FrameShiftDrive.NoTouchdown(A);
+                    IResponse.FrameShiftDrive.NoTouchdown(A);
                     return Validate.Touchdown;
                 }
             }
@@ -622,7 +620,7 @@ namespace ALICE_Actions
             {
                 if (ICheck.Docking.Status(M, false, IEnums.DockingState.Docked) == false)
                 {
-                    IEquipment.FrameShiftDrive.NoDocked(A);
+                    IResponse.FrameShiftDrive.NoDocked(A);
                     return Validate.Docked;
                 }
             }
@@ -743,7 +741,7 @@ namespace ALICE_Actions
             //Landing Gear Check
             if (L)
             {
-                if (ICheck.LandingGear.Status(M, false, true) == false)
+                if (ICheck.Status.LandingGear(M, false, true) == false)
                 {
                     Call.Action.LandingGear(false, false);
                 }
