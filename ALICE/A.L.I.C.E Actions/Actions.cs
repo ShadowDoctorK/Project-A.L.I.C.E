@@ -577,7 +577,7 @@ namespace ALICE_Actions
             }
 
             //If Docked is True...
-            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked) == true && CMD_State == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked) == false && CMD_State == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -1782,6 +1782,12 @@ namespace ALICE_Actions
 
         public static void Select_Wingmans_Target(decimal Wingman, bool CommandAudio)
         {
+            if (IStatus.InWing == false)
+            {
+                //Audio - We are not in a wing.
+                return;
+            }
+
             if (Wingman != 0)
             {
                 Select_Wingman(Wingman, false);
@@ -1794,6 +1800,12 @@ namespace ALICE_Actions
 
         public static void Select_Wingmans_NavLock(decimal Wingman, bool CommandAudio)
         {
+            if (IStatus.InWing == false)
+            {
+                //Audio - We are not in a wing.
+                return;
+            }
+
             if (Wingman != 0)
             {
                 Select_Wingman(Wingman, false);

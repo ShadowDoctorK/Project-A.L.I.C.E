@@ -212,18 +212,23 @@ namespace ALICE_Status
                 Thread thread = new Thread((ThreadStart)(() => 
                 {
                     //Check
-                    if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Starport, true) == false)
+                    if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Starport) == false)
                     {
                         //Already Inside Starport
                         return;
                     }
 
                     //Watch Entering Starport While Docking State Is False
-                    while (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space, false) == true &&
-                        ICheck.Status.LandingGear(MethodName, false) == true)
+                    while (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space, false)       //Check Normal Space
+                        && ICheck.Status.LandingGear(MethodName, false)                                 //Check Landing Gear Retracted
+                        && ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked)         //Check Not Docked
+                        && ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Timeout)        //Check Not Timeout
+                        && ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Cancelled)      //Check Not Cancelled
+                        && ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Denied))        //Check Not Denied
                     {
-                        if (IGet.Music.MusicTrack(MethodName) == IEnums.Starport && 
-                            (IStatus.Docking.Preparations == false || ICheck.Status.LandingGear(MethodName, false)))
+                        if (IGet.Music.MusicTrack(MethodName) == IEnums.Starport                        //Music Is Starport
+                        && (IStatus.Docking.Preparations == false                                       //Check Docking Preps False Or...
+                        || ICheck.Status.LandingGear(MethodName, false)))                               //Check Landing Gear Retracted
                         {
                             IStatus.Docking.Preparations = true; IActions.Docking.Preparations(true); return;
                         }

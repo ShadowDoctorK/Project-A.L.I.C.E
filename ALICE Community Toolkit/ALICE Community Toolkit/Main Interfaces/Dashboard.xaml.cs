@@ -92,12 +92,12 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                if (File.Exists(Paths.ALICE_ManualPath)) { System.Diagnostics.Process.Start(Paths.ALICE_ManualPath); }
-                else { System.Windows.Forms.MessageBox.Show("Unable To Open The Manual, Did You Move It?"); }
+                try { System.Diagnostics.Process.Start("https://github.com/ShadowDoctorK/Project-A.L.I.C.E/wiki"); }
+                catch (Exception) { }
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Something Went Wrong Opening The Manual" + ex);
+                System.Windows.Forms.MessageBox.Show("Something Went Wrong Opening The Wiki Page" + ex);
             }
         }
         #endregion

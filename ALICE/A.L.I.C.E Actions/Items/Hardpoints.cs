@@ -426,7 +426,7 @@ namespace ALICE_Actions
 
             #region Valid Command Checks
             //Docked Check
-            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked, true) == true)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked, true) == false)
             {
                 return;
             }

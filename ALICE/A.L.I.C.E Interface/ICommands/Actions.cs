@@ -853,7 +853,7 @@ namespace ALICE_Interface
                             return;
                     }
 
-                case L1.Slient_Running:
+                case L1.Silent_Running:
 
                     switch (Command[2].Lookup<L2>())
                     {

@@ -249,7 +249,7 @@ namespace ALICE_Interface
             Frame_Shift_Drive,
             Lights,
             Landing_Gear,
-            Slient_Running,
+            Silent_Running,
             Hardpoints,
             Heatsink,
             Shield_Cell,
