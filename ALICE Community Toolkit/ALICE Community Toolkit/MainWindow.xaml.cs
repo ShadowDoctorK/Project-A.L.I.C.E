@@ -1,4 +1,5 @@
 ﻿using ALICE_Internal;
+using ALICE_Synthesizer;
 using System;
 using System.Linq;
 using System.Threading;
@@ -20,7 +21,9 @@ namespace ALICE_Community_Toolkit
             Paths.CreateDir();
             Interface_StackPanel.Children.Add(Interface_Dashboard);
 
-            Win = (MainWindow)Application.Current.MainWindow;         
+            Win = (MainWindow)Application.Current.MainWindow;
+
+            Startup();
         }
 
         //Static Reference Of The Main Window
@@ -29,21 +32,25 @@ namespace ALICE_Community_Toolkit
         public static void Startup()
         {
             //File Verification
-            Settings.FileVerification();
+            TKSettings.FileVerification();
 
-            //Monitor Settings Files
-            Settings.Monitor_Settings.Start();
+            //Load Audio Files
+            ISynthesizer.Response.Load(Paths.ALICE_Response);
+
+            //Start Settings Monitor On New Thread
+            Thread config = new Thread((ThreadStart)(() => { TKSettings.Monitor_Settings.Start(); }))
+            { IsBackground = true }; config.Start();
 
             //Wait For All Settings To Load
-            while (Settings.InitFiregroups() == false
-                || Settings.InitShipyard() == false
-                || Settings.InitUser() == false)
+            while (TKSettings.InitFiregroups() == false || TKSettings.InitUser() == false)
             {
                 Thread.Sleep(250);
             }
 
             //Initial UI Update
             UpdateButtons();
+
+            TKSettings.InitUI = true;
         }
 
         public static void UpdateButtons()
@@ -68,7 +75,7 @@ namespace ALICE_Community_Toolkit
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    Label_Commander.Content = "CMDR " + Settings.User.Commander;
+                    Label_Commander.Content = "CMDR " + TKSettings.User.Commander;
                 });
             }
             catch (Exception ex)

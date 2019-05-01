@@ -50,7 +50,10 @@ namespace ALICE_Settings
                 {
                     Config = Storage[ID];
 
-                    Logger.Log("Firegroup Settings", "[Loaded] " + IStatus.Mothership.FingerPrint, Logger.Purple);
+                    if (ID != -1)
+                    {
+                        Logger.Log("Firegroup Settings", "[Loaded] " + IStatus.Mothership.FingerPrint, Logger.Purple);
+                    }                    
                 }
 
                 //New Config

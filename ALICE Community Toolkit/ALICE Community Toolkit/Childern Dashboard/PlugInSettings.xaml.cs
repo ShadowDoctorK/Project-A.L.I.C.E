@@ -1,5 +1,4 @@
 ﻿using ALICE_Internal;
-using ALICE_Settings;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -82,44 +81,44 @@ namespace ALICE_Community_Toolkit
                 {
                     #region PlugIn
                     //Firegroup Offset
-                    Slider_DelayFiregroup.Value = Settings.User.OffsetFireGroups();
-                    TextBox_DelayFiregroup.Text = Settings.User.OffsetFireGroups().ToString() + "ms";
+                    Slider_DelayFiregroup.Value = TKSettings.User.OffsetFireGroups();
+                    TextBox_DelayFiregroup.Text = TKSettings.User.OffsetFireGroups().ToString() + "ms";
                     //Panel Offset
-                    Slider_DelayPanel.Value = Settings.User.OffsetPanels();
-                    TextBox_DelayPanel.Text = Settings.User.OffsetPanels().ToString() + "ms";
+                    Slider_DelayPanel.Value = TKSettings.User.OffsetPanels();
+                    TextBox_DelayPanel.Text = TKSettings.User.OffsetPanels().ToString() + "ms";
                     //Power Offset
-                    Slider_DelayPower.Value = Settings.User.OffsetPips();
-                    TextBox_DelayPower.Text = Settings.User.OffsetPips().ToString() + "ms";
+                    Slider_DelayPower.Value = TKSettings.User.OffsetPips();
+                    TextBox_DelayPower.Text = TKSettings.User.OffsetPips().ToString() + "ms";
                     //Throttle Offset
-                    Slider_DelayThrottle.Value = Settings.User.OffsetThrottle();
-                    TextBox_DelayThrottle.Text = Settings.User.OffsetThrottle().ToString() + "ms";
+                    Slider_DelayThrottle.Value = TKSettings.User.OffsetThrottle();
+                    TextBox_DelayThrottle.Text = TKSettings.User.OffsetThrottle().ToString() + "ms";
                     #endregion
 
                     #region Reports
-                    btn_FuelScoop.Foreground = Data.GetTextColor(Settings.User.FuelScoop());
-                    btn_FuelStatus.Foreground = Data.GetTextColor(Settings.User.FuelStatus());
-                    btn_MaterialCollected.Foreground = Data.GetTextColor(Settings.User.MaterialCollected());
-                    btn_NoFireZone.Foreground = Data.GetTextColor(Settings.User.NoFireZone());
-                    btn_StationStatus.Foreground = Data.GetTextColor(Settings.User.StationStatus());
-                    btn_ShieldStatus.Foreground = Data.GetTextColor(Settings.User.ShieldState());
-                    btn_CollectedBounty.Foreground = Data.GetTextColor(Settings.User.CollectedBounty());
-                    btn_TargetEnemy.Foreground = Data.GetTextColor(Settings.User.TargetEnemy());
-                    btn_WatnedTarget.Foreground = Data.GetTextColor(Settings.User.TargetWanted());
-                    btn_RefinedMaterials.Foreground = Data.GetTextColor(Settings.User.MaterialRefined());
-                    btn_Masslock.Foreground = Data.GetTextColor(Settings.User.Masslock());
-                    btn_HighGravity.Foreground = Data.GetTextColor(Settings.User.HighGravDescent());
-                    btn_TravelDistance.Foreground = Data.GetTextColor(Settings.User.ScanTravelDist());
-                    btn_LandableVolcanism.Foreground = Data.GetTextColor(Settings.User.LandableVolcanism());
-                    btn_GlideStatus.Foreground = Data.GetTextColor(Settings.User.GlideStatus());
+                    btn_FuelScoop.Foreground = Data.GetTextColor(TKSettings.User.FuelScoop());
+                    btn_FuelStatus.Foreground = Data.GetTextColor(TKSettings.User.FuelStatus());
+                    btn_MaterialCollected.Foreground = Data.GetTextColor(TKSettings.User.MaterialCollected());
+                    btn_NoFireZone.Foreground = Data.GetTextColor(TKSettings.User.NoFireZone());
+                    btn_StationStatus.Foreground = Data.GetTextColor(TKSettings.User.StationStatus());
+                    btn_ShieldStatus.Foreground = Data.GetTextColor(TKSettings.User.ShieldState());
+                    btn_CollectedBounty.Foreground = Data.GetTextColor(TKSettings.User.CollectedBounty());
+                    btn_TargetEnemy.Foreground = Data.GetTextColor(TKSettings.User.TargetEnemy());
+                    btn_WatnedTarget.Foreground = Data.GetTextColor(TKSettings.User.TargetWanted());
+                    btn_RefinedMaterials.Foreground = Data.GetTextColor(TKSettings.User.MaterialRefined());
+                    btn_Masslock.Foreground = Data.GetTextColor(TKSettings.User.Masslock());
+                    btn_HighGravity.Foreground = Data.GetTextColor(TKSettings.User.HighGravDescent());
+                    btn_TravelDistance.Foreground = Data.GetTextColor(TKSettings.User.ScanTravelDist());
+                    btn_LandableVolcanism.Foreground = Data.GetTextColor(TKSettings.User.LandableVolcanism());
+                    btn_GlideStatus.Foreground = Data.GetTextColor(TKSettings.User.GlideStatus());
                     #endregion
 
                     #region Orders
-                    btn_AssistedCombatPower.Foreground = Data.GetTextColor(Settings.User.CombatPower());
-                    btn_AssistedSystemScans.Foreground = Data.GetTextColor(Settings.User.AssistSystemScan());
-                    btn_AssistedDockingProcedures.Foreground = Data.GetTextColor(Settings.User.AssistDocking());
-                    btn_AssistedHangerEntry.Foreground = Data.GetTextColor(Settings.User.AssistHangerEntry());
-                    btn_PostJumpSafeties.Foreground = Data.GetTextColor(Settings.User.PostHyperspaceSafety());
-                    btn_WeaponSafty.Foreground = Data.GetTextColor(Settings.User.WeaponSafety());
+                    btn_AssistedCombatPower.Foreground = Data.GetTextColor(TKSettings.User.CombatPower());
+                    btn_AssistedSystemScans.Foreground = Data.GetTextColor(TKSettings.User.AssistSystemScan());
+                    btn_AssistedDockingProcedures.Foreground = Data.GetTextColor(TKSettings.User.AssistDocking());
+                    btn_AssistedHangerEntry.Foreground = Data.GetTextColor(TKSettings.User.AssistHangerEntry());
+                    btn_PostJumpSafeties.Foreground = Data.GetTextColor(TKSettings.User.PostHyperspaceSafety());
+                    btn_WeaponSafty.Foreground = Data.GetTextColor(TKSettings.User.WeaponSafety());
                     #endregion
                 }
                 catch (Exception ex)
@@ -133,132 +132,132 @@ namespace ALICE_Community_Toolkit
         public void UpdateFiregroupItems()
         {
             //Disables Saving So Changed Event Doesn't Trigger Saving The File.
-            Settings.Save = false;
+            TKSettings.Save = false;
 
             this.Dispatcher.Invoke(() =>
             {
                 try
                 {
-                    Label_CurrentShip.Content = Settings.Firegroup.Config.ShipAssignment;
+                    Label_CurrentShip.Content = TKSettings.Firegroup.Config.ShipAssignment;
 
                     //Chaff 1
-                    CB_CF1Fire.SelectedIndex = (int)Settings.Firegroup.Config.LauncherChaffOne.FireMode;
-                    CB_CF1Group.SelectedIndex = (int)Settings.Firegroup.Config.LauncherChaffOne.FireGroup;
+                    CB_CF1Fire.SelectedIndex = (int)TKSettings.Firegroup.Config.LauncherChaffOne.FireMode;
+                    CB_CF1Group.SelectedIndex = (int)TKSettings.Firegroup.Config.LauncherChaffOne.FireGroup;
                     Label_CH1.Foreground = Data.GetFGLabelColor(CB_CF1Fire.SelectedIndex, CB_CF1Group.SelectedIndex);
 
                     //Chaff 2
-                    CB_CF2Fire.SelectedIndex = (int)Settings.Firegroup.Config.LauncherChaffTwo.FireMode;
-                    CB_CF2Group.SelectedIndex = (int)Settings.Firegroup.Config.LauncherChaffTwo.FireGroup;
+                    CB_CF2Fire.SelectedIndex = (int)TKSettings.Firegroup.Config.LauncherChaffTwo.FireMode;
+                    CB_CF2Group.SelectedIndex = (int)TKSettings.Firegroup.Config.LauncherChaffTwo.FireGroup;
                     Label_CH2.Foreground = Data.GetFGLabelColor(CB_CF2Fire.SelectedIndex, CB_CF2Group.SelectedIndex);
 
                     //ECM
-                    CB_ECMFire.SelectedIndex = (int)Settings.Firegroup.Config.ECM.FireMode; 
-                    CB_ECMGroup.SelectedIndex = (int)Settings.Firegroup.Config.ECM.FireGroup;
+                    CB_ECMFire.SelectedIndex = (int)TKSettings.Firegroup.Config.ECM.FireMode; 
+                    CB_ECMGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.ECM.FireGroup;
                     Label_ECM.Foreground = Data.GetFGLabelColor(CB_ECMFire.SelectedIndex, CB_ECMGroup.SelectedIndex);
 
                     //FSD Interdictor
-                    CB_FSDIFire.SelectedIndex = (int)Settings.Firegroup.Config.FSDInterdictor.FireMode;
-                    CB_FSDIGroup.SelectedIndex = (int)Settings.Firegroup.Config.FSDInterdictor.FireGroup;
+                    CB_FSDIFire.SelectedIndex = (int)TKSettings.Firegroup.Config.FSDInterdictor.FireMode;
+                    CB_FSDIGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.FSDInterdictor.FireGroup;
                     Label_FSDI.Foreground = Data.GetFGLabelColor(CB_FSDIFire.SelectedIndex, CB_FSDIGroup.SelectedIndex);
 
                     //Heatsink 1
-                    CB_HS1Fire.SelectedIndex = (int)Settings.Firegroup.Config.LauncherHeatSinkOne.FireMode;
-                    CB_HS1Group.SelectedIndex = (int)Settings.Firegroup.Config.LauncherHeatSinkOne.FireGroup;
+                    CB_HS1Fire.SelectedIndex = (int)TKSettings.Firegroup.Config.LauncherHeatSinkOne.FireMode;
+                    CB_HS1Group.SelectedIndex = (int)TKSettings.Firegroup.Config.LauncherHeatSinkOne.FireGroup;
                     Label_HS1.Foreground = Data.GetFGLabelColor(CB_HS1Fire.SelectedIndex, CB_HS1Group.SelectedIndex);
 
                     //Heatsink 2
-                    CB_HS2Fire.SelectedIndex = (int)Settings.Firegroup.Config.LauncherHeatSinkTwo.FireMode;
-                    CB_HS2Group.SelectedIndex = (int)Settings.Firegroup.Config.LauncherHeatSinkTwo.FireGroup;
+                    CB_HS2Fire.SelectedIndex = (int)TKSettings.Firegroup.Config.LauncherHeatSinkTwo.FireMode;
+                    CB_HS2Group.SelectedIndex = (int)TKSettings.Firegroup.Config.LauncherHeatSinkTwo.FireGroup;
                     Label_HS2.Foreground = Data.GetFGLabelColor(CB_HS2Fire.SelectedIndex, CB_HS2Group.SelectedIndex);
 
                     //Collector Limpet
-                    CB_LIMCOLFire.SelectedIndex = (int)Settings.Firegroup.Config.LimpetCollector.FireMode;
-                    CB_LIMCOLGroup.SelectedIndex = (int)Settings.Firegroup.Config.LimpetCollector.FireGroup;
+                    CB_LIMCOLFire.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetCollector.FireMode;
+                    CB_LIMCOLGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetCollector.FireGroup;
                     Label_LIMCOL.Foreground = Data.GetFGLabelColor(CB_LIMCOLFire.SelectedIndex, CB_LIMCOLGroup.SelectedIndex);
 
                     //Decon Limpet
-                    CB_LIMDECFire.SelectedIndex = (int)Settings.Firegroup.Config.LimpetDecontamination.FireMode;
-                    CB_LIMDECGroup.SelectedIndex = (int)Settings.Firegroup.Config.LimpetDecontamination.FireGroup;
+                    CB_LIMDECFire.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetDecontamination.FireMode;
+                    CB_LIMDECGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetDecontamination.FireGroup;
                     Label_LIMDEC.Foreground = Data.GetFGLabelColor(CB_LIMDECFire.SelectedIndex, CB_LIMDECGroup.SelectedIndex);
 
                     //Fuel Limpet
-                    CB_LIMFFire.SelectedIndex = (int)Settings.Firegroup.Config.LimpetFuel.FireMode;
-                    CB_LIMFGroup.SelectedIndex = (int)Settings.Firegroup.Config.LimpetFuel.FireGroup;
+                    CB_LIMFFire.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetFuel.FireMode;
+                    CB_LIMFGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetFuel.FireGroup;
                     Label_LIMF.Foreground = Data.GetFGLabelColor(CB_LIMFFire.SelectedIndex, CB_LIMFGroup.SelectedIndex);
 
                     //Hatch Breaker Limpet
-                    CB_LIMHBFire.SelectedIndex = (int)Settings.Firegroup.Config.LimpetHatchBreaker.FireMode;
-                    CB_LIMHBGroup.SelectedIndex = (int)Settings.Firegroup.Config.LimpetHatchBreaker.FireGroup;
+                    CB_LIMHBFire.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetHatchBreaker.FireMode;
+                    CB_LIMHBGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetHatchBreaker.FireGroup;
                     Label_LIMHB.Foreground = Data.GetFGLabelColor(CB_LIMHBFire.SelectedIndex, CB_LIMHBGroup.SelectedIndex);
 
                     //Prospector Limpet
-                    CB_LIMPROFire.SelectedIndex = (int)Settings.Firegroup.Config.LimpetProspector.FireMode;
-                    CB_LIMPROGroup.SelectedIndex = (int)Settings.Firegroup.Config.LimpetProspector.FireGroup;
+                    CB_LIMPROFire.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetProspector.FireMode;
+                    CB_LIMPROGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetProspector.FireGroup;
                     Label_LIMPRO.Foreground = Data.GetFGLabelColor(CB_LIMPROFire.SelectedIndex, CB_LIMPROGroup.SelectedIndex);
 
                     //Recon Limpet
-                    CB_LIMRECFire.SelectedIndex = (int)Settings.Firegroup.Config.LimpetRecon.FireMode;
-                    CB_LIMRECGroup.SelectedIndex = (int)Settings.Firegroup.Config.LimpetRecon.FireGroup;
+                    CB_LIMRECFire.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetRecon.FireMode;
+                    CB_LIMRECGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetRecon.FireGroup;
                     Label_LIMREC.Foreground = Data.GetFGLabelColor(CB_LIMRECFire.SelectedIndex, CB_LIMRECGroup.SelectedIndex);
 
                     //Repair Limpet
-                    CB_LIMREPFire.SelectedIndex = (int)Settings.Firegroup.Config.LimpetRepair.FireMode;
-                    CB_LIMREPGroup.SelectedIndex = (int)Settings.Firegroup.Config.LimpetRepair.FireGroup;
+                    CB_LIMREPFire.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetRepair.FireMode;
+                    CB_LIMREPGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetRepair.FireGroup;
                     Label_LIMREP.Foreground = Data.GetFGLabelColor(CB_LIMREPFire.SelectedIndex, CB_LIMREPGroup.SelectedIndex);
 
                     //Research Limpet
-                    CB_LIMRESFire.SelectedIndex = (int)Settings.Firegroup.Config.LimpetResearch.FireMode;
-                    CB_LIMRESGroup.SelectedIndex = (int)Settings.Firegroup.Config.LimpetResearch.FireGroup;
+                    CB_LIMRESFire.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetResearch.FireMode;
+                    CB_LIMRESGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.LimpetResearch.FireGroup;
                     Label_LIMRES.Foreground = Data.GetFGLabelColor(CB_LIMRESFire.SelectedIndex, CB_LIMRESGroup.SelectedIndex);
 
                     //Shield Cell 1
-                    CB_SC1Fire.SelectedIndex = (int)Settings.Firegroup.Config.ShieldCellOne.FireMode;
-                    CB_SC1Group.SelectedIndex = (int)Settings.Firegroup.Config.ShieldCellOne.FireGroup;
+                    CB_SC1Fire.SelectedIndex = (int)TKSettings.Firegroup.Config.ShieldCellOne.FireMode;
+                    CB_SC1Group.SelectedIndex = (int)TKSettings.Firegroup.Config.ShieldCellOne.FireGroup;
                     Label_SC1.Foreground = Data.GetFGLabelColor(CB_SC1Fire.SelectedIndex, CB_SC1Group.SelectedIndex);
 
                     //Shield Cell 2
-                    CB_SC2Fire.SelectedIndex = (int)Settings.Firegroup.Config.ShieldCellTwo.FireMode;
-                    CB_SC2Group.SelectedIndex = (int)Settings.Firegroup.Config.ShieldCellTwo.FireGroup;
+                    CB_SC2Fire.SelectedIndex = (int)TKSettings.Firegroup.Config.ShieldCellTwo.FireMode;
+                    CB_SC2Group.SelectedIndex = (int)TKSettings.Firegroup.Config.ShieldCellTwo.FireGroup;
                     Label_SC2.Foreground = Data.GetFGLabelColor(CB_SC2Fire.SelectedIndex, CB_SC2Group.SelectedIndex);
 
                     //Shutdown Field Neutralizer
-                    CB_SFNFire.SelectedIndex = (int)Settings.Firegroup.Config.FieldNeutraliser.FireMode;
-                    CB_SFNGroup.SelectedIndex = (int)Settings.Firegroup.Config.FieldNeutraliser.FireGroup;
+                    CB_SFNFire.SelectedIndex = (int)TKSettings.Firegroup.Config.FieldNeutraliser.FireMode;
+                    CB_SFNGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.FieldNeutraliser.FireGroup;
                     Label_SFN.Foreground = Data.GetFGLabelColor(CB_SFNFire.SelectedIndex, CB_SFNGroup.SelectedIndex);
 
                     //Cargo Scanner
-                    CB_SNCARGFire.SelectedIndex = (int)Settings.Firegroup.Config.ScannerCagro.FireMode;
-                    CB_SNCARGGroup.SelectedIndex = (int)Settings.Firegroup.Config.ScannerCagro.FireGroup;
+                    CB_SNCARGFire.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerCagro.FireMode;
+                    CB_SNCARGGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerCagro.FireGroup;
                     Label_SNCARG.Foreground = Data.GetFGLabelColor(CB_SNCARGFire.SelectedIndex, CB_SNCARGGroup.SelectedIndex);
 
                     //Composite Scanner
-                    CB_SNCOMPFire.SelectedIndex = (int)Settings.Firegroup.Config.ScannerComposite.FireMode;
-                    CB_SNCOMPGroup.SelectedIndex = (int)Settings.Firegroup.Config.ScannerComposite.FireGroup;
+                    CB_SNCOMPFire.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerComposite.FireMode;
+                    CB_SNCOMPGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerComposite.FireGroup;
                     Label_SNCOMP.Foreground = Data.GetFGLabelColor(CB_SNCOMPFire.SelectedIndex, CB_SNCOMPGroup.SelectedIndex);
 
                     //Discovery Scanner
-                    CB_SNDISCFire.SelectedIndex = (int)Settings.Firegroup.Config.ScannerDiscovery.FireMode;
-                    CB_SNDISCGroup.SelectedIndex = (int)Settings.Firegroup.Config.ScannerDiscovery.FireGroup;
+                    CB_SNDISCFire.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerDiscovery.FireMode;
+                    CB_SNDISCGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerDiscovery.FireGroup;
                     Label_SNDISC.Foreground = Data.GetFGLabelColor(CB_SNDISCFire.SelectedIndex, CB_SNDISCGroup.SelectedIndex);
                     
                     //Kill Warrent Scanner
-                    CB_SNKILLFire.SelectedIndex = (int)Settings.Firegroup.Config.ScannerKillwarrent.FireMode;
-                    CB_SNKILLGroup.SelectedIndex = (int)Settings.Firegroup.Config.ScannerKillwarrent.FireGroup;
+                    CB_SNKILLFire.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerKillwarrent.FireMode;
+                    CB_SNKILLGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerKillwarrent.FireGroup;
                     Label_SNKILL.Foreground = Data.GetFGLabelColor(CB_SNKILLFire.SelectedIndex, CB_SNKILLGroup.SelectedIndex);
 
                     //Detailed Surface Scanner
-                    CB_SNSURFFire.SelectedIndex = (int)Settings.Firegroup.Config.ScannerSurface.FireMode;
-                    CB_SNSURFGroup.SelectedIndex = (int)Settings.Firegroup.Config.ScannerSurface.FireGroup;
+                    CB_SNSURFFire.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerSurface.FireMode;
+                    CB_SNSURFGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerSurface.FireGroup;
                     Label_SNSURF.Foreground = Data.GetFGLabelColor(CB_SNSURFFire.SelectedIndex, CB_SNSURFGroup.SelectedIndex);
 
                     //Wake Scanner
-                    CB_SNWAKEFire.SelectedIndex = (int)Settings.Firegroup.Config.ScannerWake.FireMode;
-                    CB_SNWAKEGroup.SelectedIndex = (int)Settings.Firegroup.Config.ScannerWake.FireGroup;
+                    CB_SNWAKEFire.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerWake.FireMode;
+                    CB_SNWAKEGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerWake.FireGroup;
                     Label_SNWAKE.Foreground = Data.GetFGLabelColor(CB_SNWAKEFire.SelectedIndex, CB_SNWAKEGroup.SelectedIndex);
 
                     //Xeno Scanner
-                    CB_SNXENOFire.SelectedIndex = (int)Settings.Firegroup.Config.ScannerXeno.FireMode;
-                    CB_SNXENOGroup.SelectedIndex = (int)Settings.Firegroup.Config.ScannerXeno.FireGroup;
+                    CB_SNXENOFire.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerXeno.FireMode;
+                    CB_SNXENOGroup.SelectedIndex = (int)TKSettings.Firegroup.Config.ScannerXeno.FireGroup;
                     Label_SNXENO.Foreground = Data.GetFGLabelColor(CB_SNXENOFire.SelectedIndex, CB_SNXENOGroup.SelectedIndex);
                 }
                 catch (Exception ex)
@@ -269,28 +268,28 @@ namespace ALICE_Community_Toolkit
             });
 
             //Enable Saving
-            Settings.Save = true;
+            TKSettings.Save = true;
         }
 
         #region PlugIn
         private void Slider_DelayPanel_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Settings.User.OffsetPanels(MethodName, (int)Slider_DelayPanel.Value, Settings.Save);
+            TKSettings.User.OffsetPanels(MethodName, (int)Slider_DelayPanel.Value, TKSettings.Save);
         }
 
         private void Slider_DelayPower_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Settings.User.OffsetPips(MethodName, (int)Slider_DelayPower.Value, Settings.Save);            
+            TKSettings.User.OffsetPips(MethodName, (int)Slider_DelayPower.Value, TKSettings.Save);            
         }
 
         private void Slider_DelayFiregroup_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Settings.User.OffsetFireGroups(MethodName, (int)Slider_DelayFiregroup.Value, Settings.Save);            
+            TKSettings.User.OffsetFireGroups(MethodName, (int)Slider_DelayFiregroup.Value, TKSettings.Save);            
         }
 
         private void Slider_DelayThrottle_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Settings.User.OffsetThrottle(MethodName, (int)Slider_DelayThrottle.Value, Settings.Save);            
+            TKSettings.User.OffsetThrottle(MethodName, (int)Slider_DelayThrottle.Value, TKSettings.Save);            
         }
         #endregion
 
@@ -299,8 +298,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.FuelScoop(MethodName, !Settings.User.FuelScoop(), true);                
-                btn_FuelScoop.Foreground = Data.GetTextColor(Settings.User.FuelScoop());
+                TKSettings.User.FuelScoop(MethodName, !TKSettings.User.FuelScoop(), true);                
+                btn_FuelScoop.Foreground = Data.GetTextColor(TKSettings.User.FuelScoop());
             }
             catch (Exception ex)
             {
@@ -312,8 +311,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.FuelStatus(MethodName, !Settings.User.FuelStatus(), true);
-                btn_FuelStatus.Foreground = Data.GetTextColor(Settings.User.FuelStatus());
+                TKSettings.User.FuelStatus(MethodName, !TKSettings.User.FuelStatus(), true);
+                btn_FuelStatus.Foreground = Data.GetTextColor(TKSettings.User.FuelStatus());
             }
             catch (Exception ex)
             {
@@ -325,8 +324,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.MaterialCollected(MethodName, !Settings.User.MaterialCollected(), true);
-                btn_MaterialCollected.Foreground = Data.GetTextColor(Settings.User.MaterialCollected());
+                TKSettings.User.MaterialCollected(MethodName, !TKSettings.User.MaterialCollected(), true);
+                btn_MaterialCollected.Foreground = Data.GetTextColor(TKSettings.User.MaterialCollected());
             }
             catch (Exception ex)
             {
@@ -338,8 +337,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.NoFireZone(MethodName, !Settings.User.NoFireZone(), true);
-                btn_NoFireZone.Foreground = Data.GetTextColor(Settings.User.NoFireZone());
+                TKSettings.User.NoFireZone(MethodName, !TKSettings.User.NoFireZone(), true);
+                btn_NoFireZone.Foreground = Data.GetTextColor(TKSettings.User.NoFireZone());
             }
             catch (Exception ex)
             {
@@ -351,8 +350,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.StationStatus(MethodName, !Settings.User.StationStatus(), true);
-                btn_StationStatus.Foreground = Data.GetTextColor(Settings.User.StationStatus());
+                TKSettings.User.StationStatus(MethodName, !TKSettings.User.StationStatus(), true);
+                btn_StationStatus.Foreground = Data.GetTextColor(TKSettings.User.StationStatus());
             }
             catch (Exception ex)
             {
@@ -364,8 +363,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.ShieldState(MethodName, !Settings.User.ShieldState(), true);
-                btn_ShieldStatus.Foreground = Data.GetTextColor(Settings.User.ShieldState());
+                TKSettings.User.ShieldState(MethodName, !TKSettings.User.ShieldState(), true);
+                btn_ShieldStatus.Foreground = Data.GetTextColor(TKSettings.User.ShieldState());
             }
             catch (Exception ex)
             {
@@ -377,8 +376,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.CollectedBounty(MethodName, !Settings.User.CollectedBounty(), true);
-                btn_CollectedBounty.Foreground = Data.GetTextColor(Settings.User.CollectedBounty());
+                TKSettings.User.CollectedBounty(MethodName, !TKSettings.User.CollectedBounty(), true);
+                btn_CollectedBounty.Foreground = Data.GetTextColor(TKSettings.User.CollectedBounty());
             }
             catch (Exception ex)
             {
@@ -390,8 +389,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.TargetEnemy(MethodName, !Settings.User.TargetEnemy(), true);
-                btn_TargetEnemy.Foreground = Data.GetTextColor(Settings.User.TargetEnemy());
+                TKSettings.User.TargetEnemy(MethodName, !TKSettings.User.TargetEnemy(), true);
+                btn_TargetEnemy.Foreground = Data.GetTextColor(TKSettings.User.TargetEnemy());
             }
             catch (Exception ex)
             {
@@ -403,8 +402,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.TargetWanted(MethodName, !Settings.User.TargetWanted(), true);
-                btn_WatnedTarget.Foreground = Data.GetTextColor(Settings.User.TargetWanted());
+                TKSettings.User.TargetWanted(MethodName, !TKSettings.User.TargetWanted(), true);
+                btn_WatnedTarget.Foreground = Data.GetTextColor(TKSettings.User.TargetWanted());
             }
             catch (Exception ex)
             {
@@ -416,8 +415,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.MaterialRefined(MethodName, !Settings.User.MaterialRefined(), true);
-                btn_RefinedMaterials.Foreground = Data.GetTextColor(Settings.User.MaterialRefined());
+                TKSettings.User.MaterialRefined(MethodName, !TKSettings.User.MaterialRefined(), true);
+                btn_RefinedMaterials.Foreground = Data.GetTextColor(TKSettings.User.MaterialRefined());
             }
             catch (Exception ex)
             {
@@ -429,8 +428,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.Masslock(MethodName, !Settings.User.Masslock(), true);
-                btn_Masslock.Foreground = Data.GetTextColor(Settings.User.Masslock());
+                TKSettings.User.Masslock(MethodName, !TKSettings.User.Masslock(), true);
+                btn_Masslock.Foreground = Data.GetTextColor(TKSettings.User.Masslock());
             }
             catch (Exception ex)
             {
@@ -440,13 +439,12 @@ namespace ALICE_Community_Toolkit
         #endregion
 
         #region Orders
-
         private void btn_AssistedCombatPower_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                Settings.User.CombatPower(MethodName, !Settings.User.CombatPower(), true);
-                btn_AssistedCombatPower.Foreground = Data.GetTextColor(Settings.User.CombatPower());
+                TKSettings.User.CombatPower(MethodName, !TKSettings.User.CombatPower(), true);
+                btn_AssistedCombatPower.Foreground = Data.GetTextColor(TKSettings.User.CombatPower());
             }
             catch (Exception ex)
             {
@@ -458,8 +456,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.AssistSystemScan(MethodName, !Settings.User.AssistSystemScan(), true);
-                btn_AssistedSystemScans.Foreground = Data.GetTextColor(Settings.User.AssistSystemScan());
+                TKSettings.User.AssistSystemScan(MethodName, !TKSettings.User.AssistSystemScan(), true);
+                btn_AssistedSystemScans.Foreground = Data.GetTextColor(TKSettings.User.AssistSystemScan());
             }
             catch (Exception ex)
             {
@@ -471,8 +469,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.AssistDocking(MethodName, !Settings.User.AssistDocking(), true);
-                btn_AssistedDockingProcedures.Foreground = Data.GetTextColor(Settings.User.AssistDocking());
+                TKSettings.User.AssistDocking(MethodName, !TKSettings.User.AssistDocking(), true);
+                btn_AssistedDockingProcedures.Foreground = Data.GetTextColor(TKSettings.User.AssistDocking());
             }
             catch (Exception ex)
             {
@@ -484,8 +482,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.AssistHangerEntry(MethodName, !Settings.User.AssistHangerEntry(), true);
-                btn_AssistedHangerEntry.Foreground = Data.GetTextColor(Settings.User.AssistHangerEntry());
+                TKSettings.User.AssistHangerEntry(MethodName, !TKSettings.User.AssistHangerEntry(), true);
+                btn_AssistedHangerEntry.Foreground = Data.GetTextColor(TKSettings.User.AssistHangerEntry());
             }
             catch (Exception ex)
             {
@@ -497,8 +495,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.PostHyperspaceSafety(MethodName, !Settings.User.PostHyperspaceSafety(), true);
-                btn_PostJumpSafeties.Foreground = Data.GetTextColor(Settings.User.PostHyperspaceSafety());
+                TKSettings.User.PostHyperspaceSafety(MethodName, !TKSettings.User.PostHyperspaceSafety(), true);
+                btn_PostJumpSafeties.Foreground = Data.GetTextColor(TKSettings.User.PostHyperspaceSafety());
             }
             catch (Exception ex)
             {
@@ -510,8 +508,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.WeaponSafety(MethodName, !Settings.User.WeaponSafety(), true);
-                btn_WeaponSafty.Foreground = Data.GetTextColor(Settings.User.WeaponSafety());
+                TKSettings.User.WeaponSafety(MethodName, !TKSettings.User.WeaponSafety(), true);
+                btn_WeaponSafty.Foreground = Data.GetTextColor(TKSettings.User.WeaponSafety());
             }
             catch (Exception ex)
             {
@@ -524,8 +522,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.GlideStatus(MethodName, !Settings.User.GlideStatus(), true);
-                btn_GlideStatus.Foreground = Data.GetTextColor(Settings.User.GlideStatus());
+                TKSettings.User.GlideStatus(MethodName, !TKSettings.User.GlideStatus(), true);
+                btn_GlideStatus.Foreground = Data.GetTextColor(TKSettings.User.GlideStatus());
             }
             catch (Exception ex)
             {
@@ -537,8 +535,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.HighGravDescent(MethodName, !Settings.User.HighGravDescent(), true);
-                btn_HighGravity.Foreground = Data.GetTextColor(Settings.User.HighGravDescent());
+                TKSettings.User.HighGravDescent(MethodName, !TKSettings.User.HighGravDescent(), true);
+                btn_HighGravity.Foreground = Data.GetTextColor(TKSettings.User.HighGravDescent());
             }
             catch (Exception ex)
             {
@@ -550,8 +548,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.LandableVolcanism(MethodName, !Settings.User.LandableVolcanism(), true);
-                btn_LandableVolcanism.Foreground = Data.GetTextColor(Settings.User.LandableVolcanism());
+                TKSettings.User.LandableVolcanism(MethodName, !TKSettings.User.LandableVolcanism(), true);
+                btn_LandableVolcanism.Foreground = Data.GetTextColor(TKSettings.User.LandableVolcanism());
             }
             catch (Exception ex)
             {
@@ -563,8 +561,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Settings.User.ScanTravelDist(MethodName, !Settings.User.ScanTravelDist(), true);
-                btn_TravelDistance.Foreground = Data.GetTextColor(Settings.User.ScanTravelDist());
+                TKSettings.User.ScanTravelDist(MethodName, !TKSettings.User.ScanTravelDist(), true);
+                btn_TravelDistance.Foreground = Data.GetTextColor(TKSettings.User.ScanTravelDist());
             }
             catch (Exception ex)
             {
@@ -576,322 +574,338 @@ namespace ALICE_Community_Toolkit
         #region Firegroup Items
         private void CB_ECMGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ECM.FireGroup = (ConfigurationHardpoints.Group)CB_ECMGroup.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ECM.FireGroup = (ConfigurationHardpoints.Group)CB_ECMGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_ECMFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ECM.FireMode = (ConfigurationHardpoints.Fire)CB_ECMFire.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ECM.FireMode = (ConfigurationHardpoints.Fire)CB_ECMFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SFNGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.FieldNeutraliser.FireGroup = (ConfigurationHardpoints.Group)CB_SFNGroup.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.FieldNeutraliser.FireGroup = (ConfigurationHardpoints.Group)CB_SFNGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SFNFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.FieldNeutraliser.FireMode = (ConfigurationHardpoints.Fire)CB_SFNFire.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.FieldNeutraliser.FireMode = (ConfigurationHardpoints.Fire)CB_SFNFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_FSDIGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.FSDInterdictor.FireGroup = (ConfigurationHardpoints.Group)CB_FSDIGroup.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.FSDInterdictor.FireGroup = (ConfigurationHardpoints.Group)CB_FSDIGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_FSDIFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.FSDInterdictor.FireMode = (ConfigurationHardpoints.Fire)CB_FSDIFire.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.FSDInterdictor.FireMode = (ConfigurationHardpoints.Fire)CB_FSDIFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMCOLGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetCollector.FireGroup = (ConfigurationHardpoints.Group)CB_LIMCOLGroup.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetCollector.FireGroup = (ConfigurationHardpoints.Group)CB_LIMCOLGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMCOLFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetCollector.FireMode = (ConfigurationHardpoints.Fire)CB_LIMCOLFire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetCollector.FireMode = (ConfigurationHardpoints.Fire)CB_LIMCOLFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMDECGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetDecontamination.FireGroup = (ConfigurationHardpoints.Group)CB_LIMDECGroup.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetDecontamination.FireGroup = (ConfigurationHardpoints.Group)CB_LIMDECGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMDECFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetDecontamination.FireMode = (ConfigurationHardpoints.Fire)CB_LIMDECFire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetDecontamination.FireMode = (ConfigurationHardpoints.Fire)CB_LIMDECFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMFGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetFuel.FireGroup = (ConfigurationHardpoints.Group)CB_LIMFGroup.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetFuel.FireGroup = (ConfigurationHardpoints.Group)CB_LIMFGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMFFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetFuel.FireMode = (ConfigurationHardpoints.Fire)CB_LIMFFire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetFuel.FireMode = (ConfigurationHardpoints.Fire)CB_LIMFFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMHBGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetHatchBreaker.FireGroup = (ConfigurationHardpoints.Group)CB_LIMHBGroup.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetHatchBreaker.FireGroup = (ConfigurationHardpoints.Group)CB_LIMHBGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMHBFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetHatchBreaker.FireMode = (ConfigurationHardpoints.Fire)CB_LIMHBFire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetHatchBreaker.FireMode = (ConfigurationHardpoints.Fire)CB_LIMHBFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMRECGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetRecon.FireGroup = (ConfigurationHardpoints.Group)CB_LIMRECGroup.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetRecon.FireGroup = (ConfigurationHardpoints.Group)CB_LIMRECGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMRECFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetRecon.FireMode = (ConfigurationHardpoints.Fire)CB_LIMRECFire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetRecon.FireMode = (ConfigurationHardpoints.Fire)CB_LIMRECFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMREPGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetRepair.FireGroup = (ConfigurationHardpoints.Group)CB_LIMREPGroup.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetRepair.FireGroup = (ConfigurationHardpoints.Group)CB_LIMREPGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMREPFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetRepair.FireMode = (ConfigurationHardpoints.Fire)CB_LIMREPFire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetRepair.FireMode = (ConfigurationHardpoints.Fire)CB_LIMREPFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMRESGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetResearch.FireGroup = (ConfigurationHardpoints.Group)CB_LIMRESGroup.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetResearch.FireGroup = (ConfigurationHardpoints.Group)CB_LIMRESGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMRESFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetResearch.FireMode = (ConfigurationHardpoints.Fire)CB_LIMRESFire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetResearch.FireMode = (ConfigurationHardpoints.Fire)CB_LIMRESFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMPROGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetProspector.FireGroup = (ConfigurationHardpoints.Group)CB_LIMPROGroup.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetProspector.FireGroup = (ConfigurationHardpoints.Group)CB_LIMPROGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_LIMPROFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LimpetProspector.FireMode = (ConfigurationHardpoints.Fire)CB_LIMPROFire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LimpetProspector.FireMode = (ConfigurationHardpoints.Fire)CB_LIMPROFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_HS1GroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LauncherHeatSinkOne.FireGroup = (ConfigurationHardpoints.Group)CB_HS1Group.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LauncherHeatSinkOne.FireGroup = (ConfigurationHardpoints.Group)CB_HS1Group.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_HS1FireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LauncherHeatSinkOne.FireMode = (ConfigurationHardpoints.Fire)CB_HS1Fire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LauncherHeatSinkOne.FireMode = (ConfigurationHardpoints.Fire)CB_HS1Fire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_HS2GroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LauncherHeatSinkTwo.FireGroup = (ConfigurationHardpoints.Group)CB_HS2Group.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LauncherHeatSinkTwo.FireGroup = (ConfigurationHardpoints.Group)CB_HS2Group.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_HS2FireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LauncherHeatSinkTwo.FireMode = (ConfigurationHardpoints.Fire)CB_HS2Fire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LauncherHeatSinkTwo.FireMode = (ConfigurationHardpoints.Fire)CB_HS2Fire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SC1GroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ShieldCellOne.FireGroup = (ConfigurationHardpoints.Group)CB_SC1Group.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ShieldCellOne.FireGroup = (ConfigurationHardpoints.Group)CB_SC1Group.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SC1FireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ShieldCellOne.FireMode = (ConfigurationHardpoints.Fire)CB_SC1Fire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ShieldCellOne.FireMode = (ConfigurationHardpoints.Fire)CB_SC1Fire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SC2GroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ShieldCellTwo.FireGroup = (ConfigurationHardpoints.Group)CB_SC2Group.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ShieldCellTwo.FireGroup = (ConfigurationHardpoints.Group)CB_SC2Group.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SC2FireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ShieldCellTwo.FireMode = (ConfigurationHardpoints.Fire)CB_SC2Fire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ShieldCellTwo.FireMode = (ConfigurationHardpoints.Fire)CB_SC2Fire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_CF1GroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LauncherChaffOne.FireGroup = (ConfigurationHardpoints.Group)CB_CF1Group.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LauncherChaffOne.FireGroup = (ConfigurationHardpoints.Group)CB_CF1Group.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_CF1FireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LauncherChaffOne.FireMode = (ConfigurationHardpoints.Fire)CB_CF1Fire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LauncherChaffOne.FireMode = (ConfigurationHardpoints.Fire)CB_CF1Fire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_CF2GroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LauncherChaffTwo.FireGroup = (ConfigurationHardpoints.Group)CB_CF2Group.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LauncherChaffTwo.FireGroup = (ConfigurationHardpoints.Group)CB_CF2Group.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_CF2FireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.LauncherChaffTwo.FireMode = (ConfigurationHardpoints.Fire)CB_CF2Fire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.LauncherChaffTwo.FireMode = (ConfigurationHardpoints.Fire)CB_CF2Fire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNCARGGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerCagro.FireGroup = (ConfigurationHardpoints.Group)CB_SNCARGGroup.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerCagro.FireGroup = (ConfigurationHardpoints.Group)CB_SNCARGGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNCARGFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerCagro.FireMode = (ConfigurationHardpoints.Fire)CB_SNCARGFire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerCagro.FireMode = (ConfigurationHardpoints.Fire)CB_SNCARGFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNCOMPGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerComposite.FireGroup = (ConfigurationHardpoints.Group)CB_SNCOMPGroup.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerComposite.FireGroup = (ConfigurationHardpoints.Group)CB_SNCOMPGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNCOMPFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerComposite.FireMode = (ConfigurationHardpoints.Fire)CB_SNCOMPFire.SelectedIndex;
-            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerComposite.FireMode = (ConfigurationHardpoints.Fire)CB_SNCOMPFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNDISCGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerDiscovery.FireGroup = (ConfigurationHardpoints.Group)CB_SNDISCGroup.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerDiscovery.FireGroup = (ConfigurationHardpoints.Group)CB_SNDISCGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNDISCFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerDiscovery.FireMode = (ConfigurationHardpoints.Fire)CB_SNDISCFire.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerDiscovery.FireMode = (ConfigurationHardpoints.Fire)CB_SNDISCFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNKILLGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerKillwarrent.FireGroup = (ConfigurationHardpoints.Group)CB_SNKILLGroup.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerKillwarrent.FireGroup = (ConfigurationHardpoints.Group)CB_SNKILLGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNKILLFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerKillwarrent.FireMode = (ConfigurationHardpoints.Fire)CB_SNKILLFire.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerKillwarrent.FireMode = (ConfigurationHardpoints.Fire)CB_SNKILLFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNSURFGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerSurface.FireGroup = (ConfigurationHardpoints.Group)CB_SNSURFGroup.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerSurface.FireGroup = (ConfigurationHardpoints.Group)CB_SNSURFGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNSURFFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerSurface.FireMode = (ConfigurationHardpoints.Fire)CB_SNSURFFire.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerSurface.FireMode = (ConfigurationHardpoints.Fire)CB_SNSURFFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNXENOGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerXeno.FireGroup = (ConfigurationHardpoints.Group)CB_SNXENOGroup.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerXeno.FireGroup = (ConfigurationHardpoints.Group)CB_SNXENOGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNXENOFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerXeno.FireMode = (ConfigurationHardpoints.Fire)CB_SNXENOFire.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerXeno.FireMode = (ConfigurationHardpoints.Fire)CB_SNXENOFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNWAKEGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerWake.FireGroup = (ConfigurationHardpoints.Group)CB_SNWAKEGroup.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerWake.FireGroup = (ConfigurationHardpoints.Group)CB_SNWAKEGroup.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
 
         private void CB_SNWAKEFireChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.InitUI == false) { return; }
-            Settings.Firegroup.Config.ScannerWake.FireMode = (ConfigurationHardpoints.Fire)CB_SNWAKEFire.SelectedIndex;            
+            if (TKSettings.InitUI == false) { return; }
+            TKSettings.Firegroup.Config.ScannerWake.FireMode = (ConfigurationHardpoints.Fire)CB_SNWAKEFire.SelectedIndex;
+            TKSettings.Firegroup.UpdateConfig();
         }
         #endregion
     }

@@ -1,8 +1,8 @@
-﻿using ALICE_Internal;
-using ALICE_Status;
+﻿using ALICE_Actions;
+using ALICE_Internal;
 using System.Collections.Generic;
 
-namespace ALICE_Settings
+namespace ALICE_Community_Toolkit
 {
     /// <summary>
     /// This is a collection of the users settings from various parts of the Core Files.
@@ -20,12 +20,12 @@ namespace ALICE_Settings
         public void LogMissingCommander(string M)
         {
             //Debug Logger
-            Logger.DebugLine(M, "User Settings Does Not Have An Entry For (" + IStatus.Commander + ")", Logger.Yellow);
+            Logger.DebugLine(M, "User Settings Does Not Have An Entry For (" + Commander + ")", Logger.Yellow);
         }
 
         public void Save()
         {
-            SaveValues<SettingsUser>(ISettings.User, "User.Settings");
+            SaveValues<SettingsUser>(TKSettings.User, "User.Settings");
         }
 
         public SettingsUser Load()
@@ -368,7 +368,7 @@ namespace ALICE_Settings
             //Return Value
             return Storage[Commander].BodyRockyTerra;
         }
-        
+
         /// <summary>
         /// Get The Matching User Setting For the Loaded User
         /// </summary>
@@ -420,7 +420,7 @@ namespace ALICE_Settings
 
         #region Set Values
         public void CMDR(string M, string C)
-        {    
+        {
             //Check If New Commnader
             if (Storage.ContainsKey(C) == false)
             {
@@ -428,7 +428,7 @@ namespace ALICE_Settings
                 Storage.Add(C, new Settings() { Commander = C });
 
                 //Debug Logger
-                Logger.DebugLine(M, "New Commander Settings Created (" + C + ")", Logger.Yellow);                
+                Logger.DebugLine(M, "New Commander Settings Created (" + C + ")", Logger.Yellow);
             }
 
             //Check Update And Save
@@ -438,7 +438,7 @@ namespace ALICE_Settings
                 Commander = C;
 
                 //Save Settings
-                ISettings.User.Save();
+                TKSettings.User.Save();
             }
         }
 
@@ -457,12 +457,12 @@ namespace ALICE_Settings
                     Storage[Commander].BindsFile = V;
 
                     //Logger
-                    //Logger.Simple("Binds File = " + V, Logger.Green);
+                    Logger.Simple("Binds File = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -488,12 +488,12 @@ namespace ALICE_Settings
                     Storage[Commander].OffsetPanels = V;
 
                     //Logger
-                    //Logger.Simple("Panel Offset = " + V, Logger.Green);
+                    Logger.Simple("Panel Offset = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -518,12 +518,12 @@ namespace ALICE_Settings
                     Storage[Commander].OffsetPips = V;
 
                     //Logger
-                    //Logger.Simple("Power Offset = " + V, Logger.Green);
+                    Logger.Simple("Power Offset = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -548,12 +548,12 @@ namespace ALICE_Settings
                     Storage[Commander].OffsetThrottle = V;
 
                     //Logger
-                    //Logger.Simple("Throttle Offset = " + V, Logger.Green);
+                    Logger.Simple("Throttle Offset = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -578,12 +578,12 @@ namespace ALICE_Settings
                     Storage[Commander].OffsetFireGroups = V;
 
                     //Logger
-                    //Logger.Simple("Fire Group Offset = " + V, Logger.Green);
+                    Logger.Simple("Fire Group Offset = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -591,7 +591,7 @@ namespace ALICE_Settings
             }
 
             LogMissingCommander(M);
-        }      
+        }
         #endregion
 
         #region Orders
@@ -607,15 +607,18 @@ namespace ALICE_Settings
                 //Update Value
                 if (Storage[Commander].WeaponSafety != V)
                 {
+                    //Audio Update
+                    IActions.Order.Update(Storage[Commander].WeaponSafety, V, "Weapon Safety Interlocks");
+
                     Storage[Commander].WeaponSafety = V;
 
                     //Logger
-                    //Logger.Simple("Weapon Safeties = " + V, Logger.Green);
+                    Logger.Simple("Weapon Safeties = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -637,15 +640,18 @@ namespace ALICE_Settings
                 //Update Value
                 if (Storage[Commander].CombatPower != V)
                 {
+                    //Audio Update
+                    IActions.Order.Update(Storage[Commander].CombatPower, V, "Combat Power Management");
+
                     Storage[Commander].CombatPower = V;
 
                     //Logger
-                    //Logger.Simple("Assisted Combat Power = " + V, Logger.Green);
+                    Logger.Simple("Assisted Combat Power = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -667,15 +673,18 @@ namespace ALICE_Settings
                 //Update Value
                 if (Storage[Commander].AssistSystemScan != V)
                 {
+                    //Audio Update
+                    IActions.Order.Update(Storage[Commander].AssistSystemScan, V, "Assisted System Scans");
+
                     Storage[Commander].AssistSystemScan = V;
 
                     //Logger
-                    //Logger.Simple("Assisted System Scans = " + V, Logger.Green);
+                    Logger.Simple("Assisted System Scans = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -697,15 +706,18 @@ namespace ALICE_Settings
                 //Update Value
                 if (Storage[Commander].AssistDocking != V)
                 {
+                    //Audio Update
+                    IActions.Order.Update(Storage[Commander].AssistDocking, V, "Assisted Docking Procedures");
+
                     Storage[Commander].AssistDocking = V;
 
                     //Logger
-                    //Logger.Simple("Assisted Docking Procedures = " + V, Logger.Green);
+                    Logger.Simple("Assisted Docking Procedures = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -727,15 +739,18 @@ namespace ALICE_Settings
                 //Update Value
                 if (Storage[Commander].AssistHangerEntry != V)
                 {
+                    //Audio Update
+                    IActions.Order.Update(Storage[Commander].AssistHangerEntry, V, "Assisted Hanger Entry");
+
                     Storage[Commander].AssistHangerEntry = V;
 
                     //Logger
-                    //Logger.Simple("Assisted Hanger Entry = " + V, Logger.Green);
+                    Logger.Simple("Assisted Hanger Entry = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -757,15 +772,18 @@ namespace ALICE_Settings
                 //Update Value
                 if (Storage[Commander].PostHyperspaceSafety != V)
                 {
+                    //Audio Update
+                    IActions.Order.Update(Storage[Commander].PostHyperspaceSafety, V, "Post Jump Safeties");
+
                     Storage[Commander].PostHyperspaceSafety = V;
 
                     //Logger
-                    //Logger.Simple("Post Jump Safeties = " + V, Logger.Green);
+                    Logger.Simple("Post Jump Safeties = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -789,15 +807,18 @@ namespace ALICE_Settings
                 //Update Value
                 if (Storage[Commander].FuelScoop != V)
                 {
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].FuelScoop, V, "Fuel Scooping");
+
                     Storage[Commander].FuelScoop = V;
 
                     //Logger
-                    //Logger.Simple("Report: Fuel Scoop = " + V, Logger.Green);
+                    Logger.Simple("Report: Fuel Scoop = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -814,20 +835,24 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void FuelStatus(string M, bool V, bool S = false)
         {
+
             if (Storage.ContainsKey(Commander))
             {
                 //Update Value
                 if (Storage[Commander].FuelStatus != V)
-                {
+                {   
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].FuelStatus, V, "Fuel Status");
+
                     Storage[Commander].FuelStatus = V;
 
                     //Logger
-                    //Logger.Simple("Report: Fuel Status = " + V, Logger.Green);
+                    Logger.Simple("Report: Fuel Status = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -844,20 +869,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void MaterialCollected(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].MaterialCollected != V)
+                if (Storage[Commander].MaterialCollected != V)
                 {
-                    Storage[IStatus.Commander].MaterialCollected = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].MaterialCollected, V, "Material Collection");
+
+                    Storage[Commander].MaterialCollected = V;
 
                     //Logger
-                    //Logger.Simple("Report: Material Collected = " + V, Logger.Green);
+                    Logger.Simple("Report: Material Collected = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -874,20 +902,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void MaterialRefined(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].MaterialRefined != V)
+                if (Storage[Commander].MaterialRefined != V)
                 {
-                    Storage[IStatus.Commander].MaterialRefined = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].MaterialRefined, V, "Materail Refining");
+
+                    Storage[Commander].MaterialRefined = V;
 
                     //Logger
-                    //Logger.Simple("Report: Material Refined = " + V, Logger.Green);
+                    Logger.Simple("Report: Material Refined = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -904,20 +935,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void NoFireZone(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].NoFireZone != V)
+                if (Storage[Commander].NoFireZone != V)
                 {
-                    Storage[IStatus.Commander].NoFireZone = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].NoFireZone, V, "No Fire Zone");
+
+                    Storage[Commander].NoFireZone = V;
 
                     //Logger
-                    //Logger.Simple("Report: No Fire Zone = " + V, Logger.Green);
+                    Logger.Simple("Report: No Fire Zone = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -934,20 +968,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void ShieldState(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].ShieldState != V)
+                if (Storage[Commander].ShieldState != V)
                 {
-                    Storage[IStatus.Commander].ShieldState = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].ShieldState, V, "Shield State");
+
+                    Storage[Commander].ShieldState = V;
 
                     //Logger
-                    //Logger.Simple("Report: Shield State = " + V, Logger.Green);
+                    Logger.Simple("Report: Shield State = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -964,20 +1001,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void StationStatus(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].StationStatus != V)
+                if (Storage[Commander].StationStatus != V)
                 {
-                    Storage[IStatus.Commander].StationStatus = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].StationStatus, V, "Station Status");
+
+                    Storage[Commander].StationStatus = V;
 
                     //Logger
-                    //Logger.Simple("Report: Station Status = " + V, Logger.Green);
+                    Logger.Simple("Report: Station Status = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -994,20 +1034,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void CollectedBounty(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].CollectedBounty != V)
+                if (Storage[Commander].CollectedBounty != V)
                 {
-                    Storage[IStatus.Commander].CollectedBounty = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].CollectedBounty, V, "Collected Bounties");
+
+                    Storage[Commander].CollectedBounty = V;
 
                     //Logger
-                    //Logger.Simple("Report: Collected Bounty = " + V, Logger.Green);
+                    Logger.Simple("Report: Collected Bounty = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1024,20 +1067,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void TargetEnemy(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].TargetEnemy != V)
+                if (Storage[Commander].TargetEnemy != V)
                 {
-                    Storage[IStatus.Commander].TargetEnemy = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].TargetEnemy, V, "Hostile Faction");
+
+                    Storage[Commander].TargetEnemy = V;
 
                     //Logger
-                    //Logger.Simple("Report: Hostile Factions = " + V, Logger.Green);
+                    Logger.Simple("Report: Hostile Factions = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1054,20 +1100,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void TargetWanted(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].TargetWanted != V)
+                if (Storage[Commander].TargetWanted != V)
                 {
-                    Storage[IStatus.Commander].TargetWanted = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].TargetWanted, V, "Wanted Target");
+
+                    Storage[Commander].TargetWanted = V;
 
                     //Logger
-                    //Logger.Simple("Report: Wanted Targets = " + V, Logger.Green);
+                    Logger.Simple("Report: Wanted Targets = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1084,20 +1133,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void Masslock(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].Masslock != V)
+                if (Storage[Commander].Masslock != V)
                 {
-                    Storage[IStatus.Commander].Masslock = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].Masslock, V, "Masslock");
+
+                    Storage[Commander].Masslock = V;
 
                     //Logger
-                    //Logger.Simple("Report: Masslock = " + V, Logger.Green);
+                    Logger.Simple("Report: Masslock = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1114,20 +1166,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void HighGravDescent(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].HighGravDescent != V)
+                if (Storage[Commander].HighGravDescent != V)
                 {
-                    Storage[IStatus.Commander].HighGravDescent = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].HighGravDescent, V, "High Gravity Descent");
+
+                    Storage[Commander].HighGravDescent = V;
 
                     //Logger
-                    //Logger.Simple("Report: High Gravity Descent = " + V, Logger.Green);
+                    Logger.Simple("Report: High Gravity Descent = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1144,20 +1199,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void GlideStatus(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].GlideStatus != V)
+                if (Storage[Commander].GlideStatus != V)
                 {
-                    Storage[IStatus.Commander].GlideStatus = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].GlideStatus, V, "Glide Status");
+
+                    Storage[Commander].GlideStatus = V;
 
                     //Logger
-                    //Logger.Simple("Report: Glide Status = " + V, Logger.Green);
+                    Logger.Simple("Report: Glide Status = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1175,20 +1233,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void ScanTravelDist(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].ScanTravelDist != V)
+                if (Storage[Commander].ScanTravelDist != V)
                 {
-                    Storage[IStatus.Commander].ScanTravelDist = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].ScanTravelDist, V, "Travel Distance Threshold");
+
+                    Storage[Commander].ScanTravelDist = V;
 
                     //Logger
-                    //Logger.Simple("Report: Trave Distance Threshold = " + V, Logger.Green);
+                    Logger.Simple("Report: Travel Distance Threshold = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1205,20 +1266,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void LandableVolcanism(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].LandableVolcanism != V)
+                if (Storage[Commander].LandableVolcanism != V)
                 {
-                    Storage[IStatus.Commander].LandableVolcanism = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].LandableVolcanism, V, "Landable Volcanism");
+
+                    Storage[Commander].LandableVolcanism = V;
 
                     //Logger
-                    //Logger.Simple("Report: Landable Volcanism = " + V, Logger.Green);
+                    Logger.Simple("Report: Landable Volcanism = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1235,20 +1299,20 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void ScanDistLimit(string M, int V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].ScanDistLimit != V)
+                if (Storage[Commander].ScanDistLimit != V)
                 {
-                    Storage[IStatus.Commander].ScanDistLimit = V;
+                    Storage[Commander].ScanDistLimit = V;
 
                     //Logger
-                    //Logger.Simple("Report: Travel Distance Threshold = " + V, Logger.Green);
+                    Logger.Simple("Report: Travel Distance Threshold = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1265,20 +1329,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void BodyEarthLike(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].BodyEarthLike != V)
+                if (Storage[Commander].BodyEarthLike != V)
                 {
-                    Storage[IStatus.Commander].BodyEarthLike = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].BodyEarthLike, V, "Earthlike World");
+
+                    Storage[Commander].BodyEarthLike = V;
 
                     //Logger
-                    //Logger.Simple("Report: EarthLike Worlds = " + V, Logger.Green);
+                    Logger.Simple("Report: EarthLike Worlds = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1295,20 +1362,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void BodyWaterTerra(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].BodyWaterTerra != V)
+                if (Storage[Commander].BodyWaterTerra != V)
                 {
-                    Storage[IStatus.Commander].BodyWaterTerra = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].BodyWaterTerra, V, "Terraformabe Water World");
+
+                    Storage[Commander].BodyWaterTerra = V;
 
                     //Logger
-                    //Logger.Simple("Report: Water Worlds (Terraformable) = " + V, Logger.Green);
+                    Logger.Simple("Report: Water Worlds (Terraformable) = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1325,20 +1395,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void BodyHMCTerra(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].BodyHMCTerra != V)
+                if (Storage[Commander].BodyHMCTerra != V)
                 {
-                    Storage[IStatus.Commander].BodyHMCTerra = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].BodyHMCTerra, V, "Terraformable High Metal Content World");
+
+                    Storage[Commander].BodyHMCTerra = V;
 
                     //Logger
-                    //Logger.Simple("Report: High Metal Content (Terraformable) = " + V, Logger.Green);
+                    Logger.Simple("Report: High Metal Content (Terraformable) = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1355,20 +1428,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void BodyAmmonia(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].BodyAmmonia != V)
+                if (Storage[Commander].BodyAmmonia != V)
                 {
-                    Storage[IStatus.Commander].BodyAmmonia = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].BodyAmmonia, V, "Ammonia World");
+
+                    Storage[Commander].BodyAmmonia = V;
 
                     //Logger
-                    //Logger.Simple("Report: Ammonia Worlds = " + V, Logger.Green);
+                    Logger.Simple("Report: Ammonia Worlds = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1385,20 +1461,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void BodyRockyTerra(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].BodyRockyTerra != V)
+                if (Storage[Commander].BodyRockyTerra != V)
                 {
-                    Storage[IStatus.Commander].BodyRockyTerra = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].BodyRockyTerra, V, "Terraformable Rocky World");
+
+                    Storage[Commander].BodyRockyTerra = V;
 
                     //Logger
-                    //Logger.Simple("Report: Rocky (Terraformable) = " + V, Logger.Green);
+                    Logger.Simple("Report: Rocky (Terraformable) = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1415,20 +1494,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void BodyWater(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].BodyWater != V)
+                if (Storage[Commander].BodyWater != V)
                 {
-                    Storage[IStatus.Commander].BodyWater = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].BodyWater, V, "Water World");
+
+                    Storage[Commander].BodyWater = V;
 
                     //Logger
-                    //Logger.Simple("Report: Water Worlds = " + V, Logger.Green);
+                    Logger.Simple("Report: Water Worlds = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1445,20 +1527,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void BodyMetalRich(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].BodyMetalRich != V)
+                if (Storage[Commander].BodyMetalRich != V)
                 {
-                    Storage[IStatus.Commander].BodyMetalRich = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].BodyMetalRich, V, "Metal Rich World");
+
+                    Storage[Commander].BodyMetalRich = V;
 
                     //Logger
-                    //Logger.Simple("Report: Metal Rich = " + V, Logger.Green);
+                    Logger.Simple("Report: Metal Rich = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1475,20 +1560,24 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void BodyGasGiantII(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].BodyGasGiantII != V)
+                if (Storage[Commander].BodyGasGiantII != V)
                 {
-                    Storage[IStatus.Commander].BodyGasGiantII = V;
+
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].BodyGasGiantII, V, "Class Two Gas Giant");
+
+                    Storage[Commander].BodyGasGiantII = V;
 
                     //Logger
-                    //Logger.Simple("Report: Gas Giant II = " + V, Logger.Green);
+                    Logger.Simple("Report: Gas Giant II = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 
@@ -1505,20 +1594,23 @@ namespace ALICE_Settings
         /// <param name="V">(Value) The Being Set.</param>
         public void BodyHMC(string M, bool V, bool S = false)
         {
-            if (Storage.ContainsKey(IStatus.Commander))
+            if (Storage.ContainsKey(Commander))
             {
                 //Update Value
-                if (Storage[IStatus.Commander].BodyHMC != V)
+                if (Storage[Commander].BodyHMC != V)
                 {
-                    Storage[IStatus.Commander].BodyHMC = V;
+                    //Audio Update
+                    IActions.Report.Update(Storage[Commander].BodyHMC, V, "High Metal Content World");
+
+                    Storage[Commander].BodyHMC = V;
 
                     //Logger
-                    //Logger.Simple("Report: High Metal Content = " + V, Logger.Green);
+                    Logger.Simple("Report: High Metal Content = " + V, Logger.Green);
 
                     //Save Settings
                     if (S)
                     {
-                        ISettings.User.Save();
+                        TKSettings.User.Save();
                     }
                 }
 

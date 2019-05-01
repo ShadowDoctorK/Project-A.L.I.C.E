@@ -13,8 +13,7 @@ namespace ALICE_Community_Toolkit
         public MonitorSettings Settings { get; set; }
 
         //FileData Objects
-        public FileUser User = new FileUser(false);
-        public FileShipyard Shipyard = new FileShipyard(false);
+        public FileUser User = new FileUser(false);        
         public FileFiregroups Firegroups = new FileFiregroups(false);
         #endregion
 
@@ -31,8 +30,7 @@ namespace ALICE_Community_Toolkit
         public Monitor_Settings(bool E, bool I, bool R, bool Use = true, bool Shi = true, bool Fir = true)
         {
             Settings = new MonitorSettings(E, I, R);
-            User = new FileUser(Use);
-            Shipyard = new FileShipyard(Shi);
+            User = new FileUser(Use);            
             Firegroups = new FileFiregroups(Fir);
         }
         #endregion
@@ -67,21 +65,6 @@ namespace ALICE_Community_Toolkit
                             {
                                 Logger.Exception(MethodName, "Exception: " + ex);
                                 Logger.Exception(MethodName, "[User.Settings] The Hamster Is Trying To Fix His Wheel...");
-                            }
-
-                            //Check Shipyard.Settings
-                            try
-                            {
-                                if (Shipyard.Enabled && Shipyard.File == null) { Shipyard.GetFileInfo(); }
-                                if (Shipyard.Enabled && Shipyard.File != null && CheckFile(ref Shipyard.File, ref Shipyard.InitialLoad))
-                                {
-                                    Update2(); Shipyard.InitialLoad = false;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                Logger.Exception(MethodName, "Exception: " + ex);
-                                Logger.Exception(MethodName, "[Shipyard.Settings] The Hamster Is Trying To Fix His Wheel...");
                             }
 
                             //Check Firegroup.Settings
@@ -143,23 +126,7 @@ namespace ALICE_Community_Toolkit
 
             try
             {
-                ISettings.User = new SettingsUser().Load();
-                MainWindow.UpdateButtons();
-            }
-            catch (Exception ex)
-            {
-                Logger.Exception(MethodName, "Exception: " + ex);
-                Logger.Exception(MethodName, "[Failed] The Hamster Made A Mistake And Forgot What He Was Doing...");
-            }
-        }
-
-        public override void Update2()
-        {
-            string MethodName = "Shipyard Settings (Update)";
-
-            try
-            {
-                ISettings.Shipyard = new SettingsShipyard().Load();
+                TKSettings.User = new SettingsUser().Load();
                 MainWindow.UpdateButtons();
             }
             catch (Exception ex)
@@ -175,7 +142,7 @@ namespace ALICE_Community_Toolkit
 
             try
             {
-                ISettings.Firegroups = new SettingsHardpoints().Load();
+                TKSettings.Firegroup = new SettingsHardpoints().Load();
                 MainWindow.UpdateButtons();
             }
             catch (Exception ex)
@@ -206,18 +173,6 @@ namespace ALICE_Community_Toolkit
                 Stamp = new DateTime();
                 Enabled = E;
                 Name = "User.Settings";
-                Dir = new DirectoryInfo(Paths.ALICE_Settings);
-            }
-        }
-
-        public class FileShipyard : FileBase
-        {
-            public FileShipyard(bool E)
-            {
-                File = null;
-                Stamp = new DateTime();
-                Enabled = E;
-                Name = "Shipyard.Settings";
                 Dir = new DirectoryInfo(Paths.ALICE_Settings);
             }
         }

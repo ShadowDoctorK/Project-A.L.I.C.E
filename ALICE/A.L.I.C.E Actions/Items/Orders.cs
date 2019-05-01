@@ -18,7 +18,7 @@ namespace ALICE_Actions
             /// <param name="N">(New) The New State.</param>
             /// <param name="I">(Item) The Orders Name.</param>
             /// <returns></returns>
-            private bool Update(bool C, bool N, string I)
+            public bool Update(bool C, bool N, string I)
             {
                 if (C == true)
                 {

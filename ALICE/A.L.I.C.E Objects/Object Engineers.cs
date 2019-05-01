@@ -1,9 +1,9 @@
 ﻿using ALICE_Events;
-using ALICE_Interface;
-using ALICE_Internal;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+
+//Developer Notes:
+//Disabled use of this feature until it is required.
 
 namespace ALICE_Objects
 {
@@ -75,7 +75,7 @@ namespace ALICE_Objects
                 Add(EngineerData);
             }
 
-            INewtonSoft.Save<Object_Engineers>(IObjects.Engineer, FileName, Paths.ALICE_Settings);
+            //INewtonSoft.Save<Object_Engineers>(IObjects.Engineer, FileName, Paths.ALICE_Settings);
         }
 
         public int GetObjectIndex(string EngineerName)

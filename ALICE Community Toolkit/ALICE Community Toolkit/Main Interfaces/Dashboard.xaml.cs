@@ -1,4 +1,5 @@
-﻿using ALICE_Synthesizer;
+﻿using ALICE_Internal;
+using ALICE_Synthesizer;
 using System;
 using System.IO;
 using System.Threading;
@@ -55,12 +56,12 @@ namespace ALICE_Community_Toolkit
                 if (string.IsNullOrWhiteSpace(FilePath) == false)
                 {
                     string FileName = FilePath.Replace(Paths.Binds_Location, "");
-                    Settings.User.BindsFile(MethodName, FileName, true);
+                    TKSettings.User.BindsFile(MethodName, FileName, true);
                 }                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Logger.Exception(MethodName, "Exception: " + ex);
             }
         }
         #endregion
