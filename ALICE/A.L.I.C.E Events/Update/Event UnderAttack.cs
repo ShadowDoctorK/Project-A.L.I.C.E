@@ -4,6 +4,7 @@
 
 using ALICE_Core;
 using ALICE_Objects;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -40,7 +41,7 @@ namespace ALICE_Events
                 //Define Vehicle
                 if (Event.Target.Contains("You"))
                 {
-                    Variables.Record(Name + "_Vehicle", IVehicles.Vehicle.ToString());
+                    Variables.Record(Name + "_Vehicle", IStatus.Vehicle.ToString());
                 }
                 else
                 {
@@ -60,7 +61,6 @@ namespace ALICE_Events
             {
                 //Disable Weapons Safeies Incase We Are Inside The No Fire Zone                
                 IStatus.WeaponSafety = false;
-
                 IStatus.Hyperspace = false;
                 IStatus.Supercruise = false;
             }

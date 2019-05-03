@@ -2,9 +2,8 @@
 //Class File Generated: 11/22/2018 12:26 AM
 //Source Journal Line: { "timestamp":"2018-11-22T03:02:28Z", "event":"MiningRefined", "Type":"$bauxite_name;", "Type_Localised":"Bauxite" }
 
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Internal;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

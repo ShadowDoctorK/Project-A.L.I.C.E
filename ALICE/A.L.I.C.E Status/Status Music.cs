@@ -1,20 +1,12 @@
-﻿using ALICE_Core;
-using ALICE_Equipment;
-using ALICE_Events;
+﻿using ALICE_Events;
 using ALICE_Internal;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ALICE_Status
 {
     public class Status_Music
     {
         private readonly string MethodName = "Music Status";
-
-        public Responses Response = new Responses();
 
         public void Update(Music Event)
         {
@@ -144,14 +136,9 @@ namespace ALICE_Status
             //Update Plugin Properties
             if (M != IEnums.MusicState.SystemAndSurfaceScanner)
             {
-                IEquipment.SurfaceScanner.Mode = false;
-                IEquipment.DiscoveryScanner.Mode = false;
+                IStatus.ModeSurfScanner = false;
+                IStatus.FSSMode = false;
             }
-        }
-
-        public class Responses
-        {
-            string MethodName = "Music Status";
         }
     }
 }

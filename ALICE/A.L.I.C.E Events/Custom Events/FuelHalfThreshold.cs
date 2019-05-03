@@ -2,9 +2,7 @@
 //Class File Generated: 11/20/2018 12:20 AM
 //Source Journal Line: (Custom A.L.I.C.E Event)
 
-using ALICE_Debug;
-using ALICE_Equipment;
-using ALICE_Internal;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -33,13 +31,13 @@ namespace ALICE_Events
                 //Notes: Commented Out Audio Due To Main Audio Playing Twice.   
 
                 //Audio - FuelHalfThreshold
-                //IEquipment.FuelTank.FuelHalf(
+                //IResponse.FuelTank.FuelHalf(
                 //    ICheck.Initialized(ClassName),                      //Check Plugin Initialized
                 //    ICheck.InitializedStatus(ClassName),                //Check Status.Json Initialized
                 //    Check.Variable.FuelScooping(false, ClassName));     //Check Not Fuel Scooping     
 
                 //Update Status Object
-                IEquipment.FuelTank.HalfThreshold = true;
+                IStatus.Fuel.HalfThreshold = true;
             }
             catch (Exception ex)
             {

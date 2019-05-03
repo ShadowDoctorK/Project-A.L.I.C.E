@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-09T20:03:41Z", "event":"ShipyardSwap", "ShipType":"federation_corvette", "ShipType_Localised":"Federal Corvette", "ShipID":11, "StoreOldShip":"Krait_MkII", "StoreShipID":29, "MarketID":3221503744 }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

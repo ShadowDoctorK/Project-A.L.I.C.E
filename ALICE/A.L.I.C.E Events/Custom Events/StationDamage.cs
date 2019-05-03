@@ -4,10 +4,9 @@
 //Reference Journal Line: { "timestamp":"2018-11-22T16:58:24Z", "event":"ReceiveText", "From":"The Heart of Orion", "Message":"$STATION_AccidentalDamage;", "Message_Localised":"Watch where you're firing, Commander! You have been warned!", "Channel":"npc" }
 //Reference Journal Line: { "timestamp":"2018-11-22T16:58:32Z", "event":"ReceiveText", "From":"The Heart of Orion", "Message":"$StationAggressorResponseMessage;", "Message_Localised":"Hostility logged, lethal response authorised.", "Channel":"npc" }
 
-using ALICE_Core;
 using ALICE_Data;
 using ALICE_Debug;
-using ALICE_Internal;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

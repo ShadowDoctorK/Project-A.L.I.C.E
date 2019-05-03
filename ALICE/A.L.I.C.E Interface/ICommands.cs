@@ -235,8 +235,7 @@ namespace ALICE_Interface
             Throttle_Speed,
             Extended_Logging,
             Debug_Mode,
-            Variable_Mode,
-            Monitor_Status,
+            Variable_Mode,           
             Master_Audio,
             Logger,
             #endregion
@@ -250,8 +249,9 @@ namespace ALICE_Interface
             Frame_Shift_Drive,
             Lights,
             Landing_Gear,
-            Slient_Running,
+            Silent_Running,
             Hardpoints,
+            Groups,
             Heatsink,
             Shield_Cell,
             Chaff,
@@ -265,10 +265,14 @@ namespace ALICE_Interface
             Flight_Assist,
             Launch,
             Wake_Scanner,
+            Pulse_Wave_Analyser,
             ECM,
             Field_Neutraliser,
             FSD_Interdictor,
             Mining_Laser,
+            Abrasion_Blaster,
+            Sub_Surface_Displacement,
+            Seismic_Charge_Launcher,
             Kill_Warrent_Scanner,
             Collector_Limpet,
             Decontamination_Limpet,
@@ -339,7 +343,8 @@ namespace ALICE_Interface
             #region Interactions
             Response,
             //General - Shared
-            Custom
+            Custom,
+            Speak
             #endregion
         }
 
@@ -357,8 +362,16 @@ namespace ALICE_Interface
             Cancel,
             Prepare,
             Activate,
+            Deactivate,
+            Pulse,
             Next,
             Previous,
+
+            #region Group Assignments
+            Prospect,
+            Collection,
+            Extraction,
+            #endregion
 
             #region Targeting
             //====== Wingman Items ======
@@ -513,6 +526,7 @@ namespace ALICE_Interface
             //====== Default Return ======
             FailToConvert,
 
+            Assign,
             Player,
             Crew,
             Select,

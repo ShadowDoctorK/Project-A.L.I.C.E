@@ -8,37 +8,13 @@
              d:DesignHeight="800" d:DesignWidth="1013">
 
     <Grid Background="Black" Height="800">
-
-        <StackPanel x:Name="StackBox" HorizontalAlignment="Left" Height="88" Margin="10,307,0,0" VerticalAlignment="Top" Width="424">
-            <CheckBox x:Name="CheckBox_Reverb" Content="Reverb Settings:" VerticalAlignment="Top" Height="16" Foreground="#FFCE5A05" Background="#FF514848" Unchecked="CheckBox_Reverb_Unchecked" Checked="CheckBox_Reverb_Checked"/>
-
-            <StackPanel x:Name="StackBox_1_Copy9" HorizontalAlignment="Left" Orientation="Horizontal" Height="60" VerticalAlignment="Top" Width="424">
-
-                <StackPanel x:Name="StackBox_1_Copy10" HorizontalAlignment="Left" Height="61" VerticalAlignment="Top" Width="91">
-                    <Label Content="Reverb Time" Foreground="#FFCE5A05"/>
-                    <Label Content="Reverb Mix" Foreground="#FFCE5A05"/>
-                </StackPanel>
-
-                <StackPanel x:Name="StackBox_1_Copy11" HorizontalAlignment="Left" Height="61" VerticalAlignment="Top" Width="52">
-                    <TextBox x:Name="TextBox_ReverbTime_Reverb" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
-                    <TextBox x:Name="TextBox_ReverbMix_Reverb" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
-                </StackPanel>
-
-                <StackPanel x:Name="StackBox_1_Copy12" HorizontalAlignment="Left" Height="61" VerticalAlignment="Top" Width="279">
-                    <Slider x:Name="Slider_ReverbTime_Reverb" Margin="4" TickFrequency="0.001" IsSnapToTickEnabled="True" ValueChanged="Reverb_Time_Changed" Minimum="0.001" Maximum="3000" Value="1000"/>
-                    <Slider x:Name="Slider_ReverbMix_Reverb" Margin="4" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="Reverb_Mix_Changed" Minimum="-96" Maximum="0" Value="-5"/>
-                </StackPanel>
-
-            </StackPanel>
-
-        </StackPanel>
-
+        
         <StackPanel x:Name="StackBox_1_Copy18" Orientation="Horizontal" Height="45" VerticalAlignment="Top" Margin="0,0,0.333,0" Background="Black">
             <Button x:Name="btn_SaveSettings" Content="Save Settings" Margin="10,10,5,10" Width="108" Foreground="#FFCE5A05" Background="{x:Null}" Click="btn_SaveSettings_Click"/>
             <Button x:Name="btn_TestSettings" Content="Test Voice" Margin="5,10,5,10" Foreground="#FFCE5A05" Background="{x:Null}" Click="btn_LoadSettings_Click" Width="108"/>
         </StackPanel>
 
-        <Grid x:Name="CommonControls" Height="113" VerticalAlignment="Top" Margin="0,45,0.333,0" Background="Black">
+        <Grid x:Name="CommonControls" Height="113" VerticalAlignment="Top" Margin="25,159,641.333,0" Background="Black">
             <Label x:Name="label_VoiceSelection" Content="Selected Voice:" Foreground="#FFCE5A05" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="326" Margin="10,0,0,0"/>
             <ComboBox x:Name="ComboBox_VoiceSelection" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FFCE5A05" SelectionChanged="ComboBox_VoiceSelection_SelectionChanged" Margin="10,26,0,0" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="326"/>
             <Label Content="Speech Volume" Foreground="#FFCE5A05" Margin="10,55,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="91"/>
@@ -46,10 +22,9 @@
             <TextBox x:Name="TextBox_SpeechVolume" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="115,62,0,0" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Width="44"/>
             <TextBox x:Name="TextBox_SpeechRate" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="115,85,0,0" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Width="44"/>
             <Slider x:Name="Slider_SpeechVolume" Margin="164,59,0,0" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="SpeechVolume_Changed" Minimum="0" Maximum="100" Value="75" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="174"/>
-            <TextBox x:Name="TextBox_TestVoice" TextWrapping="Wrap" Text="Testing, Testing 1 2 3. How Much Wood Could A Woodchuck Chuck If A Woodchuck Could Chuck Wood?" Margin="361,40,10,10" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
         </Grid>
 
-        <StackPanel x:Name="StackBox_Copy" HorizontalAlignment="Left" Height="140" Margin="10,179,0,0" VerticalAlignment="Top" Width="424">
+        <StackPanel x:Name="StackBox_Copy" HorizontalAlignment="Left" Height="140" Margin="25,303,0,0" VerticalAlignment="Top" Width="424">
             <CheckBox x:Name="CheckBox_Echo" Content="Echo Settings:" VerticalAlignment="Top" Height="16" Foreground="#FFCE5A05" Background="#FF514848" Checked="CheckBox_Echo_Checked" Unchecked="CheckBox_Echo_Unchecked"/>
             <StackPanel x:Name="StackBox_1_Copy13" HorizontalAlignment="Left" Orientation="Horizontal" Height="109" VerticalAlignment="Top" Width="424">
                 <StackPanel x:Name="StackBox_1_Copy14" HorizontalAlignment="Left" Height="110" VerticalAlignment="Top" Width="91">
@@ -73,9 +48,37 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel x:Name="StackBox_Copy1" HorizontalAlignment="Left" Height="166" Margin="10,383,0,0" VerticalAlignment="Top" Width="424">
+        <StackPanel x:Name="StackBox_Reverb" HorizontalAlignment="Left" Height="88" Margin="524,184,0,0" VerticalAlignment="Top" Width="424">
+            
+            <CheckBox x:Name="CheckBox_Reverb" Content="Reverb Settings:" VerticalAlignment="Top" Height="16" Foreground="#FFCE5A05" Background="#FF514848" Unchecked="CheckBox_Reverb_Unchecked" Checked="CheckBox_Reverb_Checked"/>
+
+            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Height="60" VerticalAlignment="Top" Width="424">
+
+                <StackPanel HorizontalAlignment="Left" Height="61" VerticalAlignment="Top" Width="91">
+                    <Label Content="Reverb Time" Foreground="#FFCE5A05"/>
+                    <Label Content="Reverb Mix" Foreground="#FFCE5A05"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Left" Height="61" VerticalAlignment="Top" Width="52">
+                    <TextBox x:Name="TextBox_ReverbTime_Reverb" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
+                    <TextBox x:Name="TextBox_ReverbMix_Reverb" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Left" Height="61" VerticalAlignment="Top" Width="279">
+                    <Slider x:Name="Slider_ReverbTime_Reverb" Margin="4" TickFrequency="0.001" IsSnapToTickEnabled="True" ValueChanged="Reverb_Time_Changed" Minimum="0.001" Maximum="3000" Value="1000"/>
+                    <Slider x:Name="Slider_ReverbMix_Reverb" Margin="4" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="Reverb_Mix_Changed" Minimum="-96" Maximum="0" Value="-15"/>
+                </StackPanel>
+
+            </StackPanel>
+
+        </StackPanel>
+        
+        <StackPanel x:Name="StackBox_Chorus" HorizontalAlignment="Left" Height="166" Margin="25,431,0,0" VerticalAlignment="Top" Width="424">
+            
             <CheckBox x:Name="CheckBox_Chorus" Content="Chorus Settings:" VerticalAlignment="Top" Height="16" Foreground="#FFCE5A05" Background="#FF514848" Checked="CheckBox_Chorus_Checked" Unchecked="CheckBox_Chorus_Unchecked"/>
+          
             <StackPanel x:Name="StackBox_1_Copy5" HorizontalAlignment="Left" Orientation="Horizontal" Height="140" VerticalAlignment="Top" Width="424">
+                
                 <StackPanel x:Name="StackBox_1_Copy6" HorizontalAlignment="Left" Height="137" VerticalAlignment="Top" Width="91">
                     <Label Content="Depth" Foreground="#FFCE5A05"/>
                     <Label Content="Wet / Dry Mix" Foreground="#FFCE5A05"/>
@@ -83,6 +86,7 @@
                     <Label Content="Frequency" Foreground="#FFCE5A05"/>
                     <Label Content="Feedback" Foreground="#FFCE5A05"/>
                 </StackPanel>
+               
                 <StackPanel x:Name="StackBox_1_Copy7" HorizontalAlignment="Left" Height="137" VerticalAlignment="Top" Width="52">
                     <TextBox x:Name="TextBox_Depth_Chorus" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
                     <TextBox x:Name="TextBox_WetDryMix_Chorus" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
@@ -90,6 +94,7 @@
                     <TextBox x:Name="TextBox_Frequency_Chorus" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
                     <TextBox x:Name="TextBox_Feedback_Chorus" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
                 </StackPanel>
+               
                 <StackPanel x:Name="StackBox_1_Copy8" HorizontalAlignment="Left" Height="137" VerticalAlignment="Top" Width="279">
                     <Slider x:Name="Slider_Depth_Chorus" Margin="4" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="Chorus_Depth_Changed" Minimum="0" Maximum="100" Value="10"/>
                     <Slider x:Name="Slider_WetDryMix_Chorus" Margin="4" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="Chorus_WetDryMix_Changed" Minimum="0" Maximum="100" Value="50"/>
@@ -97,10 +102,15 @@
                     <Slider x:Name="Slider_Frequency_Chorus" Margin="4" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="Chorus_Frequency_Changed" Minimum="0" Maximum="10" Value="1.1"/>
                     <Slider x:Name="Slider_Feedback_Chorus" Margin="4" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="Chorus_Feedback_Changed" Minimum="-99" Maximum="99" Value="10"/>
                 </StackPanel>
+                
             </StackPanel>
+            
         </StackPanel>
-        <StackPanel x:Name="StackBox_Copy2" HorizontalAlignment="Left" Height="197" Margin="10,537,0,0" VerticalAlignment="Top" Width="424">
+        
+        <StackPanel x:Name="StackBox_Flange" HorizontalAlignment="Left" Height="197" Margin="524,260,0,0" VerticalAlignment="Top" Width="424">
+           
             <CheckBox x:Name="CheckBox_Flange" Content="Flange Settings:" VerticalAlignment="Top" Height="16" Foreground="#FFCE5A05" Background="#FF514848" Checked="CheckBox_Flange_Checked" Unchecked="CheckBox_Flange_Unchecked"/>
+            
             <StackPanel x:Name="StackBox_1_Copy1" HorizontalAlignment="Left" Orientation="Horizontal" Height="169" VerticalAlignment="Top" Width="424">
 
                 <StackPanel x:Name="StackBox_1_Copy2" HorizontalAlignment="Left" Width="91" Margin="0,0,0,0.333">
@@ -119,6 +129,7 @@
                     <TextBox x:Name="TextBox_Frequency_Flange" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
                     <TextBox x:Name="TextBox_WetDryMix_Flange" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
                 </StackPanel>
+              
                 <StackPanel x:Name="StackBox_1_Copy4" HorizontalAlignment="Left" Width="279" Margin="0,0,0,0.333">
                     <Slider x:Name="Slider_Delay_Flange" Margin="4" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="Slider_Delay_Flange_Changed" Minimum="0" Maximum="4" Value="2"/>
                     <Slider x:Name="Slider_Depth_Flange" Margin="4" TickFrequency="0.1" IsSnapToTickEnabled="True" Minimum="0" Maximum="100" Value="10" ValueChanged="Slider_Depth_Flange_Changed"/>
@@ -127,48 +138,82 @@
                     <Slider x:Name="Slider_WetDryMix_Flange" Margin="4" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="Slider_WetDryMix_Flange_Changed" Minimum="0" Maximum="100" Value="50"/>
                     <ComboBox x:Name="ComboBox_Phase_Flange" SelectionChanged="ComboBox_Phase_Flange_SelectionChanged" SelectedIndex="0" Foreground="#FFCE5A05" Background="{x:Null}" BorderBrush="{x:Null}"/>
                 </StackPanel>
+                
             </StackPanel>
+            
         </StackPanel>
-        <RichTextBox Margin="439,179,10.333,10" Background="Black" SelectionBrush="{x:Null}" Foreground="#FFCE5A05" IsReadOnly="True">
+
+        <StackPanel x:Name="StackBox_Gargle" HorizontalAlignment="Left" Height="78" Margin="25,585,0,0" VerticalAlignment="Top" Width="424">
+            
+            <CheckBox x:Name="CheckBox_Gargle" Content="Gargle Settings:" VerticalAlignment="Top" Height="16" Foreground="#FFCE5A05" Background="#FF514848" Checked="CheckBox_Gargle_Checked" Unchecked="CheckBox_Gargle_Unchecked"/>
+            
+            <StackPanel x:Name="StackBox_1_Copy17" HorizontalAlignment="Left" Orientation="Horizontal" Height="62" VerticalAlignment="Top" Width="424">
+
+                <StackPanel HorizontalAlignment="Left" Width="91">
+                    <Label Content="Rate (Hz)" Foreground="#FFCE5A05"/>
+                    <Label Content="Wave Shape" Foreground="#FFCE5A05"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Left" Width="52">
+                    <TextBox x:Name="TextBox_RateHz_Gargle" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Left" Width="279">
+                    <Slider x:Name="Slider_RateHz_Gargle" Margin="4" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="Slider_RateHz_Gargle_Changed" Minimum="20" Maximum="1000" Value="20"/>
+                    <ComboBox x:Name="ComboBox_Phase_Gargle" SelectionChanged="ComboBox_Phase_Gargle_SelectionChanged" SelectedIndex="0" Foreground="#FFCE5A05" Background="{x:Null}" BorderBrush="{x:Null}"/>
+                </StackPanel>
+                
+            </StackPanel>
+            
+        </StackPanel>
+
+        <StackPanel x:Name="StackBox_Distorion" HorizontalAlignment="Left" Height="126" Margin="524,445,0,0" VerticalAlignment="Top" Width="424">
+
+            <CheckBox x:Name="CheckBox_Distiortion" Content="Distortion Settings:" VerticalAlignment="Top" Height="16" Foreground="#FFCE5A05" Background="#FF514848" Checked="CheckBox_Distortion_Checked" Unchecked="CheckBox_Distortion_Unchecked"/>
+
+            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Height="107" VerticalAlignment="Top" Width="424">
+
+                <StackPanel HorizontalAlignment="Left" Width="91">
+                    <Label Content="Edge" Foreground="#FFCE5A05"/>
+                    <Label Content="Gain" Foreground="#FFCE5A05"/>
+                    <Label Content="Post EQ Band" Foreground="#FFCE5A05"/>
+                    <Label Content="Post EQ Freq." Foreground="#FFCE5A05"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Left" Width="52">
+                    <TextBox x:Name="TextBox_Edge_Distortion" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
+                    <TextBox x:Name="TextBox_Gain_Distortion" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
+                    <TextBox x:Name="TextBox_PostEQBand_Distortion" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
+                    <TextBox x:Name="TextBox_PostEQCent_Distortion" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Left" Width="279">
+                    <Slider x:Name="Slider_Edge_Distortion" Margin="4" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="Slider_Edge_Distortion_Changed" Minimum="0" Maximum="100" Value="15"/>
+                    <Slider x:Name="Slider_Gain_Distortion" Margin="4" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="Slider_Gain_Distortion_Changed" Minimum="-60" Maximum="0" Value="0"/>
+                    <Slider x:Name="Slider_PostEQBand_Distortion" Margin="4" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="Slider_PostEQBand_Distortion_Changed" Minimum="100" Maximum="8000" Value="2400"/>
+                    <Slider x:Name="Slider_PostEQCent_Distortion" Margin="4" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="Slider_PostEQCent_Distortion_Changed" Minimum="100" Maximum="8000" Value="2400"/>
+                </StackPanel>
+
+            </StackPanel>
+
+        </StackPanel>
+
+        <RichTextBox Margin="10,50,10.333,677" Background="Black" SelectionBrush="{x:Null}" Foreground="#FFCE5A05" IsReadOnly="True">
             <FlowDocument>
                 <Paragraph>
-                    <Run Text="                                                         Synthesizer Controls &amp; Use"/>
-                    <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
+
                     <Run Text="I'm not going to teach you about sounds and wave forms here. I wouldn't have enough room. The short version is play with the setting till you find something you like. If you want to reset your settings to default just delete the Synthesizer settings in your A.L.I.C.E User Data folder which can be found in your My Documents folder."/>
                     <LineBreak/>
                     <Run/>
                     <LineBreak/>
-                    <Run Text="Rules of Thumb:"/>
+                    <Run Text="-- Each time you open the Community Toolkit or reset the Synthesizer Settings tab it loads up the default values. Not all voices are compatible with the Synthesizer."/>
                     <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
-                    <Run Text="1. Setting Wet / Dry Mix towards the DRY setting will make your voice slightly quieter."/>
-                    <LineBreak/>
-                    <Run Text="2. Setting Reverb Mix &amp; Time too high can drown out other settings. Might want to keep Reverb Mix lower than -10."/>
-                    <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
-                    <Run Text="General information:"/>
-                    <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
-                    <Run Text="1. Each time you open the Community Toolkit or reset the Synthesizer Settings tab it loads up the default values."/>
-                    <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
-                    <Run Text="2. Not all voices are compatible with the Synthesizer. This mostly applies to older voices. If you purchase a TTS voice and it can be set as the default voice for Window in the Control Panel then it will most likely work with this tool. You're welcome to try some free voices also. "/>
-                    <LineBreak/>
-                    <Run/>
-                    <LineBreak/>
-                    <Run Text="3. You have to save your settings. Just changing them here will not update them. You will also have to restart Voice Attack / Project A.L.I.C.E for the new settings to take effect. I know someone is going to miss it even though I put it here. "/>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="4. You can Enable/Disable Entire setting by Checking/Unchecking the boxes next to the settings name."/>
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
+        
+        <TextBox x:Name="TextBox_TestVoice" TextWrapping="Wrap" Text="Testing, Testing 1 2 3. How Much Wood Could A Woodchuck Chuck If A Woodchuck Could Chuck Wood?" Margin="10,680,10.333,20" IsReadOnlyCaretVisible="True" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
+               
 
     </Grid>
 </UserControl>

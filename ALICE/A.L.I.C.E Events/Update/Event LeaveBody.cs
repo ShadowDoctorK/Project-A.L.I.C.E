@@ -2,9 +2,8 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-14T23:16:32Z", "event":"LeaveBody", "StarSystem":"Col 173 Sector KY-Q d5-47", "SystemAddress":1625603164499, "Body":"Col 173 Sector KY-Q d5-47 8 c", "BodyID":24 }
 
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Internal;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -78,7 +77,7 @@ namespace ALICE_Events
             try
             {
                 IStatus.Touchdown = false;
-                ISet.LandingGear.Status(ClassName, false);
+                ISet.Status.LandingGear(ClassName, false);
                 IStatus.Hyperspace = false;
                 IStatus.Docking.Docked = false;
             }

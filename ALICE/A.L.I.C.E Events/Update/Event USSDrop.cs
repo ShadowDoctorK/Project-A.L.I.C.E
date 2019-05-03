@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 4:40 PM
 //Source Journal Line: { "timestamp":"2018-09-17T08:01:25Z", "event":"USSDrop", "USSType":"$USS_Type_VeryValuableSalvage;", "USSType_Localised":"High grade emissions detected", "USSThreat":0 }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

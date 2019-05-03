@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-02T05:39:15Z", "event":"DockingRequested", "MarketID":3524278272, "StationName":"Morris Barracks", "StationType":"SurfaceStation" }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

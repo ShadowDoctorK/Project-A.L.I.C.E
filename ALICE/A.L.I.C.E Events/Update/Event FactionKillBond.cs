@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-29T00:33:24Z", "event":"FactionKillBond", "Reward":59800, "AwardingFaction":"The Fuel Rats Mischief", "VictimFaction":"Constitution Party of Fuelum" }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

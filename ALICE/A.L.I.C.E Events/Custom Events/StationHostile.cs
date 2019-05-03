@@ -4,9 +4,8 @@
 //Reference Journal Line: { "timestamp":"2018-11-22T16:26:09Z", "event":"ReceiveText", "From":"Hennen Station", "Message":"$DockingPadBlockHostileComms;", "Message_Localised":"Docking pad violation, lethal response authorised", "Channel":"npc" }
 //Reference Journal Line: { "timestamp":"2018-11-22T16:58:32Z", "event":"ReceiveText", "From":"The Heart of Orion", "Message":"$StationAggressorResponseMessage;", "Message_Localised":"Hostility logged, lethal response authorised.", "Channel":"npc" }
 
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Internal;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

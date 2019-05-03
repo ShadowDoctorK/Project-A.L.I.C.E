@@ -2,8 +2,7 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-28T21:15:49Z", "event":"DockingDenied", "Reason":"Distance", "MarketID":3224098560, "StationName":"Kanwar Orbital", "StationType":"Coriolis" }
 
-using ALICE_Core;
-using ALICE_Internal;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

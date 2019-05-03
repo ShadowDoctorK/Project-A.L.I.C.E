@@ -2,9 +2,9 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-26T10:17:05Z", "event":"CrewAssign", "Name":"Mackenzie Witt", "CrewID":257296352, "Role":"OnShoreLeave" }
 
-using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Response;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

@@ -1,7 +1,8 @@
 ﻿using ALICE_Debug;
-using ALICE_Equipment;
 using ALICE_Internal;
+using ALICE_Response;
 using ALICE_Settings;
+using ALICE_Status;
 
 namespace ALICE_Actions
 {
@@ -12,36 +13,36 @@ namespace ALICE_Actions
             string MethodName = "Composite Scan";
 
             //Record Current Firegroup
-            decimal Temp = Call.Firegroup.Current;
+            decimal Temp = IActions.Hardpoints.Current;
 
             #region Vaildtion Checks           
             if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
-                IEquipment.CompositeScanner.NoHyperspace(CommandAudio);
+                IResponse.CompositeScanner.NoHyperspace(CommandAudio);
                 return;
             }
             #endregion
 
             #region Fire Group Management
-            Settings_Firegroups.Assignemnt Module = ISettings.Firegroup.GetAssignemnt(Settings_Firegroups.Item.ScannerComposite);
+            ConfigurationHardpoints.Assignemnt Module = ISettings.Firegroups.Config.GetAssignemnt(ConfigurationHardpoints.Item.ScannerComposite);
 
             //Select Firegroup
-            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.ScannerComposite))
+            switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.ScannerComposite))
             {
-                case Settings_Firegroups.S.CurrentlySelected:
-                    if (SelectOnly) { IEquipment.CompositeScanner.CurrentlySelected(CommandAudio); }
+                case ConfigurationHardpoints.S.CurrentlySelected:
+                    if (SelectOnly) { IResponse.CompositeScanner.CurrentlySelected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.Selected:
-                    if (SelectOnly) { IEquipment.CompositeScanner.Selected(CommandAudio); }
+                case ConfigurationHardpoints.S.Selected:
+                    if (SelectOnly) { IResponse.CompositeScanner.Selected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.NotAssigned:
-                    IEquipment.CompositeScanner.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.S.NotAssigned:
+                    IResponse.CompositeScanner.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.S.Failed:
-                    IEquipment.CompositeScanner.SelectionFailed(CommandAudio);
+                case ConfigurationHardpoints.S.Failed:
+                    IResponse.CompositeScanner.SelectionFailed(CommandAudio);
                     return;
-                case Settings_Firegroups.S.InHyperspace:
-                    IEquipment.General.InHyperspace();
+                case ConfigurationHardpoints.S.InHyperspace:
+                    IResponse.CompositeScanner.NoHyperspace(CommandAudio);
                     return;
                 default:
                     return;
@@ -51,23 +52,23 @@ namespace ALICE_Actions
             if (SelectOnly) { return; }
 
             //Commenced Audio
-            if (Module.FireGroup != Settings_Firegroups.Group.None &&
-                Module.FireMode != Settings_Firegroups.Fire.None)
+            if (Module.FireGroup != ConfigurationHardpoints.Group.None &&
+                Module.FireMode != ConfigurationHardpoints.Fire.None)
             {
-                IEquipment.CompositeScanner.ScanCommenced(CommandAudio);
+                IResponse.CompositeScanner.ScanCommenced(CommandAudio);
             }
 
             //Acivate Module
-            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.ScannerComposite, 8000))
+            switch (ISettings.Firegroups.Config.Activate(ConfigurationHardpoints.Item.ScannerComposite, 8000, ref IStatus.False))
             {
-                case Settings_Firegroups.A.Hyperspace:
-                    IEquipment.CompositeScanner.EnteredHyperspace(CommandAudio);
+                case ConfigurationHardpoints.A.Hyperspace:
+                    IResponse.CompositeScanner.EnteredHyperspace(CommandAudio);
                     return;
-                case Settings_Firegroups.A.NotAssigned:
-                    IEquipment.CompositeScanner.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.A.NotAssigned:
+                    IResponse.CompositeScanner.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.A.Complete:
-                    IEquipment.CompositeScanner.ScanComplete(CommandAudio);
+                case ConfigurationHardpoints.A.Complete:
+                    IResponse.CompositeScanner.ScanComplete(CommandAudio);
                     break;
                 default:
                     return;
@@ -75,7 +76,7 @@ namespace ALICE_Actions
             #endregion
 
             //Return To Previou Firegroup.
-            Call.Firegroup.Select(Temp, false);
+            IActions.Hardpoints.Select(Temp, false);
         }
     }
 }

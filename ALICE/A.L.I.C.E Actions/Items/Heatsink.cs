@@ -3,6 +3,7 @@ using ALICE_Internal;
 using ALICE_Keybinds;
 using ALICE_Response;
 using ALICE_Settings;
+using ALICE_Status;
 
 namespace ALICE_Actions
 {
@@ -33,7 +34,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Module Checks
-            if (Check.Equipment.HeatSinkLauncher(true, MethodName) == false)
+            if (ICheck.Mothership.M.HeatSink(MethodName, true) == false)
             {
                 //Audio - Not Installed.
                 IResponse.Heatsink.NotInstalled
@@ -57,12 +58,12 @@ namespace ALICE_Actions
         /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>
         /// <param name="I">(Item) The Target Item.</param>
         /// <param name="S">(Select Only) True will only select the module.</param>
-        public void Target(bool CA, Settings_Firegroups.Item I, bool S = false)
+        public void Target(bool CA, ConfigurationHardpoints.Item I, bool S = false)
         {
             string MethodName = "Sheild Cell (Target)";
 
             //Record Current Firegroup
-            decimal Temp = Call.Firegroup.Current;         
+            decimal Temp = IActions.Hardpoints.Current;         
 
             #region Vaildtion Checks
             //Check Space
@@ -75,9 +76,9 @@ namespace ALICE_Actions
 
             #region Fire Group Management
             //Select Firegroup
-            switch (ISettings.Firegroup.Select(I))
+            switch (ISettings.Firegroups.Config.Select(I))
             {
-                case Settings_Firegroups.S.CurrentlySelected:
+                case ConfigurationHardpoints.S.CurrentlySelected:
 
                     if (S) //Only When Selecting Module
                     {
@@ -86,7 +87,7 @@ namespace ALICE_Actions
                     }
                     break;
 
-                case Settings_Firegroups.S.Selected:
+                case ConfigurationHardpoints.S.Selected:
 
                     if (S) //Only When Selecting Module
                     {
@@ -95,19 +96,19 @@ namespace ALICE_Actions
                     }
                     break;
 
-                case Settings_Firegroups.S.NotAssigned:
+                case ConfigurationHardpoints.S.NotAssigned:
 
                     //Audio - Not Assigned
                     IResponse.Heatsink.NotAssigned(CA);
                     return;
 
-                case Settings_Firegroups.S.Failed:
+                case ConfigurationHardpoints.S.Failed:
 
                     //Audio - Selection Failed
                     IResponse.Heatsink.SelectionFailed(CA);
                     return;
 
-                case Settings_Firegroups.S.InHyperspace:
+                case ConfigurationHardpoints.S.InHyperspace:
 
                     //Audio - In Hyperspace
                     IResponse.Heatsink.NoHyperspace(CA);
@@ -123,19 +124,19 @@ namespace ALICE_Actions
             if (S) { return; }
 
             //Activate Module
-            switch (ISettings.Firegroup.Activate(I))
+            switch (ISettings.Firegroups.Config.Activate(I, 75, ref IStatus.False))
             {
-                case Settings_Firegroups.A.Hyperspace:
+                case ConfigurationHardpoints.A.Hyperspace:
 
                     //No Actions
                     return;
 
-                case Settings_Firegroups.A.NotAssigned:
+                case ConfigurationHardpoints.A.NotAssigned:
 
                     IResponse.Heatsink.NotAssigned(CA);
                     return;
 
-                case Settings_Firegroups.A.Complete:
+                case ConfigurationHardpoints.A.Complete:
 
                     IResponse.Heatsink.Activating(CA);
                     break;
@@ -148,7 +149,7 @@ namespace ALICE_Actions
             #endregion
 
             //Return To Previou Firegroup.
-            Call.Firegroup.Select(Temp, false);
+            IActions.Hardpoints.Select(Temp, false);
         }
     }
 }

@@ -60,6 +60,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="A.L.I.C.E Actions\Development\Targeting.cs" />
+    <Compile Include="A.L.I.C.E Actions\Items\Pulse Wave Analyser.cs" />
+    <Compile Include="A.L.I.C.E Actions\Items\Reports.cs" />
+    <Compile Include="A.L.I.C.E Actions\Items\Orders.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Hardpoints.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Shield Cell Bank.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Throttle.cs" />
@@ -72,10 +76,11 @@
     <Compile Include="A.L.I.C.E Collections\Collection Events.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection EventTypes.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection Variables.cs" />
-    <Compile Include="A.L.I.C.E Debug\Equipment\Docking Computer.cs" />
-    <Compile Include="A.L.I.C.E Debug\Equipment\Discovery Scanner.cs" />
-    <Compile Include="A.L.I.C.E Debug\Equipment\Composite Scanner.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\FSSAllBodiesFound.cs" />
+    <Compile Include="A.L.I.C.E Monitors\IMonitors.cs" />
+    <Compile Include="A.L.I.C.E Debug\IActions\Discovery Scanner.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\ProspectedAsteroid.cs" />
+    <Compile Include="A.L.I.C.E Debug\Status\Mothership.cs" />
     <Compile Include="A.L.I.C.E Debug\Status\Variables.cs" />
     <Compile Include="A.L.I.C.E Debug\Panels\Panels.cs" />
     <Compile Include="A.L.I.C.E Debug\Plugin\External.cs" />
@@ -88,8 +93,7 @@
     <Compile Include="A.L.I.C.E Data\Data Messages.cs" />
     <Compile Include="A.L.I.C.E Data\IData.cs" />
     <Compile Include="A.L.I.C.E Debug\Settings\Environment.cs" />
-    <Compile Include="A.L.I.C.E Debug\Equipment\Frame Shift Drive.cs" />
-    <Compile Include="A.L.I.C.E Debug\Equipment\Shields.cs" />
+    <Compile Include="A.L.I.C.E Debug\Status\Frame Shift Drive.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\Masslock.cs" />
     <Compile Include="A.L.I.C.E Debug\IDebug.cs" />
     <Compile Include="A.L.I.C.E Debug\IGet.cs" />
@@ -100,7 +104,6 @@
     <Compile Include="A.L.I.C.E Debug\Events\Docked.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\SupercruiseEntry.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\SupercruiseExit.cs" />
-    <Compile Include="A.L.I.C.E Debug\Equipment\Landing Gear.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\Assult.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\BlockAirlock.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\BlockLandingPad.cs" />
@@ -110,10 +113,33 @@
     <Compile Include="A.L.I.C.E Debug\Settings\Orders.cs" />
     <Compile Include="A.L.I.C.E Debug\Settings\Platform.cs" />
     <Compile Include="A.L.I.C.E Debug\Status\Docking.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Fuel Tank.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Fighter Hanger.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Landing Gear.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Shields.cs" />
+    <Compile Include="A.L.I.C.E Monitors\Keybinds.cs" />
+    <Compile Include="A.L.I.C.E Monitors\Settings.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Bounty.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Full Spectrum Scanner.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Fuel.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Chaff.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Mining Laser.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Cargo Scanner.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Kill Warrant Scanner.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Pulse Wave Analyser.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Xeno Scanner.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Wake Scanner.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Surface Scanner.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Research Limpets.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Repair Limpets.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Recon Limpets.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Prospector Limpets.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Hatch Breaker Limpets.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Fuel Limpets.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Decontamination Limpets.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Collector Limpets.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\FSD Interdictor.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\External Lights.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\ECM.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Reports.cs" />
+    <Compile Include="A.L.I.C.E Status\Development\Fuel Info.cs" />
+    <Compile Include="A.L.I.C.E Status\Development\Shields.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event AsteroidCracked.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event AfmuRepairs.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event ApproachBody.cs" />
@@ -159,8 +185,8 @@
     <Compile Include="A.L.I.C.E Events\Update\Event Friends.cs" />
     <Compile Include="A.L.I.C.E Events\Game Events\FSDJump.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event FSDTarget.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event FSSAllBodiesFound.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event FSSDiscoveryScan.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\FSSAllBodiesFound.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\FSSDiscoveryScan.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event FSSSignalDiscovered.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event HeatDamage.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event HeatWarning.cs" />
@@ -231,7 +257,7 @@
     <Compile Include="A.L.I.C.E Events\Update\Event RestockVehicle.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Resurrect.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event SAAScanComplete.cs" />
-    <Compile Include="A.L.I.C.E Events\Game Events\Event Scan.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\Scan.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Scanned.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event ScientificResearch.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event Screenshot.cs" />
@@ -287,12 +313,11 @@
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Interface\IXmlControl.cs" />
     <Compile Include="A.L.I.C.E Interface\ICommands\Actions.cs" />
-    <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Panels.cs" />
     <Compile Include="A.L.I.C.E Response\Class\General.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Docking.cs" />
-    <Compile Include="A.L.I.C.E Response\Class\Bounty.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Orders.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Equipment\Discovery Scanner.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Crew.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Equipment\Frame Shift Drive.cs" />
@@ -304,7 +329,11 @@
     <Compile Include="A.L.I.C.E Response\Class\Equipment\Heatsink.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Equipment\Shield Cell Bank.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Equipment\Hardpoints.cs" />
+    <Compile Include="A.L.I.C.E Settings\Plugin.cs" />
     <Compile Include="A.L.I.C.E Settings\Settings Shipyard.cs" />
+    <Compile Include="A.L.I.C.E Status\Development\SRV.cs" />
+    <Compile Include="A.L.I.C.E Status\Development\Mothership.cs" />
+    <Compile Include="A.L.I.C.E Status\Development\Equipment.cs" />
     <Compile Include="A.L.I.C.E Status\Status Bounty.cs" />
     <Compile Include="A.L.I.C.E Status\Status Crew.cs" />
     <Compile Include="A.L.I.C.E Status\Status Crime.cs" />
@@ -321,43 +350,20 @@
     <Compile Include="A.L.I.C.E Synthesizer\ISynthesizer.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Wrappers.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Response.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Limpet Prospector.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Limpet Research.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Limpet Repair.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Limpet Recon.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Limpet Hatch Breaker.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Limpet Fuel.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Limpet Decontamination.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Limpet Collector.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Wake Scanner.cs" />
     <Compile Include="A.L.I.C.E Interface\IVoiceAttack.cs" />
-    <Compile Include="A.L.I.C.E Equipment\IEquipment.cs" />
     <Compile Include="A.L.I.C.E Debug\Convert\Check.cs" />
     <Compile Include="A.L.I.C.E Internal\IEnums.cs" />
     <Compile Include="A.L.I.C.E Internal\Logger.cs" />
-    <Compile Include="A.L.I.C.E Internal\Monitors.cs" />
     <Compile Include="A.L.I.C.E Internal\Paths.cs" />
     <Compile Include="A.L.I.C.E Internal\PlugIn.cs" />
     <Compile Include="A.L.I.C.E Settings\ISettings.cs" />
     <Compile Include="A.L.I.C.E Settings\Settings User.cs" />
     <Compile Include="A.L.I.C.E Status\IStatus.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment\Docking Computer.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Frame Shift Drive.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\External Lights.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment\Composite Scanner.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Pulse Wave Scanner.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Electronic Countermeasure.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Frame Shift Drive Interdictor.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Shield Cell Bank.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Xeno Scanner.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Shutdown Field Neutrailser.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Update\Surface Scanner.cs" />
-    <Compile Include="A.L.I.C.E Equipment\Equipment\Discovery Scanner.cs" />
+    <Compile Include="A.L.I.C.E Status\Development\Frame Shift Drive.cs" />
     <Compile Include="A.L.I.C.E Core\IPower.cs" />
-    <Compile Include="A.L.I.C.E Settings\Settings Firegroups.cs" />
+    <Compile Include="A.L.I.C.E Settings\Settings Hardpoints.cs" />
     <Compile Include="System Targeting.cs" />
     <Compile Include="System Assisted Power.cs" />
-    <Compile Include="A.L.I.C.E Core\IFiregroups.cs" />
     <Compile Include="A.L.I.C.E Events\IEvent Logic.cs" />
     <Compile Include="A.L.I.C.E Core\Utilities.cs" />
     <Compile Include="A.L.I.C.E Events\[Convert]\Event TrespassMajor.cs" />
@@ -391,7 +397,6 @@
     <Compile Include="A.L.I.C.E Objects\Object Engineers.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Factions.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Signals.cs" />
-    <Compile Include="A.L.I.C.E Objects\Object Vehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object System.cs" />
     <Compile Include="A.L.I.C.E Objects\Object StellarBody.cs" />
     <Compile Include="A.L.I.C.E Objects\Object_System_PlayerData.cs" />
@@ -405,8 +410,8 @@
     <Compile Include="A.L.I.C.E Actions\Actions.cs" />
     <Compile Include="A.L.I.C.E Events\IEvents.cs" />
     <Compile Include="A.L.I.C.E Interface\IPlatform.cs" />
-    <Compile Include="A.L.I.C.E Core\Monitor Journal.cs" />
-    <Compile Include="A.L.I.C.E Core\Monitor Json.cs" />
+    <Compile Include="A.L.I.C.E Monitors\Journal.cs" />
+    <Compile Include="A.L.I.C.E Monitors\Json.cs" />
     <Compile Include="A.L.I.C.E Interface\IKeybinds.cs" />
     <Compile Include="A.L.I.C.E Objects\IObjects.cs" />
     <Compile Include="A.L.I.C.E Synthesizer\Synth Speech.cs" />
@@ -643,6 +648,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="A.L.I.C.E Events\[Retire]\" />
+    <Folder Include="A.L.I.C.E Settings\Development\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

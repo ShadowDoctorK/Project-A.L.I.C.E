@@ -1,12 +1,8 @@
 ﻿using ALICE_Actions;
-using ALICE_Core;
 using ALICE_Debug;
 using ALICE_Events;
 using ALICE_Internal;
 using ALICE_Keybinds;
-using ALICE_Objects;
-using ALICE_Settings;
-using ALICE_Synthesizer;
 using System.Threading;
 
 namespace ALICE_Status
@@ -35,6 +31,7 @@ namespace ALICE_Status
         public bool Preparations = false;                                       //Custom Property
         public bool Sending = false;                                            //Custom Property
         public bool Pending = false;                                            //Custom Property
+        public bool AsisstedDockingReport = true;                               //Custom Property
 
         public Logging Log = new Logging();
 
@@ -65,8 +62,7 @@ namespace ALICE_Status
         public void Update(DockingTimeout Event)
         {
             //Marking A Cancelled To Keep Things Simple
-            ISet.Docking.Status(MethodName, IEnums.DockingState.Cancelled);
-            State = IEnums.DockingState.Cancelled;
+            ISet.Docking.Status(MethodName, IEnums.DockingState.Cancelled);            
             Denial = IEnums.DockingDenial.NoReason;
             LandingPad = -1;
             Pending = false;
@@ -216,18 +212,23 @@ namespace ALICE_Status
                 Thread thread = new Thread((ThreadStart)(() => 
                 {
                     //Check
-                    if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Starport, true) == false)
+                    if (ICheck.Music.MusicTrack(MethodName, false, IEnums.Starport) == false)
                     {
                         //Already Inside Starport
                         return;
                     }
 
                     //Watch Entering Starport While Docking State Is False
-                    while (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space, false) == true &&
-                        ICheck.LandingGear.Status(MethodName, false) == true)
+                    while (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space, false)       //Check Normal Space
+                        && ICheck.Status.LandingGear(MethodName, false)                                 //Check Landing Gear Retracted
+                        && ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked)         //Check Not Docked
+                        && ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Timeout)        //Check Not Timeout
+                        && ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Cancelled)      //Check Not Cancelled
+                        && ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Denied))        //Check Not Denied
                     {
-                        if (IGet.Music.MusicTrack(MethodName) == IEnums.Starport && 
-                            (IStatus.Docking.Preparations == false || ICheck.LandingGear.Status(MethodName, false)))
+                        if (IGet.Music.MusicTrack(MethodName) == IEnums.Starport                        //Music Is Starport
+                        && (IStatus.Docking.Preparations == false                                       //Check Docking Preps False Or...
+                        || ICheck.Status.LandingGear(MethodName, false)))                               //Check Landing Gear Retracted
                         {
                             IStatus.Docking.Preparations = true; IActions.Docking.Preparations(true); return;
                         }

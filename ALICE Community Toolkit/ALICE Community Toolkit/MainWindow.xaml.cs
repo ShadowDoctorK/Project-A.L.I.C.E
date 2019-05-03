@@ -1,20 +1,10 @@
 ﻿using ALICE_Internal;
+using ALICE_Synthesizer;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WinForms = System.Windows.Forms;
 
 namespace ALICE_Community_Toolkit
@@ -26,22 +16,42 @@ namespace ALICE_Community_Toolkit
     {
         public MainWindow()
         {
-            //Data.LoadUserSettings();
-            //Data.LoadFiregroupSettings();
-
             InitializeComponent();
+
             Paths.CreateDir();
             Interface_StackPanel.Children.Add(Interface_Dashboard);
 
             Win = (MainWindow)Application.Current.MainWindow;
 
-            Data.StartMonitor();
-            Data.Watcher.Watch();
-            UpdateButtons();
-            Data.SettingInit = true;
+            Startup();
         }
 
+        //Static Reference Of The Main Window
         public static MainWindow Win;
+
+        public static void Startup()
+        {
+            //File Verification
+            TKSettings.FileVerification();
+
+            //Load Audio Files
+            ISynthesizer.Response.Load(Paths.ALICE_Response);
+
+            //Start Settings Monitor On New Thread
+            Thread config = new Thread((ThreadStart)(() => { TKSettings.Monitor_Settings.Start(); }))
+            { IsBackground = true }; config.Start();
+
+            //Wait For All Settings To Load
+            while (TKSettings.InitFiregroups() == false || TKSettings.InitUser() == false)
+            {
+                Thread.Sleep(250);
+            }
+
+            //Initial UI Update
+            UpdateButtons();
+
+            TKSettings.InitUI = true;
+        }
 
         public static void UpdateButtons()
         {
@@ -50,7 +60,10 @@ namespace ALICE_Community_Toolkit
 
             //Update Plugin Settings Buttons
             Interface_Dashboard.Interface_Reports.UpdateButtons();
-            Interface_Dashboard.Interface_Reports.UpdateFiregroupItems();
+
+            //Update Firegroup Controls
+            Interface_Dashboard.Interface_Firegroups.UpdateButtons();
+            Interface_Dashboard.Interface_Firegroups.UpdateFiregroupItems();
 
             //Update Exploration Buttons
             Interface_Exploration.UpdateButtons();
@@ -65,7 +78,9 @@ namespace ALICE_Community_Toolkit
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    Label_Commander.Content = "CMDR " + Data.Commander;
+                    if (TKSettings.User.Commander == null) { return; }
+
+                    Label_Commander.Content = "CMDR " + TKSettings.User.Commander;
                 });
             }
             catch (Exception ex)

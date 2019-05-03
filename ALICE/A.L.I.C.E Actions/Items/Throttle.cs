@@ -41,7 +41,7 @@ namespace ALICE_Actions
                 Pause = true;
             }
 
-            if (ICheck.LandingGear.Status(MethodName, false, true) == false)
+            if (ICheck.Status.LandingGear(MethodName, false, true) == false)
             {
                 Call.Action.LandingGear(false, false);
                 Pause = true;

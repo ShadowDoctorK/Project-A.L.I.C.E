@@ -1,22 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ALICE_Internal;
+using ALICE_Synthesizer;
+using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Threading;
 using WinForms = System.Windows.Forms;
-using ALICE_Actions;
-using System.IO;
-using ALICE_Synthesizer;
 
 namespace ALICE_Community_Toolkit
 {
@@ -50,10 +38,11 @@ namespace ALICE_Community_Toolkit
 
         private void btn_LoadUserKeybinds_Click(object sender, RoutedEventArgs e)
         {
+            string MethodName = "Target Keybinds";
             try
             {
                 #region Audio
-                string Line = "Please Select The File You Want Me To Use To Import Keybinds From.";
+                string Line = "Please Select The File I Should Import Keybinds From.";
 
                 Thread thread = new Thread((ThreadStart)(() => 
                 { Speech.Speak(Line, true); })) { IsBackground = true };
@@ -62,44 +51,27 @@ namespace ALICE_Community_Toolkit
 
                 string FilePath = ShowBinds();
 
-                if (FilePath != "")
+                //Validate File Path
+                if (string.IsNullOrWhiteSpace(FilePath) == false)
                 {
                     string FileName = FilePath.Replace(Paths.Binds_Location, "");
-                    Data.User.BindsFile = FileName;
-
-                    if (FileName == Paths.FILE_BindsFile)
-                    {
-                        Data.User.UsersBindFile = false;
-                    }
-                    else
-                    {
-                        Data.User.UsersBindFile = true;
-                    }
-
-                    Data.UserSettingsSave = true;
+                    TKSettings.User.BindsFile(MethodName, FileName, true);
                 }                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Logger.Exception(MethodName, "Exception: " + ex);
             }
         }
         #endregion
 
         #region Menu Bar
-        public Home Interface_Home = new Home();
-        private void btn_Home_Click(object sender, RoutedEventArgs e)
+        public Firegroup_Controls Interface_Firegroups = new Firegroup_Controls();
+        private void Btn_Firegroups_Click(object sender, RoutedEventArgs e)
         {
             Dashboard_StackPanel.Children.Clear();
-            Dashboard_StackPanel.Children.Add(Interface_Home);
+            Dashboard_StackPanel.Children.Add(Interface_Firegroups);
         }
-
-        //public Orders Interface_Orders = new Orders();
-        //private void btn_Orders_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Dashboard_StackPanel.Children.Clear();
-        //    Dashboard_StackPanel.Children.Add(Interface_Orders);
-        //}
 
         public Reports Interface_Reports = new Reports();
         private void btn_Reports_Click(object sender, RoutedEventArgs e)
@@ -112,12 +84,12 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                if (File.Exists(Paths.ALICE_ManualPath)) { System.Diagnostics.Process.Start(Paths.ALICE_ManualPath); }
-                else { System.Windows.Forms.MessageBox.Show("Unable To Open The Manual, Did You Move It?"); }
+                try { System.Diagnostics.Process.Start("https://github.com/ShadowDoctorK/Project-A.L.I.C.E/wiki"); }
+                catch (Exception) { }
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Something Went Wrong Opening The Manual" + ex);
+                System.Windows.Forms.MessageBox.Show("Something Went Wrong Opening The Wiki Page" + ex);
             }
         }
         #endregion

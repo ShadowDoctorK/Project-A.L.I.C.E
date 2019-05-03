@@ -1,7 +1,7 @@
-﻿using ALICE_Core;
-using ALICE_Debug;
+﻿using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Objects;
+using ALICE_Status;
 using ALICE_Synthesizer;
 
 namespace ALICE_Response
@@ -30,7 +30,7 @@ namespace ALICE_Response
 
             Speech.Speak(""
                 .Phrase(GN_Docking_Preparations.Modifier, true)
-                .Phrase(EQ_Shields.Offline, false, ICheck.Shields.Status(ClassName, false, true), false)
+                .Phrase(EQ_Shields.Offline, false, ICheck.Status.Shields(ClassName, false, true), false)
                 .Phrase(GN_Docking_Preparations.Default),
                 CA, V1, V2, V3, P, V);
         }

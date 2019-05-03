@@ -1,5 +1,5 @@
-﻿using ALICE_Internal;
-using ALICE_Settings;
+﻿using ALICE_Actions;
+using ALICE_Internal;
 using System.Collections.Generic;
 
 namespace ALICE_Interface
@@ -17,7 +17,7 @@ namespace ALICE_Interface
             {
                 case L1.Initialize:
 
-                    PlugIn.Initialize(true, true);
+                    PlugIn.Initialize(true, true, true);
                     return;
 
                 case L1.Pip_Speed:
@@ -25,11 +25,11 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Increase:
-                            ISettings.PipSpeed(false);
+                            IActions.Order.PipSpeed(false);
                             return;
 
                         case L2.Decrease:
-                            ISettings.PipSpeed(true);
+                            IActions.Order.PipSpeed(true);
                             return;                        
 
                         default:
@@ -42,11 +42,11 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Increase:
-                            ISettings.PanelSpeed(false);
+                            IActions.Order.PanelSpeed(false);
                             return;
 
                         case L2.Decrease:
-                            ISettings.PanelSpeed(true);
+                            IActions.Order.PanelSpeed(true);
                             return;
 
                         default:
@@ -59,11 +59,11 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Increase:
-                            ISettings.FireGroupSpeed(false);
+                            IActions.Order.FireGroupSpeed(false);
                             return;
 
                         case L2.Decrease:
-                            ISettings.FireGroupSpeed(true);
+                            IActions.Order.FireGroupSpeed(true);
                             return;
 
                         default:
@@ -76,11 +76,11 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Increase:
-                            ISettings.ThrottleSpeed(false);
+                            IActions.Order.ThrottleSpeed(false);
                             return;
 
                         case L2.Decrease:
-                            ISettings.ThrottleSpeed(true);
+                            IActions.Order.ThrottleSpeed(true);
                             return;
 
                         default:
@@ -160,47 +160,23 @@ namespace ALICE_Interface
                             return;
                     }
 
-                case L1.Monitor_Status:
-
-                    switch (Command[2].Lookup<L2>())
-                    {
-                        case L2.Enable:
-                            Monitors.Json.Log = true;
-                            Logger.Log(ICommands.M, "Status Monitor Logging: " + Monitors.Json.Log, Logger.Yellow);
-                            return;
-
-                        case L2.Disable:
-                            Monitors.Json.Log = true;
-                            Logger.Log(ICommands.M, "Status Monitor Logging: " + Monitors.Json.Log, Logger.Yellow);
-                            return;
-
-                        case L2.Toggle:
-                            Monitors.Json.Log = !Monitors.Json.Log;
-                            Logger.Log(ICommands.M, "Status Monitor Logging: " + Monitors.Json.Log, Logger.Yellow);
-                            return;
-
-                        default:
-                            ICommands.LogInvalid(ICommands.M, Command, 2);
-                            return;
-                    }
-
                 case L1.Master_Audio:
 
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Enable:
-                            Monitors.Json.Log = true;
-                            Logger.Log(ICommands.M, "Status Monitor Logging: " + Monitors.Json.Log, Logger.Yellow);
+                            PlugIn.MasterAudio = true;
+                            Logger.Log(ICommands.M, "Master Audio: " + PlugIn.MasterAudio, Logger.Yellow);
                             return;
 
                         case L2.Disable:
-                            Monitors.Json.Log = true;
-                            Logger.Log(ICommands.M, "Status Monitor Logging: " + Monitors.Json.Log, Logger.Yellow);
+                            PlugIn.MasterAudio = false;
+                            Logger.Log(ICommands.M, "Master Audio: " + PlugIn.MasterAudio, Logger.Yellow);
                             return;
 
                         case L2.Toggle:
-                            Monitors.Json.Log = !Monitors.Json.Log;
-                            Logger.Log(ICommands.M, "Status Monitor Logging: " + Monitors.Json.Log, Logger.Yellow);
+                            PlugIn.MasterAudio = !PlugIn.MasterAudio;
+                            Logger.Log(ICommands.M, "Master Audio: " + PlugIn.MasterAudio, Logger.Yellow);
                             return;
 
                         default:

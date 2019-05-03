@@ -3,9 +3,7 @@ using ALICE_Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ALICE_Synthesizer
 {
@@ -85,6 +83,7 @@ namespace ALICE_Synthesizer
                 //Validation Passed
                 case ISynthesizer.Answer.Positive:
                     Logger.DebugLine(MethodName, Segment[0] + " | " + Segment[1] + " Passed Validation", Logger.Blue);
+                    
                     //Set Variables
                     Res = Segment[0];
                     Seg = ISynthesizer.Response.Storage[Res].GetSegmentIndex(Segment[1]);
@@ -92,12 +91,12 @@ namespace ALICE_Synthesizer
 
                 //Validation Failed
                 case ISynthesizer.Answer.Negative:
-                    Logger.DebugLine(MethodName, Segment[0] + " | " + Segment[1] + " Did Not Pass Validation", Logger.Blue);
+                    Logger.Log(MethodName, Segment[0] + " | " + Segment[1] + " Did Not Pass Validation", Logger.Red);
                     return Text;
                 
                 //Validation Returned Error State
                 case ISynthesizer.Answer.Error:
-                    Logger.DebugLine(MethodName, Segment[0] + " | " + Segment[1] + " Validation Check Returned An Error", Logger.Blue);
+                    Logger.Error(MethodName, Segment[0] + " | " + Segment[1] + " Validation Check Returned An Error", Logger.Blue);
                     return Text;
 
                 default:
@@ -108,6 +107,7 @@ namespace ALICE_Synthesizer
             //Enabled Checks:
             //1. False = Postive & Enable is true, Return Text 
             if (FalseIsGood == true && E == true) { return Text; }
+
             //2. True = Postive & Enable is false, Return Text
             if (FalseIsGood == false && E == false) { return Text; }
             
@@ -187,6 +187,33 @@ namespace ALICE_Synthesizer
             catch (Exception) { }
 
             return null;
+        }
+
+        /// <summary>
+        /// Allows Targeting Custom Build Responses That Are Loaded At Startup.
+        /// </summary>
+        /// <param name="R">(Response) The Name Of The Target Response.</param>
+        /// <param name="S">(Segment) The Name Of The Target Segment.</param>
+        public static void Search(string R, string S)
+        {
+            //Validate Response Name
+            if (R == "(Blank)" || R == "")
+            {
+                Logger.Log("ISynthesizer", "The Resonse Name \"" + R + "\" Was Not Vaild.", Logger.Red);
+                Logger.Log("ISynthesizer", "Please Follow This Format - Interaction: Custom: (Response Name): (Segment Name)", Logger.Red);
+                return;
+            }
+
+            //Validate Segment Name
+            if (S == "(Blank)" || S == "")
+            {
+                Logger.Log("ISynthesizer", "The Segment Name \"" + S + "\" Was Not Vaild.", Logger.Red);
+                Logger.Log("ISynthesizer", "Please Follow This Format - Interaction: Custom: (Response Name): (Segment Name)", Logger.Red);
+                return;
+            }
+
+            //Search For Resposne And Segment The Speak.
+            Speak("" .Phrase(new List<string>() { R, S }), true);
         }
 
         /// <summary>

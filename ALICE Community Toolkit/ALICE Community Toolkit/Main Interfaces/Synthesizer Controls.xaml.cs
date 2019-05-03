@@ -36,18 +36,29 @@ namespace ALICE_Community_Toolkit
             "Phase -90",
             "Phase -180"
         };
+        public static List<string> WaveShapes = new List<string>()
+        {
+            "Triangle",
+            "Square"
+        };
 
         public Synthesizer_Controls()
         {
             InitializeComponent();
+
+            //Bindings
             ComboBox_VoiceSelection.ItemsSource = Voices;
             ComboBox_Phase_Flange.ItemsSource = Phases;
+            ComboBox_Phase_Gargle.ItemsSource = WaveShapes;
 
+            //Update
             Voice_Update();
             Chorus_Update();
             Reverb_Update();
             Echo_Update();
-            Flange_Update();        
+            Flange_Update();
+            Gargle_Update();
+            Distortion_Update();
         }
 
         public static void SaveSettings(SynthSetting Settings)
@@ -288,7 +299,49 @@ namespace ALICE_Community_Toolkit
         #endregion
 
         #region Distortion
+        private void Distortion_Update()
+        {
+            TextBox_Edge_Distortion.Text = Settings.Distortion.Edge.ToString();
+            TextBox_Gain_Distortion.Text = Settings.Distortion.Gain.ToString();
+            TextBox_PostEQBand_Distortion.Text = Settings.Distortion.PostEQBandwidth.ToString();
+            TextBox_PostEQCent_Distortion.Text = Settings.Distortion.PostEQCenterFrequency.ToString();
+            if (Settings.Distortion.Enabled) { CheckBox_Distiortion.IsChecked = true; }
+            else { CheckBox_Distiortion.IsChecked = false; }
+        }
 
+        private void CheckBox_Distortion_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Settings.Distortion.Enabled = false;
+        }
+
+        private void CheckBox_Distortion_Checked(object sender, RoutedEventArgs e)
+        {
+            Settings.Distortion.Enabled = true;
+        }
+
+        private void Slider_Edge_Distortion_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Settings.Distortion.Edge = (float)Slider_Edge_Distortion.Value;
+            Distortion_Update();
+        }
+
+        private void Slider_Gain_Distortion_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Settings.Distortion.Gain = (float)Slider_Gain_Distortion.Value;
+            Distortion_Update();
+        }
+
+        private void Slider_PostEQBand_Distortion_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Settings.Distortion.PostEQBandwidth = (float)Slider_PostEQBand_Distortion.Value;
+            Distortion_Update();
+        }
+
+        private void Slider_PostEQCent_Distortion_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Settings.Distortion.PostEQCenterFrequency = (float)Slider_PostEQCent_Distortion.Value;
+            Distortion_Update();
+        }
         #endregion
 
         #region Flange
@@ -367,6 +420,51 @@ namespace ALICE_Community_Toolkit
         {
             Settings.Flange.Feedback = (float)Slider_Feedback_Flange.Value;
             Flange_Update();
+        }
+        #endregion
+
+        #region Gargle
+        private void Gargle_Update()
+        {
+            TextBox_RateHz_Gargle.Text = Settings.Gargle.RateHz.ToString();
+            
+            if (Settings.Gargle.Enabled) { CheckBox_Gargle.IsChecked = true; }
+            else { CheckBox_Gargle.IsChecked = false; }
+        }
+
+        private void CheckBox_Gargle_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Settings.Gargle.Enabled = false;
+        }
+
+        private void CheckBox_Gargle_Checked(object sender, RoutedEventArgs e)
+        {
+            Settings.Gargle.Enabled = true;
+        }
+
+        private void Slider_RateHz_Gargle_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Settings.Gargle.RateHz = (float)Slider_RateHz_Gargle.Value;
+            Gargle_Update();
+        }
+
+        private void ComboBox_Phase_Gargle_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (ComboBox_Phase_Gargle.SelectedItem)
+            {
+                case "Triangle":
+                    Settings.Gargle.WaveShape = GargleWaveShape.Triangle;
+                    break;
+
+                case "Square":
+                    Settings.Gargle.WaveShape = GargleWaveShape.Square;
+                    break;
+
+                default:
+                    Settings.Gargle.WaveShape = GargleWaveShape.Triangle;
+                    break;
+            }
+            Gargle_Update();
         }
         #endregion
     }

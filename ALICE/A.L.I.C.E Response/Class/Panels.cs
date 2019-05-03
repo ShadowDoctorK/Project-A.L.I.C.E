@@ -1,5 +1,4 @@
-﻿using ALICE_Core;
-using ALICE_Internal;
+﻿using ALICE_Internal;
 using ALICE_Synthesizer;
 
 namespace ALICE_Response

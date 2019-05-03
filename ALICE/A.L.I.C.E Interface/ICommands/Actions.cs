@@ -1,9 +1,8 @@
 ﻿using ALICE_Actions;
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Equipment;
 using ALICE_Internal;
 using ALICE_Settings;
+using ALICE_Status;
 using System.Collections.Generic;
 
 namespace ALICE_Interface
@@ -202,15 +201,13 @@ namespace ALICE_Interface
                         case L2.Deploy:
                             IActions.Hardpoints.Operate(
                                 true,                                                   //Deploy
-                                IGet.External.CommandAudio(ICommands.M),                //Get Command Audio From Platform
-                                false);                                                 //Maintain Current Group + Mode
+                                IGet.External.CommandAudio(ICommands.M));               //Get Command Audio From Platform                               
                             return;
                        
                         case L2.Retract:
                             IActions.Hardpoints.Operate(
                                 false,                                                  //Retract
-                                IGet.External.CommandAudio(ICommands.M),                //Get Command Audio From Platform
-                                false,                                                  //Maintain Current Group
+                                IGet.External.CommandAudio(ICommands.M),                //Get Command Audio From Platform                                
                                 Hardpoints.M.Analysis);                                 //Switch Mode To Analysis
                             return;
 
@@ -236,7 +233,7 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Select:
-                            Call.Firegroup.Select(
+                            IActions.Hardpoints.Select(
                                 IGet.External.FireGroupSelect(ICommands.M, true),       //Get Variable From Platform + Reset
                                 IGet.External.CommandAudio(ICommands.M));               //Get Command Audio From Platform
                             return;
@@ -261,7 +258,7 @@ namespace ALICE_Interface
                             }
 
                         case L2.Update:
-                            Call.Firegroup.Update_Total(
+                            IActions.Hardpoints.TotalGroups(
                                 IGet.External.CommandAudio(ICommands.M));               //Get Command Audio From Platform
                             return;
 
@@ -297,6 +294,75 @@ namespace ALICE_Interface
                             return;
                     }
 
+                case L1.Groups:
+
+                    switch (Command[2].Lookup<L2>())
+                    {
+                        case L2.Prospect:
+
+                            switch (Command[3].Lookup<L3>())
+                            {
+                                case L3.Assign:
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.Prospecting,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)), 
+                                        ConfigurationHardpoints.Fire.Primary);
+                                    return;
+
+                                case L3.Select:
+                                    ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.Prospecting);
+                                    return;
+
+                                default:
+                                    ICommands.LogInvalid(ICommands.M, Command, 3);
+                                    return;
+                            }
+
+                        case L2.Collection:
+
+                            switch (Command[3].Lookup<L3>())
+                            {
+                                case L3.Assign:
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.Collecting,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                        ConfigurationHardpoints.Fire.Primary);
+                                    return;
+
+                                case L3.Select:
+                                    ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.Collecting);
+                                    return;
+
+                                default:
+                                    ICommands.LogInvalid(ICommands.M, Command, 3);
+                                    return;
+                            }
+
+                        case L2.Extraction:
+
+                            switch (Command[3].Lookup<L3>())
+                            {
+                                case L3.Assign:
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.Extracting,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                        ConfigurationHardpoints.Fire.Primary);
+                                    return;
+
+                                case L3.Select:
+                                    ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.Extracting);
+                                    return;
+
+                                default:
+                                    ICommands.LogInvalid(ICommands.M, Command, 3);
+                                    return;
+                            }
+
+                        default:
+                            ICommands.LogInvalid(ICommands.M, Command, 2);
+                            return;
+                    }
+
                 case L1.Heatsink:
 
                     switch (Command[2].Lookup<L2>())
@@ -308,25 +374,25 @@ namespace ALICE_Interface
                                 case L3.One:
                                     IActions.Heatsink.Target(
                                         IGet.External.CommandAudio(ICommands.M),
-                                        Settings_Firegroups.Item.ShieldCellOne);
+                                        ConfigurationHardpoints.Item.ShieldCellOne);
                                     return;
 
                                 case L3.Two:
                                     IActions.Heatsink.Target(
                                         IGet.External.CommandAudio(ICommands.M),
-                                        Settings_Firegroups.Item.ShieldCellTwo);
+                                        ConfigurationHardpoints.Item.ShieldCellTwo);
                                     return;
 
                                 case L3.Three:
                                     IActions.Heatsink.Target(
                                         IGet.External.CommandAudio(ICommands.M),
-                                        Settings_Firegroups.Item.ShieldCellThree);
+                                        ConfigurationHardpoints.Item.ShieldCellThree);
                                     return;
 
                                 case L3.Four:
                                     IActions.Heatsink.Target(
                                         IGet.External.CommandAudio(ICommands.M),
-                                        Settings_Firegroups.Item.ShieldCellFour);
+                                        ConfigurationHardpoints.Item.ShieldCellFour);
                                     return;
 
                                 default:
@@ -340,23 +406,23 @@ namespace ALICE_Interface
                             switch (Command[3].Lookup<L3>())
                             {
                                 case L3.One:
-                                    ISettings.Firegroup.Select(
-                                        Settings_Firegroups.Item.LauncherHeatSinkOne);
+                                    ISettings.Firegroups.Config.Select(
+                                        ConfigurationHardpoints.Item.LauncherHeatSinkOne);
                                     return;
 
                                 case L3.Two:
-                                    ISettings.Firegroup.Select(
-                                        Settings_Firegroups.Item.LauncherHeatSinkTwo);
+                                    ISettings.Firegroups.Config.Select(
+                                        ConfigurationHardpoints.Item.LauncherHeatSinkTwo);
                                     return;
 
                                 case L3.Three:
-                                    ISettings.Firegroup.Select(
-                                        Settings_Firegroups.Item.LauncherHeatSinkThree);
+                                    ISettings.Firegroups.Config.Select(
+                                        ConfigurationHardpoints.Item.LauncherHeatSinkThree);
                                     return;
 
                                 case L3.Four:
-                                    ISettings.Firegroup.Select(
-                                        Settings_Firegroups.Item.LauncherHeatSinkFour);
+                                    ISettings.Firegroups.Config.Select(
+                                        ConfigurationHardpoints.Item.LauncherHeatSinkFour);
                                     return;
 
                                 default:
@@ -369,31 +435,31 @@ namespace ALICE_Interface
                             switch (Command[3].Lookup<L3>())
                             {
                                 case L3.One:
-                                    ISettings.Firegroup.Assign(
-                                        Settings_Firegroups.Item.LauncherHeatSinkOne,
-                                        ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                        ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.LauncherHeatSinkOne,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                        ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                                     return;
 
                                 case L3.Two:
-                                    ISettings.Firegroup.Assign(
-                                        Settings_Firegroups.Item.LauncherHeatSinkTwo,
-                                        ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                        ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.LauncherHeatSinkTwo,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                        ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                                     return;
 
                                 case L3.Three:
-                                    ISettings.Firegroup.Assign(
-                                        Settings_Firegroups.Item.LauncherHeatSinkThree,
-                                        ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                        ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.LauncherHeatSinkThree,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                        ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                                     return;
 
                                 case L3.Four:
-                                    ISettings.Firegroup.Assign(
-                                        Settings_Firegroups.Item.LauncherHeatSinkFour,
-                                        ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                        ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.LauncherHeatSinkFour,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                        ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                                     return;
 
                                 default:
@@ -417,28 +483,28 @@ namespace ALICE_Interface
                                 case L3.One:
                                     IActions.ShieldCell.Target(
                                         IGet.External.CommandAudio(ICommands.M), 
-                                        Settings_Firegroups.Item.ShieldCellOne,
+                                        ConfigurationHardpoints.Item.ShieldCellOne,
                                         IGet.External.ColdMod(ICommands.M, true));
                                     return;
 
                                 case L3.Two:
                                     IActions.ShieldCell.Target(
                                         IGet.External.CommandAudio(ICommands.M),
-                                        Settings_Firegroups.Item.ShieldCellTwo,
+                                        ConfigurationHardpoints.Item.ShieldCellTwo,
                                         IGet.External.ColdMod(ICommands.M, true));
                                     return;
 
                                 case L3.Three:
                                     IActions.ShieldCell.Target(
                                         IGet.External.CommandAudio(ICommands.M),
-                                        Settings_Firegroups.Item.ShieldCellThree,
+                                        ConfigurationHardpoints.Item.ShieldCellThree,
                                         IGet.External.ColdMod(ICommands.M, true));
                                     return;
 
                                 case L3.Four:
                                     IActions.ShieldCell.Target(
                                         IGet.External.CommandAudio(ICommands.M),
-                                        Settings_Firegroups.Item.ShieldCellFour,
+                                        ConfigurationHardpoints.Item.ShieldCellFour,
                                         IGet.External.ColdMod(ICommands.M, true));
                                     return;
 
@@ -456,28 +522,28 @@ namespace ALICE_Interface
                                 case L3.One:
                                     IActions.ShieldCell.Target(
                                         IGet.External.CommandAudio(ICommands.M),
-                                        Settings_Firegroups.Item.ShieldCellOne,
+                                        ConfigurationHardpoints.Item.ShieldCellOne,
                                         false, true);
                                     return;
 
                                 case L3.Two:
                                     IActions.ShieldCell.Target(
                                         IGet.External.CommandAudio(ICommands.M),
-                                        Settings_Firegroups.Item.ShieldCellTwo,
+                                        ConfigurationHardpoints.Item.ShieldCellTwo,
                                         false, true);
                                     return;
 
                                 case L3.Three:
                                     IActions.ShieldCell.Target(
                                         IGet.External.CommandAudio(ICommands.M),
-                                        Settings_Firegroups.Item.ShieldCellThree,
+                                        ConfigurationHardpoints.Item.ShieldCellThree,
                                         false, true);
                                     return;
 
                                 case L3.Four:
                                     IActions.ShieldCell.Target(
                                         IGet.External.CommandAudio(ICommands.M),
-                                        Settings_Firegroups.Item.ShieldCellFour,
+                                        ConfigurationHardpoints.Item.ShieldCellFour,
                                         false, true);
                                     return;
 
@@ -492,31 +558,31 @@ namespace ALICE_Interface
                             switch (Command[3].Lookup<L3>())
                             {
                                 case L3.One:
-                                    ISettings.Firegroup.Assign(
-                                        Settings_Firegroups.Item.ShieldCellOne,
-                                        ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                        ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.ShieldCellOne,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                        ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                                     return;
 
                                 case L3.Two:
-                                    ISettings.Firegroup.Assign(
-                                        Settings_Firegroups.Item.ShieldCellTwo,
-                                        ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                        ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.ShieldCellTwo,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                        ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                                     return;
 
                                 case L3.Three:
-                                    ISettings.Firegroup.Assign(
-                                        Settings_Firegroups.Item.ShieldCellThree,
-                                        ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                        ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.ShieldCellThree,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                        ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                                     return;
 
                                 case L3.Four:
-                                    ISettings.Firegroup.Assign(
-                                        Settings_Firegroups.Item.ShieldCellFour,
-                                        ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                        ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.ShieldCellFour,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                        ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                                     return;
 
                                 default:
@@ -542,7 +608,8 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Toggle:
-                            Call.Action.LandingGear(!IGet.LandingGear.Status(ICommands.M), IGet.External.CommandAudio(ICommands.M));
+                            Call.Action.LandingGear(!IGet.Status.LandingGear(ICommands.M), 
+                                IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -559,14 +626,14 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Select:
-                            ISettings.Firegroup.Select(Settings_Firegroups.Item.ScannerCagro);
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.ScannerCagro);
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.ScannerCagro,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.ScannerCagro,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -583,14 +650,14 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Select:
-                            ISettings.Firegroup.Select(Settings_Firegroups.Item.ScannerWake);
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.ScannerWake);
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.ScannerWake,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.ScannerWake,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -607,14 +674,14 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Select:
-                            ISettings.Firegroup.Select(Settings_Firegroups.Item.ECM);
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.ECM);
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.ECM,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.ECM,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -631,14 +698,14 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Select:
-                            ISettings.Firegroup.Select(Settings_Firegroups.Item.FieldNeutraliser);
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.FieldNeutraliser);
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.FieldNeutraliser,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.FieldNeutraliser,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -655,14 +722,14 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Select:
-                            ISettings.Firegroup.Select(Settings_Firegroups.Item.FSDInterdictor);
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.FSDInterdictor);
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.FSDInterdictor,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.FSDInterdictor,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -674,19 +741,15 @@ namespace ALICE_Interface
 
                     switch (Command[2].Lookup<L2>())
                     {
-                        case L2.Activate:
-                            ICommands.LogNotImplemented(ICommands.M, Command, 2);
-                            return;
-
                         case L2.Select:
-                            ISettings.Firegroup.Select(Settings_Firegroups.Item.LaserMinning);
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.LaserMinning);
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.LaserMinning,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.LaserMinning,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -694,6 +757,65 @@ namespace ALICE_Interface
                             return;
                     }
 
+                case L1.Abrasion_Blaster:
+
+                    switch (Command[2].Lookup<L2>())
+                    {
+                        case L2.Select:
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.AbrasionBlaster);
+                            return;
+
+                        case L2.Assign:
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.AbrasionBlaster,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            return;
+
+                        default:
+                            ICommands.LogInvalid(ICommands.M, Command, 2);
+                            return;
+                    }
+
+                case L1.Sub_Surface_Displacement:
+
+                    switch (Command[2].Lookup<L2>())
+                    {
+                        case L2.Select:
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.DisplacementMissile);
+                            return;
+
+                        case L2.Assign:
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.DisplacementMissile,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            return;
+
+                        default:
+                            ICommands.LogInvalid(ICommands.M, Command, 2);
+                            return;
+                    }
+
+                case L1.Seismic_Charge_Launcher:
+
+                    switch (Command[2].Lookup<L2>())
+                    {
+                        case L2.Select:
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.SeismicChargeLauncher);
+                            return;
+
+                        case L2.Assign:
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.SeismicChargeLauncher,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            return;
+
+                        default:
+                            ICommands.LogInvalid(ICommands.M, Command, 2);
+                            return;
+                    }
                 case L1.Kill_Warrent_Scanner:
 
                     switch (Command[2].Lookup<L2>())
@@ -703,14 +825,14 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Select:
-                            ISettings.Firegroup.Select(Settings_Firegroups.Item.ScannerKillwarrent);
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.ScannerKillwarrent);
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.ScannerKillwarrent,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.ScannerKillwarrent,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -731,10 +853,10 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.ScannerXeno,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.ScannerXeno,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -755,16 +877,48 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.ScannerComposite,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.ScannerComposite,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
                             ICommands.LogInvalid(ICommands.M, Command, 2);
                             return;
-                    }                    
+                    }
+
+                case L1.Pulse_Wave_Analyser:
+
+                    switch (Command[2].Lookup<L2>())
+                    {
+                        case L2.Activate:
+                            IActions.PulseWaveAnalyser.Operate(IGet.External.CommandAudio(ICommands.M));
+                            return;
+                            
+                        case L2.Select:
+                            IActions.PulseWaveAnalyser.Operate(IGet.External.CommandAudio(ICommands.M), true);
+                            return;
+
+                        case L2.Pulse:
+                            IActions.PulseWaveAnalyser.Scan();
+                            return;
+
+                        case L2.Deactivate:
+                            IActions.PulseWaveAnalyser.Maintain = false;
+                            return;
+
+                        case L2.Assign:
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.PulseWaveAnalyser,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            return;
+
+                        default:
+                            ICommands.LogInvalid(ICommands.M, Command, 2);
+                            return;
+                    }
 
                 case L1.Night_Vision:
 
@@ -779,7 +933,8 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Toggle:
-                            Call.Action.NightVision(!IStatus.NightVision, IGet.External.CommandAudio(ICommands.M));
+                            Call.Action.NightVision(!IGet.Status.NightVision(ICommands.M), 
+                                IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -799,7 +954,8 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Toggle:
-                            Call.Action.FlightAssist(!IStatus.FlightAssist, IGet.External.CommandAudio(ICommands.M));
+                            Call.Action.FlightAssist(!IGet.Status.FlightAssist(ICommands.M), 
+                                IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -820,7 +976,8 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Toggle:
-                            Call.Action.CargoScoop(!IStatus.CargoScoop, IGet.External.CommandAudio(ICommands.M));
+                            Call.Action.CargoScoop(!IGet.Status.CargoScoop(ICommands.M), 
+                                IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -841,7 +998,8 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Toggle:
-                            Call.Action.ExternalLights(!IEquipment.ExternalLights.Settings.Enabled, IGet.External.CommandAudio(ICommands.M));
+                            Call.Action.ExternalLights(!IGet.Status.ExternalLights(ICommands.M), 
+                                IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -849,7 +1007,7 @@ namespace ALICE_Interface
                             return;
                     }
 
-                case L1.Slient_Running:
+                case L1.Silent_Running:
 
                     switch (Command[2].Lookup<L2>())
                     {
@@ -862,7 +1020,8 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Toggle:
-                            Call.Action.SilentRunning(!IStatus.SilentRunning, IGet.External.CommandAudio(ICommands.M));
+                            Call.Action.SilentRunning(!IGet.Status.SilentRunning(ICommands.M), 
+                                IGet.External.CommandAudio(ICommands.M));
                             return;
                        
                         default:
@@ -988,7 +1147,7 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Toggle:
-                            Call.Action.SurfaceScaner(!IEquipment.SurfaceScanner.Mode, IGet.External.CommandAudio(ICommands.M));
+                            Call.Action.SurfaceScaner(!IStatus.ModeSurfScanner, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Select:
@@ -996,10 +1155,10 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.ScannerSurface,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.ScannerSurface,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -1012,18 +1171,18 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Activate:
-                            IActions.DiscoveryScanner(IGet.External.CommandAudio(ICommands.M));
+                            IActions.DiscoveryScanner.Operate(IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Select:
-                            IActions.DiscoveryScanner(true, false, true);
+                            IActions.DiscoveryScanner.Operate(true, false, true);
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.ScannerDiscovery,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.ScannerDiscovery,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -1044,10 +1203,10 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.LimpetCollector,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.LimpetCollector,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -1064,14 +1223,14 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Select:
-                            ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetDecontamination);
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.LimpetDecontamination);
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.LimpetDecontamination,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.LimpetDecontamination,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -1092,10 +1251,10 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.LimpetFuel,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.LimpetFuel,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -1112,14 +1271,14 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Select:
-                            ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetHatchBreaker);
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.LimpetHatchBreaker);
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.LimpetHatchBreaker,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.LimpetHatchBreaker,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -1140,10 +1299,10 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.LimpetProspector,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.LimpetProspector,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -1164,10 +1323,10 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.LimpetRecon,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.LimpetRecon,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -1188,10 +1347,10 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.LimpetRepair,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.LimpetRepair,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:
@@ -1208,14 +1367,14 @@ namespace ALICE_Interface
                             return;
 
                         case L2.Select:
-                            ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetResearch);
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.LimpetResearch);
                             return;
 
                         case L2.Assign:
-                            ISettings.Firegroup.Assign(
-                                Settings_Firegroups.Item.LimpetResearch,
-                                ISettings.Firegroup.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
-                                ISettings.Firegroup.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.LimpetResearch,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
                             return;
 
                         default:

@@ -1,18 +1,7 @@
 ﻿using ALICE_Internal;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ALICE_Community_Toolkit
 {
@@ -42,28 +31,28 @@ namespace ALICE_Community_Toolkit
                 try
                 {
                     #region Orders
-                    btn_AssistedSystemScans.Foreground = Data.GetTextColor(Data.AssistSystemScan);
+                    btn_AssistedSystemScans.Foreground = Data.GetTextColor(TKSettings.User.AssistSystemScan());
                     #endregion
 
                     #region Reports
-                    btn_GlideStatus.Foreground = Data.GetTextColor(Data.GlideStatus);
-                    btn_LandableVolcanism.Foreground = Data.GetTextColor(Data.LandableVolcanism);
-                    btn_HighGravity.Foreground = Data.GetTextColor(Data.HighGravDescent);
-                    btn_TravelDistance.Foreground = Data.GetTextColor(Data.ScanTravelDist);
+                    btn_GlideStatus.Foreground = Data.GetTextColor(TKSettings.User.GlideStatus());
+                    btn_LandableVolcanism.Foreground = Data.GetTextColor(TKSettings.User.LandableVolcanism());
+                    btn_HighGravity.Foreground = Data.GetTextColor(TKSettings.User.HighGravDescent());
+                    btn_TravelDistance.Foreground = Data.GetTextColor(TKSettings.User.ScanTravelDist());
                     #endregion
 
                     #region Scan Items
-                    CB_SCTravelDist.SelectedIndex = Data.ScanDistLimit;
+                    CB_SCTravelDist.SelectedIndex = TKSettings.User.ScanDistLimit();
 
-                    CheckBox_Earthlike.IsChecked = Data.BodyEarthLike;
-                    CheckBox_WaterTerra.IsChecked = Data.BodyWaterTerra;
-                    CheckBox_HMCTera.IsChecked = Data.BodyHMCTerra;
-                    CheckBox_Ammonia.IsChecked = Data.BodyAmmonia;
-                    CheckBox_RockyTerra.IsChecked = Data.BodyRockyTerra;
-                    CheckBox_Water.IsChecked = Data.BodyWater;
-                    CheckBox_MetalRich.IsChecked = Data.BodyMetalRich;
-                    CheckBox_GasGiantII.IsChecked = Data.BodyGasGiantII;
-                    CheckBox_HMC.IsChecked = Data.BodyHMC;
+                    CheckBox_Earthlike.IsChecked = TKSettings.User.BodyEarthLike();
+                    CheckBox_WaterTerra.IsChecked = TKSettings.User.BodyWaterTerra();
+                    CheckBox_HMCTera.IsChecked = TKSettings.User.BodyHMCTerra();
+                    CheckBox_Ammonia.IsChecked = TKSettings.User.BodyAmmonia();
+                    CheckBox_RockyTerra.IsChecked = TKSettings.User.BodyRockyTerra();
+                    CheckBox_Water.IsChecked = TKSettings.User.BodyWater();
+                    CheckBox_MetalRich.IsChecked = TKSettings.User.BodyMetalRich();
+                    CheckBox_GasGiantII.IsChecked = TKSettings.User.BodyGasGiantII();
+                    CheckBox_HMC.IsChecked = TKSettings.User.BodyHMC();
                     #endregion
                 }
                 catch (Exception ex)
@@ -79,8 +68,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.AssistSystemScan = !Data.AssistSystemScan;
-                btn_AssistedSystemScans.Foreground = Data.GetTextColor(Data.FuelScoop);
+                TKSettings.User.AssistSystemScan(MethodName, !TKSettings.User.AssistSystemScan(), true);
+                btn_AssistedSystemScans.Foreground = Data.GetTextColor(TKSettings.User.AssistSystemScan());
                 
             }
             catch (Exception ex)
@@ -95,8 +84,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.GlideStatus = !Data.GlideStatus;
-                btn_GlideStatus.Foreground = Data.GetTextColor(Data.FuelScoop);
+                TKSettings.User.GlideStatus(MethodName, !TKSettings.User.GlideStatus(), true);                
+                btn_GlideStatus.Foreground = Data.GetTextColor(TKSettings.User.GlideStatus());
                 
             }
             catch (Exception ex)
@@ -109,8 +98,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.LandableVolcanism = !Data.LandableVolcanism;
-                btn_LandableVolcanism.Foreground = Data.GetTextColor(Data.FuelScoop);
+                TKSettings.User.LandableVolcanism(MethodName, !TKSettings.User.LandableVolcanism(), true);
+                btn_LandableVolcanism.Foreground = Data.GetTextColor(TKSettings.User.LandableVolcanism());
                 
             }
             catch (Exception ex)
@@ -123,8 +112,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.ScanTravelDist = !Data.ScanTravelDist;
-                btn_TravelDistance.Foreground = Data.GetTextColor(Data.FuelScoop);
+                TKSettings.User.ScanTravelDist(MethodName, !TKSettings.User.ScanTravelDist(), true);                
+                btn_TravelDistance.Foreground = Data.GetTextColor(TKSettings.User.ScanTravelDist());
                 
             }
             catch (Exception ex)
@@ -137,8 +126,8 @@ namespace ALICE_Community_Toolkit
         {
             try
             {
-                Data.HighGravDescent = !Data.HighGravDescent;
-                btn_HighGravity.Foreground = Data.GetTextColor(Data.FuelScoop);
+                TKSettings.User.HighGravDescent(MethodName, !TKSettings.User.HighGravDescent(), true);                
+                btn_HighGravity.Foreground = Data.GetTextColor(TKSettings.User.HighGravDescent());
                 
             }
             catch (Exception ex)
@@ -151,62 +140,52 @@ namespace ALICE_Community_Toolkit
         #region Scan Items
         private void CB_SCTravelDistChanged(object sender, SelectionChangedEventArgs e)
         {
-            Data.ScanDistLimit = CB_SCTravelDist.SelectedIndex;
-            
+            TKSettings.User.ScanDistLimit(MethodName, CB_SCTravelDist.SelectedIndex, true);
         }
 
         private void CheckBox_EarthlikeChanged(object sender, RoutedEventArgs e)
         {
-            Data.BodyEarthLike = (bool)CheckBox_Earthlike.IsChecked;
-            
+            TKSettings.User.BodyEarthLike(MethodName, (bool)CheckBox_Earthlike.IsChecked, true);            
         }
 
         private void CheckBox_WaterTeraChanged(object sender, RoutedEventArgs e)
         {
-            Data.BodyWaterTerra = (bool)CheckBox_WaterTerra.IsChecked;
-            
+            TKSettings.User.BodyWaterTerra(MethodName, (bool)CheckBox_WaterTerra.IsChecked, true);                      
         }
 
         private void CheckBox_HMCTeraChanged(object sender, RoutedEventArgs e)
         {
-            Data.BodyHMCTerra = (bool)CheckBox_HMCTera.IsChecked;
-            
+            TKSettings.User.BodyHMCTerra(MethodName, (bool)CheckBox_HMCTera.IsChecked, true);
         }
 
         private void CheckBox_AmmoniaChanged(object sender, RoutedEventArgs e)
         {
-            Data.BodyAmmonia = (bool)CheckBox_Ammonia.IsChecked;
-            
+            TKSettings.User.BodyAmmonia(MethodName, (bool)CheckBox_Ammonia.IsChecked, true);
         }
 
         private void CheckBox_RockyTeraChanged(object sender, RoutedEventArgs e)
-        {
-            Data.BodyRockyTerra = (bool)CheckBox_RockyTerra.IsChecked;
-            
+        {            
+            TKSettings.User.BodyRockyTerra(MethodName, (bool)CheckBox_RockyTerra.IsChecked, true);
         }
 
         private void CheckBox_WaterChanged(object sender, RoutedEventArgs e)
-        {
-            Data.BodyWater = (bool)CheckBox_Water.IsChecked;
-            
+        {            
+            TKSettings.User.BodyWater(MethodName, (bool)CheckBox_Water.IsChecked, true);
         }
 
         private void CheckBox_MetalRichChanged(object sender, RoutedEventArgs e)
-        {
-            Data.BodyMetalRich = (bool)CheckBox_MetalRich.IsChecked;
-            
+        {            
+            TKSettings.User.BodyMetalRich(MethodName, (bool)CheckBox_MetalRich.IsChecked, true);
         }
 
         private void CheckBox_GasGiantIIChanged(object sender, RoutedEventArgs e)
-        {
-            Data.BodyGasGiantII = (bool)CheckBox_GasGiantII.IsChecked;
-            
+        {            
+            TKSettings.User.BodyGasGiantII(MethodName, (bool)CheckBox_GasGiantII.IsChecked, true);
         }
 
         private void CheckBox_HMCChanged(object sender, RoutedEventArgs e)
-        {
-            Data.BodyHMC = (bool)CheckBox_HMC.IsChecked;
-            
+        {           
+            TKSettings.User.BodyHMC(MethodName, (bool)CheckBox_HMC.IsChecked, true);
         }
         #endregion
     }

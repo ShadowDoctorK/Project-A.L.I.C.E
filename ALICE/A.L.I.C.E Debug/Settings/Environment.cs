@@ -11,8 +11,8 @@ namespace ALICE_Debug
 
 namespace ALICE_DebugCheck
 {
-    using ALICE_Core;
     using ALICE_Internal;
+    using ALICE_Status;
 
     public class Environment
     {
@@ -66,8 +66,8 @@ namespace ALICE_Debug
 
 namespace ALICE_DebugGet
 {
-    using ALICE_Core;
     using ALICE_Internal;
+    using ALICE_Status;
 
     public class Environment
     {
@@ -106,9 +106,6 @@ namespace ALICE_Debug
 
 namespace ALICE_DebugSet
 {
-    using ALICE_Core;
-    using ALICE_Internal;
-
     public class Environment
     {
         //Empty

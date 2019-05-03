@@ -1,0 +1,233 @@
+﻿<UserControl x:Class="ALICE_Community_Toolkit.Firegroup_Controls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ALICE_Community_Toolkit"
+             mc:Ignorable="d" 
+d:DesignHeight="755" d:DesignWidth="1013">
+
+    <Grid Background="Black">
+
+        <Label x:Name="Label_CurrentShip" Content="Default" Foreground="#FFCE5A05" Margin="0,15,330.333,0" HorizontalAlignment="Right" Width="335" Height="26" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
+
+        <StackPanel HorizontalAlignment="Left" Height="98" VerticalAlignment="Top" Width="156" Margin="66,338,0,0">
+            <Label Content="                Orders" Foreground="#FFCE5A05" FontWeight="Bold"/>
+            <Button x:Name="btn_AssistedCombatPower" Content="Combat Power Manager" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Width="150" Click="btn_AssistedCombatPower_Click" Height="26"/>
+            <Button x:Name="btn_WeaponSafty" Content="Weapon Safeties" Margin="2.5" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" Foreground="#FFCE0505" Width="150" Click="btn_WeaponSafty_Click" Height="26"/>
+        </StackPanel>
+
+        <StackPanel Margin="326,46,0,648.667" HorizontalAlignment="Left" Width="388">
+            <Label Content=" Plug-In Speed Offsets" Foreground="#FFCE5A05" FontWeight="Bold" Height="26"/>
+
+            <StackPanel x:Name="StackBox_1" Orientation="Horizontal">
+
+                <StackPanel x:Name="StackBox_2" HorizontalAlignment="Left" Width="72">
+                    <Label Content="Firegroups" Foreground="#FFCE5A05"/>
+                </StackPanel>
+
+                <StackPanel x:Name="StackBox_3" HorizontalAlignment="Left" Width="52">
+                    <TextBox x:Name="TextBox_DelayFiregroup" Height="18" IsReadOnly="True" TextWrapping="Wrap" Text="" Margin="4" IsReadOnlyCaretVisible="False" Background="#FF171616" Foreground="#FFCE5A05" BorderBrush="#FF3F3A3A"/>
+                </StackPanel>
+
+                <StackPanel x:Name="StackBox_4" HorizontalAlignment="Left" Width="251">
+                    <Slider x:Name="Slider_DelayFiregroup" Margin="4,4,0,4" TickFrequency="5" IsSnapToTickEnabled="True" Minimum="0" Maximum="250" Value="0" ValueChanged="Slider_DelayFiregroup_Changed"/>
+                </StackPanel>
+
+            </StackPanel>
+
+        </StackPanel>
+
+        <StackPanel x:Name="StackBox_Utilities" Orientation="Horizontal" Margin="636,130,0,176.667" HorizontalAlignment="Left" Width="349">
+
+            <StackPanel x:Name="StackBox_Module" HorizontalAlignment="Left" Width="162">
+                <Label Content="Utility Assignments" Foreground="#FFCE5A05" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_ECM" Content="Electronic Countermesures" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_SFN" Content="Shutdown Field Neutralizer" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_FSDI" Content="FSD Interdictor" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_HS1" Content="Heatsink #1" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_HS2" Content="Heatsink #2" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_HS3" Content="Heatsink #3" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_HS4" Content="Heatsink #4" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_SC1" Content="Shield Cell #1" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_SC2" Content="Shield Cell #2" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_SC3" Content="Shield Cell #3" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_SC4" Content="Shield Cell #4" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_CH1" Content="Chaff #1" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_CH2" Content="Chaff #2" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_CH3" Content="Chaff #3" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_CH4" Content="Chaff #4" Foreground="Red" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel x:Name="StackBox_Group" HorizontalAlignment="Left" Width="90">
+                <Label Content="Fire Group" Foreground="#FFCE5A05" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                <ComboBox x:Name="CB_ECMGroup" SelectionChanged="CB_ECMGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SFNGroup" SelectionChanged="CB_SFNGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_FSDIGroup" SelectionChanged="CB_FSDIGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_HS1Group" SelectionChanged="CB_HS1GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_HS2Group" SelectionChanged="CB_HS2GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_HS3Group" SelectionChanged="CB_HS3GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_HS4Group" SelectionChanged="CB_HS4GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SC1Group" SelectionChanged="CB_SC1GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SC2Group" SelectionChanged="CB_SC2GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SC3Group" SelectionChanged="CB_SC3GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SC4Group" SelectionChanged="CB_SC4GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CF1Group" SelectionChanged="CB_CF1GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CF2Group" SelectionChanged="CB_CF2GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CF3Group" SelectionChanged="CB_CF3GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CF4Group" SelectionChanged="CB_CF4GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+            </StackPanel>
+
+            <StackPanel x:Name="StackBox_Group_Copy" HorizontalAlignment="Left" Width="90">
+                <Label Content="Fire Mode" Foreground="#FFCE5A05" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                <ComboBox x:Name="CB_ECMFire" SelectionChanged="CB_ECMFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SFNFire" SelectionChanged="CB_SFNFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_FSDIFire" SelectionChanged="CB_FSDIFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_HS1Fire" SelectionChanged="CB_HS1FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_HS2Fire" SelectionChanged="CB_HS2FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_HS3Fire" SelectionChanged="CB_HS3FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_HS4Fire" SelectionChanged="CB_HS4FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SC1Fire" SelectionChanged="CB_SC1FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SC2Fire" SelectionChanged="CB_SC2FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SC3Fire" SelectionChanged="CB_SC3FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SC4Fire" SelectionChanged="CB_SC4FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CF1Fire" SelectionChanged="CB_CF1FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CF2Fire" SelectionChanged="CB_CF2FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CF3Fire" SelectionChanged="CB_CF3FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CF4Fire" SelectionChanged="CB_CF4FireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+            </StackPanel>
+
+        </StackPanel>
+
+        <StackPanel x:Name="StackBox_Limpets" Orientation="Horizontal" Margin="281,130,0,0" HorizontalAlignment="Left" Width="350" Height="236" VerticalAlignment="Top">
+
+            <StackPanel HorizontalAlignment="Left" Width="162" >
+                <Label Content="Controller Assignements" Foreground="#FFCE5A05" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_LIMCOL" Content="Collector Limpets" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_LIMDEC" Content="Decontamination Limpets" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_LIMF" Content="Fuel Limpets" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_LIMHB" Content="Hatch Breaker Limpets" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_LIMREC" Content="Recon Limpets" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_LIMREP" Content="Repair Limpet" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_LIMRES" Content="Research Limpets" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_LIMPRO" Content="Prospector Limpets" Foreground="Red" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Left" Width="90" >
+                <Label Content="Fire Group" Foreground="#FFCE5A05" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                <ComboBox x:Name="CB_LIMCOLGroup" SelectionChanged="CB_LIMCOLGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMDECGroup" SelectionChanged="CB_LIMDECGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMFGroup" SelectionChanged="CB_LIMFGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMHBGroup" SelectionChanged="CB_LIMHBGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMRECGroup" SelectionChanged="CB_LIMRECGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMREPGroup" SelectionChanged="CB_LIMREPGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMRESGroup" SelectionChanged="CB_LIMRESGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMPROGroup" SelectionChanged="CB_LIMPROGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Left" Width="90" >
+                <Label Content="Fire Mode" Foreground="#FFCE5A05" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                <ComboBox x:Name="CB_LIMCOLFire" SelectionChanged="CB_LIMCOLFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMDECFire" SelectionChanged="CB_LIMDECFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMFFire" SelectionChanged="CB_LIMFFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMHBFire" SelectionChanged="CB_LIMHBFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMRECFire" SelectionChanged="CB_LIMRECFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMREPFire" SelectionChanged="CB_LIMREPFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMRESFire" SelectionChanged="CB_LIMRESFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_LIMPROFire" SelectionChanged="CB_LIMPROFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+            </StackPanel>
+
+        </StackPanel>
+
+        <StackPanel x:Name="StackBox_Scanners" Orientation="Horizontal" Margin="282,371,382.333,135.667">
+
+            <StackPanel HorizontalAlignment="Left" Width="162">
+                <Label Content="Scanner Assignments" Foreground="#FFCE5A05" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_SNCARG" Content="Cargo Scanner" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_SNCOMP" Content="Composite Scanner" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_SNDISC" Content="Discovery Scanner" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_SNKILL" Content="Kill Warrant Scanner" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_SNSURF" Content="Surface Scanner" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_SNXENO" Content="Xeno Scanner" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_SNWAKE" Content="Wake Scanner" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_SNPULS" Content="Pulse Wave Scanner" Foreground="Red" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Left" Width="90">
+                <Label Content="Fire Group" Foreground="#FFCE5A05" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                <ComboBox x:Name="CB_SNCARGGroup" SelectionChanged="CB_SNCARGGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNCOMPGroup" SelectionChanged="CB_SNCOMPGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNDISCGroup" SelectionChanged="CB_SNDISCGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNKILLGroup" SelectionChanged="CB_SNKILLGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNSURFGroup" SelectionChanged="CB_SNSURFGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNXENOGroup" SelectionChanged="CB_SNXENOGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNWAKEGroup" SelectionChanged="CB_SNWAKEGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNPULSGroup" SelectionChanged="CB_SNWAKEGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Left" Width="90">
+                <Label Content="Fire Mode" Foreground="#FFCE5A05" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                <ComboBox x:Name="CB_SNCARGFire" SelectionChanged="CB_SNCARGFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNCOMPFire" SelectionChanged="CB_SNCOMPFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNDISCFire" SelectionChanged="CB_SNDISCFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNKILLFire" SelectionChanged="CB_SNKILLFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNSURFFire" SelectionChanged="CB_SNSURFFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNXENOFire" SelectionChanged="CB_SNXENOFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNWAKEFire" SelectionChanged="CB_SNWAKEFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_SNPULSFire" SelectionChanged="CB_SNWAKEFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+            </StackPanel>
+
+        </StackPanel>
+        
+        <StackPanel x:Name="StackBox_Groupings" Orientation="Horizontal" Margin="10,130,737.333,451.667">
+
+            <StackPanel HorizontalAlignment="Left" Width="162">
+                <Label Content="Grouping Assignments" Foreground="#FFCE5A05" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_GPWEP1" Content="Main Weapons" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_GPWEP2" Content="Secondary Weapons" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_GPPROS" Content="Prospecting" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_GPCOLL" Content="Collection" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_GPEXTR" Content="Extraction" Foreground="Red" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Left" Width="90">
+                <Label Content="Fire Group" Foreground="#FFCE5A05" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                <ComboBox x:Name="CB_GPWEP1Group" SelectionChanged="CB_GPWEP1GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_GPWEP2Group" SelectionChanged="CB_GPWEP2GroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_GPPROSGroup" SelectionChanged="CB_GPPROSGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_GPCOLLGroup" SelectionChanged="CB_GPCOLLGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_GPEXTRGroup" SelectionChanged="CB_GPEXTRGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+            </StackPanel>
+
+        </StackPanel>
+        
+        <StackPanel x:Name="StackBox_Utilities_Copy" Orientation="Horizontal" Margin="281,605,0,9.667" HorizontalAlignment="Left" Width="349">
+
+            <StackPanel x:Name="StackBox_Module1" HorizontalAlignment="Left" Width="162">
+                <Label Content="Mining Assignments" Foreground="#FFCE5A05" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_ABRSB" Content="Abrasion Blaster" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_DISPM" Content="Sub-Surface Displacement" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_CHRGL" Content="Seismic Charge Launcher" Foreground="Red" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Label_MINE" Content="Mining Laser" Foreground="Red" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel x:Name="StackBox_Group1" HorizontalAlignment="Left" Width="90">
+                <Label Content="Fire Group" Foreground="#FFCE5A05" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                <ComboBox x:Name="CB_ABRSBGroup" SelectionChanged="CB_ABRSBGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_DISPMGroup" SelectionChanged="CB_DISPMGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CHRGLGroup" SelectionChanged="CB_CHRGLGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_MINEGroup" SelectionChanged="CB_MINEGroupChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+            </StackPanel>
+
+            <StackPanel x:Name="StackBox_Group_Copy1" HorizontalAlignment="Left" Width="90">
+                <Label Content="Fire Mode" Foreground="#FFCE5A05" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                <ComboBox x:Name="CB_ABRSBFire" SelectionChanged="CB_ABRSBFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_DISPMFire" SelectionChanged="CB_DISPMFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_CHRGLFire" SelectionChanged="CB_CHRGLFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+                <ComboBox x:Name="CB_MINEFire" SelectionChanged="CB_MINEFireChanged" SelectedIndex="0" Foreground="#FF000000" Margin="2,3,2,3" Height="20"/>
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

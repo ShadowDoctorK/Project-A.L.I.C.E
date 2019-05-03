@@ -3,10 +3,9 @@
 //Source Journal Line: { "timestamp":"2018-10-14T22:27:55Z", "event":"SupercruiseEntry", "StarSystem":"Col 173 Sector KY-Q d5-47", "SystemAddress":1625603164499 }
 
 using ALICE_Actions;
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Equipment;
 using ALICE_Internal;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -89,7 +88,7 @@ namespace ALICE_Events
                 //Report While Leaving The Planet.
                 IStatus.Planet.ExitingPlanet = true;
 
-                IEquipment.FrameShiftDrive.Reset(ClassName, true, true, false);
+                IStatus.FrameShiftDrive.Reset(ClassName, true, true, false);
                 IEvents.FireInNoFireZone.I.FirstReport = true;
                 Call.Panel.MainFourIsFalse();
 
@@ -100,7 +99,7 @@ namespace ALICE_Events
                 IStatus.Hardpoints = false;
                 IStatus.Touchdown = false;
                 IStatus.CargoScoop = false;
-                ISet.LandingGear.Status(ClassName, false);
+                ISet.Status.LandingGear(ClassName, false);
                 IStatus.WeaponSafety = false;
             }
             catch (Exception ex)

@@ -262,12 +262,18 @@ namespace ALICE_Interface
 
                 case Interfaces.VoiceAttack:
                     
-                    if (L) { Logger.DebugLine(MethodName, Prefix + Var + " = " + Val, Logger.Yellow); }
+                    if (L)
+                    {
+                        //Logger.DebugLine(MethodName, Prefix + Var + " = " + Val, Logger.Yellow);
+                    }
                     ProxyObject.SetText(Prefix + Var.ToString(), Val);
                     break;
 
                 case Interfaces.VoiceMacro:
-                    if (L) { Logger.DebugLine(MethodName, Prefix + Var.ToString() + " = " + Val, Logger.Yellow); }
+                    if (L)
+                    {
+                        //Logger.DebugLine(MethodName, Prefix + Var.ToString() + " = " + Val, Logger.Yellow);
+                    }
                     IVoiceMacro.SetText(Prefix + Var.ToString(), Val);
                     break;
 

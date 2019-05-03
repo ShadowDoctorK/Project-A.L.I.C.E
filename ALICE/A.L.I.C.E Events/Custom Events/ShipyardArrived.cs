@@ -2,13 +2,9 @@
 //Class File Generated: 02/26/2019 8:59 PM
 //Source Journal Line: (Custom A.L.I.C.E Event)
 
-using ALICE_Actions;
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Equipment;
-using ALICE_Internal;
+using ALICE_Status;
 using System;
-using System.Collections.Generic;
 
 namespace ALICE_Events
 {

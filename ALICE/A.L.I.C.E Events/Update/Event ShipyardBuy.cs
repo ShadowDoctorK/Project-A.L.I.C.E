@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-02T05:41:47Z", "event":"ShipyardBuy", "ShipType":"krait_mkii", "ShipType_Localised":"Krait MkII", "ShipPrice":38942075, "SellOldShip":"Python", "SellShipID":29, "SellPrice":66502062, "MarketID":3524278272 }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

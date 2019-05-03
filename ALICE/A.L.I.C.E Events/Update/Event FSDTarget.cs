@@ -2,7 +2,7 @@
 //Class File Generated: 11/21/2018 8:14 PM
 //Source Journal Line: { "timestamp":"2018-11-22T01:13:15Z", "event":"FSDTarget", "Name":"NGC 2451A Sector DW-M b7-9", "SystemAddress":20472632452441 }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

@@ -2,8 +2,6 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-09T19:59:58Z", "event":"Friends", "Status":"Requested", "Name":"Mick van der Woude" }
 
-using ALICE_Core;
-using ALICE_Internal;
 using System;
 
 namespace ALICE_Events

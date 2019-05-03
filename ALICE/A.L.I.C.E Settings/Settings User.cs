@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ALICE_Internal;
+using ALICE_Status;
+using System.Collections.Generic;
 
 namespace ALICE_Settings
 {
@@ -6,313 +8,1592 @@ namespace ALICE_Settings
     /// This is a collection of the users settings from various parts of the Core Files.
     /// These settings are controlled completely by the user and have no source from the game.
     /// </summary>
-    public class Settings_User
+    public class SettingsUser : SettingsUtilities
     {
-        public DateTime TimeStamp { get; set; }
         public string Commander { get; set; } = "Default";
 
-        #region Plugin
-        //Speed Offsets
-        public int OffsetPanels { get; set; } = 0;
-        public int OffsetPips { get; set; } = 0;
-        public int OffsetFireGroups { get; set; } = 0;
-        public int OffsetThrottle { get; set; } = 0;
+        public Dictionary<string, Settings> Storage { get; set; } = new Dictionary<string, Settings>()
+        {
+            { "Default", new Settings() }
+        };
 
-        //Keybinds
-        public bool UsersBindFile { get; set; }
-        public string BindsFile { get; set; }
+        public void LogMissingCommander(string M)
+        {
+            //Debug Logger
+            Logger.DebugLine(M, "User Settings Does Not Have An Entry For (" + IStatus.Commander + ")", Logger.Yellow);
+        }
+
+        public void Save()
+        {
+            SaveValues<SettingsUser>(ISettings.User, "User.Settings");
+        }
+
+        public SettingsUser Load()
+        {
+            return (SettingsUser)LoadValues<SettingsUser>("User.Settings");
+        }
+
+        #region Get Values
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public string CMDR()
+        {
+            //Return Value
+            return Storage[Commander].Commander;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public string BindsFile()
+        {
+            //Return Value
+            return Storage[Commander].BindsFile;
+        }
+
+        #region Plugin
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public int OffsetPanels()
+        {
+            //Return Value
+            return Storage[Commander].OffsetPanels;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public int OffsetPips()
+        {
+            //Return Value
+            return Storage[Commander].OffsetPips;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public int OffsetThrottle()
+        {
+            //Return Value
+            return Storage[Commander].OffsetThrottle;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public int OffsetFireGroups()
+        {
+            //Return Value
+            return Storage[Commander].OffsetFireGroups;
+        }
         #endregion
 
         #region Orders
-        public bool WeaponSafety { get; set; }
-        public bool CombatPower { get; set; }
-        public bool AssistSystemScan { get; set; }
-        public bool AssistDocking { get; set; }
-        public bool AssistRefuel { get; set; }
-        public bool AssistRearm { get; set; }
-        public bool AssistRepair { get; set; }
-        public bool AssistHangerEntry { get; set; }
-        public bool PostHyperspaceSafety { get; set; }
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool WeaponSafety()
+        {
+            //Return Value
+            return Storage[Commander].WeaponSafety;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool CombatPower()
+        {
+            //Return Value
+            return Storage[Commander].CombatPower;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool AssistSystemScan()
+        {
+            //Return Value
+            return Storage[Commander].AssistSystemScan;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool AssistDocking()
+        {
+            //Return Value
+            return Storage[Commander].AssistDocking;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool AssistHangerEntry()
+        {
+            //Return Value
+            return Storage[Commander].AssistHangerEntry;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool PostHyperspaceSafety()
+        {
+            //Return Value
+            return Storage[Commander].PostHyperspaceSafety;
+        }
         #endregion
 
         #region Reports
-        public bool FuelScoop { get; set; }
-        public bool FuelStatus { get; set; }
-        public bool MaterialCollected { get; set; }
-        public bool MaterialRefined { get; set; }
-        public bool NoFireZone { get; set; }
-        public bool StationStatus { get; set; }
-        public bool ShieldState { get; set; }
-        public bool CollectedBounty { get; set; }
-        public bool TargetEnemy { get; set; }
-        public bool TargetWanted { get; set; }
-        public bool Masslock { get; set; }
-        public bool HighGravDescent { get; set; }
-        public bool GlideStatus { get; set; }
-        public bool ScanTravelDist { get; set; }
-        public bool LandableVolcanism { get; set; }
-        #endregion
-
-        #region Exploration
-        public int ScanDistLimit { get; set; }
-        public bool BodyEarthLike { get; set; }
-        public bool BodyWaterTerra { get; set; }
-        public bool BodyHMCTerra { get; set; }
-        public bool BodyAmmonia { get; set; }
-        public bool BodyRockyTerra { get; set; }
-        public bool BodyWater { get; set; }
-        public bool BodyMetalRich { get; set; }
-        public bool BodyGasGiantII { get; set; }
-        public bool BodyHMC { get; set; }
-        #endregion
-
-        Settings_Events Events { get; set; } = new Settings_Events();
-
-        public Settings_User()
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool FuelScoop()
         {
-            Commander = "Default";
-            OffsetFireGroups = 0;
-            OffsetPanels = 0;
-            OffsetPips = 0;
-            OffsetThrottle = 0;
+            //Return Value
+            return Storage[Commander].FuelScoop;
+        }
 
-            UsersBindFile = false;
-            BindsFile = "A.L.I.C.E Profile.3.0.binds";
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool FuelStatus()
+        {
+            //Return Value
+            return Storage[Commander].FuelStatus;
+        }
 
-            WeaponSafety = true;
-            CombatPower = true;
-            AssistSystemScan = false;
-            AssistDocking = false;
-            AssistRefuel = false;
-            AssistRearm = false;
-            AssistRepair = false;
-            AssistHangerEntry = false;
-            PostHyperspaceSafety = true;
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool MaterialCollected()
+        {
+            //Return Value
+            return Storage[Commander].MaterialCollected;
+        }
 
-            FuelScoop = true;
-            FuelStatus = true;
-            MaterialCollected = true;
-            MaterialRefined = true;
-            NoFireZone = true;
-            StationStatus = true;
-            ShieldState = true;
-            CollectedBounty = true;
-            TargetEnemy = true;
-            TargetWanted = true;
-            Masslock = true;
-            HighGravDescent = true;
-            GlideStatus = true;
-            ScanTravelDist = true;
-            LandableVolcanism = true;
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool MaterialRefined()
+        {
+            //Return Value
+            return Storage[Commander].MaterialRefined;
+        }
 
-            ScanDistLimit = 0;
-            BodyAmmonia = true;
-            BodyEarthLike = true;
-            BodyHMCTerra = true;
-            BodyMetalRich = true;
-            BodyRockyTerra = true;
-            BodyWater = true;
-            BodyWaterTerra = true;
-            BodyGasGiantII = false;
-            BodyHMC = false;
-        }    
-    }
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool NoFireZone()
+        {
+            //Return Value
+            return Storage[Commander].NoFireZone;
+        }
 
-    public class Settings_Events
-    {
-        public bool Shipyard { get; set; }
-        public bool Status { get; set; }
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool ShieldState()
+        {
+            //Return Value
+            return Storage[Commander].ShieldState;
+        }
 
-        //Shared Events                
-        public bool Cargo { get; set; }
-        public bool Market { get; set; }
-        public bool Outfitting { get; set; }
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool StationStatus()
+        {
+            //Return Value
+            return Storage[Commander].StationStatus;
+        }
 
-        //Journal Log Events             
-        public bool AfmuRepairs { get; set; }
-        public bool ApproachBody { get; set; }
-        public bool ApproachSettlement { get; set; }
-        public bool AsteroidCracked { get; set; }
-        public bool Bounty { get; set; }
-        public bool BuyAmmo { get; set; }
-        public bool BuyDrones { get; set; }
-        public bool BuyExplorationData { get; set; }
-        public bool BuyTradeData { get; set; }
-        public bool CargoDepot { get; set; }
-        public bool ChangeCrewRole { get; set; }
-        public bool ClearSaveGame { get; set; }
-        public bool CockpitBreached { get; set; }
-        public bool CodexEntry { get; set; }
-        public bool CollectCargo { get; set; }
-        public bool Commander { get; set; }
-        public bool CommitCrime { get; set; }
-        public bool CommunityGoal { get; set; }
-        public bool CrewAssign { get; set; }
-        public bool CrewFire { get; set; }
-        public bool CrewHire { get; set; }
-        public bool DatalinkScan { get; set; }
-        public bool DatalinkVoucher { get; set; }
-        public bool DataScanned { get; set; }
-        public bool Died { get; set; }
-        public bool Docked { get; set; }
-        public bool DockFighter { get; set; }
-        public bool DockingCancelled { get; set; }
-        public bool DockingGranted { get; set; }
-        public bool DockingRequested { get; set; }
-        public bool DockingTimeout { get; set; }
-        public bool DockSRV { get; set; }
-        public bool EjectCargo { get; set; }
-        public bool EngineerContribution { get; set; }
-        public bool EngineerCraft { get; set; }
-        public bool EngineerProgress { get; set; }
-        public bool EscapeInterdiction { get; set; }
-        public bool FactionKillBond { get; set; }
-        public bool FetchRemoteModule { get; set; }
-        public bool FighterDestroyed { get; set; }
-        public bool FighterRebuilt { get; set; }
-        public bool Fileheader { get; set; }
-        public bool Friends { get; set; }
-        public bool FSDJump { get; set; }
-        public bool FSDTarget { get; set; }
-        public bool FSSAllBodiesFound { get; set; }
-        public bool FSSDiscoveryScan { get; set; }
-        public bool FSSSignalDiscovered { get; set; }
-        public bool FuelScoop { get; set; }
-        public bool HeatDamage { get; set; }
-        public bool HeatWarning { get; set; }
-        public bool HullDamage { get; set; }
-        public bool Interdicted { get; set; }
-        public bool JetConeBoost { get; set; }
-        public bool LaunchDrone { get; set; }
-        public bool LaunchFighter { get; set; }
-        public bool LaunchSRV { get; set; }
-        public bool LeaveBody { get; set; }
-        public bool Liftoff { get; set; }
-        public bool LoadGame { get; set; }
-        public bool Loadout { get; set; }
-        public bool Location { get; set; }
-        public bool MarketBuy { get; set; }
-        public bool MarketSell { get; set; }
-        public bool MassModuleStore { get; set; }
-        public bool MaterialCollected { get; set; }
-        public bool MaterialDiscovered { get; set; }
-        public bool Materials { get; set; }
-        public bool MaterialTrade { get; set; }
-        public bool MiningRefined { get; set; }
-        public bool MissionAbandoned { get; set; }
-        public bool MissionAccepted { get; set; }
-        public bool MissionCompleted { get; set; }
-        public bool MissionFailed { get; set; }
-        public bool MissionRedirected { get; set; }
-        public bool Missions { get; set; }
-        public bool ModuleBuy { get; set; }
-        public bool ModuleInfo { get; set; }
-        public bool ModuleRetrieve { get; set; }
-        public bool ModuleSell { get; set; }
-        public bool ModuleSellRemote { get; set; }
-        public bool ModuleStore { get; set; }
-        public bool ModuleSwap { get; set; }
-        public bool MultiSellExplorationData { get; set; }
-        public bool Music { get; set; }
-        public bool NavBeaconScan { get; set; }
-        public bool NpcCrewPaidWage { get; set; }
-        public bool NpcCrewRank { get; set; }
-        public bool PayBounties { get; set; }
-        public bool PayFines { get; set; }
-        public bool Powerplay { get; set; }
-        public bool PowerplayCollect { get; set; }
-        public bool PowerplayDefect { get; set; }
-        public bool PowerplayDeliver { get; set; }
-        public bool PowerplayFastTrack { get; set; }
-        public bool PowerplayJoin { get; set; }
-        public bool PowerplayLeave { get; set; }
-        public bool PowerplaySalary { get; set; }
-        public bool PowerplayVote { get; set; }
-        public bool Progress { get; set; }
-        public bool Promotion { get; set; }
-        public bool ProspectedAsteroid { get; set; }
-        public bool QuitACrew { get; set; }
-        public bool Rank { get; set; }
-        public bool RebootRepair { get; set; }
-        public bool ReceiveText { get; set; }
-        public bool RedeemVoucher { get; set; }
-        public bool RefuelAll { get; set; }
-        public bool Repair { get; set; }
-        public bool RepairAll { get; set; }
-        public bool RepairDrone { get; set; }
-        public bool Reputation { get; set; }
-        public bool ReservoirReplenished { get; set; }
-        public bool RestockVehicle { get; set; }
-        public bool Resurrect { get; set; }
-        public bool SAAScanComplete { get; set; }
-        public bool Scan { get; set; }
-        public bool Scanned { get; set; }
-        public bool ScientificResearch { get; set; }
-        public bool Screenshot { get; set; }
-        public bool SearchAndRescue { get; set; }
-        public bool SelfDestruct { get; set; }
-        public bool SellDrones { get; set; }
-        public bool SellExplorationData { get; set; }
-        public bool SendText { get; set; }
-        public bool SetUserShipName { get; set; }
-        public bool ShieldState { get; set; }
-        public bool ShipTargeted { get; set; }
-        public bool ShipyardBuy { get; set; }
-        public bool ShipyardNew { get; set; }
-        public bool ShipyardSwap { get; set; }
-        public bool ShipyardTransfer { get; set; }
-        public bool Shutdown { get; set; }
-        public bool SRVDestroyed { get; set; }
-        public bool StartJump { get; set; }
-        public bool Statistics { get; set; }
-        public bool StoredModules { get; set; }
-        public bool StoredShips { get; set; }
-        public bool SupercruiseEntry { get; set; }
-        public bool SupercruiseExit { get; set; }
-        public bool Synthesis { get; set; }
-        public bool SystemsShutdown { get; set; }
-        public bool SquadronStartup { get; set; }
-        public bool TechnologyBroker { get; set; }
-        public bool Touchdown { get; set; }
-        public bool UnderAttack { get; set; }
-        public bool Undocked { get; set; }
-        public bool USSDrop { get; set; }
-        public bool VehicleSwitch { get; set; }
-        public bool WingAdd { get; set; }
-        public bool WingInvite { get; set; }
-        public bool WingJoin { get; set; }
-        public bool WingLeave { get; set; }
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool CollectedBounty()
+        {
+            //Return Value
+            return Storage[Commander].CollectedBounty;
+        }
 
-        //Custom Internal Events             
-        public bool AliceOnline { get; set; }
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool TargetEnemy()
+        {
+            //Return Value
+            return Storage[Commander].TargetEnemy;
+        }
 
-        //Custom Event (Mulit Source)      
-        public bool BlockAirlock { get; set; }
-        public bool BlockLandingPad { get; set; }
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool TargetWanted()
+        {
+            //Return Value
+            return Storage[Commander].TargetWanted;
+        }
 
-        //Custom CommitCrime Events          
-        public bool Assault { get; set; }
-        public bool DisobeyPolice { get; set; }
-        public bool DockingTrespass { get; set; }
-        public bool DumpingDangerous { get; set; }
-        public bool DumpingNearStation { get; set; }
-        public bool FireInNoFireZone { get; set; }
-        public bool FireInStation { get; set; }
-        public bool IllegalCargo { get; set; }
-        public bool Interdicting { get; set; }
-        public bool Murder { get; set; }
-        public bool Piracy { get; set; }
-        public bool WrecklessFlying { get; set; }
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool Masslock()
+        {
+            //Return Value
+            return Storage[Commander].Masslock;
+        }
 
-        //Custom ReceiveText Events        
-        public bool StationHostile { get; set; }
-        public bool StationDamage { get; set; }
-        public bool NoFireZone { get; set; }
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool HighGravDescent()
+        {
+            //Return Value
+            return Storage[Commander].HighGravDescent;
+        }
 
-        //Custom Status.Json Events        
-        public bool FuelLow { get; set; }
-        public bool FuelCritical { get; set; }
-        public bool FuelHalfThreshold { get; set; }
-        public bool Masslock { get; set; }
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool GlideStatus()
+        {
+            //Return Value
+            return Storage[Commander].GlideStatus;
+        }
+
+        #region Navigation
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool ScanTravelDist()
+        {
+            //Return Value
+            return Storage[Commander].ScanTravelDist;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool LandableVolcanism()
+        {
+            //Return Value
+            return Storage[Commander].LandableVolcanism;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public int ScanDistLimit()
+        {
+            //Return Value
+            return Storage[Commander].ScanDistLimit;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool BodyEarthLike()
+        {
+            //Return Value
+            return Storage[Commander].BodyEarthLike;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool BodyWaterTerra()
+        {
+            //Return Value
+            return Storage[Commander].BodyWaterTerra;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool BodyHMCTerra()
+        {
+            //Return Value
+            return Storage[Commander].BodyHMCTerra;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool BodyAmmonia()
+        {
+            //Return Value
+            return Storage[Commander].BodyAmmonia;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool BodyRockyTerra()
+        {
+            //Return Value
+            return Storage[Commander].BodyRockyTerra;
+        }
+        
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool BodyWater()
+        {
+            //Return Value
+            return Storage[Commander].BodyWater;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool BodyMetalRich()
+        {
+            //Return Value
+            return Storage[Commander].BodyMetalRich;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool BodyGasGiantII()
+        {
+            //Return Value
+            return Storage[Commander].BodyGasGiantII;
+        }
+
+        /// <summary>
+        /// Get The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        public bool BodyHMC()
+        {
+            //Return Value
+            return Storage[Commander].BodyHMC;
+        }
+
+        //End: Navigation
+        #endregion
+
+        //End: Reports
+        #endregion
+
+        //End: Get Values
+        #endregion
+
+        #region Set Values
+        public void CMDR(string M, string C)
+        {    
+            //Check If New Commnader
+            if (Storage.ContainsKey(C) == false)
+            {
+                //Add New Commander
+                Storage.Add(C, new Settings() { Commander = C });
+
+                //Debug Logger
+                Logger.DebugLine(M, "New Commander Settings Created (" + C + ")", Logger.Yellow);                
+            }
+
+            //Check Update And Save
+            if (Commander != C)
+            {
+                //Update Tracked Value
+                Commander = C;
+
+                //Save Settings
+                ISettings.User.Save();
+            }
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void BindsFile(string M, string V, bool S = false)
+        {
+            if (Storage.ContainsKey(Commander))
+            {
+                //Update Value
+                if (Storage[Commander].BindsFile != V)
+                {
+                    Storage[Commander].BindsFile = V;
+
+                    //Logger
+                    //Logger.Simple("Binds File = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        #region Plugin
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void OffsetPanels(string M, int V, bool S = false)
+        {
+            if (Storage.ContainsKey(Commander))
+            {
+                //Update Value
+                if (Storage[Commander].OffsetPanels != V)
+                {
+                    Storage[Commander].OffsetPanels = V;
+
+                    //Logger
+                    //Logger.Simple("Panel Offset = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void OffsetPips(string M, int V, bool S = false)
+        {
+            if (Storage.ContainsKey(Commander))
+            {
+                //Update Value
+                if (Storage[Commander].OffsetPips != V)
+                {
+                    Storage[Commander].OffsetPips = V;
+
+                    //Logger
+                    //Logger.Simple("Power Offset = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void OffsetThrottle(string M, int V, bool S = false)
+        {
+            if (Storage.ContainsKey(Commander))
+            {
+                //Update Value
+                if (Storage[Commander].OffsetThrottle != V)
+                {
+                    Storage[Commander].OffsetThrottle = V;
+
+                    //Logger
+                    //Logger.Simple("Throttle Offset = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void OffsetFireGroups(string M, int V, bool S = false)
+        {
+            if (Storage.ContainsKey(Commander))
+            {
+                //Update Value
+                if (Storage[Commander].OffsetFireGroups != V)
+                {
+                    Storage[Commander].OffsetFireGroups = V;
+
+                    //Logger
+                    //Logger.Simple("Fire Group Offset = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }      
+        #endregion
+
+        #region Orders
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void WeaponSafety(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(Commander))
+            {
+                //Update Value
+                if (Storage[Commander].WeaponSafety != V)
+                {
+                    Storage[Commander].WeaponSafety = V;
+
+                    //Logger
+                    //Logger.Simple("Weapon Safeties = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void CombatPower(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(Commander))
+            {
+                //Update Value
+                if (Storage[Commander].CombatPower != V)
+                {
+                    Storage[Commander].CombatPower = V;
+
+                    //Logger
+                    //Logger.Simple("Assisted Combat Power = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void AssistSystemScan(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(Commander))
+            {
+                //Update Value
+                if (Storage[Commander].AssistSystemScan != V)
+                {
+                    Storage[Commander].AssistSystemScan = V;
+
+                    //Logger
+                    //Logger.Simple("Assisted System Scans = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void AssistDocking(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(Commander))
+            {
+                //Update Value
+                if (Storage[Commander].AssistDocking != V)
+                {
+                    Storage[Commander].AssistDocking = V;
+
+                    //Logger
+                    //Logger.Simple("Assisted Docking Procedures = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void AssistHangerEntry(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(Commander))
+            {
+                //Update Value
+                if (Storage[Commander].AssistHangerEntry != V)
+                {
+                    Storage[Commander].AssistHangerEntry = V;
+
+                    //Logger
+                    //Logger.Simple("Assisted Hanger Entry = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void PostHyperspaceSafety(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(Commander))
+            {
+                //Update Value
+                if (Storage[Commander].PostHyperspaceSafety != V)
+                {
+                    Storage[Commander].PostHyperspaceSafety = V;
+
+                    //Logger
+                    //Logger.Simple("Post Jump Safeties = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+        #endregion
+
+        #region Reports
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void FuelScoop(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(Commander))
+            {
+                //Update Value
+                if (Storage[Commander].FuelScoop != V)
+                {
+                    Storage[Commander].FuelScoop = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Fuel Scoop = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void FuelStatus(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(Commander))
+            {
+                //Update Value
+                if (Storage[Commander].FuelStatus != V)
+                {
+                    Storage[Commander].FuelStatus = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Fuel Status = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void MaterialCollected(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].MaterialCollected != V)
+                {
+                    Storage[IStatus.Commander].MaterialCollected = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Material Collected = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void MaterialRefined(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].MaterialRefined != V)
+                {
+                    Storage[IStatus.Commander].MaterialRefined = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Material Refined = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void NoFireZone(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].NoFireZone != V)
+                {
+                    Storage[IStatus.Commander].NoFireZone = V;
+
+                    //Logger
+                    //Logger.Simple("Report: No Fire Zone = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void ShieldState(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].ShieldState != V)
+                {
+                    Storage[IStatus.Commander].ShieldState = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Shield State = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void StationStatus(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].StationStatus != V)
+                {
+                    Storage[IStatus.Commander].StationStatus = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Station Status = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void CollectedBounty(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].CollectedBounty != V)
+                {
+                    Storage[IStatus.Commander].CollectedBounty = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Collected Bounty = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void TargetEnemy(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].TargetEnemy != V)
+                {
+                    Storage[IStatus.Commander].TargetEnemy = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Hostile Factions = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void TargetWanted(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].TargetWanted != V)
+                {
+                    Storage[IStatus.Commander].TargetWanted = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Wanted Targets = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void Masslock(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].Masslock != V)
+                {
+                    Storage[IStatus.Commander].Masslock = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Masslock = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void HighGravDescent(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].HighGravDescent != V)
+                {
+                    Storage[IStatus.Commander].HighGravDescent = V;
+
+                    //Logger
+                    //Logger.Simple("Report: High Gravity Descent = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void GlideStatus(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].GlideStatus != V)
+                {
+                    Storage[IStatus.Commander].GlideStatus = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Glide Status = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        #region Navigation
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void ScanTravelDist(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].ScanTravelDist != V)
+                {
+                    Storage[IStatus.Commander].ScanTravelDist = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Trave Distance Threshold = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void LandableVolcanism(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].LandableVolcanism != V)
+                {
+                    Storage[IStatus.Commander].LandableVolcanism = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Landable Volcanism = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void ScanDistLimit(string M, int V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].ScanDistLimit != V)
+                {
+                    Storage[IStatus.Commander].ScanDistLimit = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Travel Distance Threshold = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void BodyEarthLike(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].BodyEarthLike != V)
+                {
+                    Storage[IStatus.Commander].BodyEarthLike = V;
+
+                    //Logger
+                    //Logger.Simple("Report: EarthLike Worlds = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void BodyWaterTerra(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].BodyWaterTerra != V)
+                {
+                    Storage[IStatus.Commander].BodyWaterTerra = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Water Worlds (Terraformable) = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void BodyHMCTerra(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].BodyHMCTerra != V)
+                {
+                    Storage[IStatus.Commander].BodyHMCTerra = V;
+
+                    //Logger
+                    //Logger.Simple("Report: High Metal Content (Terraformable) = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void BodyAmmonia(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].BodyAmmonia != V)
+                {
+                    Storage[IStatus.Commander].BodyAmmonia = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Ammonia Worlds = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void BodyRockyTerra(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].BodyRockyTerra != V)
+                {
+                    Storage[IStatus.Commander].BodyRockyTerra = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Rocky (Terraformable) = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void BodyWater(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].BodyWater != V)
+                {
+                    Storage[IStatus.Commander].BodyWater = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Water Worlds = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void BodyMetalRich(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].BodyMetalRich != V)
+                {
+                    Storage[IStatus.Commander].BodyMetalRich = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Metal Rich = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void BodyGasGiantII(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].BodyGasGiantII != V)
+                {
+                    Storage[IStatus.Commander].BodyGasGiantII = V;
+
+                    //Logger
+                    //Logger.Simple("Report: Gas Giant II = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+
+        /// <summary>
+        /// Updates The Matching User Setting For the Loaded User
+        /// </summary>
+        /// <param name="M">(Method Name) The Simple Name Of The Calling Method.</param>
+        /// <param name="V">(Value) The Being Set.</param>
+        public void BodyHMC(string M, bool V, bool S = false)
+        {
+            if (Storage.ContainsKey(IStatus.Commander))
+            {
+                //Update Value
+                if (Storage[IStatus.Commander].BodyHMC != V)
+                {
+                    Storage[IStatus.Commander].BodyHMC = V;
+
+                    //Logger
+                    //Logger.Simple("Report: High Metal Content = " + V, Logger.Green);
+
+                    //Save Settings
+                    if (S)
+                    {
+                        ISettings.User.Save();
+                    }
+                }
+
+                return;
+            }
+
+            LogMissingCommander(M);
+        }
+        //End: Navigation
+        #endregion
+
+        //End: Reports
+        #endregion
+
+        //End: Set Values
+        #endregion
+
+        public class Settings
+        {
+            public string Commander { get; set; } = "Default";
+
+            #region Plugin
+            //Speed Offsets
+            public int OffsetPanels { get; set; } = 0;
+            public int OffsetPips { get; set; } = 0;
+            public int OffsetFireGroups { get; set; } = 0;
+            public int OffsetThrottle { get; set; } = 0;
+
+            //Keybinds
+            public bool UsersBindFile { get; set; } = false;
+            public string BindsFile { get; set; } = "A.L.I.C.E Profile.3.0.binds";
+            #endregion
+
+            #region Orders
+            public bool WeaponSafety { get; set; } = true;
+            public bool CombatPower { get; set; } = true;
+            public bool AssistSystemScan { get; set; } = false;
+            public bool AssistDocking { get; set; } = false;
+            public bool AssistRefuel { get; set; } = false;
+            public bool AssistRearm { get; set; } = false;
+            public bool AssistRepair { get; set; } = false;
+            public bool AssistHangerEntry { get; set; } = true;
+            public bool PostHyperspaceSafety { get; set; } = true;
+            #endregion
+
+            #region Reports                                         
+            public bool FuelScoop { get; set; } = true;
+            public bool FuelStatus { get; set; } = true;
+            public bool MaterialCollected { get; set; } = true;
+            public bool MaterialRefined { get; set; } = true;
+            public bool NoFireZone { get; set; } = true;
+            public bool StationStatus { get; set; } = true;
+            public bool ShieldState { get; set; } = true;
+            public bool CollectedBounty { get; set; } = true;
+            public bool TargetEnemy { get; set; } = true;
+            public bool TargetWanted { get; set; } = true;
+            public bool Masslock { get; set; } = true;
+            public bool HighGravDescent { get; set; } = true;
+            public bool GlideStatus { get; set; } = true;
+            public bool ScanTravelDist { get; set; } = true;
+            public bool LandableVolcanism { get; set; } = true;
+            #endregion
+
+            #region Exploration                                       
+            public int ScanDistLimit { get; set; } = 0;
+            public bool BodyEarthLike { get; set; } = true;
+            public bool BodyWaterTerra { get; set; } = true;
+            public bool BodyHMCTerra { get; set; } = true;
+            public bool BodyAmmonia { get; set; } = true;
+            public bool BodyRockyTerra { get; set; } = true;
+            public bool BodyWater { get; set; } = true;
+            public bool BodyMetalRich { get; set; } = true;
+            public bool BodyGasGiantII { get; set; } = false;
+            public bool BodyHMC { get; set; } = false;
+            #endregion
+        }
     }
 }

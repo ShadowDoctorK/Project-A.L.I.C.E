@@ -2,7 +2,6 @@
 //Class File Generated: 11/12/2018 4:40 PM
 //Source Journal Line: { "timestamp":"2018-09-16T11:42:23Z", "event":"EngineerProgress", "Engineer":"Elvira Martuuk", "EngineerID":300160, "Progress":"Unlocked", "Rank":1 }
 
-using ALICE_Objects;
 using System;
 using System.Collections.Generic;
 
@@ -52,9 +51,6 @@ namespace ALICE_Events
             try
             {
                 var Event = (EngineerProgress)O;
-
-                //Update Status Obbject
-                IObjects.Engineer.Update(Event);
             }
             catch (Exception ex)
             {

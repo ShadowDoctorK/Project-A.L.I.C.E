@@ -4,9 +4,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ALICE_Synthesizer
 {
@@ -30,6 +27,11 @@ namespace ALICE_Synthesizer
     {
         //Collection Of Responses
         public Dictionary<string, Response> Storage = new Dictionary<string, Response>();
+
+        /// <summary>
+        /// Tracks Number Of Responses Processed Each Load;
+        /// </summary>
+        private int ResponsesLoaded = 0;
 
         /// <summary>
         /// Add A Response To the Collection of Responses.
@@ -179,12 +181,14 @@ namespace ALICE_Synthesizer
         /// </summary>
         /// <param name="DirectoryPath">The Target Directory</param>
         /// <returns>Postive if Loaded any Responses, Negative is no Responses were loaded, and Error if a problem was enountered.</returns>
-        public ISynthesizer.Answer Load(string DirectoryPath)
+        public ISynthesizer.Answer Load(string DirectoryPath, bool User = false)
         {
             string MethodName = "Response (Load)";
             
             //If Path Is Null Return Negative
             if (DirectoryPath == null) { return ISynthesizer.Answer.Negative; }
+
+            ResponsesLoaded = 0;
 
             int Count = 0; try
             {
@@ -203,7 +207,15 @@ namespace ALICE_Synthesizer
             }
 
             //We Loaded Responses, Return Postive
-            if (Count != 0) { return ISynthesizer.Answer.Positive; }
+            if (Count != 0)
+            {
+                if (User)
+                {
+                    Logger.Simple(Count + " User Response Files Were Found And Loaded.", Logger.Green);
+                    Logger.Simple(ResponsesLoaded + " Additional Custom Responses Avaialble For Use.", Logger.Green);
+                }
+                return ISynthesizer.Answer.Positive;
+            }
 
             //Noting Was Loaded Return Negative
             return ISynthesizer.Answer.Negative;
@@ -221,6 +233,7 @@ namespace ALICE_Synthesizer
                         string Line = SR.ReadLine();
                         var Res = JsonConvert.DeserializeObject<Response>(Line);
                         Add(Res, true);
+                        ResponsesLoaded++;
                     }
                 }
             }
@@ -388,11 +401,11 @@ namespace ALICE_Synthesizer
                 Edge = (float)0;
                 //Range: 0 to 100 / Default: 15
                 Gain = (float)0;
-                //Range: 0 to 100 / Default: 15
+                //Range: -60 to 0 / Default: -18
                 PostEQBandwidth = (float)2400;
-                //Range: 0 to 100 / Default: 15
+                //Range: 100 to 8000 / Default: 2400
                 PostEQCenterFrequency = (float)2400;
-                //Range: 0 to 100 / Default: 15
+                //Range: 100 to 8000 / Default: 2400
             }
         }
 

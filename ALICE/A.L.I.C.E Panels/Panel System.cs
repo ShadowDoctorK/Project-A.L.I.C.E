@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ALICE_Objects;
 using ALICE_Actions;
-using ALICE_Internal;
 using ALICE_Debug;
+using ALICE_Internal;
 
 namespace ALICE_Panels
 {

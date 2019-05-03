@@ -1,23 +1,21 @@
-﻿using System;
-using System.IO;
-using System.Threading;
-using ALICE_Events;
-using ALICE_Actions;
-using ALICE_Interface;
-using ALICE_Synthesizer;
-using ALICE_Monitors;
-using SysDiag = System.Diagnostics;
-using System.Linq;
-using ALICE_Settings;
+﻿using ALICE_Actions;
 using ALICE_Debug;
-using ALICE_Keybinds;
+using ALICE_Interface;
+using ALICE_Monitors;
+using ALICE_Settings;
+using ALICE_Synthesizer;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using SysDiag = System.Diagnostics;
 
 namespace ALICE_Internal
 {
     public static class PlugIn
     {
-        public static Monitor_Json M_Json = new Monitor_Json(true, false, true, false, false, false, false, false, true);
-        public static Monitor_Journal M_Journal = new Monitor_Journal();
+        //public static Monitor_Json M_Json = new Monitor_Json(true, false, true, false, false, false, false, false, true);
+        //public static Monitor_Journal M_Journal = new Monitor_Journal();
 
         public static readonly decimal DataVersion = 340.0M;
 
@@ -38,7 +36,8 @@ namespace ALICE_Internal
         /// <param name="Interface">Sets the interface type.(</param>
         /// <param name="Journal">New Journal Reader Thread.</param>
         /// <param name="Status">New Status.json Reader Thread.</param>
-        public static void Initialize(bool Journal, bool Status)
+        /// <param name="Config">New Settings Monitor Thread.</param>
+        public static void Initialize(bool Journal, bool Status, bool Config)
         {
             string MethodName = "Initialize";
 
@@ -77,44 +76,51 @@ namespace ALICE_Internal
                             break;
                     }
                  
-                    //Simple Logger
+                    //Log Plugin Information
                     Logger.Simple("Project A.L.I.C.E " + IPlatform.Version + " Initializing...", Logger.Purple);
+                    Logger.AliceLog("Project A.L.I.C.E " + IPlatform.Version + " (Open Beta 1.3.5)");
 
                     //Execute External Command
                     IPlatform.ExecuteCommand("Startup Configuration");
                     
                     //Sleep To Allow Platform Time To Process
                     Thread.Sleep(1000);
-                    
-                    //Load User Settings
-                    ISettings.UserSettingsLoad(true);
 
-                    //Debug Logger
-                    Logger.DebugLine(MethodName, "Verifying Alice Binds File...", Logger.Blue);
+                    //Settings File Verification
+                    ISettings.FileVerification();
 
-                    //Retrieve Config Variables From Platform
-                    PlugIn.KeybindLogging = IGet.External.KeybindLogging(MethodName);
-
-                    //Log Setting
-                    if (PlugIn.VariableLogging)
+                    //Settings Monitor
+                    if (Config == true)
                     {
-                        Logger.Log(MethodName, "Keybind Logging Enabled", Logger.Yellow);
+                        //Debug Logger
+                        Logger.DebugLine(MethodName, "Initializing Settings Monitor...", Logger.Blue);
+
+                        //Start Journal Monitor On New Thread
+                        Thread config = new Thread((ThreadStart)(() => { IMonitors.Settings.Start(); }))
+                        { IsBackground = true }; config.Start();
                     }
 
-                    //Check Alice Binds File
-                    Paths.Load_UpdateBindsFile();
+                    //Wait For Settings To Load
+                    while (ICheck.InitializedSettings(MethodName) == false)
+                    {
+                        //Sleep
+                        Thread.Sleep(100);
+                    }
 
-                    //Debug Logger                    
-                    Logger.DebugLine(MethodName, "Loading Keybinds...", Logger.Blue);
+                    //Load Last Settings
+                    Thread.Sleep(100);
+                    ISettings.StartupLoad();
 
-                    //Load Game Binds
-                    IKeyboard.LoadKeybinds();
+                    //Start Keybinds Monitor On New Thread
+                    Thread Key = new Thread((ThreadStart)(() => { IMonitors.Keybinds.Start(); }))
+                    { IsBackground = true }; Key.Start();                    
                     
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Loading Response Files...", Logger.Blue);
 
                     //Load Responses
                     ISynthesizer.Response.Load(Paths.ALICE_Response);
+                    ISynthesizer.Response.Load(Paths.ALICE_ResponseUser, true);
 
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Loading Module Data...", Logger.Blue);
@@ -128,9 +134,6 @@ namespace ALICE_Internal
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Loading Last Written User Settings...", Logger.Blue);
 
-                    //Start User Settings Watcher
-                    ISettings.Watcher.Watch();
-
                     //Journal Monitor
                     if (Journal == true)
                     {
@@ -138,7 +141,7 @@ namespace ALICE_Internal
                         Logger.DebugLine(MethodName, "Initializing Journal Monitor...", Logger.Blue);
 
                         //Start Journal Monitor On New Thread
-                        Thread journal = new Thread((ThreadStart)(() => { M_Journal.Start(); }))
+                        Thread journal = new Thread((ThreadStart)(() => { IMonitors.Journal.Start(); }))
                         { IsBackground = true }; journal.Start();
                     }
 
@@ -149,22 +152,12 @@ namespace ALICE_Internal
                         Logger.DebugLine(MethodName, "Initializing Status Monitor...", Logger.Blue);
 
                         //Start Status Monitor On New Thread
-                        Thread jsonreader = new Thread((ThreadStart)(() => { M_Json.Start(); }))
+                        Thread jsonreader = new Thread((ThreadStart)(() => { IMonitors.Json.Start(); }))
                         { IsBackground = true }; jsonreader.Start();
                     }
 
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Initializing Variable Monitors...", Logger.Blue);
-
-                    //Start Variable Monitors
-                    Monitors.StartMonitors
-                        (
-                        true, //Ship
-                        true, //Json
-                        true, //Internal
-                        true, //Panel
-                        true  //Firegroup
-                        );
 
                     //Open Toolkit If None Are Detected
                     if (GetToolkitInstances() < 1)
@@ -197,7 +190,7 @@ namespace ALICE_Internal
                     }
 
                     //Wait Till Initialzied
-                    while (PlugIn.M_Journal.Settings.Initialized == false)
+                    while (IMonitors.Journal.Settings.Initialized == false)
                     {
                         Thread.Sleep(100);
                     }

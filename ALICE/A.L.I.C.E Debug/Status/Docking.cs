@@ -11,9 +11,9 @@ namespace ALICE_Debug
 
 namespace ALICE_DebugCheck
 {
-    using ALICE_Core;
     using ALICE_Debug;
     using ALICE_Internal;
+    using ALICE_Status;
 
     public class Docking : Debug
     {
@@ -105,9 +105,9 @@ namespace ALICE_Debug
 
 namespace ALICE_DebugGet
 {
-    using ALICE_Core;
     using ALICE_Debug;
     using ALICE_Internal;
+    using ALICE_Status;
 
     public class Docking : Debug
     {
@@ -141,9 +141,9 @@ namespace ALICE_Debug
 
 namespace ALICE_DebugSet
 {
-    using ALICE_Core;
     using ALICE_Debug;
     using ALICE_Internal;
+    using ALICE_Status;
 
     public class Docking : Debug
     {

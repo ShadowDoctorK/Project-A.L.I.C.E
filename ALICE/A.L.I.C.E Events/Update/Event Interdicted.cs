@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-29T00:23:53Z", "event":"Interdicted", "Submitted":true, "Interdictor":"$ShipName_Military_Independent;", "Interdictor_Localised":"System Defence Force", "IsPlayer":false, "Faction":"The Fuel Rats Mischief" }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

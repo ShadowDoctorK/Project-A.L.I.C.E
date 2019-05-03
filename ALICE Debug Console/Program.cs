@@ -1,14 +1,7 @@
-﻿using ALICE_Actions;
-using ALICE_Events;
-using ALICE_Internal;
-using ALICE_Interface;
-using ALICE_Monitors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using ALICE_Internal;
+using ALICE_Response;
+using ALICE_Synthesizer;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ALICE_Debug_Console
 {
@@ -24,8 +17,20 @@ namespace ALICE_Debug_Console
 
         public static void Debug()
         {
-            PlugIn.Initialize(true, true);
-           
+            PlugIn.Initialize(true, true, true);
+
+            IResponse.FullSpectrumScanner.AllBodiesDiscovered(true);
+            IResponse.FullSpectrumScanner.AllBodiesDiscovered(true);
+            IResponse.FullSpectrumScanner.AllBodiesDiscovered(true);
+            IResponse.FullSpectrumScanner.AllBodiesDiscovered(true);
+            IResponse.FullSpectrumScanner.AllBodiesDiscovered(true);
+            IResponse.FullSpectrumScanner.AllBodiesDiscovered(true);
+            IResponse.FullSpectrumScanner.AllBodiesDiscovered(true);
+            IResponse.FullSpectrumScanner.AllBodiesDiscovered(true);
+            IResponse.FullSpectrumScanner.AllBodiesDiscovered(true);
+            IResponse.FullSpectrumScanner.AllBodiesDiscovered(true);
+            IResponse.FullSpectrumScanner.AllBodiesDiscovered(true);
+
 
             Thread.Sleep(50000);            
         }

@@ -1,20 +1,16 @@
-﻿using CSCore;
+﻿using ALICE_Internal;
+using CSCore;
 using CSCore.Codecs.WAV;
 using CSCore.SoundOut;
 using CSCore.Streams.Effects;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Speech.Synthesis;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Speech.Synthesis;
-using System.Collections.Generic;
-using ALICE_Objects;
-using ALICE_Interface;
-using Newtonsoft.Json;
-using System.Media;
-using ALICE_Internal;
 
 namespace ALICE_Synthesizer
 {

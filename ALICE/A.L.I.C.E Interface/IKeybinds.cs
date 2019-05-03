@@ -7,6 +7,7 @@ using ALICE_Interface;
 using ALICE_Synthesizer;
 using System.Threading;
 using ALICE_Settings;
+using ALICE_Status;
 
 namespace ALICE_Keybinds
 {
@@ -62,10 +63,10 @@ namespace ALICE_Keybinds
 			finally
 			{
 				#region Sleep After KeyPress
-				if (D == IKey.DelayPanel) { S = S + ISettings.OffsetPanels; }
-				if (D == IKey.DelayFireGroup) { S = S + ISettings.OffsetFireGroups; }
-				if (D == IKey.DelayPower) { S = S + ISettings.OffsetPips; }
-				if (D == IKey.DelayThrottle) { S = S + ISettings.OffsetThrottle; }
+				if (D == IKey.DelayPanel) { S = S + ISettings.User.OffsetPanels(); }
+				if (D == IKey.DelayFireGroup) { S = S + ISettings.User.OffsetFireGroups(); }
+				if (D == IKey.DelayPower) { S = S + ISettings.User.OffsetPips(); }
+				if (D == IKey.DelayThrottle) { S = S + ISettings.User.OffsetThrottle(); }
 				Thread.Sleep(S);
 				#endregion
 			}
@@ -81,10 +82,10 @@ namespace ALICE_Keybinds
 		public static void LoadKeybinds()
 		{
 			//Logger
-			IPlatform.WriteToInterface("A.L.I.C.E: Targeting Keybinds File: " + ISettings.User.BindsFile, "Purple");
+			IPlatform.WriteToInterface("A.L.I.C.E: Targeting Keybinds File: " + ISettings.User.BindsFile(), "Purple");
 
 			//Load Target Binds File
-			AliceBinds = GetBindsFile(ISettings.User.BindsFile);
+			AliceBinds = GetBindsFile(ISettings.User.BindsFile());
 
 			//Update Binds
 			GetGameBinds();

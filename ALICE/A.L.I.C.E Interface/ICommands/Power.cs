@@ -1,7 +1,6 @@
 ﻿using ALICE_Actions;
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Internal;
+using ALICE_Status;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -121,11 +120,13 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Maintain_Engines:
-                            Assisted.Power.Maintain_Engines(PlugIn.CommandAudio);
+                            Assisted.Power.Maintain_Engines(
+                                IGet.External.CommandAudio(ICommands.M));       //Get Command Audio From Platform 
                             break;
 
                         case L2.Maintain_Systems:
-                            Assisted.Power.Maintain_Systems(PlugIn.CommandAudio);
+                            Assisted.Power.Maintain_Systems(
+                                IGet.External.CommandAudio(ICommands.M));       //Get Command Audio From Platform 
                             break;
 
                         case L2.Defense:
@@ -137,23 +138,28 @@ namespace ALICE_Interface
                             break;
 
                         case L2.Engines:
-                            Assisted.Power.Defense_Engines(PlugIn.CommandAudio);
+                            Assisted.Power.Defense_Engines(
+                                IGet.External.CommandAudio(ICommands.M));       //Get Command Audio From Platform 
                             break;
 
                         case L2.Systems:
-                            Assisted.Power.Defense_Systems(PlugIn.CommandAudio);
+                            Assisted.Power.Defense_Systems(
+                                IGet.External.CommandAudio(ICommands.M));       //Get Command Audio From Platform 
                             break;
 
                         case L2.Heavy:
-                            Assisted.Power.Weapons_Heavy(PlugIn.CommandAudio);
+                            Assisted.Power.Weapons_Heavy(
+                                IGet.External.CommandAudio(ICommands.M));       //Get Command Audio From Platform 
                             break;
 
                         case L2.Balance:
-                            Assisted.Power.Weapons_Balance(PlugIn.CommandAudio);
+                            Assisted.Power.Weapons_Balance(
+                                IGet.External.CommandAudio(ICommands.M));       //Get Command Audio From Platform 
                             break;
 
                         case L2.Light:
-                            Assisted.Power.Weapons_Light(PlugIn.CommandAudio);
+                            Assisted.Power.Weapons_Light(
+                                IGet.External.CommandAudio(ICommands.M));       //Get Command Audio From Platform 
                             break;
 
                         default:

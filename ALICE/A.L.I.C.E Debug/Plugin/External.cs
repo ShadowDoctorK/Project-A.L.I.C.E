@@ -52,7 +52,7 @@ namespace ALICE_DebugGet
             {
                 var Temp = Convert.ToBoolean(                                   //Convert String
                     Retreive(M, IPlatform.IVar.DebugMode, "false",              //Target Variable
-                    "Not Set To A Valid Option (true - false) Or Could Not Be Converted. Using Fallback Value"));
+                    "Not Set To A Valid Option (true - false) Or Could Not Be Converted. Using Fallback Value", false));
 
                 return Temp;
             }
@@ -77,7 +77,7 @@ namespace ALICE_DebugGet
             {
                 var Temp = Convert.ToBoolean(                                   //Convert String
                     Retreive(M, IPlatform.IVar.ExtendedLogging, "false",              //Target Variable
-                    "Not Set To A Valid Option (true - false) Or Could Not Be Converted. Using Fallback Value"));
+                    "Not Set To A Valid Option (true - false) Or Could Not Be Converted. Using Fallback Value", false));
 
                 return Temp;
             }
@@ -127,7 +127,7 @@ namespace ALICE_DebugGet
             {
                 var Temp = Convert.ToBoolean(                                   //Convert String
                     Retreive(M, IPlatform.IVar.KeybindLogging, "false",         //Target Variable
-                    "Not Set To A Valid Option (true - false) Or Could Not Be Converted. Using Fallback Value"));
+                    "Not Set To A Valid Option (true - false) Or Could Not Be Converted. Using Fallback Value", false));
 
                 return Temp;
             }
@@ -152,7 +152,7 @@ namespace ALICE_DebugGet
             {
                 var Temp = Convert.ToBoolean(                                   //Convert String
                     Retreive(M, IPlatform.IVar.VariableLogging, "false",        //Target Variable
-                    "Not Set To A Valid Option (true - false) Or Could Not Be Converted. Using Fallback Value"));
+                    "Not Set To A Valid Option (true - false) Or Could Not Be Converted. Using Fallback Value", false));
 
                 return Temp;
             }

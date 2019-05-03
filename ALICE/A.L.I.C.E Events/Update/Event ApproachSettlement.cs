@@ -16,6 +16,7 @@ namespace ALICE_Events
         public decimal MarketID { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
+        public decimal SystemAddress { get; set; }
 
         //Default Constructor
         public ApproachSettlement()
@@ -25,6 +26,7 @@ namespace ALICE_Events
             MarketID = Dec();
             Longitude = Dec();
             Latitude = Dec();
+            SystemAddress = Dec();
         }
     }
 
@@ -40,6 +42,7 @@ namespace ALICE_Events
             {
                 var Event = (ApproachSettlement)O;
 
+                Variables.Record(Name + "_Address", Event.SystemAddress);
                 Variables.Record(Name + "_Name", Event.Name_Localised);
                 Variables.Record(Name + "_Market", Event.MarketID);                
             }

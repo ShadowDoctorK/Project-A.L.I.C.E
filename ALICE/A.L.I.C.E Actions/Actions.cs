@@ -1,15 +1,14 @@
-﻿using System.Threading;
+﻿using ALICE.Properties;
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Keybinds;
-using ALICE_Objects;
-using ALICE.Properties;
 using ALICE_Panels;
-using ALICE_Synthesizer;
-using ALICE_Settings;
-using ALICE_Debug;
-using ALICE_Equipment;
 using ALICE_Response;
+using ALICE_Settings;
+using ALICE_Status;
+using ALICE_Synthesizer;
+using System.Threading;
 
 namespace ALICE_Actions
 {
@@ -30,8 +29,7 @@ namespace ALICE_Actions
         public static Actions Action = new Actions();   
         public static Overrides Overrides = new Overrides();
         public static IPower Power = new IPower();
-        public static IPanels Panel = new IPanels();
-        public static IFiregroups Firegroup = new IFiregroups();     
+        public static IPanels Panel = new IPanels();    
         
         #region Methods
         public static void ResetPanels() { Panel = new IPanels(); }
@@ -48,31 +46,31 @@ namespace ALICE_Actions
             //Empty
         }
 
-        public void Check_PreLaunch(bool HaltLaunch = false)
-        {
-            string MethodName = "Pre-Launch Checks";
+        //public void Check_PreLaunch(bool HaltLaunch = false)
+        //{
+        //    string MethodName = "Pre-Launch Checks";
 
-            bool Report_NoCrew = false;
-            bool Report_RefuelShip = false;
-            bool Report_Limpets = false;
+        //    bool Report_NoCrew = false;
+        //    bool Report_RefuelShip = false;
+        //    bool Report_Limpets = false;
 
-            if (Check.Equipment.FighterHanger(true, MethodName) == true)
-            {
-                if (ICheck.Status.Crew(MethodName, true) == false)
-                {
-                    HaltLaunch = true;
-                    Report_NoCrew = true;
-                }
-            }
+        //    if (Check.Equipment.FighterHanger(true, MethodName) == true)
+        //    {
+        //        if (ICheck.Status.Crew(MethodName, true) == false)
+        //        {
+        //            HaltLaunch = true;
+        //            Report_NoCrew = true;
+        //        }
+        //    }
 
-            if (Check.Equipment.MiningLaser(true, MethodName) == true)
-            {
-                if (Check.Equipment.CollectorLimpetController(true, MethodName) == true || Check.Equipment.ProspectorLimpetController(true, MethodName) == true)
-                {
+        //    if (Check.Equipment.MiningLaser(true, MethodName) == true)
+        //    {
+        //        if (Check.Equipment.CollectorLimpetController(true, MethodName) == true || Check.Equipment.ProspectorLimpetController(true, MethodName) == true)
+        //        {
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
     }
 
     /// <summary>
@@ -133,7 +131,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Module Checks
-            if (Check.Equipment.ChaffLauncher(true, MethodName) == false)
+            if (ICheck.Mothership.M.Chaff(MethodName, true) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -199,7 +197,7 @@ namespace ALICE_Actions
             }
 
             //If Not Outside The Fighter...
-            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Fighter, false) == false)
+            if (ICheck.Status.Vehicle(MethodName, IStatus.V.Fighter, false) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -361,7 +359,7 @@ namespace ALICE_Actions
             //If Not In Normal Space...
             if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
-                IEquipment.ExternalLights.NoHyperspace(CommandAudio);
+                IResponse.Lights.NoHyperspace(CommandAudio);
                 return;
             }
             #endregion
@@ -371,12 +369,12 @@ namespace ALICE_Actions
             {
                 if (CMD_State == true)
                 {
-                    IEquipment.ExternalLights.CurrentlyEnergized(CommandAudio);
+                    IResponse.Lights.Energized(CommandAudio);
                     return;
                 }
                 else if (CMD_State == false)
                 {
-                    IEquipment.ExternalLights.CurrentlyDeenergized(CommandAudio);
+                    IResponse.Lights.Deenergized(CommandAudio);
                     return;
                 }
             }
@@ -388,13 +386,13 @@ namespace ALICE_Actions
                 if (CMD_State == true)
                 {
                     IKeyboard.Press(IKey.Ship_Lights, 0);
-                    IEquipment.ExternalLights.Energizing(CommandAudio);
+                    IResponse.Lights.Energizing(CommandAudio);
                     return;
                 }
                 else if (CMD_State == false)
                 {
                     IKeyboard.Press(IKey.Ship_Lights, 0);
-                    IEquipment.ExternalLights.Deenergizing(CommandAudio);
+                    IResponse.Lights.Deenergizing(CommandAudio);
                     return;
                 }
             }
@@ -408,19 +406,19 @@ namespace ALICE_Actions
             #region Valid Command Checks
             if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
-                IEquipment.DiscoveryScanner.NoHyperspace(CommandAudio);
+                IResponse.DiscoveryScanner.NoHyperspace(CommandAudio);
                 return;
             }
 
             if (ICheck.Environment.Space(MethodName, true, IEnums.Supercruise) == false)
             {
-                IEquipment.DiscoveryScanner.NotInSupercruise(CommandAudio);
+                IResponse.DiscoveryScanner.NotInSupercruise(CommandAudio);
                 return;
             }
             #endregion
 
             #region Status == Command
-            if (IEquipment.DiscoveryScanner.Mode == CMD_State)
+            if (IStatus.FSSMode == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -436,13 +434,13 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (IEquipment.DiscoveryScanner.Mode != CMD_State)
+            else if (IStatus.FSSMode != CMD_State)
             {
                 if (CMD_State == true)
                 {
                     IResponse.DiscoveryScanner.FSSActivating(CommandAudio);
                     IKeyboard.Press(IKey.FSS_Enter, 0);
-                    IEquipment.DiscoveryScanner.Mode = CMD_State;
+                    IStatus.FSSMode = CMD_State;
 
                     return;
                 }
@@ -450,7 +448,7 @@ namespace ALICE_Actions
                 {
                     IResponse.DiscoveryScanner.FSSDeactivating(CommandAudio);
                     IKeyboard.Press(IKey.FSS_Exit, 0);
-                    IEquipment.DiscoveryScanner.Mode = CMD_State;
+                    IStatus.FSSMode = CMD_State;
 
                     return;
                 }
@@ -538,7 +536,7 @@ namespace ALICE_Actions
             }
 
             //If Not In Mothership...
-            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true) == false)
+            if (ICheck.Status.Vehicle(MethodName, IStatus.V.Mothership, true) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -578,7 +576,7 @@ namespace ALICE_Actions
             }
 
             //If Docked is True...
-            if (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Docked) == true && CMD_State == false)
+            if (ICheck.Docking.Status(MethodName, false, IEnums.DockingState.Docked) == false && CMD_State == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -619,7 +617,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status == Command
-            if (ICheck.LandingGear.Status(MethodName, true, true) == CMD_State)
+            if (ICheck.Status.LandingGear(MethodName, true, true) == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -661,12 +659,12 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (ICheck.LandingGear.Status(MethodName, true, true) != CMD_State)
+            else if (ICheck.Status.LandingGear(MethodName, true, true) != CMD_State)
             {
                 if (CMD_State == true)
                 {
                     IKeyboard.Press(IKey.Landing_Gear, 0);
-                    ISet.LandingGear.Status(MethodName, true);
+                    ISet.Status.LandingGear(MethodName, true);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -687,7 +685,7 @@ namespace ALICE_Actions
                 else if (CMD_State == false)
                 {
                     IKeyboard.Press(IKey.Landing_Gear, 0);
-                    ISet.LandingGear.Status(MethodName, false);
+                    ISet.Status.LandingGear(MethodName, false);
 
                     #region Audio
                     if (PlugIn.Audio == "TTS")
@@ -735,7 +733,7 @@ namespace ALICE_Actions
             }
 
             //If Not In Mothership...
-            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true) == false)
+            if (ICheck.Status.Vehicle(MethodName, IStatus.V.Mothership, true) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -856,34 +854,34 @@ namespace ALICE_Actions
             #region Vaildtion Checks
             if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
-                IEquipment.FSDInterdictor.NoHyperspace(CommandAudio);
+                IResponse.FSDInterdictor.NoHyperspace(CommandAudio);
                 return;
             }
             #endregion
 
             #region Fire Group Management
-            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.FSDInterdictor))
+            switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.FSDInterdictor))
             {
-                case Settings_Firegroups.S.Selected:
+                case ConfigurationHardpoints.S.Selected:
                     break;
-                case Settings_Firegroups.S.NotAssigned:
-                    IEquipment.FSDInterdictor.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.S.NotAssigned:
+                    IResponse.FSDInterdictor.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.S.Failed:
+                case ConfigurationHardpoints.S.Failed:
                     return;
                 default:
                     return;
             }
 
-            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.FSDInterdictor))
+            switch (ISettings.Firegroups.Config.Activate(ConfigurationHardpoints.Item.FSDInterdictor, 75, ref IStatus.False))
             {
-                case Settings_Firegroups.A.Hyperspace:
-                    IEquipment.FSDInterdictor.EnteredHyperspace(CommandAudio);
+                case ConfigurationHardpoints.A.Hyperspace:
+                    IResponse.FSDInterdictor.EnteredHyperspace(CommandAudio);
                     return;
-                case Settings_Firegroups.A.NotAssigned:
-                    IEquipment.FSDInterdictor.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.A.NotAssigned:
+                    IResponse.FSDInterdictor.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.A.Complete:
+                case ConfigurationHardpoints.A.Complete:
                     //Audio - Commencing...
                     break;
                 default:
@@ -906,7 +904,7 @@ namespace ALICE_Actions
             #endregion
 
             #region Status = Command
-            if (IEquipment.SurfaceScanner.Mode == CMD_State)
+            if (IStatus.ModeSurfScanner == CMD_State)
             {
                 if (CMD_State == true)
                 {
@@ -922,27 +920,27 @@ namespace ALICE_Actions
             #endregion
 
             #region Status != Command
-            else if (IEquipment.SurfaceScanner.Mode != CMD_State)
+            else if (IStatus.ModeSurfScanner != CMD_State)
             {
                 if (CMD_State == true)
                 {
                     #region Fire Group Management
-                    switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.ScannerSurface))
+                    switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.ScannerSurface))
                     {
-                        case Settings_Firegroups.S.CurrentlySelected:
-                            if (SelectOnly) { IEquipment.SurfaceScanner.CurrentlySelected(CommandAudio); }
+                        case ConfigurationHardpoints.S.CurrentlySelected:
+                            if (SelectOnly) { IResponse.SurfaceScanner.CurrentlySelected(CommandAudio); }
                             break;
-                        case Settings_Firegroups.S.Selected:
-                            if (SelectOnly) { IEquipment.SurfaceScanner.Selected(CommandAudio); }
+                        case ConfigurationHardpoints.S.Selected:
+                            if (SelectOnly) { IResponse.SurfaceScanner.Selected(CommandAudio); }
                             break;
-                        case Settings_Firegroups.S.NotAssigned:
-                            IEquipment.SurfaceScanner.NotAssigned(CommandAudio);
+                        case ConfigurationHardpoints.S.NotAssigned:
+                            IResponse.SurfaceScanner.NotAssigned(CommandAudio);
                             return;
-                        case Settings_Firegroups.S.Failed:
-                            IEquipment.SurfaceScanner.SelectionFailed(CommandAudio);                            
+                        case ConfigurationHardpoints.S.Failed:
+                            IResponse.SurfaceScanner.SelectionFailed(CommandAudio);                            
                             return;
-                        case Settings_Firegroups.S.InHyperspace:
-                            IEquipment.General.InHyperspace();
+                        case ConfigurationHardpoints.S.InHyperspace:
+                            IResponse.SurfaceScanner.NoHyperspace(CommandAudio);
                             return;
                         default:
                             return;
@@ -951,15 +949,15 @@ namespace ALICE_Actions
                     //Exit If Only Selecting Item.
                     if (SelectOnly) { return; }
 
-                    switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.ScannerSurface))
+                    switch (ISettings.Firegroups.Config.Activate(ConfigurationHardpoints.Item.ScannerSurface, 75, ref IStatus.False))
                     {
-                        case Settings_Firegroups.A.Hyperspace:
-                            IEquipment.SurfaceScanner.EnteredHyperspace(CommandAudio);
+                        case ConfigurationHardpoints.A.Hyperspace:
+                            IResponse.SurfaceScanner.EnteredHyperspace(CommandAudio);
                             return;
-                        case Settings_Firegroups.A.NotAssigned:
-                            IEquipment.SurfaceScanner.NotAssigned(CommandAudio);
+                        case ConfigurationHardpoints.A.NotAssigned:
+                            IResponse.SurfaceScanner.NotAssigned(CommandAudio);
                             return;
-                        case Settings_Firegroups.A.Complete:
+                        case ConfigurationHardpoints.A.Complete:
                             //Audio - Activated
                             break;
                         default:
@@ -967,7 +965,7 @@ namespace ALICE_Actions
                     }
                     #endregion
 
-                    IEquipment.SurfaceScanner.Mode = CMD_State;
+                    IStatus.ModeSurfScanner = CMD_State;
 
                     return;
                 }
@@ -976,7 +974,7 @@ namespace ALICE_Actions
                     IKeyboard.Press(IKey.UI_Back, 0);
 
                     //Add Music State Checks To Verify Closed.
-                    IEquipment.SurfaceScanner.Mode = CMD_State;
+                    IStatus.ModeSurfScanner = CMD_State;
                     return;
                 }
             }
@@ -1018,16 +1016,16 @@ namespace ALICE_Actions
             string MethodName = "Xeno Scan";
 
             //Record Current Firegroup
-            decimal Temp = Call.Firegroup.Current;
+            decimal Temp = IActions.Hardpoints.Current;
 
             #region Vaildtion Checks
             if (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space) == false)
             {
-                IEquipment.XenoScanner.NotInNormalSpace(CommandAudio);
+                IResponse.XenoScanner.NotInNormalSpace(CommandAudio);
                 return;
             }
 
-            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.Mothership, true) == false)
+            if (ICheck.Status.Vehicle(MethodName, IStatus.V.Mothership, true) == false)
             {
                 Logger.Log(MethodName, "Only Available In The Mothership", Logger.Red);
                 return;
@@ -1036,22 +1034,22 @@ namespace ALICE_Actions
 
             #region Fire Group Management
             //Select Firegroup
-            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.ScannerXeno))
+            switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.ScannerXeno))
             {
-                case Settings_Firegroups.S.CurrentlySelected:
-                    if (SelectOnly) { IEquipment.XenoScanner.CurrentlySelected(CommandAudio); }
+                case ConfigurationHardpoints.S.CurrentlySelected:
+                    if (SelectOnly) { IResponse.XenoScanner.CurrentlySelected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.Selected:
-                    if (SelectOnly) { IEquipment.XenoScanner.Selected(CommandAudio); }
+                case ConfigurationHardpoints.S.Selected:
+                    if (SelectOnly) { IResponse.XenoScanner.Selected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.NotAssigned:
-                    IEquipment.XenoScanner.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.S.NotAssigned:
+                    IResponse.XenoScanner.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.S.Failed:
-                    IEquipment.XenoScanner.SelectionFailed(CommandAudio);
+                case ConfigurationHardpoints.S.Failed:
+                    IResponse.XenoScanner.SelectionFailed(CommandAudio);
                     return;
-                case Settings_Firegroups.S.InHyperspace:
-                    IEquipment.General.InHyperspace();
+                case ConfigurationHardpoints.S.InHyperspace:
+                    IResponse.XenoScanner.NoHyperspace(CommandAudio);
                     return;
                 default:
                     return;
@@ -1061,16 +1059,16 @@ namespace ALICE_Actions
             if (SelectOnly) { return; }
 
             //Activate Module
-            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.ScannerXeno, 8000))
+            switch (ISettings.Firegroups.Config.Activate(ConfigurationHardpoints.Item.ScannerXeno, 8000, ref IStatus.False))
             {
-                case Settings_Firegroups.A.Hyperspace:
-                    IEquipment.XenoScanner.EnteredHyperspace(CommandAudio);
+                case ConfigurationHardpoints.A.Hyperspace:
+                    IResponse.XenoScanner.EnteredHyperspace(CommandAudio);
                     return;
-                case Settings_Firegroups.A.NotAssigned:
-                    IEquipment.XenoScanner.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.A.NotAssigned:
+                    IResponse.XenoScanner.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.A.Complete:
-                    IEquipment.XenoScanner.ScanComplete(CommandAudio);
+                case ConfigurationHardpoints.A.Complete:
+                    IResponse.XenoScanner.ScanComplete(CommandAudio);
                     break;
                 default:
                     return;
@@ -1078,7 +1076,7 @@ namespace ALICE_Actions
             #endregion
 
             //Return To Previou Firegroup.
-            Call.Firegroup.Select(Temp, false);
+            IActions.Hardpoints.Select(Temp, false);
         }
 
         //End Region: Compound / Complex Actions
@@ -1222,13 +1220,16 @@ namespace ALICE_Actions
                 IKeyboard.Press(IKey.UI_Panel_Down_Release, 100);
                 IKeyboard.Press(IKey.UI_Panel_Select, 250);
 
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Monitoring Launch For 30 Seconds", Logger.Blue);
+
                 //Wait For Launch (30 seconds)
-                decimal Count = 300; while (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Undocked, true) == false && Count > 0)
+                decimal Count = 300; while (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Undocked, false) == false && Count > 0)
                 {
                     Count--; if (Count == 0)
                     {
                         //Add Audio - Failed To Launch
-                        Logger.Log(MethodName, "Failed To Launch, Try Again.", Logger.Yellow, true);
+                        Logger.Log(MethodName, "Did Not Detect Launch, Try Again.", Logger.Yellow, true);
                     }
                     Thread.Sleep(100);
                 }
@@ -1283,42 +1284,42 @@ namespace ALICE_Actions
             string MethodName = "Collector Limpet Controller";
 
             //Record Current Firegroup
-            decimal Temp = Call.Firegroup.Current;
+            decimal Temp = IActions.Hardpoints.Current;
 
             #region Vaildtion Checks
             //Check Not In Hyperspace
             if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
-                IEquipment.LimpetCollector.NoHyperspace(CommandAudio);
+                IResponse.CollectorLimpets.NoHyperspace(CommandAudio);
                 return;
             }
 
             //Check Installed
-            if (Check.Equipment.CollectorLimpetController(true, MethodName) == false)
+            if (ICheck.Mothership.M.CollectorLimpet(MethodName, true) == false)
             {
-                IEquipment.LimpetCollector.NotInstalled(CommandAudio);
+                IResponse.CollectorLimpets.NotInstalled(CommandAudio);
                 return;
             }
             #endregion
 
             #region Fire Group Management
             //Select Firegroup
-            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetCollector))
+            switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.LimpetCollector))
             {
-                case Settings_Firegroups.S.CurrentlySelected:
-                    if (SelectOnly) { IEquipment.LimpetCollector.CurrentlySelected(CommandAudio); }
+                case ConfigurationHardpoints.S.CurrentlySelected:
+                    if (SelectOnly) { IResponse.CollectorLimpets.CurrentlySelected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.Selected:
-                    if (SelectOnly) { IEquipment.LimpetCollector.Selected(CommandAudio); }
+                case ConfigurationHardpoints.S.Selected:
+                    if (SelectOnly) { IResponse.CollectorLimpets.Selected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.NotAssigned:
-                    IEquipment.LimpetCollector.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.S.NotAssigned:
+                    IResponse.CollectorLimpets.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.S.Failed:
-                    IEquipment.LimpetCollector.SelectionFailed(CommandAudio);
+                case ConfigurationHardpoints.S.Failed:
+                    IResponse.CollectorLimpets.SelectionFailed(CommandAudio);
                     return;
-                case Settings_Firegroups.S.InHyperspace:
-                    IEquipment.LimpetCollector.NoHyperspace(CommandAudio);
+                case ConfigurationHardpoints.S.InHyperspace:
+                    IResponse.CollectorLimpets.NoHyperspace(CommandAudio);
                     return;
                 default:
                     return;
@@ -1328,16 +1329,16 @@ namespace ALICE_Actions
             if (SelectOnly) { return; }
 
             //Activate Module
-            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetCollector))
+            switch (ISettings.Firegroups.Config.Activate(ConfigurationHardpoints.Item.LimpetCollector, 75, ref IStatus.False))
             {
-                case Settings_Firegroups.A.Hyperspace:
+                case ConfigurationHardpoints.A.Hyperspace:
                     //Audio
                     return;
-                case Settings_Firegroups.A.NotAssigned:
-                    IEquipment.LimpetCollector.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.A.NotAssigned:
+                    IResponse.CollectorLimpets.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.A.Complete:
-                    IEquipment.LimpetCollector.Activating(CommandAudio);
+                case ConfigurationHardpoints.A.Complete:
+                    IResponse.CollectorLimpets.Activating(CommandAudio);
                     break;
                 default:
                     return;
@@ -1345,7 +1346,7 @@ namespace ALICE_Actions
             #endregion
 
             //Return To Previou Firegroup.
-            Call.Firegroup.Select(Temp, false);
+            IActions.Hardpoints.Select(Temp, false);
         }
 
         public void FuelLimpet(bool CommandAudio, bool SelectOnly = false)
@@ -1353,42 +1354,42 @@ namespace ALICE_Actions
             string MethodName = "Fuel Limpet Controller";
 
             //Record Current Firegroup
-            decimal Temp = Call.Firegroup.Current;
+            decimal Temp = IActions.Hardpoints.Current;
 
             #region Vaildtion Checks
             //Check Not In Hyperspace
             if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
-                IEquipment.LimpetFuel.NoHyperspace(CommandAudio);
+                IResponse.FuelLimpets.NoHyperspace(CommandAudio);
                 return;
             }
 
             //Check Installed
-            if (Check.Equipment.FuelLimpetController(true, MethodName) == false)
+            if (ICheck.Mothership.M.FuelLimpet(MethodName, true) == false)
             {
-                IEquipment.LimpetFuel.NotInstalled(CommandAudio);
+                IResponse.FuelLimpets.NotInstalled(CommandAudio);
                 return;
             }
             #endregion
 
             #region Fire Group Management
             //Select Firegroup
-            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetFuel))
+            switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.LimpetFuel))
             {
-                case Settings_Firegroups.S.CurrentlySelected:
-                    if (SelectOnly) { IEquipment.LimpetFuel.CurrentlySelected(CommandAudio); }
+                case ConfigurationHardpoints.S.CurrentlySelected:
+                    if (SelectOnly) { IResponse.FuelLimpets.CurrentlySelected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.Selected:
-                    if (SelectOnly) { IEquipment.LimpetFuel.Selected(CommandAudio); }
+                case ConfigurationHardpoints.S.Selected:
+                    if (SelectOnly) { IResponse.FuelLimpets.Selected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.NotAssigned:
-                    IEquipment.LimpetFuel.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.S.NotAssigned:
+                    IResponse.FuelLimpets.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.S.Failed:
-                    IEquipment.LimpetFuel.SelectionFailed(CommandAudio);
+                case ConfigurationHardpoints.S.Failed:
+                    IResponse.FuelLimpets.SelectionFailed(CommandAudio);
                     return;
-                case Settings_Firegroups.S.InHyperspace:
-                    IEquipment.LimpetFuel.NoHyperspace(CommandAudio);
+                case ConfigurationHardpoints.S.InHyperspace:
+                    IResponse.FuelLimpets.NoHyperspace(CommandAudio);
                     return;
                 default:
                     return;
@@ -1398,16 +1399,16 @@ namespace ALICE_Actions
             if (SelectOnly) { return; }
 
             //Activate Module
-            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetFuel))
+            switch (ISettings.Firegroups.Config.Activate(ConfigurationHardpoints.Item.LimpetFuel, 75, ref IStatus.False))
             {
-                case Settings_Firegroups.A.Hyperspace:
+                case ConfigurationHardpoints.A.Hyperspace:
                     //Audio
                     return;
-                case Settings_Firegroups.A.NotAssigned:
-                    IEquipment.LimpetFuel.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.A.NotAssigned:
+                    IResponse.FuelLimpets.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.A.Complete:
-                    IEquipment.LimpetFuel.Activating(CommandAudio);
+                case ConfigurationHardpoints.A.Complete:
+                    IResponse.FuelLimpets.Activating(CommandAudio);
                     break;
                 default:
                     return;
@@ -1415,7 +1416,7 @@ namespace ALICE_Actions
             #endregion
 
             //Return To Previou Firegroup.
-            Call.Firegroup.Select(Temp, false);
+            IActions.Hardpoints.Select(Temp, false);
         }
 
         public void ProspectorLimpet(bool CommandAudio, bool SelectOnly = false)
@@ -1423,42 +1424,42 @@ namespace ALICE_Actions
             string MethodName = "Prospector Limpet Controller";
 
             //Record Current Firegroup
-            decimal Temp = Call.Firegroup.Current;
+            decimal Temp = IActions.Hardpoints.Current;
 
             #region Vaildtion Checks
             //Check Not In Hyperspace
             if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
-                IEquipment.LimpetProspector.NoHyperspace(CommandAudio);
+                IResponse.ProspectorLimpets.NoHyperspace(CommandAudio);
                 return;
             }
 
             //Check Installed
-            if (Check.Equipment.ProspectorLimpetController(true, MethodName) == false)
+            if (ICheck.Mothership.M.ProspectorLimpet(MethodName, true) == false)
             {
-                IEquipment.LimpetProspector.NotInstalled(CommandAudio);
+                IResponse.ProspectorLimpets.NotInstalled(CommandAudio);
                 return;
             }
             #endregion
 
             #region Fire Group Management
             //Select Firegroup
-            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetProspector))
+            switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.LimpetProspector))
             {
-                case Settings_Firegroups.S.CurrentlySelected:
-                    if (SelectOnly) { IEquipment.LimpetProspector.CurrentlySelected(CommandAudio); }
+                case ConfigurationHardpoints.S.CurrentlySelected:
+                    if (SelectOnly) { IResponse.ProspectorLimpets.CurrentlySelected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.Selected:
-                    if (SelectOnly) { IEquipment.LimpetProspector.Selected(CommandAudio); }
+                case ConfigurationHardpoints.S.Selected:
+                    if (SelectOnly) { IResponse.ProspectorLimpets.Selected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.NotAssigned:
-                    IEquipment.LimpetProspector.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.S.NotAssigned:
+                    IResponse.ProspectorLimpets.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.S.Failed:
-                    IEquipment.LimpetProspector.SelectionFailed(CommandAudio);
+                case ConfigurationHardpoints.S.Failed:
+                    IResponse.ProspectorLimpets.SelectionFailed(CommandAudio);
                     return;
-                case Settings_Firegroups.S.InHyperspace:
-                    IEquipment.LimpetProspector.NoHyperspace(CommandAudio);
+                case ConfigurationHardpoints.S.InHyperspace:
+                    IResponse.ProspectorLimpets.NoHyperspace(CommandAudio);
                     return;
                 default:
                     return;
@@ -1468,16 +1469,16 @@ namespace ALICE_Actions
             if (SelectOnly) { return; }
 
             //Activate Module
-            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetProspector))
+            switch (ISettings.Firegroups.Config.Activate(ConfigurationHardpoints.Item.LimpetProspector, 75, ref IStatus.False))
             {
-                case Settings_Firegroups.A.Hyperspace:
+                case ConfigurationHardpoints.A.Hyperspace:
                     //Audio
                     return;
-                case Settings_Firegroups.A.NotAssigned:
-                    IEquipment.LimpetProspector.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.A.NotAssigned:
+                    IResponse.ProspectorLimpets.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.A.Complete:
-                    IEquipment.LimpetProspector.Activating(CommandAudio);
+                case ConfigurationHardpoints.A.Complete:
+                    IResponse.ProspectorLimpets.Activating(CommandAudio);
                     break;
                 default:
                     return;
@@ -1485,7 +1486,7 @@ namespace ALICE_Actions
             #endregion
 
             //Return To Previou Firegroup.
-            Call.Firegroup.Select(Temp, false);
+            IActions.Hardpoints.Select(Temp, false);
         }
 
         public void ReconLimpet(bool CommandAudio, bool SelectOnly = false)
@@ -1493,42 +1494,42 @@ namespace ALICE_Actions
             string MethodName = "Recon Limpet Controller";
 
             //Record Current Firegroup
-            decimal Temp = Call.Firegroup.Current;
+            decimal Temp = IActions.Hardpoints.Current;
 
             #region Vaildtion Checks
             //Check Not In Hyperspace
             if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
-                IEquipment.LimpetRecon.NoHyperspace(CommandAudio);
+                IResponse.ReconLimpets.NoHyperspace(CommandAudio);
                 return;
             }
 
             //Check Installed
-            if (Check.Equipment.ReconLimpetController(true, MethodName) == false)
+            if (ICheck.Mothership.M.ReconLimpet(MethodName, true) == false)
             {
-                IEquipment.LimpetRecon.NotInstalled(CommandAudio);
+                IResponse.ReconLimpets.NotInstalled(CommandAudio);
                 return;
             }
             #endregion
 
-            #region Fire Group Management
+            #region Fire Group Managements
             //Select Firegroup
-            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetRecon))
+            switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.LimpetRecon))
             {
-                case Settings_Firegroups.S.CurrentlySelected:
-                    if (SelectOnly) { IEquipment.LimpetRecon.CurrentlySelected(CommandAudio); }
+                case ConfigurationHardpoints.S.CurrentlySelected:
+                    if (SelectOnly) { IResponse.ReconLimpets.CurrentlySelected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.Selected:
-                    if (SelectOnly) { IEquipment.LimpetRecon.Selected(CommandAudio); }
+                case ConfigurationHardpoints.S.Selected:
+                    if (SelectOnly) { IResponse.ReconLimpets.Selected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.NotAssigned:
-                    IEquipment.LimpetRecon.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.S.NotAssigned:
+                    IResponse.ReconLimpets.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.S.Failed:
-                    IEquipment.LimpetRecon.SelectionFailed(CommandAudio);
+                case ConfigurationHardpoints.S.Failed:
+                    IResponse.ReconLimpets.SelectionFailed(CommandAudio);
                     return;
-                case Settings_Firegroups.S.InHyperspace:
-                    IEquipment.LimpetRecon.NoHyperspace(CommandAudio);
+                case ConfigurationHardpoints.S.InHyperspace:
+                    IResponse.ReconLimpets.NoHyperspace(CommandAudio);
                     return;
                 default:
                     return;
@@ -1538,16 +1539,16 @@ namespace ALICE_Actions
             if (SelectOnly) { return; }
 
             //Activate Module
-            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetRecon))
+            switch (ISettings.Firegroups.Config.Activate(ConfigurationHardpoints.Item.LimpetRecon, 75, ref IStatus.False))
             {
-                case Settings_Firegroups.A.Hyperspace:
+                case ConfigurationHardpoints.A.Hyperspace:
                     //Audio
                     return;
-                case Settings_Firegroups.A.NotAssigned:
-                    IEquipment.LimpetRecon.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.A.NotAssigned:
+                    IResponse.ReconLimpets.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.A.Complete:
-                    IEquipment.LimpetRecon.Activating(CommandAudio);
+                case ConfigurationHardpoints.A.Complete:
+                    IResponse.ReconLimpets.Activating(CommandAudio);
                     break;
                 default:
                     return;
@@ -1555,7 +1556,7 @@ namespace ALICE_Actions
             #endregion
 
             //Return To Previou Firegroup.
-            Call.Firegroup.Select(Temp, false);
+            IActions.Hardpoints.Select(Temp, false);
         }
 
         public void RepairLimpet(bool CommandAudio, bool SelectOnly = false)
@@ -1563,42 +1564,42 @@ namespace ALICE_Actions
             string MethodName = "Repair Limpet Controller";
 
             //Record Current Firegroup
-            decimal Temp = Call.Firegroup.Current;
+            decimal Temp = IActions.Hardpoints.Current;
 
             #region Vaildtion Checks
             //Check Not In Hyperspace
             if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
             {
-                IEquipment.LimpetRecon.NoHyperspace(CommandAudio);
+                IResponse.ReconLimpets.NoHyperspace(CommandAudio);
                 return;
             }
 
             //Check Installed
-            if (Check.Equipment.RepairLimpetController(true, MethodName) == false)
+            if (ICheck.Mothership.M.RepairLimpet(MethodName, true) == false)
             {
-                IEquipment.LimpetRepair.NotInstalled(CommandAudio);
+                IResponse.ReconLimpets.NotInstalled(CommandAudio);
                 return;
             }
             #endregion
 
             #region Fire Group Management
             //Select Firegroup
-            switch (ISettings.Firegroup.Select(Settings_Firegroups.Item.LimpetRepair))
+            switch (ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.LimpetRepair))
             {
-                case Settings_Firegroups.S.CurrentlySelected:
-                    if (SelectOnly) { IEquipment.LimpetRepair.CurrentlySelected(CommandAudio); }
+                case ConfigurationHardpoints.S.CurrentlySelected:
+                    if (SelectOnly) { IResponse.ReconLimpets.CurrentlySelected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.Selected:
-                    if (SelectOnly) { IEquipment.LimpetRepair.Selected(CommandAudio); }
+                case ConfigurationHardpoints.S.Selected:
+                    if (SelectOnly) { IResponse.ReconLimpets.Selected(CommandAudio); }
                     break;
-                case Settings_Firegroups.S.NotAssigned:
-                    IEquipment.LimpetRepair.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.S.NotAssigned:
+                    IResponse.ReconLimpets.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.S.Failed:
-                    IEquipment.LimpetRepair.SelectionFailed(CommandAudio);
+                case ConfigurationHardpoints.S.Failed:
+                    IResponse.ReconLimpets.SelectionFailed(CommandAudio);
                     return;
-                case Settings_Firegroups.S.InHyperspace:
-                    IEquipment.LimpetRepair.NoHyperspace(CommandAudio);
+                case ConfigurationHardpoints.S.InHyperspace:
+                    IResponse.ReconLimpets.NoHyperspace(CommandAudio);
                     return;
                 default:
                     return;
@@ -1608,16 +1609,16 @@ namespace ALICE_Actions
             if (SelectOnly) { return; }
 
             //Activate Module
-            switch (ISettings.Firegroup.Activate(Settings_Firegroups.Item.LimpetRepair))
+            switch (ISettings.Firegroups.Config.Activate(ConfigurationHardpoints.Item.LimpetRepair, 75, ref IStatus.False))
             {
-                case Settings_Firegroups.A.Hyperspace:
+                case ConfigurationHardpoints.A.Hyperspace:
                     //Audio
                     return;
-                case Settings_Firegroups.A.NotAssigned:
-                    IEquipment.LimpetRepair.NotAssigned(CommandAudio);
+                case ConfigurationHardpoints.A.NotAssigned:
+                    IResponse.ReconLimpets.NotAssigned(CommandAudio);
                     return;
-                case Settings_Firegroups.A.Complete:
-                    IEquipment.LimpetRepair.Activating(CommandAudio);
+                case ConfigurationHardpoints.A.Complete:
+                    IResponse.ReconLimpets.Activating(CommandAudio);
                     break;
                 default:
                     return;
@@ -1625,7 +1626,7 @@ namespace ALICE_Actions
             #endregion
 
             //Return To Previou Firegroup.
-            Call.Firegroup.Select(Temp, false);
+            IActions.Hardpoints.Select(Temp, false);
         }
         #endregion
     }
@@ -1660,150 +1661,5 @@ namespace ALICE_Actions
 
             Logger.Log(MethodName, "Crew Override Acivated.", Logger.Yellow);
         }
-    }
-
-    public static class Targeting
-    {
-        public static string Scan_OrdSubsystemName = "";
-
-        #region Simple Target Actions
-        public static void Cycle_Subsystems(decimal Cycle, bool Forward, bool CommandAudio) //ref decimal CurrentSubsystemPos)
-        {
-            string MethodName = "Cycle Subsystems";
-
-            if (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space) == false)
-            {
-                return;
-            }
-
-            while (Cycle != 0 && Cycle > 0)
-            {
-                if (Forward == true)
-                {
-                    IKeyboard.Press(IKey.Cycle_Next_Subsystem, 150);
-                }
-                else if (Forward == false)
-                {
-                    IKeyboard.Press(IKey.Cycle_Previous_Subsystem, 150);
-                }
-
-                if (IObjects.TargetCurrent.Targeted == false)
-                {
-                    return;
-                }
-
-                Cycle--;
-                //CurrentSubsystemPos++;
-            }
-        }
-
-        public static void Cycle_Hostile_Targets(decimal Cycle, bool Forward)
-        {
-            string MethodName = "Cycle Hostile Target";
-
-            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
-            {
-                //Audio
-                return;
-            }
-
-            while (Cycle != 0 && Cycle > 0)
-            {
-                if (Forward == true)
-                {
-                    IKeyboard.Press(IKey.Cycle_Next_Hostile_Target, 0);
-                }
-                else if (Forward == false)
-                {
-                    IKeyboard.Press(IKey.Cycle_Previous_Hostile_Ship, 0);
-                }
-                Cycle--;
-                Thread.Sleep(100);
-            }
-        }
-
-        public static void Cycle_Targets(decimal Cycle, bool Forward)
-        {
-            string MethodName = "Cycle Target";
-
-            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
-            {
-                //Audio
-                return;
-            }
-
-            while (Cycle != 0 && Cycle > 0)
-            {
-                if (Forward == true)
-                {
-                    IKeyboard.Press(IKey.Cycle_Next_Target , 0);
-                }
-                else if (Forward == false)
-                {
-                    IKeyboard.Press(IKey.Cycle_Previous_Ship , 0);
-                }
-                Cycle--;
-                Thread.Sleep(100);
-            }
-        }
-
-        public static void Select_Wingman(decimal Wingman, bool CommandAudio)
-        {
-            string MethodName = "Select Wingman";
-
-            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
-            {
-                //Audio
-                return;
-            }
-
-            if (IStatus.InWing == false)
-            {
-                //Audio - We are not in a wing.
-                return;
-            }
-
-            if (Wingman == 1)
-            {
-                IKeyboard.Press(IKey.Select_Wingman_1 , 0);
-            }
-            else if (Wingman == 2)
-            {
-                IKeyboard.Press(IKey.Select_Wingman_2, 0);
-            }
-            else if (Wingman == 3)
-            {
-                IKeyboard.Press(IKey.Select_Wingman_3, 0);
-            }
-
-            Thread.Sleep(100);
-
-            //Variable Audio Responce based on Deicmal "Wingman"
-        }
-
-        public static void Select_Wingmans_Target(decimal Wingman, bool CommandAudio)
-        {
-            if (Wingman != 0)
-            {
-                Select_Wingman(Wingman, false);
-            }
-
-            IKeyboard.Press(IKey.Select_Wingmans_Target, 100);
-
-            //DYNAMIC AUDIO
-        }
-
-        public static void Select_Wingmans_NavLock(decimal Wingman, bool CommandAudio)
-        {
-            if (Wingman != 0)
-            {
-                Select_Wingman(Wingman, false);
-            }
-            IKeyboard.Press(IKey.Wingman_NavLock, 100);
-
-            //DYNAMIC AUDIO
-        }
-
-        #endregion
-    }
+    }  
 }

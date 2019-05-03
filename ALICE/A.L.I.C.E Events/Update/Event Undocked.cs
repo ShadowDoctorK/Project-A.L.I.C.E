@@ -3,10 +3,9 @@
 //Source Journal Line: { "timestamp":"2018-10-02T05:46:45Z", "event":"Undocked", "StationName":"Morris Barracks", "StationType":"SurfaceStation", "MarketID":3524278272 }
 
 using ALICE_Actions;
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Internal;
 using ALICE_Response;
+using ALICE_Status;
 using System;
 using System.Threading;
 
@@ -57,7 +56,7 @@ namespace ALICE_Events
         {
             try
             {
-                ISet.LandingGear.Status(ClassName, true);
+                ISet.Status.LandingGear(ClassName, true);
             }
             catch (Exception ex)
             {
@@ -87,7 +86,7 @@ namespace ALICE_Events
                 new Thread((ThreadStart)(() => 
                 {
                     //Update Firegroups
-                    Call.Firegroup.Update_Total(false);
+                    IActions.Hardpoints.TotalGroups(false);
                 }))
                 {
                     IsBackground = true

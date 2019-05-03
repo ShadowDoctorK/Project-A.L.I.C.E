@@ -1,12 +1,11 @@
 using ALICE_Actions;
-using ALICE_Internal;
-using System.Threading;
-using ALICE_Settings;
 using ALICE_Debug;
-using ALICE_Core;
-using ALICE_Response;
-using ALICE_Synthesizer;
+using ALICE_Internal;
 using ALICE_Keybinds;
+using ALICE_Response;
+using ALICE_Settings;
+using ALICE_Status;
+using System.Threading;
 
 namespace ALICE_Panels
 {
@@ -420,7 +419,7 @@ namespace ALICE_Panels
                 Open(MethodName);
 
                 if (Load) { Thread.Sleep(100); UpdateCursor(1, 2, false); }
-                Thread.Sleep(ISettings.OffsetPanels);
+                Thread.Sleep(100);
                 UpdateCursor(2, 1, false); Select();
             }
         }

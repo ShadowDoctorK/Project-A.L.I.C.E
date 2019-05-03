@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-02T02:31:19Z", "event":"Commander", "Name":"Shadow Doctor K" }
 
-using ALICE_Settings;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events
@@ -64,8 +64,8 @@ namespace ALICE_Events
         {
             try
             {
-                //Load Commander Settings
-                ISettings.U_Commander(ClassName, I.Name);
+                //Update Commander Property
+                IStatus.Commander = I.Name;
             }
             catch (Exception ex)
             {

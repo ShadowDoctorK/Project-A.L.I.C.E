@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-28T18:51:15Z", "event":"NpcCrewPaidWage", "NpcCrewName":"Justine Schwarz", "NpcCrewId":101648352, "Amount":1099568 }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

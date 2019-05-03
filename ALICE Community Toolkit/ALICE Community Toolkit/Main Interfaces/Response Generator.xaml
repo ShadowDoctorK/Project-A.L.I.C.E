@@ -22,35 +22,58 @@
 
             <Label x:Name="label_ResponseName" Content="Response:" Foreground="#FFCE5A05"/>
 
-            <ListBox x:Name="ListBox_Responses" Height="327" Margin="0,0,0.667,0" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_Responses_MouseDoubleClick"/>
+            <StackPanel HorizontalAlignment="Left" Height="34" VerticalAlignment="Top" Orientation="Horizontal" Width="205">
+                <Button x:Name="btn_Response_New" Content="New" Foreground="#FFCE5A05" Background="Black" Click="btn_Response_New_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
+                <Button x:Name="btn_Response_Update" Content="Update" Foreground="#FFCE5A05" Background="Black" Click="btn_Response_Update_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
+                <Button x:Name="btn_Response_Delete" Content="Delete" Foreground="#FFCE5A05" Background="Black" Click="btn_Resposne_Delete_Click" HorizontalAlignment="Left" Width="66" Height="25" VerticalAlignment="Top"/>
+            </StackPanel>
+
+            <TextBox x:Name="TextBox_ResponseName" Height="29" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="0,0,-1.667,10"/>
+
+            <ListBox x:Name="ListBox_Responses" Height="266" Margin="0,0,0.333,0" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_Responses_MouseDoubleClick"/>
 
         </StackPanel>
 
-        <StackPanel x:Name="StackBox_Segment" HorizontalAlignment="Left" Height="380" Margin="10,410,0,0" VerticalAlignment="Top" Width="205">
+        <StackPanel x:Name="StackBox_Segment" HorizontalAlignment="Left" Height="382" Margin="10,418,0,0" VerticalAlignment="Top" Width="205">
 
             <Label x:Name="label_SegmentName" Content="Segment:" Foreground="#FFCE5A05"/>
 
-            <ListBox x:Name="ListBox_Segments" Height="344" Margin="0,0,0.667,0" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_Segments_MouseDoubleClick"/>
+            <StackPanel HorizontalAlignment="Left" Height="34" VerticalAlignment="Top" Orientation="Horizontal" Width="205">
+                <Button x:Name="btn_Segment_New" Content="New" Foreground="#FFCE5A05" Background="Black" Click="btn_Segment_New_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
+                <Button x:Name="btn_Segment_Update" Content="Update" Foreground="#FFCE5A05" Background="Black" Click="btn_Segment_Update_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
+                <Button x:Name="btn_Segment_Delete" Content="Delete" Foreground="#FFCE5A05" Background="Black" Click="btn_Segment_Delete_Click" HorizontalAlignment="Left" Width="66" Height="25" VerticalAlignment="Top"/>
+            </StackPanel>
+
+            <TextBox x:Name="TextBox_SegmentName" Height="29" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="0,0,0.333,10"/>
+
+            <ListBox x:Name="ListBox_Segments" Height="259" Margin="0,0,0.333,0" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_Segments_MouseDoubleClick"/>
 
         </StackPanel>
 
         <StackPanel x:Name="StackBox_Strings" Margin="226,397,10.333,10">
             <TextBox x:Name="TextBox_Strings" Height="29" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="0,0,0,10"/>
-            <ListBox x:Name="ListBox_Strings" Height="344" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_Strings_MouseDoubleClick" Margin="0,0,0.333,0"/>
+            <ListBox x:Name="ListBox_Strings" Height="340" Background="Black" Foreground="#FFCE5A05" MouseDoubleClick="ListBox_Strings_MouseDoubleClick" Margin="0,0,0.333,0"/>
         </StackPanel>
 
         <TextBox x:Name="TextBox_TokenDescription" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="396,270,10.333,0" Height="92" VerticalAlignment="Top"/>
-        <Label x:Name="Label_Token" Content="Tokens &amp; Description:" Foreground="#FFCE5A05" Margin="229,238,622.333,535"/>
+        <Label x:Name="Label_Token" Content="Tokens &amp; Description:" Foreground="#FFCE5A05" Margin="229,204,622.333,569"/>
 
         <Button x:Name="btn_String_New" Content="New" Margin="226,367,0,0" Foreground="#FFCE5A05" Background="Black" Click="btn_String_New_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
         <Button x:Name="btn_String_Update" Content="Update" Margin="296,367,0,0" Foreground="#FFCE5A05" Background="Black" Click="btn_String_Update_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
         <Button x:Name="btn_Strings_Delete" Content="Delete" Margin="365,367,0,0" Foreground="#FFCE5A05" Background="Black" Click="btn_Strings_Delete_Click" HorizontalAlignment="Left" Width="66" Height="25" VerticalAlignment="Top"/>
 
         <Label x:Name="Label_SegmentInfo" Content="Segment Information &amp; Description:" Foreground="#FFCE5A05" Margin="226,110,582.333,663"/>
-        <TextBox x:Name="TextBox_SegmentDescription" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="226,141,9.333,567"/>
+        <Button x:Name="btn_SegmentInfo_Update" Content="Update" Foreground="#FFCE5A05" Background="Black" Click="btn_SegmentInfo_Update_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top" Margin="436,111,0,0"/>
+        <TextBox x:Name="TextBox_SegmentDescription" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="226,141,9.333,602"/>
 
         <ListBox x:Name="ListBox_Tokens" Margin="226,270,0,0" Background="Black" Foreground="#FFCE5A05" HorizontalAlignment="Left" Width="165" Height="92" VerticalAlignment="Top" MouseDoubleClick="ListBox_Tokens_MouseDoubleClick"/>
         <Label x:Name="label_CombineFilename" Content="File Name:" Foreground="#FFCE5A05" Margin="226,73,0,0" HorizontalAlignment="Left" Width="76" Height="26" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBox_TokenName" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="226,236,0,535" HorizontalAlignment="Left" Width="165"/>
+        <StackPanel HorizontalAlignment="Left" Height="34" VerticalAlignment="Top" Orientation="Horizontal" Width="205" Margin="396,236,0,0">
+            <Button x:Name="btn_Token_New" Content="New" Foreground="#FFCE5A05" Background="Black" Click="btn_Token_New_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
+            <Button x:Name="btn_Token_Update" Content="Update" Foreground="#FFCE5A05" Background="Black" Click="btn_Token_Update_Click" HorizontalAlignment="Left" Width="69" Height="25" VerticalAlignment="Top"/>
+            <Button x:Name="btn_Token_Delete" Content="Delete" Foreground="#FFCE5A05" Background="Black" Click="btn_Token_Delete_Click" HorizontalAlignment="Left" Width="66" Height="25" VerticalAlignment="Top"/>
+        </StackPanel>
 
         <TextBox x:Name="TextBox_CombineFileName" TextWrapping="Wrap" Background="#FF0E0E0E" Foreground="#FFCE5A05" SelectionBrush="#FF873D07" Margin="303,73,0,0" HorizontalAlignment="Left" Width="432" Height="26" VerticalAlignment="Top"/>
         <CheckBox x:Name="CheckBox_Alternate" Content="Alternate" HorizontalAlignment="Left" Margin="442,373,0,0" VerticalAlignment="Top" Foreground="#FFCE5A05" Width="79"/>

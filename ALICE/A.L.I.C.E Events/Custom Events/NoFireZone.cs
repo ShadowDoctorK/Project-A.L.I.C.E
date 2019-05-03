@@ -5,10 +5,9 @@
 //Reference Journal Line: { "timestamp":"2018-10-11T19:24:25Z", "event":"ReceiveText", "From":"Hennen Station", "Message":"$STATION_NoFireZone_exited;", "Message_Localised":"No fire zone left.", "Channel":"npc" }
 
 using ALICE_Actions;
-using ALICE_Core;
 using ALICE_Debug;
-using ALICE_Internal;
 using ALICE_Response;
+using ALICE_Status;
 using System;
 using System.Threading;
 
@@ -186,6 +185,7 @@ namespace ALICE_Events
                     //Audio - Exited No Fire Zone
                     IResponse.Docking.NoFireZoneExited(
                         I.Station,                                                  //Pass Station Name
+                        (I.Station != "Unknown"),                                   //Prevents Supercruise Exit Triggering Audio
                         ICheck.Initialized(ClassName));                             //Check Plugin Initialized
 
                     Thread.Sleep(100);
@@ -194,6 +194,7 @@ namespace ALICE_Events
                     {
                         //Audio - Disabling Weapon Safeties
                         IResponse.Docking.WeaponSafetiesDisabling(
+                            (I.Station != "Unknown"),                               //Prevents Supercruise Exit Triggering Audio
                             ICheck.Initialized(ClassName));                         //Check Plugin Initialized
                     }
                 }

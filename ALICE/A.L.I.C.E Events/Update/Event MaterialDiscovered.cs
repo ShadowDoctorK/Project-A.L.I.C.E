@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-03T04:11:44Z", "event":"MaterialDiscovered", "Category":"Encoded", "Name":"guardian_moduleblueprint", "Name_Localised":"Guardian Module Blueprint Segment", "DiscoveryNumber":38 }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

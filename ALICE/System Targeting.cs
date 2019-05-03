@@ -6,6 +6,7 @@ using System.Media;
 using System.IO;
 using ALICE_Internal;
 using ALICE_Debug;
+using ALICE_Status;
 
 namespace ALICE_Actions
 {
@@ -320,7 +321,7 @@ namespace ALICE_Actions
                 return;
             }
 
-            if (ICheck.Status.Vehicle(MethodName, IVehicles.V.SRV, false) == false)
+            if (ICheck.Status.Vehicle(MethodName, IStatus.V.SRV, false) == false)
             {
                 #region Audio
                 if (PlugIn.Audio == "TTS")
@@ -365,7 +366,7 @@ namespace ALICE_Actions
 
                     //While Not In Hyperspace & Vehicle Is Not SRV...
                     while (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace, true) == true && 
-                        ICheck.Status.Vehicle(MethodName, IVehicles.V.SRV, false, false) == true)
+                        ICheck.Status.Vehicle(MethodName, IStatus.V.SRV, false, false) == true)
                     {
                         NewTarget:
 
@@ -524,8 +525,8 @@ namespace ALICE_Actions
             #endregion
 
             #region Cycle Targets
-            if (Hostile == false) { Targeting.Cycle_Targets(1, true); }
-            else if (Hostile == true) { Targeting.Cycle_Hostile_Targets(1, true); }
+            if (Hostile == false) { IActions.Targeting.Target(1, true); }
+            else if (Hostile == true) { IActions.Targeting.HostileTargets(1, true); }
             #endregion
 
             #region Target Detection
@@ -553,7 +554,7 @@ namespace ALICE_Actions
         public bool Scan_CheckValadation(string MethodName, bool Answer = true)
         {
             bool Environment = ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace, true);
-            bool Vehicle = ICheck.Status.Vehicle(MethodName, IVehicles.V.SRV, false, false);
+            bool Vehicle = ICheck.Status.Vehicle(MethodName, IStatus.V.SRV, false, false);
 
             if (Environment == false) { Answer = false; Logger.DebugLine(MethodName, "Environment Check Failed. (In Hyperspace)", Logger.Yellow); }
             if (Vehicle == false) { Answer = false; Logger.DebugLine(MethodName, "Vehicle Check Failed. (In SRV)", Logger.Yellow); }
@@ -752,7 +753,7 @@ namespace ALICE_Actions
                 
                 if (IObjects.TargetCurrent.Subsystem.Name != System)
                 {
-                    Targeting.Cycle_Subsystems(1, false, false);
+                    IActions.Targeting.Subsystems(1, false, false);
                     Wait_Targeted = true;
                 }
 

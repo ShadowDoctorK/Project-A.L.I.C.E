@@ -8,6 +8,7 @@ using ALICE_Core;
 using ALICE_Data;
 using ALICE_Debug;
 using ALICE_Internal;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

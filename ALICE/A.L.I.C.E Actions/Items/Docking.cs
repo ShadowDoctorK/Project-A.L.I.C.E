@@ -1,9 +1,8 @@
-﻿using ALICE_Core;
-using ALICE_Debug;
-using ALICE_Equipment;
+﻿using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Keybinds;
 using ALICE_Response;
+using ALICE_Status;
 using System.Threading;
 
 namespace ALICE_Actions
@@ -135,7 +134,7 @@ namespace ALICE_Actions
                     #region Assisted Docking
                     if (ICheck.Order.AssistDocking(MethodName, true, true))
                     {
-                        switch (Check.Equipment.DockingComputer(true, MethodName))
+                        switch (IStatus.Docking.AsisstedDockingReport)
                         {
                             case true:
                                 IKeyboard.Press(IKey.Set_Speed_To_0, 0, IKey.DelayThrottle);
@@ -144,7 +143,7 @@ namespace ALICE_Actions
                                 //Resets the Report Bool for if the docking computer is not
                                 //installed. This allows us to report again if Assisted Docking
                                 //is enabled and there is no docking computer again.
-                                IEquipment.DockingComputer.AsisstedDockingReport = true;
+                                IStatus.Docking.AsisstedDockingReport = true;
 
                                 //Return: Docking Preps Controlled By Auto Docking.
                                 return;
@@ -152,10 +151,10 @@ namespace ALICE_Actions
                             case false:
                                 IResponse.DockingComputer.NotInstalled(
                                     CommandAudio,
-                                    IEquipment.DockingComputer.AsisstedDockingReport);
+                                    IStatus.Docking.AsisstedDockingReport);
 
                                 //Prevents Reporting No Docking Computer more then once.
-                                IEquipment.DockingComputer.AsisstedDockingReport = false;
+                                IStatus.Docking.AsisstedDockingReport = false;
                                 break;
                         }
                     }
@@ -174,7 +173,7 @@ namespace ALICE_Actions
                     {
                         case IEnums.DockingState.Granted:
 
-                            if (ICheck.LandingGear.Status(MethodName, true, true) == true)
+                            if (ICheck.Status.LandingGear(MethodName, true) == true)
                             {
                                 Call.Action.LandingGear(false, false);
                             }

@@ -2,7 +2,7 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-11T23:07:13Z", "event":"NpcCrewRank", "NpcCrewName":"Justine Schwarz", "NpcCrewId":101648352, "RankCombat":1 }
 
-using ALICE_Core;
+using ALICE_Status;
 using System;
 
 namespace ALICE_Events

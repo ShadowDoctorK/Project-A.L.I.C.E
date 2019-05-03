@@ -3,8 +3,7 @@
 //Source Journal Line: (Custom A.L.I.C.E Event)
 
 using ALICE_Debug;
-using ALICE_Internal;
-using ALICE_Objects;
+using ALICE_Status;
 using ALICE_Synthesizer;
 using System;
 
@@ -84,8 +83,8 @@ namespace ALICE_Events
                         "".Phrase(EVT_Masslock.Entered),                        
                         ICheck.Report.Masslock(ClassName, true, true),                      //Check Report Enabled
                         ICheck.Initialized(ClassName),                                      //Check Plugin Initialized
-                        ICheck.Status.Vehicle(ClassName, IVehicles.V.Mothership, true)      //Check Vehicle Is Mothership
-                        );
+                        ICheck.Status.Vehicle(ClassName, IStatus.V.Mothership, true)        //Check Vehicle Is Mothership
+                        );                    
                 }
                 //False
                 else
@@ -96,13 +95,31 @@ namespace ALICE_Events
                         "".Phrase(EVT_Masslock.Exited),                        
                         ICheck.Report.Masslock(ClassName, true, true),                      //Check Report Enabled
                         ICheck.Initialized(ClassName),                                      //Check Plugin Initialized
-                        ICheck.Status.Vehicle(ClassName, IVehicles.V.Mothership, true)      //Check Vehicle Is Mothership
+                        ICheck.Status.Vehicle(ClassName, IStatus.V.Mothership, true)        //Check Vehicle Is Mothership
                         );
                 }               
             }
             catch (Exception ex)
             {
                 ExceptionProcess(Name, ex);
+            }
+        }
+
+        //Plugin Property Aligment
+        public override void Alignment(object O)
+        {
+            try
+            {
+                //Not Masslocked && Plugin Initialized
+                if (I.Status == false && ICheck.Initialized(ClassName))
+                {
+                    //Ship Is Undocked.
+                    ISet.Docking.Status(ClassName, ALICE_Internal.IEnums.DockingState.Undocked);
+                }                
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
             }
         }
     }

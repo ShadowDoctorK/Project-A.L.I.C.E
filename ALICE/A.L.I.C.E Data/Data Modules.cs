@@ -8,14 +8,9 @@ using System.Linq;
 
 namespace ALICE_Data
 {
-    public class Data_Modules
+    public class D_Modules
     {
-        private static List<GameModule> _Modules = Load();
-        public static List<GameModule> Modules
-        {
-            get => _Modules;
-            private set => _Modules = value;
-        }
+        public static List<GameModule> Modules { get; private set; } = Load();
 
         /// <summary>
         /// Collection of Modules We Can Ignore In The Developer Log.
@@ -29,8 +24,7 @@ namespace ALICE_Data
             "Customisation",
             "VoicePack",
             "Cockpit",
-            "ModularCargoBayDoor",
-            "Guardian"
+            "ModularCargoBayDoor"
         };
 
         public bool IgnoreCheck(string Module)
