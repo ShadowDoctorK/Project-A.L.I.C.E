@@ -60,6 +60,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="A.L.I.C.E Actions\Development\Targeting.cs" />
+    <Compile Include="A.L.I.C.E Actions\Items\Pulse Wave Analyser.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Reports.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Orders.cs" />
     <Compile Include="A.L.I.C.E Actions\Items\Hardpoints.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="A.L.I.C.E Collections\Collection Events.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection EventTypes.cs" />
     <Compile Include="A.L.I.C.E Collections\Collection Variables.cs" />
+    <Compile Include="A.L.I.C.E Debug\Events\FSSAllBodiesFound.cs" />
     <Compile Include="A.L.I.C.E Monitors\IMonitors.cs" />
     <Compile Include="A.L.I.C.E Debug\IActions\Discovery Scanner.cs" />
     <Compile Include="A.L.I.C.E Debug\Events\ProspectedAsteroid.cs" />
@@ -110,8 +113,10 @@
     <Compile Include="A.L.I.C.E Debug\Settings\Orders.cs" />
     <Compile Include="A.L.I.C.E Debug\Settings\Platform.cs" />
     <Compile Include="A.L.I.C.E Debug\Status\Docking.cs" />
+    <Compile Include="A.L.I.C.E Monitors\Keybinds.cs" />
     <Compile Include="A.L.I.C.E Monitors\Settings.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Bounty.cs" />
+    <Compile Include="A.L.I.C.E Response\Class\Equipment\Full Spectrum Scanner.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Fuel.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Equipment\Chaff.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Equipment\Mining Laser.cs" />
@@ -180,7 +185,7 @@
     <Compile Include="A.L.I.C.E Events\Update\Event Friends.cs" />
     <Compile Include="A.L.I.C.E Events\Game Events\FSDJump.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event FSDTarget.cs" />
-    <Compile Include="A.L.I.C.E Events\Update\Event FSSAllBodiesFound.cs" />
+    <Compile Include="A.L.I.C.E Events\Game Events\FSSAllBodiesFound.cs" />
     <Compile Include="A.L.I.C.E Events\Game Events\FSSDiscoveryScan.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event FSSSignalDiscovered.cs" />
     <Compile Include="A.L.I.C.E Events\Update\Event HeatDamage.cs" />
@@ -308,7 +313,6 @@
     <Compile Include="A.L.I.C.E Interface\IVoiceMacro.cs" />
     <Compile Include="A.L.I.C.E Interface\IXmlControl.cs" />
     <Compile Include="A.L.I.C.E Interface\ICommands\Actions.cs" />
-    <Compile Include="A.L.I.C.E Objects\IVehicles.cs" />
     <Compile Include="A.L.I.C.E Objects\Object Target.cs" />
     <Compile Include="A.L.I.C.E Response\Class\Panels.cs" />
     <Compile Include="A.L.I.C.E Response\Class\General.cs" />

@@ -73,6 +73,9 @@
     <Compile Include="Core\Settings User.cs" />
     <Compile Include="Core\Settings.cs" />
     <Compile Include="Core\Data.cs" />
+    <Compile Include="Childern Dashboard\Firegroup Controls.xaml.cs">
+      <DependentUpon>Firegroup Controls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Main Interfaces\Exploration.xaml.cs">
       <DependentUpon>Exploration.xaml</DependentUpon>
     </Compile>
@@ -89,6 +92,10 @@
       <DependentUpon>PlugInSettings.xaml</DependentUpon>
     </Compile>
     <Page Include="Childern Dashboard\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Childern Dashboard\Firegroup Controls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

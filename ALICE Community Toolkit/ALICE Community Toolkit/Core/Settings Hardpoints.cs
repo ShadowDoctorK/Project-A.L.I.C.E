@@ -76,6 +76,9 @@ namespace ALICE_Community_Toolkit
         {
             Weapons1,
             Weapons2,
+            Prospecting,
+            Collecting,
+            Extracting,
             ECM,
             FieldNeutraliser,
             FSDInterdictor,
@@ -107,15 +110,21 @@ namespace ALICE_Community_Toolkit
             ShieldCellTwo,
             ShieldCellThree,
             ShieldCellFour,
-            PulseWaveAnalyser
+            PulseWaveAnalyser,
+            AbrasionBlaster,
+            DisplacementMissile,
+            SeismicChargeLauncher
         }
         public enum S { Selected, NotAssigned, Failed, CurrentlySelected, InHyperspace }
-        public enum A { Hyperspace, NotAssigned, Complete, Fail }
+        public enum A { Hyperspace, NotAssigned, GroupChange, Complete, Fail }
 
         public string ShipAssignment { get; set; } = "Default";
         public decimal Groups { get; set; }
         public Assignemnt Weapons1 { get; set; }
         public Assignemnt Weapons2 { get; set; }
+        public Assignemnt Prospecting { get; set; }
+        public Assignemnt Collecting { get; set; }
+        public Assignemnt Extracting { get; set; }
         public Assignemnt ECM { get; set; }
         public Assignemnt FSDInterdictor { get; set; }
         public Assignemnt FieldNeutraliser { get; set; }
@@ -148,6 +157,9 @@ namespace ALICE_Community_Toolkit
         public Assignemnt ShieldCellThree { get; set; }
         public Assignemnt ShieldCellFour { get; set; }
         public Assignemnt PulseWaveAnalyser { get; set; }
+        public Assignemnt AbrasionBlaster { get; set; }
+        public Assignemnt DisplacementMissile { get; set; }
+        public Assignemnt SeismicChargeLauncher { get; set; }
         #endregion
 
         public ConfigurationHardpoints()
@@ -164,7 +176,28 @@ namespace ALICE_Community_Toolkit
             //Secondary Weapons Group
             Weapons2 = new Assignemnt
             {
-                FireGroup = Group.A,
+                FireGroup = Group.None,
+                FireMode = Fire.Primary
+            };
+
+            //Secondary Weapons Group
+            Prospecting = new Assignemnt
+            {
+                FireGroup = Group.None,
+                FireMode = Fire.Primary
+            };
+
+            //Secondary Weapons Group
+            Collecting = new Assignemnt
+            {
+                FireGroup = Group.None,
+                FireMode = Fire.Primary
+            };
+
+            //Secondary Weapons Group
+            Extracting = new Assignemnt
+            {
+                FireGroup = Group.None,
                 FireMode = Fire.Primary
             };
 
@@ -200,11 +233,17 @@ namespace ALICE_Community_Toolkit
             ShieldCellThree = new Assignemnt();
             ShieldCellFour = new Assignemnt();
             PulseWaveAnalyser = new Assignemnt();
+            AbrasionBlaster = new Assignemnt();
+            DisplacementMissile = new Assignemnt();
+            SeismicChargeLauncher = new Assignemnt();
         }
 
         #region Support / Conversion Items
         public decimal ConvertGroupFromEnum(Group G)
         {
+            string MethodName = "Convert Group";
+            Logger.DebugLine(MethodName, "Converting Group: " + G, Logger.Yellow);
+
             switch (G)
             {
                 case Group.None:
@@ -232,6 +271,9 @@ namespace ALICE_Community_Toolkit
 
         public Group ConvertGroupFromDecimal(decimal G)
         {
+            string MethodName = "Convert Group";
+            Logger.DebugLine(MethodName, "Converting Group: " + G, Logger.Yellow);
+
             switch (G)
             {
                 case 1:
@@ -273,6 +315,8 @@ namespace ALICE_Community_Toolkit
         public Group ConvertGroupToEnum(string Letter)
         {
             string MethodName = "Convert FireGroup";
+            Logger.DebugLine(MethodName, "Converting Group: " + Letter, Logger.Yellow);
+
             switch (Letter)
             {
                 case "A":
@@ -379,6 +423,12 @@ namespace ALICE_Community_Toolkit
                     return false;                   //Combat Mode
                 case Item.Weapons2:
                     return false;                   //Combat Mode
+                case Item.Prospecting:
+                    return true;
+                case Item.Collecting:
+                    return true;
+                case Item.Extracting:
+                    return true;
                 case Item.ECM:
                     return false;                   //Combat Mode
                 case Item.FieldNeutraliser:
@@ -441,6 +491,12 @@ namespace ALICE_Community_Toolkit
                     return false;                   //Combat Mode
                 case Item.PulseWaveAnalyser:
                     return true;
+                case Item.AbrasionBlaster:
+                    return true;
+                case Item.DisplacementMissile:
+                    return true;
+                case Item.SeismicChargeLauncher:
+                    return true;
                 default:
                     Logger.Log(MethodName, I + " Hud Mode Not Defined, Using Default \"False\"", Logger.Red);
                     return false;
@@ -449,7 +505,7 @@ namespace ALICE_Community_Toolkit
 
         public static bool CheckEnabled(Assignemnt A)
         {
-            //Total Firegroup Less Than Assigned Disble
+            //Total FireGroups Less Than Assigned Disble
             //Module Not Installed Disable
             //Module Turned Off Disable
             return true;
@@ -458,6 +514,7 @@ namespace ALICE_Community_Toolkit
         public Assignemnt GetAssignemnt(Item I)
         {
             string MethodName = "Assisted Firegroup (Get Assignement)";
+            Logger.DebugLine(MethodName, "Getting Assignement: " + I, Logger.Yellow);
 
             switch (I)
             {
@@ -465,6 +522,12 @@ namespace ALICE_Community_Toolkit
                     return Weapons1;
                 case Item.Weapons2:
                     return Weapons2;
+                case Item.Prospecting:
+                    return Prospecting;
+                case Item.Collecting:
+                    return Collecting;
+                case Item.Extracting:
+                    return Extracting;
                 case Item.ECM:
                     return ECM;
                 case Item.LimpetCollector:
@@ -523,6 +586,12 @@ namespace ALICE_Community_Toolkit
                     return ShieldCellFour;
                 case Item.PulseWaveAnalyser:
                     return PulseWaveAnalyser;
+                case Item.AbrasionBlaster:
+                    return AbrasionBlaster;
+                case Item.DisplacementMissile:
+                    return DisplacementMissile;
+                case Item.SeismicChargeLauncher:
+                    return SeismicChargeLauncher;
                 default:
                     Logger.DevUpdateLog(MethodName, I.ToString() + " Logic Does Not Exist, Unable To Get Assignement.", Logger.Red);
                     return new Assignemnt();

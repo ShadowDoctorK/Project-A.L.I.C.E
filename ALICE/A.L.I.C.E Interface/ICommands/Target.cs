@@ -21,15 +21,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Select:
-                            Targeting.Select_Wingman(1, IGet.External.CommandAudio(ICommands.M));
+                            IActions.Targeting.Wingman(1, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Nav_Lock:
-                            Targeting.Select_Wingmans_NavLock(1, IGet.External.CommandAudio(ICommands.M));
+                            IActions.Targeting.WingmansNavLock(1, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Target:
-                            Targeting.Select_Wingmans_Target(1, IGet.External.CommandAudio(ICommands.M));
+                            IActions.Targeting.WingmansTarget(1, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -42,15 +42,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Select:
-                            Targeting.Select_Wingman(2, IGet.External.CommandAudio(ICommands.M));
+                            IActions.Targeting.Wingman(2, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Nav_Lock:
-                            Targeting.Select_Wingmans_NavLock(2, IGet.External.CommandAudio(ICommands.M));
+                            IActions.Targeting.WingmansNavLock(2, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Target:
-                            Targeting.Select_Wingmans_Target(2, IGet.External.CommandAudio(ICommands.M));
+                            IActions.Targeting.WingmansTarget(2, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -63,15 +63,15 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Select:
-                            Targeting.Select_Wingman(3, IGet.External.CommandAudio(ICommands.M));
+                            IActions.Targeting.Wingman(3, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Nav_Lock:
-                            Targeting.Select_Wingmans_NavLock(3, IGet.External.CommandAudio(ICommands.M));
+                            IActions.Targeting.WingmansNavLock(3, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Target:
-                            Targeting.Select_Wingmans_Target(3, IGet.External.CommandAudio(ICommands.M));
+                            IActions.Targeting.WingmansTarget(3, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         default:
@@ -84,11 +84,11 @@ namespace ALICE_Interface
                     switch (Command[2].Lookup<L2>())
                     {
                         case L2.Next:
-                            Targeting.Cycle_Subsystems(1, true, IGet.External.CommandAudio(ICommands.M));
+                            IActions.Targeting.Subsystems(1, true, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Previous:
-                            Targeting.Cycle_Subsystems(1, false, IGet.External.CommandAudio(ICommands.M));
+                            IActions.Targeting.Subsystems(1, false, IGet.External.CommandAudio(ICommands.M));
                             return;
 
                         case L2.Shield_Generator:
@@ -138,13 +138,13 @@ namespace ALICE_Interface
                     {
                         case L2.Next:
                             Thread HostileNext = new Thread((ThreadStart)(() => 
-                            { Targeting.Cycle_Hostile_Targets(IGet.External.TargetCycle(ICommands.M, true), true); }))
+                            { IActions.Targeting.HostileTargets(IGet.External.TargetCycle(ICommands.M, true), true); }))
                             { IsBackground = true }; HostileNext.Start();
                             return;
 
                         case L2.Previous:
                             Thread HostilePrevious = new Thread((ThreadStart)(() =>
-                            { Targeting.Cycle_Hostile_Targets(IGet.External.TargetCycle(ICommands.M, true), false); }))
+                            { IActions.Targeting.HostileTargets(IGet.External.TargetCycle(ICommands.M, true), false); }))
                             { IsBackground = true }; HostilePrevious.Start();
                             return;
 
@@ -159,13 +159,13 @@ namespace ALICE_Interface
                     {
                         case L2.Next:
                             Thread GeneralNext = new Thread((ThreadStart)(() =>
-                            { Targeting.Cycle_Targets(IGet.External.TargetCycle(ICommands.M, true), true); }))
+                            { IActions.Targeting.Target(IGet.External.TargetCycle(ICommands.M, true), true); }))
                             { IsBackground = true }; GeneralNext.Start();
                             return;
 
                         case L2.Previous:
                             Thread GeneralPrevious = new Thread((ThreadStart)(() =>
-                            { Targeting.Cycle_Targets(IGet.External.TargetCycle(ICommands.M, true), false); }))
+                            { IActions.Targeting.Target(IGet.External.TargetCycle(ICommands.M, true), false); }))
                             { IsBackground = true }; GeneralPrevious.Start();
                             return;
 

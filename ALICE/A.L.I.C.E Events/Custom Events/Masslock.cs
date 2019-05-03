@@ -84,7 +84,7 @@ namespace ALICE_Events
                         ICheck.Report.Masslock(ClassName, true, true),                      //Check Report Enabled
                         ICheck.Initialized(ClassName),                                      //Check Plugin Initialized
                         ICheck.Status.Vehicle(ClassName, IStatus.V.Mothership, true)        //Check Vehicle Is Mothership
-                        );
+                        );                    
                 }
                 //False
                 else
@@ -102,6 +102,24 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionProcess(Name, ex);
+            }
+        }
+
+        //Plugin Property Aligment
+        public override void Alignment(object O)
+        {
+            try
+            {
+                //Not Masslocked && Plugin Initialized
+                if (I.Status == false && ICheck.Initialized(ClassName))
+                {
+                    //Ship Is Undocked.
+                    ISet.Docking.Status(ClassName, ALICE_Internal.IEnums.DockingState.Undocked);
+                }                
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
             }
         }
     }

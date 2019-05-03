@@ -201,15 +201,13 @@ namespace ALICE_Interface
                         case L2.Deploy:
                             IActions.Hardpoints.Operate(
                                 true,                                                   //Deploy
-                                IGet.External.CommandAudio(ICommands.M),                //Get Command Audio From Platform
-                                false);                                                 //Maintain Current Group + Mode
+                                IGet.External.CommandAudio(ICommands.M));               //Get Command Audio From Platform                               
                             return;
                        
                         case L2.Retract:
                             IActions.Hardpoints.Operate(
                                 false,                                                  //Retract
-                                IGet.External.CommandAudio(ICommands.M),                //Get Command Audio From Platform
-                                false,                                                  //Maintain Current Group
+                                IGet.External.CommandAudio(ICommands.M),                //Get Command Audio From Platform                                
                                 Hardpoints.M.Analysis);                                 //Switch Mode To Analysis
                             return;
 
@@ -284,6 +282,75 @@ namespace ALICE_Interface
                                     IActions.Hardpoints.Mode(
                                         !IGet.Status.AnalysisMode(ICommands.M),
                                         IGet.External.CommandAudio(ICommands.M));
+                                    return;
+
+                                default:
+                                    ICommands.LogInvalid(ICommands.M, Command, 3);
+                                    return;
+                            }
+
+                        default:
+                            ICommands.LogInvalid(ICommands.M, Command, 2);
+                            return;
+                    }
+
+                case L1.Groups:
+
+                    switch (Command[2].Lookup<L2>())
+                    {
+                        case L2.Prospect:
+
+                            switch (Command[3].Lookup<L3>())
+                            {
+                                case L3.Assign:
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.Prospecting,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)), 
+                                        ConfigurationHardpoints.Fire.Primary);
+                                    return;
+
+                                case L3.Select:
+                                    ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.Prospecting);
+                                    return;
+
+                                default:
+                                    ICommands.LogInvalid(ICommands.M, Command, 3);
+                                    return;
+                            }
+
+                        case L2.Collection:
+
+                            switch (Command[3].Lookup<L3>())
+                            {
+                                case L3.Assign:
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.Collecting,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                        ConfigurationHardpoints.Fire.Primary);
+                                    return;
+
+                                case L3.Select:
+                                    ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.Collecting);
+                                    return;
+
+                                default:
+                                    ICommands.LogInvalid(ICommands.M, Command, 3);
+                                    return;
+                            }
+
+                        case L2.Extraction:
+
+                            switch (Command[3].Lookup<L3>())
+                            {
+                                case L3.Assign:
+                                    ISettings.Firegroups.Config.Assign(
+                                        ConfigurationHardpoints.Item.Extracting,
+                                        ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                        ConfigurationHardpoints.Fire.Primary);
+                                    return;
+
+                                case L3.Select:
+                                    ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.Extracting);
                                     return;
 
                                 default:
@@ -674,10 +741,6 @@ namespace ALICE_Interface
 
                     switch (Command[2].Lookup<L2>())
                     {
-                        case L2.Activate:
-                            ICommands.LogNotImplemented(ICommands.M, Command, 2);
-                            return;
-
                         case L2.Select:
                             ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.LaserMinning);
                             return;
@@ -694,6 +757,65 @@ namespace ALICE_Interface
                             return;
                     }
 
+                case L1.Abrasion_Blaster:
+
+                    switch (Command[2].Lookup<L2>())
+                    {
+                        case L2.Select:
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.AbrasionBlaster);
+                            return;
+
+                        case L2.Assign:
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.AbrasionBlaster,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            return;
+
+                        default:
+                            ICommands.LogInvalid(ICommands.M, Command, 2);
+                            return;
+                    }
+
+                case L1.Sub_Surface_Displacement:
+
+                    switch (Command[2].Lookup<L2>())
+                    {
+                        case L2.Select:
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.DisplacementMissile);
+                            return;
+
+                        case L2.Assign:
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.DisplacementMissile,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            return;
+
+                        default:
+                            ICommands.LogInvalid(ICommands.M, Command, 2);
+                            return;
+                    }
+
+                case L1.Seismic_Charge_Launcher:
+
+                    switch (Command[2].Lookup<L2>())
+                    {
+                        case L2.Select:
+                            ISettings.Firegroups.Config.Select(ConfigurationHardpoints.Item.SeismicChargeLauncher);
+                            return;
+
+                        case L2.Assign:
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.SeismicChargeLauncher,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            return;
+
+                        default:
+                            ICommands.LogInvalid(ICommands.M, Command, 2);
+                            return;
+                    }
                 case L1.Kill_Warrent_Scanner:
 
                     switch (Command[2].Lookup<L2>())
@@ -764,7 +886,39 @@ namespace ALICE_Interface
                         default:
                             ICommands.LogInvalid(ICommands.M, Command, 2);
                             return;
-                    }                    
+                    }
+
+                case L1.Pulse_Wave_Analyser:
+
+                    switch (Command[2].Lookup<L2>())
+                    {
+                        case L2.Activate:
+                            IActions.PulseWaveAnalyser.Operate(IGet.External.CommandAudio(ICommands.M));
+                            return;
+                            
+                        case L2.Select:
+                            IActions.PulseWaveAnalyser.Operate(IGet.External.CommandAudio(ICommands.M), true);
+                            return;
+
+                        case L2.Pulse:
+                            IActions.PulseWaveAnalyser.Scan();
+                            return;
+
+                        case L2.Deactivate:
+                            IActions.PulseWaveAnalyser.Maintain = false;
+                            return;
+
+                        case L2.Assign:
+                            ISettings.Firegroups.Config.Assign(
+                                ConfigurationHardpoints.Item.PulseWaveAnalyser,
+                                ISettings.Firegroups.Config.ConvertGroupToEnum(IGet.External.FireGroup(ICommands.M, true)),
+                                ISettings.Firegroups.Config.ConverFireToEnum(IGet.External.FireMode(ICommands.M, true)));
+                            return;
+
+                        default:
+                            ICommands.LogInvalid(ICommands.M, Command, 2);
+                            return;
+                    }
 
                 case L1.Night_Vision:
 

@@ -525,8 +525,8 @@ namespace ALICE_Actions
             #endregion
 
             #region Cycle Targets
-            if (Hostile == false) { Targeting.Cycle_Targets(1, true); }
-            else if (Hostile == true) { Targeting.Cycle_Hostile_Targets(1, true); }
+            if (Hostile == false) { IActions.Targeting.Target(1, true); }
+            else if (Hostile == true) { IActions.Targeting.HostileTargets(1, true); }
             #endregion
 
             #region Target Detection
@@ -753,7 +753,7 @@ namespace ALICE_Actions
                 
                 if (IObjects.TargetCurrent.Subsystem.Name != System)
                 {
-                    Targeting.Cycle_Subsystems(1, false, false);
+                    IActions.Targeting.Subsystems(1, false, false);
                     Wait_Targeted = true;
                 }
 

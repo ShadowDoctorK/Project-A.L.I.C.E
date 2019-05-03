@@ -1,20 +1,21 @@
-﻿using ALICE_Internal;
+﻿using ALICE_Debug;
+using ALICE_Internal;
+using ALICE_Keybinds;
 using ALICE_Settings;
 using System;
 using System.IO;
 using System.Threading;
 
-namespace ALICE_Community_Toolkit
+namespace ALICE_Monitors
 {
-    public class Monitor_Settings : ALICE_Monitors.MonitorBase
+    public class Monitor_Keybinds : MonitorBase
     {
         #region Properties
         //Settings
         public MonitorSettings Settings { get; set; }
 
         //FileData Objects
-        public FileUser User = new FileUser(false);        
-        public FileFiregroups Firegroups = new FileFiregroups(false);
+        public FileKeybinds Keybinds = new FileKeybinds(false);
         #endregion
 
         #region Constructors
@@ -27,68 +28,85 @@ namespace ALICE_Community_Toolkit
         /// <param name="Use">Monitor User.Settings</param>
         /// <param name="Shi">Monitor Shipyard.Settings</param>
         /// <param name="Fir">Monitor Firegroup.Settings</param>
-        public Monitor_Settings(bool E, bool I, bool R, bool Use = true, bool Shi = true, bool Fir = true)
+        public Monitor_Keybinds(bool E, bool I, bool R, bool Key = true)
         {
             Settings = new MonitorSettings(E, I, R);
-            User = new FileUser(Use);            
-            Firegroups = new FileFiregroups(Fir);
+            Keybinds = new FileKeybinds(Key);
         }
         #endregion
 
         public void Start()
         {
-            string MethodName = "Settings Monitor";
-
+            string MethodName = "Keybinds Monitor";
+           
             try
-            {
+            {                               
                 //Enter Monitor State And Lock The Door Behind Us...
                 if (Monitor.TryEnter(Settings.Lock))
                 {
+                    #region Pre Monitoring Items
+                    //Retrieve Config Variables From Platform
+                    PlugIn.KeybindLogging = IGet.External.KeybindLogging(MethodName);
+
+                    //Log Setting
+                    if (PlugIn.VariableLogging)
+                    {
+                        Logger.Log(MethodName, "Keybind Logging Enabled", Logger.Yellow);
+                    }
+
+                    //Debug Logger
+                    Logger.DebugLine(MethodName, "Verifying Alice Binds File...", Logger.Blue);
+
+                    //Check Alice Binds File
+                    Paths.Load_UpdateBindsFile();
+
+                    //Debug Logger                    
+                    Logger.DebugLine(MethodName, "Loading Keybinds...", Logger.Blue);
+                    #endregion
+
                     //Start Monitoring
                     Start: try
-                    {
+                    {                        
                         while (Settings.Enabled)
                         {
                             //Sleep for 1/10th Of A Second
                             Thread.Sleep(100);
 
-                            //Check User.Settings
+                            //Check keybinds File
                             try
                             {
-                                if (User.Enabled && User.File == null) { User.GetFileInfo(); }
-                                if (User.Enabled && User.File != null && CheckFile(ref User.File, ref User.InitialLoad))
+                                //Get Initial File Info
+                                if (Keybinds.Enabled && Keybinds.File == null)
                                 {
-                                    Update1(); User.InitialLoad = false;
+                                    Keybinds.GetFileInfo();
+                                }
+
+                                //Valitdate Keybinds File
+                                if (Keybinds.Name != ISettings.User.BindsFile())
+                                {
+                                    Keybinds = new FileKeybinds(true, ISettings.User.BindsFile());
+                                    Keybinds.GetFileInfo();
+                                }
+
+                                //Proces New Changes
+                                if (Keybinds.Enabled && Keybinds.File != null && CheckFile(ref Keybinds.File, ref Keybinds.InitialLoad))
+                                {
+                                    Update1(); Keybinds.InitialLoad = false;
                                 }
                             }
                             catch (Exception ex)
                             {
                                 Logger.Exception(MethodName, "Exception: " + ex);
-                                Logger.Exception(MethodName, "[User.Settings] The Hamster Is Trying To Fix His Wheel...");
+                                Logger.Exception(MethodName, "[Keybinds] The Hamster Is Trying To Fix His Wheel...");
                             }
-
-                            //Check Firegroup.Settings
-                            try
-                            {
-                                if (Firegroups.Enabled && Firegroups.File == null) { Firegroups.GetFileInfo(); }
-                                if (Firegroups.Enabled && Firegroups.File != null && CheckFile(ref Firegroups.File, ref Firegroups.InitialLoad))
-                                {
-                                    Update3(); Firegroups.InitialLoad = false;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                Logger.Exception(MethodName, "Exception: " + ex);
-                                Logger.Exception(MethodName, "[Firegroup.Settings] The Hamster Is Trying To Fix His Wheel...");
-                            }
-
+                
                             //Check Initialized
                             if (Settings.Initialized == false)
                             {
                                 //Log Init
                                 Settings.Initialized = true;
                             }
-                        }
+                        }                         
                     }
                     catch (Exception ex)
                     {
@@ -126,58 +144,28 @@ namespace ALICE_Community_Toolkit
 
             try
             {
-                var Temp = new SettingsUser().Load();
-                TKSettings.User = Temp;
-                MainWindow.UpdateButtons();
+                //Load Game Binds
+                IKeyboard.LoadKeybinds();
             }
             catch (Exception ex)
             {
                 Logger.Exception(MethodName, "Exception: " + ex);
                 Logger.Exception(MethodName, "[Failed] The Hamster Made A Mistake And Forgot What He Was Doing...");
             }
-        }
-
-        public override void Update3()
-        {
-            string MethodName = "Firegroup Settings (Update)";
-
-            try
-            {
-                var Temp = new SettingsHardpoints().Load();
-                TKSettings.Firegroup = Temp;
-                MainWindow.UpdateButtons();
-            }
-            catch (Exception ex)
-            {
-                Logger.Exception(MethodName, "Exception: " + ex);
-                Logger.Exception(MethodName, "[Failed] The Hamster Made A Mistake And Forgot What He Was Doing...");
-            }
-        }
+        }        
 
         #region Settings
-        public class FileFiregroups : FileBase
+        public class FileKeybinds : FileBase
         {
-            public FileFiregroups(bool E)
+            public FileKeybinds(bool E, string F = "A.L.I.C.E Profile.3.0.binds")
             {
                 File = null;
                 Stamp = new DateTime();
                 Enabled = E;
-                Name = "Firegroup.Settings";
-                Dir = new DirectoryInfo(Paths.ALICE_Settings);
+                Name = F;
+                Dir = new DirectoryInfo(Paths.Binds_Location);
             }
-        }
-
-        public class FileUser : FileBase
-        {
-            public FileUser(bool E)
-            {
-                File = null;
-                Stamp = new DateTime();
-                Enabled = E;
-                Name = "User.Settings";
-                Dir = new DirectoryInfo(Paths.ALICE_Settings);
-            }
-        }
+        }       
         #endregion
     }
 }

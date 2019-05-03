@@ -1,15 +1,14 @@
-﻿using System.Threading;
+﻿using ALICE.Properties;
 using ALICE_Core;
+using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Keybinds;
-using ALICE_Objects;
-using ALICE.Properties;
 using ALICE_Panels;
-using ALICE_Synthesizer;
-using ALICE_Settings;
-using ALICE_Debug;
 using ALICE_Response;
+using ALICE_Settings;
 using ALICE_Status;
+using ALICE_Synthesizer;
+using System.Threading;
 
 namespace ALICE_Actions
 {
@@ -1221,13 +1220,16 @@ namespace ALICE_Actions
                 IKeyboard.Press(IKey.UI_Panel_Down_Release, 100);
                 IKeyboard.Press(IKey.UI_Panel_Select, 250);
 
+                //Debug Logger
+                Logger.DebugLine(MethodName, "Monitoring Launch For 30 Seconds", Logger.Blue);
+
                 //Wait For Launch (30 seconds)
-                decimal Count = 300; while (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Undocked, true) == false && Count > 0)
+                decimal Count = 300; while (ICheck.Docking.Status(MethodName, true, IEnums.DockingState.Undocked, false) == false && Count > 0)
                 {
                     Count--; if (Count == 0)
                     {
                         //Add Audio - Failed To Launch
-                        Logger.Log(MethodName, "Failed To Launch, Try Again.", Logger.Yellow, true);
+                        Logger.Log(MethodName, "Did Not Detect Launch, Try Again.", Logger.Yellow, true);
                     }
                     Thread.Sleep(100);
                 }
@@ -1659,162 +1661,5 @@ namespace ALICE_Actions
 
             Logger.Log(MethodName, "Crew Override Acivated.", Logger.Yellow);
         }
-    }
-
-    public static class Targeting
-    {
-        public static string Scan_OrdSubsystemName = "";
-
-        #region Simple Target Actions
-        public static void Cycle_Subsystems(decimal Cycle, bool Forward, bool CommandAudio) //ref decimal CurrentSubsystemPos)
-        {
-            string MethodName = "Cycle Subsystems";
-
-            if (ICheck.Environment.Space(MethodName, true, IEnums.Normal_Space) == false)
-            {
-                return;
-            }
-
-            while (Cycle != 0 && Cycle > 0)
-            {
-                if (Forward == true)
-                {
-                    IKeyboard.Press(IKey.Cycle_Next_Subsystem, 150);
-                }
-                else if (Forward == false)
-                {
-                    IKeyboard.Press(IKey.Cycle_Previous_Subsystem, 150);
-                }
-
-                if (IObjects.TargetCurrent.Targeted == false)
-                {
-                    return;
-                }
-
-                Cycle--;
-                //CurrentSubsystemPos++;
-            }
-        }
-
-        public static void Cycle_Hostile_Targets(decimal Cycle, bool Forward)
-        {
-            string MethodName = "Cycle Hostile Target";
-
-            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
-            {
-                //Audio
-                return;
-            }
-
-            while (Cycle != 0 && Cycle > 0)
-            {
-                if (Forward == true)
-                {
-                    IKeyboard.Press(IKey.Cycle_Next_Hostile_Target, 0);
-                }
-                else if (Forward == false)
-                {
-                    IKeyboard.Press(IKey.Cycle_Previous_Hostile_Ship, 0);
-                }
-                Cycle--;
-                Thread.Sleep(100);
-            }
-        }
-
-        public static void Cycle_Targets(decimal Cycle, bool Forward)
-        {
-            string MethodName = "Cycle Target";
-
-            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
-            {
-                //Audio
-                return;
-            }
-
-            while (Cycle != 0 && Cycle > 0)
-            {
-                if (Forward == true)
-                {
-                    IKeyboard.Press(IKey.Cycle_Next_Target , 0);
-                }
-                else if (Forward == false)
-                {
-                    IKeyboard.Press(IKey.Cycle_Previous_Ship , 0);
-                }
-                Cycle--;
-                Thread.Sleep(100);
-            }
-        }
-
-        public static void Select_Wingman(decimal Wingman, bool CommandAudio)
-        {
-            string MethodName = "Select Wingman";
-
-            if (ICheck.Environment.Space(MethodName, false, IEnums.Hyperspace) == false)
-            {
-                //Audio
-                return;
-            }
-
-            if (IStatus.InWing == false)
-            {
-                //Audio - We are not in a wing.
-                return;
-            }
-
-            if (Wingman == 1)
-            {
-                IKeyboard.Press(IKey.Select_Wingman_1 , 0);
-            }
-            else if (Wingman == 2)
-            {
-                IKeyboard.Press(IKey.Select_Wingman_2, 0);
-            }
-            else if (Wingman == 3)
-            {
-                IKeyboard.Press(IKey.Select_Wingman_3, 0);
-            }
-
-            Thread.Sleep(100);
-
-            //Variable Audio Responce based on Deicmal "Wingman"
-        }
-
-        public static void Select_Wingmans_Target(decimal Wingman, bool CommandAudio)
-        {
-            if (IStatus.InWing == false)
-            {
-                //Audio - We are not in a wing.
-                return;
-            }
-
-            if (Wingman != 0)
-            {
-                Select_Wingman(Wingman, false);
-            }
-
-            IKeyboard.Press(IKey.Select_Wingmans_Target, 100);
-
-            //DYNAMIC AUDIO
-        }
-
-        public static void Select_Wingmans_NavLock(decimal Wingman, bool CommandAudio)
-        {
-            if (IStatus.InWing == false)
-            {
-                //Audio - We are not in a wing.
-                return;
-            }
-
-            if (Wingman != 0)
-            {
-                Select_Wingman(Wingman, false);
-            }
-            IKeyboard.Press(IKey.Wingman_NavLock, 100);
-
-            //DYNAMIC AUDIO
-        }
-
-        #endregion
-    }
+    }  
 }

@@ -9,10 +9,10 @@
     <Grid Background="#FF171616">
         <Grid x:Name="Dashboard_StackPanel" Margin="0,45,0,0" Background="Black"/>
         <StackPanel Height="45" Background="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Width="1013">
-            <Button x:Name="btn_Home" Content="Home" Margin="10,10,5,10" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="btn_Home_Click" Width="128"/>
-            <Button x:Name="btn_Reports" Content="Plug-In Settings" Margin="5,10,5,10" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="btn_Reports_Click" Width="128"/>
             <Button x:Name="btn_OpenManual" Content="A.L.I.C.E Wiki" Margin="5,10,5,10.333" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="Btn_OpenManual_Click" Width="128"/>
-            <Button x:Name="btn_LoadUserKeybinds" Content="Select Keybinds File" Foreground="#FFCE5A05" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Click="btn_LoadUserKeybinds_Click" Margin="5,10,5,10" Width="128"/>
+            <Button x:Name="btn_LoadUserKeybinds" Content="Select Keybinds File" Foreground="#FFCE5A05" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Click="btn_LoadUserKeybinds_Click" Margin="5,10,5,10.333" Width="128"/>
+            <Button x:Name="btn_Reports" Content="General Settings" Margin="5,10,5,10" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="btn_Reports_Click" Width="128"/>
+            <Button x:Name="btn_Firegroups" Content="Firegroup Config" Margin="5,10,5,10" Background="{x:Null}" FontFamily="Malgun Gothic Semilight" FontSize="14" Foreground="#FFCE5A05" Click="Btn_Firegroups_Click" Width="128"/>
         </StackPanel>
 
     </Grid>

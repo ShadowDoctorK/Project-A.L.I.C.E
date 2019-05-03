@@ -2,7 +2,9 @@
 //Class File Generated: 12/20/2018 9:05 PM
 //Source Journal Line: { "timestamp":"2018-12-20T20:41:19Z", "event":"FSSAllBodiesFound", "SystemName":"Col 285 Sector MZ-D b13-6", "SystemAddress":13862678111625, "Count":3 }
 
+using ALICE_Debug;
 using ALICE_Objects;
+using ALICE_Response;
 using System;
 
 namespace ALICE_Events
@@ -30,20 +32,35 @@ namespace ALICE_Events
     /// </summary>
     public class Event_FSSAllBodiesFound : Event
     {
+        //Event Instance
+        public FSSAllBodiesFound I { get; set; } = new FSSAllBodiesFound();
+
         //Variable Generation
         public override void Generate(object O)
         {
             try
             {
-                var Event = (FSSAllBodiesFound)O;
-
-                Variables.Record(Name + "_System", Event.SystemName);
-                Variables.Record(Name + "_Address", Event.SystemAddress);
-                Variables.Record(Name + "_Count", Event.Count);
+                Variables.Record(Name + "_System", I.SystemName);
+                Variables.Record(Name + "_Address", I.SystemAddress);
+                Variables.Record(Name + "_Count", I.Count);
             }
             catch (Exception ex)
             {
                 ExceptionGenerate(Name, ex);
+            }
+        }
+
+        //Plugin Logic Preparations
+        public override void Prepare(object O)
+        {
+            try
+            {
+                //Update Event Instance
+                I = (FSSAllBodiesFound)O;
+            }
+            catch (Exception ex)
+            {
+                ExceptionPrepare(Name, ex);
             }
         }
 
@@ -52,10 +69,12 @@ namespace ALICE_Events
         {
             try
             {
-                var Event = (FSSAllBodiesFound)O;
+                //Audio - All Bodies Found
+                IResponse.FullSpectrumScanner.AllBodiesDiscovered(
+                    ICheck.Initialized(I.Event));                       //Check Plugin Initialized
 
                 //Update Current System Data
-                IObjects.SystemCurrent.Update_SystemData(Event);
+                IObjects.SystemCurrent.Update_SystemData(I);
             }
             catch (Exception ex)
             {

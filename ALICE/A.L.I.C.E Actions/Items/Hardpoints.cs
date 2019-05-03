@@ -69,10 +69,9 @@ namespace ALICE_Actions
         /// Operates the ships hardpoints.
         /// </summary>
         /// <param name="CMD">(Command) True = Deploy, False = Retract</param>
-        /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>
-        /// <param name="W">(Default) True will change to the users default firegroup.</param>
+        /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>        
         /// <param name="MD">(Mode) Pass the mode you want the hardpoints in.</param>
-        public void Operate(bool CMD, bool CA, bool D = false, M MD = M.None)
+        public void Operate(bool CMD, bool CA, M MD = M.None)
         {
             string MethodName = "Hardpoints (Operate)";
 

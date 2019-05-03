@@ -60,7 +60,10 @@ namespace ALICE_Community_Toolkit
 
             //Update Plugin Settings Buttons
             Interface_Dashboard.Interface_Reports.UpdateButtons();
-            Interface_Dashboard.Interface_Reports.UpdateFiregroupItems();
+
+            //Update Firegroup Controls
+            Interface_Dashboard.Interface_Firegroups.UpdateButtons();
+            Interface_Dashboard.Interface_Firegroups.UpdateFiregroupItems();
 
             //Update Exploration Buttons
             Interface_Exploration.UpdateButtons();
@@ -75,6 +78,8 @@ namespace ALICE_Community_Toolkit
             {
                 this.Dispatcher.Invoke(() =>
                 {
+                    if (TKSettings.User.Commander == null) { return; }
+
                     Label_Commander.Content = "CMDR " + TKSettings.User.Commander;
                 });
             }

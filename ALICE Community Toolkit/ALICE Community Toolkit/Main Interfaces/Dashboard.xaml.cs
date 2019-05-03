@@ -1,7 +1,6 @@
 ﻿using ALICE_Internal;
 using ALICE_Synthesizer;
 using System;
-using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,7 +42,7 @@ namespace ALICE_Community_Toolkit
             try
             {
                 #region Audio
-                string Line = "Please Select The File You Want Me To Use To Import Keybinds From.";
+                string Line = "Please Select The File I Should Import Keybinds From.";
 
                 Thread thread = new Thread((ThreadStart)(() => 
                 { Speech.Speak(Line, true); })) { IsBackground = true };
@@ -67,19 +66,12 @@ namespace ALICE_Community_Toolkit
         #endregion
 
         #region Menu Bar
-        public Home Interface_Home = new Home();
-        private void btn_Home_Click(object sender, RoutedEventArgs e)
+        public Firegroup_Controls Interface_Firegroups = new Firegroup_Controls();
+        private void Btn_Firegroups_Click(object sender, RoutedEventArgs e)
         {
             Dashboard_StackPanel.Children.Clear();
-            Dashboard_StackPanel.Children.Add(Interface_Home);
+            Dashboard_StackPanel.Children.Add(Interface_Firegroups);
         }
-
-        //public Orders Interface_Orders = new Orders();
-        //private void btn_Orders_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Dashboard_StackPanel.Children.Clear();
-        //    Dashboard_StackPanel.Children.Add(Interface_Orders);
-        //}
 
         public Reports Interface_Reports = new Reports();
         private void btn_Reports_Click(object sender, RoutedEventArgs e)

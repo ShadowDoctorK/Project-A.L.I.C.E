@@ -35,6 +35,15 @@ namespace ALICE_Monitors
             true,       //Monitor User.Settings
             true,       //Monitor Shipyard.Settings
             true);      //Monitor Firegroup.Settings
+
+        /// <summary>
+        /// Static Instance Of The Keybinds Mointor.
+        /// </summary>
+        public static Monitor_Keybinds Keybinds = new Monitor_Keybinds(
+            true,       //Enabled
+            false,      //Initialization State
+            true,       //Auto Restart On Failure
+            true);      //Monitor Key
     }
 
     public class MonitorBase

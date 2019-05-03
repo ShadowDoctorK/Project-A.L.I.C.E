@@ -1,4 +1,5 @@
 ﻿using ALICE_Status;
+using ALICE_Synthesizer;
 using System.Collections.Generic;
 
 namespace ALICE_Interface
@@ -15,6 +16,11 @@ namespace ALICE_Interface
             switch (Command[1].Lookup<L1>())
             {
                 case L1.Custom:
+                    Speech.Search(Command[2], Command[3]);
+                    return;
+
+                case L1.Speak:
+                    Speech.Speak(Command[2], true);
                     return;
 
                 case L1.Response:

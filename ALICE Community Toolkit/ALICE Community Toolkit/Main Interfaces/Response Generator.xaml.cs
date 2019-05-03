@@ -1,19 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Newtonsoft.Json;
 using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 
 namespace ALICE_Community_Toolkit
 {
@@ -972,6 +963,165 @@ namespace ALICE_Community_Toolkit
         //End: Top Menu Buttons
         #endregion
 
+        #region Response Buttons
+        private void btn_Response_New_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string Text = TextBox_ResponseName.Text; if (Text != null)
+                {
+                    //Create New Response, Add Response
+                    Response Temp = new Response(Text);
+                    Responses.Add(Temp, false);
+                }
+                //Update Response List
+                U_Responses();
+            }
+            catch (Exception ex) { }
+        }
+
+        private void btn_Response_Update_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (SelectedResposneText() != null)
+                {
+                    //Update Response Name
+                    R_Response.Name = TextBox_ResponseName.Text;
+                }
+
+                //Clear Text Box
+                TextBox_ResponseName.Text = null;
+
+                //Update Response Collection
+                Responses.Update(R_Response);
+
+                //Update Response List
+                U_Responses();
+            }
+            catch (Exception ex) { }
+        }
+
+        private void btn_Resposne_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Check Text Is Not Null                
+                if (SelectedResposneText() != null)
+                {
+                    //Delete Response
+                    Responses.Delete(SelectedResposneText());
+                }
+                //Update Response List
+                U_Responses();
+            }
+            catch (Exception ex) { }
+        }
+
+
+        //End: Response Buttons
+        #endregion
+
+        #region Segment Buttons
+        private void btn_Segment_New_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Record Segment Name & Clear Text Box
+                string Name = TextBox_SegmentName.Text;
+                TextBox_SegmentName.Text = null;
+
+                //Validation
+                //1. Name is Null, Return
+                if (Name == null) { return; }
+                //2. Segment Already Exists, Return
+                if (R_Response.SegmentExists(Name)) { return; }
+
+                //Create New Segment
+                Response.Segment Temp = new Response.Segment()
+                { Name = Name };
+
+                //Add Segment To Working Response
+                R_Response.AddSegment(Temp);
+
+                //Save Working Response
+                Responses.Update(R_Response);
+
+                //Update Display Lists
+                U_Responses();
+                U_Segments();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void btn_Segment_Update_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Record Segment Name & Clear Text Box
+                string Name = TextBox_SegmentName.Text;
+                TextBox_SegmentName.Text = null;
+
+                //Validation
+                //1. Name is Null, Return
+                if (Name == null) { return; }
+
+                //Create New Segment
+                Response.Segment Temp = SelectedSegment();
+
+                //Update Segment Name
+                Temp.Name = Name;
+
+                //Add Segment To Working Response
+                R_Response.AddSegment(Temp);
+
+                //Save Working Response
+                Responses.Update(R_Response);
+
+                //Update Display Lists
+                U_Responses();
+                U_Segments();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void btn_Segment_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Record Segment Name & Clear Text Box
+                string Name = SelectedSegmentText();
+                TextBox_SegmentName.Text = null;
+
+                //Validation
+                //1. Name is Null, Return
+                if (Name == null) { return; }
+
+                //Delete Segment From Working Response
+                R_Response.DeleteSegment(Name);
+
+                //Save Working Response
+                Responses.Update(R_Response);
+
+                //Update Display Lists
+                U_Responses();
+                U_Segments();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        //End: Segment Buttons
+        #endregion
+
         #region String Buttons
         private void btn_String_New_Click(object sender, RoutedEventArgs e)
         {
@@ -1059,6 +1209,100 @@ namespace ALICE_Community_Toolkit
         //End: String Buttons
         #endregion
 
+        #region Token Buttons
+        private void btn_Token_New_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Validate Text
+                if (TextBox_TokenName.Text == null) { return; }
+
+                //Create Token
+                Response.Segment.Token Temp = new Response.Segment.Token()
+                {
+                    Name = TextBox_TokenName.Text,
+                    Info = TextBox_TokenDescription.Text
+                };
+
+                //Add Token To Referense Segment
+                R_Segment.AddToken(Temp);
+
+                //Save Reference Segment
+                R_Response.UpdateSegment(R_Segment);
+
+                //Save Reference Response
+                Responses.Update(R_Response);
+
+                //Update Tokens
+                U_Tokens();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void btn_Token_Update_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Validate Text
+                if (TextBox_TokenName.Text == null) { return; }
+
+                //Record Token
+                Response.Segment.Token Old = SelectedToken();
+                Response.Segment.Token New = SelectedToken();
+
+                New.Name = TextBox_TokenName.Text;
+                New.Info = TextBox_TokenDescription.Text;
+
+                //Update Token In The Referense Segment
+                R_Segment.ReplaceToken(Old, New);
+
+                //Save Reference Segment
+                R_Response.UpdateSegment(R_Segment);
+
+                //Save Reference Response
+                Responses.Update(R_Response);
+
+                //Update Tokens
+                U_Tokens();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void btn_Token_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Clear Textbox
+                TextBox_TokenName.Text = null;
+
+                //Capture Token
+                Response.Segment.Token Temp = SelectedToken();
+
+                //Delete Token From Referense Segment
+                R_Segment.DeleteToken(Temp);
+
+                //Save Reference Segment
+                R_Response.UpdateSegment(R_Segment);
+
+                //Save Reference Response
+                Responses.Update(R_Response);
+
+                //Update Tokens
+                U_Tokens();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        #endregion
+
         #region Miscellaneous UI Controls
         private void btn_SegmentInfo_Update_Click(object sender, RoutedEventArgs e)
         {
@@ -1084,6 +1328,7 @@ namespace ALICE_Community_Toolkit
             {
                 //Copy Token to Text Box
                 Response.Segment.Token Temp = SelectedToken();
+                TextBox_TokenName.Text = Temp.Name;
                 TextBox_TokenDescription.Text = Temp.Info;
             }
             catch (Exception ex)
@@ -1114,6 +1359,8 @@ namespace ALICE_Community_Toolkit
                 //Clear Items
                 TextBox_TokenDescription.Text = null;
 
+                //Copy Segment Name to Text Box
+                TextBox_SegmentName.Text = SelectedSegmentText();
                 //Update Reference Segment
                 R_Segment = R_Response.GetSegment(SelectedSegmentText());
 
@@ -1143,6 +1390,8 @@ namespace ALICE_Community_Toolkit
                 TextBox_TokenDescription.Text = null;
                 ListBox_Strings.ItemsSource = null;
 
+                //Copy Response Name To Text Box
+                TextBox_ResponseName.Text = SelectedResposneText();
                 //Update Reference Repsonse
                 R_Response = Responses.Get(SelectedResposneText());
                 //Update List Of Segments For New Response

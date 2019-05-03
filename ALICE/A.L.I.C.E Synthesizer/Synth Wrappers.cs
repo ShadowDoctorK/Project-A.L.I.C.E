@@ -2,7 +2,7 @@
 
 namespace ALICE_Synthesizer
 {
-    #region Response Wrappers | Auto Generated: 04/22/2019 5:40 PM
+    #region Response Wrappers | Auto Generated: 05/02/2019 5:20 PM
 
     public static class Crime
     {
@@ -227,7 +227,8 @@ namespace ALICE_Synthesizer
 
     public static class EVT_FSSAllBodiesFound
     {
-        public static List<string> Default = new List<string> { "EVT FSSAllBodiesFound", "Default" };
+        public static List<string> Body_Report = new List<string> { "EVT FSSAllBodiesFound", "Body Report" };
+        public static List<string> Complete = new List<string> { "EVT FSSAllBodiesFound", "Complete" };
     }
 
     public static class EVT_HeatDamage
@@ -502,5 +503,4 @@ namespace ALICE_Synthesizer
     }
 
     #endregion
-
 }

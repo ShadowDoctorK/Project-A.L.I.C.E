@@ -1,7 +1,6 @@
 ﻿using ALICE_Actions;
 using ALICE_Debug;
 using ALICE_Interface;
-using ALICE_Keybinds;
 using ALICE_Monitors;
 using ALICE_Settings;
 using ALICE_Synthesizer;
@@ -77,8 +76,9 @@ namespace ALICE_Internal
                             break;
                     }
                  
-                    //Simple Logger
+                    //Log Plugin Information
                     Logger.Simple("Project A.L.I.C.E " + IPlatform.Version + " Initializing...", Logger.Purple);
+                    Logger.AliceLog("Project A.L.I.C.E " + IPlatform.Version + " (Open Beta 1.3.5)");
 
                     //Execute External Command
                     IPlatform.ExecuteCommand("Startup Configuration");
@@ -108,34 +108,19 @@ namespace ALICE_Internal
                     }
 
                     //Load Last Settings
+                    Thread.Sleep(100);
                     ISettings.StartupLoad();
 
-                    //Debug Logger
-                    Logger.DebugLine(MethodName, "Verifying Alice Binds File...", Logger.Blue);
-
-                    //Retrieve Config Variables From Platform
-                    PlugIn.KeybindLogging = IGet.External.KeybindLogging(MethodName);
-
-                    //Log Setting
-                    if (PlugIn.VariableLogging)
-                    {
-                        Logger.Log(MethodName, "Keybind Logging Enabled", Logger.Yellow);
-                    }
-
-                    //Check Alice Binds File
-                    Paths.Load_UpdateBindsFile();
-
-                    //Debug Logger                    
-                    Logger.DebugLine(MethodName, "Loading Keybinds...", Logger.Blue);
-
-                    //Load Game Binds
-                    IKeyboard.LoadKeybinds();
+                    //Start Keybinds Monitor On New Thread
+                    Thread Key = new Thread((ThreadStart)(() => { IMonitors.Keybinds.Start(); }))
+                    { IsBackground = true }; Key.Start();                    
                     
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Loading Response Files...", Logger.Blue);
 
                     //Load Responses
                     ISynthesizer.Response.Load(Paths.ALICE_Response);
+                    ISynthesizer.Response.Load(Paths.ALICE_ResponseUser, true);
 
                     //Debug Logger
                     Logger.DebugLine(MethodName, "Loading Module Data...", Logger.Blue);

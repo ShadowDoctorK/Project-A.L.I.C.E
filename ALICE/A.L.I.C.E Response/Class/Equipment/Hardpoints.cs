@@ -229,5 +229,65 @@ namespace ALICE_Response
                 .Token("[GROUP]", Group),
                 CA, V1, V2, V3, P, V);
         }
+
+        /// <summary>
+        /// Audio used to report Prospecting Group Assigned.
+        /// </summary>
+        /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>
+        /// <param name="V1">(Variable 1) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="V2">(Variable 2) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="V3">(Variable 3) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="P">(Priority) Set priority level to jump the queue for lower priority items.</param>
+        /// <param name="V">(Voice) Pass a valid installed voice to override the default settings.</param>
+        public void ProspectingGroupAssigned(string Group, bool CA, bool V1 = true, bool V2 = true, bool V3 = true, int P = 3, string V = null)
+        {
+            if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Prospecting Group Assigned To Group " + Group, Logger.Yellow); }
+
+            Speech.Speak(""
+                .Phrase(GN_Positive.Default, true)
+                .Phrase("Prospecting Group Assigned To Group [GROUP]")
+                .Token("[GROUP]", Group),
+                CA, V1, V2, V3, P, V);
+        }
+
+        /// <summary>
+        /// Audio used to report Collection Group Assigned.
+        /// </summary>
+        /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>
+        /// <param name="V1">(Variable 1) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="V2">(Variable 2) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="V3">(Variable 3) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="P">(Priority) Set priority level to jump the queue for lower priority items.</param>
+        /// <param name="V">(Voice) Pass a valid installed voice to override the default settings.</param>
+        public void CollectionGroupAssigned(string Group, bool CA, bool V1 = true, bool V2 = true, bool V3 = true, int P = 3, string V = null)
+        {
+            if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Collection Group Assigned To Group " + Group, Logger.Yellow); }
+
+            Speech.Speak(""
+                .Phrase(GN_Positive.Default, true)
+                .Phrase("Collection Group Assigned To Group [GROUP]")
+                .Token("[GROUP]", Group),
+                CA, V1, V2, V3, P, V);
+        }
+
+        /// <summary>
+        /// Audio used to report Extraction Group Assigned.
+        /// </summary>
+        /// <param name="CA">(Command Audio) Allows enabling or disabling audio on the command level.</param>
+        /// <param name="V1">(Variable 1) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="V2">(Variable 2) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="V3">(Variable 3) Additional variable provided to resolve complex logic to enable or disable audio.</param>
+        /// <param name="P">(Priority) Set priority level to jump the queue for lower priority items.</param>
+        /// <param name="V">(Voice) Pass a valid installed voice to override the default settings.</param>
+        public void ExtractionGroupAssigned(string Group, bool CA, bool V1 = true, bool V2 = true, bool V3 = true, int P = 3, string V = null)
+        {
+            if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Extraction Group Assigned To Group " + Group, Logger.Yellow); }
+
+            Speech.Speak(""
+                .Phrase(GN_Positive.Default, true)
+                .Phrase("Extraction Group Assigned To Group [GROUP]")
+                .Token("[GROUP]", Group),
+                CA, V1, V2, V3, P, V);
+        }
     }
 }
