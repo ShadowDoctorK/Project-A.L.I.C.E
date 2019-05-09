@@ -14,7 +14,7 @@ For those interested in contributing to the code, understand that this project w
 
 Project A.L.I.C.E requires using Voice Macro or Voice Attack currently.
 
-You can download the project files from the [Project A.L.I.C.E Discord]( https://discord.gg/6qCJBvn). New users should take a look at the [Quick Start Guide](https://github.com/ShadowDoctorK/Project-A.L.I.C.E/wiki/Guide:-Quick-Start-&-Installation) to help them decided which platform (Voice Macro or Voice Attack) they wish to use. Project A.L.I.C.E is setup by default to operate out of the box once you're finished with the quick start guide. Optional advanced configuration is covered by the guide in the wiki.
+You can download the project files from the [Releases Section](https://github.com/ShadowDoctorK/Project-A.L.I.C.E/releases). New users should take a look at the [Quick Start Guide](https://github.com/ShadowDoctorK/Project-A.L.I.C.E/wiki/Guide:-Quick-Start-&-Installation) to help them decided which platform (Voice Macro or Voice Attack) they wish to use. Project A.L.I.C.E is setup by default to operate out of the box once you're finished with the quick start guide. Optional advanced configuration is covered by the guide in the wiki.
 
 Additionally there are plenty of helpful video guides on the Project A.L.I.C.E Discord and other users that are willing to assist you if you run in to any issue.
 
