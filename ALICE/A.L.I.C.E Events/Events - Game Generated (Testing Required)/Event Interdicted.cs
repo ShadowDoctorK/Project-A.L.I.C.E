@@ -51,7 +51,7 @@ namespace ALICE_Events
             try
             { 
                 Variables.Record(Name + "_Submitted", I.Submitted);                
-                Variables.Switch(Name + "_Pilot", I.Interdictor_Localised, Event.Interdictor);
+                Variables.Switch(Name + "_Pilot", I.Interdictor_Localised, I.Interdictor);
                 Variables.Switch(Name + "_Type", I.IsPlayer, "Commander", "NPC");
                 Variables.Record(Name + "_Faction", I.Faction);
                 Variables.Record(Name + "_Rank", I.CombatRank);

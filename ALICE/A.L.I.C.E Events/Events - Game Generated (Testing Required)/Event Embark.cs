@@ -2,6 +2,9 @@
 //Class File Generated: 08/04/2026 10:55 PM
 //Source Journal Line: { "timestamp":"2026-01-10T21:19:57Z", "event":"Embark", "SRV":false, "Taxi":false, "Multicrew":false, "ID":8, "Crew":[ { "Name":"RIPTHEREAPER", "Role":"Idle" }, { "Name":"TOMOE'", "Role":"Idle" } ], "StarSystem":"Gali", "SystemAddress":6680855220970, "Body":"Chadwick Dock", "BodyID":39, "OnStation":true, "OnPlanet":false, "StationName":"Chadwick Dock", "StationType":"Coriolis", "MarketID":3230817536 }
 
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Corrected boolean property types and added Crew list structure. - Shadow Doctor K
+
 using System;
 using System.Collections.Generic;
 using ALICE_Internal;
@@ -13,17 +16,17 @@ namespace ALICE_Events
     /// </summary>
     public class Embark : Base
     {
-        public string SRV { get; set; }
-        public string Taxi { get; set; }
-        public string Multicrew { get; set; }
+        public bool SRV { get; set; }
+        public bool Taxi { get; set; }
+        public bool Multicrew { get; set; }
         public decimal ID { get; set; }
-        public string Crew { get; set; }
+        public List<CrewMember> Crew { get; set; }
         public string StarSystem { get; set; }
         public decimal SystemAddress { get; set; }
         public string Body { get; set; }
         public decimal BodyID { get; set; }
-        public string OnStation { get; set; }
-        public string OnPlanet { get; set; }
+        public bool OnStation { get; set; }
+        public bool OnPlanet { get; set; }
         public string StationName { get; set; }
         public string StationType { get; set; }
         public decimal MarketID { get; set; }
@@ -35,7 +38,7 @@ namespace ALICE_Events
             Taxi = Bool();
             Multicrew = Bool();
             ID = Dec();
-            Crew = Str();
+            Crew = new List<CrewMember>();
             StarSystem = Str();
             SystemAddress = Dec();
             Body = Str();
@@ -46,6 +49,18 @@ namespace ALICE_Events
             StationType = Str();
             MarketID = Dec();
         }
+
+        public class CrewMember : Catch
+        {
+            public string Name { get; set; }
+            public string Role { get; set; }
+
+            public CrewMember()
+            {
+                Name = Str();
+                Role = Str();
+            }
+        }
     }
 
     /// <summary>
@@ -55,38 +70,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public Embark I = new Embark();
-
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                #region Custom Variables
-
-                #endregion
-
-                #region Event Variables
-                Variables.Record(Name + "_SRV", I.SRV);
-                Variables.Record(Name + "_Taxi", I.Taxi);
-                Variables.Record(Name + "_Multicrew", I.Multicrew);
-                Variables.Record(Name + "_ID", I.ID);
-                Variables.Record(Name + "_Crew", I.Crew);
-                Variables.Record(Name + "_StarSystem", I.StarSystem);
-                Variables.Record(Name + "_SystemAddress", I.SystemAddress);
-                Variables.Record(Name + "_Body", I.Body);
-                Variables.Record(Name + "_BodyID", I.BodyID);
-                Variables.Record(Name + "_OnStation", I.OnStation);
-                Variables.Record(Name + "_OnPlanet", I.OnPlanet);
-                Variables.Record(Name + "_StationName", I.StationName);
-                Variables.Record(Name + "_StationType", I.StationType);
-                Variables.Record(Name + "_MarketID", I.MarketID);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
@@ -124,6 +107,37 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_SRV", I.SRV);
+                Variables.Record(Name + "_Taxi", I.Taxi);
+                Variables.Record(Name + "_Multicrew", I.Multicrew);
+                Variables.Record(Name + "_ID", I.ID);
+                Variables.Record(Name + "_StarSystem", I.StarSystem);
+                Variables.Record(Name + "_SystemAddress", I.SystemAddress);
+                Variables.Record(Name + "_Body", I.Body);
+                Variables.Record(Name + "_BodyID", I.BodyID);
+                Variables.Record(Name + "_OnStation", I.OnStation);
+                Variables.Record(Name + "_OnPlanet", I.OnPlanet);
+                Variables.Record(Name + "_StationName", I.StationName);
+                Variables.Record(Name + "_StationType", I.StationType);
+                Variables.Record(Name + "_MarketID", I.MarketID);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

@@ -2,8 +2,10 @@
 //Class File Generated: 08/04/2026 10:55 PM
 //Source Journal Line: { "timestamp":"2026-01-10T21:37:18Z", "event":"DropshipDeploy", "StarSystem":"Kurmodiae", "SystemAddress":5856221500130, "Body":"Kurmodiae A 1 a", "BodyID":14, "OnStation":false, "OnPlanet":true }
 
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Corrected OnStation and OnPlanet property types. - Shadow Doctor K
+
 using System;
-using System.Collections.Generic;
 using ALICE_Internal;
 
 namespace ALICE_Events
@@ -17,8 +19,8 @@ namespace ALICE_Events
         public decimal SystemAddress { get; set; }
         public string Body { get; set; }
         public decimal BodyID { get; set; }
-        public string OnStation { get; set; }
-        public string OnPlanet { get; set; }
+        public bool OnStation { get; set; }
+        public bool OnPlanet { get; set; }
 
         //Default Constructor
         public DropshipDeploy()
@@ -39,30 +41,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public DropshipDeploy I = new DropshipDeploy();
-
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                #region Custom Variables
-
-                #endregion
-
-                #region Event Variables
-                Variables.Record(Name + "_StarSystem", I.StarSystem);
-                Variables.Record(Name + "_SystemAddress", I.SystemAddress);
-                Variables.Record(Name + "_Body", I.Body);
-                Variables.Record(Name + "_BodyID", I.BodyID);
-                Variables.Record(Name + "_OnStation", I.OnStation);
-                Variables.Record(Name + "_OnPlanet", I.OnPlanet);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
@@ -100,6 +78,30 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_StarSystem", I.StarSystem);
+                Variables.Record(Name + "_SystemAddress", I.SystemAddress);
+                Variables.Record(Name + "_Body", I.Body);
+                Variables.Record(Name + "_BodyID", I.BodyID);
+                Variables.Record(Name + "_OnStation", I.OnStation);
+                Variables.Record(Name + "_OnPlanet", I.OnPlanet);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

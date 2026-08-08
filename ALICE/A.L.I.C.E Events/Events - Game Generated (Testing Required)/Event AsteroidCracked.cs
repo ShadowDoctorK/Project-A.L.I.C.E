@@ -2,12 +2,13 @@
 //Class File Generated: 02/16/2019 11:03 PM
 //Source Journal Line: { "timestamp":"2019-02-10T23:39:02Z", "event":"AsteroidCracked", "Body":"NLTT 2969 2 A Ring" }
 
-//Developer Notes: File Last Reviewed 06AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
 //Ch 01: 06AUG2026 - Updated event to new event structure. - Shadow Doctor K
+//Ch 02: 08AUG2026 - Removed obsolete local event cast from Generate(). - Shadow Doctor K
 
 using System;
 
-// When written: when the player has broken up a ‘Motherlode’ asteroid for mining 
+// When written: when the player has broken up a ‘Motherlode’ asteroid for mining
 
 namespace ALICE_Events
 {
@@ -32,21 +33,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public AsteroidCracked I = new AsteroidCracked();
-
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                var Event = (AsteroidCracked)O;
-
-                Variables.Record(Name + "_Location", I.Body);
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
@@ -86,6 +72,24 @@ namespace ALICE_Events
                 ExceptionAlignment(Name, ex);
             }
         }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_Location", I.Body);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
+            }
+        }
     }
-}
 }

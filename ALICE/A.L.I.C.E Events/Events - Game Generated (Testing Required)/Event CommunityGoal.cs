@@ -3,13 +3,14 @@
 //Source Journal Line: { "timestamp":"2018-10-28T18:45:50Z", "event":"CommunityGoal", "CurrentGoals":[ { "CGID":544, "Title":"Senator Appeals for Aid", "SystemName":"Niflhel", "MarketName":"Biruni Port", "Expiry":"2018-11-01T15:00:00Z", "IsComplete":false, "CurrentTotal":2666596, "PlayerContribution":0, "NumContributors":1250, "TopTier":{ "Name":"Tier 8", "Bonus":"" }, "TopRankSize":10, "PlayerInTopRank":false, "TierReached":"Tier 3", "PlayerPercentileBand":100, "Bonus":300000 }, { "CGID":545, "Title":"Defending Trade in Niflhel", "SystemName":"Niflhel", "MarketName":"Biruni Port", "Expiry":"2018-11-01T15:00:00Z", "IsComplete":false, "CurrentTotal":14515558851, "PlayerContribution":0, "NumContributors":2222, "TopTier":{ "Name":"Tier 8", "Bonus":"" }, "TopRankSize":10, "PlayerInTopRank":false, "TierReached":"Tier 4", "PlayerPercentileBand":100, "Bonus":400000 } ] }
 //Source Journal Line: { "timestamp":"2026-05-01T22:36:23Z", "event":"CommunityGoal", "CurrentGoals":[ { "CGID":846, "Title":"Lhou Mans System Defence Initiative", "SystemName":"Lhou Mans", "MarketName":"Ryman Enterprise", "Expiry":"2026-05-14T08:00:00Z", "IsComplete":false, "CurrentTotal":29448695334, "PlayerContribution":0, "NumContributors":2961, "TopTier":{ "Name":"Tier 5", "Bonus":"" }, "TopRankSize":10, "PlayerInTopRank":false, "TierReached":"Tier 1", "PlayerPercentileBand":100, "Bonus":40000000 }, { "CGID":847, "Title":"Lhou Mans Emergency Evacuation Effort", "SystemName":"Lhou Mans", "MarketName":"Ryman Enterprise", "Expiry":"2026-05-14T08:00:00Z", "IsComplete":false, "CurrentTotal":1566040310313, "PlayerContribution":1666612, "NumContributors":12729, "TopTier":{ "Name":"Tier 7", "Bonus":"" }, "TopRankSize":10, "PlayerInTopRank":false, "TierReached":"Tier 5", "PlayerPercentileBand":100, "Bonus":50000000 } ] }
 
-//Developer Notes: File Last Reviewed 05AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Corrected CurrentGoals property type and constructor initialization. - Shadow Doctor K
 
 using System;
 using System.Collections.Generic;
 
 // When written: when checking the status of a community goal
-// This event contains the current status of all community goals the player is currently subscribed to 
+// This event contains the current status of all community goals the player is currently subscribed to
 
 namespace ALICE_Events
 {
@@ -23,11 +24,12 @@ namespace ALICE_Events
         //Default Constructor
         public CommunityGoal()
         {
-            //No Properties
+            CurrentGoals = new List<CurrentGoal>();
 
             //Future Development: Add List to track goals on new Alice Statusboard.
         }
 
+        #region Support Data Structure
         public class CurrentGoal : Catch
         {
             public decimal CGID { get; set; }
@@ -77,6 +79,7 @@ namespace ALICE_Events
                 Bonus = Str();
             }
         }
+        #endregion
     }
 
     /// <summary>
@@ -98,6 +101,51 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionPrepare(Name, ex);
+            }
+        }
+
+        //Plugin Logic Process
+        public override void Process(object O)
+        {
+            try
+            {
+                //No Logic Process
+            }
+            catch (Exception ex)
+            {
+                ExceptionProcess(Name, ex);
+            }
+        }
+
+        //Plugin Property Alignment
+        public override void Alignment(object O)
+        {
+            try
+            {
+                //No State Alignment
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                //Nested variable generation not added during this pass.
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

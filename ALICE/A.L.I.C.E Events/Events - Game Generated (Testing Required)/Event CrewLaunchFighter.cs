@@ -2,14 +2,15 @@
 //Class File Generated: 08/04/2026 10:55 PM
 //Source Journal Line: { "timestamp":"2026-01-10T14:27:59Z", "event":"CrewLaunchFighter", "Telepresence":false, "Crew":"RIPTHEREAPER" }
 
-//Developer Notes: File Last Reviewed 07AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
 //Ch 00: 07AUG2026 - Updated event with new Alignments, Mirrored the LaunchFighter Event. - Shadow Doctor K
+//Ch 01: 08AUG2026 - Corrected Prepare() event instance assignment. - Shadow Doctor K
 
 using ALICE_Debug;
 using ALICE_Status;
 using System;
 
-// When written: when in multicrew, in Helm player's log, when a crew member launches a fighter 
+// When written: when in multicrew, in Helm player's log, when a crew member launches a fighter
 
 namespace ALICE_Events
 {
@@ -37,26 +38,12 @@ namespace ALICE_Events
         //Event Instance
         public CrewLaunchFighter I = new CrewLaunchFighter();
 
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                Variables.Record(Name + "_Telepresence", I.Telepresence);
-                Variables.Record(Name + "_Crew", I.Crew);
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
-
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
         {
             try
             {
-                //No Logic Process
+                I = (CrewLaunchFighter)O;
             }
             catch (Exception ex)
             {
@@ -91,6 +78,26 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_Telepresence", I.Telepresence);
+                Variables.Record(Name + "_Crew", I.Crew);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

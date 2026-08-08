@@ -20,15 +20,16 @@
 //                      "Latitude":-51.718937,
 //                      "Longitude":-47.780975 }
 
-//Developer Notes: File Last Reviewed 06AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
 //Ch 01: 06AUG2026 - Updated event with new event properties, added new external variables. - Shadow Doctor K
+//Ch 02: 08AUG2026 - Corrected StationServices and StationEconomies data structures, restored Name_Localised property, and updated localised variable generation. - Shadow Doctor K
 //  - Need to expand station services and add function to handle assigning them.
 
 using System;
 using System.Collections.Generic;
 using ALICE_Internal;
 
-//When written: when approaching a planetary settlement 
+//When written: when approaching a planetary settlement
 
 namespace ALICE_Events
 {
@@ -38,15 +39,16 @@ namespace ALICE_Events
     public class ApproachSettlement : Base
     {
         public string Name { get; set; }
+        public string Name_Localised { get; set; }
         public decimal MarketID { get; set; }
         public FactionData StationFaction { get; set; }
         public string StationGovernment { get; set; }
         public string StationGovernment_Localised { get; set; }
         public string StationAllegiance { get; set; }
-        public string StationServices { get; set; }
+        public List<string> StationServices { get; set; }
         public string StationEconomy { get; set; }
         public string StationEconomy_Localised { get; set; }
-        public string StationEconomies { get; set; }
+        public List<StationEconomyData> StationEconomies { get; set; }
         public decimal SystemAddress { get; set; }
         public decimal BodyID { get; set; }
         public string BodyName { get; set; }
@@ -57,15 +59,16 @@ namespace ALICE_Events
         public ApproachSettlement()
         {
             Name = Str();
+            Name_Localised = Str();
             MarketID = Dec();
             StationFaction = new FactionData();
             StationGovernment = Str();
             StationGovernment_Localised = Str();
             StationAllegiance = Str();
-            StationServices = Str();
+            StationServices = new List<string>();
             StationEconomy = Str();
             StationEconomy_Localised = Str();
-            StationEconomies = Str();
+            StationEconomies = new List<StationEconomyData>();
             SystemAddress = Dec();
             BodyID = Dec();
             BodyName = Str();
@@ -73,6 +76,7 @@ namespace ALICE_Events
             Longitude = Dec();
         }
 
+        #region Support Data Structure
         public class FactionData : Catch
         {
             public string Name { get; set; }
@@ -84,6 +88,21 @@ namespace ALICE_Events
                 FactionState = Str();
             }
         }
+
+        public class StationEconomyData : Catch
+        {
+            public string Name { get; set; }
+            public string Name_Localised { get; set; }
+            public decimal Proportion { get; set; }
+
+            public StationEconomyData()
+            {
+                Name = Str();
+                Name_Localised = Str();
+                Proportion = Dec();
+            }
+        }
+        #endregion
     }
 
     /// <summary>
@@ -93,36 +112,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public ApproachSettlement I = new ApproachSettlement();
-
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                #region Custom Variables
-
-                #endregion
-
-                #region Event Variables
-                Variables.Record(Name + "_Name", I.Name);
-                Variables.Record(Name + "_MarketID", I.MarketID);
-                Variables.Record(Name + "_FactionName", I.StationFaction.Name);
-                Variables.Record(Name + "_FactionState", I.StationFaction.FactionState);
-                Variables.Record(Name + "_Government", I.StationGovernment_Localised);
-                Variables.Record(Name + "_Allegiance", I.StationAllegiance);
-                Variables.Record(Name + "_Economy", I.StationEconomy_Localised);
-                Variables.Record(Name + "_Address", I.SystemAddress);
-                Variables.Record(Name + "_BodyID", I.BodyID);
-                Variables.Record(Name + "_BodyName", I.BodyName);
-                Variables.Record(Name + "_Latitude", I.Latitude);
-                Variables.Record(Name + "_Longitude", I.Longitude);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
@@ -160,6 +149,36 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Switch(Name + "_Name", I.Name_Localised, I.Name);
+                Variables.Record(Name + "_MarketID", I.MarketID);
+                Variables.Record(Name + "_FactionName", I.StationFaction.Name);
+                Variables.Record(Name + "_FactionState", I.StationFaction.FactionState);
+                Variables.Switch(Name + "_Government", I.StationGovernment_Localised, I.StationGovernment);
+                Variables.Record(Name + "_Allegiance", I.StationAllegiance);
+                Variables.Switch(Name + "_Economy", I.StationEconomy_Localised, I.StationEconomy);
+                Variables.Record(Name + "_Address", I.SystemAddress);
+                Variables.Record(Name + "_BodyID", I.BodyID);
+                Variables.Record(Name + "_BodyName", I.BodyName);
+                Variables.Record(Name + "_Latitude", I.Latitude);
+                Variables.Record(Name + "_Longitude", I.Longitude);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

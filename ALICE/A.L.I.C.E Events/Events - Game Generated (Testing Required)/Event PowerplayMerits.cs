@@ -2,9 +2,10 @@
 //Class File Generated: 08/04/2026 10:55 PM
 //Source Journal Line: { "timestamp":"2026-01-07T22:27:35Z", "event":"PowerplayMerits", "Power":"Zemina Torval", "MeritsGained":887, "TotalMerits":796477 }
 
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Reviewed event structure and normalized event method layout. - Shadow Doctor K
+
 using System;
-using System.Collections.Generic;
-using ALICE_Internal;
 
 namespace ALICE_Events
 {
@@ -33,27 +34,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public PowerplayMerits I = new PowerplayMerits();
-
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                #region Custom Variables
-
-                #endregion
-
-                #region Event Variables
-                Variables.Record(Name + "_Power", I.Power);
-                Variables.Record(Name + "_MeritsGained", I.MeritsGained);
-                Variables.Record(Name + "_TotalMerits", I.TotalMerits);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
@@ -91,6 +71,27 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_Power", I.Power);
+                Variables.Record(Name + "_MeritsGained", I.MeritsGained);
+                Variables.Record(Name + "_TotalMerits", I.TotalMerits);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

@@ -10,6 +10,9 @@
 //                      "PurchaseOrder":46134,
 //                      "Price":185 }
 
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Corrected BlackMarket property type and updated Commodity variable to use localised/raw fallback. - Shadow Doctor K
+
 using System;
 using System.Collections.Generic;
 using ALICE_Internal;
@@ -23,7 +26,7 @@ namespace ALICE_Events
     {
         public decimal CarrierID { get; set; }
         public string CarrierType { get; set; }
-        public string BlackMarket { get; set; }
+        public bool BlackMarket { get; set; }
         public string Commodity { get; set; }
         public string Commodity_Localised { get; set; }
         public decimal PurchaseOrder { get; set; }
@@ -49,31 +52,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public CarrierTradeOrder I = new CarrierTradeOrder();
-
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                #region Custom Variables
-
-                #endregion
-
-                #region Event Variables
-                Variables.Record(Name + "_CarrierID", I.CarrierID);
-                Variables.Record(Name + "_CarrierType", I.CarrierType);
-                Variables.Record(Name + "_BlackMarket", I.BlackMarket);
-                Variables.Record(Name + "_Commodity", I.Commodity);
-                Variables.Record(Name + "_Commodity_Localised", I.Commodity_Localised);
-                Variables.Record(Name + "_PurchaseOrder", I.PurchaseOrder);
-                Variables.Record(Name + "_Price", I.Price);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
@@ -111,6 +89,30 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_CarrierID", I.CarrierID);
+                Variables.Record(Name + "_CarrierType", I.CarrierType);
+                Variables.Record(Name + "_BlackMarket", I.BlackMarket);
+                Variables.Switch(Name + "_Commodity", I.Commodity_Localised, I.Commodity);
+                Variables.Record(Name + "_PurchaseOrder", I.PurchaseOrder);
+                Variables.Record(Name + "_Price", I.Price);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

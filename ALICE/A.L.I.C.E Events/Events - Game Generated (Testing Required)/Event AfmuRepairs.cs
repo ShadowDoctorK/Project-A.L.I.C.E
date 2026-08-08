@@ -2,12 +2,13 @@
 //Class File Generated: 11/12/2018 4:40 PM
 //Source Journal Line: { "timestamp":"2018-10-17T08:06:45Z", "event":"AfmuRepairs", "Module":"$int_powerdistributor_size8_class5_name;", "Module_Localised":"Power Distributor", "FullyRepaired":true, "Health":1.000000 }
 
-//Developer Notes: File Last Reviewed 05AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
 //Ch 01: 05AUG2026 - Updated event to new event structure. - Shadow Doctor K
+//Ch 02: 08AUG2026 - Corrected FullyRepaired property type and updated localised variable generation. - Shadow Doctor K
 
 using System;
 
-//When written: when repairing modules using the Auto Field Maintenance Unit (AFMU) 
+//When written: when repairing modules using the Auto Field Maintenance Unit (AFMU)
 
 namespace ALICE_Events
 {
@@ -18,7 +19,7 @@ namespace ALICE_Events
     {
         public string Module { get; set; }
         public string Module_Localised { get; set; }
-        public string FullyRepaired { get; set; }
+        public bool FullyRepaired { get; set; }
         public decimal Health { get; set; }
 
         //Default Constructor
@@ -26,7 +27,7 @@ namespace ALICE_Events
         {
             Module = Str();
             Module_Localised = Str();
-            FullyRepaired = Str();
+            FullyRepaired = Bool();
             Health = Dec();
         }
     }
@@ -38,27 +39,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public AfmuRepairs I = new AfmuRepairs();
-
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                #region Custom Variables
-
-                #endregion
-
-                #region Event Variables
-                Variables.Record(Name + "_Name", I.Module_Localised);
-                Variables.Record(Name + "_Health", I.Health);
-                Variables.Record(Name + "_Item", I.Module);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
@@ -96,6 +76,29 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Switch(Name + "_Name", I.Module_Localised, I.Module);
+                Variables.Record(Name + "_Health", I.Health);
+                Variables.Record(Name + "_Item", I.Module);
+
+                //Variables.Record(Name + "_FullyRepaired", I.FullyRepaired);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

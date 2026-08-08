@@ -2,6 +2,9 @@
 //Class File Generated: 08/04/2026 10:55 PM
 //Source Journal Line: { "timestamp":"2026-01-10T21:52:28Z", "event":"LoadoutEquipModule", "LoadoutName":"combat 2", "SuitID":1763747430586625, "SuitName":"tacticalsuit_class2", "SuitName_Localised":"$TacticalSuit_Class1_Name;", "LoadoutID":4293000002, "SlotName":"SecondaryWeapon", "ModuleName":"wpn_s_pistol_laser_sauto", "ModuleName_Localised":"TK Zenith", "Class":3, "WeaponMods":[ "weapon_suppression_pressurised" ], "SuitModuleID":1763896499181480 }
 
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Corrected WeaponMods property type and updated localised variable generation. - Shadow Doctor K
+
 using System;
 using System.Collections.Generic;
 using ALICE_Internal;
@@ -22,7 +25,7 @@ namespace ALICE_Events
         public string ModuleName { get; set; }
         public string ModuleName_Localised { get; set; }
         public decimal Class { get; set; }
-        public string WeaponMods { get; set; }
+        public List<string> WeaponMods { get; set; }
         public decimal SuitModuleID { get; set; }
 
         //Default Constructor
@@ -37,7 +40,7 @@ namespace ALICE_Events
             ModuleName = Str();
             ModuleName_Localised = Str();
             Class = Dec();
-            WeaponMods = Str();
+            WeaponMods = new List<string>();
             SuitModuleID = Dec();
         }
     }
@@ -49,35 +52,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public LoadoutEquipModule I = new LoadoutEquipModule();
-
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                #region Custom Variables
-
-                #endregion
-
-                #region Event Variables
-                Variables.Record(Name + "_LoadoutName", I.LoadoutName);
-                Variables.Record(Name + "_SuitID", I.SuitID);
-                Variables.Record(Name + "_SuitName", I.SuitName);
-                Variables.Record(Name + "_SuitName_Localised", I.SuitName_Localised);
-                Variables.Record(Name + "_LoadoutID", I.LoadoutID);
-                Variables.Record(Name + "_SlotName", I.SlotName);
-                Variables.Record(Name + "_ModuleName", I.ModuleName);
-                Variables.Record(Name + "_ModuleName_Localised", I.ModuleName_Localised);
-                Variables.Record(Name + "_Class", I.Class);
-                Variables.Record(Name + "_WeaponMods", I.WeaponMods);
-                Variables.Record(Name + "_SuitModuleID", I.SuitModuleID);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
@@ -115,6 +89,38 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_LoadoutName", I.LoadoutName);
+                Variables.Record(Name + "_SuitID", I.SuitID);
+                Variables.Switch(Name + "_SuitName", I.SuitName_Localised, I.SuitName);
+                Variables.Record(Name + "_SuitName_Localised", I.SuitName_Localised);
+                Variables.Record(Name + "_LoadoutID", I.LoadoutID);
+                Variables.Record(Name + "_SlotName", I.SlotName);
+                Variables.Switch(Name + "_ModuleName", I.ModuleName_Localised, I.ModuleName);
+                Variables.Record(Name + "_ModuleName_Localised", I.ModuleName_Localised);
+                Variables.Record(Name + "_Class", I.Class);
+
+                //Nested/List variable generation not added during this pass.
+                //Variables.Record(Name + "_WeaponMods", I.WeaponMods);
+
+                Variables.Record(Name + "_SuitModuleID", I.SuitModuleID);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

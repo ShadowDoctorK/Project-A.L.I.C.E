@@ -5,8 +5,9 @@
 //Source Journal Line: { "timestamp":"2018-11-22T01:47:55Z", "event":"CommitCrime", "CrimeType":"dockingMinorBlockingLandingPad", "Faction":"Eureka Mining Co-Operative", "Fine":300 }
 //Source Journal Line: { "timestamp":"2026-02-01T05:04:54Z", "event":"CommitCrime", "CrimeType":"assault", "Faction":"SSL Interstellar PLC", "Victim":"TisReaper", "Bounty":300 }
 
-//Developer Notes: File Last Reviewed 05AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
 //Ch 01: 05AUG2026 - Updated event with a new function to return the valid Charge being placed on the player. - Shadow Doctor K
+//Ch 02: 08AUG2026 - Reviewed event structure and updated Victim variable to use localised/raw fallback. - Shadow Doctor K
 
 using ALICE_Core;
 using ALICE_Data;
@@ -14,9 +15,8 @@ using ALICE_Debug;
 using ALICE_Internal;
 using ALICE_Status;
 using System;
-using System.Diagnostics.Eventing.Reader;
 
-//When written: when a crime is recorded against the player 
+//When written: when a crime is recorded against the player
 
 namespace ALICE_Events
 {
@@ -34,7 +34,6 @@ namespace ALICE_Events
         public decimal Fine { get; set; }
         public decimal Bounty { get; set; }
 
-
         //Default Constructor
         public CommitCrime()
         {
@@ -49,9 +48,9 @@ namespace ALICE_Events
         //Returns the value being Charged to the Player for the infraction.
         public decimal Charge()
         {
-            if (Fine != -1)         { return Fine; }
-            else if (Bounty != -1)  { return Bounty; }
-            else                    { return 0; }
+            if (Fine != -1) { return Fine; }
+            else if (Bounty != -1) { return Bounty; }
+            else { return 0; }
         }
     }
 
@@ -62,27 +61,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public CommitCrime I { get; set; } = new CommitCrime();
-
-        //Variable Generation
-        public override void Generate(object O)
-        {
-            try
-            {
-                Variables.Record(Name + "_Crime", I.CrimeType);
-                Variables.Record(Name + "_Faction", I.Faction);
-                Variables.Record(Name + "_Victim", I.Victim_Localised);
-
-                switch (Variables.Switch(Name + "_Credits", I.Fine, I.Bounty))
-                {
-                    case true: Variables.Record(Name + "_Charge", "Fine"); break;
-                    case false: Variables.Record(Name + "_Charge", "Bounty"); break;
-                }
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations
         public override void Prepare(object O)
@@ -106,7 +84,8 @@ namespace ALICE_Events
                 //Here we are doing some fancy code work to just generate custom events to allow more control over crime events for users.
 
                 //Convert String To Enum
-                IEnums.CrimeType Crime = IEnums.ToEnum<IEnums.CrimeType>(IData.CrimeType.Convert(I.CrimeType), false);
+                IEnums.CrimeType Crime = IEnums.ToEnum<IEnums.CrimeType>(
+                    IData.CrimeType.Convert(I.CrimeType), false);
 
                 //Evaluate Crime Type
                 switch (Crime)
@@ -114,36 +93,41 @@ namespace ALICE_Events
                     case IEnums.CrimeType.Assault:
 
                         //Construct Assault Event
-                        IEvents.Assault.Construct(I); break;
+                        IEvents.Assault.Construct(I);
+                        break;
 
                     case IEnums.CrimeType.MinorBlockingAirlock:
 
                         //Construct BlockAirlock Event
-                        IEvents.BlockAirlock.Construct(I); break;
+                        IEvents.BlockAirlock.Construct(I);
+                        break;
 
                     case IEnums.CrimeType.MajorBlockingAirlock:
 
                         //Construct BlockAirlock Event
-                        IEvents.BlockAirlock.Construct(I); break;
+                        IEvents.BlockAirlock.Construct(I);
+                        break;
 
                     case IEnums.CrimeType.MinorBlockingLandingPad:
 
                         //Construct BlockLandingPad Event
-                        IEvents.BlockLandingPad.Construct(I); break;
+                        IEvents.BlockLandingPad.Construct(I);
+                        break;
 
                     case IEnums.CrimeType.MajorBlockingLandingPad:
 
                         //Construct BlockLandingPad Event
-                        IEvents.BlockLandingPad.Construct(I); break;
+                        IEvents.BlockLandingPad.Construct(I);
+                        break;
 
                     case IEnums.CrimeType.FireInNoFireZone:
 
-                        //IEvents.FireInNoFireZone.Construct(Event);
+                        //IEvents.FireInNoFireZone.Construct(I);
                         break;
 
                     case IEnums.CrimeType.Murder:
 
-                        //IEvents.Murder.Construct(Event);
+                        //IEvents.Murder.Construct(I);
                         break;
 
                     case IEnums.CrimeType.Piracy:
@@ -198,13 +182,59 @@ namespace ALICE_Events
                             ICheck.Initialized(ClassName));         //Check Plugin Initialized
 
                         //Record New Items To Developer Log
-                        Logger.DeveloperLog("Developer Record: [CommitCrime:CrimeType] " + I.CrimeType);
+                        Logger.DeveloperLog(
+                            "Developer Record: [CommitCrime:CrimeType] " + I.CrimeType);
                         break;
                 }
             }
             catch (Exception ex)
             {
                 ExceptionProcess(Name, ex);
+            }
+        }
+
+        //Plugin Property Alignment
+        public override void Alignment(object O)
+        {
+            try
+            {
+                //No State Alignment
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                switch (Variables.Switch(Name + "_Credits", I.Fine, I.Bounty))
+                {
+                    case true:
+                        Variables.Record(Name + "_Charge", "Fine");
+                        break;
+
+                    case false:
+                        Variables.Record(Name + "_Charge", "Bounty");
+                        break;
+                }
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_Crime", I.CrimeType);
+                Variables.Record(Name + "_Faction", I.Faction);
+                Variables.Switch(Name + "_Victim", I.Victim_Localised, I.Victim);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

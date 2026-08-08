@@ -3,16 +3,17 @@
 //Source Journal Line: { "timestamp":"2018-11-08T10:45:21Z", "event":"EngineerCraft", "Slot":"PowerDistributor", "Module":"int_powerdistributor_size6_class5", "Ingredients":[ { "Name":"industrialfirmware", "Name_Localised":"Cracked Industrial Firmware", "Count":1 }, { "Name":"fedproprietarycomposites", "Name_Localised":"Proprietary Composites", "Count":1 }, { "Name":"militarysupercapacitors", "Name_Localised":"Military Supercapacitors", "Count":1 } ], "Engineer":"The Dweller", "EngineerID":300180, "BlueprintID":128673734, "BlueprintName":"PowerDistributor_HighCapacity", "Level":5, "Quality":0.176000, "Modifiers":[ { "Label":"Integrity", "Value":156.091202, "OriginalValue":124.000000, "LessIsGood":0 }, { "Label":"WeaponsCapacity", "Value":68.434998, "OriginalValue":50.000000, "LessIsGood":0 }, { "Label":"WeaponsRecharge", "Value":4.264000, "OriginalValue":5.200000, "LessIsGood":0 }, { "Label":"EnginesCapacity", "Value":47.904503, "OriginalValue":35.000000, "LessIsGood":0 }, { "Label":"EnginesRecharge", "Value":2.624000, "OriginalValue":3.200000, "LessIsGood":0 }, { "Label":"SystemsCapacity", "Value":47.904503, "OriginalValue":35.000000, "LessIsGood":0 }, { "Label":"SystemsRecharge", "Value":2.624000, "OriginalValue":3.200000, "LessIsGood":0 } ] }
 //Source Journal Line: { "timestamp":"2026-01-17T20:03:00Z", "event":"EngineerCraft", "Slot":"FrameShiftDrive", "Module":"int_hyperdrive_overcharge_size6_class5", "Ingredients":[ { "Name":"phosphorus", "Count":1 }, { "Name":"chemicalprocessors", "Name_Localised":"Chemical Processors", "Count":1 }, { "Name":"wakesolutions", "Name_Localised":"Strange Wake Solutions", "Count":1 } ], "Engineer":"Felicity Farseer", "EngineerID":300100, "BlueprintID":128673692, "BlueprintName":"FSD_LongRange", "Level":3, "Quality":0.333000, "Modifiers":[ { "Label":"Mass", "Value":48.000000, "OriginalValue":40.000000, "LessIsGood":1 }, { "Label":"Integrity", "Value":128.309998, "OriginalValue":141.000000, "LessIsGood":0 }, { "Label":"PowerDraw", "Value":0.817500, "OriginalValue":0.750000, "LessIsGood":1 }, { "Label":"FSDOptimalMass", "Value":2566.600098, "OriginalValue":2000.000000, "LessIsGood":0 } ] }
 
-//Developer Notes: File Last Reviewed 06AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
 //Ch 01: 06AUG2026 - Updated event to new event structure. - Shadow Doctor K
-// - Testing needed to see if the Localised items were shifted to the non-localised versions of the proerties.
+//Ch 02: 08AUG2026 - Corrected Modifiers and Ingredients list types and Prepare() event instance assignment. - Shadow Doctor K
+// - Testing needed to see if the Localised items were shifted to the non-localised versions of the properties.
 
 using ALICE_Debug;
 using ALICE_Status;
 using System;
 using System.Collections.Generic;
 
-// When Written: when requesting an engineer upgrade 
+// When Written: when requesting an engineer upgrade
 
 namespace ALICE_Events
 {
@@ -106,7 +107,7 @@ namespace ALICE_Events
         public override void Generate(object O)
         {
             try
-            { 
+            {
                 Variables.Record(Name + "_Engineer", I.Engineer);
                 Variables.Record(Name + "_ID", I.EngineerID);
                 Variables.Record(Name + "_Module", I.Module);
@@ -127,7 +128,7 @@ namespace ALICE_Events
         {
             try
             {
-                //No Logic Process
+                I = (EngineerCraft)O;
             }
             catch (Exception ex)
             {

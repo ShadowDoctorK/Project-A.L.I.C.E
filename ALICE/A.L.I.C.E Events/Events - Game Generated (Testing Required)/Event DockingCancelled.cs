@@ -3,13 +3,14 @@
 //Source Journal Line: { "timestamp":"2018-10-02T03:03:18Z", "event":"DockingCancelled", "MarketID":3221503744, "StationName":"Hennen Station", "StationType":"Bernal" }
 //Source Journal Line: { "timestamp":"2026-01-12T02:00:56Z", "event":"DockingCancelled", "MarketID":128968675, "StationName":"Rackham's Peak", "StationType":"Outpost" }
 
-//Developer Notes: File Last Reviewed 06AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
 //Ch 01: 06AUG2026 - Updated event to new event structure. - Shadow Doctor K
+//Ch 02: 08AUG2026 - Corrected duplicate Process method and restored Prepare event instance assignment. - Shadow Doctor K
 
 using ALICE_Status;
 using System;
 
-// When written: when the player cancels a docking request 
+// When written: when the player cancels a docking request
 
 namespace ALICE_Events
 {
@@ -24,7 +25,7 @@ namespace ALICE_Events
 
         //Default Constructor
         public DockingCancelled()
-        {            
+        {
             MarketID = Dec();
             StationName = Str();
             StationType = Str();
@@ -39,32 +40,16 @@ namespace ALICE_Events
         //Event Instance
         public DockingCancelled I = new DockingCancelled();
 
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                Variables.Record(Name + "_Market", I.MarketID);
-                Variables.Record(Name + "_Station", I.StationName);
-                Variables.Record(Name + "_Type", I.StationType);
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
-
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
-        public override void Process(object O)
+        public override void Prepare(object O)
         {
             try
             {
-                //Update Status Obbject
-                IStatus.Docking.Update(I);
+                I = (DockingCancelled)O;
             }
             catch (Exception ex)
             {
-                ExceptionProcess(Name, ex);
+                ExceptionPrepare(Name, ex);
             }
         }
 
@@ -73,7 +58,8 @@ namespace ALICE_Events
         {
             try
             {
-                //No Logic Process
+                //Update Status Object
+                IStatus.Docking.Update(I);
             }
             catch (Exception ex)
             {
@@ -93,6 +79,27 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_Market", I.MarketID);
+                Variables.Record(Name + "_Station", I.StationName);
+                Variables.Record(Name + "_Type", I.StationType);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

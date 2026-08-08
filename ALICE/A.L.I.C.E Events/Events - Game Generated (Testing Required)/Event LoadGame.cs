@@ -36,7 +36,7 @@ namespace ALICE_Events
         public bool StartLanded { get; set; }
 
         #region 2026.08.06 Update
-        public string Odyssey { get; set; }
+        public bool Odyssey { get; set; }
         public string Language { get; set; }
         public string Gameversion { get; set; }
         public string Build { get; set; }

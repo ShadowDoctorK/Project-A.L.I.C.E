@@ -2,6 +2,9 @@
 //Class File Generated: 08/04/2026 10:55 PM
 //Source Journal Line: { "timestamp":"2026-01-16T18:27:11Z", "event":"CarrierJump", "Docked":true, "StationName":"FXBX", "StationType":"FleetCarrier", "MarketID":3714546688, "StationFaction":{ "Name":"FleetCarrier" }, "StationGovernment":"$government_Carrier;", "StationGovernment_Localised":"Private Ownership", "StationServices":[ "dock", "autodock", "commodities", "contacts", "exploration", "outfitting", "crewlounge", "rearm", "refuel", "repair", "shipyard", "engineer", "flightcontroller", "stationoperations", "stationMenu", "carriermanagement", "carrierfuel", "livery", "socialspace", "bartender", "vistagenomics", "pioneersupplies", "squadronBank" ], "StationEconomy":"$economy_Carrier;", "StationEconomy_Localised":"Private Enterprise", "StationEconomies":[ { "Name":"$economy_Carrier;", "Name_Localised":"Private Enterprise", "Proportion":1.000000 } ], "Taxi":false, "Multicrew":false, "StarSystem":"Atlantis", "SystemAddress":633742463706, "StarPos":[65.87500,-117.96875,47.71875], "SystemAllegiance":"Empire", "SystemEconomy":"$economy_HighTech;", "SystemEconomy_Localised":"High Tech", "SystemSecondEconomy":"$economy_Refinery;", "SystemSecondEconomy_Localised":"Refinery", "SystemGovernment":"$government_Feudal;", "SystemGovernment_Localised":"Feudal", "SystemSecurity":"$SYSTEM_SECURITY_high;", "SystemSecurity_Localised":"High Security", "Population":30518996, "Body":"Atlantis A", "BodyID":1, "BodyType":"Star", "ControllingPower":"Aisling Duval", "Powers":[ "A. Lavigny-Duval", "Aisling Duval", "Zemina Torval" ], "PowerplayState":"Stronghold", "PowerplayStateControlProgress":0.320954, "PowerplayStateReinforcement":132, "PowerplayStateUndermining":18778, "Factions":[ { "Name":"Atlantis Empire League", "FactionState":"None", "Government":"Patronage", "Influence":0.157371, "Allegiance":"Empire", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":0.000000, "RecoveringStates":[ { "State":"PirateAttack", "Trend":0 }, { "State":"Election", "Trend":0 } ] }, { "Name":"Atlantis Jet Creative & Co", "FactionState":"None", "Government":"Corporate", "Influence":0.015936, "Allegiance":"Independent", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":0.000000 }, { "Name":"Union of Atlantis Labour", "FactionState":"None", "Government":"Democracy", "Influence":0.059761, "Allegiance":"Independent", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":0.000000, "PendingStates":[ { "State":"Outbreak", "Trend":0 } ] }, { "Name":"Empire's Hope", "FactionState":"None", "Government":"Patronage", "Influence":0.032869, "Allegiance":"Empire", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":0.000000 }, { "Name":"Camorra of Atlantis", "FactionState":"None", "Government":"Anarchy", "Influence":0.018924, "Allegiance":"Independent", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":0.000000 }, { "Name":"Prismatic Knights", "FactionState":"Boom", "Government":"Feudal", "Influence":0.637450, "Allegiance":"Empire", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":0.000000, "ActiveStates":[ { "State":"Boom" } ] }, { "Name":"Revelation to Chaos", "FactionState":"None", "Government":"Feudal", "Influence":0.077689, "Allegiance":"Empire", "Happiness":"$Faction_HappinessBand2;", "Happiness_Localised":"Happy", "MyReputation":0.000000, "RecoveringStates":[ { "State":"Election", "Trend":0 } ] } ], "SystemFaction":{ "Name":"Prismatic Knights", "FactionState":"Boom" }, "Conflicts":[ { "WarType":"election", "Status":"", "Faction1":{ "Name":"Atlantis Empire League", "Stake":"", "WonDays":2 }, "Faction2":{ "Name":"Revelation to Chaos", "Stake":"Ayers City", "WonDays":1 } } ] }
 
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Corrected event property types and added support data structures for nested Journal properties. Updated localised variable generation. - Shadow Doctor K
+
 using System;
 using System.Collections.Generic;
 using ALICE_Internal;
@@ -13,22 +16,22 @@ namespace ALICE_Events
     /// </summary>
     public class CarrierJump : Base
     {
-        public string Docked { get; set; }
+        public bool Docked { get; set; }
         public string StationName { get; set; }
         public string StationType { get; set; }
         public decimal MarketID { get; set; }
-        public string StationFaction { get; set; }
+        public FactionData StationFaction { get; set; }
         public string StationGovernment { get; set; }
         public string StationGovernment_Localised { get; set; }
-        public string StationServices { get; set; }
+        public List<string> StationServices { get; set; }
         public string StationEconomy { get; set; }
         public string StationEconomy_Localised { get; set; }
-        public string StationEconomies { get; set; }
-        public string Taxi { get; set; }
-        public string Multicrew { get; set; }
+        public List<EconomyData> StationEconomies { get; set; }
+        public bool Taxi { get; set; }
+        public bool Multicrew { get; set; }
         public string StarSystem { get; set; }
         public decimal SystemAddress { get; set; }
-        public string StarPos { get; set; }
+        public List<decimal> StarPos { get; set; }
         public string SystemAllegiance { get; set; }
         public string SystemEconomy { get; set; }
         public string SystemEconomy_Localised { get; set; }
@@ -43,14 +46,14 @@ namespace ALICE_Events
         public decimal BodyID { get; set; }
         public string BodyType { get; set; }
         public string ControllingPower { get; set; }
-        public string Powers { get; set; }
+        public List<string> Powers { get; set; }
         public string PowerplayState { get; set; }
         public decimal PowerplayStateControlProgress { get; set; }
         public decimal PowerplayStateReinforcement { get; set; }
         public decimal PowerplayStateUndermining { get; set; }
-        public string Factions { get; set; }
-        public string SystemFaction { get; set; }
-        public string Conflicts { get; set; }
+        public List<FactionData> Factions { get; set; }
+        public FactionData SystemFaction { get; set; }
+        public List<ConflictData> Conflicts { get; set; }
 
         //Default Constructor
         public CarrierJump()
@@ -59,18 +62,18 @@ namespace ALICE_Events
             StationName = Str();
             StationType = Str();
             MarketID = Dec();
-            StationFaction = Str();
+            StationFaction = new FactionData();
             StationGovernment = Str();
             StationGovernment_Localised = Str();
-            StationServices = Str();
+            StationServices = new List<string>();
             StationEconomy = Str();
             StationEconomy_Localised = Str();
-            StationEconomies = Str();
+            StationEconomies = new List<EconomyData>();
             Taxi = Bool();
             Multicrew = Bool();
             StarSystem = Str();
             SystemAddress = Dec();
-            StarPos = Str();
+            StarPos = new List<decimal>();
             SystemAllegiance = Str();
             SystemEconomy = Str();
             SystemEconomy_Localised = Str();
@@ -85,15 +88,105 @@ namespace ALICE_Events
             BodyID = Dec();
             BodyType = Str();
             ControllingPower = Str();
-            Powers = Str();
+            Powers = new List<string>();
             PowerplayState = Str();
             PowerplayStateControlProgress = Dec();
             PowerplayStateReinforcement = Dec();
             PowerplayStateUndermining = Dec();
-            Factions = Str();
-            SystemFaction = Str();
-            Conflicts = Str();
+            Factions = new List<FactionData>();
+            SystemFaction = new FactionData();
+            Conflicts = new List<ConflictData>();
         }
+
+        #region Support Data Structure
+
+        public class EconomyData : Catch
+        {
+            public string Name { get; set; }
+            public string Name_Localised { get; set; }
+            public decimal Proportion { get; set; }
+
+            public EconomyData()
+            {
+                Name = Str();
+                Name_Localised = Str();
+                Proportion = Dec();
+            }
+        }
+
+        public class FactionData : Catch
+        {
+            public string Name { get; set; }
+            public string FactionState { get; set; }
+            public string Government { get; set; }
+            public decimal Influence { get; set; }
+            public string Allegiance { get; set; }
+            public string Happiness { get; set; }
+            public string Happiness_Localised { get; set; }
+            public decimal MyReputation { get; set; }
+            public List<FactionStateData> ActiveStates { get; set; }
+            public List<FactionStateData> PendingStates { get; set; }
+            public List<FactionStateData> RecoveringStates { get; set; }
+
+            public FactionData()
+            {
+                Name = Str();
+                FactionState = Str();
+                Government = Str();
+                Influence = Dec();
+                Allegiance = Str();
+                Happiness = Str();
+                Happiness_Localised = Str();
+                MyReputation = Dec();
+                ActiveStates = new List<FactionStateData>();
+                PendingStates = new List<FactionStateData>();
+                RecoveringStates = new List<FactionStateData>();
+            }
+        }
+
+        public class FactionStateData : Catch
+        {
+            public string State { get; set; }
+            public decimal Trend { get; set; }
+
+            public FactionStateData()
+            {
+                State = Str();
+                Trend = Dec();
+            }
+        }
+
+        public class ConflictData : Catch
+        {
+            public string WarType { get; set; }
+            public string Status { get; set; }
+            public ConflictFactionData Faction1 { get; set; }
+            public ConflictFactionData Faction2 { get; set; }
+
+            public ConflictData()
+            {
+                WarType = Str();
+                Status = Str();
+                Faction1 = new ConflictFactionData();
+                Faction2 = new ConflictFactionData();
+            }
+        }
+
+        public class ConflictFactionData : Catch
+        {
+            public string Name { get; set; }
+            public string Stake { get; set; }
+            public decimal WonDays { get; set; }
+
+            public ConflictFactionData()
+            {
+                Name = Str();
+                Stake = Str();
+                WonDays = Dec();
+            }
+        }
+
+        #endregion
     }
 
     /// <summary>
@@ -103,62 +196,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public CarrierJump I = new CarrierJump();
-
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                #region Custom Variables
-
-                #endregion
-
-                #region Event Variables
-                Variables.Record(Name + "_Docked", I.Docked);
-                Variables.Record(Name + "_StationName", I.StationName);
-                Variables.Record(Name + "_StationType", I.StationType);
-                Variables.Record(Name + "_MarketID", I.MarketID);
-                Variables.Record(Name + "_StationFaction", I.StationFaction);
-                Variables.Record(Name + "_StationGovernment", I.StationGovernment);
-                Variables.Record(Name + "_StationGovernment_Localised", I.StationGovernment_Localised);
-                Variables.Record(Name + "_StationServices", I.StationServices);
-                Variables.Record(Name + "_StationEconomy", I.StationEconomy);
-                Variables.Record(Name + "_StationEconomy_Localised", I.StationEconomy_Localised);
-                Variables.Record(Name + "_StationEconomies", I.StationEconomies);
-                Variables.Record(Name + "_Taxi", I.Taxi);
-                Variables.Record(Name + "_Multicrew", I.Multicrew);
-                Variables.Record(Name + "_StarSystem", I.StarSystem);
-                Variables.Record(Name + "_SystemAddress", I.SystemAddress);
-                Variables.Record(Name + "_StarPos", I.StarPos);
-                Variables.Record(Name + "_SystemAllegiance", I.SystemAllegiance);
-                Variables.Record(Name + "_SystemEconomy", I.SystemEconomy);
-                Variables.Record(Name + "_SystemEconomy_Localised", I.SystemEconomy_Localised);
-                Variables.Record(Name + "_SystemSecondEconomy", I.SystemSecondEconomy);
-                Variables.Record(Name + "_SystemSecondEconomy_Localised", I.SystemSecondEconomy_Localised);
-                Variables.Record(Name + "_SystemGovernment", I.SystemGovernment);
-                Variables.Record(Name + "_SystemGovernment_Localised", I.SystemGovernment_Localised);
-                Variables.Record(Name + "_SystemSecurity", I.SystemSecurity);
-                Variables.Record(Name + "_SystemSecurity_Localised", I.SystemSecurity_Localised);
-                Variables.Record(Name + "_Population", I.Population);
-                Variables.Record(Name + "_Body", I.Body);
-                Variables.Record(Name + "_BodyID", I.BodyID);
-                Variables.Record(Name + "_BodyType", I.BodyType);
-                Variables.Record(Name + "_ControllingPower", I.ControllingPower);
-                Variables.Record(Name + "_Powers", I.Powers);
-                Variables.Record(Name + "_PowerplayState", I.PowerplayState);
-                Variables.Record(Name + "_PowerplayStateControlProgress", I.PowerplayStateControlProgress);
-                Variables.Record(Name + "_PowerplayStateReinforcement", I.PowerplayStateReinforcement);
-                Variables.Record(Name + "_PowerplayStateUndermining", I.PowerplayStateUndermining);
-                Variables.Record(Name + "_Factions", I.Factions);
-                Variables.Record(Name + "_SystemFaction", I.SystemFaction);
-                Variables.Record(Name + "_Conflicts", I.Conflicts);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
@@ -196,6 +233,75 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+
+                Variables.Record(Name + "_Docked", I.Docked);
+                Variables.Record(Name + "_StationName", I.StationName);
+                Variables.Record(Name + "_StationType", I.StationType);
+                Variables.Record(Name + "_MarketID", I.MarketID);
+
+                //Nested Property
+                //Variables.Record(Name + "_StationFaction", I.StationFaction);
+
+                Variables.Switch(Name + "_StationGovernment", I.StationGovernment_Localised, I.StationGovernment);
+
+                //Nested Property
+                //Variables.Record(Name + "_StationServices", I.StationServices);
+
+                Variables.Switch(Name + "_StationEconomy", I.StationEconomy_Localised, I.StationEconomy);
+
+                //Nested Property
+                //Variables.Record(Name + "_StationEconomies", I.StationEconomies);
+
+                Variables.Record(Name + "_Taxi", I.Taxi);
+                Variables.Record(Name + "_Multicrew", I.Multicrew);
+                Variables.Record(Name + "_StarSystem", I.StarSystem);
+                Variables.Record(Name + "_SystemAddress", I.SystemAddress);
+
+                //Nested Property
+                //Variables.Record(Name + "_StarPos", I.StarPos);
+
+                Variables.Record(Name + "_SystemAllegiance", I.SystemAllegiance);
+                Variables.Switch(Name + "_SystemEconomy", I.SystemEconomy_Localised, I.SystemEconomy);
+                Variables.Switch(Name + "_SystemSecondEconomy", I.SystemSecondEconomy_Localised, I.SystemSecondEconomy);
+                Variables.Switch(Name + "_SystemGovernment", I.SystemGovernment_Localised, I.SystemGovernment);
+                Variables.Switch(Name + "_SystemSecurity", I.SystemSecurity_Localised, I.SystemSecurity);
+                Variables.Record(Name + "_Population", I.Population);
+                Variables.Record(Name + "_Body", I.Body);
+                Variables.Record(Name + "_BodyID", I.BodyID);
+                Variables.Record(Name + "_BodyType", I.BodyType);
+                Variables.Record(Name + "_ControllingPower", I.ControllingPower);
+
+                //Nested Property
+                //Variables.Record(Name + "_Powers", I.Powers);
+
+                Variables.Record(Name + "_PowerplayState", I.PowerplayState);
+                Variables.Record(Name + "_PowerplayStateControlProgress", I.PowerplayStateControlProgress);
+                Variables.Record(Name + "_PowerplayStateReinforcement", I.PowerplayStateReinforcement);
+                Variables.Record(Name + "_PowerplayStateUndermining", I.PowerplayStateUndermining);
+
+                //Nested Properties
+                //Variables.Record(Name + "_Factions", I.Factions);
+                //Variables.Record(Name + "_SystemFaction", I.SystemFaction);
+                //Variables.Record(Name + "_Conflicts", I.Conflicts);
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

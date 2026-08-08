@@ -86,12 +86,10 @@ namespace ALICE_Events
         public override void Generate(object O)
         {
             try
-            {
-                I = (MaterialCollected)O;
-
-                Variables.Record(Name + "_Catagory", Event.Category);
-                Variables.Switch(Name + "_Name", Event.Name_Localised, Event.Name);
-                Variables.Record(Name + "_Count", Event.Count);
+            { 
+                Variables.Record(Name + "_Catagory", I.Category);
+                Variables.Switch(Name + "_Name", I.Name_Localised, I.Name);
+                Variables.Record(Name + "_Count", I.Count);
             }
             catch (Exception ex)
             {

@@ -3,8 +3,9 @@
 //Source Journal Line: { "timestamp":"2018-10-22T00:11:26Z", "event":"CargoDepot", "MissionID":427614351, "UpdateType":"Deliver", "CargoType":"PerformanceEnhancers", "CargoType_Localised":"Performance Enhancers", "Count":584, "StartMarketID":0, "EndMarketID":3221503744, "ItemsCollected":0, "ItemsDelivered":584, "TotalItemsToDeliver":2061, "Progress":0.000000 }
 //Source Journal Line: { "timestamp":"2025-11-12T10:45:29Z", "event":"CargoDepot", "MissionID":1035688088, "UpdateType":"Deliver", "CargoType":"Bertrandite", "Count":726, "StartMarketID":0, "EndMarketID":3222819072, "ItemsCollected":0, "ItemsDelivered":726, "TotalItemsToDeliver":726, "Progress":0.000000 }
 
-//Developer Notes: File Last Reviewed 06AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
 //Ch 01: 06AUG2026 - Updated event to new event structure. - Shadow Doctor K
+//Ch 02: 08AUG2026 - Corrected Prepare() event instance assignment and updated Cargo variable to use localised/raw fallback. - Shadow Doctor K
 // - Testing needed to see if CargoType was replaced by CargoType_Localised for spoken name.
 // - Need to consider adding in a spoken Alice update for mission progress when event is triggered.
 
@@ -23,7 +24,7 @@ namespace ALICE_Events
         public decimal MissionID { get; set; }
         public string UpdateType { get; set; }
         public string CargoType { get; set; }
-        public string CargoType_Localised { get; set; }     //Was This Removed?
+        public string CargoType_Localised { get; set; }
         public decimal Count { get; set; }
         public decimal StartMarketID { get; set; }
         public decimal EndMarketID { get; set; }
@@ -57,34 +58,12 @@ namespace ALICE_Events
         //Event Instance
         public CargoDepot I = new CargoDepot();
 
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                Variables.Record(Name + "_Mission", I.MissionID);
-                Variables.Record(Name + "_Update", I.UpdateType);
-                Variables.Record(Name + "_Cargo", I.CargoType_Localised);
-                Variables.Record(Name + "_Count", I.Count);
-                Variables.Record(Name + "_StartStation", I.StartMarketID);
-                Variables.Record(Name + "_EndStation", I.EndMarketID);
-                Variables.Record(Name + "_Collected", I.ItemsCollected);
-                Variables.Record(Name + "_Delivered", I.ItemsDelivered);
-                Variables.Record(Name + "_Total", I.TotalItemsToDeliver);
-                Variables.Record(Name + "_Progress", I.Progress);
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
-
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
         {
             try
             {
-                //No Logic Process
+                I = (CargoDepot)O;
             }
             catch (Exception ex)
             {
@@ -115,6 +94,34 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_Mission", I.MissionID);
+                Variables.Record(Name + "_Update", I.UpdateType);
+                Variables.Switch(Name + "_Cargo", I.CargoType_Localised, I.CargoType);
+                Variables.Record(Name + "_Count", I.Count);
+                Variables.Record(Name + "_StartStation", I.StartMarketID);
+                Variables.Record(Name + "_EndStation", I.EndMarketID);
+                Variables.Record(Name + "_Collected", I.ItemsCollected);
+                Variables.Record(Name + "_Delivered", I.ItemsDelivered);
+                Variables.Record(Name + "_Total", I.TotalItemsToDeliver);
+                Variables.Record(Name + "_Progress", I.Progress);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

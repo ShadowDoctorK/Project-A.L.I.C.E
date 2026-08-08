@@ -2,9 +2,9 @@
 //Class File Generated: 08/04/2026 10:55 PM
 //Source Journal Line: { "timestamp":"2026-01-08T12:32:44Z", "event":"SharedBookmarkToSquadron", "SquadronID":84124, "SquadronName":"FOXBOX" }
 
+//Developer Notes: File Last Reviewed 08AUG2026
+
 using System;
-using System.Collections.Generic;
-using ALICE_Internal;
 
 namespace ALICE_Events
 {

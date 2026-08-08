@@ -2,6 +2,9 @@
 //Class File Generated: 08/04/2026 10:55 PM
 //Source Journal Line: { "timestamp":"2026-01-07T14:38:57Z", "event":"ShipLocker", "Items":[ { "Name":"largecapacitypowerregulator", "Name_Localised":"Energieregulator", "OwnerID":1522583, "MissionID":770450508, "Count":1 }, { "Name":"largecapacitypowerregulator", "Name_Localised":"Energieregulator", "OwnerID":0, "MissionID":968767698, "Count":1 }, { "Name":"geneticsample", "Name_Localised":"Biologische Probe", "OwnerID":0, "Count":20 }, { "Name":"gmeds", "Name_Localised":"G-Medizin", "OwnerID":0, "Count":5 }, { "Name":"healthmonitor", "Name_Localised":"Gesundheitsmonitor", "OwnerID":0, "Count":3 }, { "Name":"ionisedgas", "Name_Localised":"Ionisiertes Gas", "OwnerID":0, "Count":10 }, { "Name":"geneticrepairmeds", "Name_Localised":"Gen-Reparatursets", "OwnerID":0, "Count":5 }, { "Name":"insightentertainmentsuite", "Name_Localised":"Insight-Entertainment-Bibliothek", "OwnerID":0, "Count":5 }, { "Name":"push", "OwnerID":0, "Count":5 }, { "Name":"suitschematic", "Name_Localised":"Anzugplan", "OwnerID":0, "Count":120 }, { "Name":"weaponschematic", "Name_Localised":"Waffenplan", "OwnerID":0, "Count":182 }, { "Name":"largecapacitypowerregulator", "Name_Localised":"Energieregulator", "OwnerID":0, "Count":1 } ], "Components":[ { "Name":"graphene", "Name_Localised":"Graphen", "OwnerID":0, "Count":10 }, { "Name":"chemicalcatalyst", "Name_Localised":"Chemischer Katalysator", "OwnerID":0, "Count":5 }, { "Name":"chemicalsuperbase", "Name_Localised":"Chemische Superbase", "OwnerID":0, "Count":10 }, { "Name":"circuitboard", "Name_Localised":"Schaltplatte", "OwnerID":0, "Count":5 }, { "Name":"circuitswitch", "Name_Localised":"Elektroschalter", "OwnerID":0, "Count":10 }, { "Name":"electricalfuse", "Name_Localised":"Elektrosicherung", "OwnerID":0, "Count":5 }, { "Name":"electricalwiring", "Name_Localised":"Elektroverkabelung", "OwnerID":0, "Count":10 }, { "Name":"encryptedmemorychip", "Name_Localised":"Verschlüsselter Speicherchip", "OwnerID":0, "Count":5 }, { "Name":"epoxyadhesive", "Name_Localised":"Epoxy-Klebstoff", "OwnerID":0, "Count":10 }, { "Name":"memorychip", "Name_Localised":"Speicherchip", "OwnerID":0, "Count":5 }, { "Name":"microhydraulics", "Name_Localised":"Mikrohydraulikgeräte", "OwnerID":0, "Count":5 }, { "Name":"microsupercapacitor", "Name_Localised":"Mikro-Superkondensatoren", "OwnerID":0, "Count":10 }, { "Name":"microtransformer", "Name_Localised":"Mikro-Transformator", "OwnerID":0, "Count":10 }, { "Name":"motor", "OwnerID":0, "Count":5 }, { "Name":"opticallens", "Name_Localised":"Optische Linse", "OwnerID":0, "Count":10 }, { "Name":"scrambler", "Name_Localised":"Störsender", "OwnerID":0, "Count":5 }, { "Name":"titaniumplating", "Name_Localised":"Titanplatten", "OwnerID":0, "Count":10 }, { "Name":"transmitter", "Name_Localised":"Sender", "OwnerID":0, "Count":15 }, { "Name":"rdx", "Name_Localised":"Hexogen", "OwnerID":0, "Count":5 }, { "Name":"electromagnet", "Name_Localised":"Elektromagnet", "OwnerID":0, "Count":10 }, { "Name":"oxygenicbacteria", "Name_Localised":"Sauerstoffbakterien", "OwnerID":0, "Count":15 }, { "Name":"epinephrine", "Name_Localised":"Epinephrin", "OwnerID":0, "Count":5 }, { "Name":"microelectrode", "Name_Localised":"Mikroelektrode", "OwnerID":0, "Count":5 }, { "Name":"ionbattery", "Name_Localised":"Ionen-Batterie", "OwnerID":0, "Count":15 } ], "Consumables":[ { "Name":"healthpack", "Name_Localised":"Medikit", "OwnerID":0, "Count":93 }, { "Name":"energycell", "Name_Localised":"Energie-<br>zelle", "OwnerID":0, "Count":87 }, { "Name":"amm_grenade_emp", "Name_Localised":"Schild-<br>unterbrecher", "OwnerID":0, "Count":98 }, { "Name":"amm_grenade_frag", "Name_Localised":"Splitter-<br>granate", "OwnerID":0, "Count":94 }, { "Name":"amm_grenade_shield", "Name_Localised":"Schild-<br>generator", "OwnerID":0, "Count":98 }, { "Name":"bypass", "Name_Localised":"E-Breach", "OwnerID":0, "Count":100 } ], "Data":[ { "Name":"biometricdata", "Name_Localised":"Biometrische Daten", "OwnerID":0, "Count":19 }, { "Name":"nocdata", "Name_Localised":"Geheimoperation-Daten", "OwnerID":0, "Count":3 }, { "Name":"airqualityreports", "Name_Localised":"Berichte zur Luftqualität", "OwnerID":0, "Count":5 }, { "Name":"atmosphericdata", "Name_Localised":"Atmosphärische Daten", "OwnerID":0, "Count":10 }, { "Name":"audiologs", "Name_Localised":"Audio-Logs", "OwnerID":0, "Count":9 }, { "Name":"ballisticsdata", "Name_Localised":"Ballistische Daten", "OwnerID":0, "Count":15 }, { "Name":"bloodtestresults", "Name_Localised":"Bluttest-Ergebnisse", "OwnerID":0, "Count":5 }, { "Name":"catmedia", "Name_Localised":"Katzen-Medien", "OwnerID":0, "Count":15 }, { "Name":"chemicalexperimentdata", "Name_Localised":"Chemieexperiment-Daten", "OwnerID":0, "Count":10 }, { "Name":"chemicalinventory", "Name_Localised":"Chemische Bestandsliste", "OwnerID":0, "Count":5 }, { "Name":"chemicalpatents", "Name_Localised":"Chemische Patente", "OwnerID":0, "Count":5 }, { "Name":"classicentertainment", "Name_Localised":"Klassische Unterhaltung", "OwnerID":0, "Count":15 }, { "Name":"cocktailrecipes", "Name_Localised":"Cocktail-Rezepte", "OwnerID":0, "Count":1 }, { "Name":"combattrainingmaterial", "Name_Localised":"Kampftraining-Materialien", "OwnerID":0, "Count":35 }, { "Name":"combatantperformance", "Name_Localised":"Kampfleistung", "OwnerID":0, "Count":30 }, { "Name":"digitaldesigns", "Name_Localised":"Digitale Konzepte", "OwnerID":0, "Count":6 }, { "Name":"evacuationprotocols", "Name_Localised":"Evakuierungsprotokolle", "OwnerID":0, "Count":5 }, { "Name":"extractionyielddata", "Name_Localised":"Daten zur Förderungsausbeute", "OwnerID":0, "Count":5 }, { "Name":"financialprojections", "Name_Localised":"Finanzprognosen", "OwnerID":0, "Count":15 }, { "Name":"genesequencingdata", "Name_Localised":"Gen-Sequenzierungsdaten", "OwnerID":0, "Count":3 }, { "Name":"geneticresearch", "Name_Localised":"Genforschung", "OwnerID":0, "Count":23 }, { "Name":"maintenancelogs", "Name_Localised":"Wartungs-Logs", "OwnerID":0, "Count":8 }, { "Name":"manufacturinginstructions", "Name_Localised":"Herstellungsanweisungen", "OwnerID":0, "Count":15 }, { "Name":"medicaltrialrecords", "Name_Localised":"Klinische Prüfberichte", "OwnerID":0, "Count":3 }, { "Name":"mineralsurvey", "Name_Localised":"Mineralienübersicht", "OwnerID":0, "Count":15 }, { "Name":"mininganalytics", "Name_Localised":"Abbau-Analytik", "OwnerID":0, "Count":4 }, { "Name":"multimediaentertainment", "Name_Localised":"Multimedia-Unterhaltung", "OwnerID":0, "Count":5 }, { "Name":"operationalmanual", "Name_Localised":"Bedienungsanleitung", "OwnerID":0, "Count":45 }, { "Name":"opinionpolls", "Name_Localised":"Umfrageergebnisse", "OwnerID":0, "Count":5 }, { "Name":"patrolroutes", "Name_Localised":"Patrouillenrouten", "OwnerID":0, "Count":20 }, { "Name":"productionreports", "Name_Localised":"Produktionsberichte", "OwnerID":0, "Count":20 }, { "Name":"productionschedule", "Name_Localised":"Produktionszeitplan", "OwnerID":0, "Count":15 }, { "Name":"radioactivitydata", "Name_Localised":"Daten zur Radioaktivität", "OwnerID":0, "Count":8 }, { "Name":"reactoroutputreview", "Name_Localised":"Evaluierung der Reaktorleistung", "OwnerID":0, "Count":10 }, { "Name":"recyclinglogs", "Name_Localised":"Recycling-Logs", "OwnerID":0, "Count":8 }, { "Name":"riskassessments", "Name_Localised":"Gefährdungsbeurteilungen", "OwnerID":0, "Count":16 }, { "Name":"securityexpenses", "Name_Localised":"Aufwendungen für Sicherheit", "OwnerID":0, "Count":8 }, { "Name":"settlementassaultplans", "Name_Localised":"Siedlungsangriffspläne", "OwnerID":0, "Count":1 }, { "Name":"settlementdefenceplans", "Name_Localised":"Siedlungsverteidigungspläne", "OwnerID":0, "Count":5 }, { "Name":"smearcampaignplans", "Name_Localised":"Pläne für Verleumdungskampagne", "OwnerID":0, "Count":3 }, { "Name":"spectralanalysisdata", "Name_Localised":"Spektralanalyse-Daten", "OwnerID":0, "Count":21 }, { "Name":"stellaractivitylogs", "Name_Localised":"Sternenaktivitäts-Logs", "OwnerID":0, "Count":11 }, { "Name":"surveilleancelogs", "Name_Localised":"Überwachungs-Logs", "OwnerID":0, "Count":3 }, { "Name":"tacticalplans", "Name_Localised":"Taktikpläne", "OwnerID":0, "Count":1 }, { "Name":"troopdeploymentrecords", "Name_Localised":"Truppeneinsatzprotokolle", "OwnerID":0, "Count":3 }, { "Name":"weaponinventory", "Name_Localised":"Waffeninventarliste", "OwnerID":0, "Count":10 }, { "Name":"weapontestdata", "Name_Localised":"Waffentestdaten", "OwnerID":0, "Count":26 }, { "Name":"pharmaceuticalpatents", "Name_Localised":"Pharmazeutische Patente", "OwnerID":0, "Count":1 } ] }
 
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Corrected ShipLocker collection property types and added locker item support data structure. - Shadow Doctor K
+
 using System;
 using System.Collections.Generic;
 using ALICE_Internal;
@@ -13,19 +16,39 @@ namespace ALICE_Events
     /// </summary>
     public class ShipLocker : Base
     {
-        public string Items { get; set; }
-        public string Components { get; set; }
-        public string Consumables { get; set; }
-        public string Data { get; set; }
+        public List<LockerItem> Items { get; set; }
+        public List<LockerItem> Components { get; set; }
+        public List<LockerItem> Consumables { get; set; }
+        public List<LockerItem> Data { get; set; }
 
         //Default Constructor
         public ShipLocker()
         {
-            Items = Str();
-            Components = Str();
-            Consumables = Str();
-            Data = Str();
+            Items = new List<LockerItem>();
+            Components = new List<LockerItem>();
+            Consumables = new List<LockerItem>();
+            Data = new List<LockerItem>();
         }
+
+        #region Support Data Structures
+        public class LockerItem : Catch
+        {
+            public string Name { get; set; }
+            public string Name_Localised { get; set; }
+            public decimal OwnerID { get; set; }
+            public decimal MissionID { get; set; }
+            public decimal Count { get; set; }
+
+            public LockerItem()
+            {
+                Name = Str();
+                Name_Localised = Str();
+                OwnerID = Dec();
+                MissionID = Dec();
+                Count = Dec();
+            }
+        }
+        #endregion
     }
 
     /// <summary>
@@ -46,10 +69,9 @@ namespace ALICE_Events
                 #endregion
 
                 #region Event Variables
-                Variables.Record(Name + "_Items", I.Items);
-                Variables.Record(Name + "_Components", I.Components);
-                Variables.Record(Name + "_Consumables", I.Consumables);
-                Variables.Record(Name + "_Data", I.Data);
+
+                //Nested/List variable generation not added during this pass.
+
                 #endregion
             }
             catch (Exception ex)

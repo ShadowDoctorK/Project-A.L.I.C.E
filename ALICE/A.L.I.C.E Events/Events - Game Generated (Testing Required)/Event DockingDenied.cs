@@ -3,14 +3,15 @@
 //Source Journal Line: { "timestamp":"2018-10-28T21:15:49Z", "event":"DockingDenied", "Reason":"Distance", "MarketID":3224098560, "StationName":"Kanwar Orbital", "StationType":"Coriolis" }
 //Source Journal Line: { "timestamp":"2026-01-09T00:32:07Z", "event":"DockingDenied", "Reason":"Distance", "MarketID":4275254531, "StationName":"Antoniodeandrade Beacon", "StationType":"Coriolis" }
 
-//Developer Notes: File Last Reviewed 06AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
 //Ch 01: 06AUG2026 - Updated event to new event structure. - Shadow Doctor K
+//Ch 02: 08AUG2026 - Removed obsolete local event cast from Process(). - Shadow Doctor K
 // - Consider adding Alice Responses to indicate why you were denied to assist the player.
 
 using ALICE_Status;
 using System;
 
-// When written: when the station denies a docking request 
+// When written: when the station denies a docking request
 
 namespace ALICE_Events
 {
@@ -42,22 +43,6 @@ namespace ALICE_Events
         //Event Instance
         public DockingDenied I = new DockingDenied();
 
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            { 
-                Variables.Record(Name + "_Reason", I.Reason);
-                Variables.Record(Name + "_Market", I.MarketID);
-                Variables.Record(Name + "_Station", I.StationName);
-                Variables.Record(Name + "_Type", I.StationType);
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
-
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
         {
@@ -76,10 +61,8 @@ namespace ALICE_Events
         {
             try
             {
-                var Event = (DockingDenied)O;
-
-                //Update Status Obbject
-                IStatus.Docking.Update(Event);
+                //Update Status Object
+                IStatus.Docking.Update(I);
             }
             catch (Exception ex)
             {
@@ -100,6 +83,28 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_Reason", I.Reason);
+                Variables.Record(Name + "_Market", I.MarketID);
+                Variables.Record(Name + "_Station", I.StationName);
+                Variables.Record(Name + "_Type", I.StationType);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

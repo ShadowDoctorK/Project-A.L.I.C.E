@@ -2,8 +2,10 @@
 //Class File Generated: 08/04/2026 10:55 PM
 //Source Journal Line: { "timestamp":"2026-01-15T18:37:33Z", "event":"ScanBaryCentre", "StarSystem":"Rho Ophiuchi Sector IH-U b3-1", "SystemAddress":2870783649369, "BodyID":7, "SemiMajorAxis":10664752721.786499, "Eccentricity":0.000001, "OrbitalInclination":-0.005100, "Periapsis":174.468347, "OrbitalPeriod":1123695.254326, "AscendingNode":-51.547113, "MeanAnomaly":246.519164 }
 
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Corrected Eccentricity property type. - Shadow Doctor K
+
 using System;
-using System.Collections.Generic;
 using ALICE_Internal;
 
 namespace ALICE_Events
@@ -17,7 +19,7 @@ namespace ALICE_Events
         public decimal SystemAddress { get; set; }
         public decimal BodyID { get; set; }
         public decimal SemiMajorAxis { get; set; }
-        public string Eccentricity { get; set; }
+        public decimal Eccentricity { get; set; }
         public decimal OrbitalInclination { get; set; }
         public decimal Periapsis { get; set; }
         public decimal OrbitalPeriod { get; set; }
@@ -31,7 +33,7 @@ namespace ALICE_Events
             SystemAddress = Dec();
             BodyID = Dec();
             SemiMajorAxis = Dec();
-            Eccentricity = Str();
+            Eccentricity = Dec();
             OrbitalInclination = Dec();
             Periapsis = Dec();
             OrbitalPeriod = Dec();
@@ -47,34 +49,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public ScanBaryCentre I = new ScanBaryCentre();
-
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                #region Custom Variables
-
-                #endregion
-
-                #region Event Variables
-                Variables.Record(Name + "_StarSystem", I.StarSystem);
-                Variables.Record(Name + "_SystemAddress", I.SystemAddress);
-                Variables.Record(Name + "_BodyID", I.BodyID);
-                Variables.Record(Name + "_SemiMajorAxis", I.SemiMajorAxis);
-                Variables.Record(Name + "_Eccentricity", I.Eccentricity);
-                Variables.Record(Name + "_OrbitalInclination", I.OrbitalInclination);
-                Variables.Record(Name + "_Periapsis", I.Periapsis);
-                Variables.Record(Name + "_OrbitalPeriod", I.OrbitalPeriod);
-                Variables.Record(Name + "_AscendingNode", I.AscendingNode);
-                Variables.Record(Name + "_MeanAnomaly", I.MeanAnomaly);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
@@ -112,6 +86,34 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_StarSystem", I.StarSystem);
+                Variables.Record(Name + "_SystemAddress", I.SystemAddress);
+                Variables.Record(Name + "_BodyID", I.BodyID);
+                Variables.Record(Name + "_SemiMajorAxis", I.SemiMajorAxis);
+                Variables.Record(Name + "_Eccentricity", I.Eccentricity);
+                Variables.Record(Name + "_OrbitalInclination", I.OrbitalInclination);
+                Variables.Record(Name + "_Periapsis", I.Periapsis);
+                Variables.Record(Name + "_OrbitalPeriod", I.OrbitalPeriod);
+                Variables.Record(Name + "_AscendingNode", I.AscendingNode);
+                Variables.Record(Name + "_MeanAnomaly", I.MeanAnomaly);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

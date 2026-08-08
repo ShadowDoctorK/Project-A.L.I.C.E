@@ -2,12 +2,13 @@
 //Class File Generated: 11/20/2018 11:56 PM
 //Source Journal Line: { "timestamp":"2018-11-20T22:01:00Z", "event":"ChangeCrewRole", "Role":"FireCon" }
 
-//Developer Notes: File Last Reviewed 06AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
 //Ch 01: 06AUG2026 - Updated event to new event structure. - Shadow Doctor K
+//Ch 02: 08AUG2026 - Corrected Prepare() event instance assignment. - Shadow Doctor K
 
 using System;
 
-// When written: when in a crew on someone else's ship, player switched crew role 
+// When written: when in a crew on someone else's ship, player switched crew role
 
 namespace ALICE_Events
 {
@@ -33,25 +34,12 @@ namespace ALICE_Events
         //Event Instance
         public ChangeCrewRole I = new ChangeCrewRole();
 
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                Variables.Record(Name + "_Role", I.Role);
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
-
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
         {
             try
             {
-                //No Logic Process
+                I = (ChangeCrewRole)O;
             }
             catch (Exception ex)
             {
@@ -82,6 +70,25 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_Role", I.Role);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

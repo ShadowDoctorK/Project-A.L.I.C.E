@@ -61,7 +61,7 @@ namespace ALICE_Events
             try
             {
                 //Update Status Object
-                IStatus.Heat.Update(Event);
+                IStatus.Heat.Update(I);
             }
             catch (Exception ex)
             {

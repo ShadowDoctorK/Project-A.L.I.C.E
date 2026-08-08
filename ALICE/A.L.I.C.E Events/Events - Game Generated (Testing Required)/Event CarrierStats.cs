@@ -7,11 +7,11 @@
 //                      "Callsign":"J7X-G6T",
 //                      "Name":"BIG Cheese",
 //                      "DockingAccess":"squadronfriends",
-//                      "AllowNotorious":true,
+//                      "AllowNotorious"\:true,
 //                      "FuelLevel":606,
 //                      "JumpRangeCurr":500.000000,
 //                      "JumpRangeMax":500.000000,
-//                      "PendingDecommission":false,
+//                      "PendingDecommission"\:false,
 //                      "SpaceUsage":{
 //                          "TotalCapacity":25000,
 //                          "Crew":6370,
@@ -25,28 +25,32 @@
 //                          "ReserveBalance":11000000000,
 //                          "AvailableBalance":13720897133,
 //                          "ReservePercent":44,
-//                          "TaxRate_shipyard":0,
-//                          "TaxRate_rearm":100,
-//                          "TaxRate_refuel":100,
-//                          "TaxRate_repair":100 },
+//                          "TaxRate\_shipyard":0,
+//                          "TaxRate\_rearm":100,
+//                          "TaxRate\_refuel":100,
+//                          "TaxRate\_repair":100 },
 //                      "Crew":[
-//                          { "CrewRole":"BlackMarket", "Activated":false },
-//                          { "CrewRole":"Captain", "Activated":true, "Enabled":true, "CrewName":"Clement Carpenter" },
-//                          { "CrewRole":"Refuel", "Activated":true, "Enabled":true, "CrewName":"Penny Soto" },
-//                          { "CrewRole":"Repair", "Activated":true, "Enabled":true, "CrewName":"Nelson Santos" },
-//                          { "CrewRole":"Rearm", "Activated":true, "Enabled":true, "CrewName":"Dong Douglas" },
-//                          { "CrewRole":"Commodities", "Activated":true, "Enabled":true, "CrewName":"Nathan Albert" },
-//                          { "CrewRole":"VoucherRedemption", "Activated":true, "Enabled":false, "CrewName":"Oren Barrett" },
-//                          { "CrewRole":"Exploration", "Activated":true, "Enabled":false, "CrewName":"Damon Mcneil" },
-//                          { "CrewRole":"Shipyard", "Activated":true, "Enabled":true, "CrewName":"Rocky Austin" },
-//                          { "CrewRole":"Outfitting", "Activated":true, "Enabled":false, "CrewName":"Alexis Harrington" },
-//                          { "CrewRole":"CarrierFuel", "Activated":true, "Enabled":true, "CrewName":"Oren Stevens" },
-//                          { "CrewRole":"VistaGenomics", "Activated":true, "Enabled":false, "CrewName":"Nathaniel Sargent" },
-//                          { "CrewRole":"PioneerSupplies", "Activated":true, "Enabled":false, "CrewName":"Alitzel Buckley" },
-//                          { "CrewRole":"Bartender", "Activated":true, "Enabled":false, "CrewName":"Dia Cote" } ],
+//                          { "CrewRole":"BlackMarket", "Activated"\:false },
+//                          { "CrewRole":"Captain", "Activated"\:true, "Enabled"\:true, "CrewName":"Clement Carpenter" },
+//                          { "CrewRole":"Refuel", "Activated"\:true, "Enabled"\:true, "CrewName":"Penny Soto" },
+//                          { "CrewRole":"Repair", "Activated"\:true, "Enabled"\:true, "CrewName":"Nelson Santos" },
+//                          { "CrewRole":"Rearm", "Activated"\:true, "Enabled"\:true, "CrewName":"Dong Douglas" },
+//                          { "CrewRole":"Commodities", "Activated"\:true, "Enabled"\:true, "CrewName":"Nathan Albert" },
+//                          { "CrewRole":"VoucherRedemption", "Activated"\:true, "Enabled"\:false, "CrewName":"Oren Barrett" },
+//                          { "CrewRole":"Exploration", "Activated"\:true, "Enabled"\:false, "CrewName":"Damon Mcneil" },
+//                          { "CrewRole":"Shipyard", "Activated"\:true, "Enabled"\:true, "CrewName":"Rocky Austin" },
+//                          { "CrewRole":"Outfitting", "Activated"\:true, "Enabled"\:false, "CrewName":"Alexis Harrington" },
+//                          { "CrewRole":"CarrierFuel", "Activated"\:true, "Enabled"\:true, "CrewName":"Oren Stevens" },
+//                          { "CrewRole":"VistaGenomics", "Activated"\:true, "Enabled"\:false, "CrewName":"Nathaniel Sargent" },
+//                          { "CrewRole":"PioneerSupplies", "Activated"\:true, "Enabled"\:false, "CrewName":"Alitzel Buckley" },
+//                          { "CrewRole":"Bartender", "Activated"\:true, "Enabled"\:false, "CrewName":"Dia Cote" } ],
 //                      "ShipPacks":[  ],
 //                      "ModulePacks":[
 //                          { "PackTheme":"VehicleSupport", "PackTier":1 } ] }
+
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Corrected boolean and nested collection property types and added support data structures. - Shadow Doctor K
+// - ShipPacks support data structure still requires a populated Source Journal Line for validation.
 
 using System;
 using System.Collections.Generic;
@@ -64,16 +68,16 @@ namespace ALICE_Events
         public string Callsign { get; set; }
         public string Name { get; set; }
         public string DockingAccess { get; set; }
-        public string AllowNotorious { get; set; }
+        public bool AllowNotorious { get; set; }
         public decimal FuelLevel { get; set; }
         public decimal JumpRangeCurr { get; set; }
         public decimal JumpRangeMax { get; set; }
-        public string PendingDecommission { get; set; }
-        public string SpaceUsage { get; set; }
-        public string Finance { get; set; }
-        public string Crew { get; set; }
-        public string ShipPacks { get; set; }
-        public string ModulePacks { get; set; }
+        public bool PendingDecommission { get; set; }
+        public SpaceUsageData SpaceUsage { get; set; }
+        public FinanceData Finance { get; set; }
+        public List<CrewMember> Crew { get; set; }
+        public List<object> ShipPacks { get; set; }
+        public List<ModulePack> ModulePacks { get; set; }
 
         //Default Constructor
         public CarrierStats()
@@ -88,12 +92,89 @@ namespace ALICE_Events
             JumpRangeCurr = Dec();
             JumpRangeMax = Dec();
             PendingDecommission = Bool();
-            SpaceUsage = Str();
-            Finance = Str();
-            Crew = Str();
-            ShipPacks = Str();
-            ModulePacks = Str();
+            SpaceUsage = new SpaceUsageData();
+            Finance = new FinanceData();
+            Crew = new List<CrewMember>();
+            ShipPacks = new List<object>();
+            ModulePacks = new List<ModulePack>();
         }
+
+        #region Support Data Structures
+        public class SpaceUsageData : Catch
+        {
+            public decimal TotalCapacity { get; set; }
+            public decimal Crew { get; set; }
+            public decimal Cargo { get; set; }
+            public decimal CargoSpaceReserved { get; set; }
+            public decimal ShipPacks { get; set; }
+            public decimal ModulePacks { get; set; }
+            public decimal FreeSpace { get; set; }
+
+            public SpaceUsageData()
+            {
+                TotalCapacity = Dec();
+                Crew = Dec();
+                Cargo = Dec();
+                CargoSpaceReserved = Dec();
+                ShipPacks = Dec();
+                ModulePacks = Dec();
+                FreeSpace = Dec();
+            }
+        }
+
+        public class FinanceData : Catch
+        {
+            public decimal CarrierBalance { get; set; }
+            public decimal ReserveBalance { get; set; }
+            public decimal AvailableBalance { get; set; }
+            public decimal ReservePercent { get; set; }
+            public decimal TaxRate_shipyard { get; set; }
+            public decimal TaxRate_rearm { get; set; }
+            public decimal TaxRate_refuel { get; set; }
+            public decimal TaxRate_repair { get; set; }
+
+            public FinanceData()
+            {
+                CarrierBalance = Dec();
+                ReserveBalance = Dec();
+                AvailableBalance = Dec();
+                ReservePercent = Dec();
+                TaxRate_shipyard = Dec();
+                TaxRate_rearm = Dec();
+                TaxRate_refuel = Dec();
+                TaxRate_repair = Dec();
+            }
+        }
+
+        public class CrewMember : Catch
+        {
+            public string CrewRole { get; set; }
+            public bool Activated { get; set; }
+            public bool Enabled { get; set; }
+            public string CrewName { get; set; }
+
+            public CrewMember()
+            {
+                CrewRole = Str();
+                Activated = Bool();
+                Enabled = Bool();
+                CrewName = Str();
+            }
+        }
+
+        public class ModulePack : Catch
+        {
+            public string PackTheme { get; set; }
+            public decimal PackTier { get; set; }
+
+            public ModulePack()
+            {
+                PackTheme = Str();
+                PackTier = Dec();
+            }
+        }
+
+        #endregion
     }
 
     /// <summary>
@@ -124,11 +205,14 @@ namespace ALICE_Events
                 Variables.Record(Name + "_JumpRangeCurr", I.JumpRangeCurr);
                 Variables.Record(Name + "_JumpRangeMax", I.JumpRangeMax);
                 Variables.Record(Name + "_PendingDecommission", I.PendingDecommission);
-                Variables.Record(Name + "_SpaceUsage", I.SpaceUsage);
-                Variables.Record(Name + "_Finance", I.Finance);
-                Variables.Record(Name + "_Crew", I.Crew);
-                Variables.Record(Name + "_ShipPacks", I.ShipPacks);
-                Variables.Record(Name + "_ModulePacks", I.ModulePacks);
+
+                //Nested/List variable generation not added during this pass.
+                //Variables.Record(Name + "_SpaceUsage", I.SpaceUsage);
+                //Variables.Record(Name + "_Finance", I.Finance);
+                //Variables.Record(Name + "_Crew", I.Crew);
+                //Variables.Record(Name + "_ShipPacks", I.ShipPacks);
+                //Variables.Record(Name + "_ModulePacks", I.ModulePacks);
+
                 #endregion
             }
             catch (Exception ex)

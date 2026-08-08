@@ -2,6 +2,9 @@
 //Class File Generated: 08/04/2026 10:55 PM
 //Source Journal Line: { "timestamp":"2026-01-07T15:45:34Z", "event":"CarrierDockingPermission", "CarrierID":3714546688, "CarrierType":"SquadronCarrier", "DockingAccess":"squadron", "AllowNotorious":true }
 
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Corrected AllowNotorious property type. - Shadow Doctor K
+
 using System;
 using System.Collections.Generic;
 using ALICE_Internal;
@@ -16,7 +19,7 @@ namespace ALICE_Events
         public decimal CarrierID { get; set; }
         public string CarrierType { get; set; }
         public string DockingAccess { get; set; }
-        public string AllowNotorious { get; set; }
+        public bool AllowNotorious { get; set; }
 
         //Default Constructor
         public CarrierDockingPermission()
@@ -35,28 +38,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public CarrierDockingPermission I = new CarrierDockingPermission();
-
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                #region Custom Variables
-
-                #endregion
-
-                #region Event Variables
-                Variables.Record(Name + "_CarrierID", I.CarrierID);
-                Variables.Record(Name + "_CarrierType", I.CarrierType);
-                Variables.Record(Name + "_DockingAccess", I.DockingAccess);
-                Variables.Record(Name + "_AllowNotorious", I.AllowNotorious);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
@@ -94,6 +75,28 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_CarrierID", I.CarrierID);
+                Variables.Record(Name + "_CarrierType", I.CarrierType);
+                Variables.Record(Name + "_DockingAccess", I.DockingAccess);
+                Variables.Record(Name + "_AllowNotorious", I.AllowNotorious);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

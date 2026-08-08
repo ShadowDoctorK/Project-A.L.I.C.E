@@ -2,7 +2,8 @@
 //Class File Generated: 11/12/2018 1:27 AM
 //Source Journal Line: { "timestamp":"2018-10-26T10:17:05Z", "event":"CrewAssign", "Name":"Mackenzie Witt", "CrewID":257296352, "Role":"OnShoreLeave" }
 
-//Developer Notes: File Last Reviewed 06AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Reviewed event structure and normalized event method layout. - Shadow Doctor K
 
 using ALICE_Debug;
 using ALICE_Response;
@@ -37,21 +38,6 @@ namespace ALICE_Events
         //Event Instance
         public CrewAssign I { get; set; } = new CrewAssign();
 
-        //Variable Generation
-        public override void Generate(object O)
-        {
-            try
-            {
-                Variables.Record(Name + "_Name", I.Name);
-                Variables.Record(Name + "_ID", I.CrewID);
-                Variables.Record(Name + "_DutyStatus", I.Role);
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
-
         //Plugin Logic Preparations
         public override void Prepare(object O)
         {
@@ -77,16 +63,50 @@ namespace ALICE_Events
                 //Active Duty Audio
                 IResponse.Crew.ActiveDuty(
                     (I.Role != "OnShoreLeave"),         //Check Role
-                    ICheck.Initialized(ClassName));     //Check Log Has Initialized
+                    ICheck.Initialized(ClassName));      //Check Log Has Initialized
 
                 //On Shore Leave Audio
                 IResponse.Crew.OnShoreLeave(
                     (I.Role == "OnShoreLeave"),         //Check Role
-                    ICheck.Initialized(ClassName));     //Check Log Has Initialized
+                    ICheck.Initialized(ClassName));      //Check Log Has Initialized
             }
             catch (Exception ex)
             {
                 ExceptionProcess(Name, ex);
+            }
+        }
+
+        //Plugin Property Alignment
+        public override void Alignment(object O)
+        {
+            try
+            {
+                //No State Alignment
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_Name", I.Name);
+                Variables.Record(Name + "_ID", I.CrewID);
+                Variables.Record(Name + "_DutyStatus", I.Role);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

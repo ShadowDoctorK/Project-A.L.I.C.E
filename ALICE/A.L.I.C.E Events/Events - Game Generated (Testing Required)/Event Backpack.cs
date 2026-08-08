@@ -2,6 +2,10 @@
 //Class File Generated: 08/04/2026 10:55 PM
 //Source Journal Line: { "timestamp":"2026-01-10T21:37:22Z", "event":"Backpack", "Items":[  ], "Components":[  ], "Consumables":[ { "Name":"healthpack", "Name_Localised":"Medkit", "OwnerID":0, "Count":2 }, { "Name":"energycell", "Name_Localised":"Energy Cell", "OwnerID":0, "Count":2 }, { "Name":"amm_grenade_emp", "Name_Localised":"Shield Disruptor", "OwnerID":0, "Count":1 }, { "Name":"amm_grenade_frag", "Name_Localised":"Frag Grenade", "OwnerID":0, "Count":3 }, { "Name":"amm_grenade_shield", "Name_Localised":"Shield Projector", "OwnerID":0, "Count":1 }, { "Name":"bypass", "Name_Localised":"E-Breach", "OwnerID":0, "Count":1 } ], "Data":[  ] }
 
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Corrected Backpack array property types and added Consumable support data structure. - Shadow Doctor K
+//  - Items, Components, and Data require additional populated Journal Lines to determine their nested data structures.
+
 using System;
 using System.Collections.Generic;
 using ALICE_Internal;
@@ -13,19 +17,37 @@ namespace ALICE_Events
     /// </summary>
     public class Backpack : Base
     {
-        public string Items { get; set; }
-        public string Components { get; set; }
-        public string Consumables { get; set; }
-        public string Data { get; set; }
+        public List<object> Items { get; set; }
+        public List<object> Components { get; set; }
+        public List<Consumable> Consumables { get; set; }
+        public List<object> Data { get; set; }
 
         //Default Constructor
         public Backpack()
         {
-            Items = Str();
-            Components = Str();
-            Consumables = Str();
-            Data = Str();
+            Items = new List<object>();
+            Components = new List<object>();
+            Consumables = new List<Consumable>();
+            Data = new List<object>();
         }
+
+        #region Support Data Structure
+        public class Consumable : Catch
+        {
+            public string Name { get; set; }
+            public string Name_Localised { get; set; }
+            public decimal OwnerID { get; set; }
+            public decimal Count { get; set; }
+
+            public Consumable()
+            {
+                Name = Str();
+                Name_Localised = Str();
+                OwnerID = Dec();
+                Count = Dec();
+            }
+        }
+        #endregion
     }
 
     /// <summary>
@@ -35,25 +57,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public Backpack I = new Backpack();
-
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                #region Custom Variables
-
-                #endregion
-
-                #region Event Variables
-
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
@@ -91,6 +94,25 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

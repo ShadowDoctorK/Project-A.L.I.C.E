@@ -2,7 +2,8 @@
 //Class File Generated: 11/20/2018 11:56 PM
 //Source Journal Line: { "timestamp":"2018-11-20T22:01:00Z", "event":"CrewFire", "Name":"Donald Trump" }
 
-//Developer Notes: File Last Reviewed 06AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Reviewed event structure and normalized event method layout. - Shadow Doctor K
 
 using ALICE_Debug;
 using ALICE_Response;
@@ -35,20 +36,6 @@ namespace ALICE_Events
         //Event Instance
         public CrewFire I { get; set; } = new CrewFire();
 
-        //Variable Generation
-        public override void Generate(object O)
-        {
-            try
-            {
-                Variables.Record(Name + "_Name", I.Name);
-                Variables.Record(Name + "_ID", I.CrewID);
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
-
         //Plugin Logic Preparations
         public override void Prepare(object O)
         {
@@ -78,6 +65,39 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionProcess(Name, ex);
+            }
+        }
+
+        //Plugin Property Alignment
+        public override void Alignment(object O)
+        {
+            try
+            {
+                //No State Alignment
+            }
+            catch (Exception ex)
+            {
+                ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_Name", I.Name);
+                Variables.Record(Name + "_ID", I.CrewID);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

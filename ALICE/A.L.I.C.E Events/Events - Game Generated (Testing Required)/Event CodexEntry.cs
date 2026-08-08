@@ -2,14 +2,16 @@
 //Class File Generated: 11/20/2018 9:56 PM
 //Source Journal Line: { "timestamp":"2018-11-21T02:20:36Z", "event":"CodexEntry", "EntryID":1300502, "Name":"$Codex_Ent_TRF_High_Metal_Content_No_Atmos_Name;", "Name_Localised":"Terraformable", "SubCategory":"$Codex_SubCategory_Terrestrials;", "SubCategory_Localised":"Terrestrials", "Category":"$Codex_Category_StellarBodies;", "Category_Localised":"StellarBodies", "Region":"$Codex_RegionName_18;", "Region_Localised":"Inner Orion Spur", "System":"Col 173 Sector KY-Q d5-47", "SystemAddress":1, "IsNewEntry":true }
 
-//Developer Notes: File Last Reviewed 06AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
 //Ch 01: 06AUG2026 - Updated event to new event structure. Updated event with new event properties, added new external variables. - Shadow Doctor K
-// - Traits Properity should be an Array of Strings. Casting as a String till we get an example entry with the Traits item logged.
+//Ch 02: 08AUG2026 - Corrected Prepare() event instance assignment, converted Process() to shared event instance, corrected Traits property type, and updated localised variable generation. - Shadow Doctor K
+// - Traits Property is an Array of Strings and is only available for entries that have unlocked traits.
 
 using ALICE_Objects;
 using System;
+using System.Collections.Generic;
 
-// When written: when a new discovery is added to the Codex 
+// When written: when a new discovery is added to the Codex
 
 namespace ALICE_Events
 {
@@ -35,7 +37,7 @@ namespace ALICE_Events
         #region 2026.08.06 Update
         public bool NewTraitsDiscovered { get; set; }       //Added from Journal Manual PDF - optional depending on the results of the scan
         public string NearestDestination { get; set; }      //Added from Journal Manual PDF - added if within 50km of a location listed in the navigation panel
-        public string Traits { get; set; }                  //Added from Journal Manual PDF - only available for entries that have unlocked traits
+        public List<string> Traits { get; set; }            //Added from Journal Manual PDF - only available for entries that have unlocked traits
         #endregion
 
         //Default Constructor
@@ -58,7 +60,7 @@ namespace ALICE_Events
             #region 2026.08.06 Update
             NewTraitsDiscovered = Bool();
             NearestDestination = Str();
-            Traits = Str();
+            Traits = new List<string>();
             #endregion
         }
     }
@@ -71,37 +73,12 @@ namespace ALICE_Events
         //Event Instance
         public CodexEntry I = new CodexEntry();
 
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            { 
-                Variables.Record(Name + "_ID", I.EntryID);
-                Variables.Record(Name + "_System", I.System);
-                Variables.Record(Name + "_Address", I.SystemAddress);
-                Variables.Record(Name + "_Name", I.Name_Localised);
-                Variables.Record(Name + "_NewDiscovery", I.IsNewEntry);
-                Variables.Record(Name + "_Region", I.Region_Localised);
-                Variables.Record(Name + "_Category", I.Category_Localised);
-                Variables.Record(Name + "_SubCategory", I.SubCategory_Localised);
-                Variables.Record(Name + "_Credits", I.VoucherAmount);
-                Variables.Record(Name + "_EDName", I.Name);
-                Variables.Record(Name + "_EDRegion", I.Region);
-                Variables.Record(Name + "_EDSubCategory", I.SubCategory);
-                Variables.Record(Name + "_EDCategory", I.Category);
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
-
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
         {
             try
             {
-                //No Logic Process
+                I = (CodexEntry)O;
             }
             catch (Exception ex)
             {
@@ -114,14 +91,12 @@ namespace ALICE_Events
         {
             try
             {
-                var Event = (CodexEntry)O;
-
                 //Process Codex Data
                 var Entry = new Object_CodexEntry();
-                Entry.Process(Event);
+                Entry.Process(I);
 
                 //Update Current System Information
-                IObjects.SystemCurrent.Update_CodexEntries(Event);
+                IObjects.SystemCurrent.Update_CodexEntries(I);
             }
             catch (Exception ex)
             {
@@ -139,6 +114,44 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_ID", I.EntryID);
+                Variables.Record(Name + "_System", I.System);
+                Variables.Record(Name + "_Address", I.SystemAddress);
+                Variables.Switch(Name + "_Name", I.Name_Localised, I.Name);
+                Variables.Record(Name + "_NewDiscovery", I.IsNewEntry);
+                Variables.Switch(Name + "_Region", I.Region_Localised, I.Region);
+                Variables.Switch(Name + "_Category", I.Category_Localised, I.Category);
+                Variables.Switch(Name + "_SubCategory", I.SubCategory_Localised, I.SubCategory);
+                Variables.Record(Name + "_Credits", I.VoucherAmount);
+
+                //Preserve Raw Elite Dangerous Values
+                Variables.Record(Name + "_EDName", I.Name);
+                Variables.Record(Name + "_EDRegion", I.Region);
+                Variables.Record(Name + "_EDSubCategory", I.SubCategory);
+                Variables.Record(Name + "_EDCategory", I.Category);
+                Variables.Record(Name + "_NewTraitsDiscovered", I.NewTraitsDiscovered);
+                Variables.Record(Name + "_NearestDestination", I.NearestDestination);
+
+                //Nested/List variable generation not added during this pass.
+                //Variables.Record(Name + "_Traits", I.Traits);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

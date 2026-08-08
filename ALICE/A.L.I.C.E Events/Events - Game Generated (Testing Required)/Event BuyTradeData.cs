@@ -2,12 +2,13 @@
 //Class File Generated: 11/12/2018 4:40 PM
 //Source Journal Line: { "timestamp":"2018-10-05T10:14:08Z", "event":"BuyTradeData", "System":"78 Ursae Majoris", "Cost":100 }
 
-//Developer Notes: File Last Reviewed 06AUG2026
+//Developer Notes: File Last Reviewed 08AUG2026
 //Ch 01: 06AUG2026 - Updated event to new event structure. - Shadow Doctor K
+//Ch 02: 08AUG2026 - Corrected Prepare() event instance assignment. - Shadow Doctor K
 
 using System;
 
-// When Written: when buying trade data in the galaxy map 
+// When Written: when buying trade data in the galaxy map
 
 namespace ALICE_Events
 {
@@ -35,26 +36,12 @@ namespace ALICE_Events
         //Event Instance
         public BuyTradeData I = new BuyTradeData();
 
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                Variables.Record(Name + "_System", I.System);
-                Variables.Record(Name + "_Cost", I.Cost);
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
-
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
         {
             try
             {
-                //No Logic Process
+                I = (BuyTradeData)O;
             }
             catch (Exception ex)
             {
@@ -85,6 +72,26 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_System", I.System);
+                Variables.Record(Name + "_Cost", I.Cost);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }

@@ -27,7 +27,7 @@ namespace ALICE_Events
         public string StationName { get; set; }
         public string StationType { get; set; }
         public string StarSystem { get; set; }
-        public decimal SystemAddress { get; set; }              
+        public decimal SystemAddress { get; set; }
         public decimal MarketID { get; set; }
         public FactionData StationFaction { get; set; }
         public string StationGovernment { get; set; }
@@ -70,8 +70,8 @@ namespace ALICE_Events
 
             //Properties Addded 06AUG2026
             Taxi = Bool();
-            Multicrew = Str();
-            LandingPads = new LandingPad;
+            Multicrew = Bool();
+            LandingPads = new LandingPad();
         }
 
         public class EconomyData : Catch
@@ -135,9 +135,9 @@ namespace ALICE_Events
                 Variables.Record(Name + "_Market", I.MarketID);
                 Variables.Record(Name + "_Faction", I.StationFaction.Name);
                 Variables.Record(Name + "_State", I.StationFaction.FactionState);
-                Variables.Record(Name + "_Government", I.StationGovernment_Localised);
+                Variables.Switch(Name + "_Government", I.StationGovernment_Localised, I.StationGovernment);
                 Variables.Record(Name + "_Allegiance", I.StationAllegiance);
-                Variables.Record(Name + "_Economy", I.StationEconomy_Localised);
+                Variables.Switch(Name + "_Economy", I.StationEconomy_Localised, I.StationEconomy);
                 Variables.Record(Name + "_CokpitBreach", I.CockpitBreach);
                 Variables.Record(Name + "_Wanted", I.Wanted);
                 Variables.Record(Name + "_ActiveFine", I.ActiveFine);

@@ -51,17 +51,35 @@ namespace ALICE_Internal
             Market,                           //Market.Json & Journal Log
             Outfitting,                       //Outfitting.Json & Journal Log
 
-            //Journal Log Events              
+            //Journal Log Events
             AfmuRepairs,                      //Journal Log
+            AppliedToSquadron,                //Journal Log - 2026.08.07
             ApproachBody,                     //Journal Log
             ApproachSettlement,               //Journal Log
             AsteroidCracked,                  //Journal Log
+            Backpack,                         //Journal Log - 2026.08.07
+            BackpackChange,                   //Journal Log - 2026.08.07
+            BookDropship,                     //Journal Log - 2026.08.07
             Bounty,                           //Journal Log
             BuyAmmo,                          //Journal Log
             BuyDrones,                        //Journal Log
             BuyExplorationData,               //Journal Log
             BuyTradeData,                     //Journal Log
             CargoDepot,                       //Journal Log
+            CargoTransfer,                    //Journal Log - 2026.08.07
+            CarrierBankTransfer,              //Journal Log - 2026.08.07
+            CarrierBuy,                       //Journal Log - 2026.08.07
+            CarrierCrewServices,              //Journal Log - 2026.08.07
+            CarrierDecommission,              //Journal Log - 2026.08.07
+            CarrierDepositFuel,               //Journal Log - 2026.08.07
+            CarrierDockingPermission,         //Journal Log - 2026.08.07
+            CarrierFinance,                   //Journal Log - 2026.08.07
+            CarrierJump,                      //Journal Log - 2026.08.07
+            CarrierJumpCancelled,             //Journal Log - 2026.08.07
+            CarrierJumpRequest,               //Journal Log - 2026.08.07
+            CarrierLocation,                  //Journal Log - 2026.08.07
+            CarrierStats,                     //Journal Log - 2026.08.07
+            CarrierTradeOrder,                //Journal Log - 2026.08.07
             ChangeCrewRole,                   //Journal Log
             ClearSaveGame,                    //Journal Log
             CockpitBreached,                  //Journal Log
@@ -70,23 +88,33 @@ namespace ALICE_Internal
             Commander,                        //Journal Log
             CommitCrime,                      //Journal Log
             CommunityGoal,                    //Journal Log
+            CommunityGoalDiscard,             //Journal Log - 2026.08.07
+            CommunityGoalJoin,                //Journal Log - 2026.08.07
+            CommunityGoalReward,              //Journal Log - 2026.08.07
             CrewAssign,                       //Journal Log
             CrewFire,                         //Journal Log
             CrewHire,                         //Journal Log
+            CrewLaunchFighter,                //Journal Log - 2026.08.07
+            CrimeVictim,                      //Journal Log - 2026.08.07
             DatalinkScan,                     //Journal Log
             DatalinkVoucher,                  //Journal Log
             DataScanned,                      //Journal Log
             Died,                             //Journal Log
+            Disembark,                        //Journal Log - 2026.08.07
             Docked,                           //Journal Log
             DockFighter,                      //Journal Log
             DockingCancelled,                 //Journal Log
+            DockingDenied,                    //Journal Log - 2026.08.07
             DockingGranted,                   //Journal Log
             DockingRequested,                 //Journal Log
             DockingTimeout,                   //Journal Log
             DockSRV,                          //Journal Log
+            DropshipDeploy,                   //Journal Log - 2026.08.07
             EjectCargo,                       //Journal Log
+            Embark,                           //Journal Log - 2026.08.07
             EngineerContribution,             //Journal Log
             EngineerCraft,                    //Journal Log
+            EngineerLegacyConvert,            //Journal Log - 2026.08.07
             EngineerProgress,                 //Journal Log
             EscapeInterdiction,               //Journal Log
             FactionKillBond,                  //Journal Log
@@ -106,6 +134,7 @@ namespace ALICE_Internal
             HullDamage,                       //Journal Log
             Interdicted,                      //Journal Log
             JetConeBoost,                     //Journal Log
+            JoinedSquadron,                   //Journal Log - 2026.08.07
             LaunchDrone,                      //Journal Log
             LaunchFighter,                    //Journal Log
             LaunchSRV,                        //Journal Log
@@ -113,6 +142,7 @@ namespace ALICE_Internal
             Liftoff,                          //Journal Log
             LoadGame,                         //Journal Log
             Loadout,                          //Journal Log
+            LoadoutEquipModule,               //Journal Log - 2026.08.07
             Location,                         //Journal Log
             MarketBuy,                        //Journal Log
             MarketSell,                       //Journal Log
@@ -138,6 +168,8 @@ namespace ALICE_Internal
             MultiSellExplorationData,         //Journal Log
             Music,                            //Journal Log
             NavBeaconScan,                    //Journal Log
+            NavRoute,                         //Journal Log - 2026.08.07
+            NavRouteClear,                    //Journal Log - 2026.08.07
             NpcCrewPaidWage,                  //Journal Log
             NpcCrewRank,                      //Journal Log
             PayBounties,                      //Journal Log
@@ -149,6 +181,7 @@ namespace ALICE_Internal
             PowerplayFastTrack,               //Journal Log
             PowerplayJoin,                    //Journal Log
             PowerplayLeave,                   //Journal Log
+            PowerplayMerits,                  //Journal Log - 2026.08.07
             PowerplaySalary,                  //Journal Log
             PowerplayVote,                    //Journal Log
             Progress,                         //Journal Log
@@ -169,6 +202,7 @@ namespace ALICE_Internal
             Resurrect,                        //Journal Log
             SAAScanComplete,                  //Journal Log
             Scan,                             //Journal Log
+            ScanBaryCentre,                   //Journal Log - 2026.08.07
             Scanned,                          //Journal Log
             ScientificResearch,               //Journal Log
             Screenshot,                       //Journal Log
@@ -178,27 +212,38 @@ namespace ALICE_Internal
             SellExplorationData,              //Journal Log
             SendText,                         //Journal Log
             SetUserShipName,                  //Journal Log
+            SharedBookmarkToSquadron,         //Journal Log - 2026.08.07
             ShieldState,                      //Journal Log
+            ShipLocker,                       //Journal Log - 2026.08.07
+            ShipRedeemed,                     //Journal Log - 2026.08.07
             ShipTargeted,                     //Journal Log
+            ShipyardBankDeposit,              //Journal Log - 2026.08.07
             ShipyardBuy,                      //Journal Log
             ShipyardNew,                      //Journal Log
+            ShipyardRedeem,                   //Journal Log - 2026.08.07
             ShipyardSwap,                     //Journal Log
             ShipyardTransfer,                 //Journal Log
             Shutdown,                         //Journal Log
+            SquadronApplicationApproved,      //Journal Log - 2026.08.07
+            SquadronDemotion,                 //Journal Log - 2026.08.07
+            SquadronPromotion,                //Journal Log - 2026.08.07
+            SquadronStartup,                  //Journal Log
             SRVDestroyed,                     //Journal Log
             StartJump,                        //Journal Log
             Statistics,                       //Journal Log
             StoredModules,                    //Journal Log
             StoredShips,                      //Journal Log
+            SuitLoadout,                      //Journal Log - 2026.08.07
+            SupercruiseDestinationDrop,       //Journal Log - 2026.08.07
             SupercruiseEntry,                 //Journal Log
             SupercruiseExit,                  //Journal Log
             Synthesis,                        //Journal Log
             SystemsShutdown,                  //Journal Log
-            SquadronStartup,                  //Journal Log
             TechnologyBroker,                 //Journal Log
             Touchdown,                        //Journal Log            
             UnderAttack,                      //Journal Log
             Undocked,                         //Journal Log
+            UseConsumable,                    //Journal Log - 2026.08.07
             USSDrop,                          //Journal Log
             VehicleSwitch,                    //Journal Log
             WingAdd,                          //Journal Log
@@ -237,7 +282,6 @@ namespace ALICE_Internal
             FuelCritical,                     //Alice Event
             FuelHalfThreshold,                //Alice Event
             Masslock,                         //Alice Event
-
         }
 
         public enum CMD

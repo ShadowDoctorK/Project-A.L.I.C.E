@@ -2,6 +2,9 @@
 //Class File Generated: 08/04/2026 10:55 PM
 //Source Journal Line: { "timestamp":"2026-01-10T22:56:39Z", "event":"BookDropship", "Retreat":false, "Cost":0, "DestinationSystem":"Kurmodiae", "DestinationLocation":"Medina Entertainment Complex" }
 
+//Developer Notes: File Last Reviewed 08AUG2026
+//Ch 01: 08AUG2026 - Corrected Retreat property type. - Shadow Doctor K
+
 using System;
 using System.Collections.Generic;
 using ALICE_Internal;
@@ -13,7 +16,7 @@ namespace ALICE_Events
     /// </summary>
     public class BookDropship : Base
     {
-        public string Retreat { get; set; }
+        public bool Retreat { get; set; }
         public decimal Cost { get; set; }
         public string DestinationSystem { get; set; }
         public string DestinationLocation { get; set; }
@@ -35,28 +38,6 @@ namespace ALICE_Events
     {
         //Event Instance
         public BookDropship I = new BookDropship();
-
-        //Variable Generation - Build Variable For External Tools
-        public override void Generate(object O)
-        {
-            try
-            {
-                #region Custom Variables
-
-                #endregion
-
-                #region Event Variables
-                Variables.Record(Name + "_Retreat", I.Retreat);
-                Variables.Record(Name + "_Cost", I.Cost);
-                Variables.Record(Name + "_System", I.DestinationSystem);
-                Variables.Record(Name + "_Location", I.DestinationLocation);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                ExceptionGenerate(Name, ex);
-            }
-        }
 
         //Plugin Logic Preparations - Incase We Need To Work With Variables Before We Continue
         public override void Prepare(object O)
@@ -94,6 +75,28 @@ namespace ALICE_Events
             catch (Exception ex)
             {
                 ExceptionAlignment(Name, ex);
+            }
+        }
+
+        //Variable Generation - Build Variable For External Tools
+        public override void Generate(object O)
+        {
+            try
+            {
+                #region Custom Variables
+
+                #endregion
+
+                #region Event Variables
+                Variables.Record(Name + "_Retreat", I.Retreat);
+                Variables.Record(Name + "_Cost", I.Cost);
+                Variables.Record(Name + "_System", I.DestinationSystem);
+                Variables.Record(Name + "_Location", I.DestinationLocation);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ExceptionGenerate(Name, ex);
             }
         }
     }
