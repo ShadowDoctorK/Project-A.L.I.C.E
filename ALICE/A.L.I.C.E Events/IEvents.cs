@@ -289,6 +289,7 @@ namespace ALICE_Events
         #region Journal Events
 
         #region A
+        public static Event_AppliedToSquadron AppliedToSquadron = new Event_AppliedToSquadron();
         public static Event_AfmuRepairs AfmuRepairs = new Event_AfmuRepairs();
         public static Event_ApproachBody ApproachBody = new Event_ApproachBody();
         public static Event_ApproachSettlement ApproachSettlement = new Event_ApproachSettlement();
@@ -296,6 +297,9 @@ namespace ALICE_Events
         #endregion
 
         #region B
+        public static Event_Backpack Backpack = new Event_Backpack();
+        public static Event_BackpackChange BackpackChange = new Event_BackpackChange();
+        public static Event_BookDropship BookDropship = new Event_BookDropship();
         public static Event_Bounty Bounty = new Event_Bounty();
         public static Event_BuyAmmo BuyAmmo = new Event_BuyAmmo();
         public static Event_BuyDrones BuyDrones = new Event_BuyDrones();
@@ -317,6 +321,24 @@ namespace ALICE_Events
         public static Event_CrewAssign CrewAssign = new Event_CrewAssign();
         public static Event_CrewFire CrewFire = new Event_CrewFire();
         public static Event_CrewHire CrewHire = new Event_CrewHire();
+        public static Event_CargoTransfer CargoTransfer = new Event_CargoTransfer();
+        public static Event_CarrierBankTransfer CarrierBankTransfer = new Event_CarrierBankTransfer();
+        public static Event_CarrierBuy CarrierBuy = new Event_CarrierBuy();
+        public static Event_CarrierCrewServices CarrierCrewServices = new Event_CarrierCrewServices();
+        public static Event_CarrierDecommission CarrierDecommission = new Event_CarrierDecommission();
+        public static Event_CarrierDepositFuel CarrierDepositFuel = new Event_CarrierDepositFuel();
+        public static Event_CarrierDockingPermission CarrierDockingPermission = new Event_CarrierDockingPermission();
+        public static Event_CarrierFinance CarrierFinance = new Event_CarrierFinance();
+        public static Event_CarrierJump CarrierJump = new Event_CarrierJump();
+        public static Event_CarrierJumpCancelled CarrierJumpCancelled = new Event_CarrierJumpCancelled();
+        public static Event_CarrierJumpRequest CarrierJumpRequest = new Event_CarrierJumpRequest();
+        public static Event_CarrierLocation CarrierLocation = new Event_CarrierLocation();
+        public static Event_CarrierStats CarrierStats = new Event_CarrierStats();
+        public static Event_CarrierTradeOrder CarrierTradeOrder = new Event_CarrierTradeOrder();
+        public static Event_CommunityGoalJoin CommunityGoalJoin = new Event_CommunityGoalJoin();
+        public static Event_CommunityGoalReward CommunityGoalReward = new Event_CommunityGoalReward();
+        public static Event_CrewLaunchFighter CrewLaunchFighter = new Event_CrewLaunchFighter();
+        public static Event_CrimeVictim CrimeVictim = new Event_CrimeVictim();
         #endregion
 
         #region D
@@ -332,6 +354,8 @@ namespace ALICE_Events
         public static Event_DockingGranted DockingGranted = new Event_DockingGranted();
         public static Event_DockingRequested DockingRequested = new Event_DockingRequested();
         public static Event_DockSRV DockSRV = new Event_DockSRV();
+        public static Event_Disembark Disembark = new Event_Disembark();
+        public static Event_DropshipDeploy DropshipDeploy = new Event_DropshipDeploy();
         #endregion
 
         #region E
@@ -340,6 +364,7 @@ namespace ALICE_Events
         public static Event_EngineerContribution EngineerContribution = new Event_EngineerContribution();
         public static Event_EngineerCraft EngineerCraft = new Event_EngineerCraft();
         public static Event_EngineerProgress EngineerProgress = new Event_EngineerProgress();
+        public static Event_Embark Embark = new Event_Embark();
         #endregion
 
         #region F
@@ -372,6 +397,7 @@ namespace ALICE_Events
 
         #region J
         public static Event_JetConeBoost JetConeBoost = new Event_JetConeBoost();
+        public static Event_JoinedSquadron JoinedSquadron = new Event_JoinedSquadron();
         #endregion
 
         #region K
@@ -386,6 +412,7 @@ namespace ALICE_Events
         public static Event_LoadGame LoadGame = new Event_LoadGame();
         public static Event_Loadout Loadout = new Event_Loadout();
         public static Event_Location Location = new Event_Location();
+        public static Event_LoadoutEquipModule LoadoutEquipModule = new Event_LoadoutEquipModule();
         #endregion
 
         #region M
@@ -419,6 +446,8 @@ namespace ALICE_Events
         public static Event_NavBeaconScan NavBeaconScan = new Event_NavBeaconScan();
         public static Event_NpcCrewPaidWage NpcCrewPaidWage = new Event_NpcCrewPaidWage();
         public static Event_NpcCrewRank NpcCrewRank = new Event_NpcCrewRank();
+        public static Event_NavRoute NavRoute = new Event_NavRoute();
+        public static Event_NavRouteClear NavRouteClear = new Event_NavRouteClear();
         #endregion
 
         #region O
@@ -440,6 +469,7 @@ namespace ALICE_Events
         public static Event_Progress Progress = new Event_Progress();
         public static Event_Promotion Promotion = new Event_Promotion();
         public static Event_ProspectedAsteroid ProspectedAsteroid = new Event_ProspectedAsteroid();
+        public static Event_PowerplayMerits PowerplayMerits = new Event_PowerplayMerits();
         #endregion
 
         #region Q
@@ -491,6 +521,17 @@ namespace ALICE_Events
         public static Event_SelfDestruct SelfDestruct = new Event_SelfDestruct();
         public static Event_SRVDestroyed SRVDestroyed = new Event_SRVDestroyed();
         public static Event_SquadronStartup SquadronStartup = new Event_SquadronStartup();
+        public static Event_ScanBaryCentre ScanBaryCentre = new Event_ScanBaryCentre();
+        public static Event_SharedBookmarkToSquadron SharedBookmarkToSquadron = new Event_SharedBookmarkToSquadron();
+        public static Event_ShipLocker ShipLocker = new Event_ShipLocker();
+        public static Event_ShipRedeemed ShipRedeemed = new Event_ShipRedeemed();
+        public static Event_ShipyardBankDeposit ShipyardBankDeposit = new Event_ShipyardBankDeposit();
+        public static Event_ShipyardRedeem ShipyardRedeem = new Event_ShipyardRedeem();
+        public static Event_SquadronApplicationApproved SquadronApplicationApproved = new Event_SquadronApplicationApproved();
+        public static Event_SquadronDemotion SquadronDemotion = new Event_SquadronDemotion();
+        public static Event_SquadronPromotion SquadronPromotion = new Event_SquadronPromotion();
+        public static Event_SuitLoadout SuitLoadout = new Event_SuitLoadout();
+        public static Event_SupercruiseDestinationDrop SupercruiseDestinationDrop = new Event_SupercruiseDestinationDrop();
         #endregion
 
         #region T
@@ -501,7 +542,8 @@ namespace ALICE_Events
         #region U
         public static Event_UnderAttack UnderAttack = new Event_UnderAttack();
         public static Event_Undocked Undocked = new Event_Undocked();
-        public static Event_USSDrop USSDrop = new Event_USSDrop();        
+        public static Event_USSDrop USSDrop = new Event_USSDrop();
+        public static Event_UseConsumable UseConsumable = new Event_UseConsumable();
         #endregion
 
         #region V
@@ -802,7 +844,7 @@ namespace ALICE_Events
             //Process Event Logic
             Process(Event);
 
-            //Plugin Alignment
+            //Plugin Alignment - When Certain events happen, we can assume truths about the game state.
             Alignment(Event);
 
             //Process Variables

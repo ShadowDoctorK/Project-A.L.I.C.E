@@ -257,7 +257,7 @@ namespace ALICE_Status
                     CommandAudio, Var1, Var2, Var3, Priority, Voice);
             }
 
-            public void OrbitaCruiseExit(bool CommandAudio, bool Var1 = true, bool Var2 = true,
+            public void OrbitalCruiseExit(bool CommandAudio, bool Var1 = true, bool Var2 = true,
                 bool Var3 = true, int Priority = 3, string Voice = null)
             {
                 if (PlugIn.MasterAudio == false) { Logger.Log(MethodName, "Orbital Guidance Systems Offline.", Logger.Yellow); }
